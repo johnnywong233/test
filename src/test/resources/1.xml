@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer1 id="100">
+    <age>29</age>
+    <allnames>
+        <myname>name-a</myname>
+        <myname>name-b</myname>
+        <myname>name-c</myname>
+    </allnames>
+</customer1>

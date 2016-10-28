@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="taskExecutor"
+          class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <!-- 线程池活跃的线程数 -->
+        <property name="corePoolSize" value="5" />
+        <!-- 线程池最大活跃的线程数 -->
+        <property name="maxPoolSize" value="10" />
+        <!-- 队列的最大容量 -->
+        <property name="queueCapacity" value="600" />
+    </bean>
+    <bean id="downLoadManager"
+          class="project.download.DownLoadManagerTest">
+        <property name="taskExecutor" ref="taskExecutor" />
+    </bean>
+
+</beans>

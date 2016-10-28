@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<car vin="123fhg5869705iop90">
+  <!--Description of a car-->
+  <make>Toyota</make>
+  <model>Celica</model>
+  <year>1997</year>
+  <color>green</color>
+  <license state="CA">1ABC234</license>
+</car>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ContactTable>
+	<Product>M9</Product>
+	<SoftwareVersion>1.0.1</SoftwareVersion>
+	<!-- <Contacts> -->
+		<Contact>
+			<FileAs>张三</FileAs>
+			<FirstName>张三</FirstName>
+			<DisplayName>张三</DisplayName>
+			<PhoneElement IsPrimary="1" Value="15100000000" Type="0" />
+		</Contact>
+			<Contact>
+			<FileAs>李四</FileAs>
+			<FirstName>李四</FirstName>
+			<DisplayName>李四</DisplayName>
+			<PhoneElement IsPrimary="1" Value="15155555555" Type="0" />
+		</Contact>
+	<!-- </Contacts> -->
+</ContactTable>

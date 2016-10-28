@@ -1,0 +1,13 @@
+.classpath
+.project
+.settings/*
+.idea/*
+target/*
+test-output/*
+activemq-data/*
+JArchitectOut/*
+libs/*
+*.iml
+*.jdproj
+*.log
+*.exe
