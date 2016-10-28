@@ -446,7 +446,6 @@
             <version>1.8</version>
         </dependency>
 
-        <!-- must -->
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-transcoder</artifactId>
