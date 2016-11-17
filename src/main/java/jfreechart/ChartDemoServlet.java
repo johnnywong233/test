@@ -1,4 +1,4 @@
-package jFreeChart;
+package jfreechart;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -27,20 +27,21 @@ import java.io.IOException;
 /**
  * Created by wajian on 2016/8/28.
  */
-public class ChartDemoServlet extends HttpServlet{
-	//http://www.phpxs.com/code/1001530/
+public class ChartDemoServlet extends HttpServlet {
+    //http://www.phpxs.com/code/1001530/
     private static final long serialVersionUID = 1L;
+
     public ChartDemoServlet() {
         super();
     }
 
 
     @SuppressWarnings("deprecation")
-	public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
+    public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 
         response.setContentType("image/jpeg");
-        DefaultPieDataset data = getDataSet();
-        CategoryDataset dataset = getDataSet2();
+//        DefaultPieDataset data = getDataSet();
+//        CategoryDataset dataset = getDataSet2();
         DefaultCategoryDataset linedataset = createDataset();
 
         //JFreeChart chart = ChartFactory.createPieChart3D("水果产量图", data, true, false, false);
@@ -101,30 +102,29 @@ public class ChartDemoServlet extends HttpServlet{
 
         /***设置柱状图、折线图相关属性***/
 
-        CategoryPlot catplot=chart.getCategoryPlot();  //获取柱状图、折线图区域对象。
-        CategoryAxis domainAxis=catplot.getDomainAxis();
+        CategoryPlot catplot = chart.getCategoryPlot();  //获取柱状图、折线图区域对象。
+        CategoryAxis domainAxis = catplot.getDomainAxis();
         catplot.setNoDataMessage("无数据显示");//没有数据的时候显示的内容
         //列表标题
-        TextTitle txtTitle = null;
+        TextTitle txtTitle;
         txtTitle = chart.getTitle();
-        txtTitle.setFont(new java.awt.Font("黑体",Font.BOLD,14));
+        txtTitle.setFont(new java.awt.Font("黑体", Font.BOLD, 14));
         //水平底部列表
-        domainAxis.setLabelFont(new java.awt.Font("黑体",Font.BOLD,14));
+        domainAxis.setLabelFont(new java.awt.Font("黑体", Font.BOLD, 14));
         //水平底部标题
-        domainAxis.setTickLabelFont(new java.awt.Font("宋体",Font.BOLD,12));
+        domainAxis.setTickLabelFont(new java.awt.Font("宋体", Font.BOLD, 12));
         //垂直标题
-        ValueAxis rangeAxis=catplot.getRangeAxis();//获取柱状
-        rangeAxis.setLabelFont(new java.awt.Font("黑体",Font.BOLD,15));
+        ValueAxis rangeAxis = catplot.getRangeAxis();//获取柱状
+        rangeAxis.setLabelFont(new java.awt.Font("黑体", Font.BOLD, 15));
         chart.getLegend().setItemFont(new java.awt.Font("黑体", Font.BOLD, 15));
         //获得renderer
-        LineAndShapeRenderer lineAndShapeRenderer =(LineAndShapeRenderer)catplot.getRenderer();
+        LineAndShapeRenderer lineAndShapeRenderer = (LineAndShapeRenderer) catplot.getRenderer();
         lineAndShapeRenderer.setShapesVisible(true); //series 点（即数据点）可见
      /*
      lineAndShapeRenderer.setSeriesStroke(0, new BasicStroke(2.0F, 1, 1, 1.0F, new float[] {
        10F, 6F
        }, 0.0F)); //这里是虚线，默认是直线
      */
-
 
 
         /***设置时序图相关属性***/
@@ -169,24 +169,24 @@ public class ChartDemoServlet extends HttpServlet{
         //numberaxis.setLabelFont(new java.awt.Font("黑体", Font.PLAIN, 12));
 
 
-        FileOutputStream fos_jpg=null;
-        try{
-            fos_jpg=new FileOutputStream("D:\\ok_bing.jpg");
+        FileOutputStream fos_jpg = null;
+        try {
+            fos_jpg = new FileOutputStream("D:\\ok_bing.jpg");
    /*
     * 第二个参数如果为100，会报异常：
     * java.lang.IllegalArgumentException: The 'quality' must be in the range 0.0f to 1.0f
     * 限制quality必须小于等于1,把100改成 0.1f。
     */
             ChartUtilities.writeChartAsJPEG(fos_jpg, 0.99f, chart, 600, 300, null);
-
-
-        }catch(Exception e){
-            System.out.println("[e]"+e);
-        }finally{
-            try{
-                fos_jpg.close();
-            }catch(Exception e){
-
+        } catch (Exception e) {
+            System.out.println("[e]" + e);
+        } finally {
+            try {
+                if (fos_jpg != null) {
+                    fos_jpg.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -194,18 +194,20 @@ public class ChartDemoServlet extends HttpServlet{
 
     /**
      * 获取一个演示用的简单数据集对象
+     *
      * @return
      */
     //生成饼图数据
     private static DefaultPieDataset getDataSet() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("苹果",100);
-        dataset.setValue("梨子",200);
-        dataset.setValue("葡萄",300);
-        dataset.setValue("香蕉",400);
-        dataset.setValue("荔枝",500);
+        dataset.setValue("苹果", 100);
+        dataset.setValue("梨子", 200);
+        dataset.setValue("葡萄", 300);
+        dataset.setValue("香蕉", 400);
+        dataset.setValue("荔枝", 500);
         return dataset;
     }
+
     //生成柱状图数据
     private static CategoryDataset getDataSet2() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -265,18 +267,14 @@ public class ChartDemoServlet extends HttpServlet{
 
     //生成时序图数据
     public static XYDataset createtimedata() {
-        //实例化TimeSeries对象
         TimeSeries timeseries = new TimeSeries("Data");
-        Day day = new Day(1, 1, 2008);  //实例化Day
-        double d = 3000D;//添加一年365天的数据
+        Day day = new Day(1, 1, 2008);
+        double d = 3000D;
         for (int i = 0; i < 365; i++) {
-            d = d + (Math.random() - 0.5) * 10; //创建随机数据
-            timeseries.add(day, d); //向数据集合中添加数据
+            d = d + (Math.random() - 0.5) * 10;
+            timeseries.add(day, d);
             day = (Day) day.next();
         }
-        //创建TimeSeriesCollection集合对象
-        TimeSeriesCollection timeSeriesCollection =new TimeSeriesCollection(timeseries);
-        //返回数据集合对象
-        return timeSeriesCollection;
+        return new TimeSeriesCollection(timeseries);
     }
 }

@@ -1,0 +1,12 @@
+- !!yaml.Contact
+  age: 1
+  name: test1
+  phoneNumbers:
+  - !!yaml.Phone {name: home, number: '1111'}
+  - !!yaml.Phone {name: work, number: '2222'}
+- !!yaml.Contact
+  age: 23
+  name: test2
+  phoneNumbers:
+  - !!yaml.Phone {name: home, number: '1234'}
+  - !!yaml.Phone {name: work, number: '4321'}

@@ -4,7 +4,7 @@ import ru.ispras.sedna.driver.*;
 
 /**
  * Created by johnny on 2016/8/14.
- *
+ * sedna is a xml database
  */
 public class SednaClient {
     /*
@@ -29,7 +29,7 @@ public class SednaClient {
             System.out.println("Loading data ...");
             boolean res;
             res = st.execute("LOAD 'C:/region.xml' 'region'");
-            System.out.println("Document 'region.xml' "+ "has been loaded successfully");
+            System.out.println("Document 'region.xml' " + "has been loaded successfully");
 
             /* Execute query */
             System.out.println("Executing query");
@@ -44,16 +44,14 @@ public class SednaClient {
 
             /* Commit current transaction */
             con.commit();
-        }
-        catch(DriverException e) {
+        } catch (DriverException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             /* Properly close connection */
             try {
-                if(con != null)
+                if (con != null)
                     con.close();
-            } catch(DriverException e) {
+            } catch (DriverException e) {
                 e.printStackTrace();
             }
         }

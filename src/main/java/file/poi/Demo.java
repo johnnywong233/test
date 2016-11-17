@@ -27,22 +27,22 @@ public class Demo {
         createCell(wb, row, (short) 5, HSSFCellStyle.ALIGN_LEFT);
         createCell(wb, row, (short) 6, HSSFCellStyle.ALIGN_RIGHT);
         // Write the output to a file
-        
+
         FileOutputStream fileOut = new FileOutputStream("D:\\Java_ex\\test\\src\\test\\resources\\workbook.xls");
         wb.write(fileOut);
         fileOut.close();
     }
 
-
     /**
      * Creates a cell and aligns it a certain way.
-     * @param wb        the workbook
-     * @param row       the row to create the cell in
-     * @param column    the column number to create the cell in
-     * @param align     the alignment for the cell.
+     *
+     * @param wb     the workbook
+     * @param row    the row to create the cell in
+     * @param column the column number to create the cell in
+     * @param align  the alignment for the cell.
      */
     @SuppressWarnings("deprecation")
-	private static void createCell(HSSFWorkbook wb, HSSFRow row, short column, short align) {
+    private static void createCell(HSSFWorkbook wb, HSSFRow row, short column, short align) {
         HSSFCell cell = row.createCell(column);
         cell.setCellValue("Align It");
         HSSFCellStyle cellStyle = wb.createCellStyle();

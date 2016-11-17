@@ -21,10 +21,6 @@ public class PathDemo {
     public static void main(String[] args) {
         System.out.println(System.getProperty("java.version"));
         System.out.println(System.getProperty("file.separator") + System.getProperty("path.separator") + System.getProperty("line.separator"));
-        
-        
-        //
-    	
     }
     
     /*
@@ -71,14 +67,14 @@ public class PathDemo {
             XPathExpression expr = xpath.compile
                     ("/Server/Service[@name='Catalina']/Connector[count(@scheme)=0]/@port[1]");
             String result = (String) expr.evaluate(doc, XPathConstants.STRING);
-            port =  result != null && result.length() > 0 ? Integer.valueOf(result) : null;
+            port = result != null && result.length() > 0 ? Integer.valueOf(result) : null;
         } catch (Exception e) {
             port = null;
         }
         return port;
     }
 
-    private String path(){
+    private String path() {
         //对于getCanonicalPath()函数，“."就表示当前的文件夹，而”..“则表示当前文件夹的上一级文件夹
         //对于getAbsolutePath()函数，则不管”.”、“..”，返回当前的路径加上你在new File()时设定的路径
         //至于getPath()函数，得到的只是你在new File()时设定的路径
@@ -109,7 +105,6 @@ public class PathDemo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "";
     }
 

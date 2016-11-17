@@ -11,3 +11,4 @@ libs/*
 *.jdproj
 *.log
 *.exe
+/target/

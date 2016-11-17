@@ -13,34 +13,33 @@ import java.util.List;
 
 /**
  * Created by wajian on 2016/8/16.
+ * by use of taobao phone api to assert city
  */
 public class TestMobileCity {
     /**
      * 测试手机号码是来自哪个城市的，利用淘宝的API
-     * @param mobileNumber
+     * @param mobileNumber test phone number
      * @return
      * @throws MalformedURLException
      */
     public static String calcMobileCity(String mobileNumber) throws MalformedURLException{
-        String jsonString = null;
-        JSONArray array = null;
+        String jsonString;
+        JSONArray array;
         JSONObject jsonObject = null;
         String urlString = "http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=" + mobileNumber;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         BufferedReader buffer;
         URL url = new URL(urlString);
         try{
             InputStream in = url.openStream();
-
             //handle messy code problem
             buffer = new BufferedReader(new InputStreamReader(in, "gb2312"));
-            String line = null;
+            String line;
             while((line = buffer.readLine()) != null){
                 sb.append(line);
             }
             in.close();
             buffer.close();
-            // System.out.println(sb.toString());
             jsonString = sb.toString();
             // 替换掉“__GetZoneResult_ = ”，让它能转换为JSONArray对象
             jsonString = jsonString.replaceAll("^[__]\\w{14}+[_ = ]+", "[");
@@ -53,11 +52,13 @@ public class TestMobileCity {
 
             // 获取JSONArray的JSONObject对象，便于读取array里的键值对
             jsonObject = array.getJSONObject(0);
-
         }catch(Exception e){
             e.printStackTrace();
         }
-        return jsonObject.getString("province");
+        if (jsonObject != null) {
+            return jsonObject.getString("province");
+        }
+        return null;
     }
 
     /**
@@ -79,7 +80,7 @@ public class TestMobileCity {
     	//if null number, then return 
         String testMobileNumber = "15216772095"; //1881758452
         System.out.println(calcMobileCity(testMobileNumber));
-        List<String> mobileList = new ArrayList<String>();
+        List<String> mobileList = new ArrayList<>();
         for(int i = 1350345; i < 1350388; i++){
             mobileList.add(String.valueOf(i));
         }

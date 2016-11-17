@@ -5,9 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
-import static oracle.net.aso.C00.x;
-import static oracle.net.aso.C00.y;
-
 /**
  * Created by wajian on 2016/8/30.
  * A*搜索算法，A星算法。

@@ -5,5 +5,4 @@ public interface HelloMBean {
 	public void setName(String name);
 	public void printHello();
 	public void PrintHello(String whoName);
-
 }

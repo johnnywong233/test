@@ -6,6 +6,16 @@ import java.util.Queue;
 
 /**
  * Created by wajian on 2016/8/30.
+ * A* algorithm
+ * A*搜索算法，A星算法。
+ * 这是一种在图形平面上，有多个节点的路径，求出最低通过成本的算法。
+ * 常用于游戏中的NPC的移动计算，或在线游戏的BOT的移动计算上。
+ * 该算法像Dijkstra算法一样，可以找到一条最短路径；也像BFS一样，进行启发式的搜索。
+ * 在此算法中，如果以 g(n)表示从起点到任意顶点n的实际距离，
+ * h(n)表示任意顶点n到目标顶点的估算距离，
+ * 那么 A*算法的公式为：f(n)=g(n)+h(n)。 这个公式遵循以下特性：
+ * 如果h(n)为0，只需求出g(n)，即求出起点到任意顶点n的最短路径，则转化为单源最短路径问题，即Dijkstra算法
+ * 如果h(n)<=“n到目标的实际距离”，则一定可以求出最优解。而且h(n)越小，需要计算的节点越多，算法效率越低。
  */
 public class AStar1 {
 
@@ -30,16 +40,16 @@ public class AStar1 {
 
     /**
      * 打印行走路径
-     *
-     *  经过的点用'*'表示,
-     *  未经过的点用'.'表示，
-     *  起始节点用'r'表示,
-     *  目的节点用'a'表示
-     *  士兵用'x'表示
+     * <p>
+     * 经过的点用'*'表示,
+     * 未经过的点用'.'表示，
+     * 起始节点用'r'表示,
+     * 目的节点用'a'表示
+     * 士兵用'x'表示
      */
     public void printPath() {
         System.out.println("================ printPath ================");
-        Point father_point = null;
+        Point father_point;
         char[][] result = new char[7][8];
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 8; j++) {
@@ -50,17 +60,15 @@ public class AStar1 {
         int step = 0;
         father_point = maze[goal.getX()][goal.getY()];
         while (father_point != null) {
-            if(father_point.equals(start))
+            if (father_point.equals(start))
                 result[father_point.getX()][father_point.getY()] = 'r';
-            else if(father_point.equals(goal)) {
+            else if (father_point.equals(goal)) {
                 result[father_point.getX()][father_point.getY()] = 'a';
                 step++;
-            }
-            else if(father_point.getValue() == 'x') {
+            } else if (father_point.getValue() == 'x') {
                 result[father_point.getX()][father_point.getY()] = 'x';
                 step += 2;
-            }
-            else {
+            } else {
                 result[father_point.getX()][father_point.getY()] = '*';
                 step++;
             }
@@ -88,8 +96,8 @@ public class AStar1 {
         this.start = start;
         this.goal = goal;
 
-        openQueue = new LinkedList<Point>();
-        closedQueue = new LinkedList<Point>();
+        openQueue = new LinkedList<>();
+        closedQueue = new LinkedList<>();
 
         FList = new int[maze.length][maze[0].length];
         GList = new int[maze.length][maze[0].length];
@@ -130,10 +138,10 @@ public class AStar1 {
 
     /**
      * 启动搜索迷宫过程主入口
-     *
-     *   从开启列表中搜索F值最小（即：起始节点 经过某一节点 到目的节点 距离最短），
-     *   将选取的节点作为当前节点，并更新当前节点的邻居节点信息（G、H、F值）以及
-     *   开启列表与关闭列表的成员。
+     * <p>
+     * 从开启列表中搜索F值最小（即：起始节点 经过某一节点 到目的节点 距离最短），
+     * 将选取的节点作为当前节点，并更新当前节点的邻居节点信息（G、H、F值）以及
+     * 开启列表与关闭列表的成员。
      */
     public void start() {
         Point currentPoint;
@@ -149,13 +157,13 @@ public class AStar1 {
     //http://joshuasabrina.iteye.com/blog/1811065
     public static void main(String[] args) {
         // 原始迷宫图
-        char[][] mazeRaw = { { '#', '.', '#', '#', '#', '#', '#', '.' },
-                { '#', '.', 'a', '#', '.', '.', 'r', '.' },
-                { '#', '.', '.', '#', 'x', '.', '.', '.' },
-                { '.', '.', '#', '.', '.', '#', '.', '#' },
-                { '#', '.', '.', '.', '#', '#', '.', '.' },
-                { '.', '#', '.', '.', '.', '.', '.', '.' },
-                { '.', '.', '.', '.', '.', '.', '.', '.' } };
+        char[][] mazeRaw = {{'#', '.', '#', '#', '#', '#', '#', '.'},
+                {'#', '.', 'a', '#', '.', '.', 'r', '.'},
+                {'#', '.', '.', '#', 'x', '.', '.', '.'},
+                {'.', '.', '#', '.', '.', '#', '.', '#'},
+                {'#', '.', '.', '.', '#', '#', '.', '.'},
+                {'.', '#', '.', '.', '.', '.', '.', '.'},
+                {'.', '.', '.', '.', '.', '.', '.', '.'}};
 
         // 节点迷宫图
         Point[][] maze = new Point[mazeRaw.length][mazeRaw[0].length];
@@ -190,7 +198,7 @@ public class AStar1 {
                 && (maze[x][y].getValue() != '#')) {
             // 检查当前节点是否已在关闭队列中，若存在，则返回 "false"
             Iterator<Point> it = closedQueue.iterator();
-            Point point = null;
+            Point point;
             while (it.hasNext()) {
                 if ((point = it.next()) != null) {
                     if (point.getX() == x && point.getY() == y)
@@ -227,13 +235,12 @@ public class AStar1 {
      * 输出：最短路径所经过的节点
      */
     private Point findShortestFPoint() {
-        Point currentPoint = null;
+        Point currentPoint;
         Point shortestFPoint = null;
         int shortestFValue = Integer.MAX_VALUE;
 
-        Iterator<Point> it = openQueue.iterator();
-        while (it.hasNext()) {
-            currentPoint = it.next();
+        for (Point anOpenQueue : openQueue) {
+            currentPoint = anOpenQueue;
             if (FList[currentPoint.getX()][currentPoint.getY()] <= shortestFValue) {
                 shortestFPoint = currentPoint;
                 shortestFValue = FList[currentPoint.getX()][currentPoint.getY()];
@@ -357,8 +364,8 @@ class Point {
     /**
      * 构造函数
      *
-     * @param x  节点横坐标
-     * @param y  节点纵坐标
+     * @param x 节点横坐标
+     * @param y 节点纵坐标
      */
     public Point(int x, int y) {
         this.x = x;
@@ -368,9 +375,9 @@ class Point {
     /**
      * 构造函数
      *
-     * @param x      节点横坐标
-     * @param y      节点纵坐标
-     * @param value  节点值
+     * @param x     节点横坐标
+     * @param y     节点纵坐标
+     * @param value 节点值
      */
     public Point(int x, int y, char value) {
         this.x = x;

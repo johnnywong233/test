@@ -36,11 +36,28 @@
             <!-- <scope>test</scope>-->
         </dependency>
 
+        <dependency>
+            <groupId>com.io7m.xom</groupId>
+            <artifactId>xom</artifactId>
+            <version>1.2.10</version>
+        </dependency>
 
         <dependency>
             <groupId>javax.jms</groupId>
             <artifactId>jms</artifactId>
             <version>1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jdk.tools</groupId>
+            <artifactId>jdk.tools</artifactId>
+            <version>1.8</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.3.0</version>
         </dependency>
 
         <dependency>
@@ -60,6 +77,13 @@
             <artifactId>microsoft-translator-java-api</artifactId>
             <version>0.6.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.9.4</version>
+        </dependency>
+
 
         <!-- Java ports and bindings of the LZ4 compression algorithm and the xxHash hashing algorithm -->
         <dependency>
@@ -204,11 +228,11 @@
             <version>1.0</version>
         </dependency>
 
+        <!--lucene related-->
         <dependency>
             <groupId>org.apache.lucene</groupId>
             <artifactId>lucene-queryparser</artifactId>
             <version>6.2.1</version>
-
         </dependency>
 
         <dependency>
@@ -216,6 +240,19 @@
             <artifactId>lucene-core</artifactId>
             <version>6.2.1</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>6.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers</artifactId>
+            <version>3.6.2</version>
+        </dependency>
+
 
         <!--<dependency>-->
         <!--<groupId>org.deeplearning4j</groupId>-->
@@ -350,17 +387,32 @@
             <version>0.8.0.RELEASE</version>
         </dependency>
 
+        <!--Apache Commons DBCP software implements Database Connection Pooling-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+
+        <!--Apache Commons Object Pooling Library-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-pool2</artifactId>
+            <version>2.4.2</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>1.7</version>
         </dependency>
-        <!--      <dependency>
-                  <groupId>junit</groupId>
-                  <artifactId>junit</artifactId>
-                  <version>RELEASE</version>
-              </dependency>-->
 
         <!-- <dependency>
              <groupId>org.eclipse.birt.runtime.3_7_1</groupId>
@@ -418,13 +470,18 @@
               <artifactId>axis2</artifactId>
               <version>1.35</version>
           </dependency>-->
-
         <dependency>
             <groupId>javax.xml.rpc</groupId>
             <artifactId>javax.xml.rpc-api</artifactId>
             <version>1.1.1</version>
         </dependency>
 
+        <!--JSch is a pure Java implementation of SSH2-->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.54</version>
+        </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
@@ -439,6 +496,7 @@
             <version>1.8</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-util</artifactId>
@@ -451,11 +509,13 @@
             <version>1.8</version>
         </dependency>
 
+
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-awt-util</artifactId>
             <version>1.8</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
@@ -526,11 +586,23 @@
             <version>1.3</version>
         </dependency>-->
 
-
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
             <version>1.0.19</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>2.0.6</version>
+        </dependency>
+
+        <!--The Apache Commons DbUtils package is a set of Java utility classes for easing JDBC development.-->
+        <dependency>
+            <groupId>commons-dbutils</groupId>
+            <artifactId>commons-dbutils</artifactId>
+            <version>1.6</version>
         </dependency>
 
 
@@ -613,19 +685,24 @@
             <version>1.14.3</version>
         </dependency>
 
+        <!--apache mina -->
         <dependency>
             <groupId>org.apache.mina</groupId>
             <artifactId>mina-core</artifactId>
-            <version>2.0.7</version>
+            <version>2.0.15</version>
         </dependency>
 
-
         <dependency>
+            <groupId>org.apache.mina</groupId>
+            <artifactId>mina-filter-ssl</artifactId>
+            <version>1.1.7</version>
+        </dependency>
+
+        <!--<dependency>
             <groupId>android</groupId>
             <artifactId>android</artifactId>
             <version>5.0_r1</version>
-        </dependency>
-
+        </dependency>-->
 
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -633,6 +710,52 @@
             <version>2.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.umd.cs.mtc</groupId>
+            <artifactId>multithreadedtc</artifactId>
+            <version>1.01</version>
+        </dependency>
+
+        <!--JMX 1.2.1 Reference Implementation-->
+       <!--  <dependency>
+            <groupId>com.sun.jdmk</groupId>
+            <artifactId>jmxtools</artifactId>
+            <version>1.2.1</version>
+        </dependency> -->
+
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!--java persistence-->
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.1-api</artifactId>
+            <version>1.0.0.Final</version>
+        </dependency>
+
+        <!--hibernate ORM-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.4.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.6</version>
+        </dependency>
+        
+        
 
     </dependencies>
 </project>

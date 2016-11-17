@@ -9,7 +9,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * Created by wajian on 2016/9/13.
- *
+ * usage of http client
  */
 public class RestClientDemo {
 
@@ -18,7 +18,7 @@ public class RestClientDemo {
     public static void post() throws Throwable {
         RestClient client = new RestClient();
         Resource resource = client.resource("http://api.linkrmb.com/app/api");
-        ClientResponse clientResponse=resource.post("id=123&name=456");
+        ClientResponse clientResponse = resource.post("id=123&name=456");
         System.out.println(clientResponse.getStatusCode());
     }
 
@@ -29,7 +29,7 @@ public class RestClientDemo {
         item.setId("id");
         item.setName("name");
         resource.accept(MediaType.APPLICATION_JSON_TYPE).contentType(MediaType.APPLICATION_JSON_TYPE);
-        ClientResponse clientResponse= resource.put(JSONValue.toJSONString(item));
+        ClientResponse clientResponse = resource.put(JSONValue.toJSONString(item));
         System.out.println(clientResponse.getStatusCode());
     }
 
@@ -37,7 +37,7 @@ public class RestClientDemo {
         RestClient client = new RestClient();
         Resource resource = client
                 .resource("http://api.linkrmb.com/app/api/123");
-        ClientResponse clientResponse=resource.delete();
+        ClientResponse clientResponse = resource.delete();
         System.out.println(clientResponse.getStatusCode());
     }
 
@@ -45,13 +45,13 @@ public class RestClientDemo {
         RestClient client = new RestClient();
         Resource resource = client
                 .resource("http://api.linkrmb.com/app/api/123");
-        ClientResponse clientResponse=resource.get();
+        ClientResponse clientResponse = resource.get();
         System.out.println(clientResponse.getStatusCode());
         System.out.println(clientResponse.getEntity(String.class));
     }
 }
 
-class Item{
+class Item {
 
     private String id;
     private String name;

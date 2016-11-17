@@ -14,9 +14,8 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.RAMDirectory;
 
 public class LuceneTest {
-	/*
-	 * http://blog.csdn.net/teamlet/article/details/5715187
-	 */
+
+	 //http://blog.csdn.net/teamlet/article/details/5715187
 	 public static void main(String[] args) throws IOException {
          RAMDirectory directory = new RAMDirectory();
          IndexWriter writer =

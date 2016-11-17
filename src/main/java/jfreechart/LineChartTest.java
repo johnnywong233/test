@@ -24,7 +24,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
  */
 public class LineChartTest {
     //http://www.codeceo.com/article/jfreechart-struts2.html
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         //step 1: create CategoryDataset object（prepare data set）
         CategoryDataset dataset = createDataset();
         //step 2：根据Dataset 生成JFreeChart对象，以及做相应的设置
@@ -32,15 +32,16 @@ public class LineChartTest {
         //step 3：output JFreeChart object to a jpg
         saveAsFile("D:\\Java_ex\\test\\src\\test\\resources\\LineChart.jpg", jfreeChart, 800, 600);
     }
+
     /**
      * 创建一个dataset，该dataset包含图表要显示的数据
      * @return CategoryDataset
      */
     private static CategoryDataset createDataset() {
         // 图例名称
-        String[] lines = { "文学类", "科技类", "财经类", "娱乐类"};
+        String[] lines = {"文学类", "科技类", "财经类", "娱乐类"};
         // 类别
-        String[] categories = { "2008年", "2009年", "2010年", "2012年", "2013年" };
+        String[] categories = {"2008年", "2009年", "2010年", "2012年", "2013年"};
         Random random = new Random();
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         // 使用循环向数据集合中添加数据
@@ -51,8 +52,10 @@ public class LineChartTest {
         }
         return dataset;
     }
+
     /**
      * 根据PieDataset创建JFreeChart对象
+     *
      * @return JFreeChart
      */
     private static JFreeChart createChart(CategoryDataset categoryDataset) {
@@ -70,7 +73,7 @@ public class LineChartTest {
                 false                         //是否支持超链接
         );
         //通过JFreeChart对象的 setTitle方法，修改统计图表的标题部分（包括修改图表标题内容、字体大小等）
-        chart.setTitle(new TextTitle("图书销量统计图", new Font("黑体", Font.ITALIC , 22)));
+        chart.setTitle(new TextTitle("图书销量统计图", new Font("黑体", Font.ITALIC, 22)));
         //调用 JFreeChart对象的 getLegend(int index)方法，取得该图表的指定索引的图例对象，通过 LegendTitle对象来修改统计图表的图例
         LegendTitle legend = chart.getLegend(0);
         //设置图例的字体和字体大小，即位于下方的字的字体和大小
@@ -116,7 +119,7 @@ public class LineChartTest {
         //renderer.setItemLabelFont (new Font ("黑体", Font.PLAIN, 12));
         //renderer.setItemLabelsVisible (true);
         BasicStroke realLine = new BasicStroke(2.0f); // 设置实线
-        float dashes[] = { 8.0f }; // 定义虚线数组
+        float dashes[] = {8.0f}; // 定义虚线数组
         BasicStroke brokenLine = new BasicStroke(2.0f, // 线条粗细
                 BasicStroke.CAP_SQUARE, // 端点风格
                 BasicStroke.JOIN_MITER, // 折点风格

@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Author: Johnny
@@ -22,12 +23,13 @@ public class OrderedProperties extends Properties {
         props.load(fis);
         //通过 keys(), keySet() 或 stringPropertyNames 来遍历都能保证按文件中的顺序输出
     }
+
     private static final long serialVersionUID = -4627607243846121965L;
 
     private final LinkedHashSet<Object> keys = new LinkedHashSet<>();
 
     public Enumeration<Object> keys() {
-        return Collections.<Object> enumeration(keys);
+        return Collections.enumeration(keys);
     }
 
     public Object put(Object key, Object value) {
@@ -40,10 +42,7 @@ public class OrderedProperties extends Properties {
     }
 
     public Set<String> stringPropertyNames() {
-        Set<String> set = new LinkedHashSet<>();
-        for (Object key : this.keys) {
-            set.add((String) key);
-        }
+        Set<String> set = this.keys.stream().map(key -> (String) key).collect(Collectors.toCollection(LinkedHashSet::new));
         return set;
     }
 }

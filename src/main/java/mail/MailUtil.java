@@ -27,7 +27,7 @@ import java.util.Properties;
  * Author: Johnny
  * Date: 2016/10/16
  * Time: 2:08
- * a mail corresponding to a SMTP,such as smtp.qq.com
+ * a mail corresponding to a SMTP, such as smtp.qq.com
  */
 public class MailUtil {
     //TODO
@@ -96,7 +96,7 @@ public class MailUtil {
         String MAIL_SMTP_HOST = "1224017485@qq.com";
         Object MAIL_SMTP_PORT = 25;
         String MAIL_SENDER_MAIL = "1224017485@qq.com";
-        String MAIL_SENDER_PASS = "wjlb3874596120";
+        String MAIL_SENDER_PASS = "wjlb0174851224";//wjlb3874596120
 
         props.put("mail.smtp.host", MAIL_SMTP_HOST);
         props.put("mail.smtp.port", MAIL_SMTP_PORT);
@@ -114,7 +114,7 @@ public class MailUtil {
         session.setDebug(true);
         //2、通过session得到transport对象
         Transport ts = session.getTransport();
-        ts.connect("smtp.qq.com", "1224017485@qq.com", "wjlb3874596120");
+        ts.connect("smtp.qq.com", "1224017485@qq.com", "wjlb0174851224");
 
         Message message = new Message() {
             @Override

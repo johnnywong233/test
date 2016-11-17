@@ -3,10 +3,12 @@ package mina;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import org.apache.mina.common.*;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.service.IoAcceptor;
 import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
+import org.apache.mina.transport.socket.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.*;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.textline.TextLineCodecFactory;
@@ -21,24 +23,24 @@ public class HelloServer {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-	        IoAcceptor acceptor = new SocketAcceptor();        
+	        IoAcceptor acceptor = new SocketAcceptor();
 	        IoAcceptorConfig config = new SocketAcceptorConfig();
 	        DefaultIoFilterChainBuilder chain = config.getFilterChain();
-	        //Ê¹ÓÃ×Ö·û´®±àÂë
+	        //Ê¹ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	        chain.addLast("codec", 
 	new ProtocolCodecFilter(new TextLineCodecFactory()));
-	        //Æô¶¯HelloServer
+	        //ï¿½ï¿½ï¿½ï¿½HelloServer
 	        acceptor.bind(new InetSocketAddress(PORT), new HelloHandler(), config);
 	        System.out.println("HelloServer started on port " + PORT);
 		}
 	}
 
 	/**
-	 * HelloServerµÄ´¦ÀíÂß¼­
+	 * HelloServerï¿½Ä´ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
 	 */
 	class HelloHandler extends IoHandlerAdapter {
 	/**
-	 * µ±ÓÐÒì³£·¢ÉúÊ±´¥·¢
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	 */
 	@Override
 	    public void exceptionCaught(IoSession ssn, Throwable cause) {
@@ -47,7 +49,7 @@ public class HelloServer {
 	    }
 
 	/**
-	 * ÓÐÐÂÁ¬½ÓÊ±´¥·¢
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	 */
 	@Override
 	public void sessionOpened(IoSession ssn) throws Exception {
@@ -55,14 +57,14 @@ public class HelloServer {
 		}
 
 	/**
-	 * Á¬½Ó±»¹Ø±ÕÊ±´¥·¢
+	 * ï¿½ï¿½ï¿½Ó±ï¿½ï¿½Ø±ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	 */
 	public void sessionClosed(IoSession ssn) throws Exception {
 	    System.out.println("session closed from " + ssn.getRemoteAddress());
 		}
 
 	/**
-	 * ÊÕµ½À´×Ô¿Í»§¶ËµÄÏûÏ¢
+	 * ï¿½Õµï¿½ï¿½ï¿½ï¿½Ô¿Í»ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ï¢
 	 */
 	public void messageReceived(IoSession ssn, Object msg) throws Exception {    
 	    String ip = ssn.getRemoteAddress().toString();

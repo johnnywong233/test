@@ -30,7 +30,7 @@ public class ShallowClone implements Cloneable{
     }
 
     public static void main(String[] args) {
-        Person p = new Person(age, name);
+        Person p = new Person();
         p.name = "p";
         p.age = 10;
 

@@ -17,9 +17,8 @@ import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
 
 /**
  * Created by wajian on 2016/8/30.
- *
  */
-public class ZookeeperClientDemo implements Watcher{
+public class ZookeeperClientDemo implements Watcher {
 
     private static class PropertiesDynLoading {
 
@@ -67,10 +66,8 @@ public class ZookeeperClientDemo implements Watcher{
     /**
      * 新增持久化节点
      *
-     * @param path
-     *            节点路径
-     * @param data
-     *            节点数据
+     * @param path 节点路径
+     * @param data 节点数据
      * @return
      */
     private boolean createPersistentNode(String path, String data) {
@@ -81,7 +78,6 @@ public class ZookeeperClientDemo implements Watcher{
                     zk.create(path, data.getBytes(), getAdminAcls(), CreateMode.PERSISTENT);
                 } else {
                     zk.create(path, data.getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-
                 }
                 return true;
             } catch (Exception e) {
@@ -89,7 +85,6 @@ public class ZookeeperClientDemo implements Watcher{
                 log("{}", e);
                 return false;
             }
-
         }
         this.log("zookeeper state", zk.getState());
         return false;
@@ -102,9 +97,8 @@ public class ZookeeperClientDemo implements Watcher{
      * @param data
      * @return
      */
-    private boolean creatEphemeralNode(String path, String data) {
+    private boolean createEphemeralNode(String path, String data) {
         if (isConnected()) {
-
             try {
                 if (PropertiesDynLoading.authentication) {
                     zk.create(path, data.getBytes(), getAdminAcls(), CreateMode.PERSISTENT);
@@ -117,7 +111,6 @@ public class ZookeeperClientDemo implements Watcher{
                 log("{}", e);
                 return false;
             }
-
         }
         this.log("zookeeper state", zk.getState());
         return false;
@@ -174,13 +167,12 @@ public class ZookeeperClientDemo implements Watcher{
      */
     public String getNodeData(String path) {
         if (isConnected()) {
-            String data = null;
+            String data;
             try {
                 byte[] byteData = zk.getData(path, true, null);
                 data = new String(byteData, "utf-8");
                 return data;
             } catch (Exception e) {
-
                 e.printStackTrace();
                 this.log("{}", e);
                 return null;
@@ -198,7 +190,6 @@ public class ZookeeperClientDemo implements Watcher{
      */
     public List<String> getChildren(String path) {
         if (isConnected()) {
-            String data = null;
             try {
                 return zk.getChildren(path, false);
             } catch (Exception e) {
@@ -234,7 +225,6 @@ public class ZookeeperClientDemo implements Watcher{
         try {
             return zk.exists(path, false) != null;
         } catch (Exception e) {
-
             this.log("{}", e);
         }
         return false;
@@ -255,23 +245,19 @@ public class ZookeeperClientDemo implements Watcher{
         } else {
             this.log("zookeeper state = [{}]", zk.getState());
         }
-
     }
 
     /**
-     *
      * @return
      */
     public List<ACL> getCreateNodeAcls() {
-        List<ACL> listAcls = new ArrayList<ACL>(3);
+        List<ACL> listAcls = new ArrayList<>(3);
         try {
             Id id = new Id(PropertiesDynLoading.authScheme,
                     DigestAuthenticationProvider.generateDigest(PropertiesDynLoading.accessKey));
             ACL acl = new ACL(Perms.CREATE, id);
             listAcls.add(acl);
-
         } catch (NoSuchAlgorithmException e) {
-
             e.printStackTrace();
             return Ids.OPEN_ACL_UNSAFE;
         }
@@ -279,15 +265,13 @@ public class ZookeeperClientDemo implements Watcher{
     }
 
     public List<ACL> getAdminAcls() {
-        List<ACL> listAcls = new ArrayList<ACL>(3);
+        List<ACL> listAcls = new ArrayList<>(3);
         try {
             Id id = new Id(PropertiesDynLoading.authScheme,
                     DigestAuthenticationProvider.generateDigest(PropertiesDynLoading.accessKey));
             ACL acl = new ACL(Perms.ALL, id);
             listAcls.add(acl);
-
         } catch (NoSuchAlgorithmException e) {
-
             e.printStackTrace();
             return Ids.OPEN_ACL_UNSAFE;
         }
@@ -307,22 +291,18 @@ public class ZookeeperClientDemo implements Watcher{
 
     //http://www.phpxs.com/code/1002103/
     public static void main(String[] args) {
-
         ZookeeperClientDemo zkc = new ZookeeperClientDemo();
         zkc.createZkClient();
-
         if (!zkc.exists("/windowcreate")) {
-
             zkc.createPersistentNode("/windowcreate", "windowcreate");
         }
         if (!zkc.exists("/windowcreate/value")) {
             System.out.println("not exists /windowcreate/value");
-
             zkc.createPersistentNode("/windowcreate/value", "A0431P001");
         }
         if (!zkc.exists("/windowcreate/valuetmp")) {
             System.out.println("not exists /windowcreate/valuetmp");
-            zkc.creatEphemeralNode("/windowcreate/valuetmp", "A0431P002");
+            zkc.createEphemeralNode("/windowcreate/valuetmp", "A0431P002");
         }
         System.out.println(zkc.getNodeData("/zookeeper"));
         System.out.println(zkc.getChildren("/windowcreate"));
@@ -334,5 +314,4 @@ public class ZookeeperClientDemo implements Watcher{
         System.out.println(zkc.exists("/windowcreate/value"));
         zkc.closeZk();
     }
-
 }

@@ -44,47 +44,31 @@ public class WaterMarkIconTest {
         OutputStream os = null;
         try {
             Image srcImg = ImageIO.read(srcImageFile);
-
             BufferedImage buffImg = new BufferedImage(srcImg.getWidth(null),
                     srcImg.getHeight(null), BufferedImage.TYPE_INT_RGB);
-
             Graphics2D g = buffImg.createGraphics();
-
             g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
                     RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-
             g.drawImage(
                     srcImg.getScaledInstance(srcImg.getWidth(null),
-                            srcImg.getHeight(null), Image.SCALE_SMOOTH), 0, 0,
-                    null);
-
+                            srcImg.getHeight(null), Image.SCALE_SMOOTH), 0, 0, null);
             ImageIcon logoImgIcon = new ImageIcon(ImageIO.read(logoImageFile));
-
             Image logoImg = logoImgIcon.getImage();
-
             //rotate
-            if (degree>0) {
+            if (degree > 0) {
                 g.rotate(Math.toRadians(degree),
                         (double) buffImg.getWidth() / 2,
                         (double) buffImg.getWidth() / 2);
             }
-
             float alpha = 0.3f; // 透明度
-            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,
-                    alpha));
-
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
             //location of water mark
-            g.drawImage(logoImg, buffImg.getWidth()/15, buffImg.getHeight()/15, null);
-
+            g.drawImage(logoImg, buffImg.getWidth() / 15, buffImg.getHeight() / 15, null);
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-
             g.dispose();
-
             os = new FileOutputStream(outputImageFile);
-
             //generate pic
             ImageIO.write(buffImg, "JPG", os);
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

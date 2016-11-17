@@ -1,6 +1,7 @@
 package sql.pool;
 
-import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+//import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.commons.dbcp.BasicDataSource;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -9,7 +10,7 @@ import java.util.Properties;
 
 /**
  * Created by wajian on 2016/8/23.
- * 使用连接池技术管理数据库连接
+ * 使用dbcp连接池技术管理数据库连接
  */
 public class DbcpPoolDemo {
 
@@ -42,6 +43,7 @@ public class DbcpPoolDemo {
             dbcp.setPassword(prop.getProperty("jdbc.password"));
             //初始连接数量
             dbcp.setInitialSize(Integer.parseInt(prop.getProperty("initsize")));
+            //以下两项设置只有dbcp才有！dbcp2弃用？
             //连接池允许的最大连接数
             dbcp.setMaxActive(Integer.parseInt(prop.getProperty("maxactive")));
             //设置最大等待时间
@@ -51,7 +53,7 @@ public class DbcpPoolDemo {
             //设置最大空闲数
             dbcp.setMaxIdle(Integer.parseInt(prop.getProperty("maxidle")));
             //初始化线程本地
-            tl = new ThreadLocal<Connection>();
+            tl = new ThreadLocal<>();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -80,9 +82,7 @@ public class DbcpPoolDemo {
             Connection conn = tl.get();
             if(conn != null){
             /*
-             * 通过连接池获取的Connection
-             * 的close()方法实际上并没有将
-             * 连接关闭，而是将该链接归还。
+             * 通过连接池获取的Connection的close()方法实际上并没有将连接关闭，而是将该链接归还。
              */
                 conn.close();
                 tl.remove();

@@ -11,7 +11,6 @@ import javax.jms.Topic;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQTopic;
 
-
 public class TopicTest {
     //http://blog.itpub.net/10742815/viewspace-580272/
     public static void main(String[] args) throws Exception {

@@ -21,14 +21,14 @@ import static org.hamcrest.CoreMatchers.*;
  * Created by wajian on 2016/10/9.
  */
 public class DouBanTest {
-	
+
     @Before
-    public void setUP(){
-    	//set proxy
-    	System.setProperty("http.proxySet", "true");  
-    	System.setProperty("http.proxyHost", "web-proxy.sgp.hp.com");  
-    	System.setProperty("http.proxyPort", "8080");
-    	
+    public void setUP() {
+        //set proxy
+        System.setProperty("http.proxySet", "true");
+        System.setProperty("http.proxyHost", "web-proxy.sgp.hp.com");
+        System.setProperty("http.proxyPort", "8080");
+
         //assign URL and port
         RestAssured.baseURI = "http://api.douban.com/v2/book";
         RestAssured.port = 80;
@@ -40,12 +40,12 @@ public class DouBanTest {
     }
 
     @Test
-    public void testSearchBook(){
+    public void testSearchBook() {
         given().param("q", "java8").when().get("/search").then().body("count", equalTo(2));
     }
 
     @Test
-    public void testJSON(){
+    public void testJSON() {
         get("/1220562").then()
                 //取顶级属性“title”
                 .body("title", equalTo("满月之夜白鲸现"))
@@ -60,7 +60,7 @@ public class DouBanTest {
     }
 
     @Test
-    public void auth(){
+    public void auth() {
 //        given().auth().basic(username, password).when().get("/secured").then().statusCode(200);
 //        given().auth().oauth(...);
 //        given().auth().oauth2();

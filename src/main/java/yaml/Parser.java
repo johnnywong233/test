@@ -42,7 +42,7 @@ public class Parser {
             Contact c2 = new Contact("test2", 23, Arrays.asList(
                     new Phone("home", "1234"),
                     new Phone("work", "4321")));
-            List contacts = Arrays.asList(c1, c2);
+            List<Contact> contacts = Arrays.asList(c1, c2);
             Yaml yaml = new Yaml();
             yaml.dump(contacts, new FileWriter("D:\\Java_ex\\test\\src\\test\\resources\\contact.yaml"));
         } catch (Exception e) {

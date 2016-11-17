@@ -23,7 +23,9 @@ public class DeepClone implements Cloneable{
         DeepClone c = null;
         try {
             c = (DeepClone) super.clone();
-            c.person = person.clone();
+            //TODO
+            //The method clone() from the type Object is not visible
+            c.person = (Person) person.clone();
             return c;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
@@ -33,7 +35,9 @@ public class DeepClone implements Cloneable{
 
     public static void main(String[] args) {
     	//Cannot make a static reference to the non-static field age
-        Person p = new Person(age, name);
+    	//Person p = new Person(age, name);
+    	//or add a default constructor
+        Person p = new Person();
         p.name = "p";
         p.age = 10;
 
@@ -43,3 +47,5 @@ public class DeepClone implements Cloneable{
         System.out.printf("after clone: c2 = %s, c2.person = %s\n", c2, c2.person);
     }
 }
+
+

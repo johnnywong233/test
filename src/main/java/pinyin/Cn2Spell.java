@@ -12,7 +12,7 @@ import java.util.Set;
  * transform Chinese character into pinyin
  */
 public class Cn2Spell {
-	
+
     //http://www.phpxs.com/code/1001554/
     public static void main(String[] args) {
         String str = null;
@@ -33,11 +33,10 @@ public class Cn2Spell {
 
     static {
         if (spellMap == null) {
-            spellMap = new LinkedHashMap<String, Integer>(400);
+            spellMap = new LinkedHashMap<>(400);
         }
-
         if (otherSpellMap == null) {
-            otherSpellMap = new LinkedHashMap<String, Integer>(100);
+            otherSpellMap = new LinkedHashMap<>(100);
         }
 
         initialize();
@@ -462,6 +461,7 @@ public class Cn2Spell {
 
     /**
      * 获得单个汉字的Ascii.
+     *
      * @param cn - char 汉字字符
      * @return int 错误返回 0,否则返回ascii
      */
@@ -472,15 +472,13 @@ public class Cn2Spell {
         } catch (UnsupportedEncodingException ex) {
             ex.printStackTrace();
         }
-        if (bytes == null || bytes.length > 2 || bytes.length <= 0) { // 错误
+        if (bytes == null || bytes.length > 2 || bytes.length <= 0) {
             log.info("error occur while transfer!");
-
             return 0;
         }
 
-        if (bytes.length == 1) { // 英文字符
-            log.info("\"" + cn + "\"是英文字符，其 ASCII 为：" + bytes[0]);
-
+        if (bytes.length == 1) { //is english char
+            log.info("\"" + cn + "\" is English char, its ASCII is：" + bytes[0]);
             return bytes[0];
         }
 
@@ -497,23 +495,22 @@ public class Cn2Spell {
 
     /**
      * 根据ASCII码到SpellMap中查找对应的拼音
+     *
      * @param ascii - int 字符对应的ASCII
      * @return String 拼音,首先判断ASCII是否>0&<160, 如果是返回对应的字符,否则到SpellMap中查找,
-     *         如果没有找到拼音,则返回null, 如果找到则返回拼音.
+     * 如果没有找到拼音,则返回null, 如果找到则返回拼音.
      */
     private static String getSpellByAscii(int ascii) {
         if (ascii > 0 && ascii < 160) { // 单字符
             return String.valueOf((char) ascii);
         }
-
         if (ascii < -20319 || ascii > -10247) { // 其他的字符
             for (String otherSpell : otherSpellMap.keySet()) {
                 Object otherValObj = otherSpellMap.get(otherSpell);
 
-                if (otherValObj instanceof Integer) {
-                    if (ascii == ((Integer) otherValObj).intValue()) {
+                if (otherValObj != null) {
+                    if (ascii == (Integer) otherValObj) {
                         log.info("此时的拼音为：" + otherSpell);
-
                         return otherSpell.split("-")[0];
                     }
                 }
@@ -524,20 +521,18 @@ public class Cn2Spell {
 
         Set<String> keySet = spellMap.keySet();
         Iterator<String> it = keySet.iterator();
-
         String spell0 = null;
-        String spell = null;
+        String spell;
 
         int asciiRang0 = -20319;
         int asciiRang;
 
         while (it.hasNext()) {
-            spell = (String) it.next();
+            spell = it.next();
             Object valObj = spellMap.get(spell);
 
-            if (valObj instanceof Integer) {
-                asciiRang = ((Integer) valObj).intValue();
-
+            if (valObj != null) {
+                asciiRang = (Integer) valObj;
                 if (ascii >= asciiRang0 && ascii < asciiRang) { // 区间找到
                     log.info("此时的拼音为：" + spell + "/n其对应的区间起始数字为：" + asciiRang0
                             + "/n上一个拼音为：" + spell0 + "/n即字符对应拼音应为：" + spell0);
@@ -546,19 +541,17 @@ public class Cn2Spell {
                 } else {
                     spell0 = spell;
                     asciiRang0 = asciiRang;
-
                     // log.info("此时的拼音为：" + spell + "/n其对应的区间起始数字为：" +
                     // asciiRang0);
                 }
             }
         }
-
         return null;
-
     }
 
     /**
      * 判断是否是字母
+     *
      * @param ascii int 字符对应的ASCII
      * @return boolean 返回是否是字母的结果
      */
@@ -569,6 +562,7 @@ public class Cn2Spell {
 
     /**
      * 返回字符串的全拼,是汉字转化为全拼,其它字符不进行转换
+     *
      * @param cnStr String 字符串
      * @return String 转换成全拼后的字符串
      */
@@ -578,34 +572,28 @@ public class Cn2Spell {
         }
 
         // boolean isChinese = false;
-
         char[] chars = cnStr.toCharArray();
         StringBuilder retuBuf = new StringBuilder();
         StringBuilder resultBuf = new StringBuilder();
 
         for (char aChar : chars) {
             int ascii = getCnAscii(aChar);
-
             if (ascii == 0) { // 取ascii时出错
                 retuBuf.append(aChar);
             } else {
                 String spell = getSpellByAscii(ascii);
-
                 if (spell == null) {
                     retuBuf.append(aChar);
                 } else {
                     log.info(aChar + " with pinyin: " + spell);
-
                     retuBuf.append(spell);
                 }
-
                 // if (!isAlphabet(ascii)) {
                 // isChinese = true;
                 // // retuBuf.append(" ");
                 // }
             } // end of if ascii <= -20400
         }
-
         // if (isChinese) {
         // // resultBuf.append(cnStr);
         // // resultBuf.append("");
@@ -613,9 +601,7 @@ public class Cn2Spell {
         // } else {
         // resultBuf.append(retuBuf.toString());
         // }
-
         resultBuf.append(retuBuf.toString());
-
         return resultBuf.toString();
     }
 

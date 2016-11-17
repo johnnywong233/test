@@ -9,33 +9,32 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 
 /**
  * Created by wajian on 2016/8/30.
+ * get pinyin by use of pinyin4j
  */
 public class GetPinyin {
     /**
-     * 得到 全拼
      * 中文获取全拼功能代码
      * @param src
      * @return
      */
     public static String getPingYin(String src) {
-        char[] t1 = null;
+        char[] t1;
         t1 = src.toCharArray();
-        String[] t2 = new String[t1.length];
+        String[] t2;
         HanyuPinyinOutputFormat t3 = new HanyuPinyinOutputFormat();
         t3.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         t3.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         t3.setVCharType(HanyuPinyinVCharType.WITH_V);
         String t4 = "";
-        int t0 = t1.length;
         try {
-            for (int i = 0; i < t0; i++) {
+            for (char aT1 : t1) {
                 // 判断是否为汉字字符
-                if (java.lang.Character.toString(t1[i]).matches(
+                if (Character.toString(aT1).matches(
                         "[\\u4E00-\\u9FA5]+")) {
-                    t2 = PinyinHelper.toHanyuPinyinStringArray(t1[i], t3);
+                    t2 = PinyinHelper.toHanyuPinyinStringArray(aT1, t3);
                     t4 += t2[0];
                 } else {
-                    t4 += java.lang.Character.toString(t1[i]);
+                    t4 += Character.toString(aT1);
                 }
             }
             return t4;
@@ -50,8 +49,7 @@ public class GetPinyin {
      * @param str
      * @return
      */
-    public static String getPinYinHeadChar(String str) {
-
+    private static String getPinYinHeadChar(String str) {
         String convert = "";
         for (int j = 0; j < str.length(); j++) {
             char word = str.charAt(j);
@@ -67,15 +65,15 @@ public class GetPinyin {
 
     /**
      * 将字符串转移为ASCII码
-     * @param cnStr
+     * @param cnStr chinese string
      * @return
      */
     public static String getCnASCII(String cnStr) {
-        StringBuffer strBuf = new StringBuffer();
+        StringBuilder strBuf = new StringBuilder();
         byte[] bGBK = cnStr.getBytes();
-        for (int i = 0; i < bGBK.length; i++) {
+        for (byte gbk : bGBK) {
             // System.out.println(Integer.toHexString(bGBK[i]&0xff));
-            strBuf.append(Integer.toHexString(bGBK[i] & 0xff));
+            strBuf.append(Integer.toHexString(gbk & 0xff));
         }
         return strBuf.toString();
     }

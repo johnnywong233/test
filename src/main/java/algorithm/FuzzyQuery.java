@@ -23,8 +23,8 @@ import java.util.regex.Pattern;
  * Created by wajian on 2016/8/16.
  */
 public class FuzzyQuery {
-	//http://www.jb51.net/article/83264.htm
-    public static void main(String args[]){
+    //http://www.jb51.net/article/83264.htm
+    public static void main(String args[]) {
         JFrame frame = new MediaFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -87,7 +87,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
 
         JPanel panel = new JPanel();
 
-        panel.setLayout(new GridLayout(5,1));
+        panel.setLayout(new GridLayout(5, 1));
 
         panel.add(btn);
         panel.add(btn1);
@@ -95,12 +95,12 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         panel.add(btn3);
         panel.add(btn4);
 
-        TB.setLayout(new GridLayout(1,2));
+        TB.setLayout(new GridLayout(1, 2));
 
         TB.add(pane);
         TB.add(panel);
 
-        add(TB,BorderLayout.WEST);
+        add(TB, BorderLayout.WEST);
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -120,11 +120,11 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
 
                 int str2 = name.lastIndexOf("//");
 
-                String name1 = name.substring(str2+1,str1.length());
+                String name1 = name.substring(str2 + 1, str1.length());
 
                 //截取最后一个"/"之前的所有字符串
                 int str3 = name1.lastIndexOf(".");
-                String name2 = name1.substring(0,str3);
+                String name2 = name1.substring(0, str3);
 
                 //截取"."后面所有字符串后缀
                 hashtable.put(i, name2);
@@ -156,7 +156,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
 
                 for (j = 1; j <= m.getSize(); j++) {
                     Pattern p = Pattern.compile("^" + name + "+");//正则表达式选取以你填的单词为首的所有查询结果
-                    Matcher match = p.matcher((String)hashtable.get(j));
+                    Matcher match = p.matcher((String) hashtable.get(j));
 
                     if (match.find()) {
                         s++;
@@ -169,18 +169,18 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
                 //可以选择不多个选项(因为前面设置了JList可以多项选择)
                 list.setSelectedIndices(a);
             } catch (Exception e) {
-            	e.printStackTrace();
+                e.printStackTrace();
             }
         }
 
         if (event.getSource() == btn4) {
-        	//TODO
-			//int j;
-			//for (j = 0;j<m.length();j++)
-			//{
-			//if (hashtable.containsValue(Integer.parseInt(j)+"*")
-			//hashtable.put(j,
-			//}
+            //TODO
+            //int j;
+            //for (j = 0;j<m.length();j++)
+            //{
+            //if (hashtable.containsValue(Integer.parseInt(j)+"*")
+            //hashtable.put(j,
+            //}
 
         }
     }
