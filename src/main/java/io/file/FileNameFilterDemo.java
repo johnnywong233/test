@@ -13,15 +13,14 @@ public class FileNameFilterDemo{
     public static void main(String[] args){
         FileNameFilter fnf = new FileNameFilter();
         Scanner kb = new Scanner(System.in);
-        String str1 = new String();
-        String str2 = new String();
-        System.out.print("input file diectory:");
+        String str1;
+        String str2;
+        System.out.print("input file directory:");
         str1 = kb.next();
         System.out.print("input filter filename extension:");
         str2 = kb.next();
         fnf.filter(str1, str2);
-        if (kb != null)
-        	kb.close();
+		kb.close();
     }
 }
 
@@ -30,12 +29,11 @@ class FileNameFilter {
 		File f = new File(strPath);
 		if(f.isDirectory()){
 			File[] fList  = f.listFiles();
-			for(int i = 0; i < fList.length; i++){
-				if(fList[i].isFile() && fList[i].getName().endsWith(fname)){
-					System.out.println(fList[i].getName());
+			for (File aFList : fList) {
+				if (aFList.isFile() && aFList.getName().endsWith(fname)) {
+					System.out.println(aFList.getName());
 				}
 			}
 		}
-		
 	}
 }

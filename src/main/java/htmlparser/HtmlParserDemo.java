@@ -12,6 +12,7 @@ import org.htmlparser.util.NodeList;
 import com.yao.http.HttpRequester;
 import com.yao.http.HttpRespons;
 
+//TODO: rewrite HttpRespons and HttpRequester
 public class HtmlParserDemo {
     public static void main(String[] args) {
         try {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Suite" parallel="false">
+	<listeners>
+		<listener class-name="test.testng.ExecutionListener1" />
+		<listener class-name="test.testng.ExecutionListener2" />
+	</listeners>
+
+	<test name="Test">
+		<classes>
+			<class name="test.testng.TestIExecutionListener" />
+		</classes>
+	</test>
+</suite>
