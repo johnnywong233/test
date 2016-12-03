@@ -124,7 +124,30 @@ public class FileUtil {
     }
 
 
+
+
+
+
+
+
     public static void main(String[] args) throws Exception {
+        /*
+         * 创建一个(或多级目录)，其路径名由当前 File 对象指定，此方法可以将子目录的父目录一起创建，
+         * 若test1不存在，这里会一并创建。如果创建成功返回true；失败返回false。
+         */
+        File folder = new File("d:\\test1\\test2");
+        folder.mkdirs();
+
+        /*
+         * 创建一个目录，它的路径名由当前 File 对象指定，此方法需要保证子目录的父目录存在，
+         * 若test1不存在，则创建失败。创建成功返回true；失败返回false。
+         */
+        File folder1 = new File("d:\\test1\\test2");
+        folder1.mkdir();
+
+
+
+
         String dir = "D:\\Java_ex\\test\\src\\test\\resources\\";
         String fileName = "D:\\Java_ex\\test\\src\\test\\resources\\1.png";
         getLastModifiedTime(new File(fileName));

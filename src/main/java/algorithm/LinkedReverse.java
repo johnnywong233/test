@@ -9,22 +9,17 @@ import java.util.List;
 public class LinkedReverse {
     /**
      * Java实现单链表翻转
-     * @param args
      */
     //http://www.phpxs.com/code/1002195/
     public static void main(String[] args) {
         N n = new N();
         n.name = "A";
-
         N n1 = new N();
         n1.name = "B";
-
         N n2 = new N();
         n2.name = "C";
-
         N n3 = new N();
         n3.name = "D";
-
         n1.nextN = n2;
         n.nextN = n1;
         n2.nextN = n3;
@@ -55,7 +50,6 @@ public class LinkedReverse {
             System.out.println(new3.name);
             new3 = new3.nextN;
         }
-
         */
     }
 
@@ -64,19 +58,16 @@ public class LinkedReverse {
         if (n != null) {
             N preN = n; //前一个节点
             N curN = n.nextN; //当前节点
-            N nextN ;   //后一个节点
+            N nextN;   //后一个节点
             while (null != curN) {
                 nextN = curN.nextN;
                 curN.nextN = preN;
                 preN = curN;
                 curN = nextN;
             }
-
             n.nextN = null;
             n = preN;
-
             return n;
-
         }
         return null;
     }
@@ -87,7 +78,6 @@ public class LinkedReverse {
         if (n == null) {
             return newN;
         }
-
         N nextN = n.nextN;
         n.nextN = newN;
         return reverseTwo(nextN, n);
@@ -107,7 +97,6 @@ public class LinkedReverse {
             nList.add(node);
             p = p.nextN;
         }
-
         // 在返现输出节点
         n = null;
         for (N rn : nList) {

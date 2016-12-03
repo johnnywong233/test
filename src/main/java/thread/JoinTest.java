@@ -6,17 +6,9 @@ public class JoinTest {
 	 */
 	public static void main(String[] args) throws InterruptedException {
 		//CountDownLatch in jdk1.5 or later has more function than join.
-		Thread parser1 = new Thread(new Runnable() {
-			public void run() {
-				System.out.println("parser1 finish");
-			}
-		});
+		Thread parser1 = new Thread(() -> System.out.println("parser1 finish"));
 
-		Thread parser2 = new Thread(new Runnable() {
-			public void run() {
-				System.out.println("parser2 finish");
-			}
-		});
+		Thread parser2 = new Thread(() -> System.out.println("parser2 finish"));
 
 		parser1.start();
 		parser2.start();
@@ -31,8 +23,6 @@ public class JoinTest {
 			}
 		 * 直到join线程中止后，线程的this.notifyAll会被调用，调用notifyAll是在JVM里实现的，所以JDK里看不到，有兴趣的同学可以看看 JVM源码。
 		 * JDK不推荐在线程实例上使用wait，notify和notifyAll方法。
-		 * 
-		 * 
 		 */
 	}
 }

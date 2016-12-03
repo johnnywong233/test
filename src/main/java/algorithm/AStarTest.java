@@ -22,18 +22,18 @@ public class AStarTest {
 
         Grid grid = new Grid(col, row);
 
-        for(int i = 0; i < grid.getNumCols(); i++) {
-            for(int j = 0; j < grid.getNumRows(); j++) {
+        for (int i = 0; i < grid.getNumCols(); i++) {
+            for (int j = 0; j < grid.getNumRows(); j++) {
                 Node node = grid.getNode(i, j);
                 Random random = new Random();
                 int value = random.nextInt(100);
                 boolean b = (value % 10 != 0);
                 node.setWalkable(b);
-                if(i == col - 1 && j == row - 1) {
+                if (i == col - 1 && j == row - 1) {
                     node.setWalkable(false);
                 }
                 b = node.getWalkable();
-                if(b) {
+                if (b) {
                     System.out.print("○  ");
                 } else {
                     System.out.print("※  ");
@@ -48,16 +48,16 @@ public class AStarTest {
         List<Node> path = null;
         grid.setStart(0, 0);
         grid.setEnd(col - 1, row - 1);
-        if(astar.findPath(grid)) {
+        if (astar.findPath(grid)) {
             path = astar.getPath();
         }
-        for(int i = 0; i < grid.getNumCols(); i++) {
-            for(int j = 0; j < grid.getNumRows(); j++) {
+        for (int i = 0; i < grid.getNumCols(); i++) {
+            for (int j = 0; j < grid.getNumRows(); j++) {
                 Node node = grid.getNode(i, j);
                 boolean walkable = node.getWalkable();
-                if(path != null && path.contains(node)) {
+                if (path != null && path.contains(node)) {
                     System.out.print("●  ");
-                } else  if(walkable) {
+                } else if (walkable) {
                     System.out.print("○  ");
                 } else {
                     System.out.print("※  ");
@@ -152,7 +152,7 @@ class MyComparator implements Comparator<Float> {
     public int compare(Float obj1, Float obj2) {
         float a = obj1;
         float b = obj2;
-        if(b - a > 0) {
+        if (b - a > 0) {
             return 1;
         }
         return 0;
@@ -260,6 +260,7 @@ class Grid {
 
     /**
      * 构造方法，创建一个纯数据化的节点网格
+     *
      * @param numCols
      * @param numRows
      */
@@ -280,6 +281,7 @@ class Grid {
 
     /**
      * 获取二维索引处的节点
+     *
      * @param x 横向索引位置
      * @param y 纵向索引位置
      * @return （x,y)二维索引处的节点
@@ -294,6 +296,7 @@ class Grid {
 
     /**
      * 设置寻路的起始节点
+     *
      * @param x 横向索引位置
      * @param y 纵向索引位置
      */
@@ -303,6 +306,7 @@ class Grid {
 
     /**
      * 设置寻路的结束节点
+     *
      * @param x 横向索引位置
      * @param y 纵向索引位置
      */
@@ -312,8 +316,9 @@ class Grid {
 
     /**
      * 设置（x, y)二维索引处的节点是否可以行走
-     * @param x 横向索引位置
-     * @param y 纵向索引位置
+     *
+     * @param x    横向索引位置
+     * @param y    纵向索引位置
      * @param able true为可行走
      */
     public void setWalkable(int x, int y, boolean able) {
@@ -322,6 +327,7 @@ class Grid {
 
     /**
      * 获取网格行数
+     *
      * @return 网格行数
      */
     public int getNumCols() {
@@ -330,6 +336,7 @@ class Grid {
 
     /**
      * 获取网格列数
+     *
      * @return 网格列数
      */
     public int getNumRows() {
@@ -338,6 +345,7 @@ class Grid {
 
     /**
      * 获取寻路的起始节点
+     *
      * @return 一次寻路的起始节点
      */
     public Node getStart() {
@@ -346,6 +354,7 @@ class Grid {
 
     /**
      * 获取寻路的结束节点
+     *
      * @return 一次寻路的结束节点
      */
     public Node getEnd() {
@@ -355,8 +364,8 @@ class Grid {
     /**
      * 得到一个点下的所有节点
      *
-     * @param xPos 点的横向位置
-     * @param yPos 点的纵向位置
+     * @param xPos      点的横向位置
+     * @param yPos      点的纵向位置
      * @param exception 例外格，若其值不为空，则在得到一个点下的所有节点后会排除这些例外格
      * @return 共享此点的所有节点
      */
@@ -416,10 +425,11 @@ class Grid {
 
     /**
      * 判断两节点之间是否存在障碍物
+     *
      * @param startX 起始点X坐标
      * @param startY 起始点Y坐标
-     * @param endX 结束点X坐标
-     * @param endY 结束点Y坐标
+     * @param endX   结束点X坐标
+     * @param endY   结束点Y坐标
      * @return true存在障碍物
      */
     public boolean hasBarrier(int startX, int startY, int endX, int endY) {
@@ -599,7 +609,7 @@ class LineFunction {
     }
 
     public float function(float value) {
-        switch(funid) {
+        switch (funid) {
             case 1:
                 return function1(value);
             case 2:
@@ -647,7 +657,7 @@ class NewAStar {
     /**
      * 构造方法
      *
-     * @param retractable 以死角点为寻路终点时，是否启用以死角点最近的可行点为路径终点
+     * @param retractable   以死角点为寻路终点时，是否启用以死角点最近的可行点为路径终点
      * @param heuristicName 启发函数，为Heuristic类的枚举常量
      */
     public NewAStar(String heuristicName, boolean retractable) {
@@ -806,9 +816,9 @@ class NewAStar {
     /**
      * 移除list中从startIndex处开始的len个元素
      *
-     * @param list 列表对象
+     * @param list       列表对象
      * @param startIndex 开始删除位置
-     * @param len 删除的个数
+     * @param len        删除的个数
      */
     private void removeListElement(List<Node> list, int startIndex, int len) {
         int index = startIndex;
@@ -820,7 +830,7 @@ class NewAStar {
     /**
      * 移除stack中从startIndex处和其后的所有元素
      *
-     * @param stack 列表对象
+     * @param stack      列表对象
      * @param startIndex 移除元素的起始位置
      */
     private void removeStackElement(Stack<Node> stack, int startIndex) {
@@ -970,7 +980,7 @@ class BinaryHeap<T> {
     /**
      * 交换元素，将最大值或最小值置于顶端
      *
-     * @param objIndex 当前元素位置
+     * @param objIndex    当前元素位置
      * @param parentIndex 父元素位置
      */
     private void swap(int objIndex, int parentIndex) {
@@ -995,7 +1005,7 @@ class BinaryHeap<T> {
     /**
      * 修改堆，将元素obj修改为newObj，并计算排序
      *
-     * @param obj 旧的元素
+     * @param obj    旧的元素
      * @param newObj 新的元素
      * @return 是否修改成功
      */
@@ -1070,6 +1080,7 @@ class BinaryHeap<T> {
 
     /**
      * 转换为栈列表
+     *
      * @return 元素栈
      */
     public List<T> toStack() {
@@ -1078,6 +1089,7 @@ class BinaryHeap<T> {
 
     /**
      * 转换为数组
+     *
      * @return 元素数组
      */
     public T[] toArray() {

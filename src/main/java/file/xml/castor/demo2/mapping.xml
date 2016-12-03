@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                         "http://castor.org/mapping.dtd">
+ 
+<mapping>
+    <class name="cc.unmi.castor.PersonList">
+ 
+        <field name="persons" collection="arraylist" type="cc.unmi.castor.Person">
+            <bind-xml name="Person" node="element" />
+        </field>
+    </class>
+ 
+    <class name="cc.unmi.castor.Person">
+        <map-to xml="Person" />
+ 
+        <field name="name" type="java.lang.String">
+            <bind-xml name="Name" node="element" />
+        </field>
+ 
+        <field name="address" type="string"
+           handler="cc.unmi.castor.AddressHandler">
+            <bind-xml name="Address" node="element"/>
+        </field>
+ 
+        <field name="type" type="java.lang.String">
+            <bind-xml name="i:Type" QName-prefix="i" node="attribute"
+                xmlns:i="http://www.w3.org/2001/XMLSchema-instance" />
+        </field>
+    </class>
+ 
+</mapping>

@@ -37,7 +37,7 @@ public class ReadFileLine {
         while (s != null) {
             lines++;
             s = reader.readLine();
-            if((lines - lineNumber) == 0) {
+            if ((lines - lineNumber) == 0) {
                 System.out.println(s);
                 System.exit(0);
             }
@@ -46,7 +46,7 @@ public class ReadFileLine {
         in.close();
         return s;
     }
-    
+
     //get the total lines of file
     static int getTotalLines(File file) throws IOException {
         FileReader in = new FileReader(file);
@@ -56,9 +56,9 @@ public class ReadFileLine {
         while (s != null) {
             lines++;
             s = reader.readLine();
-            if(lines>=2){
-                if(s!=null){
-//                    System.out.println(s+"$");
+            if (lines >= 2) {
+                if (s != null) {
+                    System.out.println(s + "$");
                 }
             }
         }

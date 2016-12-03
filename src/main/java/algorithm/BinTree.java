@@ -1,9 +1,10 @@
 package algorithm;
 
 import java.util.Stack;
+
 /**
  * Created by wajian on 2016/8/30.
- *  二叉树遍历
+ * 二叉树遍历
  */
 /*遍历是对树的一种最基本的运算，所谓遍历二叉树，就是按一定的规则和顺序走遍二叉树的所有结点，使每一个结点都被访问一次，
   而且只被访问一次。由于二叉树是非线性结构，因此，树的遍历实质上是将二叉树的各个结点转换成为一个线性序列来表示。
@@ -20,14 +21,18 @@ import java.util.Stack;
 */
 public class BinTree {
     protected BTNode root;
+
     public BinTree(BTNode root) {
         this.root = root;
     }
+
     public BTNode getRoot() {
         return root;
     }
 
-    /** 构造树 */
+    /**
+     * 构造树
+     */
     public static BTNode init() {
         BTNode a = new BTNode('A');
         BTNode b = new BTNode('B', null, a);
@@ -40,12 +45,16 @@ public class BinTree {
         return h;// root
     }
 
-    /** 访问节点 */
+    /**
+     * 访问节点
+     */
     private static void visit(BTNode p) {
         System.out.print(p.getKey() + " ");
     }
 
-    /** 递归实现前序遍历 */
+    /**
+     * 递归实现前序遍历
+     */
     private static void preOrder(BTNode p) {
         if (p != null) {
             visit(p);
@@ -54,7 +63,9 @@ public class BinTree {
         }
     }
 
-    /** 递归实现中序遍历 */
+    /**
+     * 递归实现中序遍历
+     */
     private static void inorder(BTNode p) {
         if (p != null) {
             inorder(p.getLeft());
@@ -63,7 +74,9 @@ public class BinTree {
         }
     }
 
-    /** 递归实现后序遍历 */
+    /**
+     * 递归实现后序遍历
+     */
     private static void postorder(BTNode p) {
         if (p != null) {
             postorder(p.getLeft());
@@ -72,7 +85,9 @@ public class BinTree {
         }
     }
 
-    /** 非递归实现前序遍历 */
+    /**
+     * 非递归实现前序遍历
+     */
     private static void iterativePreorder(BTNode p) {
         Stack<BTNode> stack = new Stack<>();
         if (p != null) {
@@ -88,7 +103,9 @@ public class BinTree {
         }
     }
 
-    /** 非递归实现后序遍历 */
+    /**
+     * 非递归实现后序遍历
+     */
     private static void iterativePostorder(BTNode p) {
         BTNode q = p;
         Stack<BTNode> stack = new Stack<>();
@@ -110,7 +127,9 @@ public class BinTree {
         }
     }
 
-    /** 非递归实现中序遍历 */
+    /**
+     * 非递归实现中序遍历
+     */
     private static void iterativeInorder(BTNode p) {
         Stack<BTNode> stack = new Stack<>();
         while (p != null) {

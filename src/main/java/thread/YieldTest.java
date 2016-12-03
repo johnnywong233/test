@@ -19,14 +19,12 @@ public class YieldTest implements Runnable {
 
     /*
      * 在线程操作中，也可以使用yield（）方法，将一个线程的操作暂时交给其他线程执行。
-     *
      */
     public static void main(String[] args) {
         Thread h1 = new Thread(new YieldTest(), "A");
         Thread h2 = new Thread(new YieldTest(), "B");
         h1.start();
         h2.start();
-
     }
 
 }

@@ -14,15 +14,15 @@ public class MyMap1 {
     }
 
     //use HashMap to store all the cities path
-    Map<String, List<String>> map = new HashMap<String, List<String>>();// 储存所有城市路线
-    List reachedWay = new ArrayList();// 储存到达目的地所经过的城市
-    Map<Integer, String> routeMap = new HashMap<Integer, String>();// 储存到达目的地所经过的城市和所用的时间，key为时间，value为reachedWay
+    private Map<String, List<String>> map = new HashMap<>();// 储存所有城市路线
+    private List<String> reachedWay = new ArrayList();// 储存到达目的地所经过的城市
+    private Map<Integer, String> routeMap = new HashMap<>();// 储存到达目的地所经过的城市和所用的时间，key为时间，value为reachedWay
 
     // int shortestTime=0; //储存最短时间，用于只输出最短路径的情况
 
     /* ---添加路线，双向添加--- */
     public void addRoute(String city1, String city2, int cost) {
-        List cityList1 = (List) map.get(city1);// 城市1路线集合
+        List cityList1 = map.get(city1);// 城市1路线集合
         if (cityList1 == null) {
             cityList1 = new ArrayList();
             map.put(city1, cityList1);
@@ -38,7 +38,7 @@ public class MyMap1 {
             cityList1.add(way1);
         }
 
-        List cityList2 = (List) map.get(city2);// 城市2路线集合
+        List cityList2 = map.get(city2);// 城市2路线集合
         if (cityList2 == null) {
             cityList2 = new ArrayList();
             map.put(city2, cityList2);
@@ -63,10 +63,10 @@ public class MyMap1 {
         reachedWay.add(from);// 把经过的城市加入到城市集合中
         if (reachedWay.size() > 1) {
 			/* ---计算所花时间--- */
-            List initList = (List) map.get(reachedWay.get(0));
+            List initList = map.get(reachedWay.get(0));
 
-            for (int j = 0; j < initList.size(); j++) {
-                Way w = (Way) initList.get(j);
+            for (Object list : initList) {
+                Way w = (Way) list;
                 if (w.to.equals(reachedWay.get(1))) {
                     tempTime += w.cost;
 
@@ -79,9 +79,9 @@ public class MyMap1 {
 
             for (int i = 1; i < reachedWay.size(); i++) {
                 // 所经过的城市用时加起来
-                List toList = (List) map.get(reachedWay.get(i));
-                for (int j = 0; j < toList.size(); j++) {
-                    Way w = (Way) toList.get(j);
+                List toList = map.get(reachedWay.get(i));
+                for (Object list : toList) {
+                    Way w = (Way) list;
                     if (i + 1 < reachedWay.size()) {
                         if (w.to.equals(reachedWay.get(i + 1))) {
                             tempTime += w.cost;
@@ -105,16 +105,15 @@ public class MyMap1 {
             }
             System.out.println(route + "\ttime used：" + tempTime);
             routeMap.put(tempTime, route);
-            tempTime = 0;
             reachedWay.remove(reachedWay.size() - 1);// 到达后退回去，走下一路线
             return;
         }
 
         //still finding the path
         // 获得from城市能够到达到城市列表
-        List routeList = (List) map.get(from);
-        for (Iterator iterator = routeList.iterator(); iterator.hasNext();) {
-            Way way = (Way) iterator.next();
+        List routeList = map.get(from);
+        for (Object aRouteList : routeList) {
+            Way way = (Way) aRouteList;
             run(way.to, to);
         }
         reachedWay.remove(reachedWay.size() - 1);// 走完退回去，走下一路线
@@ -123,12 +122,12 @@ public class MyMap1 {
     //print the path use the shortest time
     public void show(String city1, String city2) {
         run(city1, city2);
-        Set s = routeMap.keySet();
+        Set<Integer> s = routeMap.keySet();
         Object[] a = s.toArray();
         int shortestTime = (Integer) a[0];
-        for (int i = 0; i < a.length; i++) {
-            if ((Integer) a[i] < shortestTime) {
-                shortestTime = (Integer) a[i];
+        for (Object anA : a) {
+            if ((Integer) anA < shortestTime) {
+                shortestTime = (Integer) anA;
             }
         }
         System.out.println("\nthe shortest path:" + routeMap.get(shortestTime) + "\tthe time used:"
@@ -150,7 +149,6 @@ public class MyMap1 {
         map.addRoute("圳", "渝", 16);
         
         map.show("汉", "沪");
-        
     }
 
 }

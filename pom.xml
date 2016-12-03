@@ -761,6 +761,21 @@
             <version>1.8.9</version>
         </dependency>
 
+        <!-- Castor is an open source data binding framework for Java[tm].
+         It’s the shortest path between Java objects, XML documents and relational tables. -->
+        <dependency>
+            <groupId>org.codehaus.castor</groupId>
+            <artifactId>castor-xml</artifactId>
+            <version>1.4.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>1.29</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 </project>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Persons xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+    <Person i:Type="worker">
+        <Name>Unmi</Name>
+        <Address>st1|st2</Address>
+    </Person>
+    <Person i:Type="yuan">
+        <Name>Fantasia</Name>
+        <Address>sz|gd</Address>
+    </Person>
+</Persons>

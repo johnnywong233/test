@@ -8,11 +8,12 @@ package thread;
  * td1睡眠结束后需要锁定o2才能继续执行，而此时o2已被td2锁定；
  * td2睡眠结束后需要锁定o1才能继续执行，而此时o1已被td1锁定；
  * td1、td2相互等待，都需要得到对方锁定的资源才能继续执行，从而死锁。
-*/
-public class DeadLockDemo implements Runnable{
+ */
+public class DeadLockDemo implements Runnable {
     public int flag = 1;
     //静态对象是类的所有对象共享的
     private static Object o1 = new Object(), o2 = new Object();
+
     @Override
     public void run() {
         System.out.println("flag=" + flag);

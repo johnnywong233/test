@@ -20,19 +20,18 @@ import com.jcraft.jsch.Session;
 public class JSchDemo {
     private String charset = "UTF-8";
     private String user;
-    private String passwd;
+    private String password;
     private String host;
-    private JSch jsch;
     private Session session;
 
     /**
      * @param user   用户名
-     * @param passwd 密码
+     * @param password 密码
      * @param host   主机IP
      */
-    public JSchDemo(String user, String passwd, String host) {
+    public JSchDemo(String user, String password, String host) {
         this.user = user;
-        this.passwd = passwd;
+        this.password = password;
         this.host = host;
     }
 
@@ -42,9 +41,9 @@ public class JSchDemo {
      * @throws JSchException
      */
     public void connect() throws JSchException {
-        jsch = new JSch();
+        JSch jsch = new JSch();
         session = jsch.getSession(user, host, 22);
-        session.setPassword(passwd);
+        session.setPassword(password);
         java.util.Properties config = new java.util.Properties();
         config.put("StrictHostKeyChecking", "no");
         session.setConfig(config);
@@ -56,11 +55,9 @@ public class JSchDemo {
      */
     public void execCmd() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        String command = "";
+        String command;
         BufferedReader reader = null;
         Channel channel = null;
-
         try {
             while ((command = br.readLine()) != null) {
                 channel = session.openChannel("exec");
@@ -72,22 +69,24 @@ public class JSchDemo {
                 InputStream in = channel.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(in,
                         Charset.forName(charset)));
-                String buf = null;
+                String buf;
                 while ((buf = reader.readLine()) != null) {
                     System.out.println(buf);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSchException e) {
+        } catch (IOException | JSchException e) {
             e.printStackTrace();
         } finally {
             try {
-                reader.close();
+                if (reader != null) {
+                    reader.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            channel.disconnect();
+            if (channel != null) {
+                channel.disconnect();
+            }
             session.disconnect();
         }
     }

@@ -25,17 +25,14 @@ public class DaemonThread implements Runnable {
 
     public static void main(String[] args) {
         System.out.println("entering main()");
-
         Thread t = new Thread(new DaemonThread());
         t.setDaemon(true);
         t.start();
-
         try {
             Thread.sleep(4000);
         } catch (InterruptedException x) {
             x.printStackTrace();
         }
-
         System.out.println("leaving main()");
     }
 
