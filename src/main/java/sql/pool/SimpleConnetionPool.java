@@ -17,7 +17,7 @@ import java.util.LinkedList;
  */
 public class SimpleConnetionPool {
 
-	//http://developer.51cto.com/art/200907/137300.htm
+    //http://developer.51cto.com/art/200907/137300.htm
     public static void main(String[] args) {
         SimpleConnetionPool.setUrl(DBTools.getDatabaseUrl());
         SimpleConnetionPool.setUser(DBTools.getDatabaseUserName());
@@ -27,29 +27,21 @@ public class SimpleConnetionPool {
         Connection con1 = SimpleConnetionPool.getConnection();
         Connection con2 = SimpleConnetionPool.getConnection();
 
-        //do something with con ...
+        //TODO:do something with con ...
 
         try {
-            con.close();
-        } catch (Exception e) {}
-
-        try {
-            con1.close();
-        } catch (Exception e) {}
-
-        try {
-            con2.close();
-        } catch (Exception e) {}
-
-        con = SimpleConnetionPool.getConnection();
-        con1 = SimpleConnetionPool.getConnection();
-        try {
-            con1.close();
-        } catch (Exception e) {}
-
-        con2 = SimpleConnetionPool.getConnection();
-        SimpleConnetionPool.printDebugMsg();
-
+            if (con != null) {
+                con.close();
+            }
+            if (con1 != null) {
+                con1.close();
+            }
+            if (con2 != null) {
+                con2.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static LinkedList m_notUsedConnection = new LinkedList();
@@ -57,7 +49,7 @@ public class SimpleConnetionPool {
     private static String m_url = "";
     private static String m_user = "";
     private static String m_password = "";
-    static final boolean DEBUG = true;
+    private static final boolean DEBUG = true;
     static private long m_lastClearClosedConnection = System.currentTimeMillis();
     public static long CHECK_CLOSED_CONNECTION_TIME = 4 * 60 * 60 * 1000; //4 hours
 
@@ -70,18 +62,17 @@ public class SimpleConnetionPool {
 
     private static void initDriver() {
         Driver driver = null;
-        //load mysql driver
         try {
+            //load mysql driver
             driver = (Driver) Class.forName("com.mysql.jdbc.Driver").newInstance();
             installDriver(driver);
-        } catch (Exception e) {
-        }
 
-        //load postgresql driver
-        try {
+            //load postgresql driver
             driver = (Driver) Class.forName("org.postgresql.Driver").newInstance();
             installDriver(driver);
+
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -111,8 +102,8 @@ public class SimpleConnetionPool {
             }
         }
         int newCount = getIncreasingConnectionCount();
-        LinkedList<ConnectionWrapper> list = new LinkedList<ConnectionWrapper>();
-        ConnectionWrapper wrapper = null;
+        LinkedList<ConnectionWrapper> list = new LinkedList<>();
+        ConnectionWrapper wrapper;
         for (int i = 0; i < newCount; i++) {
             wrapper = getNewConnection();
             if (wrapper != null) {
@@ -122,7 +113,7 @@ public class SimpleConnetionPool {
         if (list.size() == 0) {
             return null;
         }
-        wrapper = (ConnectionWrapper) list.removeFirst();
+        wrapper = list.removeFirst();
         m_usedUsedConnection.add(wrapper);
 
         m_notUsedConnection.addAll(list);
@@ -155,7 +146,7 @@ public class SimpleConnetionPool {
         Iterator iterator = m_notUsedConnection.iterator();
         while (iterator.hasNext()) {
             try {
-                ( (ConnectionWrapper) iterator.next()).close();
+                ((ConnectionWrapper) iterator.next()).close();
                 count++;
             } catch (Exception e) {
             }
@@ -226,6 +217,7 @@ public class SimpleConnetionPool {
 
     /**
      * get increasing connection count, not just add 1 connection
+     *
      * @return count
      */
     public static int getIncreasingConnectionCount() {
@@ -240,6 +232,7 @@ public class SimpleConnetionPool {
 
     /**
      * get decreasing connection count, not just remove 1 connection
+     *
      * @return count
      */
     public static int getDecreasingConnectionCount() {
@@ -345,8 +338,7 @@ class ConnectionWrapper implements InvocationHandler {
         Object obj = null;
         if (CLOSE_METHOD_NAME.equals(m.getName())) {
             SimpleConnetionPool.pushConnectionBackToPool(this);
-        }
-        else {
+        } else {
             obj = m.invoke(m_originConnection, args);
         }
         lastAccessTime = System.currentTimeMillis();
@@ -355,20 +347,20 @@ class ConnectionWrapper implements InvocationHandler {
 }
 
 //TODO
-class DBTools{
-    public static String getDatabaseUrl(){
-    	String url = null;
+class DBTools {
+    public static String getDatabaseUrl() {
+        String url = null;
 
         return url;
     }
 
-    public static String getDatabaseUserName(){
+    public static String getDatabaseUserName() {
         String username = "";
 
         return username;
     }
 
-    public static String getDatabasePassword(){
+    public static String getDatabasePassword() {
         String password = "";
 
         return password;

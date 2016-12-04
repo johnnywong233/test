@@ -1,4 +1,4 @@
-package io;
+package io.ftpclient;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -14,6 +14,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.junit.Test;
+
+import static org.testng.reporters.jq.BasePanel.C;
 
 /**
  * Created by wajian on 2016/8/26.
@@ -147,4 +149,85 @@ public class FtpClientDemo {
         }
         return success;
     }
+
+    /**
+     * 从FTP服务器下载文件
+     *
+     * @param url        FTP服务器hostname
+     * @param port       FTP服务器端口
+     * @param username   FTP登录账号
+     * @param password   FTP登录密码
+     * @param remotePath FTP服务器上的相对路径
+     * @param fileName   要下载的文件名
+     * @param localPath  下载后保存到本地的路径
+     * @return
+     */
+    public static boolean downSertainFile(String url, int port, String username, String password, String remotePath, String fileName, String localPath) {
+        boolean success = false;
+        boolean bOKFileExist = false;
+        FTPClient ftpClient = new FTPClient();
+        try {
+            //连接FTP服务器
+            ftpClient.connect(url, port);
+            //登录
+            ftpClient.login(username, password);
+            System.out.println("remotePath:" + remotePath);
+            //FTP服务器路径(文件夹路径)
+            //转移到FTP服务器目录
+            boolean bool = ftpClient.changeWorkingDirectory(remotePath);
+            System.out.println("bool:" + bool);
+            //遍历FTP服务器目录下的文件
+            FTPFile[] files = ftpClient.listFiles();
+            for (FTPFile ff : files) {
+                System.out.println(ff.getName());
+                if (ff.getName().equals(fileName)) {
+                    bOKFileExist = true;
+                }
+            }
+            File file = new File(localPath);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            if (bOKFileExist) {
+                for (FTPFile ff : files) {
+                    if (ff.getName().endsWith("txt")) {
+                        //设置缓冲区大小
+                        ftpClient.setBufferSize(1024);
+                        File localFile = new File(localPath + ff.getName());
+                        //文件输出流
+                        FileOutputStream is = new FileOutputStream(localFile);
+                        System.out.println("is:" + localPath + ff.getName());
+                        System.out.println("retrieve:" + remotePath + ff.getName());
+                        //取得FTP服务器上的指定文件，并写入指定的字节流中
+                        boolean b = ftpClient.retrieveFile(ff.getName(), is);
+                        System.out.println("b:" + b);
+                        //关闭流
+                        is.close();
+                        if (!b) {
+                            success = true;
+                        } else {
+                            success = true;
+                        }
+                    }
+                }
+                ftpClient.logout();
+            } else {
+                success = false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            success = false;
+        } finally {
+            if (ftpClient.isConnected()) {
+                try {
+                    ftpClient.disconnect();
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+        }
+        return success;
+    }
+
+
 }

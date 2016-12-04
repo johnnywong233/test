@@ -16,9 +16,9 @@ import com.jcraft.jsch.UserInfo;
  * 采用Java模拟shell操作
  */
 public class ShellDemo {
-    private static final String USER = "root";
-    private static final String PASSWORD = "********";//TODO
-    private static final String HOST = "localhost";
+    private static final String USER = "hpba";
+    private static final String PASSWORD = "openview";
+    private static final String HOST = "Graphics";
     private static final int DEFAULT_SSH_PORT = 22;
 
     //http://www.importnew.com/22322.html
@@ -99,9 +99,9 @@ public class ShellDemo {
       ((ChannelShell)channel).setEnv("LANG", "ja_JP.eucJP");
       */
             //channel.connect();
-            channel.connect(3 * 1000);
+            channel.connect();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 }

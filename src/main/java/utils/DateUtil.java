@@ -115,7 +115,16 @@ public class DateUtil {
         return compare >= 0;
     }
 
+    public static String monthOperate() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.MONTH, -1);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dateFormat.format(cal.getTime());
+    }
+
     public static void main(String[] args) {
+        System.out.println(monthOperate());
         System.out.println(getNow());
         System.out.println(getNowDateTimeStr());
         System.out.println(getNowDateTimeStrFormatTwo());

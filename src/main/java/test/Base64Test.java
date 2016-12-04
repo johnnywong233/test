@@ -5,12 +5,8 @@ import org.apache.commons.codec.binary.Base64;
 public class Base64Test {
 	public static void main(String[] args) {
 		
-		/*
-		 * 本意是测试trim方法的效果和作用
-		 */
-		//TODO: 2016/11/5
+
 		String str = "Test Base64";
-		//报错，之前还用过这个方法，怎么回事？
 //		String notTrim = Base64.encodeBase64String(str.getBytes());
 		
 		//
