@@ -14,6 +14,7 @@ import java.time.LocalDate;
 
 /**
  * Created by wajian on 2016/9/7.
+ * demo of jaxb
  */
 public class AdaptersDemo extends XmlAdapter<String, LocalDate> {
 
@@ -29,19 +30,19 @@ public class AdaptersDemo extends XmlAdapter<String, LocalDate> {
 
     public static void main(String[] args) {
         AdaptersDemo demo = new AdaptersDemo();
-    	Person person = new Person();
+        Person person = new Person();
         String date = "2016-09-07";
         LocalDate localDate = null;
-		try {
-			localDate = demo.unmarshal(date);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        try {
+            localDate = demo.unmarshal(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         person.setBirthday(localDate);
-    	
-    	jaxbMarshal(person);
-        
-    	//TODO: why error?
+
+        jaxbMarshal(person);
+
+        //TODO: why error?
         File file = new File("C:\\work\\Demo\\johnny\\src\\test\\resources\\testJaxbAdapter.xml");
         jaxbUnmarshal(file);
 
@@ -80,7 +81,7 @@ public class AdaptersDemo extends XmlAdapter<String, LocalDate> {
 
 }
 
-@XmlRootElement( name = "Persons" )
+@XmlRootElement(name = "Persons")
 class Person {
     private List<Person> person;
     private LocalDate birthday;
@@ -93,7 +94,7 @@ class Person {
         this.person = person;
     }
 
-    @XmlJavaTypeAdapter( AdaptersDemo.class )
+    @XmlJavaTypeAdapter(AdaptersDemo.class)
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
@@ -104,8 +105,8 @@ class Person {
 
     @Override
     public String toString() {
-        StringBuffer str = new StringBuffer();
-        for(Person person : this.person) {
+        StringBuilder str = new StringBuilder();
+        for (Person person : this.person) {
             str.append(person.toString());
             str.append("\n");
         }

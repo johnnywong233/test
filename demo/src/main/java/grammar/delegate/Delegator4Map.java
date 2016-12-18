@@ -1,19 +1,19 @@
 package grammar.delegate;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /*
  * http://www.cnblogs.com/soojoe/archive/2012/04/12/2532304.html
  */
 
-public class Delegator4Map extends Delegator{
-	private static Log _log = LogFactory.getLog(Delegator4Map.class);
+public class Delegator4Map extends Delegator {
+    private static Log _log = LogFactory.getLog(Delegator4Map.class);
     private Map orginClass = null; //原始对象
     private Map proxyClass = null; //代理对象
 

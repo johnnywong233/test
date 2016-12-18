@@ -17,7 +17,6 @@ import java.net.URL;
 public class GetPageContent {
 
 
-
     //here is the key code
     public static void initProxy(String host, int port, final String username, final String password) {
         //TODO

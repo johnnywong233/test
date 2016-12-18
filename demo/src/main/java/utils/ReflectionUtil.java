@@ -1,4 +1,4 @@
-package grammar.reflection;
+package utils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 /**
- * Created by wajian on 2016/10/11.
+ * Created by wajian on s2016/10/11.
  */
 public class ReflectionUtil {
     //http://azrael6619.iteye.com/blog/429797

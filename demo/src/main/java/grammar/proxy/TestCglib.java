@@ -1,9 +1,10 @@
 package grammar.proxy;
 
-import java.lang.reflect.Method;  
-import net.sf.cglib.proxy.Enhancer;  
-import net.sf.cglib.proxy.MethodInterceptor;  
-import net.sf.cglib.proxy.MethodProxy;  
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
+
+import java.lang.reflect.Method;
 
 public class TestCglib {
 	static class MethodInterceptorImpl implements MethodInterceptor {
@@ -23,7 +24,7 @@ public class TestCglib {
 	     
     class TestClass {
     	public void doSome() {
-    	    System.out.println("====>咿呀咿呀喂");  
+    	    System.out.println("====>you suck johnny");
     	}  
     }  
 }

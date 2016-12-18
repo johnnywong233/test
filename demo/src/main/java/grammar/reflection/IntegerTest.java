@@ -5,7 +5,6 @@ import java.util.Random;
 
 /**
  * Created by wajian on 2016/10/5.
- * 
  */
 public class IntegerTest {
     //http://www.mincoder.com/article/4432.shtml

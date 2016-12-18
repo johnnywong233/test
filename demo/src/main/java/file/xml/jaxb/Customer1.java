@@ -45,5 +45,4 @@ public class Customer1 {
         return "Customer [id=" + id + ",names=" + names + ",age=" + age + "]";
     }
 
-
 }

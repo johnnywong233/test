@@ -12,7 +12,7 @@ import org.junit.Test;
  */
 public class CollectionsTest {
     @Test
-    public void test(){
+    public void test() {
         Collection<String> c = new ArrayList<>();
         //get a copy of original collection, and s is final object,
         //modify it will throw a java.lang.@link UnsupportedOperationException @see 

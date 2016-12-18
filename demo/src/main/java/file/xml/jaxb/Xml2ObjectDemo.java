@@ -9,13 +9,13 @@ import java.io.File;
 public class Xml2ObjectDemo {
     public static void main(String[] args) {
         try {
-            File file = new File("E:\\Java_ex\\test_file\\file1.xml");  
+            File file = new File("E:\\Java_ex\\test_file\\file1.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Customer.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             Customer customer = (Customer) jaxbUnmarshaller.unmarshal(file);
-            System.out.println(customer);  
+            System.out.println(customer);
         } catch (JAXBException e) {
-            e.printStackTrace();  
-        }  
-    }  
+            e.printStackTrace();
+        }
+    }
 }

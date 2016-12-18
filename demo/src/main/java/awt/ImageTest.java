@@ -1,5 +1,6 @@
 package awt;
 
+import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
@@ -8,18 +9,14 @@ import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.io.File;
 
-import javax.imageio.ImageIO;
-
 public class ImageTest {
 	/**
 	 * 生成缩略图 
 	 * fromFileStr:源图片路径 
 	 * saveToFileStr:缩略图路径 
-	 * width:缩略图的宽 
-	 * height:缩略图的高
 	 */
 	public static void saveImageAsJpg(String fromFileStr, String saveToFileStr,
-			int width, int hight) throws Exception {
+			int width, int height) throws Exception {
 		BufferedImage srcImage;
 		String imgType = "JPEG";
 		if (fromFileStr.toLowerCase().endsWith(".png")){
@@ -28,8 +25,8 @@ public class ImageTest {
 		File fromFile = new File(fromFileStr);
 		File saveFile = new File(saveToFileStr);
 		srcImage = ImageIO.read(fromFile);
-		if (width > 0 || hight > 0) {
-			srcImage = resize(srcImage, width, hight);
+		if (width > 0 || height > 0) {
+			srcImage = resize(srcImage, width, height);
 		}
 		ImageIO.write(srcImage, imgType, saveFile);
 	}
@@ -37,13 +34,11 @@ public class ImageTest {
 	/**
 	 * 将源图片的BufferedImage对象生成缩略图 
 	 * source:源图片的BufferedImage对象 
-	 * targetW:缩略图的宽
-	 * targetH:缩略图的高
 	 */
 	public static BufferedImage resize(BufferedImage source, int targetW,
 			int targetH) {
 		int type = source.getType();
-		BufferedImage target = null;
+		BufferedImage target;
 		double sx = (double) targetW / source.getWidth();
 		double sy = (double) targetH / source.getHeight();
 		

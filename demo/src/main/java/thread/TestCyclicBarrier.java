@@ -12,11 +12,7 @@ public class TestCyclicBarrier {
         ExecutorService exec = Executors.newCachedThreadPool();
         final Random random = new Random();
 
-        final CyclicBarrier barrier = new CyclicBarrier(4, new Runnable() {
-            public void run() {
-                System.out.println("大家都到齐了，开始happy去");
-            }
-        });
+        final CyclicBarrier barrier = new CyclicBarrier(4, () -> System.out.println("everyone is here"));
 
         for (int i = 0; i < 4; i++) {
             exec.execute(() -> {
@@ -25,9 +21,9 @@ public class TestCyclicBarrier {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread().getName() + "到了，其他哥们呢");
+                System.out.println(Thread.currentThread().getName() + "is here, where is the other");
                 try {
-                    barrier.await();//等待其他哥们
+                    barrier.await();//wait for others
                 } catch (InterruptedException | BrokenBarrierException e) {
                     e.printStackTrace();
                 }

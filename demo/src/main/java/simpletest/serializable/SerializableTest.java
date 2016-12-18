@@ -15,7 +15,7 @@ public class SerializableTest implements Serializable {
 
     public static void main(String[] args) {
         try {
-            ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream("result.obj"));
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("result.obj"));
             out.writeObject(new SerializableTest());
             out.close();
 

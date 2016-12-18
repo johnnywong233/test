@@ -8,7 +8,7 @@ public class SynchronizedTest1 implements Runnable {
         }
     }
 
-    //同步方法
+    //synchronize on method
     public synchronized void sale() {
         if (count > 0) {
             try {

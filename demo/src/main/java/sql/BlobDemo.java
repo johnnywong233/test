@@ -36,11 +36,7 @@ public class BlobDemo {
             sta.executeUpdate();
             sta.clearParameters();
             input.close();//释放资源；
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
         } finally {
             if (con != null) {
@@ -53,7 +49,7 @@ public class BlobDemo {
         }
         Statement stat = null;
         try {
-            //数据的取得
+            assert con != null;
             stat = con.createStatement();
             stat.executeQuery("select* from luser;");
             res.next();
@@ -64,9 +60,7 @@ public class BlobDemo {
             out.write(blob.getBytes(1, (int) blob.length()));
             out.flush();
             out.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
         } finally {
             if (stat != null) {

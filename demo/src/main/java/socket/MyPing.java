@@ -25,6 +25,7 @@ public class MyPing {
 
     /**
      * 简单判断两台机器的可达性
+     *
      * @param ip ip
      */
     void isAddressAvailable(String ip) {
@@ -70,8 +71,9 @@ public class MyPing {
 
     /**
      * 指定本地地址和远程地址，判断两台机器之间的可达性
+     *
      * @param remoteAddr remote address
-     * @param port port
+     * @param port       port
      */
     void printReachableIP(InetAddress remoteAddr, int port) {
         String retIP = null;

@@ -22,13 +22,12 @@ public class WrapperDemo {
         coder.setId(111);
         coder.setName("Johnny");
         coder.setAge(26);
-        coder.setLanguage(new String[]{"Java","Python","SQL"});
+        coder.setLanguage(new String[]{"Java", "Python", "SQL"});
 
         jaxbMarshal(coder);
 
     }
-	
-	
+
     //JAXB marshal: convert object into XML file
     private static void jaxbMarshal(MultiCoder coder) {
         try {
@@ -51,7 +50,7 @@ public class WrapperDemo {
 }
 
 @XmlRootElement
-@XmlType(propOrder = {"name", "age", "language"}) 
+@XmlType(propOrder = {"name", "age", "language"})
 class MultiCoder {
 
     private String name;
@@ -92,8 +91,8 @@ class MultiCoder {
     }
 
     //use @XmlElementWrapper annotation will create another xml layer
-    @XmlElementWrapper(name="languages")
-    @XmlElement(name="language")
+    @XmlElementWrapper(name = "languages")
+    @XmlElement(name = "language")
     public String[] getLanguage() {
         return language;
     }

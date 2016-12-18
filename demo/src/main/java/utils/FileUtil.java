@@ -26,23 +26,19 @@ import java.util.List;
  */
 public class FileUtil {
 
-    //获取系统中的分隔符。
     private static final String NAME_SEPARATOR = File.separator;
 
     /**
-     * 下载文件
+     * download file
      */
     public static void downFile(HttpServletRequest request,
                                 HttpServletResponse response, String fileName) throws FileNotFoundException {
         String filePath = request.getSession().getServletContext().getRealPath("/")
-                + "template/" + fileName;  //需要下载的文件路径
-        // 读到流中
-        InputStream inStream = new FileInputStream(filePath);// 文件的存放路径
-        // 设置输出的格式
+                + "template/" + fileName;
+        InputStream inStream = new FileInputStream(filePath);
         response.reset();
         response.setContentType("bin");
         response.addHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-        // 循环取出流中的数据
         byte[] b = new byte[100];
         int len;
         try {
@@ -117,11 +113,10 @@ public class FileUtil {
         List<String> list = null;
         if (files != null) {
             for (File file : files) {
-                if (file.isDirectory()) {  //如果是目录就递归，
+                if (file.isDirectory()) {
                     listSuffixFile(file, filter);
                 } else {
                     if (filter.accept(file, file.getName())) { //否则使用过滤器对指定的文件名，过滤。
-                        //符合条件，进行存储。
                         list.add(file.getName());
                     }
                 }
@@ -211,10 +206,8 @@ public class FileUtil {
             String name = file.getName();
             //如果是一个目录，搜索深度depth++，输出目录名后，进行递归
             if (file.isDirectory()) {
-                //递归
                 dirErgodic(file.getCanonicalPath(), currentDepth);
             } else {
-                //如果是文件，则直接输出文件名
                 for (int j = 0; j < currentDepth; j++) {
                     System.out.print("   ");
                 }

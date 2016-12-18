@@ -2,7 +2,7 @@ package utils;
 
 import org.testng.annotations.Test;
 
-public class RandomStringUtil {
+public class StringUtil {
 
     @Test
     public void testCreateRandom() {

@@ -15,8 +15,17 @@ import java.util.stream.Collectors;
  * Date: 2016/10/14
  * Time: 0:34
  */
+
+/**
+ * the original java properties is extended from HashTable, which do not make sure the order
+ *
+ * //http://unmi.cc/ordered-java-properties-class/
+ * //http://stackoverflow.com/questions/1312383/pulling-values-from-a-java-properties-file-in-order
+ * //https://github.com/playframework/play1/blob/master/framework/src/play/utils/OrderSafeProperties.java
+ * http://livedocs.adobe.com/jrun/4/javadocs/jrunx/util/OrderedProperties.html
+ * http://www.openrdf.org/doc/alibaba/2.0-rc4/apidocs/org/openrdf/repository/object/composition/helpers/OrderedProperties.html
+ */
 public class OrderedProperties extends Properties {
-    //http://unmi.cc/ordered-java-properties-class/
     public static void main(String[] args) throws IOException {
         Properties props = new OrderedProperties();
         FileInputStream fis = new FileInputStream(new File(""));
@@ -42,7 +51,6 @@ public class OrderedProperties extends Properties {
     }
 
     public Set<String> stringPropertyNames() {
-        Set<String> set = this.keys.stream().map(key -> (String) key).collect(Collectors.toCollection(LinkedHashSet::new));
-        return set;
+        return this.keys.stream().map(key -> (String) key).collect(Collectors.toCollection(LinkedHashSet::new));
     }
 }

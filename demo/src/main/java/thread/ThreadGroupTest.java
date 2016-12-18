@@ -36,7 +36,7 @@ public class ThreadGroupTest extends ThreadGroup {
     }
 
     public static void main(String[] args) {
-        ThreadGroupTest threadGroup = new ThreadGroupTest("ThreadGroupTest");
+        ThreadGroupTest test = new ThreadGroupTest("ThreadGroupTest");
 
 //		Task task=new Task();
 //		for (int i=0; i<2; i++){

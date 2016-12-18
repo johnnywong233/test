@@ -8,8 +8,8 @@ import java.io.InputStreamReader;
  * Created by wajian on 2016/8/16.
  */
 public class ExecuteShell1 {
-	//http://www.jb51.net/article/44211.htm
-	/*
+    //http://www.jb51.net/article/44211.htm
+    /*
 	 * 结果会创建一个testdir目录。
 	我尝试用这种方法创建通过ssh登录到远程机器，遇到两个问题：
 	1）如果希望没有人机对话方式，则需要使用命令sshpass -p password ssh user@targetIP 'command'
@@ -34,38 +34,38 @@ public class ExecuteShell1 {
 }
 
 class CommandResult {
-	
-    public static final int EXIT_VALUE_TIMEOUT=-1;
-    
+
+    public static final int EXIT_VALUE_TIMEOUT = -1;
+
     private String output;
-    
+
     void setOutput(String error) {
-        output=error;
+        output = error;
     }
-    
-    String getOutput(){
+
+    String getOutput() {
         return output;
     }
-    
+
     int exitValue;
-    
+
     void setExitValue(int value) {
-        exitValue=value;
+        exitValue = value;
     }
-    
-    int getExitValue(){
+
+    int getExitValue() {
         return exitValue;
     }
-    
+
     private String error;
-    
+
     /**
      * @return the error
      */
     public String getError() {
         return error;
     }
-    
+
     /**
      * @param error the error to set
      */
@@ -80,6 +80,7 @@ class CommandHelper {
     public static int DEFAULT_TIMEOUT;
     public static final int DEFAULT_INTERVAL = 1000;
     public static long START;
+
     public static CommandResult exec(String command) throws IOException, InterruptedException {
         Process process = Runtime.getRuntime().exec(command);
         CommandResult commandResult = wait(process);
@@ -88,11 +89,11 @@ class CommandHelper {
         }
         return commandResult;
     }
-    
+
     private static boolean isOverTime() {
         return System.currentTimeMillis() - START >= DEFAULT_TIMEOUT;
     }
-    
+
     private static CommandResult wait(Process process) throws InterruptedException, IOException {
         BufferedReader errorStreamReader = null;
         BufferedReader inputStreamReader = null;
@@ -102,7 +103,7 @@ class CommandHelper {
             //timeout control
             START = System.currentTimeMillis();
             boolean isFinished = false;
-            for (;;) {
+            for (; ; ) {
                 if (isOverTime()) {
                     CommandResult result = new CommandResult();
                     result.setExitValue(CommandResult.EXIT_VALUE_TIMEOUT);
@@ -136,7 +137,7 @@ class CommandHelper {
                     isFinished = true;
                     process.exitValue();
                 } catch (IllegalThreadStateException e) {
-                	// process hasn't finished yet
+                    // process hasn't finished yet
                     isFinished = false;
                     Thread.sleep(DEFAULT_INTERVAL);
                 }
@@ -146,12 +147,14 @@ class CommandHelper {
                 try {
                     errorStreamReader.close();
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             if (inputStreamReader != null) {
                 try {
                     inputStreamReader.close();
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }

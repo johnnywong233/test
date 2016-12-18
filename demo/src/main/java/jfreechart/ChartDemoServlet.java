@@ -1,10 +1,14 @@
 package jfreechart;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServlet;
-
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
@@ -12,14 +16,11 @@ import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
-import org.jfree.chart.*;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.LineAndShapeRenderer;
-import org.jfree.chart.title.TextTitle;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServlet;
 import java.awt.Font;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -200,32 +201,32 @@ public class ChartDemoServlet extends HttpServlet {
     //生成饼图数据
     private static DefaultPieDataset getDataSet() {
         DefaultPieDataset dataset = new DefaultPieDataset();
-        dataset.setValue("苹果", 100);
-        dataset.setValue("梨子", 200);
-        dataset.setValue("葡萄", 300);
-        dataset.setValue("香蕉", 400);
-        dataset.setValue("荔枝", 500);
+        dataset.setValue("apple", 100);
+        dataset.setValue("pear", 200);
+        dataset.setValue("grape", 300);
+        dataset.setValue("banana", 400);
+        dataset.setValue("litchi", 500);
         return dataset;
     }
 
     //生成柱状图数据
     private static CategoryDataset getDataSet2() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(100, "北京", "苹果");
-        dataset.addValue(100, "上海", "苹果");
-        dataset.addValue(100, "广州", "苹果");
-        dataset.addValue(200, "北京", "梨子");
-        dataset.addValue(200, "上海", "梨子");
-        dataset.addValue(200, "广州", "梨子");
-        dataset.addValue(300, "北京", "葡萄");
-        dataset.addValue(300, "上海", "葡萄");
-        dataset.addValue(300, "广州", "葡萄");
-        dataset.addValue(400, "北京", "香蕉");
-        dataset.addValue(400, "上海", "香蕉");
-        dataset.addValue(400, "广州", "香蕉");
-        dataset.addValue(500, "北京", "荔枝");
-        dataset.addValue(500, "上海", "荔枝");
-        dataset.addValue(500, "广州", "荔枝");
+        dataset.addValue(100, "BJ", "apple");
+        dataset.addValue(100, "SH", "apple");
+        dataset.addValue(100, "GZ", "apple");
+        dataset.addValue(200, "BJ", "pear");
+        dataset.addValue(200, "SH", "pear");
+        dataset.addValue(200, "GZ", "pear");
+        dataset.addValue(300, "BJ", "grape");
+        dataset.addValue(300, "SH", "grape");
+        dataset.addValue(300, "GZ", "grape");
+        dataset.addValue(400, "BJ", "banana");
+        dataset.addValue(400, "SH", "banana");
+        dataset.addValue(400, "GZ", "banana");
+        dataset.addValue(500, "BJ", "litchi");
+        dataset.addValue(500, "SH", "litchi");
+        dataset.addValue(500, "GZ", "litchi");
         return dataset;
     }
 

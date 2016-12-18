@@ -15,13 +15,16 @@ public class XML2VCF {
         // use dom4j to read Contact.xml
         SAXReader reader = new SAXReader();
         Document document = null;
-		try {
-			document = reader.read(new File("C:/work/Demo/johnny/src/test/resources/Contact.xml"));
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}
+        try {
+            document = reader.read(new File("D:\\Java_ex\\test\\src\\test\\resources\\Contact.xml"));
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
 
-        Element root = document.getRootElement();
+        Element root = null;
+        if (document != null) {
+            root = document.getRootElement();
+        }
 
         //TODO
         //不搞定多节点，还是不懂xml解析。
@@ -31,7 +34,7 @@ public class XML2VCF {
         StringBuilder sb = new StringBuilder();
 
         // append into StringBuilder
-        for(Object contactObj : contacts) {
+        for (Object contactObj : contacts) {
             Element eleContact = (Element) contactObj;
 
             String name = eleContact.elementText("DisplayName");
@@ -47,9 +50,9 @@ public class XML2VCF {
 
         // StringBuilder write into vcf file
         try {
-			FileUtils.writeStringToFile(new File("C:/work/Demo/johnny/src/test/resources/test.vcf"), sb.toString(), "utf-8");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            FileUtils.writeStringToFile(new File("D:\\Java_ex\\test\\src\\test\\resources\\Contact.xml\\test.vcf"), sb.toString(), "utf-8");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

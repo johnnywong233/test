@@ -21,6 +21,7 @@ public class WaterMarkIconTest {
     //http://www.phpxs.com/code/1001578/
     public static void main(String[] args) {
 
+        //D:\Java_ex\test\demo\src\test\resources\KatyPerry.jpg
         File srcImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry.jpg");
         File logoImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\logo.png");
 

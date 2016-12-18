@@ -20,15 +20,15 @@ public class Demo1 {
         public int hashCode() {
             return id.hashCode();
         }
-        
+
         //must override both hashCode and equals, or as here OOM
         @Override
         public boolean equals(Object o) {
-          boolean response = false;
-          if (o instanceof Key) {
-           response = (((Key)o).id).equals(this.id);
-          }
-          return response;
+            boolean response = false;
+            if (o instanceof Key) {
+                response = (((Key) o).id).equals(this.id);
+            }
+            return response;
         }
     }
 

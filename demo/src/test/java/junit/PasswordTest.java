@@ -1,7 +1,6 @@
 package junit;
 
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,22 +21,22 @@ public class PasswordTest {
     }
 
     @Test
-    public void passwordLengthLessThan6LettersThrowsException(){
-        try{
+    public void passwordLengthLessThan6LettersThrowsException() {
+        try {
             Password.validate("123");
             Assert.fail("No exception thrown.");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             Assert.assertTrue(ex instanceof InvalidPasswordException);
             Assert.assertTrue(ex.getMessage().contains("contains at least 6"));
         }
     }
 
     @Test
-    public void passwordLengthMoreThan15LettersThrowsException(){
+    public void passwordLengthMoreThan15LettersThrowsException() {
         Throwable t = null;
-        try{
+        try {
             Password.validate("1234567890123456");
-        }catch(Exception ex){
+        } catch (Exception ex) {
             t = ex;
         }
 

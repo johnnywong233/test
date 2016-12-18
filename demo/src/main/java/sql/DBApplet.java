@@ -7,6 +7,9 @@ package sql;
  * ��SwingUtilities.invokeAndWait()�������������һ����JApplet�������ݿ�����ӡ�
  */
 
+import javax.swing.JApplet;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -15,10 +18,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import javax.swing.JApplet;
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 /*
  * JAVA案例开发集锦07.01
@@ -66,34 +65,24 @@ public class DBApplet extends JApplet {
     private void initComponents() {
         jScrollPane1 = new javax.swing.JScrollPane();
         taResponse = new javax.swing.JTextArea();
-        //��ʾsql��ѯ������ı�����
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         tfSql = new javax.swing.JTextField();
-        //����sql�����ı�����
         btnExecute = new javax.swing.JButton();
-        //sqlִ�а�ť
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         cbDriver = new javax.swing.JComboBox();
-        //���ݿ�����������
         jLabel7 = new javax.swing.JLabel();
         tfUrl = new javax.swing.JTextField();
-        //�������ݿ��url
         jLabel9 = new javax.swing.JLabel();
         tfUser = new javax.swing.JTextField();
-        //¼���û������ı���
         jLabel10 = new javax.swing.JLabel();
         tfPassword = new javax.swing.JTextField();
-        //¼���û�������ı���
         btnConnect = new javax.swing.JButton();
-        //����button
         btnDisconnect = new javax.swing.JButton();
-        //�ͷ����ݿ����ӵ�button
         setFont(new java.awt.Font("Verdana", 0, 12));
-        //��������
         jScrollPane1.setViewportView(taResponse);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -114,7 +103,6 @@ public class DBApplet extends JApplet {
             }
         });
         jPanel1.add(btnExecute);
-        //��jPanel1�ŵ��ϱ�
         getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
         jPanel3.setPreferredSize(new java.awt.Dimension(550, 100));
@@ -167,12 +155,10 @@ public class DBApplet extends JApplet {
             }
         });
         jPanel3.add(btnDisconnect);
-        //���ڲ��ֹ������ı���
         getContentPane().add(jPanel3, java.awt.BorderLayout.NORTH);
 
     }
 
-    //ִ�в�ѯ��sql���
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {
         if (!connected) {
             SwingUtilities.invokeLater(new Runnable() {
@@ -201,7 +187,6 @@ public class DBApplet extends JApplet {
                     //ʹ��Ԫ����
                     ResultSetMetaData rsmd = rs.getMetaData();
 
-                    //��ʹ����Ԫ�������ж��ж��ٸ��ֶ�
                     int count = rsmd.getColumnCount();
                     int i;
                     rsLine = "\n ����ֶ������£�\n";

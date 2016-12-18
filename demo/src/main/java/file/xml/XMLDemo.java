@@ -1,6 +1,13 @@
 package file.xml;
 
-import java.io.IOException;
+import com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
+import org.junit.Test;
+import org.w3c.dom.Document;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -10,17 +17,7 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
-
-import com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl;
+import java.io.IOException;
 
 //http://www.jb51.net/article/43715.htm
 public class XMLDemo {
@@ -131,7 +128,7 @@ public class XMLDemo {
             System.out.println(root.selectNodes("//cc").size());
             /*选择所有的book节点，并且有子节点author的*/
             System.out.println((root.selectNodes("//book[author]").size()));
-			/* 选择所有book节点，并且有属性category的   */
+            /* 选择所有book节点，并且有属性category的   */
             System.out.println((root.selectNodes("//book[@category]").size()));
 			/* 选择所有book节点，并且有子节点author值为James McGovern ，并且还有category属性节点值为WEB   下面的price节点*/
             System.out.println(root.selectNodes("//book[author='James McGovern'][@category='WEB']/price").size());

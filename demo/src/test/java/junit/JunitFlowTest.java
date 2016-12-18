@@ -6,38 +6,35 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import static org.eclipse.jetty.webapp.FragmentDescriptor.OtherType.After;
-import static org.eclipse.jetty.webapp.FragmentDescriptor.OtherType.Before;
-
 public class JunitFlowTest {
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		System.out.println("this is setUpBeforeClass()...");
-	}
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        System.out.println("this is setUpBeforeClass()...");
+    }
 
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-		System.out.println("this is tearDownAfterClass()...");
-	}
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+        System.out.println("this is tearDownAfterClass()...");
+    }
 
-	@Before
-	public void setUp() throws Exception {
-		System.out.println("this is setUp()...");
-	}
+    @Before
+    public void setUp() throws Exception {
+        System.out.println("this is setUp()...");
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		System.out.println("this is tearDown()...");
-	}
+    @After
+    public void tearDown() throws Exception {
+        System.out.println("this is tearDown()...");
+    }
 
-	@Test
-	public void test() {
-		System.out.println("this is test()...");
-	}
-	
-	@Test
-	public void test2() {
-		System.out.println("this is test2()...");
-	}
+    @Test
+    public void test() {
+        System.out.println("this is test()...");
+    }
+
+    @Test
+    public void test2() {
+        System.out.println("this is test2()...");
+    }
 
 }

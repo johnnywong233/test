@@ -1,4 +1,4 @@
-package file.pic;
+package file.pic.zxing;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -42,14 +42,14 @@ public class QRCode {
     /**
      * 生成带logo的二维码图片
      *
-     * @param qrUrl  url
+     * @param qrUrl       url
      * @param productName name of product
      */
     public static String getLogoQRCode(String qrUrl, String productName) {
 //      String filePath = (javax.servlet.http.HttpServletRequest)request.getSession().getServletContext().getRealPath("/") + "resources/images/logoImages/llhlogo.png";
         String filePath = "D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry.jpg";
         try {
-        	QRCode zp = new QRCode();
+            QRCode zp = new QRCode();
             BufferedImage bim = zp.getQR_CODEBufferedImage(qrUrl, BarcodeFormat.QR_CODE, 400, 400, zp.getDecodeHintType());
             return zp.addLogo_QRCode(bim, new File(filePath), new LogoConfig(), productName);
         } catch (Exception e) {
@@ -205,8 +205,6 @@ public class QRCode {
 
     /**
      * 设置二维码的格式参数
-     *
-     * @return
      */
     public Map<EncodeHintType, Object> getDecodeHintType() {
         // 用于设置QR二维码参数

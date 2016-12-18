@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.InvocationHandler;
 
-public class Delegator implements InvocationHandler  {
+public class Delegator implements InvocationHandler {
     protected Object obj_orgin = null; //原始对象
     protected Object obj_proxy = null; //代理对象
 

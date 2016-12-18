@@ -1,7 +1,7 @@
 package junit;
 
 public class Password {
-	public static void validate(String password) throws InvalidPasswordException {
+    public static void validate(String password) throws InvalidPasswordException {
         if (password == null || password.length() == 0) {
             throw new InvalidPasswordException("Password is required.");
         }

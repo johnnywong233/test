@@ -1,9 +1,4 @@
-package test;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+package htmlparser;
 
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
@@ -12,11 +7,17 @@ import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
+import test.Mp3;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Htmlparser1 {
     //http://www.jb51.net/article/46762.htm
     public static void main(String args[]) {
-        List<Mp3> mp3List = new ArrayList<Mp3>();
+        List<Mp3> mp3List = new ArrayList<>();
         //TODO replace with a meaningful url
         String url = "http://www.jb51.net";
         String htmlStr = utils.ParserUtil.getContentFromUrl(url);
@@ -46,7 +47,7 @@ public class Htmlparser1 {
                 tagNode.setText(tempNode.toHtml());
                 String claStr = tagNode.getAttribute("class");//claStr为bb-dotimg clearfix  song-item-hook { 'songItem': { 'sid': '113275822', 'sname': '我的要求不算高', 'author': '黄渤' } }
                 claStr = claStr.replaceAll(" ", "");
-                if (claStr.indexOf("\\?") == -1) {
+                if (!claStr.contains("\\?")) {
                     Pattern pattern = Pattern.compile("[\\s\\wa-z\\-]+\\{'songItem':\\{'sid':'([\\d]+)','sname':'([\\s\\S]*)','author':'([\\s\\S]*)'\\}\\}");
                     Matcher matcher = pattern.matcher(claStr);
                     if (matcher.find()) {

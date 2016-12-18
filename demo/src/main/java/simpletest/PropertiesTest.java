@@ -34,7 +34,7 @@ public class PropertiesTest {
         p.list(System.out);
     }
 
-    private static void loadFromXML(){
+    private static void loadFromXML() {
         File file = new File("test.xml");
         FileInputStream in = null;
         try {

@@ -26,9 +26,7 @@ public class MainClass {
         }
 
         try {
-            //设置连接池配置信息
             BoneCPConfig config = new BoneCPConfig();
-            //数据库的JDBC URL
             config.setJdbcUrl("jdbc:mysql:///jooq");
             config.setUsername("root");
             config.setPassword("root");
@@ -36,9 +34,7 @@ public class MainClass {
             config.setMaxConnectionsPerPartition(10);
             //
             config.setPartitionCount(1);
-            //设置数据库连接池
             connectionPool = new BoneCP(config);
-            //从数据库连接池获取一个数据库连接
             connection = connectionPool.getConnection(); // fetch a connection
 
             if (connection != null) {

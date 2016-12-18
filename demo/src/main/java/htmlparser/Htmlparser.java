@@ -1,9 +1,4 @@
-package test;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+package htmlparser;
 
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
@@ -12,13 +7,17 @@ import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.tags.TableTag;
 import org.htmlparser.util.NodeList;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class Htmlparser {
     //http://www.jb51.net/article/48988.htm
     public static void testHtml() {
         try {
             String sCurrentLine;
             String sTotalString;
-            sCurrentLine = "";
             sTotalString = "";
             InputStream l_urlStream;
             URL l_url = new URL("http://www.ideagrace.com/html/doc/2006/07/04/00929.html");

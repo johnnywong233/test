@@ -17,47 +17,45 @@ import java.util.List;
  * Created by wajian on 2016/8/6.
  */
 public class VCF2XML {
-	
-	public static void main(String args[]) {
-		
-		String filePath = "C:\\work\\test\\src\\main\\resources\\联系人.vcf";
-		File file = new File(filePath);
-		VCardEngine vce = new VCardEngine();
-		try {
-			//to parse more than one contractor, use parseMultiple(filename)
-			//only one contractor, use parse(filename)
-			//a VCard class correspond to a contractor, usually a VCF file has many contractors, use List to store
-			List<VCard> vcards = vce.parseMultiple(file);
-			for (VCard vCard : vcards) {
-				// NType is the class that store info of the contractor
-				NType nt = vCard.getN();
-				String fname = ""; //family name
-				String mname = ""; //middle name
-				String gname = ""; //given name
-				if (nt != null) {
-					// the foreign name format: FamilyName + GivenName, this is also applied to Chinese names
-					fname = fname + nt.getFamilyName();
-					//defined as AdditionalNames in List<String> , not middle name
-					mname = mname + nt.getAdditionalNames().get(0);//add get(0) to discard []
-					gname = gname + nt.getGivenName();
-				}
-				System.out.println(fname + mname + gname);
-				
-				//use list to store more than one contractor
-				List<TelType> teltype = vCard.getTels();
-				
-				// only print those contractors with the phone number
-				if (teltype != null && teltype.size() != 0) {
-					for (TelType telType2 : teltype) {
-						// output the phone number of contractors
-						System.out.println(telType2.getTelephone());
-					}
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (VCardParseException e) {
-			e.printStackTrace();
-		}
-	}
+
+    public static void main(String args[]) {
+
+        String filePath = "D:\\Java_ex\\test\\src\\test\\resources\\联系人.vcf";
+        File file = new File(filePath);
+        VCardEngine vce = new VCardEngine();
+        try {
+            //to parse more than one contractor, use parseMultiple(filename)
+            //only one contractor, use parse(filename)
+            //a VCard class correspond to a contractor, usually a VCF file has many contractors, use List to store
+            List<VCard> vcards = vce.parseMultiple(file);
+            for (VCard vCard : vcards) {
+                // NType is the class that store info of the contractor
+                NType nt = vCard.getN();
+                String fname = ""; //family name
+                String mname = ""; //middle name
+                String gname = ""; //given name
+                if (nt != null) {
+                    // the foreign name format: FamilyName + GivenName, this is also applied to Chinese names
+                    fname = fname + nt.getFamilyName();
+                    //defined as AdditionalNames in List<String> , not middle name
+                    mname = mname + nt.getAdditionalNames().get(0);//add get(0) to discard []
+                    gname = gname + nt.getGivenName();
+                }
+                System.out.println(fname + mname + gname);
+
+                //use list to store more than one contractor
+                List<TelType> teltype = vCard.getTels();
+
+                // only print those contractors with the phone number
+                if (teltype != null && teltype.size() != 0) {
+                    for (TelType telType2 : teltype) {
+                        // output the phone number of contractors
+                        System.out.println(telType2.getTelephone());
+                    }
+                }
+            }
+        } catch (IOException | VCardParseException e) {
+            e.printStackTrace();
+        }
+    }
 }
