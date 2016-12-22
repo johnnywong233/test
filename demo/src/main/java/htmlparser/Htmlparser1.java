@@ -7,7 +7,6 @@ import org.htmlparser.filters.HasAttributeFilter;
 import org.htmlparser.filters.TagNameFilter;
 import org.htmlparser.nodes.TagNode;
 import org.htmlparser.util.NodeList;
-import test.Mp3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,4 +67,37 @@ public class Htmlparser1 {
         }
     }
 
+}
+
+class Mp3 {
+    private String sid;
+
+    private String sname;
+
+    private String author;
+
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
+    }
+
+    public String getSname() {
+        return sname;
+    }
+
+    public void setSname(String sname) {
+        this.sname = sname;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }

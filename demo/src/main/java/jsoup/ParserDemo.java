@@ -32,6 +32,7 @@ public class ParserDemo {
     
     private void parseUrl() {
         try {
+            //can also read html file
             Document doc = Jsoup.connect("http://www.sina.com/").get();
             Elements hrefs = doc.select("a[href]");
             System.out.println(hrefs);

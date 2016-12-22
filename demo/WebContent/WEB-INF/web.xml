@@ -28,6 +28,19 @@
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ServletConfigTest</servlet-name>
+        <servlet-class>servlet.ServletConfigTest</servlet-class>
+        <init-param>
+            <param-name>name1</param-name>
+            <param-value>value1</param-value>
+        </init-param>
+        <init-param>
+            <param-name>encode</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </servlet>
+
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener

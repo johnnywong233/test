@@ -10,9 +10,12 @@ import java.lang.reflect.Method;
  * Time: 21:54
  */
 public class ReflectasmClient {
+	//http://unmi.cc/java-reflectasm-bytecode-usage/
     public static void main(String[] args) throws Exception {
         testJdkReflect();
-//        testReflectAsm();
+        testReflectAsm();
+        testJdkReflect1();
+        testReflectAsm1();
     }
 
     public static void testJdkReflect() throws Exception {
@@ -23,8 +26,9 @@ public class ReflectasmClient {
                 Method method = SomeClass.class.getMethod("foo", String.class);
                 method.invoke(someObject, "Unmi");
             }
-            System.out.print(System.currentTimeMillis() - begin +" ");
+            System.out.print(System.currentTimeMillis() - begin + " ");
         }
+        System.out.println();
     }
 
     public static void testReflectAsm() {
@@ -37,6 +41,7 @@ public class ReflectasmClient {
             }
             System.out.print(System.currentTimeMillis() - begin + " ");
         }
+        System.out.println();
     }
 
     public static void testJdkReflect1() throws Exception {
@@ -49,6 +54,7 @@ public class ReflectasmClient {
             }
             System.out.print(System.currentTimeMillis() - begin +" ");
         }
+        System.out.println();
     }
 
     public static void testReflectAsm1() {
@@ -61,5 +67,22 @@ public class ReflectasmClient {
             }
             System.out.print(System.currentTimeMillis() - begin + " ");
         }
+        System.out.println();
     }
+}
+
+class SomeClass {
+    private String name;
+
+    public void foo(String name) {
+        this.setName(name);
+    }
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }

@@ -11,27 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by johnny on 2016/8/29.
  */
-@WebServlet(name="RedirectJspErrorPageDemo", urlPatterns="/servlet/RedirectJspErrorPageDemo")
-public class RedirectJspErrorPageDemo extends HttpServlet{
+@WebServlet(name = "RedirectJspErrorPageDemo", urlPatterns = "/servlet/RedirectJspErrorPageDemo")
+public class RedirectJspErrorPageDemo extends HttpServlet {
 
-	//TODO:DEBUG
-	private static final long serialVersionUID = -4007800837325728749L;
+    //TODO:DEBUG
+    private static final long serialVersionUID = -4007800837325728749L;
 
-	protected void sendErrorRedirect(HttpServletRequest request,
+    protected void sendErrorRedirect(HttpServletRequest request,
                                      HttpServletResponse response, String errorPageURL,
                                      Throwable e)
             throws ServletException, IOException {
-        request.setAttribute ("javax.servlet.jsp.jspException", e);
+        request.setAttribute("javax.servlet.jsp.jspException", e);
         getServletConfig().getServletContext().
                 getRequestDispatcher(errorPageURL).forward(request,
                 response);
-    } 
-    
-//	@Override
+    }
+
+    //	@Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) {
         try {
-        	// do something
-        	System.out.println("for test");
+            // do something
+            System.out.println("for test");
         } catch (Exception ex) {
             try {
                 sendErrorRedirect(request, response, "ErrorPage.jsp", ex);

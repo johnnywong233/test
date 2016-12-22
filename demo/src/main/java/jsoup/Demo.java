@@ -17,7 +17,7 @@ import java.net.URL;
 
 /**
  * Created by johnny on 2016/9/15.
- * jsoup实现抓图
+ * jsoup to realize download pictures
  */
 public class Demo {
     //cannot change another url
