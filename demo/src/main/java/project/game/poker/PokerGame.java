@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 //可改变玩家数量和玩家手牌数,根据手牌中最大牌进行简单大小比较
 public class PokerGame {
-	//http://www.imooc.com/qadetail/80811
-	//bug:http://www.imooc.com/qadetail/71907
-	public static void main(String[] args) {
+    //http://www.imooc.com/qadetail/80811
+    //bug:http://www.imooc.com/qadetail/71907
+    public static void main(String[] args) {
         System.out.println("--------产生一副扑克牌--------");
         List<Poker> pockers = Poker.createPocker();
         System.out.println("--------扑克牌创建成功--------");
@@ -21,7 +21,7 @@ public class PokerGame {
         System.out.println(pockers.toString());
         System.out.println("--------创建玩家--------");
         Scanner scanner = new Scanner(System.in);
-        List<Player> players = new ArrayList<Player>();
+        List<Player> players = new ArrayList<>();
         int handCardNum = 3;
         int playerNum = 2;
         while (true) {
@@ -60,7 +60,7 @@ public class PokerGame {
                                     + players.get(i).getName()
                                     + "最大手牌为："
                                     + players.get(i).getHandPockers().get(0)
-                                            .toString());
+                                    .toString());
                     if (maxPocker.compareTo(players.get(i).getHandPockers()
                             .get(0)) < 0) {
                         maxPocker = players.get(i).getHandPockers().get(0);
@@ -81,9 +81,7 @@ public class PokerGame {
             }
         }
         scanner.close();
- 
     }
-
 }
 
 class Player {
@@ -95,21 +93,21 @@ class Player {
     private int id;
     private String name;
     private List<Poker> handPockers;
-     
+
     public Player(int id, String name) {
         this.id = id;
         this.name = name;
-        this.handPockers = new ArrayList<Poker>();
+        this.handPockers = new ArrayList<>();
     }
-     
+
     public int getId() {
         return id;
     }
- 
+
     public String getName() {
         return name;
     }
- 
+
     public List<Poker> getHandPockers() {
         return handPockers;
     }
@@ -120,24 +118,24 @@ class Player {
  *  包括四种花色：黑桃、红桃、梅花、方块、
  *  十三中点数：2~10，J、Q、K、A，不包括大小王
  */
-class Poker implements Comparable<Poker>{
+class Poker implements Comparable<Poker> {
     private String color;  //扑克牌花色
     private String value;  //扑克牌面值
     private static final int CARDNUM = 52;   //扑克牌总量
     private static final int SINGLECOLORNUM = 13; //每种颜色扑克牌数量
-     
-    public Poker(){
+
+    public Poker() {
     }
-     
+
     public Poker(String color, String value) {
         this.color = color;
         this.value = value;
     }
- 
+
     public String getColor() {
         return color;
     }
- 
+
     public String getValue() {
         return value;
     }
@@ -146,56 +144,56 @@ class Poker implements Comparable<Poker>{
      * 产生52张扑克牌
      * return List<Pocker>
      */
-      
-    public static List<Poker> createPocker(){
-        List<Poker> pockers = new ArrayList<Poker>();
-        for(int i = 0; i < CARDNUM; i++){
-            String newValue = null;
+
+    public static List<Poker> createPocker() {
+        List<Poker> pockers = new ArrayList<>();
+        for (int i = 0; i < CARDNUM; i++) {
+            String newValue;
             int temp = i % SINGLECOLORNUM;
             switch (temp) {
-            case 11:
-                newValue = "j";
-                break;
-            case 12:
-                newValue = "Q";
-                break;
-            case 0:
-                newValue = "K";
-                break;
-            case 1:
-                newValue = "A";
-                break;
-            default:
-                newValue = String.valueOf(temp);
+                case 11:
+                    newValue = "j";
+                    break;
+                case 12:
+                    newValue = "Q";
+                    break;
+                case 0:
+                    newValue = "K";
+                    break;
+                case 1:
+                    newValue = "A";
+                    break;
+                default:
+                    newValue = String.valueOf(temp);
             }
-             
+
             String newColor = null;
             switch (i / SINGLECOLORNUM) {
-            case 0:
-                newColor = "黑桃";
-                break;
-            case 1:
-                newColor = "红桃";
-                break;
-            case 2:
-                newColor = "梅花";
-                break;
-            case 3:
-                newColor = "方块";
+                case 0:
+                    newColor = "黑桃";
+                    break;
+                case 1:
+                    newColor = "红桃";
+                    break;
+                case 2:
+                    newColor = "梅花";
+                    break;
+                case 3:
+                    newColor = "方块";
             }
-            pockers.add(new Poker(newColor,newValue));
+            pockers.add(new Poker(newColor, newValue));
         }
         return pockers;
     }
-     
+
     /*
      * Collections.shuffle进行洗牌
      */
-    public static List<Poker> shuffle(List<Poker> pockers){
+    public static List<Poker> shuffle(List<Poker> pockers) {
         Collections.shuffle(pockers);
         return pockers;
     }
-     
+
     /*
      * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
@@ -204,17 +202,17 @@ class Poker implements Comparable<Poker>{
      */
     @Override
     public int compareTo(Poker o) {
-        List<String> valueBase = Arrays.asList("2","3","4","5","6","7","8","9","10","J","Q","K","A");
-        List<String> colorBase = Arrays.asList("方块","梅花","红桃","黑桃");
-        if(valueBase.indexOf(this.value) == valueBase.indexOf(o.value))
-            return Integer.valueOf(colorBase.indexOf(this.color)).compareTo(Integer.valueOf(colorBase.indexOf(o.getColor())));
-        else 
-            return Integer.valueOf(valueBase.indexOf(this.value)).compareTo(Integer.valueOf(valueBase.indexOf(o.getValue())));
- 
+        List<String> valueBase = Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A");
+        List<String> colorBase = Arrays.asList("方块", "梅花", "红桃", "黑桃");
+        if (valueBase.indexOf(this.value) == valueBase.indexOf(o.value))
+            return Integer.valueOf(colorBase.indexOf(this.color)).compareTo(colorBase.indexOf(o.getColor()));
+        else
+            return Integer.valueOf(valueBase.indexOf(this.value)).compareTo(valueBase.indexOf(o.getValue()));
+
     }
- 
+
     @Override
     public String toString() {
-        return color+value;
+        return color + value;
     }
 }

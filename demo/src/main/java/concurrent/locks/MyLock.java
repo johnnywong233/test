@@ -8,10 +8,10 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * Created by wajian on 2016/8/18.
  */
-public class MyLock extends ReentrantLock{
-	private static final long serialVersionUID = -1302150672127716753L;
+public class MyLock extends ReentrantLock {
+    private static final long serialVersionUID = -1302150672127716753L;
 
-	//此方法使用Lock类的保护方法 getOwner()， 返回控制锁的线程（如果存在）的名字。
+    //此方法使用Lock类的保护方法 getOwner()， 返回控制锁的线程（如果存在）的名字。
     public String getOwnerName() {
         if (this.getOwner() == null) {
             return "None";

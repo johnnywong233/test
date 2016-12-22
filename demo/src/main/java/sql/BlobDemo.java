@@ -18,11 +18,9 @@ public class BlobDemo {
     //http://www.phpxs.com/code/1001932/
     public static void main(String[] args) {
         Connection con = null;
-        PreparedStatement sta = null;
+        PreparedStatement sta;
         ResultSet res = null;
         try {
-            //获取数据源
-            //假设就是从d盘中读取的一张照片；
             File file = new File("d:" + File.separator + "photo.jpg");
             int length = (int) file.length();
             InputStream input = new FileInputStream(file);
@@ -35,14 +33,14 @@ public class BlobDemo {
             sta.setBinaryStream(3, input, length);
             sta.executeUpdate();
             sta.clearParameters();
-            input.close();//释放资源；
+            input.close();
         } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
         } finally {
             if (con != null) {
                 try {
                     con.close();
-                } catch (SQLException e) {   //(_)%^&**(_)(&*)(*#%$%^&*(()__)(((
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }

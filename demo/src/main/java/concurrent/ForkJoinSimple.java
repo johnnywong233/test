@@ -1,6 +1,7 @@
 package concurrent;
 
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -9,29 +10,28 @@ import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.Assert.assertTrue;
 
 public class ForkJoinSimple {
-	/*
-	 * https://www.ibm.com/developerworks/cn/java/j-lo-forkjoin/
+    /*
+     * https://www.ibm.com/developerworks/cn/java/j-lo-forkjoin/
 	 * 不懂
 	 */
-	
-	private static final int NARRAY = 16; //For demo only
+
+    private static final int NARRAY = 16; //For demo only
     long[] array = new long[NARRAY];
     Random rand = new Random();
 
     @Before
     public void setUp() {
         for (int i = 0; i < array.length; i++) {
-            array[i] = rand.nextLong()%100; //For demo only
+            array[i] = rand.nextLong() % 100; //For demo only
         }
         System.out.println("Initial Array: " + Arrays.toString(array));
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@Test
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @Test
     public void testSort() throws Exception {
         ForkJoinTask sort = new SortTask(array);
         ForkJoinPool fjpool = new ForkJoinPool();
@@ -51,8 +51,6 @@ public class ForkJoinSimple {
         }
         return true;
     }
-	
-
 }
 
 @SuppressWarnings("serial")
@@ -80,9 +78,9 @@ class SortTask extends RecursiveAction {
         else {
             int pivot = partition(array, lo, hi);
             System.out.println("\npivot = " + pivot + ", low = " + lo + ", high = " + hi);
-			System.out.println("array" + Arrays.toString(array));
-			
-			//RecursiveAction 类下面并没有coInvoke方法
+            System.out.println("array" + Arrays.toString(array));
+
+            //RecursiveAction 类下面并没有coInvoke方法
 //            coInvoke(new SortTask(array, lo, pivot - 1), new SortTask(array, pivot + 1, hi));
         }
     }

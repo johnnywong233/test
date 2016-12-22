@@ -7,13 +7,13 @@ import java.util.concurrent.LinkedBlockingQueue;
  * Created by wajian on 2016/8/16.
  */
 public class BlockingQueueDemo {
-	//http://tonl.iteye.com/blog/1936391
+    //http://tonl.iteye.com/blog/1936391
     public static void main(String[] args) {
-    	//if the size of queue is set as 2, then at the same time, 
-    	//队列的大小限定成了2，所以最多只有两个产品被加入到队列当中，而且消费者取到产品的顺序也是按照生产的先后顺序，
-    	//原因就是LinkedBlockingQueue和ArrayBlockingQueue都是按照FIFO的顺序存取元素的。
+        //if the size of queue is set as 2, then at the same time,
+        //队列的大小限定成了2，所以最多只有两个产品被加入到队列当中，而且消费者取到产品的顺序也是按照生产的先后顺序，
+        //原因就是LinkedBlockingQueue和ArrayBlockingQueue都是按照FIFO的顺序存取元素的。
 //        BlockingQueue<String> queue = new LinkedBlockingQueue<String>(2);
-         BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+        BlockingQueue<String> queue = new LinkedBlockingQueue<>();
         //if not set, then default as Integer.MAX_VALUE
 
 //         BlockingQueue<String> queue = new ArrayBlockingQueue<String>(2);
@@ -22,23 +22,22 @@ public class BlockingQueueDemo {
         Producer producer = new Producer(queue);
         for (int i = 0; i < 5; i++) {
             new Thread(producer, "Producer" + (i + 1)).start();
-
             new Thread(consumer, "Consumer" + (i + 1)).start();
         }
     }
 }
 
-class Consumer implements Runnable{
+class Consumer implements Runnable {
     BlockingQueue<String> queue;
 
-    public Consumer(BlockingQueue<String> queue){
+    public Consumer(BlockingQueue<String> queue) {
         this.queue = queue;
     }
 
     @Override
     public void run() {
         try {
-        	//if the queue is empty, then the current thread will be blocked
+            //if the queue is empty, then the current thread will be blocked
             String temp = queue.take();
             System.out.println(temp);
         } catch (InterruptedException e) {
@@ -47,7 +46,7 @@ class Consumer implements Runnable{
     }
 }
 
-class Producer implements Runnable{
+class Producer implements Runnable {
     BlockingQueue<String> queue;
 
     public Producer(BlockingQueue<String> queue) {

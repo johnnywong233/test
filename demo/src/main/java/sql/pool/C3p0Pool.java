@@ -26,21 +26,13 @@ public class C3p0Pool {
             if (dataSource == null) {
                 dataSource = new ComboPooledDataSource();
                 try {
-                    //注册驱动
                     dataSource.setDriverClass(driverClassName);
-                    //设置数据库url
                     dataSource.setJdbcUrl(url);
-                    //设置数据库用户名
                     dataSource.setUser(user);
-                    //设置数据库密码
                     dataSource.setPassword(password);
-                    //设置连接池最大连接数
                     dataSource.setMaxPoolSize(40);
-                    //设置最小连接数
                     dataSource.setMinPoolSize(2);
-                    //设置初始连接数
                     dataSource.setInitialPoolSize(10);
-                    //设置最大statement缓存数
                     dataSource.setMaxStatements(20);
                 } catch (PropertyVetoException e) {
                     e.printStackTrace();

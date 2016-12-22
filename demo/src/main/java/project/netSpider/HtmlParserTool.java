@@ -12,10 +12,6 @@ import org.htmlparser.util.ParserException;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by johnny on 2016/9/16.
- *
- */
 public class HtmlParserTool {
     // 获取一个网站上的链接,filter 用来过滤链接
     static Set<String> extractLinks(String url, LinkFilter filter) {
@@ -25,8 +21,8 @@ public class HtmlParserTool {
             parser.setEncoding("gb2312");
             // 过滤 <frame >标签的 filter，用来提取 frame 标签里的 src 属性所表示的链接
             NodeFilter frameFilter = new NodeFilter() {
-				private static final long serialVersionUID = -4089743698359926423L;
-				public boolean accept(Node node) {
+                private static final long serialVersionUID = -4089743698359926423L;
+                public boolean accept(Node node) {
                     return node.getText().startsWith("frame src=");
                 }
             };
@@ -41,9 +37,9 @@ public class HtmlParserTool {
                 {
                     LinkTag link = (LinkTag) tag;
                     String linkUrl = link.getLink();// url
-                    if(filter.accept(linkUrl))
+                    if (filter.accept(linkUrl))
                         links.add(linkUrl);
-                } else  {
+                } else {
                     // <frame> 标签
                     // 提取 frame 里 src 属性的链接如 <frame src="test.html"/>
                     String frame = tag.getText();
@@ -53,7 +49,7 @@ public class HtmlParserTool {
                     if (end == -1)
                         end = frame.indexOf(">");
                     String frameUrl = frame.substring(5, end - 1);
-                    if(filter.accept(frameUrl))
+                    if (filter.accept(frameUrl))
                         links.add(frameUrl);
                 }
             }
@@ -63,15 +59,11 @@ public class HtmlParserTool {
         return links;
     }
 
-    public static void main(String[]args) {
+    public static void main(String[] args) {
+        //to extract url start with http://www.twt.edu.cn
+        String url2Extract = "http://www.twt.edu.cn";
         Set<String> links = HtmlParserTool.extractLinks(
-                "http://www.twt.edu.cn", new LinkFilter() {
-                    //to extract url start with http://www.twt.edu.cn
-                    public boolean accept(String url) {
-                        return url.startsWith("http://www.twt.edu.cn");
-                    }
-                });
-        for(String link : links)
-            System.out.println(link);
+                url2Extract, url -> url.startsWith(url2Extract));
+        links.forEach(System.out::println);
     }
 }

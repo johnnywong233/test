@@ -8,26 +8,21 @@ import java.util.concurrent.TimeUnit;
  * Created by wajian on 2016/8/18.
  */
 public class ForkJoinPoolDemo {
-	//http://ifeve.com/testing-concurrent-applications-5-2/
+    //http://ifeve.com/testing-concurrent-applications-5-2/
     public static void main(String[] args) throws Exception {
 
         ForkJoinPool pool = new ForkJoinPool();
-
         int array[] = new int[10];
-
         NewTask task1 = new NewTask(array, 0, array.length);
 
         // 11. 使用 execute() 方法 把任务发送到pool里执行。
         pool.execute(task1);
-
         // 12. 当任务还未结束执行，调用 showLog() 方法来把 ForkJoinPool 类的状态信息写入，然后让线程休眠一秒。
         while (!task1.isDone()) {
             showLog(pool);
             TimeUnit.SECONDS.sleep(1);
         }
-
         pool.shutdown();
-
         //use awaitTermination() method to wait for end of pool
         pool.awaitTermination(1, TimeUnit.DAYS);
 
@@ -64,9 +59,9 @@ public class ForkJoinPoolDemo {
 
 class NewTask extends RecursiveAction {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	// 2. 声明一个私有 int array 属性，名为 array，用来储存你要增加的 array 的元素。
+    // 2. 声明一个私有 int array 属性，名为 array，用来储存你要增加的 array 的元素。
     private int[] array;
 
     // 3. 声明2个私有 int 属性，名为 start 和 end，用来储存 此任务已经处理的元素块的头和尾的位置。

@@ -14,32 +14,31 @@ import java.io.IOException;
 
 /**
  * Created by johnny on 2016/9/16.
- *
  */
 public class FileDownLoader {
-    /**根据 url 和网页类型生成需要保存的网页的文件名
-     *去除掉 url 中非文件名字符
+    /**
+     * 根据 url 和网页类型生成需要保存的网页的文件名
+     * 去除掉 url 中非文件名字符
      */
-    private String getFileNameByUrl(String url, String contentType)
-    {
-        url=url.substring(7);//remove http://
-        if(contentType.contains("html"))//text/html
+    private String getFileNameByUrl(String url, String contentType) {
+        url = url.substring(7);//remove http://
+        if (contentType.contains("html"))//text/html
         {
-            url= url.replaceAll("[?/:*|<>\"]", "_")+".html";
+            url = url.replaceAll("[?/:*|<>\"]", "_") + ".html";
             return url;
-        }
-        else//如application/pdf
+        } else//如application/pdf
         {
             return url.replaceAll("[?/:*|<>\"]", "_") + "." + contentType.substring(contentType.lastIndexOf("/") + 1);
         }
     }
-    /**保存网页字节数组到本地文件
+
+    /**
+     * 保存网页字节数组到本地文件
      * filePath 为要保存的文件的相对地址
      */
-    private void saveToLocal(byte[] data, String filePath)
-    {
+    private void saveToLocal(byte[] data, String filePath) {
         try {
-            DataOutputStream out=new DataOutputStream(
+            DataOutputStream out = new DataOutputStream(
                     new FileOutputStream(new File(filePath)));
             for (byte aData : data)
                 out.write(aData);
@@ -51,32 +50,32 @@ public class FileDownLoader {
     }
 
     /*下载 url 指向的网页*/
-    String downloadFile(String url){
-        String filePath=null;
+    String downloadFile(String url) {
+        String filePath = null;
      /* 1.生成 HttpClinet 对象并设置参数*/
-        HttpClient httpClient=new HttpClient();
+        HttpClient httpClient = new HttpClient();
         //设置 Http 连接超时 5s
         httpClient.getHttpConnectionManager().getParams().
                 setConnectionTimeout(5000);
      /*2.生成 GetMethod 对象并设置参数*/
-        GetMethod getMethod=new GetMethod(url);
+        GetMethod getMethod = new GetMethod(url);
         //设置 get 请求超时 5s
-        getMethod.getParams().setParameter(HttpMethodParams.SO_TIMEOUT,5000);
+        getMethod.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, 5000);
         //设置请求重试处理
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
                 new DefaultHttpMethodRetryHandler());
      /*3.执行 HTTP GET 请求*/
-        try{
+        try {
             int statusCode = httpClient.executeMethod(getMethod);
             //判断访问的状态码
             if (statusCode != HttpStatus.SC_OK) {
-                System.err.println("Method failed: "+ getMethod.getStatusLine());
-                filePath=null;
+                System.err.println("Method failed: " + getMethod.getStatusLine());
+                filePath = null;
             }
        /*4.处理 HTTP 响应内容*/
             byte[] responseBody = getMethod.getResponseBody();//读取为字节数组
             //根据网页 url 生成保存时的文件名
-            filePath="D:\\Java_ex\\test\\src\\test\\resources\\"+getFileNameByUrl(url,
+            filePath = "D:\\Java_ex\\test\\src\\test\\resources\\" + getFileNameByUrl(url,
                     getMethod.getResponseHeader("Content-Type").getValue());
             saveToLocal(responseBody, filePath);
         } catch (HttpException e) {
@@ -91,8 +90,7 @@ public class FileDownLoader {
         return filePath;
     }
 
-    //测试的 main 方法
-    public static void main(String[]args){
+    public static void main(String[] args) {
         FileDownLoader downLoader = new FileDownLoader();
         downLoader.downloadFile("http://www.twt.edu.cn");
     }

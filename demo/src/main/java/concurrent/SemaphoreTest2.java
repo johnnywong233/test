@@ -3,10 +3,10 @@ package concurrent;
 import java.util.concurrent.Semaphore;
 
 public class SemaphoreTest2 {
-	/*
-	 * http://my.oschina.net/lifany/blog/207995
-	 */
-	private static final int MAX_AVAILABLE = 100;
+    /*
+     * http://my.oschina.net/lifany/blog/207995
+     */
+    private static final int MAX_AVAILABLE = 100;
     private final Semaphore available = new Semaphore(MAX_AVAILABLE, true);
 
     public Object getItem() throws InterruptedException {
@@ -21,7 +21,8 @@ public class SemaphoreTest2 {
 
     // Not a particularly efficient data structure; just for demo
 
-    protected Object[] items = new Object[MAX_AVAILABLE];;//... whatever kinds of items being managed
+    protected Object[] items = new Object[MAX_AVAILABLE];
+    //... whatever kinds of items being managed
     protected boolean[] used = new boolean[MAX_AVAILABLE];
 
     protected synchronized Object getNextAvailableItem() {

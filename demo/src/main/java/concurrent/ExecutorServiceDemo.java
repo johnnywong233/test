@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
  */
 public class ExecutorServiceDemo {
     //http://www.jb51.net/article/62912.htm
-    public static void main(String args[]){
+    public static void main(String args[]) {
 
 //        for(int i = 0; i < 10; i++){
 //            Elem e = new Elem();
@@ -22,9 +22,9 @@ public class ExecutorServiceDemo {
 
         //use ExecutorService to realize thread pool tech
         ExecutorService exec = Executors.newCachedThreadPool();
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             Elem e = new Elem();
-            if(i == 0 )
+            if (i == 0)
                 e.setPriority(Thread.MAX_PRIORITY);
             else
                 e.setPriority(Thread.MIN_PRIORITY);
@@ -34,25 +34,26 @@ public class ExecutorServiceDemo {
     }
 }
 
-class Elem implements Runnable{
+class Elem implements Runnable {
     public static int id = 0;
     private int cutDown = 5;
     private int priority;
 
-    public void setPriority(int priority){
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
-    public int getPriority(){
+    public int getPriority() {
         return this.priority;
     }
-    public void run(){
+
+    public void run() {
         Thread.currentThread().setPriority(priority);
         int threadId = id++;
-        while(cutDown-- > 0){
+        while (cutDown-- > 0) {
             double d = 1.2;
-            while(d < 10000)
-                d = d + (Math.E + Math.PI)/d;
+            while (d < 10000)
+                d = d + (Math.E + Math.PI) / d;
             System.out.println("#" + threadId + "(" + cutDown + ")");
         }
     }

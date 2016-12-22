@@ -11,6 +11,16 @@ public class RegexDemo {
     public static void main(String[] args) {
         sillyTest();
         threeMatches();
+
+        String str = "77Hi, johnny, your life sucks..0";
+        System.out.println(checkNumInString(str));
+
+    }
+
+    private static boolean checkNumInString(String s) {
+        Pattern p = Pattern.compile("\\d*");
+        Matcher m = p.matcher(s);
+        return m.matches();
     }
 
     private static void threeMatches(){

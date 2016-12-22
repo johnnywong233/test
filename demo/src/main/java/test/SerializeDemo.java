@@ -8,8 +8,8 @@ import java.io.ObjectOutputStream;
  * Created by wajian on 2016/8/13.
  */
 public class SerializeDemo {
-	//http://www.runoob.com/java/java-serialization.html
-    public static void main(String [] args) {
+    //http://www.runoob.com/java/java-serialization.html
+    public static void main(String[] args) {
         Employee e = new Employee();
         e.name = "Reyan Ali";
         e.address = "Phokka Kuan, Ambehta Peer";

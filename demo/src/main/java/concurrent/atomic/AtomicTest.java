@@ -3,9 +3,6 @@ package concurrent.atomic;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AtomicTest {
-    /*
-     * http://blog.csdn.net/sunnydogzhou/article/details/6564396
-     */
     private int value;
 
     public AtomicTest(int value) {
@@ -20,6 +17,7 @@ public class AtomicTest {
         return value++;
     }
 
+    //http://blog.csdn.net/sunnydogzhou/article/details/6564396
     public static void main(String args[]) {
         long start = System.currentTimeMillis();
         AtomicTest test = new AtomicTest(0);

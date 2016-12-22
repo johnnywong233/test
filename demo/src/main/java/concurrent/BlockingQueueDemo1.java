@@ -71,17 +71,20 @@ class MyConsumer implements Runnable {
             System.out.println("quit consumer thread!");
         }
     }
+
     private BlockingQueue<String> queue;
-    private static final int      DEFAULT_RANGE_FOR_SLEEP = 1000;
+    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
 }
 
+@SuppressWarnings("rawtypes")
 class MyProducer implements Runnable {
     public MyProducer(BlockingQueue queue) {
         this.queue = queue;
     }
 
-    public void run() {
-        String data = null;
+    @SuppressWarnings("unchecked")
+	public void run() {
+        String data;
         Random r = new Random();
 
         System.out.println("start producer thread!");
@@ -108,9 +111,9 @@ class MyProducer implements Runnable {
         isRunning = false;
     }
 
-    private volatile boolean      isRunning               = true;
-    private BlockingQueue queue;
-    private static AtomicInteger count                   = new AtomicInteger();
-    private static final int      DEFAULT_RANGE_FOR_SLEEP = 1000;
+    private volatile boolean isRunning = true;
+	private BlockingQueue queue;
+    private static AtomicInteger count = new AtomicInteger();
+    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
 
 }

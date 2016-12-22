@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 public class MainFrame extends JFrame {
-
     private static final long serialVersionUID = 5398934425180961778L;
 
     //TODO
@@ -20,7 +19,6 @@ public class MainFrame extends JFrame {
             }
         });
     }
-
 
     private MainFrame() {
         setTitle("snake");

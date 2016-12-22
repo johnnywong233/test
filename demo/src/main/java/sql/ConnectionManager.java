@@ -78,8 +78,6 @@ public class ConnectionManager {
     }
 
     /**
-     * 关闭所有开着的数据库连接
-     *
      * @return true if the pool is empty and balance false if the pool has
      * returned some connection to outside
      */
@@ -133,6 +131,7 @@ public class ConnectionManager {
                         System.out.println("ConnectionManager: about to close the orphan connection.");
                         con.close();
                     } catch (SQLException ex) {
+                        ex.printStackTrace();
                     }
                 } else {
                     freeConnections.addElement(con);
@@ -194,21 +193,20 @@ public class ConnectionManager {
                 if (elapsedTime >= timeout) {
                     return null;
                 }
-
                 long timeToWait = timeout - elapsedTime;
-                //每次等待的时间不能超过TIME_BETWEEN_RETRIES
                 if (timeToWait > TIME_BETWEEN_RETRIES)
                     timeToWait = TIME_BETWEEN_RETRIES;
                 try {
                     Thread.sleep(timeToWait);
                 } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
             return con;
         }
 
         /**
-         * 关闭所有可利用的连接
+         * close all connection
          *
          * @return true if the pool is empty and balance false if the pool has
          * returned some connection to outside
@@ -233,13 +231,11 @@ public class ConnectionManager {
             return retValue;
         }
 
-        /**
-         * 使用指定的用户名和密码创建一个数据库连接
-         */
+        //create a database connection with user/password
         private synchronized Connection newConnection() {
-            Connection con = null;
+            Connection con;
             try {
-                //匿名登陆，不提倡使用
+                //login without a user
                 if (user == null) {
                     con = DriverManager.getConnection(URL);
                 } else {

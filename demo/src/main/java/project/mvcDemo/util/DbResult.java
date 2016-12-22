@@ -3,19 +3,19 @@ package project.mvcDemo.util;
 import java.io.Serializable;
 
 public class DbResult {
-	private int affectedRows;		// 受影响的行数
-	private Serializable generatedKey;	// 生成的主键
+    private int affectedRows;
+    private Serializable generatedKey;
 
-	public DbResult(int affectedRows, Serializable generatedKey) {
-		this.affectedRows = affectedRows;
-		this.generatedKey = generatedKey;
-	}
+    public DbResult(int affectedRows, Serializable generatedKey) {
+        this.affectedRows = affectedRows;
+        this.generatedKey = generatedKey;
+    }
 
-	public int getAffectedRows() {
-		return affectedRows;
-	}
+    public int getAffectedRows() {
+        return affectedRows;
+    }
 
-	public Serializable getGeneratedKey() {
-		return generatedKey;
-	}
+    public Serializable getGeneratedKey() {
+        return generatedKey;
+    }
 }

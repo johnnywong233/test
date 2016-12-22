@@ -168,7 +168,7 @@ public class Maze extends JPanel {
                 neis[ran].setFather(p);
             }
         }
-         changeFather(maze[0][0],null);
+        changeFather(maze[0][0], null);
     }
 
     private void changeFather(Lattice p, Lattice f) {

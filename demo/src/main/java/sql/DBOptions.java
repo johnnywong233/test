@@ -1,17 +1,11 @@
 package sql;
 
 public class DBOptions {
-    //����jdbc����
     private String driverClassName = "org.postgresql.Driver";
-    //���ݿ�����URL
     private String databaseURL = "jdbc:postgresql://localhost:5432/postgres?useServerPrepStmts=false";
-    //�û���
     private String databaseUser = "postgres";
-    //����
     private String databasePassword = "1Qaz";
-    //�������������
     private int maxConnection = 20;
-    //������ȴ�ʱ��
     private int maxTimeToWait = 2000;// 2 seconds
 
     /**

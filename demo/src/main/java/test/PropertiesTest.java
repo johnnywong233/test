@@ -2,12 +2,11 @@ package test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class PropertiesTest {
+public class  PropertiesTest {
     public static void main(String args[]) {
         File file = new File("C:\\work\\test\\src\\test\\resources\\LMD.txt");
         Properties prop = new Properties();

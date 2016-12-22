@@ -1,9 +1,9 @@
 package concurrent;
 
-import java.util.concurrent.LinkedTransferQueue;
-
 import edu.umd.cs.mtc.MultithreadedTestCase;
 import edu.umd.cs.mtc.TestFramework;
+
+import java.util.concurrent.LinkedTransferQueue;
 
 /**
  * Created by wajian on 2016/8/18.
@@ -30,7 +30,7 @@ class ProducerConsumer extends MultithreadedTestCase {
     @Override
     public void initialize() {
         super.initialize();
-        queue = new LinkedTransferQueue<String>();
+        queue = new LinkedTransferQueue<>();
         System.out.printf("Test: The test has been initialized\n");
     }
 

@@ -39,7 +39,7 @@ public class ChessBoard extends JPanel implements MouseListener {
 
     public ChessBoard() {
 
-        // setBackground(Color.blue);//设置背景色为橘黄色
+        // setBackground(Color.blue);
         img = Toolkit.getDefaultToolkit().getImage("board.jpg");
         shadows = Toolkit.getDefaultToolkit().getImage("shadows.jpg");
         addMouseListener(this);

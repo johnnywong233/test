@@ -17,12 +17,11 @@ public class BoneCpPool {
     private static BoneCP boneCp = null;
     private static BoneCPConfig boneCPConfig = null;
 
-    // 静态代码块加载配置文件
     static {
         // load JDBC drver
         try {
-            Class.forName("com.mysql.jdbc.Driver");// 注册数据库
-            boneCPConfig = new BoneCPConfig();// bonecp数据库连接池配置
+            Class.forName("com.mysql.jdbc.Driver");
+            boneCPConfig = new BoneCPConfig();
             String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/jooq";
             boneCPConfig.setJdbcUrl(jdbcUrl);
             boneCPConfig.setUser("root");

@@ -1,5 +1,10 @@
 package sql;
 
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,20 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-/*
- * JAVA������������.08.05
- */
 public class DBConnectPostgreSQL extends HttpServlet {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -9067901169816249112L;
 
     public void init() throws ServletException {
@@ -97,7 +90,7 @@ public class DBConnectPostgreSQL extends HttpServlet {
         try {
             conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
         } catch (SQLException sqlexception) {
-            System.out.println("���ݿ������쳣." + sqlexception);
+            System.out.println("error occurred" + sqlexception);
         }
         return conn;
     }

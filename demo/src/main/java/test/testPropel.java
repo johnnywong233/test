@@ -1,36 +1,31 @@
 package test;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.CookieHandler;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 
 //import net.sf.json.JSONObject;//千万不要随意用jar包
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-
 public class testPropel {
-
     /*
      * 编写java程序实现rest client的类似功能
      * 首先POST 得到X-Auth-Token
      */
-    public static void main(String[] args) throws MalformedURLException, IOException,
+    public static void main(String[] args) throws IOException,
             KeyManagementException, NoSuchAlgorithmException, JSONException {
         trustAllHosts();
 
