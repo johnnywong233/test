@@ -1,5 +1,6 @@
 package servlet;
 
+import org.springframework.web.context.ContextCleanupListener;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -33,7 +34,8 @@ public class ContextLoaderListener extends ContextLoader implements ServletConte
     @Override
     public void contextDestroyed(ServletContextEvent event) {
         closeWebApplicationContext(event.getServletContext());
-        ContextCleanupListener.cleanupAttributes(event.getServletContext());
+        ContextCleanupListener contextCleanupListener = new ContextCleanupListener();
+        contextCleanupListener.cleanupAttributes(event.getServletContext());
     }
 
 }

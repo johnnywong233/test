@@ -16,11 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Created by johnny on 2016/8/28.
  */
-public class DownloadFileDemo extends HttpServlet{
-	//http://www.phpxs.com/code/1001509/
-	private static final long serialVersionUID = 1L;
+public class DownloadFileDemo extends HttpServlet {
+    //http://www.phpxs.com/code/1001509/
+    private static final long serialVersionUID = 1L;
 
-	public DownloadFileDemo() {
+    public DownloadFileDemo() {
         super();
     }
 
@@ -51,7 +51,7 @@ public class DownloadFileDemo extends HttpServlet{
             //clear/reset response
             response.reset();
             //set header for response
-            response.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes("gb2312"),"ISO8859-1"));
+            response.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes("gb2312"), "ISO8859-1"));
             response.addHeader("Content-Length", "" + file.length());
             OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
             response.setContentType("application/octet-stream");

@@ -716,6 +716,14 @@
             <version>5.0_r1</version>
         </dependency>-->
 
+        <!-- A library jar that provides APIs for Applications written for the Google Android Platform. -->
+        <dependency>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>4.1.1.4</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-dependency-plugin</artifactId>
@@ -735,11 +743,11 @@
         </dependency>
 
         <!--JMX 1.2.1 Reference Implementation-->
-        <!--  <dependency>
+          <dependency>
              <groupId>com.sun.jdmk</groupId>
              <artifactId>jmxtools</artifactId>
              <version>1.2.1</version>
-         </dependency> -->
+         </dependency>
 
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -799,6 +807,14 @@
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
             <version>1.6.1</version>
+        </dependency>
+
+        <!-- HtmlCleaner is an HTML parser written in Java. It transforms dirty HTML to well-formed 
+        XML following the same rules that most web-browsers use. -->
+        <dependency>
+            <groupId>net.sourceforge.htmlcleaner</groupId>
+            <artifactId>htmlcleaner</artifactId>
+            <version>2.18</version>
         </dependency>
 
 

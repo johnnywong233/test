@@ -14,18 +14,18 @@ import java.util.Date;
  * Created by wajian on 2016/8/28.
  */
 @WebServlet(name = "CookieDemo", urlPatterns = {"/CookieDemo"})
-public class CookieDemo extends HttpServlet{
+public class CookieDemo extends HttpServlet {
 
-	private static final long serialVersionUID = 4386363500559003610L;
+    private static final long serialVersionUID = 4386363500559003610L;
 
-	@Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String L_A_T = "lastAccessTime";
         Cookie[] cookies = request.getCookies();
         Cookie latCookie = null;
-        if (cookies != null){
-            for (Cookie cookie : cookies){
-                if (cookie.getName().equals(L_A_T)){
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(L_A_T)) {
                     latCookie = cookie;
                     break;
                 }
@@ -33,10 +33,10 @@ public class CookieDemo extends HttpServlet{
         }
 
         //already accessed
-        if (latCookie != null){
+        if (latCookie != null) {
             printResponse("You have visited in the last time:" + latCookie.getValue(), response);
             latCookie.setValue(new Date().toString());
-        } else{
+        } else {
             printResponse("This is your first visit", response);
             latCookie = new Cookie(L_A_T, new Date().toString());
         }
@@ -44,7 +44,7 @@ public class CookieDemo extends HttpServlet{
         response.addCookie(latCookie);
     }
 
-	//http://blog.csdn.net/zjf280441589/article/details/51302782
+    //http://blog.csdn.net/zjf280441589/article/details/51302782
     private void printResponse(String data, HttpServletResponse response) throws IOException {
         response.setContentType("text/html; charset=utf-8");
         response.getWriter().print("<H1>" + data + "</H1>");

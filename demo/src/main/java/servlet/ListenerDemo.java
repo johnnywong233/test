@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 @WebListener
 @WebServlet(name = "ListenerDemo", urlPatterns = {"/ListenerDemo"})
 public class ListenerDemo implements ServletRequestListener {
-	/*
-	 * http://blog.csdn.net/zjf280441589/article/details/51344746
-	 * calculate the time consumed of a HTTP Request
-	 */
+    /*
+     * http://blog.csdn.net/zjf280441589/article/details/51344746
+     * calculate the time consumed of a HTTP Request
+     */
     private static final Logger LOGGER = Logger.getLogger("ListenerDemo");
     //TODO
-    
+
 
     private static final String START = "Start";
 
@@ -32,8 +32,8 @@ public class ListenerDemo implements ServletRequestListener {
 
     public void requestDestroyed(ServletRequestEvent sre) {
         HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
-        long start = (Long)request.getAttribute(START);
-        long ms = (System.nanoTime() - start)/1000;
+        long start = (Long) request.getAttribute(START);
+        long ms = (System.nanoTime() - start) / 1000;
         String uri = request.getRequestURI();
         LOGGER.info(String.format("time token to execute %s : %s ms", uri, ms));
     }

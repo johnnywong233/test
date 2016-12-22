@@ -21,15 +21,16 @@ import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
  * 强制下载的MIME类型。
  */
 public class DownloadFile extends HttpServlet {
-	//http://www.jb51.net/article/73191.htm
-	//jsp page download file through servlet
-	//TODO
-	private static final long serialVersionUID = 8329640086276677328L;
-	private static final Log log = LogFactory.getLog(DownloadFile.class);
+    //http://www.jb51.net/article/73191.htm
+    //jsp page download file through servlet
+    //TODO
+    private static final long serialVersionUID = 8329640086276677328L;
+    private static final Log log = LogFactory.getLog(DownloadFile.class);
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         long timeStart = 0;
-        if(log.isDebugEnabled()){
-            timeStart=System.currentTimeMillis();
+        if (log.isDebugEnabled()) {
+            timeStart = System.currentTimeMillis();
         }
         response.setContentType("application/x-download charset=UTF-8");
         java.io.FileInputStream fis = null;
@@ -37,8 +38,8 @@ public class DownloadFile extends HttpServlet {
         javax.servlet.ServletOutputStream sos = null;
         // System.out.println("DownloadFile filename:" + filename);
         try {
-            if(request.getParameter("filename")==null
-                    ||request.getParameter("showName")==null){
+            if (request.getParameter("filename") == null
+                    || request.getParameter("showName") == null) {
                 return;
             }
             String filename = request.getParameter("filename");
@@ -70,27 +71,27 @@ public class DownloadFile extends HttpServlet {
             if (fis != null) {
                 byte[] buff = new byte[1024];
                 int bytesRead;
-                while(-1 != (bytesRead = fis.read(buff, 0, buff.length))) {
+                while (-1 != (bytesRead = fis.read(buff, 0, buff.length))) {
                     sos.write(buff, 0, bytesRead);
                     sos.flush();
                     byteCount += bytesRead;
                 }
             }
             sos.flush();
-            if(log.isDebugEnabled()){
-                log.debug("文件下载完成，文件大小："+ byteCount +"，总共用时:"+ (new Date().getTime() - timeStart) +"毫秒。");
+            if (log.isDebugEnabled()) {
+                log.debug("文件下载完成，文件大小：" + byteCount + "，总共用时:" + (new Date().getTime() - timeStart) + "毫秒。");
             }
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         } finally {
             try {
-                if(fis!=null){
+                if (fis != null) {
                     fis.close();
                 }
             } catch (IOException e) {
             } finally {
                 try {
-                    if(sos!=null){
+                    if (sos != null) {
                         sos.close();
                     }
                 } catch (IOException e) {
@@ -98,6 +99,7 @@ public class DownloadFile extends HttpServlet {
             }
         }
     }
+
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -116,6 +118,7 @@ public class DownloadFile extends HttpServlet {
         out.flush();
         out.close();
     }
+
     private String getBrowser(HttpServletRequest request) {
         String userAgent = request.getHeader("USER-AGENT").toLowerCase();
         if (userAgent != null) {
