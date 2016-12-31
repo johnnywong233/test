@@ -22,7 +22,7 @@ public class CsvUtil {
         }
     }
 
-    public List getList() {
+    public List<String> getList() {
         return list;
     }
 

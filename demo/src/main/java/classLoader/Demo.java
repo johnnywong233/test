@@ -72,6 +72,7 @@ class FileSystemClassLoader extends ClassLoader {
             while ((bytesNumRead = ins.read(buffer)) != -1) {
                 baos.write(buffer, 0, bytesNumRead);
             }
+            ins.close();
             return baos.toByteArray();
         } catch (IOException e) {
             e.printStackTrace();

@@ -26,7 +26,8 @@ public class FuzzyQuery {
 }
 
 class MediaFrame extends JFrame implements ActionListener, ListSelectionListener {
-    private JList list;
+	private static final long serialVersionUID = 6336635759418719797L;
+	private JList list;
     private DefaultListModel m;
     private JButton btn;
     private JButton btn1;

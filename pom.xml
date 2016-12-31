@@ -24,6 +24,7 @@
     <modules>
         <module>demo</module>
         <module>springtest</module>
+        <module>HereDocument</module>
     </modules>
 
     <packaging>pom</packaging>

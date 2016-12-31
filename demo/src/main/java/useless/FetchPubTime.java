@@ -1,6 +1,6 @@
 package useless;
 
-import utils.TimeUtil;
+import utils.TimeUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,7 +67,7 @@ public class FetchPubTime {
             String time = m_whole.group(0);
             time = time.substring(1, time.length());
             //每一步都不能够超出当前时间
-            if (current.compareTo(TimeUtil.strToCalendar(time, "yyyyMMdd")) >= 0) {
+            if (current.compareTo(TimeUtils.strToCalendar(time, "yyyyMMdd")) >= 0) {
 
                 return time.substring(0, 4) + "-" + time.substring(4, 6) + "-" +
                         time.substring(6, 8) + " " + "00:00:00";
@@ -118,7 +118,7 @@ public class FetchPubTime {
         boolean containsHMS = false;
         String dateStr = text.replaceAll("r?n", " ");
         try {
-            List matches = null;
+            List<String> matches = null;
             Pattern p_detail = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
             //如果是仅仅抽取年月日，则按照上面的，如果是抽取年月日-时分秒，则按照下面的
             Pattern p = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
@@ -131,20 +131,21 @@ public class FetchPubTime {
             } else
                 matcher_detail = p_detail.matcher(dateStr);
             if (matcher_detail.find() && matcher_detail.groupCount() >= 1) {
-                matches = new ArrayList();
+                matches = new ArrayList<>();
                 for (int i = 1; i <= matcher_detail.groupCount(); i++) {
                     String temp = matcher_detail.group(i);
                     matches.add(temp);
                 }
             } else {
-                matches = Collections.EMPTY_LIST;
+//                matches = Collections.EMPTY_LIST;
+                matches = Collections.emptyList();
             }
             if (matches.size() > 0) {
                 for (Object matche : matches) {
                     String pubTime = matche.toString().trim();
                     //取出第一个值
                     pubTime = pubTime.replace("/", "-").replace("年", "-").replace("月", "-").replace("日", "-");
-                    if (current.compareTo(TimeUtil.strToCalendar(pubTime, "yyyy-MM-dd")) >= 0) {
+                    if (current.compareTo(TimeUtils.strToCalendar(pubTime, "yyyy-MM-dd")) >= 0) {
                         if (containsHMS)
                             pubTime += " " + "00:00:00";
                         if (pubTime.matches(rightTimeReg)) {

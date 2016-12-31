@@ -17,7 +17,6 @@ import java.util.Map;
 /*
  * This class could be used for any object contents/memory layout printing.  
  */
-@SuppressWarnings("restriction")
 public class ClassIntrospector {
     /*
      * http://www.bianceng.cn/Programming/Java/201502/47854_2.htm

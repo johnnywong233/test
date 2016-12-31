@@ -1,6 +1,6 @@
 package test;
 
-import io.file.Property;
+import org.testng.annotations.Test;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -9,6 +9,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -73,6 +74,7 @@ public class PathDemo {
         return port;
     }
 
+    @Test
     private String path() {
         //对于getCanonicalPath()函数，“."就表示当前的文件夹，而”..“则表示当前文件夹的上一级文件夹
         //对于getAbsolutePath()函数，则不管”.”、“..”，返回当前的路径加上你在new File()时设定的路径

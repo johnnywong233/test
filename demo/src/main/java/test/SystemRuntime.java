@@ -51,7 +51,7 @@ public class SystemRuntime {
 
     //获取系统的环境变量信息
     public static void sysProp() throws Exception {
-        Map env = System.getenv();
+        Map<String, String> env = System.getenv();
         //获取系统的所有环境变量
         for (Object name : env.keySet()) {
             System.out.println(name + " : " + env.get(name));

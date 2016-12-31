@@ -60,6 +60,7 @@ public class DoubleArrayTrie {
         }
         System.out.println(System.currentTimeMillis() - start);
         sc.close();
+        reader.close();
     }
 
     private DoubleArrayTrie() {

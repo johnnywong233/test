@@ -53,6 +53,7 @@ public class Demo {
                     start = System.nanoTime();
                 }
             }
+            fc.close();
         }
         System.out.printf("... Finished, average ping/pong took %,d ns%n", (System.nanoTime() - start) / runs);
     }

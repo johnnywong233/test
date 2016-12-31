@@ -86,11 +86,11 @@ public class MySecurity {
     }
 
     private static byte[] getByteFromFile(File file) throws IOException {
-        InputStream is = new FileInputStream(file);
         long length = file.length();
         if (length > Integer.MAX_VALUE) {
             return null;
         }
+        InputStream is = new FileInputStream(file);
         byte[] bytes = new byte[(int) length];
         int offset = 0;
         int numRead;
@@ -98,6 +98,7 @@ public class MySecurity {
             offset += numRead;
         }
         if (offset < bytes.length) {
+        	is.close();
             throw new IOException("Could not completely read file" + file.getName());
         }
         is.close();

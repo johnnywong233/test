@@ -15,7 +15,7 @@ public class MyMap1 {
 
     //use HashMap to store all the cities path
     private Map<String, List<String>> map = new HashMap<>();// 储存所有城市路线
-    private List<String> reachedWay = new ArrayList();// 储存到达目的地所经过的城市
+    private List<String> reachedWay = new ArrayList<>();// 储存到达目的地所经过的城市
     private Map<Integer, String> routeMap = new HashMap<>();// 储存到达目的地所经过的城市和所用的时间，key为时间，value为reachedWay
 
     // int shortestTime=0; //储存最短时间，用于只输出最短路径的情况

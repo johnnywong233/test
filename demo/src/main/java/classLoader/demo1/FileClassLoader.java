@@ -13,7 +13,7 @@ public class FileClassLoader extends ClassLoader {
     private static final String drive = "D:\\Java_ex\\test\\target\\classes\\pic\\";
     private static final String fileType = ".class";
 
-    public Class findClass(String name) {
+    public Class<?> findClass(String name) {
         byte[] data = loadClassData(name);
         return defineClass(name, data, 0, data.length);
     }
@@ -29,6 +29,7 @@ public class FileClassLoader extends ClassLoader {
                 baos.write(ch);
             }
             data = baos.toByteArray();
+            fis.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +39,7 @@ public class FileClassLoader extends ClassLoader {
     //http://bbs.csdn.net/topics/210030578
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         FileClassLoader loader = new FileClassLoader();
-        Class objClass = loader.loadClass("classLoader.demo1.Hello", true);
+        Class<?> objClass = loader.loadClass("classLoader.demo1.Hello", true);
         Object obj = objClass.newInstance();
         System.out.println(objClass.getName());
         System.out.println(objClass.getClassLoader().getClass().getName());

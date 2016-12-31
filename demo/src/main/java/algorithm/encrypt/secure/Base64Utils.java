@@ -5,10 +5,6 @@ import java.io.IOException;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-/**
- * Base64 编解码工具类
- */
-@SuppressWarnings("restriction")
 public class Base64Utils {
 
     private static Base64Utils base64Utils = new Base64Utils();
@@ -25,7 +21,7 @@ public class Base64Utils {
     }
 
     /**
-     * base64 编码
+     * base64 encode
      *
      * @param data
      * @return
@@ -35,7 +31,7 @@ public class Base64Utils {
     }
 
     /**
-     * base64 解码
+     * base64 decode
      *
      * @param data
      * @return

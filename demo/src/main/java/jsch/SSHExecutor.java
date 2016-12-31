@@ -117,9 +117,6 @@ public class SSHExecutor {
         getSession().disconnect();
     }
 
-    /*
-    * SSH连接信息
-    * */
     public static class SSHInfo {
         private String user;
         private String password;

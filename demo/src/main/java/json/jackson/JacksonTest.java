@@ -17,7 +17,8 @@ import java.util.Map;
 public class JacksonTest {
 	//http://www.jb51.net/article/77970.htm
 	//http://www.jb51.net/article/77966.htm
-    public static void main(String args[]){
+    @SuppressWarnings("unchecked")
+	public static void main(String args[]){
 //        JacksonTest tester = new JacksonTest();
         try {
             JsonFactory jasonFactory = new JsonFactory();

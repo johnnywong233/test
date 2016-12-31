@@ -6,7 +6,7 @@ import java.util.concurrent.BlockingQueue;
 public class BlockingQueueTest {
     //http://www.cnblogs.com/liuling/p/2013-8-20-01.html
     public static void main(String[] args) {
-        final BlockingQueue queue = new ArrayBlockingQueue(3);
+        final BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(3);
         for (int i = 0; i < 2; i++) {
             new Thread() {
                 public void run() {

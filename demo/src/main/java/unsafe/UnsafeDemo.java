@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import sun.misc.Unsafe;
 
-@SuppressWarnings("restriction")
 public class UnsafeDemo {
 	
 	public static void main(String[] args) throws NoSuchFieldException, SecurityException, 
