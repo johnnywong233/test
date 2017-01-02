@@ -14,7 +14,7 @@ import org.quartz.impl.StdSchedulerFactory;
  * example of CronTrigger, now got three job to execute
  */
 public class CronTriggerExample2 {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         JobKey jobKeyA = new JobKey("jobA", "group1");
         JobDetail jobA = JobBuilder.newJob(JobA.class).withIdentity(jobKeyA).build();
 

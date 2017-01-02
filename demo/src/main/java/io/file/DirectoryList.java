@@ -3,21 +3,18 @@ package io.file;
 import java.io.File;
 import java.io.FilenameFilter;
 
-/**
- * ������ʹ��File���list()������ʵ��Ŀ¼���б���ʾ��
- */
-
 public class DirectoryList {
     public static void main(String[] args) {
         try {
-            File path = new File(".");
+            File path = new File(".");//Note that '.' presents the current class path, where is pom.xml locate.
             String[] myList;
-            if (args.length == 0)//�����Ա���������ʾ�����ļ�
+            if (args.length == 0)
                 myList = path.list();
-            else				//���ù�������ʾ����ļ�
+            else
                 myList = path.list(new DirectoryFilter(args[0]));
-            for (int i = 0; i < myList.length; i++)
-                System.out.println(myList[i]);
+            if (myList != null) {
+                for (String aMyList : myList) System.out.println(aMyList);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -25,7 +22,7 @@ public class DirectoryList {
 }
 
 class DirectoryFilter implements FilenameFilter {
-    String myString;
+    private String myString;
 
     DirectoryFilter(String myString) {
         this.myString = myString;
@@ -33,6 +30,6 @@ class DirectoryFilter implements FilenameFilter {
 
     public boolean accept(File dir, String name) {
         String f = new File(name).getName();
-        return f.indexOf(myString) != -1;
+        return f.contains(myString);
     }
 }

@@ -29,23 +29,22 @@ import java.util.Map.Entry;
 public class CSVUtilsDemo{
     /**
      * Test data
-     * @param args
      */
     public static void main(String[] args) {
-        List<Map<String, String>> exportData = new ArrayList<Map<String, String>>();
-        Map<String, String> row1 = new LinkedHashMap<String, String>();
+        List<Map<String, String>> exportData = new ArrayList<>();
+        Map<String, String> row1 = new LinkedHashMap<>();
         row1.put("1", "11");
         row1.put("2", "12");
         row1.put("3", "13");
         row1.put("4", "14");
         exportData.add(row1);
-        row1 = new LinkedHashMap<String, String>();
+        row1 = new LinkedHashMap<>();
         row1.put("1", "21");
         row1.put("2", "22");
         row1.put("3", "23");
         row1.put("4", "24");
         exportData.add(row1);
-        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
         map.put("1", "row 1");
         map.put("2", "row 2");
         map.put("3", "row 3");
@@ -121,10 +120,8 @@ class CSVUtils {
             //TODO 文件头部有乱码
             // 写入文件头部
             for (Iterator<Entry<String, String>> propertyIterator = map.entrySet().iterator(); propertyIterator.hasNext();) {
-                Entry<String, String> propertyEntry = (Entry<String, String>) propertyIterator.next();
-                csvFileOutputStream
-                        .write("" + (String) propertyEntry.getValue() != null ? (String) propertyEntry
-                                .getValue() : "" + "");
+                Entry<String, String> propertyEntry = propertyIterator.next();
+                csvFileOutputStream.write(propertyEntry.getValue());
                 if (propertyIterator.hasNext()) {
                     csvFileOutputStream.write(",");
                 }
@@ -132,12 +129,12 @@ class CSVUtils {
             csvFileOutputStream.newLine();
             // 写入文件内容
             for (Iterator<Map<String, String>> iterator = exportData.iterator(); iterator.hasNext();) {
-                Object row = (Object) iterator.next();
+                Object row = iterator.next();
                 for (Iterator<Entry<String, String>> propertyIterator = map.entrySet().iterator(); propertyIterator
                         .hasNext();) {
-                    Entry<String, String> propertyEntry = (Entry<String, String>) propertyIterator.next();
-                    csvFileOutputStream.write((String) BeanUtils.getProperty(row,
-                            (String) propertyEntry.getKey()));
+                    Entry<String, String> propertyEntry = propertyIterator.next();
+                    csvFileOutputStream.write(BeanUtils.getProperty(row,
+                            propertyEntry.getKey()));
                     if (propertyIterator.hasNext()) {
                         csvFileOutputStream.write(",");
                     }
@@ -151,7 +148,9 @@ class CSVUtils {
             e.printStackTrace();
         } finally {
             try {
-                csvFileOutputStream.close();
+                if (csvFileOutputStream != null) {
+                    csvFileOutputStream.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -176,7 +175,7 @@ class CSVUtils {
         InputStream in = null;
         try {
             in = new FileInputStream(csvFilePath);
-            int len = 0;
+            int len;
             byte[] buffer = new byte[1024];
             response.setCharacterEncoding("UTF-8");
             OutputStream out = response.getOutputStream();
@@ -185,13 +184,13 @@ class CSVUtils {
                 out.write(buffer, 0, len);
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } finally {
             if (in != null) {
                 try {
                     in.close();
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
         }
@@ -205,9 +204,9 @@ class CSVUtils {
         File file = new File(filePath);
         if (file.exists()) {
             File[] files = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isFile()) {
-                    files[i].delete();
+            for (File file1 : files) {
+                if (file1.isFile()) {
+                    file1.delete();
                 }
             }
         }
@@ -224,10 +223,10 @@ class CSVUtils {
         File file = new File(filePath);
         if (file.exists()) {
             File[] files = file.listFiles();
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isFile()) {
-                    if (files[i].getName().equals(fileName)) {
-                        files[i].delete();
+            for (File file1 : files) {
+                if (file1.isFile()) {
+                    if (file1.getName().equals(fileName)) {
+                        file1.delete();
                         return;
                     }
                 }
@@ -235,5 +234,3 @@ class CSVUtils {
         }
     }
 }
-
-

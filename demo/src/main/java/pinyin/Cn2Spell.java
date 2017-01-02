@@ -482,7 +482,8 @@ public class Cn2Spell {
             return bytes[0];
         }
 
-        if (bytes.length == 2) { // 中文字符
+        //Chinese char
+        if (bytes.length == 2) {
             int highByte = 256 + bytes[0];
             int lowByte = 256 + bytes[1];
             int ascii = (256 * highByte + lowByte) - 256 * 256;

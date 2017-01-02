@@ -18,20 +18,20 @@ public class CronTriggerExample {
         //JobDetail	job	=	new	JobDetail();
         //job.setName("dummyJobName");
         //job.setJobClass(HelloJob.class);
-        JobDetail job = JobBuilder.newJob(HelloJob.class).withIdentity("dummyJobName",	"group1").build();
+        JobDetail job = JobBuilder.newJob(HelloJob.class).withIdentity("dummyJobName", "group1").build();
         //Quartz	1.6.3
         //CronTrigger	trigger	=	new	CronTrigger();
         //trigger.setName("dummyTriggerName");
         //trigger.setCronExpression("0/1	*	*	*	*	?");
-        Trigger trigger	=	TriggerBuilder
+        Trigger trigger = TriggerBuilder
                 .newTrigger()
                 .withIdentity("dummyTriggerName", "group1")
                 .withSchedule(
                         CronScheduleBuilder.cronSchedule("0/1 * * * * ?"))
                 .build();
         //schedule	it
-        Scheduler scheduler	= new StdSchedulerFactory().getScheduler();
+        Scheduler scheduler = new StdSchedulerFactory().getScheduler();
         scheduler.start();
-        scheduler.scheduleJob(job,	trigger);
+        scheduler.scheduleJob(job, trigger);
     }
 }

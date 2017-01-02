@@ -24,7 +24,7 @@ public class PathDemo {
     }
     
     /*
-     * System.getProperty()参数大全
+     * System.getProperty()
 		# java.version                                Java Runtime Environment version 
 		# java.vendor                                Java Runtime Environment vendor 
 		# java.vendor.url                           Java vendor URL 

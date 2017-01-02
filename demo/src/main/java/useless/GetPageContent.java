@@ -11,15 +11,9 @@ import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 
-/**
- * Created by wajian on 2016/8/17.
- */
 public class GetPageContent {
-
-
-    //here is the key code
-    public static void initProxy(String host, int port, final String username, final String password) {
-        //TODO
+    //key code
+    private static void initProxy(String host, int port, final String username, final String password) {
         Authenticator.setDefault(new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password.toCharArray());
@@ -36,11 +30,12 @@ public class GetPageContent {
         String url = "http://www.jb51.net";
         String proxy = "http://192.168.22.81";
         int port = 80;
-        String username = "username";
-        String password = "password";
+        String username = "";
+        String password = "";
         String curLine;
         String content = "";
         URL server = new URL(url);
+        //for those outside of the wall site 
         initProxy(proxy, port, username, password);
         HttpURLConnection connection = (HttpURLConnection) server.openConnection();
         connection.connect();

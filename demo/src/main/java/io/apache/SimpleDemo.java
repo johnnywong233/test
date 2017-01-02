@@ -58,7 +58,7 @@ public class SimpleDemo {
     private static final String INPUT = "This should go to the output.";
 
     //http://www.mincoder.com/article/3372.shtml
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         SimpleDemo demo = new SimpleDemo();
         demo.Utility();
         demo.Comparator();
@@ -68,7 +68,7 @@ public class SimpleDemo {
         demo.Output();
     }
 
-    private void Utility() throws IOException{
+    private void Utility() throws IOException {
         System.out.println("Utility example...");
         System.out.println("Full path of 1.txt: " + FilenameUtils.getFullPath(TXT_PATH));
         System.out.println("Full name of 1.txt: " + FilenameUtils.getName(TXT_PATH));
@@ -97,10 +97,9 @@ public class SimpleDemo {
                 IOCase.SENSITIVE.checkEquals(str1, str2));
         System.out.println("Free disk space (in KB): " + FileSystemUtils.freeSpaceKb("C:"));
         System.out.println("Free disk space (in MB): " + FileSystemUtils.freeSpaceKb("C:") / 1024);
-
     }
 
-    private void FileMonitor(){
+    private void FileMonitor() {
         System.out.println("File Monitor example...");
         // FileEntry
         //monitor changes and get information about files using the methods of this class.
@@ -118,14 +117,17 @@ public class SimpleDemo {
             public void onFileCreate(File file) {
                 System.out.println("File created: " + file.getName());
             }
+
             @Override
             public void onFileDelete(File file) {
                 System.out.println("File deleted: " + file.getName());
             }
+
             @Override
             public void onDirectoryCreate(File dir) {
                 System.out.println("Directory created: " + dir.getName());
             }
+
             @Override
             public void onDirectoryDelete(File dir) {
                 System.out.println("Directory deleted: " + dir.getName());
@@ -157,34 +159,34 @@ public class SimpleDemo {
         // Get all the files in the specified directory that are named "example".
         File dir = FileUtils.getFile(PARENT_DIR);
         String[] acceptedNames = {"example", "exampleTxt.txt"};
-        for (String file: dir.list(new NameFileFilter(acceptedNames, IOCase.INSENSITIVE))) {
+        for (String file : dir.list(new NameFileFilter(acceptedNames, IOCase.INSENSITIVE))) {
             System.out.println("File found, named: " + file);
         }
         // We can use wildcards in order to get less specific results
         //      ? used for 1 missing char
         //      * used for multiple missing chars
-        for (String file: dir.list(new WildcardFileFilter("*ample*"))) {
+        for (String file : dir.list(new WildcardFileFilter("*ample*"))) {
             System.out.println("Wildcard file found, named: " + file);
         }
         //use the equivalent of startsWith for filtering files.
-        for (String file: dir.list(new PrefixFileFilter("example"))) {
+        for (String file : dir.list(new PrefixFileFilter("example"))) {
             System.out.println("Prefix file found, named: " + file);
         }
         //use the equivalent of endsWith for filtering files.
-        for (String file: dir.list(new SuffixFileFilter(".txt"))) {
+        for (String file : dir.list(new SuffixFileFilter(".txt"))) {
             System.out.println("Suffix file found, named: " + file);
         }
         // We can use some filters of filters.
         // in this case, we use a filter to apply a logical
         // or between our filters.
-        for (String file: dir.list(new OrFileFilter(
+        for (String file : dir.list(new OrFileFilter(
                 new WildcardFileFilter("*ample*"), new SuffixFileFilter(".txt")))) {
             System.out.println("Or file found, named: " + file);
         }
         // And this can become very detailed.
         // Eg, get all the files that have "ample" in their name
         // but they are not text files (so they have no ".txt" extension.
-        for (String file: dir.list(new AndFileFilter( // we will match 2 filters...
+        for (String file : dir.list(new AndFileFilter( // we will match 2 filters...
                 new WildcardFileFilter("*ample*"), // ...the 1st is a wildcard...
                 new NotFileFilter(new SuffixFileFilter(".txt"))))) { // ...and the 2nd is NOT .txt.
             System.out.println("And/Not file found, named: " + file);
@@ -192,15 +194,15 @@ public class SimpleDemo {
 
     }
 
-    private void Comparator( ) {
+    private void Comparator() {
         System.out.println("Comparator example...");
         //get a directory as a File object and sort all its files.
         File parentDir = FileUtils.getFile(PARENT_DIR);
         NameFileComparator comparator = new NameFileComparator(IOCase.SENSITIVE);
         File[] sortedFiles = comparator.sort(parentDir.listFiles());
         System.out.println("Sorted by name files in parent directory: ");
-        for (File file: sortedFiles) {
-            System.out.println("t"+ file.getAbsolutePath());
+        for (File file : sortedFiles) {
+            System.out.println("t" + file.getAbsolutePath());
         }
         // We can compare files based on their size.
         // The boolean in the constructor is about the directories.
@@ -209,17 +211,17 @@ public class SimpleDemo {
         SizeFileComparator sizeComparator = new SizeFileComparator(true);
         File[] sizeFiles = sizeComparator.sort(parentDir.listFiles());
         System.out.println("Sorted by size files in parent directory: ");
-        for (File file: sizeFiles) {
-            System.out.println("t"+ file.getName() + " with size (kb): " + file.length());
+        for (File file : sizeFiles) {
+            System.out.println("t" + file.getName() + " with size (kb): " + file.length());
         }
         // LastModifiedFileComparator
         // We can use this class to find which file was more recently modified.
         LastModifiedFileComparator lastModified = new LastModifiedFileComparator();
         File[] lastModifiedFiles = lastModified.sort(parentDir.listFiles());
         System.out.println("Sorted by last modified files in parent directory: ");
-        for (File file: lastModifiedFiles) {
+        for (File file : lastModifiedFiles) {
             Date modified = new Date(file.lastModified());
-            System.out.println("t"+ file.getName() + " last modified on: " + modified);
+            System.out.println("t" + file.getName() + " last modified on: " + modified);
         }
         // Or, we can also compare 2 specific files and find which one was last modified.
         //      returns > 0 if the first file was last modified.
@@ -229,14 +231,13 @@ public class SimpleDemo {
 
         System.out.println("File " + file1.getName() + " was modified last because...");
         System.out.println("File " + file2.getName() + "was modified last because...");
-        System.out.println("t"+ file1.getName() + " last modified on: " +
+        System.out.println("t" + file1.getName() + " last modified on: " +
                 new Date(file1.lastModified()));
-        System.out.println("t"+ file2.getName() + " last modified on: " +
+        System.out.println("t" + file2.getName() + " last modified on: " +
                 new Date(file2.lastModified()));
-
     }
 
-    private void Input(){
+    private void Input() {
         System.out.println("Input example...");
         XmlStreamReader xmlReader = null;
         TeeInputStream tee = null;
@@ -259,19 +260,23 @@ public class SimpleDemo {
             e.printStackTrace();
         } finally {
             try {
-                xmlReader.close();
+                if (xmlReader != null) {
+                    xmlReader.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                tee.close();
+                if (tee != null) {
+                    tee.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void Output(){
+    private void Output() {
         System.out.println("Output example...");
         TeeInputStream teeIn = null;
         TeeOutputStream teeOut;
@@ -291,8 +296,13 @@ public class SimpleDemo {
             // No need to close teeOut. When teeIn closes, it will also close its
             // Output stream (which is teeOut), which will in turn close the 2
             // branches (out1, out2).
-            try { teeIn.close(); }
-            catch (IOException e) { e.printStackTrace(); }
+            try {
+                if (teeIn != null) {
+                    teeIn.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

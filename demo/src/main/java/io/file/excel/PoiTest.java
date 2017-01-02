@@ -1,14 +1,13 @@
 package io.file.excel;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class PoiTest  {
 	public static void main(String[] args) throws Exception {
@@ -36,7 +35,7 @@ public class PoiTest  {
 	}
 	
 	@SuppressWarnings("resource")
-	public void readExcel(String filename) throws FileNotFoundException,IOException {
+	public void readExcel(String filename) throws IOException {
 		HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(filename));
 		HSSFSheet sheet = workbook.getSheet("JSP");
 //		HSSFSheet sheet = workbook.getSheetAt(0);

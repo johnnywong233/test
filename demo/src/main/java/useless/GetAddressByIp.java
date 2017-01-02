@@ -10,31 +10,25 @@ import java.net.URL;
 
 /**
  * Created by wajian on 2016/8/16.
+ * //http://www.jb51.net/article/47998.htm
  */
 public class GetAddressByIp {
-    //http://www.jb51.net/article/47998.htm
-    //java联网查询IP归属地，原理是根据淘宝提供的service查询IP的归属地并且解析http请求返回的json串
+    //get the belonging place(country, area, city and isp) with the given ip
     public static void main(String args[]) {
         System.out.println(GetAddressByIp.getAddressByIp("60.214.183.158"));//60.214.183.158 //120.192.182.1
     }
 
-    //
-    public static String getAddressByIp(String IP) {
+    private static String getAddressByIp(String IP) {
         String result;
         try {
-            //https not working?
+            //https not working!
             String str = getJsonContent("http://ip.taobao.com/service/getIpInfo.php?ip=" + IP);
             System.out.println(str);
 
-            //TODO
-            JSONObject obj = JSONObject.fromObject(str);//the original
-//            org.json.JSONObject obj = new org.json.JSONObject(str);//not ok
-//            JSONObject obj = JSONObject.fromObject(Class.forName(str).newInstance());
-//            JSONObject obj = JSONObject.fromObject(str.getClass());
-
+            JSONObject obj = JSONObject.fromObject(str);
             JSONObject obj2 = (JSONObject) obj.get("data");
-            String code = (String) obj.get("code");
-            if (code.equals("0")) {
+            int code = (int) obj.get("code");
+            if (code == 0) {
                 result = obj2.get("country") + "--" + obj2.get("area") + "--" + obj2.get("city") + "--" + obj2.get("isp");
             } else {
                 result = "wrong IP address";
@@ -48,7 +42,6 @@ public class GetAddressByIp {
 
     public static String getJsonContent(String urlStr) {
         try {
-            // 获取HttpURLConnection连接对象
             URL url = new URL(urlStr);
             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
             //set the connection properties
@@ -68,16 +61,13 @@ public class GetAddressByIp {
 
     private static String ConvertStream2Json(InputStream inputStream) {
         String jsonStr = "";
-        // ByteArrayOutputStream相当于内存输出流
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len;
-        // 将输入流转移到内存输出流中
         try {
             while ((len = inputStream.read(buffer, 0, buffer.length)) != -1) {
                 out.write(buffer, 0, len);
             }
-            // 将内存流转换为字符串
             jsonStr = new String(out.toByteArray());
         } catch (IOException e) {
             e.printStackTrace();

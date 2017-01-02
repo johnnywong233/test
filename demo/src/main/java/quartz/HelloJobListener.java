@@ -14,13 +14,13 @@ public class HelloJobListener implements JobListener {
 
     @Override
     public String getName() {
-        return	LISTENER_NAME;
+        return LISTENER_NAME;
     }
 
     //Run this if job is about to be executed.
     @Override
     public void jobToBeExecuted(JobExecutionContext context) {
-        String	jobName	= context.getJobDetail().getKey().toString();
+        String jobName = context.getJobDetail().getKey().toString();
         System.out.println("job To Be Executed");
         System.out.println("Job: " + jobName + " is	going	to	start...");
     }
@@ -37,7 +37,7 @@ public class HelloJobListener implements JobListener {
         System.out.println("job Was Executed");
         String jobName = context.getJobDetail().getKey().toString();
         System.out.println("Job: " + jobName + "is finished...");
-        if	(!jobException.getMessage().equals(""))	{
+        if (!jobException.getMessage().equals("")) {
             System.out.println("Exception thrown by: " + jobName + "	Exception: " + jobException.getMessage());
         }
     }

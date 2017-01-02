@@ -22,7 +22,6 @@ import java.util.Properties;
 public class JschUtil {
 
     private static JschUtil instance;
-    private Logger logger;
 
     public static JschUtil getInstance() {
         if (instance == null) {
