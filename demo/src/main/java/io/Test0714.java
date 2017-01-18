@@ -8,8 +8,7 @@ import java.net.URLConnection;
 public class Test0714 {
 
     /*
-     * �����֪����261��Java�������� 7.14
-     * Internet��Դ�ĵ��߳�����
+     * from 261 java problems PDF book, 7.14
      */
     public static void main(String[] args) {
         try {
@@ -17,7 +16,6 @@ public class Test0714 {
             URLConnection conn = url.openConnection();
 
             System.out.println(conn.getDoInput());
-
             System.out.println(conn.getDoOutput());
             conn.connect();
 
@@ -26,7 +24,7 @@ public class Test0714 {
             String file = url.getFile();
             String name = file.substring(file.lastIndexOf('/') + 1);
             System.out.println(name);
-            FileOutputStream fos = new FileOutputStream("C:\\Users\\wajian\\Documents\\Test\\" + name);//C:\Users\wajian\Documents\Test
+            FileOutputStream fos = new FileOutputStream("C:\\Users\\wajian\\Documents\\Test\\" + name);
             byte[] buf = new byte[1024];
             int size;
             while ((size = is.read(buf)) != -1) {

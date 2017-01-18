@@ -11,10 +11,9 @@ import java.util.Properties;
 
 public class Test {
     /*
-     * ??????????261??Java???????? 9.26
+     * from 261 java problems PDF book 9.26
      */
     public static void main(String[] args) throws Exception {
-
         Connection conn = getConnection();
         DatabaseMetaData meta = conn.getMetaData();
         ResultSet mrs = meta.getTables(null, null, "book%",
@@ -23,7 +22,6 @@ public class Test {
             System.out.println(mrs.getString(3));
         mrs.close();
         conn.close();
-
     }
 
     public static Connection getConnection() throws SQLException, IOException {

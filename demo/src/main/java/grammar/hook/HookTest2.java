@@ -13,7 +13,8 @@ public class HookTest2 {
     }
 
     //make sure java -x rags: -Xmx20M to produce OOM Exception
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
         new HookTest2().start();
         System.out.println("The Application is doing something");
         byte[] b = new byte[500 * 1024 * 1024];

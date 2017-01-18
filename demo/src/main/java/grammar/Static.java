@@ -1,29 +1,27 @@
 package grammar;
 
-
 public class Static {
-	/*
-	 * �����֪����261��Java��������.03.24
-	 * ��̬��ʼ������ڵ�һ�δ�������ʱִ�У��ڶ��ξͲ�ִ��
-	 * ����ִ��˳��
-	 */
-	public static void main(String args[]){
-		
-
-        
-		T a = new T();
-		T a1 = new T();
-	}
+    /*
+     * from 261 java problems PDF book, 3.24
+     * this demo show that the static block will be initialized only once
+     */
+    @SuppressWarnings("unused")
+    public static void main(String args[]) {
+        T a = new T();
+        T a1 = new T();
+    }
 }
 
-class T{
-	{
-		System.out.println("--�Ǿ�̬��ʼ����--");
-	}
-	static {
-		System.out.println("--��̬��ʼ����--");
-	}
-	public T(){
-		System.out.println("--�޲εĹ��췽��--");
-	}
+class T {
+    {
+        System.out.println("non static initial block");
+    }
+
+    static {
+        System.out.println("static initial block");
+    }
+
+    public T() {
+        System.out.println("No arguments constructor");
+    }
 }

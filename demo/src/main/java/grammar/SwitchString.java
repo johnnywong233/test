@@ -3,7 +3,6 @@ package grammar;
 import java.util.Scanner;
 
 public class SwitchString {
-
     private enum Day {
         SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, NOVALUE;
 
@@ -18,27 +17,24 @@ public class SwitchString {
 
     /*
      * http://jun1986.iteye.com/blog/1462637
-     * JAVA中的switch判断原本是不能以字符串String作为条件的，解决方法：
      */
     public static void main(String[] args) {
-        @SuppressWarnings("resource")
         Scanner s = new Scanner(System.in);
-        String day = s.next();//输入的字符串
+        String day = s.next();//input string
         switch (Day.toDay(day.toUpperCase())) {
             case SUNDAY:
-                System.out.println("星期天");
+                System.out.println("SUNDAY");
                 break;
             case MONDAY:
-                System.out.println("星期一");
+                System.out.println("MONDAY");
                 break;
             case TUESDAY:
-                System.out.println("星期二");
+                System.out.println("TUESDAY");
                 break;
             default:
                 break;
         }
         s.close();
     }
-
 
 }

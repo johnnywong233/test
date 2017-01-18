@@ -835,6 +835,23 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- word分词是一个Java实现的中文分词组件，提供多种基于词典的分词算法，并利用ngram模型来消除歧义。 能准确识别英文、数字，
+        以及日期、时间等数量词，能识别人名、地名、组织机构名等未登录词。 同时提供Lucene、Solr、ElasticSearch插件。 -->
+        <dependency>
+            <groupId>org.apdplat</groupId>
+            <artifactId>word</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+
+        <!-- Spice up your java: Automatic Resource Management, automatic generation of getters, setters, equals, hashCode and toString, and more! -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.12</version>
+        </dependency>
+
+
+
 
     </dependencies>
 

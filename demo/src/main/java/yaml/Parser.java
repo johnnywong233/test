@@ -99,9 +99,9 @@ class Pojo {
 class Contact {
     private String name;
     private int age;
-    private List phoneNumbers;
+    private List<?> phoneNumbers;
 
-    public Contact(String name, int age, List phoneNumbers) {
+    public Contact(String name, int age, List<?> phoneNumbers) {
         this.name = name;
         this.age = age;
         this.phoneNumbers = phoneNumbers;
@@ -123,11 +123,11 @@ class Contact {
         this.age = age;
     }
 
-    public List getPhoneNumbers() {
+    public List<?> getPhoneNumbers() {
         return phoneNumbers;
     }
 
-    public void setPhoneNumbers(List phoneNumbers) {
+    public void setPhoneNumbers(List<?> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
 }

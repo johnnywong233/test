@@ -14,9 +14,9 @@ import java.io.InputStream;
  * Time: 16:24
  */
 public class ExecShell {
-    private static final String USER = "root";
-    private static final String PASSWORD = "********";
-    private static final String HOST = "localhost";
+    private static final String USER = "hpba";
+    private static final String PASSWORD = "openview";
+    private static final String HOST = "15.119.82.22";
     private static final int DEFAULT_SSH_PORT = 22;
 
     //http://www.importnew.com/22322.html

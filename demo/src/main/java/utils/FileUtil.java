@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -443,6 +445,26 @@ public class FileUtil {
             ret = unGZ(compressFile, destDir);
         }
         return ret;
+    }
+
+    public static String readFile(String filePath) throws IOException {
+        StringBuffer sb = new StringBuffer();
+        readToBuffer(sb, filePath);
+        return sb.toString();
+    }
+
+    public static void readToBuffer(StringBuffer buffer, String filePath) throws IOException {
+        InputStream is = new FileInputStream(filePath);
+        String line;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        line = reader.readLine();
+        while (line != null) {
+            buffer.append(line);
+            buffer.append("\n");
+            line = reader.readLine();
+        }
+        reader.close();
+        is.close();
     }
 
 }

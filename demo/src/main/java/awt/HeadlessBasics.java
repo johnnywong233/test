@@ -22,7 +22,8 @@ public class HeadlessBasics {
     /*
      * http://www.oschina.net/translate/using-headless-mode-in-java-se
      */
-    public static void main(String[] args) {
+    @SuppressWarnings("static-access")
+	public static void main(String[] args) {
         // Set system property.
         // Call this BEFORE the toolkit has been initialized, that is,
         // before Toolkit.getDefaultToolkit() has been called.
@@ -64,7 +65,9 @@ public class HeadlessBasics {
 
         // Canvases can be created.
         final Canvas c = new Canvas() {
-            public void paint(Graphics g) {
+			private static final long serialVersionUID = 1L;
+
+			public void paint(Graphics g) {
                 Rectangle r = getBounds();
                 g.drawLine(0, 0, r.width - 1, r.height - 1);
                 // Colors work too.

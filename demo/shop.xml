@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CHMart name="CHMart">
+    <number>100000</number>
+    <describer>EveryThing</describer>
+    <address state="China">
+        <province>ZheJiang</province>
+        <city>HangZhou</city>
+        <street>XiHuRoad</street>
+        <zip>310000</zip>
+    </address>
+    <orders>
+        <order orderNumber="LH59900">
+            <shopName>Mart</shopName>
+            <price>60</price>
+            <amount>1</amount>
+            <purDate>2017-01-04 21:24:48</purDate>
+            <customer name="Jim">
+                <gender>male</gender>
+                <phoneNo>13699990000</phoneNo>
+                <address state="China">
+                    <province>ShangHai</province>
+                    <city>ShangHai</city>
+                    <street>Huang</street>
+                    <zip>200000</zip>
+                </address>
+            </customer>
+        </order>
+        <order orderNumber="LH59800">
+            <shopName>Mart</shopName>
+            <price>80</price>
+            <amount>1</amount>
+            <purDate>2017-01-04 21:24:48</purDate>
+            <customer name="David">
+                <gender>male</gender>
+                <phoneNo>13699991000</phoneNo>
+                <address state="China">
+                    <province>JiangSu</province>
+                    <city>NanJing</city>
+                    <street>ZhongYangLu</street>
+                    <zip>210000</zip>
+                </address>
+            </customer>
+        </order>
+    </orders>
+</CHMart>
