@@ -43,7 +43,7 @@ public class MyPanel extends JPanel {
     MyPanel() {
         try {
             //TODO
-            Image bg = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/resources/bg.png"));
+            Image bg = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/bg.png"));
             imgs = new ArrayList<>();
             for (int i = 0; i < 2; i++) {
                 imgs.add(ImageIO.read(this.getClass().getResourceAsStream(

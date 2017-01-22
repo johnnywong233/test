@@ -13,7 +13,7 @@ import java.util.Set;
  * Date: 2017/1/15
  * Time: 19:56
  */
-public class TestRoundRobin {
+public class TestLoadBalance {
     private static Map<String, Integer> serverWeightMap = new HashMap<>();
 
     static {
@@ -110,7 +110,7 @@ public class TestRoundRobin {
         serverIp = ipHash("192.168.1.12");
         System.out.println(serverIp);
 
-        TestRoundRobin robin = new TestRoundRobin();
+        TestLoadBalance robin = new TestLoadBalance();
         for (int i = 0; i < 20; i++) {
             serverIp = robin.roundRobin();
             System.out.println(serverIp);
