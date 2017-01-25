@@ -1,5 +1,6 @@
 package algorithm.encrypt;
 
+import javax.crypto.Cipher;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,8 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.Key;
 import java.security.Security;
-
-import javax.crypto.Cipher;
 
 public class MySecurity {
 
@@ -98,7 +97,7 @@ public class MySecurity {
             offset += numRead;
         }
         if (offset < bytes.length) {
-        	is.close();
+            is.close();
             throw new IOException("Could not completely read file" + file.getName());
         }
         is.close();

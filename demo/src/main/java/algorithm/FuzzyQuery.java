@@ -47,7 +47,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         JMenuBar menu = new JMenuBar();
         setJMenuBar(menu);
 
-        JLabel label = new JLabel("查询的歌曲名:");
+        JLabel label = new JLabel("query song by name:");
         textField = new JTextField();
         menu.add(label);
         menu.add(textField);
@@ -169,7 +169,6 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         }
 
         if (event.getSource() == btn4) {
-            //TODO
             //int j;
             //for (j = 0;j<m.length();j++)
             //{

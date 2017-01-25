@@ -29,6 +29,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -184,8 +191,37 @@ public class FileUtil {
 //        System.out.println(unTarGZ("C:\\Users\\wajian\\Documents\\Test\\test.tar.gz", "C:\\Users\\wajian\\Documents\\Test\\"));
 
 
+        //get a Path instance through nio
+        Path path = Paths.get("/test/a.txt");
+        //Path convert into File
+        File file = path.toFile();
+        Files.readAllBytes(path);
+        Files.deleteIfExists(path);
+        Files.size(path);
+
+        Path path1 = Paths.get("/home/user/test");
+        Files.walkFileTree(path, new MyFileVisitor());
 
     }
+
+    public static byte[] readAllBytes(String fileName, long maxSize) throws IOException {
+        Path path = Paths.get(fileName);
+        long size = Files.size(path);
+        if (size > maxSize) {
+            throw new IOException("file: " + path + ", size:" + size + "> " + maxSize);
+        }
+        return Files.readAllBytes(path);
+    }
+
+    public static List<String> readAlllines(String fileName, Charset charset, long maxSize) throws IOException {
+        Path path = Paths.get(fileName);
+        long size = Files.size(path);
+        if (size > maxSize) {
+            throw new IOException("file: " + path + ", size:" + size + "> " + maxSize);
+        }
+        return Files.readAllLines(path, charset);
+    }
+
 
     //use of apache FileUtils.listFiles
     public static void listFile() {
@@ -467,4 +503,13 @@ public class FileUtil {
         is.close();
     }
 
+}
+
+//directory list
+class MyFileVisitor extends SimpleFileVisitor<Path> {
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes att) throws IOException {
+        System.out.println(file);
+        return FileVisitResult.CONTINUE;
+    }
 }
