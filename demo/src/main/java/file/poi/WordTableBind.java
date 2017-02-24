@@ -1,8 +1,5 @@
 package file.poi;
 
-import java.io.FileOutputStream;
-import java.math.BigInteger;
-
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
@@ -15,11 +12,14 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STJc;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTblWidth;
 
+import java.io.FileOutputStream;
+import java.math.BigInteger;
+
 import static file.poi.POIUtils.setCellText;
 
 /**
  * Created by johnny on 2016/10/7.
- *
+ * demo of apache poi
  */
 public class WordTableBind {
     //http://53873039oycg.iteye.com/blog/2152009
@@ -27,8 +27,7 @@ public class WordTableBind {
         WordTableBind t = new WordTableBind();
         XWPFDocument document = new XWPFDocument();
         t.megerTableCell(document);
-        //TODO:error
-        t.saveDocument(document, "D:\\Java_ex\\test\\src\\test\\resources\\" + System.currentTimeMillis() + ".docx");
+        t.saveDocument(document, "C:\\work\\test_git\\test\\demo\\src\\test\\resources\\" + System.currentTimeMillis() + ".docx");
     }
 
     private void megerTableCell(XWPFDocument document) {
@@ -58,9 +57,9 @@ public class WordTableBind {
     }
 
     /**
-     * @Description: 跨列合并
+     * @Description 跨列合并
      */
-    public void mergeCellsHorizontal(XWPFTable table, int row, int fromCell, int toCell) {
+    private void mergeCellsHorizontal(XWPFTable table, int row, int fromCell, int toCell) {
         for (int cellIndex = fromCell; cellIndex <= toCell; cellIndex++) {
             XWPFTableCell cell = table.getRow(row).getCell(cellIndex);
             if (cellIndex == fromCell) {
@@ -74,7 +73,7 @@ public class WordTableBind {
     }
 
     /**
-     * @Description: 跨行合并
+     * @Description 跨行合并
      * @see "http://stackoverflow.com/questions/24907541/row-span-with-xwpftable"
      */
     private void mergeCellsVertically(XWPFTable table, int col, int fromRow, int toRow) {

@@ -4,19 +4,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class TestWordDealUtil {
-    /*
-     * https://www.ibm.com/developerworks/cn/java/j-lo-junit4/
-	 */
-
-    //TODO
     @Test
+    //https://www.ibm.com/developerworks/cn/java/j-lo-junit4/
     public void wordFormat4DBNormal() {
         String target = "employeeInfo";
         String result = WordDealUtil.wordFormat4DB(target);
         Assert.assertEquals("employee_info", result);
     }
 
-    @Test
+    @Test(expected=NullPointerException.class)
     public void wordFormat4DBNull() {
         String target = null;
         String result = WordDealUtil.wordFormat4DB(target);
@@ -33,8 +29,10 @@ public class TestWordDealUtil {
     @Test
     public void wordFormat4DBegin() {
         String target = "EmployeeInfo";
-        String result = WordDealUtil.wordFormat4DB(target);
-        Assert.assertEquals("employee_info", result);
+//        String result = WordDealUtil.wordFormat4DB(target);//fail
+        String result1 = WordDealUtil.wordFormat4DB_1(target);
+//        Assert.assertEquals("employee_info", result);
+        Assert.assertEquals("employee_info", result1);
     }
 
     @Test

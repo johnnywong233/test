@@ -11,8 +11,7 @@ import java.util.ArrayList;
  */
 public class Sudoku {
     //http://www.mincoder.com/article/4296.shtml
-    //TODO: VERIFY IT
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) throws IOException {
         Point[][] numMat = new Point[9][9];
         ArrayList<Point> al = new ArrayList<>();
         initNumMat(numMat, al);
@@ -23,27 +22,28 @@ public class Sudoku {
     private static void setNum(Point[][] numMat, ArrayList<Point> al) {
         int i = 0;
         int j = 0;
-        do{
+        do {
             if (numMat[i][j].getFlag()) {
-                for (int v = numMat[i][j].getValue()+1; v <= 9; v++) {//给回退到的位置的值加一。
+                for (int v = numMat[i][j].getValue() + 1; v <= 9; v++) {//给回退到的位置的值加一。
                     numMat[i][j].setValue(v);
                     if (numMat[i][j].canHere(numMat)) {//满足条件，不冲突。
                         numMat[i][j].changeFlag();//改变标记为假。表示已设置过。
                         break;
-                    }else{
-                        //TODO:
+                    } else {
                         //满足不条件，冲突。value值自加一次
                     }
-                    while(v == 9){//如果1-9都不能满足要求，则先将本位重置为0，并回退一格,给回退到的位置的值加一（当回退位置的值不为9时,并且保证回退到的位置不是九宫格原本的点）。
+                    while (v == 9) {//如果1-9都不能满足要求，则先将本位重置为0，并回退一格,给回退到的位置的值加一（当回退位置的值不为9时,并且保证回退到的位置不是九宫格原本的点）。
                         numMat[i][j].setValue(0);
                         j--;
-                        if(j==-1){
-                            i--;j=8;
+                        if (j == -1) {
+                            i--;
+                            j = 8;
                         }
-                        while(al.contains(numMat[i][j])){//如果回退到的位置为九宫格本来的点时，继续回退，直到不是本身的点时跳出while。
+                        while (al.contains(numMat[i][j])) {//如果回退到的位置为九宫格本来的点时，继续回退，直到不是本身的点时跳出while。
                             j--;
-                            if(j==-1){
-                                i--;j=8;
+                            if (j == -1) {
+                                i--;
+                                j = 8;
                             }
                         }
                         numMat[i][j].changeFlag();//将标记
@@ -52,18 +52,20 @@ public class Sudoku {
                 }
             }
             j++;
-            if(j==9){
-                j=0;i++;//此处i++ 可能使i自加为9，故下面需要i!=9判断
+            if (j == 9) {
+                j = 0;
+                i++;//此处i++ 可能使i自加为9，故下面需要i!=9判断
             }
-            if(i!=9){
-                while(al.contains(numMat[i][j])){
+            if (i != 9) {
+                while (al.contains(numMat[i][j])) {
                     j++;
-                    if(j==9){
-                        j=0;i++;
+                    if (j == 9) {
+                        j = 0;
+                        i++;
                     }
                 }
             }
-        }while(i!=9);
+        } while (i != 9);
     }
 
     private static void initNumMat(Point[][] numMat, ArrayList<Point> al) throws IOException {
@@ -79,9 +81,10 @@ public class Sudoku {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] p;
         String line;
-        System.out.println("请按格式输入点信息（i行号, j列号 v值）,输入结束输入over: i j v ");
-        while((line = br.readLine())!=null){
-            if(line.equals("over"))
+        System.out.println("请按格式输入点信息（i行号, j列号 v值）,输入【over】结束: i j v ");
+        System.out.println("横纵方向上，索引都是从0开始的。");
+        while ((line = br.readLine()) != null) {
+            if (line.equals("over"))
                 break;
             p = line.trim().split(" +");
             numMat[Integer.parseInt(p[0])][Integer.parseInt(p[1])].setValue(Integer.parseInt(p[2]));
@@ -157,7 +160,7 @@ class Point {
         for (int i = this.col - coltemp; i < col + (3 - coltemp); i++) {
             for (int j = this.row - rowtemp; j < row + (3 - rowtemp); j++) {
                 if (i != this.col || j != this.row) {
-                    if(this.value == pArr[i][j].getValue()){
+                    if (this.value == pArr[i][j].getValue()) {
                         return false;
                     }
                 }

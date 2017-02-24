@@ -2,8 +2,15 @@ package useless;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
@@ -17,42 +24,47 @@ import java.util.List;
  */
 public class TestMobileCity {
     /**
-     * 测试手机号码是来自哪个城市的，利用淘宝的API
+     * by use of taobao's API to cal input phone number come from which city
+     *
      * @param mobileNumber test phone number
-     * @return
      * @throws MalformedURLException
      */
-    public static String calcMobileCity(String mobileNumber) throws MalformedURLException{
+    private static String calcMobileCity(String mobileNumber) throws MalformedURLException {
         String jsonString;
         JSONArray array;
         JSONObject jsonObject = null;
-        String urlString = "http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=" + mobileNumber;
+        //在公司运行时(并没有设置代理，公司内网本身就可以访问外网，使用代理只是为了让访问速度更快一些，稳定性更好),
+        //use https use throw java.security.cert.CertificateException: No name matching tcc.taobao.com found
+        //while use http, will throw a Hewlett Packard Enterprise Wrong Autocache
+        //意思是需要在代码层面设置代理，一定要注意在执行API的request请求之前添加下面的代码;并且在设置代理之后，报错也变成301
+        //可是在添加代理之后，换成https还是有No name matching tcc.taobao.com found异常信息
+
+        //but at home, use https will get the right result, while use http throw net.sf.json.JSONException:301 Moved Permanently, 
+        //The requested resource has been assigned a new permanent URI.Powered by Tengine/Aserver
+        String urlString = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=" + mobileNumber;
         StringBuilder sb = new StringBuilder();
         BufferedReader buffer;
         URL url = new URL(urlString);
-        try{
+        try {
             InputStream in = url.openStream();
             //handle messy code problem
             buffer = new BufferedReader(new InputStreamReader(in, "gb2312"));
             String line;
-            while((line = buffer.readLine()) != null){
+            while ((line = buffer.readLine()) != null) {
                 sb.append(line);
             }
             in.close();
             buffer.close();
             jsonString = sb.toString();
-            // 替换掉“__GetZoneResult_ = ”，让它能转换为JSONArray对象
+            //replace “__GetZoneResult_ = ” in order to convert into JSONArray
             jsonString = jsonString.replaceAll("^[__]\\w{14}+[_ = ]+", "[");
-            // System.out.println(jsonString+"]");
             String jsonString2 = jsonString + "]";
-            //TODO
+            System.out.println(jsonString2);
             // convert string to json array
-//            array = JSONArray.fromObject(jsonString2);
-            array = JSONArray.fromObject(Class.forName(jsonString2).newInstance());
-
+            array = JSONArray.fromObject(jsonString2);
             // 获取JSONArray的JSONObject对象，便于读取array里的键值对
             jsonObject = array.getJSONObject(0);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (jsonObject != null) {
@@ -63,25 +75,44 @@ public class TestMobileCity {
 
     /**
      * get the cities of several numbers
+     *
      * @param mobileNumbers number list
-     * @return
      * @throws MalformedURLException
      */
-    public static JSONObject calcMobilesCities(List<String> mobileNumbers) throws MalformedURLException {
+    private static JSONObject calcMobilesCities(List<String> mobileNumbers) throws MalformedURLException {
         JSONObject jsonNumberCity = new JSONObject();
-        for(String mobileNumber : mobileNumbers){
+        for (String mobileNumber : mobileNumbers) {
             jsonNumberCity.put(mobileNumber, calcMobileCity(mobileNumber));
         }
         return jsonNumberCity;
     }
 
+    @SuppressWarnings("unused")
+    private static String calcMobileCity1(String mobileNumber) throws IOException {
+        String url = "http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=" + mobileNumber;
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet request = new HttpGet(url);
+        HttpResponse response = client.execute(request);
+        System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+
+        // Getting the response body.
+        HttpGet httpGet = new HttpGet(url);
+        ResponseHandler<String> handler = new BasicResponseHandler();
+        return client.execute(httpGet, handler);
+    }
+
     //http://www.jb51.net/article/43774.htm
-    public static void main(String[] args) throws Exception{
-    	//if null number, then return 
-        String testMobileNumber = "15216772095"; //1881758452
+    public static void main(String[] args) throws Exception {
+        //set proxy
+        System.setProperty("http.proxySet", "true");
+        System.setProperty("http.proxyHost", "web-proxy.sgp.hpecorp.net");//web-proxy.sgp.hpecorp.net:8088, web-proxy.sgp.hp.com
+        System.setProperty("http.proxyPort", "8088");//8080
+
+        //if null number, then return
+        String testMobileNumber = "15216772095";
         System.out.println(calcMobileCity(testMobileNumber));
         List<String> mobileList = new ArrayList<>();
-        for(int i = 1350345; i < 1350388; i++){
+        for (int i = 1350345; i < 1350388; i++) {
             mobileList.add(String.valueOf(i));
         }
         System.out.println(calcMobilesCities(mobileList).toString());

@@ -22,7 +22,7 @@ public class Maze extends JPanel {
     private int ballX, ballY;
     private boolean drawPath = false;
 
-    Maze(int m, int wi, int p) {
+    private Maze(int m, int wi, int p) {
         NUM = m;
         width = wi;
         padding = p;
@@ -50,19 +50,19 @@ public class Maze extends JPanel {
         repaint();
     }
 
-    public int getCenterX(int x) {
+    private int getCenterX(int x) {
         return padding + x * width + width / 2;
     }
 
-    public int getCenterY(int y) {
+    private int getCenterY(int y) {
         return padding + y * width + width / 2;
     }
 
-    public int getCenterX(Lattice p) {
+    private int getCenterX(Lattice p) {
         return padding + p.getY() * width + width / 2;
     }
 
-    public int getCenterY(Lattice p) {
+    private int getCenterY(Lattice p) {
         return padding + p.getX() * width + width / 2;
     }
 
@@ -91,11 +91,7 @@ public class Maze extends JPanel {
                 tx++;
                 break;
             case KeyEvent.VK_SPACE:
-                if (drawPath) {
-                    drawPath = false;
-                } else {
-                    drawPath = true;
-                }
+                drawPath = !drawPath;
                 break;
             default:
         }
@@ -258,7 +254,7 @@ public class Maze extends JPanel {
         }
     }
 
-    //TODO
+    //TODO:并不能空格操作。
     //http://www.jb51.net/article/83757.htm
     public static void main(String[] args) {
         final int n = 30, width = 600, padding = 20, LX = 200, LY = 100;
@@ -280,7 +276,7 @@ class Lattice {
     private int flag = NOTINTREE;
     private Lattice father = null;
 
-    public Lattice(int xx, int yy) {
+    Lattice(int xx, int yy) {
         x = xx;
         y = yy;
     }
@@ -297,11 +293,11 @@ class Lattice {
         return flag;
     }
 
-    public Lattice getFather() {
+    Lattice getFather() {
         return father;
     }
 
-    public void setFather(Lattice f) {
+    void setFather(Lattice f) {
         father = f;
     }
 

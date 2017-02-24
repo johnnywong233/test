@@ -25,10 +25,11 @@ public class HttpRequestUtil {
 
     /**
      * 发送get请求
+     *
      * @param url 路径
      * @return
      */
-    public static JSONObject httpGet(String url){
+    public static JSONObject httpGet(String url) {
         //get请求返回结果
         JSONObject jsonResult = null;
         try {
@@ -55,22 +56,22 @@ public class HttpRequestUtil {
 
     /**
      * httpPost
-     * @param url  路径
+     *
+     * @param url       路径
      * @param jsonParam 参数
-     * @return
      */
-    public static JSONObject httpPost(String url, JSONObject jsonParam){
+    public static JSONObject httpPost(String url, JSONObject jsonParam) {
         return httpPost(url, jsonParam, false);
     }
 
     /**
      * post请求
-     * @param url         url地址
-     * @param jsonParam     参数
-     * @param noNeedResponse    不需要返回结果
-     * @return
+     *
+     * @param url            url地址
+     * @param jsonParam      参数
+     * @param noNeedResponse 不需要返回结果
      */
-    public static JSONObject httpPost(String url,JSONObject jsonParam, boolean noNeedResponse){
+    public static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) {
 
         //post请求返回结果
         DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -88,7 +89,7 @@ public class HttpRequestUtil {
             url = URLDecoder.decode(url, "UTF-8");
             /**请求发送成功，并得到响应**/
             if (result.getStatusLine().getStatusCode() == 200) {
-                String str = "";
+                String str;
                 try {
                     /**读取服务器返回过来的json字符串数据**/
                     str = EntityUtils.toString(result.getEntity());

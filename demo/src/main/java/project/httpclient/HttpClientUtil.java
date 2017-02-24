@@ -26,11 +26,6 @@ public class HttpClientUtil {
 
     /**
      * httpClient的get请求方式
-     *
-     * @param url
-     * @param charset
-     * @return
-     * @throws Exception
      */
     public static String doGet(String url, String charset) throws Exception {
 
@@ -56,18 +51,12 @@ public class HttpClientUtil {
         // 在返回响应消息使用编码(utf-8或gb2312)
         String response = new String(responseBody, "utf-8");
         System.out.println("------------------response:" + response);
-        // 释放连接
         method.releaseConnection();
         return response;
     }
 
     /**
      * httpClient的get请求方式2
-     *
-     * @param url
-     * @param charset
-     * @return
-     * @throws Exception
      */
     public static String doGet2(String url, String charset) throws Exception {
         /*
@@ -131,7 +120,7 @@ public class HttpClientUtil {
      */
     public static String doPost(String url, Map<String, Object> _params, String charset, boolean pretty) {
 
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
         HttpClient client = new HttpClient();
         PostMethod method = new PostMethod(url);
 
@@ -169,7 +158,7 @@ public class HttpClientUtil {
                 reader.close();
             }
         } catch (IOException e) {
-            System.out.println("执行HTTP Post请求" + url + "时，发生异常！");
+            System.out.println("execute HTTP Post request" + url + "error occurred！");
             e.printStackTrace();
         } finally {
             method.releaseConnection();

@@ -232,11 +232,8 @@ public class SimpleConnetionPool {
 
     /**
      * get decreasing connection count, not just remove 1 connection
-     *
-     * @return count
      */
     public static int getDecreasingConnectionCount() {
-//        int count = 0;
         int current = getConnectionCount();
         if (current < 10) {
             return 0;

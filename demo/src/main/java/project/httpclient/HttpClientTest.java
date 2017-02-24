@@ -35,7 +35,6 @@ public class HttpClientTest {
     }
 
     private static void getRequestTest2() {
-
         String url = "http://localhost:8080/SpringMVC/greeting?name=lisi";
         try {
             String str = HttpClientUtil.doGet2(url, "UTF-8");

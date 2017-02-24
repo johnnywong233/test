@@ -19,7 +19,6 @@ public class HttpRequestTest {
     }
 
     private static void getRequestTest() {
-
         String url = "http://localhost:8080/SpringMVC/greet?name=lisi";
         JSONObject jsonObject = HttpRequestUtil.httpGet(url);
         if (jsonObject != null) {
@@ -37,12 +36,10 @@ public class HttpRequestTest {
         userDTO.setName("johnny");
         userDTO.setAge(25);
         JSONObject jsonParam = JSONObject.fromObject(userDTO);
-
         JSONObject responseJSONObject = HttpRequestUtil.httpPost(url, jsonParam);
         if (responseJSONObject != null && "SUCCESS".equals(responseJSONObject.get("status"))) {
             JSONObject userStr = (JSONObject) responseJSONObject.get("userDTO");
             userDTO = (UserDTO) JSONObject.toBean(userStr, UserDTO.class);
-
             logger.info("http Post request process sucess");
             logger.info("userDTO:" + userDTO);
         } else {

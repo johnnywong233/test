@@ -12,19 +12,20 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
+
 
 /**
  * Created by johnny on 2016/10/6.
- *
+ * 包含ping和端口扫描工具,可按网段及端口段扫描
  */
 public class Discovery {
     PrintStream out = null;
 
-    public Discovery(){
+    public Discovery() {
     }
 
-    public Discovery(PrintStream out){
+    public Discovery(PrintStream out) {
         this.out = out;
     }
 
@@ -32,30 +33,29 @@ public class Discovery {
      * 扫描端口
      * https://my.oschina.net/tangcoffee/blog/330223
      */
-    @Test
-    static void t2(){
+//    @Test
+    static void t2() {
         new SystoolkitConfigure().run();
         Discovery d = new Discovery(System.out);
-		d.scanPort("192.168.2", 1, 254, "22,23,80");
+        d.scanPort("192.168.2", 1, 254, "22,23,80");
         List<String> ips = new ArrayList<>();
         ips.add("192.168.2.22");
         ips.add("192.168.2.23");
         ips.add("192.168.2.54");
         ips.add("192.168.2.55");
-        d.scanPort(ips,"22,23,80,100-200");
+        d.scanPort(ips, "22,23,80,100-200");
     }
 
     /**
      * ping扫描
      */
-    //TODO
     @Test
-    static void t1(){
+    static void t1() {
         new SystoolkitConfigure().run();
         Discovery d = new Discovery(System.out);
-        Map<String,Boolean> ret = d.ping("192.168.2");
-		System.out.println(ret);
-        List<String> ips = new ArrayList<String>();
+        Map<String, Boolean> ret = d.ping("192.168.2");
+        System.out.println(ret);
+        List<String> ips = new ArrayList<>();
         ips.add("192.168.2.22");
         ips.add("192.168.2.23");
         ips.add("192.168.2.54");
@@ -65,6 +65,7 @@ public class Discovery {
 
     /**
      * 对指定的ip(数组)进行ping探测
+     *
      * @param ips ip数组
      * @return 返回格式为 ip:是否成功
      */
@@ -102,20 +103,20 @@ public class Discovery {
                 if (os.contains("windows")) {
                     int index = sb.toString().indexOf("Packets: Sent = 1, Received = 1,");
                     ret.put(ip, index != -1);
-                    if(null!=out) {
-                        out.println(ip+":"+(index != -1));
+                    if (null != out) {
+                        out.println(ip + ":" + (index != -1));
                         out.flush();
                     }
                 } else if (os.contains("linux")) {
                     int index = sb.toString().indexOf("1 packets transmitted, 1 received");
                     ret.put(ip, index != -1);
-                    if(null!=out) {
-                        out.println(ip+":"+(index != -1));
+                    if (null != out) {
+                        out.println(ip + ":" + (index != -1));
                         out.flush();
                     }
                 }
             } catch (IOException e) {
-				e.printStackTrace();
+                e.printStackTrace();
             }
         }
         return ret;
@@ -123,12 +124,10 @@ public class Discovery {
 
     /**
      * 对指定网段的指定ip范围的机器，进行ping探测
-     * @param networkSection
-     *            网段，例:192.168.2
-     * @param startIp
-     *            开始ip,包含此ip,值>0
-     * @param endIp
-     *            结束ip,包含此ip,值<255
+     *
+     * @param networkSection 网段，例:192.168.2
+     * @param startIp        开始ip,包含此ip,值>0
+     * @param endIp          结束ip,包含此ip,值<255
      * @return ping探测结果
      */
     public LinkedHashMap<String, Boolean> ping(String networkSection,
@@ -146,6 +145,7 @@ public class Discovery {
 
     /**
      * 此方法相当于ping(networkSection,1,254)
+     *
      * @param networkSection
      * @return LinkedHashMap
      */
@@ -247,7 +247,7 @@ public class Discovery {
         for (int i = startIp; i <= endIp; i++) {
             ips.add(networkSection + "." + i);
         }
-        return scanPort(ips,port);
+        return scanPort(ips, port);
     }
 
     public List<String> scanPort(List<String> ips, String port) {
@@ -273,7 +273,7 @@ public class Discovery {
                     client = new Socket();
                     client.connect(new InetSocketAddress(ip, p), 300);
                     ret.add(ip + ":" + p);
-                    if(null!=out){
+                    if (null != out) {
                         out.println(ip + ":" + p);
                         out.flush();
                     }

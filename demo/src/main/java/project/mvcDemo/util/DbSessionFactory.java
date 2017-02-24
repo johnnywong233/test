@@ -1,7 +1,7 @@
 package project.mvcDemo.util;
 
 public class DbSessionFactory {
-    private static final ThreadLocal<DbSession> threadLocal = new ThreadLocal<DbSession>();
+    private static final ThreadLocal<DbSession> threadLocal = new ThreadLocal<>();
 
     private DbSessionFactory() {
         throw new AssertionError();
@@ -12,26 +12,22 @@ public class DbSessionFactory {
      *
      * @return DbSession对象
      */
-    public static DbSession openSession() {
+    public static DbSession openSession() throws DbSessionException {
         DbSession session = threadLocal.get();
-
         if (session == null) {
             session = new DbSession();
             threadLocal.set(session);
         }
-
         session.open();
-
         return session;
     }
 
     /**
      * 关闭会话
      */
-    public static void closeSession() {
+    public static void closeSession() throws DbSessionException {
         DbSession session = threadLocal.get();
         threadLocal.set(null);
-
         if (session != null) {
             session.close();
         }

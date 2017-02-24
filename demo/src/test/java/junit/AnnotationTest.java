@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class AnotationTest {
+public class AnnotationTest {
     @Test(expected = ArithmeticException.class)
     public void testDivide() {
 //		assertEquals("error",3, new Calculate().divide(6, 0));

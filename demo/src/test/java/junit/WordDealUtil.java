@@ -5,51 +5,38 @@ import java.util.regex.Pattern;
 
 public class WordDealUtil {
 
-	/*
-	 * https://www.ibm.com/developerworks/cn/java/j-lo-junit4/
-	 * ½« Java ¶ÔÏóÃû³Æ£¨Ã¿¸öµ¥´ÊµÄÍ·×ÖÄ¸´óĞ´£©°´ÕÕ
-	 * Êı¾İ¿âÃüÃûµÄÏ°¹ß½øĞĞ¸ñÊ½»¯
-	 * ¸ñÊ½»¯ºóµÄÊı¾İÎªĞ¡Ğ´×ÖÄ¸£¬²¢ÇÒÊ¹ÓÃÏÂ»®Ïß·Ö¸îÃüÃûµ¥´Ê
-	 * 
-	 * ÀıÈç£ºemployeeInfo ¾­¹ı¸ñÊ½»¯Ö®ºó±äÎª employee_info 
-	 * 
-	 * @param name 	 Java ¶ÔÏóÃû³Æ
-	 */
-
-
+    /*
+     * https://www.ibm.com/developerworks/cn/java/j-lo-junit4/
+     * å°† Java å¯¹è±¡åç§°ï¼ˆæ¯ä¸ªå•è¯çš„å¤´å­—æ¯å¤§å†™ï¼‰æŒ‰ç…§æ•°æ®åº“å‘½åçš„ä¹ æƒ¯è¿›è¡Œæ ¼å¼åŒ–
+     * æ ¼å¼åŒ–åçš„æ•°æ®ä¸ºå°å†™å­—æ¯ï¼Œå¹¶ä¸”ä½¿ç”¨ä¸‹åˆ’çº¿åˆ†å‰²å‘½åå•è¯
+     *
+     * ä¾‹å¦‚ï¼šemployeeInfo ç»è¿‡æ ¼å¼åŒ–ä¹‹åå˜ä¸º employee_info
+     */
     public static String wordFormat4DB(String name) {
         Pattern p = Pattern.compile("[A-Z]");
         Matcher m = p.matcher(name);
         StringBuffer sb = new StringBuffer();
-
         while (m.find()) {
             m.appendReplacement(sb, "_" + m.group());
         }
         return m.appendTail(sb).toString().toLowerCase();
     }
 
-    // ĞŞ¸ÄºóµÄ·½·¨ wordFormat4DB
-
     /**
-     * ½« Java ¶ÔÏóÃû³Æ£¨Ã¿¸öµ¥´ÊµÄÍ·×ÖÄ¸´óĞ´£©°´ÕÕ
-     * Êı¾İ¿âÃüÃûµÄÏ°¹ß½øĞĞ¸ñÊ½»¯
-     * ¸ñÊ½»¯ºóµÄÊı¾İÎªĞ¡Ğ´×ÖÄ¸£¬²¢ÇÒÊ¹ÓÃÏÂ»®Ïß·Ö¸îÃüÃûµ¥´Ê
-     * Èç¹û²ÎÊı name Îª null£¬Ôò·µ»Ø null
+     * æ”¹è¿›ç‰ˆæœ¬ï¼š
+     * å°† Java å¯¹è±¡åç§°ï¼ˆæ¯ä¸ªå•è¯çš„å¤´å­—æ¯å¤§å†™ï¼‰æŒ‰ç…§æ•°æ®åº“å‘½åçš„ä¹ æƒ¯è¿›è¡Œæ ¼å¼åŒ–
+     * æ ¼å¼åŒ–åçš„æ•°æ®ä¸ºå°å†™å­—æ¯ï¼Œå¹¶ä¸”ä½¿ç”¨ä¸‹åˆ’çº¿åˆ†å‰²å‘½åå•è¯
+     * å¦‚æœå‚æ•° name ä¸º nullï¼Œåˆ™è¿”å› null
      * <p>
-     * ÀıÈç£ºemployeeInfo ¾­¹ı¸ñÊ½»¯Ö®ºó±äÎª employee_info
-     *
-     * @param name Java ¶ÔÏóÃû³Æ
+     * ä¾‹å¦‚ï¼šemployeeInfo ç»è¿‡æ ¼å¼åŒ–ä¹‹åå˜ä¸º employee_info
      */
     public static String wordFormat4DB_1(String name) {
-
         if (name == null) {
             return null;
         }
-
         Pattern p = Pattern.compile("[A-Z]");
         Matcher m = p.matcher(name);
         StringBuffer sb = new StringBuffer();
-
         while (m.find()) {
             if (m.start() != 0)
                 m.appendReplacement(sb, ("_" + m.group()).toLowerCase());

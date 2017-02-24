@@ -1,12 +1,5 @@
 package io.file.zip.compare;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.concurrent.TimeUnit;
-
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
 import org.openjdk.jmh.annotations.Measurement;
@@ -16,6 +9,13 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Just to set all annotations in one place
@@ -31,43 +31,38 @@ public class TestParent {
     private Path m_inputFile = InputGenerator.FILE_PATH.toPath();
 
     @Setup
-    public void setup()
-    {
+    public void setup() {
         m_inputFile = InputGenerator.FILE_PATH.toPath();
     }
 
-    interface StreamFactory
-    {
-        public OutputStream getStream(final OutputStream underlyingStream) throws IOException;
+    interface StreamFactory {
+        OutputStream getStream(final OutputStream underlyingStream) throws IOException;
     }
 
-    int baseBenchmark(final StreamFactory factory) throws IOException
-    {
+    int baseBenchmark(final StreamFactory factory) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream((int) m_inputFile.toFile().length());
-        try ( OutputStream os = factory.getStream( bos ) )
-        {
+        try (OutputStream os = factory.getStream(bos)) {
             Files.copy(m_inputFile, os);
         }
         return bos.size();
     }
 
-    //TODO: test resources
     //http://www.codeceo.com/article/java-compress-performance.html
     public static void main(String[] args) throws IOException {
-        System.out.println( "GZIP;" + new GZipTest().gzip() );
-        System.out.println( "Snappy (normal);" + new SnappyTest().snappyNormalOutput() );
-        System.out.println( "Snappy (framed);" + new SnappyTest().snappyFramedOutput() );
-        System.out.println( "LZ4 (fast 64K);" + new Lz4Test().testFastNative64K() );
-        System.out.println( "LZ4 (fast 128K);" + new Lz4Test().testFastNative128K() );
-        System.out.println( "LZ4 (fast 32M);" + new Lz4Test().testFastNative32M() );
-        System.out.println( "LZ4 (fast double 64K);" + new Lz4Test().testFastNativeDouble64K() );
-        System.out.println( "LZ4 (fast double 32M);" + new Lz4Test().testFastNativeDouble32M() );
-        System.out.println( "LZ4 (fast triple 32M);" + new Lz4Test().testFastNativeTriple32M() );
-        System.out.println( "LZ4 (high);" + new Lz4Test().testHighNative() );
-        for ( int i = 1; i <= 9; ++i ) {
+        System.out.println("GZIP;" + new GZipTest().gzip());
+        System.out.println("Snappy (normal);" + new SnappyTest().snappyNormalOutput());
+        System.out.println("Snappy (framed);" + new SnappyTest().snappyFramedOutput());
+        System.out.println("LZ4 (fast 64K);" + new Lz4Test().testFastNative64K());
+        System.out.println("LZ4 (fast 128K);" + new Lz4Test().testFastNative128K());
+        System.out.println("LZ4 (fast 32M);" + new Lz4Test().testFastNative32M());
+        System.out.println("LZ4 (fast double 64K);" + new Lz4Test().testFastNativeDouble64K());
+        System.out.println("LZ4 (fast double 32M);" + new Lz4Test().testFastNativeDouble32M());
+        System.out.println("LZ4 (fast triple 32M);" + new Lz4Test().testFastNativeTriple32M());
+        System.out.println("LZ4 (high);" + new Lz4Test().testHighNative());
+        for (int i = 1; i <= 9; ++i) {
             JdkDeflateTest test = new JdkDeflateTest();
             test.m_lvl = i;
-            System.out.println("Deflate (lvl=" + i + ");" + test.deflate() );
+            System.out.println("Deflate (lvl=" + i + ");" + test.deflate());
         }
     }
 

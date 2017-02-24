@@ -1,9 +1,26 @@
 package utils;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.testng.annotations.Test;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Author: Johnny
@@ -20,6 +37,10 @@ public class CsvUtil {
         while ((temp = br.readLine()) != null) {
             list.add(temp);
         }
+    }
+
+    public CsvUtil() {
+
     }
 
     public List<String> getList() {
@@ -104,6 +125,141 @@ public class CsvUtil {
         this.br.close();
     }
 
+    /**
+     * generate CVS file
+     *
+     * @param exportData 源数据List
+     * @param map        csv文件的列表头map
+     * @param outPutPath 文件路径
+     * @param fileName   文件名称
+     * @return CVS file
+     */
+    public static File createCSVFile(List<Map<String, String>> exportData, LinkedHashMap<String, String> map, String outPutPath,
+                                     String fileName) {
+        File csvFile = null;
+        BufferedWriter csvFileOutputStream = null;
+        try {
+            File file = new File(outPutPath);
+            if (!file.exists()) {
+                file.mkdir();
+            }
+            //定义文件名格式并创建
+            csvFile = File.createTempFile(fileName, ".csv", new File(outPutPath));
+            // UTF-8使正确读取分隔符","
+            csvFileOutputStream = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
+                    csvFile), "UTF-8"), 1024);
+            // 写入文件头部
+            for (Iterator<Map.Entry<String, String>> propertyIterator = map.entrySet().iterator(); propertyIterator.hasNext(); ) {
+                Map.Entry<String, String> propertyEntry = propertyIterator.next();
+                csvFileOutputStream.write(propertyEntry.getValue());
+                if (propertyIterator.hasNext()) {
+                    csvFileOutputStream.write(",");
+                }
+            }
+            csvFileOutputStream.newLine();
+            // 写入文件内容
+            for (Iterator<Map<String, String>> iterator = exportData.iterator(); iterator.hasNext(); ) {
+                Object row = iterator.next();
+                for (Iterator<Map.Entry<String, String>> propertyIterator = map.entrySet().iterator(); propertyIterator
+                        .hasNext(); ) {
+                    Map.Entry<String, String> propertyEntry = propertyIterator.next();
+                    csvFileOutputStream.write(BeanUtils.getProperty(row,
+                            propertyEntry.getKey()));
+                    if (propertyIterator.hasNext()) {
+                        csvFileOutputStream.write(",");
+                    }
+                }
+                if (iterator.hasNext()) {
+                    csvFileOutputStream.newLine();
+                }
+            }
+            csvFileOutputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (csvFileOutputStream != null) {
+                    csvFileOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return csvFile;
+    }
+
+    /**
+     * download file
+     *
+     * @param csvFilePath 文件路径
+     * @param fileName    文件名称
+     * @throws IOException
+     */
+    public static void exportFile(HttpServletResponse response, String csvFilePath, String fileName)
+            throws IOException {
+        response.setContentType("application/csv; charset=UTF-8");
+        response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
+
+        InputStream in = null;
+        try {
+            in = new FileInputStream(csvFilePath);
+            int len;
+            byte[] buffer = new byte[1024];
+            response.setCharacterEncoding("UTF-8");
+            OutputStream out = response.getOutputStream();
+            while ((len = in.read(buffer)) > 0) {
+                out.write(new byte[]{(byte) 0xEF, (byte) 0xBB, (byte) 0xBF});
+                out.write(buffer, 0, len);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * delete all files under the directory filePath
+     */
+    public static void deleteFiles(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            File[] files = file.listFiles();
+            for (File file1 : files) {
+                if (file1.isFile()) {
+                    file1.delete();
+                }
+            }
+        }
+    }
+
+    /**
+     * delete a single file
+     *
+     * @param filePath 文件目录路径
+     * @param fileName 文件名称
+     */
+    public static void deleteFile(String filePath, String fileName) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            File[] files = file.listFiles();
+            for (File file1 : files) {
+                if (file1.isFile()) {
+                    if (file1.getName().equals(fileName)) {
+                        file1.delete();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         CsvUtil util = new CsvUtil("D:\\demo.csv");
         int rowNum = util.getRowNum();
@@ -120,6 +276,34 @@ public class CsvUtil {
                 System.out.println("result[" + i + "|" + j + "]:" + util.getString(i, j));
             }
         }
-
     }
+
+    @Test
+    public void test() {
+        List<Map<String, String>> exportData = new ArrayList<>();
+        Map<String, String> row1 = new LinkedHashMap<>();
+        row1.put("1", "11");
+        row1.put("2", "12");
+        row1.put("3", "13");
+        row1.put("4", "14");
+        exportData.add(row1);
+        row1 = new LinkedHashMap<>();
+        row1.put("1", "21");
+        row1.put("2", "22");
+        row1.put("3", "23");
+        row1.put("4", "24");
+        exportData.add(row1);
+        LinkedHashMap<String, String> map = new LinkedHashMap<>();
+        map.put("1", "row 1");
+        map.put("2", "row 2");
+        map.put("3", "row 3");
+        map.put("4", "row 4");
+
+        String path = "C:\\work\\test_git\\test\\demo\\src\\test\\resources";
+        String fileName = "export file";
+        File file = createCSVFile(exportData, map, path, fileName);
+        String fileName2 = file.getName();
+        System.out.println("filename:" + fileName2);
+    }
+
 }

@@ -47,22 +47,12 @@ public class DbcpPoolDemo {
         }
     }
 
-    /**
-     * get database connection
-     *
-     * @return
-     * @throws SQLException
-     */
     public static Connection getConnection() throws SQLException {
         Connection conn = dbcp.getConnection();
         tl.set(conn);
         return conn;
     }
 
-
-    /**
-     * close database connection
-     */
     public static void closeConnection() {
         try {
             Connection conn = tl.get();
@@ -80,9 +70,7 @@ public class DbcpPoolDemo {
 
     /**
      * test connection success or not
-     *
-     * @param args
-     * @throws SQLException http://www.cnblogs.com/liuhongfeng/p/4171785.html
+     * http://www.cnblogs.com/liuhongfeng/p/4171785.html
      */
     public static void main(String[] args) throws SQLException {
         System.out.println(getConnection());

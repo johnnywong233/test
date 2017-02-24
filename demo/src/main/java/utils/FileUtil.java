@@ -14,6 +14,7 @@ import org.apache.commons.io.filefilter.EmptyFileFilter;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.lang.StringUtils;
+import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,9 +45,6 @@ public class FileUtil {
 
     private static final String NAME_SEPARATOR = File.separator;
 
-    /**
-     * download file
-     */
     public static void downFile(HttpServletRequest request,
                                 HttpServletResponse response, String fileName) throws FileNotFoundException {
         String filePath = request.getSession().getServletContext().getRealPath("/")
@@ -96,9 +94,7 @@ public class FileUtil {
                 //发现同名文件：{}，先执行删除，再新建。
             }
             file.createNewFile();
-            //创建文件
         } catch (IOException e) {
-            //创建文件失败
             e.printStackTrace();
         }
     }
@@ -182,7 +178,6 @@ public class FileUtil {
 
 //        System.out.println(unGZ("C:\\Users\\wajian\\Documents\\Test\\test.gz", "C:\\Users\\wajian\\Documents\\Test\\"));
 //        System.out.println(unTarGZ("C:\\Users\\wajian\\Documents\\Test\\test.tar.gz", "C:\\Users\\wajian\\Documents\\Test\\"));
-
 
 
     }
@@ -466,5 +461,40 @@ public class FileUtil {
         reader.close();
         is.close();
     }
+
+    public static String inputStream2String(File file) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        StringBuilder buffer = new StringBuilder();
+        String line;
+        while ((line = in.readLine()) != null) {
+            buffer.append(line);
+        }
+        return buffer.toString();
+    }
+
+    public static void inputStreamToFile(InputStream ins, File file) {
+        try {
+            OutputStream os = new FileOutputStream(file);
+            int bytesRead;
+            byte[] buffer = new byte[8192];
+            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            ins.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test() {
+        InputStream ins = this.getClass().getResourceAsStream("/per.json");
+        File f = new File("per.json");
+
+        //convert InputStream to File
+        inputStreamToFile(ins, f);
+    }
+
 
 }

@@ -54,9 +54,6 @@ public class DbResourceManager {
         return driver.connect(JDBC_URL, info);
     }
 
-    /**
-     * close ResultSet
-     */
     public static void close(ResultSet rs) {
         try {
             if (rs != null && !rs.isClosed()) {
@@ -67,9 +64,6 @@ public class DbResourceManager {
         }
     }
 
-    /**
-     * close Statement
-     */
     public static void close(Statement stmt) throws SQLException {
         try {
             if (stmt != null && !stmt.isClosed()) {
@@ -80,9 +74,6 @@ public class DbResourceManager {
         }
     }
 
-    /**
-     * close Connection
-     */
     public static void close(Connection con) {
         try {
             if (con != null && !con.isClosed()) {

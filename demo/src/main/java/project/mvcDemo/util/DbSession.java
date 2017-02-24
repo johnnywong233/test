@@ -15,7 +15,7 @@ public class DbSession {
     /**
      * 开启数据库会话
      */
-    public void open() {
+    public void open() throws DbSessionException {
         if (con == null) {
             try {
                 con = DbResourceManager.getConnection();
@@ -35,7 +35,7 @@ public class DbSession {
     /**
      * 关闭数据库会话
      */
-    public void close() {
+    public void close() throws DbSessionException {
         try {
             DbResourceManager.close(rs);
             rs = null;
@@ -50,8 +50,6 @@ public class DbSession {
 
     /**
      * 开启事务
-     *
-     * @throws 无法开启事务时将抛出异常
      */
     public void beginTx() {
         try {
@@ -65,10 +63,8 @@ public class DbSession {
 
     /**
      * 提交事务
-     *
-     * @throws 无法提交事务时将抛出异常
      */
-    public void commitTx() {
+    public void commitTx() throws DbSessionException {
         try {
             if (con != null && !con.isClosed()) {
                 con.commit();
@@ -80,10 +76,8 @@ public class DbSession {
 
     /**
      * 回滚事务
-     *
-     * @throws 无法回滚事务时将抛出异常
      */
-    public void rollbackTx() {
+    public void rollbackTx() throws DbSessionException {
         try {
             if (con != null && !con.isClosed()) {
                 con.rollback();
@@ -100,7 +94,7 @@ public class DbSession {
      * @param params 替换SQL语句中占位符的参数
      * @return 多少行受影响
      */
-    public DbResult executeUpdate(String sql, Object... params) {
+    public DbResult executeUpdate(String sql, Object... params) throws DbSessionException {
         try {
             boolean isInsert = sql.trim().startsWith("insert");
             if (isInsert) {
@@ -119,7 +113,7 @@ public class DbSession {
             }
             return new DbResult(affectedRows, generatedKey);
         } catch (SQLException e) {
-            throw new DbSessionException(e);
+            throw new DbSessionException("Unexpected exception occurred while execute update", e);
         }
     }
 
@@ -130,7 +124,7 @@ public class DbSession {
      * @param params 替换SQL语句中占位符的参数
      * @return 结果集(游标)
      */
-    public ResultSet executeQuery(String sql, Object... params) {
+    public ResultSet executeQuery(String sql, Object... params) throws DbSessionException {
         try {
             stmt = con.prepareStatement(sql);
             for (int i = 0; i < params.length; i++) {
@@ -138,7 +132,7 @@ public class DbSession {
             }
             rs = stmt.executeQuery();
         } catch (SQLException e) {
-            throw new DbSessionException(e);
+            throw new DbSessionException("Unexpected exception occurred while execute query", e);
         }
         return rs;
     }

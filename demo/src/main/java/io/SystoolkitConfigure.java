@@ -12,6 +12,7 @@ import java.util.concurrent.ExecutorService;
  *
  */
 public class SystoolkitConfigure implements Runnable {
+    //TODO
     private static final String default_configure = "systoolkit_default";
     private static String user_configure = "systoolkit";
     //private int scanInterval = 1000*60*5;
@@ -85,7 +86,6 @@ public class SystoolkitConfigure implements Runnable {
 
     /**
      * 设置配置文扫描间隔
-     * @param interval
      */
     public void setScanInterval(int interval){
         this.scanInterval = interval;
@@ -93,7 +93,6 @@ public class SystoolkitConfigure implements Runnable {
 
     /**
      * 从配置文件中取值
-     * @param key
      * @return 如果找不到(或这个键就没有值)，则返回""
      */
     public static String getValue(String key){
@@ -112,9 +111,6 @@ public class SystoolkitConfigure implements Runnable {
 
     /**
      * 从配置文件中取值，并把${args.key}的格式替换为args.value
-     * @param key
-     * @param args 参数
-     * @return
      */
     public static String getValue(String key, Map<String,String> args){
         String value = getValue(key);
@@ -124,7 +120,6 @@ public class SystoolkitConfigure implements Runnable {
         for(Map.Entry<String,String> i: values){
             value = value .replaceAll("\\${1}\\{{1}"+i.getKey()+"\\}{1}", i.getValue());
         }
-
         return value;
     }
 

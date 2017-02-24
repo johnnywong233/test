@@ -4,11 +4,14 @@ import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import project.httpclient.dto.UserDTO;
-import rmi.HelloService;
-import spark.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +35,7 @@ public class HelloController {
     @RequestMapping("/greeting")
     public ModelAndView greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         try {
             //由于浏览器会把中文直接换成ISO-8859-1编码格式,如果用户在地址打入中文,需要进行如下转换处理
             String tempName = new String(name.getBytes("ISO-8859-1"), "utf-8");
@@ -53,7 +56,7 @@ public class HelloController {
         return new ModelAndView("/hello", map);
     }
 
-    @RequestMapping(value="/processing", method = RequestMethod.POST)
+    @RequestMapping(value = "/processing", method = RequestMethod.POST)
     public ModelAndView processing(HttpServletRequest request, HttpServletResponse response) {
 
         Enumeration en = request.getParameterNames();
@@ -71,7 +74,7 @@ public class HelloController {
 
         logger.info("process param is :{}" + userDTO);
 
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         try {
             userDTO = helloService.processService(userDTO);
             //返回请求结果
@@ -90,7 +93,7 @@ public class HelloController {
      * 比如异步获取json数据，加上@responsebody后，会直接返回json数据。
      */
     @ResponseBody
-    @RequestMapping(value="/greet",method = RequestMethod.GET)
+    @RequestMapping(value = "/greet", method = RequestMethod.GET)
     public Map<String, Object> greet(HttpServletRequest request, HttpServletResponse response,
                                      @RequestParam(value = "name", defaultValue = "World") String name) {
 
@@ -104,7 +107,7 @@ public class HelloController {
 
             String userName = helloService.processService(tempName);
 
-            map = new HashMap<String, Object>();
+            map = new HashMap<>();
             map.put("userName", userName);
 
             logger.trace("运行结果:" + map);
@@ -117,7 +120,7 @@ public class HelloController {
     }
 
     @ResponseBody
-    @RequestMapping(value="/process",method = RequestMethod.POST)
+    @RequestMapping(value = "/process", method = RequestMethod.POST)
     public String process(HttpServletRequest request, @RequestBody String requestBody) {
 
         logger.info("process param is :{}" + requestBody);

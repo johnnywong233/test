@@ -6,6 +6,8 @@ package project.mvcDemo.util;
  * Time: 0:18
  */
 public class DbSessionException extends Throwable {
-    public DbSessionException(String message, Exception e) {
+	private static final long serialVersionUID = 7006069628411093457L;
+
+	public DbSessionException(String message, Exception e) {
     }
 }

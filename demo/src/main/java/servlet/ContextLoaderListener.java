@@ -35,7 +35,7 @@ public class ContextLoaderListener extends ContextLoader implements ServletConte
     public void contextDestroyed(ServletContextEvent event) {
         closeWebApplicationContext(event.getServletContext());
         ContextCleanupListener contextCleanupListener = new ContextCleanupListener();
-        contextCleanupListener.cleanupAttributes(event.getServletContext());
+        ContextCleanupListener.cleanupAttributes(event.getServletContext());
     }
 
 }

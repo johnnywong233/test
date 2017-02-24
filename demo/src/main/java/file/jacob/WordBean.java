@@ -8,7 +8,6 @@ import com.jacob.com.Variant;
  * from 《你必须知道的261个Java语言问题》4-31.
  */
 public class WordBean {
-    //TODO
     private ActiveXComponent msWordApp = null;
     private Dispatch document = null;
 

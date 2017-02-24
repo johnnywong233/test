@@ -14,6 +14,7 @@ import java.io.IOException;
 
 /**
  * Created by johnny on 2016/9/16.
+ * main Class
  */
 public class FileDownLoader {
     /**
@@ -22,12 +23,11 @@ public class FileDownLoader {
      */
     private String getFileNameByUrl(String url, String contentType) {
         url = url.substring(7);//remove http://
-        if (contentType.contains("html"))//text/html
-        {
+        //text/html
+        if (contentType.contains("html")) {
             url = url.replaceAll("[?/:*|<>\"]", "_") + ".html";
             return url;
-        } else//如application/pdf
-        {
+        } else {//如application/pdf
             return url.replaceAll("[?/:*|<>\"]", "_") + "." + contentType.substring(contentType.lastIndexOf("/") + 1);
         }
     }
@@ -52,27 +52,20 @@ public class FileDownLoader {
     /*下载 url 指向的网页*/
     String downloadFile(String url) {
         String filePath = null;
-     /* 1.生成 HttpClinet 对象并设置参数*/
         HttpClient httpClient = new HttpClient();
-        //设置 Http 连接超时 5s
         httpClient.getHttpConnectionManager().getParams().
                 setConnectionTimeout(5000);
-     /*2.生成 GetMethod 对象并设置参数*/
         GetMethod getMethod = new GetMethod(url);
-        //设置 get 请求超时 5s
         getMethod.getParams().setParameter(HttpMethodParams.SO_TIMEOUT, 5000);
-        //设置请求重试处理
+        //set request retry handler
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
                 new DefaultHttpMethodRetryHandler());
-     /*3.执行 HTTP GET 请求*/
         try {
             int statusCode = httpClient.executeMethod(getMethod);
-            //判断访问的状态码
             if (statusCode != HttpStatus.SC_OK) {
                 System.err.println("Method failed: " + getMethod.getStatusLine());
                 filePath = null;
             }
-       /*4.处理 HTTP 响应内容*/
             byte[] responseBody = getMethod.getResponseBody();//读取为字节数组
             //根据网页 url 生成保存时的文件名
             filePath = "D:\\Java_ex\\test\\src\\test\\resources\\" + getFileNameByUrl(url,

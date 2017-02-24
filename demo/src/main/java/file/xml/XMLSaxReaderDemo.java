@@ -8,15 +8,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import utils.FileUtil;
+
 
 /**
  * Created by wajian on 2016/8/28.
@@ -34,7 +34,7 @@ public class XMLSaxReaderDemo {
             e.printStackTrace();
         }
         XMLSaxReader reader = new XMLSaxReader();
-        String xml = inputStream2String(new File("C:\\work\\test\\src\\main\\resources\\sample.xml"));
+        String xml = FileUtil.inputStream2String(new File("C:\\work\\test\\src\\main\\resources\\sample.xml"));
         InputStream is = new ByteArrayInputStream(
                 xml.getBytes("UTF-8"));//xml就是刚得到的xml文件，类型String
         if (sp != null) {
@@ -47,16 +47,6 @@ public class XMLSaxReaderDemo {
         System.out.println(timeLength);
     }
 
-    //TODO:can be refactor to a utils method
-    private static String inputStream2String(File file) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-        StringBuilder buffer = new StringBuilder();
-        String line;
-        while ((line = in.readLine()) != null){
-            buffer.append(line);
-        }
-        return buffer.toString();
-    }
 
 }
 

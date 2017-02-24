@@ -28,6 +28,9 @@ public class BaiDuMapApiTest {
      * baidu map api: http://developer.baidu.com/map/
      * http://developer.baidu.com/map/index.php?title=webapi/guide/webservice-geocoding
      * http://blog.csdn.net/u013142781/article/details/47085369
+     * 在家里，如果设置web-proxy.atl.hp.com:8080代理的话，会报异常信息:java.net.ConnectException: Connection timed out: connect
+     * 取消代理即可正常使用API。
+     * 公司的笔记本，无论怎么设置，都会报异常信息：java.lang.StringIndexOutOfBoundsException: String index out of range: -6
      */
     public Map<String, BigDecimal> getLatAndLngByAddress(String addr) {
         String address = "";

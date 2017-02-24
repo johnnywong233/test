@@ -1,7 +1,6 @@
 package project.mvcDemo.biz;
 
 import project.mvcDemo.util.DbSession;
-import project.mvcDemo.util.DbSessionException;
 import project.mvcDemo.util.DbSessionFactory;
 
 import java.lang.reflect.InvocationHandler;
@@ -32,9 +31,6 @@ public class ServiceProxy implements InvocationHandler {
             if (isTxNeeded) session.beginTx();
             retValue = method.invoke(target, args);
             if (isTxNeeded) session.commitTx();
-        } catch (DbSessionException ex) {
-            ex.printStackTrace();
-            if (isTxNeeded) session.rollbackTx();
         } finally {
             DbSessionFactory.closeSession();
         }

@@ -42,10 +42,13 @@ public class BinaryTree {
 
     // http://m.blog.csdn.net/article/details?id=50673797
     public static void main(String[] args) {
-        //TODO: construct a real tree
-        Node node = new Node("Hello,Fork-Join");
+        //TODO: 有什么用？
+        Node node = new Node("Hello, Fork-Join");
         node.leftChild = new Node("Left");
         node.rightChild = new Node("Right");
+        
+        Node parent = new Node("parent node");
+        parent.leftChild = node;
 
         ForkJoinPool forkJoinPool = new ForkJoinPool();
         NodeCopyTask task = new NodeCopyTask(node);

@@ -97,7 +97,6 @@ public final class CommonUtil {
                 }
             }
         }
-
         return null;
     }
 
@@ -119,6 +118,7 @@ public final class CommonUtil {
         try {
             return dateFormat.parse(str);
         } catch (ParseException ex) {
+            ex.printStackTrace();
         }
         return null;
     }

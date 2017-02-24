@@ -31,9 +31,8 @@ public class FtpClientDemo {
     @Test
     public void testUpLoadFromDisk() {
         try {
-            FileInputStream in = new FileInputStream(new File("C:\\work\\test\\src\\main\\resources\\johnny.txt"));
-            //TODO: why can't I find this file on the ftp server?
-            boolean flag = uploadFile("15.107.8.6", 21, "Johnny", "Johnny", "/poc", "johnny.txt", in);
+            FileInputStream in = new FileInputStream(new File("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\0.png"));
+            boolean flag = uploadFile("16.155.193.1", 21, "Johnny", "Johnny", "/05_PersonalFiles/00_Teammembers/Johnny", "0.png", in);
             System.out.println(flag);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -41,11 +40,12 @@ public class FtpClientDemo {
     }
 
     @Test
+    //write test string into a txt file and upload to ftp server.
     public void testUpLoadFromString() {
         try {
-            InputStream input = new ByteArrayInputStream("test ftp".getBytes("utf-8"));
-            //TODO:local ftp server???
-            boolean flag = uploadFile("15.107.4.215", 21, "test", "test", "c:/poc", "johnny.txt", input);
+        	String writeToTxt = "test ftp";
+            InputStream input = new ByteArrayInputStream(writeToTxt.getBytes("utf-8"));
+            boolean flag = uploadFile("16.155.193.1", 21, "Johnny", "Johnny", "/05_PersonalFiles/00_Teammembers/Johnny", "1.txt", input);
             System.out.println(flag);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -126,7 +126,6 @@ public class FtpClientDemo {
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
-                return success;
             }
             ftp.changeWorkingDirectory(path);
             ftp.storeFile(filename, input);

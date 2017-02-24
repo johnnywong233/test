@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 
 public class BMPFile extends Component {
 
+    private static final long serialVersionUID = 6432428347340464906L;
     private final static int BITMAPFILEHEADER_SIZE = 14;
     private final static int BITMAPINFOHEADER_SIZE = 40;
 
@@ -57,7 +58,7 @@ public class BMPFile extends Component {
     }
 
     public static void main(String args[]) {
-//		  save(aImage,32,48);
+        saveBitmap("C:\\work\\test_git\\test\\demo\\src\\main\\resources", aImage, 32, 48);
     }
 
     private boolean convertImage(Image parImage, int parWidth, int parHeight) {

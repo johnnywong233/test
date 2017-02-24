@@ -30,7 +30,7 @@ public class ReflectionUtil {
             }
             return clazz.getDeclaredField(fs[fs.length - 1]).getType();
         } catch (Exception e) {
-            // throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return null;
     }
@@ -45,9 +45,9 @@ public class ReflectionUtil {
         Class<?> clazz = obj.getClass();
         Field[] fields = clazz.getDeclaredFields();
         List<String> fieldNames = new ArrayList<>();
-        for (int i = 0; i < fields.length; i++) {
-            if ((fields[i].getModifiers() & Modifier.STATIC) == 0) {
-                fieldNames.add(fields[i].getName());
+        for (Field field : fields) {
+            if ((field.getModifiers() & Modifier.STATIC) == 0) {
+                fieldNames.add(field.getName());
             }
         }
         return fieldNames.toArray(new String[fieldNames.size()]);
@@ -59,12 +59,10 @@ public class ReflectionUtil {
      * @param target    目标对象
      * @param fieldName 字段的名字
      * @return 字段的值
-     * @throws 如果取不到对象指定字段的值则抛出异常
      */
     public static Object getValue(Object target, String fieldName) {
         Class<?> clazz = target.getClass();
         String[] fs = fieldName.split("\\.");
-
         try {
             for (int i = 0; i < fs.length - 1; i++) {
                 Field f = clazz.getDeclaredField(fs[i]);
@@ -72,7 +70,6 @@ public class ReflectionUtil {
                 target = f.get(target);
                 clazz = target.getClass();
             }
-
             Field f = clazz.getDeclaredField(fs[fs.length - 1]);
             f.setAccessible(true);
             return f.get(target);

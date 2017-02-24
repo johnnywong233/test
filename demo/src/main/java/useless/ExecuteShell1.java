@@ -16,6 +16,7 @@ public class ExecuteShell1 {
 	2) 在NetBeans上直接运行工程是不行的，因为权限不够,需要在终端里运行java javaapplication3.Main
 	3) 很多命令不能运行，只有如pwd等命令可以运行，原因还不清楚，最好改用Ganymed SSH-2库或者其他类似Java库。
 	 */
+	//TODO
     public static void main(String[] args) {
         try {
             int timeout = Integer.parseInt(args[0]);

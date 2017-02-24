@@ -15,6 +15,7 @@ public class TimerTest {
 
     // 第一种方法：设定指定任务task在指定时间time执行 schedule(TimerTask task, Date time)
     private static void timer1() {
+        // 表明这个timer以daemon方式运行（优先级低，程序结束timer也自动结束）
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             public void run() {

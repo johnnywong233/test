@@ -1,5 +1,8 @@
 package test;
 
+import org.apache.commons.lang3.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,7 +26,7 @@ public class RegexDemo {
         return m.matches();
     }
 
-    private static void threeMatches(){
+    private static void threeMatches() {
         String string = "abbbaabbbaaabbb1234";
 //        String string = "/m/t/wd/nl/n/p/m/wd/nl/n/p/m/wd/nl/n/p/m/v/n";
         //TODO: difference
@@ -53,8 +56,93 @@ public class RegexDemo {
         System.out.println(m3.find());//output:false
     }
 
+    /**
+     * convert string ip into long
+     */
+    public static Long ip2int(String ip) {
+        Long num = 0L;
+        if (ip == null) {
+            return num;
+        }
+        try {
+            ip = ip.replaceAll("[^0-9\\.]", ""); //去除字符串前的空字符
+            String[] ips = ip.split("\\.");
+            if (ips.length == 4) {
+                num = Long.parseLong(ips[0], 10) * 256L * 256L * 256L + Long.parseLong(ips[1], 10) * 256L * 256L + Long.parseLong(ips[2], 10) * 256L + Long.parseLong(ips[3], 10);
+                //j>>>i == j/(int)(Math.pow(2,i)), where i and j are int
+                num = num >>> 0;
+            }
+        } catch (NullPointerException ex) {
+            System.out.println(ip);
+        }
+        return num;
+    }
 
-    private static void sillyTest(){
+    /**
+     * parse long into string ip
+     * http://www.bianceng.cn/Programming/Java/index3.htm
+     */
+    public static String int2iP(Long num) {
+        String str;
+        Long[] tt = new Long[4];
+        tt[0] = (num >>> 24);
+        tt[1] = ((num << 8) >>> 24);
+        tt[2] = (num << 16) >>> 24;
+        tt[3] = (num << 24) >>> 24;
+        str = (tt[0]) + "." + (tt[1]) + "." + (tt[2]) + "." + (tt[3]);
+        return str;
+    }
+
+    /**
+     * 将整数表示的ip地址转换为字符串表示.
+     *
+     * @param ip 32位整数表示的ip地址
+     * @return 点分式表示的ip地址
+     */
+    public static String long2Ip(final long ip) {
+        final long[] mask = {0x000000FF, 0x0000FF00, 0x00FF0000, 0xFF000000};
+        final StringBuilder ipAddress = new StringBuilder();
+        for (int i = 0; i < mask.length; i++) {
+            ipAddress.insert(0, (ip & mask[i]) >> (i * 8));
+            if (i < mask.length - 1) {
+                ipAddress.insert(0, ".");
+            }
+        }
+        return ipAddress.toString();
+    }
+
+    /**
+     * 获取访问用户的客户端IP（适用于公网与局域网）.
+     */
+    public static String getIpAddr(final HttpServletRequest request)
+            throws Exception {
+        if (request == null) {
+            throw (new Exception("getIpAddr method HttpServletRequest Object is null"));
+        }
+        String ipString = request.getHeader("x-forwarded-for");
+        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)) {
+            ipString = request.getHeader("Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)) {
+            ipString = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ipString) || "unknown".equalsIgnoreCase(ipString)) {
+            ipString = request.getRemoteAddr();
+        }
+
+        // 多个路由时，取第一个非unknown的ip
+        final String[] arr = ipString.split(",");
+        for (final String str : arr) {
+            if (!"unknown".equalsIgnoreCase(str)) {
+                ipString = str;
+                break;
+            }
+        }
+        return ipString;
+    }
+
+
+    private static void sillyTest() {
         String text = "This is the text to be searched " + "for occurrences of the http:// pattern.";
         String patStr = ".*http://.*";//匹配 http://
         boolean matches = Pattern.matches(patStr, text);
