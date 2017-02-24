@@ -2,6 +2,12 @@ package utils;
 
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class StringUtil {
 
     @Test
@@ -39,5 +45,17 @@ public class StringUtil {
         } while (bDone);
         return retStr;
     }
+
+    public static String inputStream2String(File file) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        StringBuilder buffer = new StringBuilder();
+        String line;
+        while ((line = in.readLine()) != null){
+            buffer.append(line);
+        }
+        return buffer.toString();
+    }
+
+
 
 }

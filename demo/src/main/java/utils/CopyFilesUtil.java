@@ -1,4 +1,4 @@
-package io.file;
+package utils;
 
 import org.apache.commons.io.FileUtils;
 
@@ -11,11 +11,8 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 
-public class CopyFilesExample {
-    /*
-	 * https://biezhi.me/article/java-copy-file.html
-	 */
-
+public class CopyFilesUtil {
+    //https://biezhi.me/article/java-copy-file.html
     public static void main(String[] args) throws InterruptedException,
             IOException {
 
@@ -42,7 +39,7 @@ public class CopyFilesExample {
         source = new File("C:\\Users\\wajian\\Documents\\Test\\sourcefile3.txt");
         dest = new File("C:\\Users\\wajian\\Documents\\Test\\destfile3.txt");
         start = System.nanoTime();
-        copyFileUsingJava7Files(source, dest);
+        copyFileUsingJdkFiles(source, dest);
         end = System.nanoTime();
         System.out.println("Time taken by Java7 Files Copy = " + (end - start));
 
@@ -58,7 +55,7 @@ public class CopyFilesExample {
     }
 
     // method1
-    private static void copyFileUsingFileStreams(File source, File dest)
+    public static void copyFileUsingFileStreams(File source, File dest)
             throws IOException {
         InputStream input = null;
         OutputStream output = null;
@@ -80,7 +77,7 @@ public class CopyFilesExample {
 
     //method2
     @SuppressWarnings("resource")
-    private static void copyFileUsingFileChannels(File source, File dest)
+    public static void copyFileUsingFileChannels(File source, File dest)
             throws IOException {
         FileChannel inputChannel = null;
         FileChannel outputChannel = null;
@@ -96,15 +93,15 @@ public class CopyFilesExample {
         }
     }
 
-    // FileAlreadyExistsException: destfile3.txt,����ķ����򲻴�������������
+    // FileAlreadyExistsException: destfile3.txt
     // method4
-    private static void copyFileUsingJava7Files(File source, File dest)
+    public static void copyFileUsingJdkFiles(File source, File dest)
             throws IOException {
         Files.copy(source.toPath(), dest.toPath());
     }
 
     //method3
-    private static void copyFileUsingApacheCommonsIO(File source, File dest)
+    public static void copyFileUsingApacheCommonsIO(File source, File dest)
             throws IOException {
         FileUtils.copyFile(source, dest);
     }

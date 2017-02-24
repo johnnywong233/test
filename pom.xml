@@ -25,6 +25,7 @@
         <module>demo</module>
         <module>springtest</module>
         <module>HereDocument</module>
+        <module>web_exception_project</module>
     </modules>
 
     <packaging>pom</packaging>

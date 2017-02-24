@@ -3,11 +3,11 @@ package file.xml;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import utils.StringUtil;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -15,15 +15,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.FileUtil;
-
-
 /**
  * Created by wajian on 2016/8/28.
  * demo of sax parse xml
  */
 public class XMLSaxReaderDemo {
-
     //http://www.jb51.net/article/45451.htm
     public static void main(String[] args) throws IOException, SAXException {
         SAXParserFactory sf = SAXParserFactory.newInstance();
@@ -34,22 +30,20 @@ public class XMLSaxReaderDemo {
             e.printStackTrace();
         }
         XMLSaxReader reader = new XMLSaxReader();
-        String xml = FileUtil.inputStream2String(new File("C:\\work\\test\\src\\main\\resources\\sample.xml"));
+        String xml = StringUtil.inputStream2String(new File("C:\\work\\test\\src\\main\\resources\\sample.xml"));
         InputStream is = new ByteArrayInputStream(
                 xml.getBytes("UTF-8"));//xml就是刚得到的xml文件，类型String
         if (sp != null) {
             sp.parse(is, reader);
         }
         List<Video> videos;
-        videos = reader.getVideos();//得到Video List
-        Long timeLength = reader.getLength();//得到视频长度
+        videos = reader.getVideos();//get Video List
+        Long timeLength = reader.getLength();//get length of video
         System.out.println(videos);
         System.out.println(timeLength);
     }
 
-
 }
-
 
 class XMLSaxReader extends DefaultHandler {
     private List<Video> videos = null;
