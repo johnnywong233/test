@@ -12,14 +12,14 @@ import java.io.IOException;
  * Author: Johnny
  * Date: 2016/12/4
  * Time: 23:00
+ * parse html file to xml file
  */
 public class HtmlClean {
 
     //http://www.jb51.net/article/48329.htm
     public static void main(String[] args) {
         HtmlClean test = new HtmlClean();
-        //TODO
-        test.cleanHtml("https://www.baidu.com/more/", "D:\\Java_ex\\test\\src\\test\\resources\\parserResponse.xml");
+        test.cleanHtml("C:\\work\\test_git\\test\\demo\\src\\test\\resources\\www.twt.edu.cn.html", "C:\\work\\test_git\\test\\demo\\src\\main\\resources\\parserResponse.xml");
     }
 
     public void cleanHtml(String htmlurl, String xmlurl) {
@@ -35,9 +35,8 @@ public class HtmlClean {
             props.setBooleanAttributeValues("empty");
 
             TagNode node = cleaner.clean(new File(htmlurl));
-            System.out.println("time consumed:" + (System.currentTimeMillis() - start));
-
-            new PrettyXmlSerializer(props).writeXmlToFile(node, xmlurl);
+//            new PrettyXmlSerializer(props).writeXmlToFile(node, xmlurl);
+            new PrettyXmlSerializer(props).writeToFile(node, xmlurl);
             System.out.println("time consumed for:" + (System.currentTimeMillis() - start));
         } catch (IOException e) {
             e.printStackTrace();

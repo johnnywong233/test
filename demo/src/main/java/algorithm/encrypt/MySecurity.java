@@ -1,11 +1,9 @@
 package algorithm.encrypt;
 
+import utils.FileUtil;
+
 import javax.crypto.Cipher;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.security.Key;
 import java.security.Security;
 
@@ -84,50 +82,16 @@ public class MySecurity {
         return new String(decrypt(hexStr2ByteArr(strIn)));
     }
 
-    private static byte[] getByteFromFile(File file) throws IOException {
-        long length = file.length();
-        if (length > Integer.MAX_VALUE) {
-            return null;
-        }
-        InputStream is = new FileInputStream(file);
-        byte[] bytes = new byte[(int) length];
-        int offset = 0;
-        int numRead;
-        while (offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
-            offset += numRead;
-        }
-        if (offset < bytes.length) {
-            is.close();
-            throw new IOException("Could not completely read file" + file.getName());
-        }
-        is.close();
-        return bytes;
-    }
-
-    private static File writeBytesToFile(byte[] inByte, String pathAndNameString) throws IOException {
-        File file = null;
-        try {
-            file = new File(pathAndNameString);
-            file.createNewFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            fos.write(inByte);
-            fos.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        return file;
-    }
-
     private void encryptFile(String srcFile, String destFile) throws Exception {
         File inFile = new File(srcFile);
-        byte[] fileA = getByteFromFile(inFile);
-        writeBytesToFile(des.encrypt(fileA), destFile);
+        byte[] fileA = FileUtil.getByteFromFile(inFile);
+        FileUtil.writeBytesToFile(des.encrypt(fileA), destFile);
     }
 
     private void decryptFile(String srcFile, String destFile) throws Exception {
         File inFile = new File(srcFile);
-        byte[] fileA = getByteFromFile(inFile);
-        writeBytesToFile(des.decrypt(fileA), destFile);
+        byte[] fileA = FileUtil.getByteFromFile(inFile);
+        FileUtil.writeBytesToFile(des.decrypt(fileA), destFile);
     }
 
     public static void main(String args[]) {

@@ -147,9 +147,8 @@ public class DateUtil {
     public static void main(String[] args) {
 
         Calendar date = Calendar.getInstance();
-        date.set(2016,12,0);
-        //TODO
-        System.out.println(Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH));//4
+        date.set(2017,03,04);
+        System.out.println("to" + Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH));//4
         
         //to get which day of the week is the current day:Day of week in month(1-5):一个月的第几个周几？
         System.out.println(new SimpleDateFormat("F").format(new Date()));

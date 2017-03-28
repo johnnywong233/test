@@ -26,6 +26,7 @@
         <module>springtest</module>
         <module>HereDocument</module>
         <module>web_exception_project</module>
+        <module>SpringbootMybatis</module>
     </modules>
 
     <packaging>pom</packaging>

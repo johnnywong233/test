@@ -11,9 +11,9 @@
     <artifactId>web_exception_project</artifactId>
     <packaging>war</packaging>
     <modelVersion>4.0.0</modelVersion>
-    <name>demo</name>
+    <name>web_exception_project</name>
     <url>http://maven.apache.org</url>
-    <url>https://repo.maven.apache.org/maven2</url>
+    <!--<url>https://repo.maven.apache.org/maven2</url>-->
     <properties>
         <!-- spring version -->
         <spring.version>4.3.3.RELEASE</spring.version>

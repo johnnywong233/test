@@ -12,11 +12,11 @@ public class MyClient {
         //客户端请求与本机在20006端口建立TCP连接   
         Socket client = new Socket("127.0.0.1", 20006);
         client.setSoTimeout(10000);
-        //获取键盘输入   
+        //获取键盘输入
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        //获取Socket的输出流，用来发送数据到服务端    
+        //获取Socket的输出流，用来发送数据到服务端
         PrintStream out = new PrintStream(client.getOutputStream());
-        //获取Socket的输入流，用来接收从服务端发送过来的数据    
+        //获取Socket的输入流，用来接收从服务端发送过来的数据
         BufferedReader buf = new BufferedReader(new InputStreamReader(client.getInputStream()));
         boolean flag = true;
         while (flag) {

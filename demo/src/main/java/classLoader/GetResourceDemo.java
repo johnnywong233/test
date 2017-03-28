@@ -1,42 +1,49 @@
 package classLoader;
 
 import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.net.MalformedURLException;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import org.testng.annotations.Test;
+import simpletest.OOMdemo.Demo1;
+
 /**
  * Created by wajian on 2016/9/8.
+ * http://blog.chinaunix.net/uid-21227800-id-65886.html
  */
-public class GetResourceDemo extends JPanel{
-	private static final long serialVersionUID = -4537971975469661189L;
+public class GetResourceDemo extends JPanel {
+    private static final long serialVersionUID = -4537971975469661189L;
 
-	//http://blog.chinaunix.net/uid-21227800-id-65886.html
-	public static void main(String[] args) {
-        new GetResourceDemo().demo();
-    }
-
-	//TODO
-    public void demo() {
+    @Test
+    public void demo() throws MalformedURLException {
         //load image from file, through classLoader.getResource()
         Image image;
         ClassLoader classLoader = this.getClass().getClassLoader();
+        File file = new File(classLoader.getResource("AStar.png").getFile());
+        System.out.println("get the URI " + file.toURI());
+
         String path = Thread.currentThread().getContextClassLoader().getResource("").getPath().substring(1);
-        System.out.println(path);
-        
-        URL url = classLoader.getResource(path + "AStar.jpg");
-        image = getToolkit().getImage(url);
+        System.out.println("get the path " + path);
+
+//        image = getToolkit().getImage(file.toURL()); //deprecated method: file.toURL()
+        image = getToolkit().getImage(file.toURI().toURL());
+
         ImageIcon ico = new ImageIcon(image);
-        System.out.println("OK load image");
+        System.out.println("OK load image! Description: " + ico.getDescription() + ", IconHeight: " + ico.getIconHeight()
+                + ", ImageLoadStatu " + ico.getImageLoadStatus());
 
         //load properties from file, through classLoader.getResourceAsStream()
         InputStream is = classLoader.getResourceAsStream("widgets.properties");
         if (is == null) {
-            System.err.println("Can't load propertiesfile");
+            System.err.println("Can't load properties file");
             return;
         }
 
@@ -48,7 +55,48 @@ public class GetResourceDemo extends JPanel{
             System.err.println("Load failed: " + ex);
             return;
         }
-
         p.list(System.out);
     }
+
+    private static void readTxt(String filePath) {
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * difference between getResource and class.getClassLoader().getResource
+     * 1.前者获取的是当前类加载的路径,如果用此方法读取文件则有两种方法,与相对路径绝对路径非常类似.
+     * 2.后者获取的是类加载器的路径,即会到classpath路径下.可以理解当前在 classp/ 目录下,要想访问哪个文件,直接填写路径即可,不用区分相对路径和绝对路径.
+     */
+    @Test
+    public void test() {
+        System.out.println("classpath path " + Demo1.class.getClassLoader().getResource("").getPath());
+
+        System.out.println("current class load path " + Demo1.class.getResource("").getPath());
+
+        //methods of getting the src/main/resources directory files
+        //method 1: 从classpath路径出发读取
+        readTxt(Demo1.class.getClassLoader().getResource("test/demo1.txt").getPath());
+        //method 2: 从类加载路径出发, equivalently use absolute directory
+        readTxt(Demo1.class.getResource("/test/demo1.txt").getPath());
+        //method 3: 从类加载路径出发, equivalently use relative directory
+        readTxt(Demo1.class.getResource("../../../test/demo1.txt").getPath());
+    }
+
 }

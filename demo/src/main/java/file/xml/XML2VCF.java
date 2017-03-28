@@ -16,7 +16,7 @@ public class XML2VCF {
         SAXReader reader = new SAXReader();
         Document document = null;
         try {
-            document = reader.read(new File("D:\\Java_ex\\test\\src\\test\\resources\\Contact.xml"));
+            document = reader.read(new File("C:\\work\\test_git\\test\\demo\\src\\test\\resources\\Contact.xml"));
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -50,7 +50,7 @@ public class XML2VCF {
 
         // StringBuilder write into vcf file
         try {
-            FileUtils.writeStringToFile(new File("D:\\Java_ex\\test\\src\\test\\resources\\Contact.xml\\test.vcf"), sb.toString(), "utf-8");
+            FileUtils.writeStringToFile(new File("C:\\work\\test_git\\test\\demo\\src\\test\\resources\\test.vcf"), sb.toString(), "utf-8");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -2,12 +2,19 @@ package useless;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.X509HostnameVerifier;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.SingleClientConnManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,14 +22,36 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.security.cert.CertificateException;
+import javax.security.cert.X509Certificate;
 
 /**
  * Created by wajian on 2016/8/16.
  * by use of taobao phone api to assert city
  */
 public class TestMobileCity {
+	
+	static {
+		trustSelfSignedSSL();//cannot fix "no name matching *** found" exception
+//		try {
+////			fixUntrustCertificate();
+//		} catch (KeyManagementException|NoSuchAlgorithmException e) {
+//			e.printStackTrace();
+//		}
+	}
     /**
      * by use of taobao's API to cal input phone number come from which city
      *
@@ -101,18 +130,110 @@ public class TestMobileCity {
         return client.execute(httpGet, handler);
     }
 
+    /**
+     * java去除https证书验证,java进行https协议网络请求时，会要求证书验证。
+     */
+    private static void trustSelfSignedSSL() {
+		try {
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			X509TrustManager tm = new X509TrustManager() {
+				@SuppressWarnings("unused")
+				public void checkClientTrusted(X509Certificate[] xcs,
+						String string) throws CertificateException {
+				}
+				@SuppressWarnings("unused")
+				public void checkServerTrusted(X509Certificate[] xcs,
+						String string) throws CertificateException {
+				}
+				public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+				@Override
+				public void checkClientTrusted(
+						java.security.cert.X509Certificate[] arg0, String arg1)
+						throws java.security.cert.CertificateException {
+				}
+				@Override
+				public void checkServerTrusted(
+						java.security.cert.X509Certificate[] arg0, String arg1)
+						throws java.security.cert.CertificateException {
+				}
+			};
+			ctx.init(null, new TrustManager[] { tm }, null);
+			SSLContext.setDefault(ctx);
+		} catch (Exception ex) {
+			throw new RuntimeException("Exception occurred ", ex);
+		}
+	}
+    
+    public static void fixUntrustCertificate() throws KeyManagementException, NoSuchAlgorithmException{
+        TrustManager[] trustAllCerts = new TrustManager[]{
+            new X509TrustManager() {
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
+                }
+
+				@Override
+				public void checkClientTrusted(
+						java.security.cert.X509Certificate[] certs, String authType)
+						throws java.security.cert.CertificateException {
+					
+				}
+
+				@Override
+				public void checkServerTrusted(
+						java.security.cert.X509Certificate[] certs, String authType)
+						throws java.security.cert.CertificateException {
+					
+				}
+            }
+        };
+
+        SSLContext sc = SSLContext.getInstance("SSL");
+        sc.init(null, trustAllCerts, new java.security.SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+        	@Override
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+
+        // set the  allTrusting verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+    }
+    
+    
+    
+
+    
+    
     //http://www.jb51.net/article/43774.htm
     public static void main(String[] args) throws Exception {
         //set proxy
         System.setProperty("http.proxySet", "true");
         System.setProperty("http.proxyHost", "web-proxy.sgp.hpecorp.net");//web-proxy.sgp.hpecorp.net:8088, web-proxy.sgp.hp.com
         System.setProperty("http.proxyPort", "8088");//8080
+        
+        // Unexpected end of file from server
+        
+        
+     // Create all-trusting host name verifier
+        HostnameVerifier allHostsValid = new HostnameVerifier() {
+            public boolean verify(String hostname, SSLSession session) {
+                return true;
+            }
+        };
+        // Install the all-trusting host verifier
+        HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+//        HttpsURLConnection.setDefaultHostnameVerifier ((hostname, session) -> true);
 
         //if null number, then return
         String testMobileNumber = "15216772095";
         System.out.println(calcMobileCity(testMobileNumber));
         List<String> mobileList = new ArrayList<>();
-        for (int i = 1350345; i < 1350388; i++) {
+        for (int i = 1350345; i < 1350346; i++) {
             mobileList.add(String.valueOf(i));
         }
         System.out.println(calcMobilesCities(mobileList).toString());

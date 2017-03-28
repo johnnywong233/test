@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atLeastOnce;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import static org.mockito.hamcrest.MockitoHamcrest.argThat;
+//import static org.mockito.hamcrest.MockitoHamcrest.argThat;
 import static org.testng.Assert.assertEquals;
 
 /**

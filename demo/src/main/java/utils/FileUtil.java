@@ -138,6 +138,40 @@ public class FileUtil {
     }
 
 
+    public static byte[] getByteFromFile(File file) throws IOException {
+        long length = file.length();
+        if (length > Integer.MAX_VALUE) {
+            return null;
+        }
+        InputStream is = new FileInputStream(file);
+        byte[] bytes = new byte[(int) length];
+        int offset = 0;
+        int numRead;
+        while (offset < bytes.length && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+            offset += numRead;
+        }
+        if (offset < bytes.length) {
+            is.close();
+            throw new IOException("Could not completely read file" + file.getName());
+        }
+        is.close();
+        return bytes;
+    }
+
+    public static File writeBytesToFile(byte[] inByte, String pathAndNameString) throws IOException {
+        File file = null;
+        try {
+            file = new File(pathAndNameString);
+            file.createNewFile();
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(inByte);
+            fos.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return file;
+    }
+
     public static void main(String[] args) throws Exception {
         /*
          * 创建一个(或多级目录)，其路径名由当前 File 对象指定，此方法可以将子目录的父目录一起创建，

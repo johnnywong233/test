@@ -10,7 +10,6 @@ import java.util.List;
  *
  */
 public class HeapSizeDifferences {
-    //TODO
     private static Collection<Object> objects = new ArrayList<>();
     private static long lastMaxMemory = 0;
     //http://www.importnew.com/15934.html

@@ -417,7 +417,7 @@ define('bui/uploader/button/htmlButton', ['bui/uploader/file', 'bui/uploader/but
 
       fileInput = buttonEl.find('input');
 
-      //TODO:IE6下只有通过脚本和内联样式才能控制按钮大小
+      //IE6下只有通过脚本和内联样式才能控制按钮大小
       if(UA.ie == 6){
         fileInput.css('fontSize','400px');
       }
@@ -923,7 +923,7 @@ define('bui/uploader/type/ajax', ['./base'], function(require) {
                 data = self.get('formData'),
                 file = self.get('file');
             var xhr = new XMLHttpRequest();
-            //TODO:如果使用onProgress存在第二次上传不触发progress事件的问题
+            //如果使用onProgress存在第二次上传不触发progress事件的问题
             xhr.upload.addEventListener('progress',function(ev){
                 self.fire('progress', { 'loaded': ev.loaded, 'total': ev.total });
             });

@@ -2,6 +2,7 @@ package project.game.huarongdao;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -27,6 +28,7 @@ public class MoveExample {
 }
 
 class Person extends JButton implements FocusListener {
+    private static final long serialVersionUID = 5558165565531610960L;
     int number;
     private Color c;
 
@@ -48,6 +50,7 @@ class Person extends JButton implements FocusListener {
 }
 
 class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, ActionListener {
+    private static final long serialVersionUID = 6961895641557715088L;
     private Person person[] = new Person[10];
     private JButton left, right, above, below;
     private JButton restart = new JButton("restart..");
@@ -221,7 +224,8 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         }
     }
 
-    //try to refactor
+    //TODO:try to refactor
+    @SuppressWarnings("unused")
     private void go(Person man) {
         boolean move = true;
         Rectangle manRect = man.getBounds();
