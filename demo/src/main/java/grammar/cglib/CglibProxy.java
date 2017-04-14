@@ -9,8 +9,10 @@ import java.lang.reflect.Method;
 /**
  * Created by wajian on 2016/10/5.
  * https://my.oschina.net/u/1866821/blog/364773
- * TODO:
+ * http://blog.csdn.net/leon709/article/details/9529307
+ * ​cglib实现动态代理构建带参数的代理实例
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class CglibProxy implements MethodInterceptor {
     /**
      * 创建代理对象方法
@@ -45,7 +47,7 @@ public class CglibProxy implements MethodInterceptor {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(target.getClass());
         enhancer.setCallback(this);
-        return (T) enhancer.create();
+        return (T) enhancer.create();// create proxy instance
     }
 
     @Override
@@ -59,5 +61,28 @@ public class CglibProxy implements MethodInterceptor {
             System.out.println("Error " + method.getName() + " ..");
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        CglibProxy proxy = new CglibProxy();
+        Hello hello = proxy.getInstance(new HelloImpl());
+        System.out.println(hello.sayHello("Leon"));
+        UserDaoImpl userDao = proxy.getInstance(new UserDaoImpl());
+        userDao.login("Leon", "1234");
+        System.out.println(userDao.getClass().getSuperclass());//看动态代理实例的父类
+    }
+}
+
+interface UserDao {
+    boolean login(String username, String password);
+}
+
+class UserDaoImpl implements UserDao {
+    @Override
+    public boolean login(String username, String password) {
+        String user = "(" + username + "," + password + ")";
+        System.out.println(this.getClass().getName() + "-> processing login:"
+                + user);
+        return true;
     }
 }

@@ -16,12 +16,18 @@ public class RegexDemo {
         threeMatches();
 
         String str = "77Hi, johnny, your life sucks..0";
-        System.out.println(checkNumInString(str));
+        System.out.println("number in this string? " + checkNumInString(str));
+
+        //TODO: usage
+        String ip = "10.46.128.218";
+        System.out.println(ip2int(ip));
+
+        System.out.println(int2iP(170819802L));
 
     }
 
     private static boolean checkNumInString(String s) {
-        Pattern p = Pattern.compile("\\d*");
+        Pattern p = Pattern.compile("\\d.*");//care for this
         Matcher m = p.matcher(s);
         return m.matches();
     }
@@ -29,9 +35,8 @@ public class RegexDemo {
     private static void threeMatches() {
         String string = "abbbaabbbaaabbb1234";
 //        String string = "/m/t/wd/nl/n/p/m/wd/nl/n/p/m/wd/nl/n/p/m/v/n";
-        //TODO: difference
         //Greedy match, max match
-        Pattern p1 = Pattern.compile("\\.*bbb");
+        Pattern p1 = Pattern.compile("bbb.*");
         Matcher m1 = p1.matcher(string);
         System.out.println("max match:");
         while (m1.find()) {
@@ -41,9 +46,9 @@ public class RegexDemo {
         }
 
         //Reluctant match, min match
-        Pattern p2 = Pattern.compile("\\.*?bbb");
+        Pattern p2 = Pattern.compile("bbb.*?");
         Matcher m2 = p2.matcher(string);
-        System.out.println("min match:");
+        System.out.println("min match:");//find 3 group string match "bbb"
         while (m2.find()) {
             System.out.println(m2.group());
             System.out.println(m2.start());
@@ -53,7 +58,7 @@ public class RegexDemo {
         //Possessive match, total match
         Pattern p3 = Pattern.compile(".*+bbb");
         Matcher m3 = p3.matcher(string);
-        System.out.println(m3.find());//output:false
+        System.out.println("Possessive match: " + m3.find());//output:false
     }
 
     /**

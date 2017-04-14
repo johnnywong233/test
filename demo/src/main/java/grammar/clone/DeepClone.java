@@ -4,15 +4,15 @@ package grammar.clone;
  * Created by wajian on 2016/8/17.
  * http://www.jb51.net/article/86376.htm
  */
-public class DeepClone implements Cloneable{
+public class DeepClone implements Cloneable {
     public String name;
     public int age;
     public Person person;
 
-    public DeepClone() {
+    private DeepClone() {
     }
 
-    public DeepClone(String name, int age, Person person) {
+    private DeepClone(String name, int age, Person person) {
         this.name = name;
         this.age = age;
         this.person = person;
@@ -20,16 +20,8 @@ public class DeepClone implements Cloneable{
 
     @Override
     public DeepClone clone() {
-        DeepClone c = null;
-        try {
-            c = (DeepClone) super.clone();
-            //TODO
-            //The method clone() from the type Object is not visible
-            c.person = (Person) person.clone();
-            return c;
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
+        DeepClone c = new DeepClone();
+        c.person = new Person(age, name);
         return c;
     }
 

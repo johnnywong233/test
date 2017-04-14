@@ -27,6 +27,8 @@
         <module>HereDocument</module>
         <module>web_exception_project</module>
         <module>SpringbootMybatis</module>
+        <module>springboot_demo</module>
+        <module>springcloud_demo</module>
     </modules>
 
     <packaging>pom</packaging>

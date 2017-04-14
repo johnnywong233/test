@@ -4,6 +4,7 @@ import org.apache.wink.client.ClientResponse;
 import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;
 import org.json.simple.JSONValue;
+import org.testng.annotations.Test;
 
 import javax.ws.rs.core.MediaType;
 
@@ -13,8 +14,8 @@ import javax.ws.rs.core.MediaType;
  */
 public class RestClientDemo {
 
-    //TODO
     //http://snv.iteye.com/blog/2118380
+	@Test
     public static void post() throws Throwable {
         RestClient client = new RestClient();
         Resource resource = client.resource("http://api.linkrmb.com/app/api");
@@ -22,6 +23,7 @@ public class RestClientDemo {
         System.out.println(clientResponse.getStatusCode());
     }
 
+	@Test
     public static void put() throws Throwable {
         RestClient client = new RestClient();
         Resource resource = client.resource("http://api.linkrmb.com/app/api");
@@ -33,6 +35,7 @@ public class RestClientDemo {
         System.out.println(clientResponse.getStatusCode());
     }
 
+	@Test
     public static void delete() throws Throwable {
         RestClient client = new RestClient();
         Resource resource = client
@@ -41,6 +44,7 @@ public class RestClientDemo {
         System.out.println(clientResponse.getStatusCode());
     }
 
+	@Test
     public static void get() throws Throwable {
         RestClient client = new RestClient();
         Resource resource = client

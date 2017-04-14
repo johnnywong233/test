@@ -7,7 +7,7 @@ package aspectJ;
  */
 public class AspectJTestClient {
 	//TODO
-	//http://unmi.cc/aspectj-baseon-annotation-method/s
+	//http://unmi.cc/aspectj-baseon-annotation-method/
     public static void main(String[] args) {
 
         new StockService().getBaseInfo("MSFT");

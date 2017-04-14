@@ -12,16 +12,25 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.conn.scheme.PlainSocketFactory;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
+
+import javax.annotation.PostConstruct;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Map;
 
 /**
@@ -31,6 +40,9 @@ import java.util.Map;
  */
 public class HttpClientUtil {
     protected static Log log = LogFactory.getLog(HttpClientUtil.class);
+
+    private CloseableHttpClient httpClient;
+
     protected static HttpClient httpclient = null;
     protected static int maxTotal = 200;
     protected static int maxPerRoute = 20;
@@ -50,33 +62,46 @@ public class HttpClientUtil {
         }
     }
 
+    @PostConstruct
+    public void init(){
+        try {
+            this.createClient();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+	public CloseableHttpClient createClient() throws Exception {
+        if (httpClient == null) {
+            try {
+                httpClient = HttpClients.custom().
+                        setHostnameVerifier(new AllowAllHostnameVerifier()).
+                        setSslcontext(new SSLContextBuilder().loadTrustMaterial(null, (arg0, arg1) -> true).build()).build();
+            } catch (Exception e) {
+                throw new RuntimeException("Can't build SSL ignored http client");
+            }
+        }
+        return httpClient;
+    }
+
     /**
-     * <pre>下載後回傳Inputstream</pre>
-     * @param url
-     * @return
-     * @throws Exception
+     * 以@InputStream 形式下载URL资源
      */
     public static InputStream downloadAsStream(String url) throws Exception {
         return (InputStream) download(url, null, null, false);
     }
 
     /**
-     * <pre>下載後儲存到File</pre>
-     * @param url
-     * @param saveFile
-     * @throws Exception
+     * <pre>以@File 形式下载URL资源 </pre>
      */
     public static void download(String url, File saveFile) throws Exception {
         download(url, saveFile, null, false);
     }
 
     /**
-     * <pre>下載</pre>
-     * @param url
-     * @param saveFile
-     * @param params
-     * @param isPost
-     * @return 如果saveFile==null則回傳inputstream, 否則回傳saveFile
+     * <pre>下载</pre>
+     * @return 如果saveFile==null, 则转换为@InputStream 否则save as @File
      * @throws Exception
      */
     public static Object download(final String url, final File saveFile, final Map<String, String> params,

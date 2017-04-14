@@ -1,13 +1,15 @@
 package algorithm;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-/**
- * Created by wajian on 2016/7/1.
- */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class MyMap1 {
     /* ---城市路线对象--- */
-    public class Way {
+    private class Way {
         String from;
         String to;
         int cost;
@@ -21,7 +23,7 @@ public class MyMap1 {
     // int shortestTime=0; //储存最短时间，用于只输出最短路径的情况
 
     /* ---添加路线，双向添加--- */
-    public void addRoute(String city1, String city2, int cost) {
+	private void addRoute(String city1, String city2, int cost) {
         List cityList1 = map.get(city1);// 城市1路线集合
         if (cityList1 == null) {
             cityList1 = new ArrayList();
@@ -99,9 +101,9 @@ public class MyMap1 {
         //start point equals end point, which means arrival
         if (from.equals(to)) {
             // shortestTime=tempTime;
-            String route = reachedWay.get(0).toString();
+            String route = reachedWay.get(0);
             for (int i = 1; i < reachedWay.size(); i++) {
-                route += "->" + reachedWay.get(i).toString();
+                route += "->" + reachedWay.get(i);
             }
             System.out.println(route + "\ttime used：" + tempTime);
             routeMap.put(tempTime, route);

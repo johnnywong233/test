@@ -45,7 +45,6 @@ public class SwaggerConfiguration implements EnvironmentAware {
                 .apiInfo(apiInfo())
                 .genericModelSubstitutes(ResponseEntity.class)
                 .select()
-                //TODO
                 .paths(regex(DEFAULT_INCLUDE_PATTERN)) // and by paths
                 .build();
         watch.stop();

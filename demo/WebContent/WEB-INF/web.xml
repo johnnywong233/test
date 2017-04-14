@@ -20,7 +20,11 @@
     <servlet>
         <servlet-name>restSdkService</servlet-name>
         <servlet-class>org.apache.wink.server.internal.servlet.RestServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
+        <init-param>
+            <param-name>javax.ws.rs.annotation.Application</param-name>
+            <param-value>wink.HelloWorldApplication</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
@@ -40,6 +44,11 @@
             <param-value>utf-8</param-value>
         </init-param>
     </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ServletConfigTest</servlet-name>
+        <url-pattern>/rest/1/*</url-pattern>
+    </servlet-mapping>
 
     <listener>
         <listener-class>

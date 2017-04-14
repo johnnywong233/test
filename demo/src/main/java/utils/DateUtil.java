@@ -1,10 +1,15 @@
 package utils;
 
+import java.text.DateFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.Test;
 
 /**
  * Author: Johnny
@@ -12,6 +17,8 @@ import java.util.TimeZone;
  * Time: 21:20
  */
 public class DateUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
     /**
      * @description：获取现在时间
@@ -25,9 +32,8 @@ public class DateUtil {
      * @return： 返回字符串格式 yyyy-MM-dd HH:mm:ss
      **/
     public static String getNowDateTimeStr() {
-        Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return formatter.format(currentTime);
+        return formatter.format(getNow());
     }
 
     /**
@@ -35,9 +41,8 @@ public class DateUtil {
      * @return： 返回字符串格式yyyyMMdd HHmmss
      **/
     public static String getNowDateTimeStrFormatTwo() {
-        Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd HHmmss");
-        return formatter.format(currentTime);
+        return formatter.format(getNow());
     }
 
     /**
@@ -45,9 +50,8 @@ public class DateUtil {
      * @return： 返回字符串格式 yyyy-MM-dd
      **/
     public static String getNowDateStr() {
-        Date currentTime = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return formatter.format(currentTime);
+        return formatter.format(getNow());
     }
 
     /**
@@ -56,8 +60,7 @@ public class DateUtil {
      **/
     public static String getTimeStr() {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        Date currentTime = new Date();
-        return formatter.format(currentTime);
+        return formatter.format(getNow());
     }
 
     /**
@@ -143,6 +146,47 @@ public class DateUtil {
         }
         return timeZone;
     }
+
+    public static String discardMillsAndConvert(String dateString) {
+        if("0001-01-01T00:00:00".equalsIgnoreCase(dateString)){
+            return null;
+        }
+        return convertDateFormat(discardMills(dateString));
+    }
+
+    private static String convertDateFormat(String dateString) {
+        Date date = null;
+        DateFormat inFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        DateFormat outFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+        try {
+            date = inFormat.parse(dateString);
+        } catch (Exception e) {
+            logger.warn("Convert Time format for date [{}] failed : {}",
+                    dateString, e.getMessage());
+        }
+        dateString = date == null ? dateString : outFormat.format(date);
+        return dateString;
+    }
+
+    private static String discardMills(String dateString) {
+        if(dateString != null){
+            int i = dateString.indexOf(".");
+            if(i != -1){
+                dateString = dateString.substring(0, i) + "Z";
+            }
+        }
+        return dateString;
+    }
+
+    @Test
+    public static void testDiscardMillsAndConvert(){
+        System.out.println(discardMillsAndConvert("2016-04-15T08:29:34.1874452Z"));
+        System.out.println(discardMillsAndConvert("2016-05-26T05:34:35.914Z"));
+        System.out.println(discardMillsAndConvert("2016-05-26T05:28:37Z"));
+        System.out.println(discardMillsAndConvert(null));
+//        System.out.println(discardMillsAndConvert("0000-01-01T00:00:00"));
+    }
+
 
     public static void main(String[] args) {
 

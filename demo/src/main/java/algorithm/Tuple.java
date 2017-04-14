@@ -1,13 +1,11 @@
 package algorithm;
 
 /**
- * Author: Johnny
- * Date: 2016/10/14
- * Time: 0:42
+ * Author: Johnny Date: 2016/10/14 Time: 0:42
  */
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class Tuple<T> {
-    //TODO
-    private static <T> Tuple mk(T... args){
+    private static <T> Tuple make(T... args) {
         return new Tuple(args);
     }
 
@@ -17,17 +15,18 @@ public class Tuple<T> {
         this.items = items;
     }
 
-    private T _(int index){
-        if(index < 0 || items == null || index > items.length-1){
+    private T index(int index) {
+        if (index < 0 || items == null || index > items.length - 1) {
             return null;
         }
         return items[index];
     }
 
-    //http://unmi.cc/simple-java-tuple-datatype/
+    // http://unmi.cc/simple-java-tuple-datatype/
+    // http://sethjust.com/2012/11/17/java-tuples/
     public static void main(String[] args) {
-        Tuple<String> t = Tuple.mk("Unmi","fantasia@sina.come");
-        System.out.println(t._(0)); //输出 Unmi
+        Tuple<String> t = Tuple.make("Unmi", "fantasia@sina.come", "demo");
+        System.out.println(t.index(2));
     }
 
 }

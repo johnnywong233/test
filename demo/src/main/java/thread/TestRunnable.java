@@ -18,16 +18,16 @@ public class TestRunnable implements Runnable {
     public static void main(String[] args) throws InterruptedException {
         List<Thread> lists = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            Thread thread = new Thread(new TestRunnable("×ÓÏß³Ì" + (i + 100)));
+            Thread thread = new Thread(new TestRunnable("å­çº¿ç¨‹" + (i + 100)));
             lists.add(thread);
             thread.start();
         }
-        System.out.println("Ö÷Ïß³Ì×èÈû,µÈ´ýËùÓÐ×ÓÏß³ÌÖ´ÐÐÍê³É");
+        System.out.println("ä¸»çº¿ç¨‹é˜»å¡ž,ç­‰å¾…æ‰€æœ‰å­çº¿ç¨‹æ‰§è¡Œå®Œæˆ");
         for (Thread thread : lists) {
-            // Èç¹û×¢ÊÍµôthread.join(),Æô¶¯ºó mainÏß³Ì Óë ËùÓÐ×ÓÏß³Ì thread²¢·¢¹¤×÷,²¢²»»áµÈ´ý×ÓÏß³ÌÍê³ÉºóÔÙÖ´ÐÐ
+            //å¦‚æžœæ³¨é‡ŠæŽ‰thread.join(),å¯åŠ¨åŽ mainçº¿ç¨‹ ä¸Ž æ‰€æœ‰å­çº¿ç¨‹ threadå¹¶å‘å·¥ä½œ,å¹¶ä¸ä¼šç­‰å¾…å­çº¿ç¨‹å®ŒæˆåŽå†æ‰§è¡Œ
             thread.join();
         }
-        System.out.println("ËùÓÐÏß³ÌÖ´ÐÐÍê³É!");
+        System.out.println("æ‰€æœ‰çº¿ç¨‹æ‰§è¡Œå®Œæˆ!");
     }
 
 }

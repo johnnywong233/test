@@ -12,7 +12,7 @@ import org.springframework.util.StopWatch;
  */
 @Aspect
 public class MethodExecutionTime {
-    @Around("execution(* *.*(..)) && @annotation(aspectJ.MonitorMethod)")
+    @Around("execution(**.*(..)) && @annotation(aspectJ.MonitorMethod)")
     public Object profile(ProceedingJoinPoint pjp) throws Throwable {
         StopWatch sw = new StopWatch(getClass().getSimpleName());
         try {
