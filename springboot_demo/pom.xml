@@ -17,6 +17,8 @@
         <module>springboot_scan</module>
         <module>springboot_starter_log</module>
         <module>springboot_redis</module>
+        <module>springboot_jsp</module>
+        <module>springboot_ehcache</module>
     </modules>
 
     <parent>

@@ -12,3 +12,5 @@ libs/*
 *.log
 *.exe
 /target/
+.gitignore
+.settings/
