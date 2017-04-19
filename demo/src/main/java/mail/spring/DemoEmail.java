@@ -1,5 +1,7 @@
 package mail.spring;
 
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -13,6 +15,7 @@ import java.util.Map;
  */
 @Component("demoEmail")
 public class DemoEmail {
+    @Autowired
     private TemplateEmail templateEmail;
 
     @Resource(name = "templateEmail")
@@ -21,9 +24,11 @@ public class DemoEmail {
     }
 
     //http://blog.csdn.net/ajun_studio/article/details/7347644
+    @Test
     public void send() {
         Map<String, Object> root = new HashMap<>();
         root.put("username", "johnny");
-        templateEmail.sendTemplateMail(root, "1224017485@qq.com", "topic", "demo.ftl");
+        //TODO: NPE
+        templateEmail.sendTemplateMail(root, "wangjianloveblue@163.com", "topic", "demo.ftl");
     }
 }

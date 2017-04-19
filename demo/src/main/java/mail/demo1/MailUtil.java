@@ -6,6 +6,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.jfree.util.Log;
 import org.testng.annotations.Test;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -22,17 +23,14 @@ public class MailUtil {
     public void sendMail() {
         Mail mail = new Mail();
         // 设置邮件服务器
-        mail.setHost("smtp.exmail.qq.com");
-        
+        mail.setHost("smtp.163.com");
+
         // 发件人邮件地址
-        mail.setSender("1224017485@qq.com");
+        mail.setSender("wangjianloveblue@163.com");
         // 发件人名称
         mail.setName("Java.小学生");
-        // 登录账号,一般都是和邮箱名一样吧
-        mail.setUsername("1224017485@qq.com");
-        // 发件人邮箱的登录密码
-        mail.setPassword("wjlb0174851224");
-        // 接收人
+        mail.setUsername("wangjianloveblue@163.com");
+        mail.setPassword("w**5");
         mail.setReceiver("1224017485@qq.com");
         mail.setReceiverName("我要女票和加薪");
         mail.setSubject("测试");
@@ -47,7 +45,6 @@ public class MailUtil {
         html += "</div>";
         html += "</body></html>";
         mail.setMessage(html);
-
         new MailUtil().send(mail);
     }
 
@@ -57,7 +54,7 @@ public class MailUtil {
             // 这里是SMTP发送服务器的名字：163的如下："smtp.163.com"
             email.setHostName(mail.getHost());
             // 字符编码集的设置
-            email.setCharset(Mail.ENCODEING);
+            email.setCharset(Mail.ENCODING);
             // 发送人的邮箱
             email.setFrom(mail.getSender(), mail.getName());
             // 如果需要认证信息的话，设置认证：用户名-密码。分别为发件人在邮件服务器上的注册名称和密码
@@ -88,25 +85,17 @@ public class MailUtil {
 
     /**
      * 设置收件人信息
-     *
-     * @param email
-     * @param mail
-     * @throws EmailException
      */
     private void setTo(HtmlEmail email, Mail mail) throws EmailException {
-        // 收件人不为空
         if (StringUtils.isNotEmpty(mail.getReceiver())) {
-            // 收件人名称不为空
             if (StringUtils.isNotEmpty(mail.getReceiverName())) {
                 email.addTo(mail.getReceiver(), mail.getReceiverName());
             } else {
                 email.addTo(mail.getReceiver());
             }
         }
-        // 收件人 Map 不为空
         if (mail.getTo() != null) {
             for (Map.Entry<String, String> entry : mail.getTo().entrySet()) {
-                // 收件人名称不为空
                 if (StringUtils.isNotEmpty(entry.getValue())) {
                     email.addTo(entry.getKey(), entry.getValue());
                 } else {
@@ -118,10 +107,6 @@ public class MailUtil {
 
     /**
      * 设置抄送人信息
-     *
-     * @param email
-     * @param mail
-     * @throws EmailException
      */
     private void setCc(HtmlEmail email, Mail mail) throws EmailException {
         // 抄送人 Map 不为空
@@ -139,16 +124,10 @@ public class MailUtil {
 
     /**
      * 设置密送人信息
-     *
-     * @param email
-     * @param mail
-     * @throws EmailException
      */
     private void setBcc(HtmlEmail email, Mail mail) throws EmailException {
-        // 密送人 Map 不为空
         if (mail.getBcc() != null) {
             for (Map.Entry<String, String> entry : mail.getBcc().entrySet()) {
-                // 密送人名称不为空
                 if (StringUtils.isNotEmpty(entry.getValue())) {
                     email.addBcc(entry.getKey(), entry.getValue());
                 } else {
@@ -156,5 +135,126 @@ public class MailUtil {
                 }
             }
         }
+    }
+}
+
+class Mail implements Serializable {
+    private static final long serialVersionUID = -6390720891150157552L;
+    static final String ENCODING = "UTF-8";
+
+    // 服务器地址
+    private String host;
+    // 发件人的邮箱
+    private String sender;
+    // 发件人昵称
+    private String name;
+    private String username;
+    private String password;
+    private String receiver;
+    private String receiverName;
+    // 收件人的邮箱(key)和名称(value)
+    private Map<String, String> to;
+    // 抄送人的邮箱(key)和名称(value)
+    private Map<String, String> cc;
+    // 秘密抄送人的邮箱(key)和名称(value)
+    private Map<String, String> bcc;
+    private String subject;
+    // 信息(支持HTML)
+    private String message;
+
+    public String getHost() {
+        return host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    String getSender() {
+        return sender;
+    }
+
+    void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    String getReceiver() {
+        return receiver;
+    }
+
+    void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    String getSubject() {
+        return subject;
+    }
+
+    void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    String getReceiverName() {
+        return receiverName;
+    }
+
+    void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public Map<String, String> getTo() {
+        return to;
+    }
+
+    public void setTo(Map<String, String> to) {
+        this.to = to;
+    }
+
+    public Map<String, String> getCc() {
+        return cc;
+    }
+
+    public void setCc(Map<String, String> cc) {
+        this.cc = cc;
+    }
+
+    Map<String, String> getBcc() {
+        return bcc;
+    }
+
+    public void setBcc(Map<String, String> bcc) {
+        this.bcc = bcc;
     }
 }

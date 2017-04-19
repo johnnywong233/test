@@ -30,13 +30,12 @@ import java.util.Properties;
  */
 public class MailDemo1 {
     //http://www.jb51.net/article/61005.htm
-    //TODO
     public static void main(String[] args) throws Exception {
         // 连接pop3服务器的主机名、协议、用户名、密码
         String pop3Server = "pop.163.com";
         String protocol = "pop3";
-        String user = "username";
-        String pwd = "password";
+        String user = "wangjianloveblue@163.com";
+        String pwd = "wjlb38745";
 
         // 创建一个有具体连接信息的Properties对象
         Properties props = new Properties();
@@ -71,7 +70,7 @@ class ReciveMail {
     private MimeMessage msg = null;
     private String saveAttchPath = "";
     private StringBuffer bodytext = new StringBuffer();
-    private String dateformate = "yy-MM-dd HH:mm";
+    private String dateFormate = "yy-MM-dd HH:mm";
 
     ReciveMail(MimeMessage msg) {
         this.msg = msg;
@@ -83,9 +82,6 @@ class ReciveMail {
 
     /**
      * 获取发送邮件者信息
-     *
-     * @return
-     * @throws MessagingException
      */
     public String getFrom() throws MessagingException {
         InternetAddress[] address = (InternetAddress[]) msg.getFrom();
@@ -102,11 +98,6 @@ class ReciveMail {
 
     /**
      * 获取邮件收件人，抄送，密送的地址和信息。根据所传递的参数不同 "to"-->收件人,"cc"-->抄送人地址,"bcc"-->密送地址
-     *
-     * @param type
-     * @return
-     * @throws MessagingException
-     * @throws UnsupportedEncodingException
      */
     public String getMailAddress(String type) throws MessagingException, UnsupportedEncodingException {
         String mailaddr = "";
@@ -150,10 +141,6 @@ class ReciveMail {
 
     /**
      * 获取邮件主题
-     *
-     * @return
-     * @throws UnsupportedEncodingException
-     * @throws MessagingException
      */
     private String getSubject() throws UnsupportedEncodingException, MessagingException {
         String subject;
@@ -163,20 +150,15 @@ class ReciveMail {
 
     /**
      * 获取邮件发送日期
-     *
-     * @return
-     * @throws MessagingException
      */
     public String getSendDate() throws MessagingException {
         Date sendDate = msg.getSentDate();
-        SimpleDateFormat smd = new SimpleDateFormat(dateformate);
+        SimpleDateFormat smd = new SimpleDateFormat(dateFormate);
         return smd.format(sendDate);
     }
 
     /**
      * 获取邮件正文内容
-     *
-     * @return
      */
     private String getBodyText() {
         return bodytext.toString();
@@ -185,10 +167,6 @@ class ReciveMail {
     /**
      * 解析邮件，将得到的邮件内容保存到一个stringBuffer对象中，
      * 解析邮件 主要根据MimeType的不同执行不同的操作，一步一步的解析
-     *
-     * @param part
-     * @throws MessagingException
-     * @throws IOException
      */
     private void getMailContent(Part part) throws MessagingException, IOException {
 
@@ -212,14 +190,10 @@ class ReciveMail {
         } else if (part.isMimeType("message/rfc822")) {
             getMailContent((Part) part.getContent());
         }
-
     }
 
     /**
      * 判断邮件是否需要回执，如需回执返回true，否则返回false
-     *
-     * @return
-     * @throws MessagingException
      */
     private boolean getReplySign() throws MessagingException {
         boolean replySign = false;
@@ -232,9 +206,6 @@ class ReciveMail {
 
     /**
      * 获取此邮件的message-id
-     *
-     * @return
-     * @throws MessagingException
      */
     public String getMessageId() throws MessagingException {
         return msg.getMessageID();
@@ -242,32 +213,24 @@ class ReciveMail {
 
     /**
      * 判断此邮件是否已读，如果未读则返回false，已读返回true
-     *
-     * @return
-     * @throws MessagingException
      */
     public boolean isNew() throws MessagingException {
-        boolean isnew = false;
+        boolean isNew = false;
         Flags flags = msg.getFlags();
         Flags.Flag[] flag = flags.getSystemFlags();
         System.out.println("flags's length:" + flag.length);
         for (Flags.Flag aFlag : flag) {
             if (aFlag == Flags.Flag.SEEN) {
-                isnew = true;
+                isNew = true;
                 System.out.println("seen message .......");
                 break;
             }
         }
-        return isnew;
+        return isNew;
     }
 
     /**
      * 判断是是否包含附件
-     *
-     * @param part
-     * @return
-     * @throws MessagingException
-     * @throws IOException
      */
     private boolean isContainAttch(Part part) throws MessagingException, IOException {
         boolean flag = false;
@@ -296,16 +259,11 @@ class ReciveMail {
         } else if (part.isMimeType("message/rfc822")) {
             flag = isContainAttch((Part) part.getContent());
         }
-
         return flag;
     }
 
     /**
      * 保存附件
-     *
-     * @param part
-     * @throws MessagingException
-     * @throws IOException
      */
     private void saveAttchMent(Part part) throws MessagingException, IOException {
         String filename;
@@ -330,7 +288,6 @@ class ReciveMail {
                     saveFile(filename, mpart.getInputStream());
                 }
             }
-
         } else if (part.isMimeType("message/rfc822")) {
             saveAttchMent((Part) part.getContent());
         }
@@ -338,17 +295,13 @@ class ReciveMail {
 
     /**
      * 获得保存附件的地址
-     *
-     * @return
      */
-    public String getSaveAttchPath() {
+    private String getSaveAttchPath() {
         return saveAttchPath;
     }
 
     /**
      * 设置保存附件地址
-     *
-     * @param saveAttchPath
      */
     public void setSaveAttchPath(String saveAttchPath) {
         this.saveAttchPath = saveAttchPath;
@@ -356,42 +309,35 @@ class ReciveMail {
 
     /**
      * 设置日期格式
-     *
-     * @param dateformate
      */
-    public void setDateformate(String dateformate) {
-        this.dateformate = dateformate;
+    public void setDateformate(String dateFormate) {
+        this.dateFormate = dateFormate;
     }
 
     /**
      * 保存文件内容
-     *
-     * @param filename
-     * @param inputStream
-     * @throws IOException
      */
     private void saveFile(String filename, InputStream inputStream) throws IOException {
-        String osname = System.getProperty("os.name");
-        String storedir = getSaveAttchPath();
+        String osName = System.getProperty("os.name");
+        String storeDir = getSaveAttchPath();
         String sepatror;
-        if (osname == null) {
-            osname = "";
+        if (osName == null) {
+            osName = "";
         }
-
-        if (osname.toLowerCase().contains("win")) {
+        if (osName.toLowerCase().contains("win")) {
             sepatror = "//";
-            if (storedir == null || "".equals(storedir)) {
-                storedir = "d://temp";
+            if (storeDir == null || "".equals(storeDir)) {
+                storeDir = "C:\\temp";
             }
         } else {
             sepatror = "/";
-            storedir = "/temp";
+            storeDir = "/temp";
         }
 
-        File storefile = new File(storedir + sepatror + filename);
-        System.out.println("storefile's path:" + storefile.toString());
+        File storeFile = new File(storeDir + sepatror + filename);
+        System.out.println("store file's path:" + storeFile.toString());
 
-        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(storefile));
+        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(storeFile));
              BufferedInputStream bis = new BufferedInputStream(inputStream)) {
             int c;
             while ((c = bis.read()) != -1) {
@@ -413,7 +359,7 @@ class ReciveMail {
         System.out.println("Message" + i + " replySign:" + getReplySign());
         getMailContent(part);
         System.out.println("Message" + i + " content:" + getBodyText());
-        setSaveAttchPath("c://temp//" + i);
+        setSaveAttchPath("c://temp//" + i);//TODO:why i ==44
         if (flag) {
             saveAttchMent(part);
         }

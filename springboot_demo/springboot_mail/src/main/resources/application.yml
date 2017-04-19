@@ -4,7 +4,7 @@ spring:
     host: smtp.163.com
     port: 25
     username: wangjianloveblue@163.com
-    password: wjlb38745
+    password: w**5
     properties:
       smtpAuth: true
       smtpStarttlsEnable: true

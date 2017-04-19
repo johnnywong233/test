@@ -11,22 +11,16 @@ import java.util.Properties;
 
 /**
  * Created by wajian on 2016/10/9.
- *
+ * simple sending
  */
 public class SendEmail {
     //https://www.tutorialspoint.com/javamail_api/javamail_api_sending_simple_email.htm
-    //TODO
     public static void main(String[] args) {
-        // Recipient's email ID needs to be mentioned.
-        String to = "destinationemail@gmail.com";
-
-        // Sender's email ID needs to be mentioned
-        String from = "fromemail@gmail.com";
-        final String username = "manishaspatil";//change accordingly
-        final String password = "******";//change accordingly
-
-        // Assuming you are sending email through relay.jangosmtp.net
-        String host = "relay.jangosmtp.net";
+        String to = "wangjianloveblue@163.com";//can be changed
+        String from = "wangjianloveblue@163.com";
+        final String username = "wangjianloveblue@163.com";
+        final String password = "w**5";
+        String host = "smtp.163.com";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -41,7 +35,6 @@ public class SendEmail {
                         return new PasswordAuthentication(username, password);
                     }
                 });
-
         try {
             // Create a default MimeMessage object.
             Message message = new MimeMessage(session);
@@ -59,12 +52,9 @@ public class SendEmail {
             // Now set the actual message
             message.setText("Hello, this is sample for to check send " +
                     "email using JavaMailAPI ");
-
             // Send message
             Transport.send(message);
-
             System.out.println("Sent message successfully....");
-
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }

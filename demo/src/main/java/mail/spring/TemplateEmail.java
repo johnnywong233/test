@@ -1,17 +1,18 @@
 package mail.spring;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
+import freemarker.template.Template;
 
-import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import freemarker.template.Template;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import java.util.Map;
 
 /**
  * Author: Johnny
@@ -20,9 +21,9 @@ import freemarker.template.Template;
  */
 public class TemplateEmail {
 
-    //TODO
+    @Autowired
     private JavaMailSender sender;
-    private FreeMarkerConfigurer freeMarkerConfigurer = null;//FreeMarker的技术类
+    private FreeMarkerConfigurer freeMarkerConfigurer = null;
 
     public void setFreeMarkerConfigurer(FreeMarkerConfigurer freeMarkerConfigurer) {
         this.freeMarkerConfigurer = freeMarkerConfigurer;
@@ -34,9 +35,7 @@ public class TemplateEmail {
 
     /**
      * 生成html模板字符串
-     *
      * @param root 存储动态数据的map
-     * @return
      */
     private String getMailText(Map<String, Object> root, String templateName) {
         String htmlText = "";
@@ -51,34 +50,31 @@ public class TemplateEmail {
     }
 
     /**
-     * 发送邮件
-     *
+     * send mail
      * @param root    存储动态数据的map
-     * @param toEmail 邮件地址
-     * @param subject 邮件主题
-     * @return
+     * @param toEmail mail address
+     * @param subject mail title
      */
     public boolean sendTemplateMail(Map<String, Object> root, String toEmail, String subject, String templateName) {
         try {
             MimeMessage msg = sender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(msg, false, "utf-8");//由于是html邮件，不是mulitpart类型
-            helper.setFrom("admin@xxx.com");
+            helper.setFrom("wangjianloveblue@163.com");
             helper.setTo(toEmail);
             helper.setSubject(subject);
             String htmlText = getMailText(root, templateName);//使用模板生成html邮件内容
             helper.setText(htmlText, true);
             sender.send(msg);
-            //System.out.println("成功发送模板邮件");
+            System.out.println("send template mail successfully.");
             return true;
         } catch (MailException e) {
-            // System.out.println("失败发送模板邮件");
+            System.out.println("send template mail fail.");
             e.printStackTrace();
             return false;
         } catch (MessagingException e) {
-            //  System.out.println("失败发送模板邮件");
+            System.out.println("send template mail fail.");
             e.printStackTrace();
             return false;
         }
-
     }
 }

@@ -17,7 +17,7 @@
       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
     <bean id="freeMarker" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath" value="classpath:mailtemplates"/><!--指定模板文件目录-->
+        <property name="templateLoaderPath" value="classpath:templates"/><!--指定模板文件目录-->
         <property name="freemarkerSettings"><!-- 设置FreeMarker环境属性-->
             <props>
                 <prop key="template_update_delay">1800</prop><!--刷新模板的周期，单位为秒-->
@@ -27,14 +27,17 @@
         </property>
     </bean>
     <bean id="templateEmail" class="mail.spring.TemplateEmail">
-        <property name="sender" ref="mailsender"></property>
+        <property name="sender" ref="mailSender"></property>
         <property name="freeMarkerConfigurer" ref="freeMarker"></property>
     </bean>
 
-    <bean id="mailsender"
+    <bean id="mailSender"
           class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host">
-            <value>mail.xx.com</value>
+            <value>smtp.163.com</value>
+        </property>
+        <property name="port">
+            <value>465</value>
         </property>
         <property name="javaMailProperties">
             <props>
@@ -43,10 +46,10 @@
             </props>
         </property>
         <property name="username">
-            <value>admin</value>
+            <value>wangjianloveblue@163.com</value>
         </property>
         <property name="password">
-            <value>wjlb0174851224</value>
+            <value>wjlb38745</value>
         </property>
     </bean>
 
