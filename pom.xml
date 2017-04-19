@@ -29,6 +29,8 @@
         <module>SpringbootMybatis</module>
         <module>springboot_demo</module>
         <module>springcloud_demo</module>
+        <module>springboot_demo/springboot_upload</module>
+        <module>springboot_demo/springboot_mail</module>
     </modules>
 
     <packaging>pom</packaging>

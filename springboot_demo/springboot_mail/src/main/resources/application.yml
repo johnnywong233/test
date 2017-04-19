@@ -1,0 +1,12 @@
+spring:
+  mail:
+    protocol: smtp
+    host: smtp.163.com
+    port: 25
+    username: wangjianloveblue@163.com
+    password: wjlb38745
+    properties:
+      smtpAuth: true
+      smtpStarttlsEnable: true
+      smtpStarttlsRequired: true
+      smtpSslTrust: smtp.163.com
