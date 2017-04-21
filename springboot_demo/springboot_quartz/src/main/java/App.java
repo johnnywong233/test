@@ -7,8 +7,6 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.MultipartConfigElement;
 import java.util.concurrent.TimeUnit;
@@ -18,8 +16,6 @@ import java.util.concurrent.TimeUnit;
  * Date: 2017/4/20
  * Time: 19:15
  */
-//@ComponentScan
-//@Configuration
 @SpringBootApplication
 public class App {
     private static final Logger logger = LoggerFactory.getLogger(App.class);
@@ -29,6 +25,7 @@ public class App {
     @Value("${server.sessionTimeout}")
     private int sessionTimeout;
 
+    //http://blog.csdn.net/loongshawn/article/details/52078134
     public static void main(String[] args) {
         logger.info("this is main class" + System.getProperty("file.encoding"));
         SpringApplication.run(App.class, args);

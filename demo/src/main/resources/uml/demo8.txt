@@ -1,0 +1,11 @@
+@startuml
+    [*] --> Test
+    state "Test" as Test {
+        state "Testing Module" as TM
+        state "Configuring Module" as CM
+        [*]-->CM
+        TM-->CM:Testing1
+        CM-->TM:Testing2
+    }
+    note right of Test:状态图实例
+@enduml

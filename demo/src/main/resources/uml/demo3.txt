@@ -1,0 +1,16 @@
+@startuml
+
+title 开始
+
+(*) --> "画流程图"#red
+
+if "使用visio" then
+    -left->[true] "不让安装"
+    --> "赶紧卸载"
+    --right-> (*)
+else
+    ->[false] "使用word画"
+    -->[崩溃] (*)
+endif
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+    title 流程
+    participant taskA as taskA
+    participant taskB as taskB
+    participant taskC as taskC
+
+    taskA->taskB:msgAB
+    taskB->taskC:msgBC
+    taskC-->taskC:loop
+    taskC->taskC:loop
+    taskC->taskB:ack
+
+@enduml
+

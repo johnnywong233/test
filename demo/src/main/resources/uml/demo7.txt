@@ -1,0 +1,14 @@
+@startuml
+    title Lotus
+    interface "IBMDocs" as SC
+    package "Test1" {
+    SC - [ 第一个组件 ]
+    Notes - [ 第一个组件 ]: use
+    Symphony - [ 第二个组件 ]
+    [ 其他组件 ]
+    }
+    package "Test2" {
+    Connections - [ 第三个组件 ]
+    [ 第一个组件 ] --> iNotes
+    }
+@enduml

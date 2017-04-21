@@ -1,0 +1,9 @@
+@startuml
+
+    title Sequence Diagram Example
+    actor Tester1 #red
+    actor Tester2 #Yellow
+    Tester1 -> Tester2: 发送请求
+    Tester2 --> Tester1: 回复请求
+
+@enduml

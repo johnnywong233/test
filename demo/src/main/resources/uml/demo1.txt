@@ -1,0 +1,21 @@
+@startuml
+
+package plantuml{
+	class classA{
+        - private field1
+        # protected field2
+        ~ package method1()
+        + public method2()
+
+		-String name
+		+int id
+	}
+
+	class classB extends classA{
+		-String desc
+		+String getDesc()
+		+void setDesc(String desc)
+	}
+}
+
+@enduml

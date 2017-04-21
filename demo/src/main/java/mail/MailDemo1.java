@@ -359,7 +359,7 @@ class ReciveMail {
         System.out.println("Message" + i + " replySign:" + getReplySign());
         getMailContent(part);
         System.out.println("Message" + i + " content:" + getBodyText());
-        setSaveAttchPath("c://temp//" + i);//TODO:why i ==44
+        setSaveAttchPath("c://temp//" + i);
         if (flag) {
             saveAttchMent(part);
         }
