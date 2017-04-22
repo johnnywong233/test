@@ -4,7 +4,6 @@ import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,8 +36,7 @@ public class JschUtil {
     private Session getSession(String host, int port, String userName)
             throws Exception {
         JSch jsch = new JSch();
-        Session session = jsch.getSession(userName, host, port);
-        return session;
+        return jsch.getSession(userName, host, port);
     }
 
     public Session connect(String host, int port, String username,
@@ -62,7 +60,7 @@ public class JschUtil {
 
         exec.setCommand(command);
         exec.connect();
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         while (in.read(b) > 0) {
             buffer.append(new String(b));
         }
@@ -118,6 +116,7 @@ public class JschUtil {
                 lfs[0] = lf;
             }
 
+            assert lfs != null;
             for (File lf1 : lfs) {
                 String filePath=lf1.getPath();
                 String fileName=lf1.getName();
@@ -162,6 +161,7 @@ public class JschUtil {
             try {
                 if (fis != null) fis.close();
             } catch (Exception ee) {
+                ee.printStackTrace();
             }
         }
     }

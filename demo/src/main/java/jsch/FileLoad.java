@@ -45,7 +45,7 @@ public class FileLoad {
      * @param passPhrase 密钥的密码
      */
     //https://my.oschina.net/hetiangui/blog/137357
-    public static void sshSftp(String ip, String user, String psw, int port, String privateKey, String passPhrase) throws Exception {
+    private static void sshSftp(String ip, String user, String psw, int port, String privateKey, String passPhrase) throws Exception {
         Session session;
         Channel channel = null;
 
@@ -237,9 +237,5 @@ public class FileLoad {
             }
         }
     }
-
-
-
-
 
 }

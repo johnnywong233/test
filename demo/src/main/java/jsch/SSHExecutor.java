@@ -22,10 +22,6 @@ import static java.lang.String.format;
  * Time: 16:29
  */
 public class SSHExecutor {
-    private static long INTERVAL = 100L;
-    private static int SESSION_TIMEOUT = 30000;
-    private static int CHANNEL_TIMEOUT = 3000;
-    private JSch jsch = null;
     private Session session = null;
 
     //http://www.importnew.com/22322.html
@@ -43,25 +39,26 @@ public class SSHExecutor {
     }
 
     private SSHExecutor(SSHInfo sshInfo) throws JSchException {
-        jsch = new JSch();
+        JSch jsch = new JSch();
         session = jsch.getSession(sshInfo.getUser(), sshInfo.getHost(), sshInfo.getPort());
         session.setPassword(sshInfo.getPassword());
         session.setUserInfo(new MyUserInfo());
+        int SESSION_TIMEOUT = 30000;
         session.connect(SESSION_TIMEOUT);
     }
 
-    /*
-    * 在这里修改访问入口,当然可以把这个方法弄到SSHExecutor外面，这里是方便操作才这么做的
-    * */
+    /**
+     * 在这里修改访问入口,当然可以把这个方法弄到SSHExecutor外面，这里是方便操作才这么做的
+     */
     public static SSHExecutor newInstance() throws JSchException {
         SSHInfo sshInfo = new SSHInfo("root", "******", "locahost", 22);
         return new SSHExecutor(sshInfo);
     }
 
-    /*
-    * 注意编码转换
-    * */
-    public long shell(String cmd, String outputFileName) throws JSchException, IOException, InterruptedException {
+    /**
+     * 注意编码转换
+     */
+    private long shell(String cmd, String outputFileName) throws JSchException, IOException, InterruptedException {
         long start = System.currentTimeMillis();
         Channel channel = session.openChannel("shell");
         PipedInputStream pipeIn = new PipedInputStream();
@@ -69,9 +66,11 @@ public class SSHExecutor {
         FileOutputStream fileOut = new FileOutputStream(outputFileName, true);
         channel.setInputStream(pipeIn);
         channel.setOutputStream(fileOut);
+        int CHANNEL_TIMEOUT = 3000;
         channel.connect(CHANNEL_TIMEOUT);
 
         pipeOut.write(cmd.getBytes());
+        long INTERVAL = 100L;
         Thread.sleep(INTERVAL);
         pipeOut.close();
         pipeIn.close();
@@ -89,7 +88,7 @@ public class SSHExecutor {
         channelExec.connect();
 
         int res;
-        StringBuffer buf = new StringBuffer(1024);
+        StringBuilder buf = new StringBuilder(1024);
         byte[] tmp = new byte[1024];
         while (true) {
             while (in.available() > 0) {
@@ -117,13 +116,13 @@ public class SSHExecutor {
         getSession().disconnect();
     }
 
-    public static class SSHInfo {
+    private static class SSHInfo {
         private String user;
         private String password;
         private String host;
         private int port;
 
-        public SSHInfo(String user, String password, String host, int port) {
+        SSHInfo(String user, String password, String host, int port) {
             this.user = user;
             this.password = password;
             this.host = host;

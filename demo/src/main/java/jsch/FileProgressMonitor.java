@@ -11,7 +11,6 @@ import java.util.TimerTask;
  * extends must before implements
  */
 public class FileProgressMonitor extends TimerTask implements SftpProgressMonitor {
-    private long progressInterval = 5 * 1000;
 
     private boolean isEnd = false;
 
@@ -40,9 +39,8 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
                 setEnd(true);
             }
         } else {
-            System.out.println("Transfering done. Cancel timer.");
+            System.out.println("Transfer done. Cancel timer.");
             stop();
-            return;
         }
     }
 
@@ -62,6 +60,7 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
         if (timer == null) {
             timer = new Timer();
         }
+        long progressInterval = 5 * 1000;
         timer.schedule(this, 1000, progressInterval);
         isScheduled = true;
         System.out.println("Progress monitor started.");
@@ -94,12 +93,9 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
         return true;
     }
 
-    /**
-     * 实现了SftpProgressMonitor接口的end方法
-     */
     public void end() {
         setEnd(true);
-        System.out.println("transfering end.");
+        System.out.println("transfer end.");
     }
 
     private synchronized void add(long count) {

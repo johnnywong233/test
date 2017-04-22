@@ -1,3 +1,5 @@
+package upload;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Time: 9:50
  */
 @SpringBootApplication
-public class DemoUploadfileApplication {
+public class DemoUploadFileApplication {
 
     /**
      * test page:
@@ -16,6 +18,6 @@ public class DemoUploadfileApplication {
      * see the uploaded files in the most parent pom.xml directory
      */
     public static void main(String[] args) {
-        SpringApplication.run(DemoUploadfileApplication.class, args);
+        SpringApplication.run(DemoUploadFileApplication.class, args);
     }
 }

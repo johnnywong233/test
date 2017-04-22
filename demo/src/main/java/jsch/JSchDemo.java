@@ -1,16 +1,16 @@
 package jsch;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 /**
  * Author: Johnny
@@ -18,18 +18,17 @@ import com.jcraft.jsch.Session;
  * Time: 23:59
  */
 public class JSchDemo {
-    private String charset = "UTF-8";
     private String user;
     private String password;
     private String host;
     private Session session;
 
     /**
-     * @param user   用户名
+     * @param user     用户名
      * @param password 密码
-     * @param host   主机IP
+     * @param host     主机IP
      */
-    public JSchDemo(String user, String password, String host) {
+    private JSchDemo(String user, String password, String host) {
         this.user = user;
         this.password = password;
         this.host = host;
@@ -37,8 +36,6 @@ public class JSchDemo {
 
     /**
      * 连接到指定的IP
-     *
-     * @throws JSchException
      */
     public void connect() throws JSchException {
         JSch jsch = new JSch();
@@ -53,7 +50,7 @@ public class JSchDemo {
     /**
      * 执行相关的命令
      */
-    public void execCmd() {
+    private void execCmd() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String command;
         BufferedReader reader = null;
@@ -67,6 +64,7 @@ public class JSchDemo {
 
                 channel.connect();
                 InputStream in = channel.getInputStream();
+                String charset = "UTF-8";
                 reader = new BufferedReader(new InputStreamReader(in,
                         Charset.forName(charset)));
                 String buf;
@@ -94,10 +92,10 @@ public class JSchDemo {
     //http://2java.net/doc/1704/code2014623.html
     public static void main(String[] args) throws Exception {
         String user = "root";
-        String passwd = "123456";
+        String password = "123456";
         String host = "192.168.1.188";
 
-        JSchDemo demo = new JSchDemo(user, passwd, host);
+        JSchDemo demo = new JSchDemo(user, password, host);
         demo.connect();
         demo.execCmd();
     }

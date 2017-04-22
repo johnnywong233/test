@@ -19,45 +19,24 @@ public class SSHProxy {
 
     private Session session;
 
-    /**
-     * @return
-     */
     public static SSHProxy getInstance() {
         return proxy;
     }
 
-    /**
-     * @param host   SSH主机
-     * @param port   SSH端口
-     * @param userId SSH用户
-     * @param passwd SSH口令
-     * @return
-     * @throws JSchException
-     */
-    public void createSSHSession(String host, int port, String userId, String passwd)
+    private void createSSHSession(String host, int port, String userId, String password)
             throws JSchException {
         JSch jsch = new JSch();
         this.session = jsch.getSession(userId, host, port);
-        session.setPassword(passwd);
+        session.setPassword(password);
         session.setConfig("StrictHostKeyChecking", "no");
         session.connect();
     }
 
-    /**
-     * @param localePort 本地服务端口
-     * @param targetHost 连接的目标主机
-     * @param targetPort 连接的目标端口
-     * @return
-     * @throws JSchException
-     */
-    public void forward(int localePort, String targetHost, int targetPort)
+    private void forward(int localePort, String targetHost, int targetPort)
             throws JSchException {
         session.setPortForwardingL(localePort, targetHost, targetPort);
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         SSHProxy proxy = SSHProxy.getInstance();
 

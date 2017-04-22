@@ -67,12 +67,13 @@ public class ExecShell {
                 try {
                     Thread.sleep(1000);
                 } catch (Exception ee) {
+                    ee.printStackTrace();
                 }
             }
             channel.disconnect();
             session.disconnect();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 

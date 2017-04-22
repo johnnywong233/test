@@ -5,7 +5,7 @@ package jsch;
  * Date: 2017/1/18
  * Time: 21:30
  */
-public interface SftpProgressMonitor {
+interface SftpProgressMonitor {
     int PUT = 0;
     int GET = 1;
 

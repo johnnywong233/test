@@ -1,4 +1,4 @@
-package config;
+package upload.config;
 
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,8 +21,9 @@ public class FileUploadConfiguration {
         //set max total upload file size
         factory.setMaxRequestSize("512KB");
         //TODO
+        //特定格式文件上传
         // Set the directory location where files will be stored.
-        factory.setLocation("C\\permanent.txt");
+        factory.setLocation("");
         return factory.createMultipartConfig();
     }
 }
