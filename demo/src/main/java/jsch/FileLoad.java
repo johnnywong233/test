@@ -7,7 +7,6 @@ import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.SftpException;
 import com.jcraft.jsch.SftpProgressMonitor;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 

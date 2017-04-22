@@ -1,10 +1,10 @@
 package johnny.dao;
 
+import johnny.model.User;
+import johnny.util.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import johnny.model.User;
-import johnny.util.HibernateUtil;
 
 public class UserDao {
 
