@@ -13,7 +13,7 @@
             <shopName>Mart</shopName>
             <price>60</price>
             <amount>1</amount>
-            <purDate>2017-01-04 21:24:48</purDate>
+            <purDate>2017-04-24 12:14:10</purDate>
             <customer name="Jim">
                 <gender>male</gender>
                 <phoneNo>13699990000</phoneNo>
@@ -29,7 +29,7 @@
             <shopName>Mart</shopName>
             <price>80</price>
             <amount>1</amount>
-            <purDate>2017-01-04 21:24:48</purDate>
+            <purDate>2017-04-24 12:14:10</purDate>
             <customer name="David">
                 <gender>male</gender>
                 <phoneNo>13699991000</phoneNo>

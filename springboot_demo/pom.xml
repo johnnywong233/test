@@ -20,6 +20,8 @@
         <module>springboot_jsp</module>
         <module>springboot_ehcache</module>
         <module>springboot_upload</module>
+        <module>springboot_freemarker</module>
+        <module>springboot_velocity</module>
     </modules>
 
     <parent>

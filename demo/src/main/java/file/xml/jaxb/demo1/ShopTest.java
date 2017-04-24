@@ -47,14 +47,14 @@ public class ShopTest {
             marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshal.marshal(shop, System.out);
 
-            writer = new FileWriter("shop.xml");
+            writer = new FileWriter("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\shop.xml");
             marshal.marshal(shop, writer);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         Unmarshaller unmarshal = context.createUnmarshaller();
-        FileReader reader = new FileReader("shop.xml");
+        FileReader reader = new FileReader("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\shop.xml");
         Shop shop1 = (Shop) unmarshal.unmarshal(reader);
 
         Set<Order> orders1 = shop1.getOrders();
