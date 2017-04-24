@@ -13,7 +13,7 @@ import java.util.List;
  * Date: 2016/12/18
  * Time: 21:18
  * From: http://unmi.cc/jdom-combine-xml-one-document/
- * Description: while there are multi struts-config-xxx.xml files, ActionServlet will process them one by one;
+ * Description: while there are multi struts-ehcache.config-xxx.xml files, ActionServlet will process them one by one;
  * here, combine several xml files then process the temp document; make sure them are identical in format
  *
  */

@@ -1,4 +1,4 @@
-package util;
+package quartz.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

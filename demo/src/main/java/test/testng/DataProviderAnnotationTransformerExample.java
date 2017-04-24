@@ -14,7 +14,7 @@ public class DataProviderAnnotationTransformerExample {
     }
 }
 
-/* even though there is a XML file to config the listener, if you run this test class as TestNG, the output will be:
+/* even though there is a XML file to ehcache.config the listener, if you run this test class as TestNG, the output will be:
  * and the hot-key shift + ALT + X, N
 Method is t3, parameter is Large threadId: 1
 Method is t3, parameter is Data threadId: 1

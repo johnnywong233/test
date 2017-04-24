@@ -6,6 +6,6 @@ package project.httpclient;
  * Time: 0:35
  */
 public class Constant {
-    public static final String URL_1 = PropertiesFileUtil.getPropValue("url1", "config");
-    public static final String URL_2 = PropertiesFileUtil.getPropValue("url2", "config");
+    public static final String URL_1 = PropertiesFileUtil.getPropValue("url1", "ehcache.config");
+    public static final String URL_2 = PropertiesFileUtil.getPropValue("url2", "ehcache.config");
 }

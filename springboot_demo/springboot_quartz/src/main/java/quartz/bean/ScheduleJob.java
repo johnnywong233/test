@@ -1,4 +1,4 @@
-package bean;
+package quartz.bean;
 
 /**
  * Author: Johnny

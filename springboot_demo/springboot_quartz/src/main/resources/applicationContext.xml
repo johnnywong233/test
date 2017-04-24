@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean id="properties"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+          class="org.springframework.beans.factory.ehcache.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:/application.properties</value>
@@ -18,7 +18,7 @@
     </bean>
 
     <!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
-    <bean id="taskJob" class="task.TestTask"/>
+    <bean id="taskJob" class="quartz.task.TestTask"/>
     <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="group" value="job_work"/>
         <property name="name" value="job_work_name"/>
@@ -52,6 +52,6 @@
         </property>
     </bean>
 
-    <bean id="springContextUtil" class="util.MyApplicationContext"/>
+    <bean id="springContextUtil" class="quartz.util.MyApplicationContext"/>
 
 </beans>

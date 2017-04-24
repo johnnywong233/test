@@ -7,9 +7,6 @@ import org.testng.xml.XmlSuite;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by wajian on 2016/10/9.
- */
 public class SuiteListener implements ISuiteListener {
     @Override
     public void onStart(ISuite suite) {

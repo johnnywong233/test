@@ -1,10 +1,10 @@
-package controller;
+package ehcache.controller;
 
-import bean.DemoInfo;
+import ehcache.bean.DemoInfo;
 import javassist.NotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import service.DemoInfoService;
+import ehcache.service.DemoInfoService;
 
 import javax.annotation.Resource;
 

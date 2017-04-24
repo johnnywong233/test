@@ -1,19 +1,16 @@
-package service;
-
-import bean.ScheduleJob;
+package quartz.service;
 
 import org.quartz.CronTrigger;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.SchedulerFactory;
 import org.quartz.Trigger;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-
-import util.MyApplicationContext;
+import quartz.bean.ScheduleJob;
+import quartz.util.MyApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;

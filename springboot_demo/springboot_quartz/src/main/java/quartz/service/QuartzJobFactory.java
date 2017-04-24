@@ -1,6 +1,6 @@
-package service;
+package quartz.service;
 
-import bean.ScheduleJob;
+import quartz.bean.ScheduleJob;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

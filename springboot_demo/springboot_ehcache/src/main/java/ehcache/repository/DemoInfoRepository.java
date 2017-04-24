@@ -1,6 +1,6 @@
-package repository;
+package ehcache.repository;
 
-import bean.DemoInfo;
+import ehcache.bean.DemoInfo;
 import org.springframework.data.repository.CrudRepository;
 
 /**

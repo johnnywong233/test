@@ -1,6 +1,6 @@
-package service;
+package ehcache.service;
 
-import bean.DemoInfo;
+import ehcache.bean.DemoInfo;
 import javassist.NotFoundException;
 
 /**

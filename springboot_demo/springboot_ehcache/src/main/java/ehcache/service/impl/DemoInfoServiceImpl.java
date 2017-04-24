@@ -1,13 +1,13 @@
-package service.impl;
+package ehcache.service.impl;
 
-import bean.DemoInfo;
+import ehcache.bean.DemoInfo;
 import javassist.NotFoundException;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import repository.DemoInfoRepository;
-import service.DemoInfoService;
+import ehcache.repository.DemoInfoRepository;
+import ehcache.service.DemoInfoService;
 
 import javax.annotation.Resource;
 

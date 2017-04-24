@@ -1,8 +1,7 @@
-package task;
+package quartz.task;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import service.ScheduleJobService;
 
 /**
  * Author: Johnny
