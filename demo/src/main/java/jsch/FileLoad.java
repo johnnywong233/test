@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
@@ -30,7 +31,10 @@ public class FileLoad {
     private static final Logger logger = Logger.getLogger(FileLoad.class);
 
     public static void main(String[] args) throws Exception {
-        sshSftp("15.119.83.11", "hpba", "openview", 22, null, null);
+    	//all work
+        sshSftp("15.119.82.22", "hpba", "openview", 22, null, null);
+        download("c://temp//a.txt", "/home/hpba/demo/a.txt", "15.119.82.22", 22, "hpba", "openview");
+        downloadDirectoryFiles("demo", "c:" + System.getProperty("file.separator") + "temp", "15.119.82.22", "hpba", "openview", 22);
     }
 
     /**
@@ -44,6 +48,7 @@ public class FileLoad {
      * @param passPhrase 密钥的密码
      */
     //https://my.oschina.net/hetiangui/blog/137357
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private static void sshSftp(String ip, String user, String psw, int port, String privateKey, String passPhrase) throws Exception {
         Session session;
         Channel channel = null;
@@ -87,19 +92,30 @@ public class FileLoad {
             ChannelSftp sftp = (ChannelSftp) channel;
 
             //进入服务器指定的文件夹
-            sftp.cd("domains");
+            sftp.cd("demo");
 
             //列出服务器指定的文件列表
             Vector v = sftp.ls("*.txt");
             v.forEach(System.out::println);
 
-            //以下代码实现从本地上传一个文件到服务器，如果要实现下载，对换以下流就可以了
-//            OutputStream os = sftp.put("1.txt");
-//            InputStream is = new FileInputStream(new File("c:/print.txt"));
-
-            //以下代码实现从服务器下载一个文件到本地
-            InputStream is = new FileInputStream(new File("/home/hpba/test/"));
-            OutputStream os = sftp.put("");
+            //Access is denied means use a folder string to create a File.
+            //以下代码实现从本地上传一个文件到服务器
+            String local = "c:" + System.getProperty("file.separator") + "a.txt";
+            File tempFile = new File(local);
+            //C disk has not parent folder
+//            if (!tempFile.getParentFile().exists()) {
+//                tempFile.getParentFile().mkdirs();
+//            }
+            if (!tempFile.exists()) {
+                try {
+                    tempFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            InputStream is = new FileInputStream(tempFile);
+            //put to dest file, can not be "", must specify a file name
+            OutputStream os = sftp.put("a.txt");
 
             byte b[] = new byte[1024];
             int n;
@@ -120,14 +136,25 @@ public class FileLoad {
     }
 
     /**
-     * 使用SFTP从远程主机下载文件, can only download single specified file
+     * use SFTP to download file from remote host, can only download single specified file, local file does not need to exist
      *
-     * @param localfile  本地文件
+     * @param localFile  本地文件
      * @param remoteFile 远程文件
      */
-    public static void download(String localfile, final String remoteFile, String host, int port, String user, String password) {
+    public static void download(String localFile, final String remoteFile, String host, int port, String user, String password) throws IOException {
 
         JSch jsch = new JSch();
+        File file = new File(localFile);
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         Session session = null;
         ChannelSftp channel = null;
         OutputStream outs = null;
@@ -142,7 +169,7 @@ public class FileLoad {
             channel.connect();
             outs = new BufferedOutputStream(
                     new FileOutputStream(
-                            localfile));
+                            localFile));
             channel.get(remoteFile, outs, new SftpProgressMonitor() {
 
                 public void init(int op, String src, String dest, long max) {
@@ -162,7 +189,7 @@ public class FileLoad {
         } catch (SftpException e) {
             logger.error(String.format("get remote file:%s occurs error", remoteFile, e));
         } catch (FileNotFoundException e) {
-            logger.error(String.format("can not find local file:%s", remoteFile, e));
+            logger.error(String.format("can not find local file:%s", localFile, e));
         } finally {
             IOUtils.closeQuietly(outs);
             if (null != channel) {
@@ -177,6 +204,7 @@ public class FileLoad {
 
     /**
      * use JSch to download all file under a directory from remote to a local directory
+     * and we can specify the format/suffix of files we want to download
      *
      * @param remotePath remote directory
      * @param localPath  local directory
@@ -186,7 +214,8 @@ public class FileLoad {
      * @param port       主机ssh2登陆端口，如果取默认值(默认值22)，传-1
      */
     //https://my.oschina.net/hetiangui/blog/137357
-    public static void downloadDirectoryFiles(String remotePath, String localPath, String ip, String user, String psw, int port) throws Exception {
+    @SuppressWarnings("unchecked")
+    private static void downloadDirectoryFiles(String remotePath, String localPath, String ip, String user, String psw, int port) throws Exception {
         Session session;
         Channel channel = null;
 
@@ -216,7 +245,7 @@ public class FileLoad {
             //enter the specified directory of remote ITBA server
             sftp.cd(remotePath);
 
-            //list all flat files, to be specific, TXT files
+            //list all .log files
             Vector<ChannelSftp.LsEntry> vectors = sftp.ls("*.log");
 
             for (ChannelSftp.LsEntry oListItem : vectors) {
@@ -224,7 +253,20 @@ public class FileLoad {
                 if (!oListItem.getAttrs().isDir()) {
                     // Grab the remote file ([remote filename], [local path/filename to write file to])
                     logger.info("get " + oListItem.getFilename());
-                    sftp.get(oListItem.getFilename(), localPath + oListItem.getFilename());  // while testing, disable this or all of your test files will be grabbed
+
+                    String dest = localPath + System.getProperty("file.separator") + oListItem.getFilename();
+                    File tempFile = new File(dest);
+                    if (!tempFile.getParentFile().exists()) {
+                        tempFile.getParentFile().mkdirs();
+                    }
+                    if (!tempFile.exists()) {
+                        try {
+                            tempFile.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    sftp.get(oListItem.getFilename(), dest);  // while testing, disable this or all of your test files will be grabbed
                 }
             }
         } catch (Exception e) {

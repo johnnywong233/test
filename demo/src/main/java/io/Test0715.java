@@ -7,13 +7,13 @@ import java.util.Properties;
 
 public class Test0715 {
     /*
-     * URLͨ��proxy�������Internet��Դ
+     * set proxy to access Internet url resources
      */
     public static void main(String args[]) {
         String sURL = "http://java.sun.com/index.html";
         Properties prop = System.getProperties();
-        prop.put("http.proxyHost", "172.16.0.10");
-        prop.put("http.proxyPort", "11080");
+        prop.put("http.proxyHost", "web-proxy.atl.hp.com");
+        prop.put("http.proxyPort", "8080");
         try {
             URL url = new URL(sURL);
             URLConnection conn = url.openConnection();
