@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.johnny</groupId>
         <artifactId>springcloud_demo</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <name>security</name>

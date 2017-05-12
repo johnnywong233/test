@@ -7,6 +7,7 @@
     <groupId>com.johnny</groupId>
     <artifactId>test</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <build>
         <plugins>
@@ -29,8 +30,6 @@
         <module>springcloud_demo</module>
         <module>web_project</module>
     </modules>
-
-    <packaging>pom</packaging>
 
     <name>test</name>
     <url>http://maven.apache.org</url>

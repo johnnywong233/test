@@ -11,8 +11,8 @@
     <!--must designate this parent, or eclipse will throw error-->
     <parent>
         <groupId>com.johnny</groupId>
-        <artifactId>springbootdemo</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <artifactId>springboot_demo</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <dependencies>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>com.johnny</groupId>
             <artifactId>springboot_starter_log</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
     </dependencies>
