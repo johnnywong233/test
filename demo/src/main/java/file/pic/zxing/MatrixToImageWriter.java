@@ -20,7 +20,7 @@ public final class MatrixToImageWriter {
     private MatrixToImageWriter() {
     }
 
-    public static BufferedImage toBufferedImage(BitMatrix matrix) {
+    private static BufferedImage toBufferedImage(BitMatrix matrix) {
         int width = matrix.getWidth();
         int height = matrix.getHeight();
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -32,7 +32,7 @@ public final class MatrixToImageWriter {
         return image;
     }
 
-    public static void writeToFile(BitMatrix matrix, String format, File file)
+    static void writeToFile(BitMatrix matrix, String format, File file)
             throws IOException {
         BufferedImage image = toBufferedImage(matrix);
         if (!ImageIO.write(image, format, file)) {

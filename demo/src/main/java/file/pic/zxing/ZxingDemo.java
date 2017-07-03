@@ -62,25 +62,11 @@ public class ZxingDemo {
         }
     }
 
-    @SuppressWarnings("unused")
-    private BufferedImage toBufferedImage(BitMatrix matrix) {
-        int width = matrix.getWidth();
-        int height = matrix.getHeight();
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                image.setRGB(x, y, matrix.get(x, y) ? BLACK : WHITE);
-            }
-        }
-        return image;
-    }
-
     private static BufferedImage genBarcode(String content, int width,
                                             int height, String srcImagePath) throws WriterException,
             IOException {
         // 读取源图像
-        BufferedImage scaleImage = scale(srcImagePath, IMAGE_WIDTH,
-                IMAGE_HEIGHT, true);
+        BufferedImage scaleImage = scale(srcImagePath, IMAGE_WIDTH, IMAGE_HEIGHT, true);
         int[][] srcPixels = new int[IMAGE_WIDTH][IMAGE_HEIGHT];
         for (int i = 0; i < scaleImage.getWidth(); i++) {
             for (int j = 0; j < scaleImage.getHeight(); j++) {

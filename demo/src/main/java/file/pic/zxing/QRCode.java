@@ -27,8 +27,8 @@ import java.util.Map;
  * Time: 20:37
  */
 public class QRCode {
-    private static final int QRCOLOR = 0xFF000000;   //默认是黑色
-    private static final int BGWHITE = 0xFFFFFFFF;   //背景颜色
+    private static final int QR_COLOR = 0xFF000000;   //默认是黑色
+    private static final int BG_WHITE = 0xFFFFFFFF;   //背景颜色
 
     //http://blog.csdn.net/u013142781/article/details/50310419
     public static void main(String[] args) throws WriterException {
@@ -45,7 +45,7 @@ public class QRCode {
      * @param qrUrl       url
      * @param productName name of product
      */
-    public static String getLogoQRCode(String qrUrl, String productName) {
+    private static String getLogoQRCode(String qrUrl, String productName) {
 //      String filePath = (javax.servlet.http.HttpServletRequest)request.getSession().getServletContext().getRealPath("/") + "resources/images/logoImages/llhlogo.png";
         String filePath = "D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry.jpg";
         try {
@@ -61,7 +61,7 @@ public class QRCode {
     /**
      * 给二维码图片添加Logo
      */
-    public String addLogo_QRCode(BufferedImage bim, File logoPic, LogoConfig logoConfig, String productName) {
+    private String addLogo_QRCode(BufferedImage bim, File logoPic, LogoConfig logoConfig, String productName) {
         try {
             //读取二维码图片，并构建绘图对象
             BufferedImage image = bim;
@@ -149,9 +149,6 @@ public class QRCode {
 
     /**
      * 构建初始化二维码
-     *
-     * @param bm
-     * @return
      */
     public BufferedImage fileToBufferedImage(BitMatrix bm) {
         BufferedImage image = null;
@@ -179,7 +176,7 @@ public class QRCode {
      * @param hints         设置参数
      * @return exception
      */
-    public BufferedImage getQR_CODEBufferedImage(String content, BarcodeFormat barcodeFormat, int width, int height, Map<EncodeHintType, ?> hints) {
+    private BufferedImage getQR_CODEBufferedImage(String content, BarcodeFormat barcodeFormat, int width, int height, Map<EncodeHintType, ?> hints) {
         MultiFormatWriter multiFormatWriter;
         BitMatrix bm;
         BufferedImage image = null;
@@ -194,7 +191,7 @@ public class QRCode {
             // 开始利用二维码数据创建Bitmap图片，分别设为黑（0xFFFFFFFF）白（0xFF000000）两色
             for (int x = 0; x < w; x++) {
                 for (int y = 0; y < h; y++) {
-                    image.setRGB(x, y, bm.get(x, y) ? QRCOLOR : BGWHITE);
+                    image.setRGB(x, y, bm.get(x, y) ? QR_COLOR : BG_WHITE);
                 }
             }
         } catch (WriterException e) {
@@ -206,7 +203,7 @@ public class QRCode {
     /**
      * 设置二维码的格式参数
      */
-    public Map<EncodeHintType, Object> getDecodeHintType() {
+    private Map<EncodeHintType, Object> getDecodeHintType() {
         // 用于设置QR二维码参数
         Map<EncodeHintType, Object> hints = new HashMap<>();
         // 设置QR二维码的纠错级别（H为最高级别）具体级别信息
@@ -221,25 +218,22 @@ public class QRCode {
 }
 
 class LogoConfig {
-    // logo默认边框颜色
-    public static final Color DEFAULT_BORDERCOLOR = Color.WHITE;
-    // logo默认边框宽度
-    public static final int DEFAULT_BORDER = 2;
+    private static final Color DEFAULT_BORDER_COLOR = Color.WHITE;
+    private static final int DEFAULT_BORDER_WIDTH = 2;
     // logo大小默认为照片的1/5
-    public static final int DEFAULT_LOGOPART = 5;
+    private static final int DEFAULT_LOGO_PART = 5;
 
-    private final int border = DEFAULT_BORDER;
     private final Color borderColor;
     private final int logoPart;
 
     /**
      * Creates a default config with on color and off color, generating normal black-on-white barcodes.
      */
-    public LogoConfig() {
-        this(DEFAULT_BORDERCOLOR, DEFAULT_LOGOPART);
+    LogoConfig() {
+        this(DEFAULT_BORDER_COLOR, DEFAULT_LOGO_PART);
     }
 
-    public LogoConfig(Color borderColor, int logoPart) {
+    private LogoConfig(Color borderColor, int logoPart) {
         this.borderColor = borderColor;
         this.logoPart = logoPart;
     }
@@ -249,7 +243,7 @@ class LogoConfig {
     }
 
     public int getBorder() {
-        return border;
+        return DEFAULT_BORDER_WIDTH;
     }
 
     public int getLogoPart() {
