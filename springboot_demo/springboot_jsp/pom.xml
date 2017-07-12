@@ -39,9 +39,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
+            <!--NOTED: remove scope to avoid java.lang.ClassNotFoundException: javax.servlet.Filter-->
+            <!--<scope>provided</scope>-->
         </dependency>
-        
+
         <!-- embed tomcat-->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
@@ -55,6 +56,42 @@
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+
+            <!--NOTED: do not use 2.2.2 version, because when execute
+             plugin:git-commit-id:revision will throw Error injecting:
+             pl.project13.maven.git.GitCommitIdMojo
+            java.lang.NoClassDefFoundError: com/google/common/base/Function-->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.1.15</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dotGitDirectory>../../.git</dotGitDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
