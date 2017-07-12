@@ -1,5 +1,6 @@
 package upload.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +12,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -22,20 +22,24 @@ import java.util.List;
  * Time: 9:49
  */
 @Controller
+@RequestMapping("swagger")
 public class FileUploadController {
 
     //url: http://ip:port/upload
+    @ApiOperation(value="GET method of upload single files", notes="upload single files")
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String upload() {
         return "/fileupload";
     }
 
     //url: http://ip:port/upload/batch
+    @ApiOperation(value="GET method of upload multi files", notes="upload multi files")
     @RequestMapping(value = "/upload/batch", method = RequestMethod.GET)
     public String batchUpload() {
         return "/mutifileupload";
     }
 
+    @ApiOperation(value="POST method of upload single file", notes="upload single file")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file) {
@@ -49,9 +53,6 @@ public class FileUploadController {
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                return "upload failure," + e.getMessage();
             } catch (IOException e) {
                 e.printStackTrace();
                 return "upload failure," + e.getMessage();
@@ -62,10 +63,10 @@ public class FileUploadController {
         }
     }
 
+    @ApiOperation(value="POST method of upload multi files", notes="upload multi files")
     @RequestMapping(value = "/upload/batch", method = RequestMethod.POST)
-    public
     @ResponseBody
-    String batchUpload(HttpServletRequest request) {
+    public String batchUpload(HttpServletRequest request) {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
         MultipartFile file;
         BufferedOutputStream stream;
