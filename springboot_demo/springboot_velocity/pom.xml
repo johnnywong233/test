@@ -1,15 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.johnny</groupId>
-        <artifactId>springboot_demo</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>
+    <!--<parent>-->
+    <!--<groupId>com.johnny</groupId>-->
+    <!--<artifactId>springboot_demo</artifactId>-->
+    <!--<version>0.0.1-SNAPSHOT</version>-->
+    <!--</parent>-->
 
+    <!--TO BE NOTED: Spring boot 1.5.1 does not support velocity, so throw
+    org.springframework.boot:spring-boot-starter-velocity:unknown error and the latest version is 1.4.7
+    http://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity-->
     <artifactId>springboot_velocity</artifactId>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.6.RELEASE</version>
+    </parent>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-velocity</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
