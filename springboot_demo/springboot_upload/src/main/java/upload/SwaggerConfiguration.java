@@ -31,6 +31,7 @@ public class SwaggerConfiguration {
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("upload.controller"))
+                //.paths(regex("/user/.*"))
                 .paths(PathSelectors.any())
                 .build();
     }
