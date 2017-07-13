@@ -26,6 +26,11 @@
         <module>springboot_oauth2</module>
         <module>springboot_shrio</module>
         <module>springboot_docker</module>
+        <module>springboot_quartz</module>
+        <module>springboot_mail</module>
+        <module>springboot_statemachine</module>
+        <module>springboot_rabbitmq</module>
+        <module>springboot_statemachine1</module>
     </modules>
 
     <parent>
