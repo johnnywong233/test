@@ -8,7 +8,7 @@ package annotation;
 public class Client {
     /**
      * <html>
-     * <head/>
+     * <head>
      * <body>
      * <p>
      * Hello
@@ -16,12 +16,14 @@ public class Client {
      * World
      * </p>
      * </body>
+     * </head>
      * </html>
      */
     @annotation.HereDocument
     private static String html;
 
     public static void main(final String[] args) {
+        //this will output null, no matter add annotation on above or not
         System.out.println(html);
     }
 }

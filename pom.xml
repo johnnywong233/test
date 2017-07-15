@@ -25,10 +25,10 @@
     <modules>
         <module>demo</module>
         <module>springtest</module>
-        <module>HereDocument</module>
         <module>springboot_demo</module>
         <module>springcloud_demo</module>
         <module>web_project</module>
+        <module>miniproject</module>
     </modules>
 
     <name>test</name>
