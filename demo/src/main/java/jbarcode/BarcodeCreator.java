@@ -27,16 +27,11 @@ import org.jbarcode.paint.WideRatioCodedPainter;
 import org.jbarcode.paint.WidthCodedPainter;
 
 import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
-/**
- * Created by wajian on 2016/8/31.
- */
 public class BarcodeCreator {
 
     //http://blog.csdn.net/jianggujin/article/details/50527286
@@ -47,7 +42,10 @@ public class BarcodeCreator {
         test.setEncoder(BarcodeEncoder.Code128);
         test.barcode = jBarcode;
 //        test.toBufferedImage("johnny");
-        test.write(BarcodeEncoder.Code11.toString(), new File("D:\\Java_ex\\test\\src\\test\\resources\\bar.png"));
+        //java.lang.NumberFormatException: Invalid number
+        for(BarcodeEncoder code: BarcodeEncoder.values()) {
+            test.write(code.toString(), new File("bar.png"));
+        }
     }
 
     /**

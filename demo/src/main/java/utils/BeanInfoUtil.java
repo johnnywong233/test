@@ -1,4 +1,4 @@
-package grammar;
+package utils;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;

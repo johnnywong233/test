@@ -12,17 +12,17 @@ public class HolderDemo3 {
     public static void main(String[] args) {
         int a = 1;
         Integer b = 11;
-        System.out.println("初始状态--> " + "a: " + a + "    b: " + b);
+        System.out.println("init value --> " + "a: " + a + "    b: " + b);
 
         add(a, b);
-        System.out.println("方法一    --> " + "a: " + a + "    b: " + b);
+        System.out.println("method 1 --> " + "a: " + a + "    b: " + b);
 
         add2(a, b);
-        System.out.println("方法二    --> " + "a: " + a + "    b: " + b);
+        System.out.println("method 2    --> " + "a: " + a + "    b: " + b);
 
         Holder<Integer> holder = new Holder<>(b);
         add3(a, holder);
-        System.out.println("方法三    --> " + "a: " + a + "    b: " + holder.value);
+        System.out.println("method 3    --> " + "a: " + a + "    b: " + holder.value);
     }
 
     public static void add(int aa, Integer bb) {

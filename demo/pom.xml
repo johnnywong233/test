@@ -72,11 +72,11 @@
         </dependency>
 
         <!--comment this due to conflict with logback, when need this, then add its components one by one if stick to logback-->
-        <!--  <dependency>
+        <dependency>
               <groupId>org.apache.activemq</groupId>
               <artifactId>activemq-all</artifactId>
               <version>5.10.0</version>
-          </dependency>-->
+          </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -143,6 +143,12 @@
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
             <version>3.2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jbarcode</groupId>
+            <artifactId>jbarcode</artifactId>
+            <version>0.2.8</version>
         </dependency>
 
         <dependency>
@@ -235,11 +241,11 @@
             <version>2.6.12</version>
         </dependency>
 
-        <!-- <dependency>
-            <groupId>cpdetector</groupId>
+        <dependency>
+            <groupId>info.monitorenter</groupId>
             <artifactId>cpdetector</artifactId>
             <version>1.0.7</version>
-        </dependency> -->
+        </dependency>
 
         <dependency>
             <groupId>org.htmlparser</groupId>
@@ -915,12 +921,6 @@
             <groupId>net.sourceforge.htmlcleaner</groupId>
             <artifactId>htmlcleaner</artifactId>
             <version>2.18</version>
-        </dependency>
-        <dependency>
-            <groupId>com.johnny</groupId>
-            <artifactId>HereDocument</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- word分词是一个Java实现的中文分词组件，提供多种基于词典的分词算法，并利用ngram模型来消除歧义。 能准确识别英文、数字，

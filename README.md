@@ -13,3 +13,6 @@ These are some silly test/demo, including
 - Socket learning, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/socket/)
 - thread related learning, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/thread/)
 - java concurrent package learning, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/concurrent/)
+- JDK grammar, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/grammar/)
+- plant UML language, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/resources/uml/)
+- jsoup(html parser), see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/jsoup/) 
