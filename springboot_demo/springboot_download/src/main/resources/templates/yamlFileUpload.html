@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>single yaml file</title>
+
+</head>
+<body>
+<h2>single yaml file upload</h2>
+<hr/>
+<form method="POST" enctype="multipart/form-data" action="/upload/yaml">
+    <p>
+        file:<input id="upload" type="file" accept=".yaml" name="file"/>
+    </p>
+    <br>
+    <input type="submit" value="upload"/>
+    </br>
+    <p>
+        <textarea id="yamlContent" rows="30" cols="100">
+            This is the YAML that has been uploaded
+        </textarea>
+    </p>
+</form>
+
+<h2>single yaml file check</h2>
+<form method="POST" id="check" enctype="application/x-www-form-urlencoded" action="/check/yaml/">
+    <p>
+        <input type="button" onclick="submitFunction()" value="check YAML file content"/>
+    </p>
+    <textarea id="yamlCheckYaml" rows="30" cols="100">
+            This is the result of YAML check
+        </textarea>
+</form>
+
+
+<script type="text/javascript">
+    window.onload = function () {
+        /**
+         * get file content
+         * @param fileInput DOM object
+         * @param callback callback function
+         */
+        var getFileContent = function (fileInput, callback) {
+            if (fileInput.files && fileInput.files.length > 0 && fileInput.files[0].size > 0) {
+                //if use jQuery: var file = $("#upload").prop('files')[0];
+                var file = fileInput.files[0];//use h5
+                if (window.FileReader) {
+                    var reader = new FileReader();
+                    reader.onloadend = function (evt) {
+                        if (evt.target.readyState == FileReader.DONE) {
+                            callback(evt.target.result);
+                        }
+                    };
+                    reader.readAsText(file, 'utf-8');
+                }
+            }
+        };
+
+        /**
+         * load the content if it changes
+         */
+        document.getElementById('upload').onchange = function () {
+            var content = document.getElementById('yamlContent');
+            getFileContent(this, function (str) {
+                content.value = str;
+            });
+        };
+    };
+
+    function submitFunction() {
+        var file = document.getElementById("upload").value;
+        var fileName = getFileName(file);
+        var formObj = document.getElementById("check");
+        formObj.action = "/check/yaml/" + fileName;
+        formObj.submit();
+    }
+
+    /**
+     * get file name
+     * @param name
+     * @returns {string}
+     */
+    function getFileName(name) {
+        var pos = name.lastIndexOf("\\");
+        return name.substring(pos + 1);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{css/signin.css}"/>
+    <style type="text/css">
+        body {
+            padding-top: 50px;
+        }
+
+        .starter-template {
+            padding: 40px 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="starter-template">
+        <p th:if="${param.logout}" class="bg-warning">Logout</p>
+        <p th:if="${param.error}" class="bg-danger">Error occurred, please retry</p>
+        <h2>Login with username/password</h2>
+        <form class="form-signin" role="form" name="form" th:action="@{/login}" action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" value="" placeholder="user"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="password"/>
+            </div>
+            <input type="submit" id="login" value="Login" class="btn btn-primary"/>
+        </form>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function login() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        //both username and password not null
+//        localStorage.username = username;
+//        var url = location.search.split("=")[1];
+//        location.href = url;
+        window.location.href = "index.html";
+    }
+</script>
+</html>
