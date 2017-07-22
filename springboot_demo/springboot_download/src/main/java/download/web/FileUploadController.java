@@ -43,7 +43,7 @@ public class FileUploadController {
 
     @RequestMapping(value = "/upload/batch", method = RequestMethod.GET)
     public String batchUpload() {
-        return "/mutifileupload";
+        return "/multiFileUpload";
     }
 
     @ApiOperation(value = "Upload yaml file", notes = "Upload yaml file")

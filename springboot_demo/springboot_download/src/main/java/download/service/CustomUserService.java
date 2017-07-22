@@ -28,7 +28,7 @@ public class CustomUserService implements UserDetailsService {
             logger.error("loadUserByUsername failed due to user not existed!");
             throw new UsernameNotFoundException("user does not exist!");
         }
-        logger.info("Input username [{}]; SysUser [{}]; and password [{}].", username, user.getUsername(), user.getPassword());
+        logger.info("Input username is [{}]; SysUser is [{}]; and password is *****.", username, user.getUsername());
         return user;
     }
 }

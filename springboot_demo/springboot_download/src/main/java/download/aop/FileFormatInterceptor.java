@@ -24,6 +24,7 @@ import java.util.List;
  * Time: 14:18
  */
 @Component("fileFormatInterceptor")
+//TODO
 @ConfigurationProperties(prefix = "file.allowFileType")
 public class FileFormatInterceptor extends HandlerInterceptorAdapter {
 
