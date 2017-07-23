@@ -1,4 +1,4 @@
-package upload.controller;
+package upload.web;
 
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -22,21 +22,20 @@ import java.util.List;
  * Time: 9:49
  */
 @Controller
-@RequestMapping("swagger")
 public class FileUploadController {
 
     //url: http://ip:port/upload
     @ApiOperation(value="GET method of upload single files", notes="upload single files")
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String upload() {
-        return "/fileupload";
+        return "/fileUpload";
     }
 
     //url: http://ip:port/upload/batch
     @ApiOperation(value="GET method of upload multi files", notes="upload multi files")
     @RequestMapping(value = "/upload/batch", method = RequestMethod.GET)
     public String batchUpload() {
-        return "/mutifileupload";
+        return "/multiFileUpload";
     }
 
     @ApiOperation(value="POST method of upload single file", notes="upload single file")
