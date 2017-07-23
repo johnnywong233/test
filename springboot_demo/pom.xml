@@ -31,6 +31,7 @@
         <module>springboot_statemachine</module>
         <module>springboot_rabbitmq</module>
         <module>springboot_statemachine1</module>
+        <module>springboot_download</module>
     </modules>
 
     <parent>

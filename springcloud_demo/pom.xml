@@ -13,6 +13,7 @@
     <modules>
         <module>springcloud_eureka</module>
         <module>springcloud_security1</module>
+        <module>springcloud_client1</module>
     </modules>
 
     <parent>

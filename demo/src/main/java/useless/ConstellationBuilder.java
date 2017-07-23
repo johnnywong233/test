@@ -12,7 +12,7 @@ import java.util.Calendar;
  * Time: 13:33
  */
 public class ConstellationBuilder {
-    public static String getAstro(int month, int day) {
+    private static String getAstro(int month, int day) {
         String[] starArr = {"魔羯座", "水瓶座", "双鱼座", "牡羊座", "金牛座", "双子座", "巨蟹座", "狮子座",
                 "处女座", "天秤座", "天蝎座", "射手座"};
         int[] DayArr = {22, 20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22};  //两个星座分割日
