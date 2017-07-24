@@ -3,22 +3,15 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <!--<parent>-->
-    <!--<groupId>com.johnny</groupId>-->
-    <!--<artifactId>springboot_demo</artifactId>-->
-    <!--<version>0.0.1-SNAPSHOT</version>-->
-    <!--</parent>-->
-
-    <!--TO BE NOTED: Spring boot 1.5.1 does not support velocity, so throw
-    org.springframework.boot:spring-boot-starter-velocity:unknown error and the latest version is 1.4.7
-    http://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity-->
-    <artifactId>springboot_velocity</artifactId>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.6.RELEASE</version>
+        <artifactId>springboot_demo</artifactId>
+        <groupId>com.johnny</groupId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>springboot_websocket</artifactId>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -27,7 +20,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-velocity</artifactId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
         <dependency>

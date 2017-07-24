@@ -32,6 +32,8 @@
         <module>springboot_rabbitmq</module>
         <module>springboot_statemachine1</module>
         <module>springboot_download</module>
+        <module>springboot_websocket</module>
+        <module>springboot_websocket1</module>
     </modules>
 
     <parent>
@@ -48,10 +50,24 @@
     <build>
         <plugins>
             <plugin>
+                <!--by default groupId is org.apache.maven.plugins-->
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <!-- Package as	an executable jar-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--configure unix-like system executable jar: with command ".*.jar"-->
+                    <executable>true</executable>
+                    <!--Must add this to enable devtools working?-->
+                    <fork>true</fork>
                 </configuration>
             </plugin>
         </plugins>

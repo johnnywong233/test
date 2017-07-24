@@ -65,14 +65,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-
             <!--NOTED: do not use 2.2.2 version, because when execute
              plugin:git-commit-id:revision will throw Error injecting:
              pl.project13.maven.git.GitCommitIdMojo

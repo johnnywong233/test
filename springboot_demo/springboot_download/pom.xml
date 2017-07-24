@@ -90,16 +90,6 @@
 
     <build>
         <finalName>SpringWebContent</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--Must add this to enable devtools working-->
-                <configuration>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-        </plugins>
     </build>
 
 </project>
