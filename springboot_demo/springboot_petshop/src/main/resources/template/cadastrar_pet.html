@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>...</title>
+</h:head>
+<h:body>
+    <ui:composition template="/pages/layout/template.xhtml">
+        <ui:define name="main">
+            <h:form id="formCadastroPet">
+                <p:panel header="Cadastro de Pet" style="font-size: 12px;">
+                    <p:fieldset legend="Dados do Pet" style="font-size: 12px;">
+                        <h:panelGrid columns="2">
+                            <h:outputText value="Nome do Pet: "/>
+                            <p:inputText size="40" value="#{petBean.pet.nome}"/>
+
+                            <h:outputText value="Data Nascimento: "/>
+                            <p:inputMask size="12" mask="99/99/9999" value="#{petBean.pet.dataNascimento}"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Salvar" action="#{petBean.salvar}" ajax="false"/>
+                    </p:fieldset>
+                    <br/>
+                    <p:fieldset legend="Pets Cadastrados" style="font-size: 12px;">
+                        <h:panelGrid columns="2" width="100%">
+                            <p:dataTable id="petTable"
+                                         var="pet"
+                                         value="#{petBean.pets}"
+                                         rowKey="#{pet.id}"
+                                         paginator="true" rows="7"
+                                         tableStyle="font-size: 12px;"
+                                         selection="#{petBean.selectedPet}"
+                                         selectionMode="single">
+                                <p:column headerText="Nome Pet" sortBy="#{pet.nome}" filterBy="#{pet.nome}" id="nome">
+                                    #{pet.nome}
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:commandButton action="#{petBean.editar}" title="Editar"
+                                                     image="ui-icon ui-icon-search" ajax="false">
+                                        <f:setPropertyActionListener value="#{pet}" target="#{petBean.pet}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column style="width:32px">
+                                    <p:commandButton action="#{petBean.excluir}" title="Excluir"
+                                                     image="ui-icon ui-icon-close" ajax="false">
+                                        <f:setPropertyActionListener value="#{pet}" target="#{petBean.pet}"/>
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGrid>
+                    </p:fieldset>
+                    <br/>
+                </p:panel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>
