@@ -496,16 +496,6 @@ public class FileUtil {
         is.close();
     }
 
-    public static String inputStream2String(File file) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-        StringBuilder buffer = new StringBuilder();
-        String line;
-        while ((line = in.readLine()) != null) {
-            buffer.append(line);
-        }
-        return buffer.toString();
-    }
-
     public static void inputStreamToFile(InputStream ins, File file) {
         try {
             OutputStream os = new FileOutputStream(file);
