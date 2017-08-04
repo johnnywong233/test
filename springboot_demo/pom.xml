@@ -34,6 +34,7 @@
         <module>springboot_download</module>
         <module>springboot_websocket</module>
         <module>springboot_websocket1</module>
+        <module>springboot_websocket2</module>
         <module>springboot_petshop</module>
     </modules>
 
