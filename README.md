@@ -1,4 +1,4 @@
-These are some silly test/demo, including 
+## These are some silly test/demo, including 
 - spring boot demo modules, see [here](https://github.com/johnnywong233/test/blob/master/springboot_demo/pom.xml)
 - spring cloud demo modules, see [here](https://github.com/johnnywong233/test/blob/master/springcloud_demo/pom.xml)
 - java 8 learning demo, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/java8/)
@@ -16,3 +16,20 @@ These are some silly test/demo, including
 - JDK grammar, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/grammar/)
 - plant UML language, see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/resources/uml/)
 - jsoup(html parser), see [here](https://github.com/johnnywong233/test/blob/master/demo/src/main/java/jsoup/) 
+
+
+## standalone maven jar
+```
+mvn install:install-file -Dfile=jbarcode-0.2.8.jar -DgroupId=org.jbarcode -DartifactId=jbarcode -Dversion=0.2.8 -Dpackaging=jar
+mvn install:install-file -Dfile=cpdetector-1.0.7.jar. -DgroupId=info.monitorenter -DartifactId=cpdetector -Dversion=1.0.7 -Dpackaging=jar
+mvn install:install-file -Dfile=open-replicator-1.0.7.jar -DgroupId=open-replicator -DartifactId=open-replicator -Dversion=1.0.7 -Dpackaging=jar
+mvn install:install-file -Dfile=qrcode-1.0.jar -DgroupId=com.swetake -DartifactId=qrcode -Dversion=1.0 -Dpackaging=jar
+mvn install:install-file -Dfile=qrcode-0.1.jar -DgroupId=jp.sourceforge -DartifactId=qrcode -Dversion=0.1 -Dpackaging=jar
+mvn install:install-file -Dfile=jdk.tools-1.8.jar -DgroupId=jdk -DartifactId=tools -Dversion=1.8 -Dpackaging=jar
+mvn install:install-file -Dfile=jmxtools-1.2.1.jar -DgroupId=com.sun.jdmk -DartifactId=jmxtools -Dversion=1.2.1 -Dpackaging=jar
+ mvn install:install-file -Dfile=jms-1.1.jar -DgroupId=javax.jms -DartifactId=jms -Dversion=1.1 -Dpackaging=jar
+ 
+
+
+
+``` 

@@ -28,8 +28,8 @@
         </dependency>
         <!--must add-->
         <dependency>
-            <groupId>jdk.tools</groupId>
-            <artifactId>jdk.tools</artifactId>
+            <groupId>jdk</groupId>
+            <artifactId>tools</artifactId>
             <version>RELEASE</version>
         </dependency>
 
@@ -46,11 +46,11 @@
             </activation>
             <dependencies>
                 <dependency>
-                    <groupId>com.sun</groupId>
+                    <groupId>jdk</groupId>
                     <artifactId>tools</artifactId>
-                    <version>1.8.0</version>
+                    <version>1.8</version>
                     <scope>system</scope>
-                    <systemPath>${java.home}/../lib/tools.jar</systemPath>
+                    <systemPath>${java.home}/lib/tools.jar</systemPath>
                 </dependency>
             </dependencies>
         </profile>
