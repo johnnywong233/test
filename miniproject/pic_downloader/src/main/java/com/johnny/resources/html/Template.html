@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>${title}</title>
+    <meta http-equiv="keywords" content="">
+    <meta http-equiv="description" content="by BlackGray">
+    <meta http-equiv="content-type" content="text/html; charset=GBK">
+    <style type="text/css">
+        body {
+            padding: 0px;
+            margin: 0px;
+            background-image: url(resource/bg.jpg) !important;
+            background-repeat: repeat;
+        }
+
+        .owner {
+        }
+
+        .commentTotal {
+        }
+
+        .commentTotalDIV {
+            margin-top: 5px;
+            padding: 2px;
+        }
+
+        #name {
+            font-size: 24px;
+            color: white;
+            text-align: center;
+            background-color: black;
+            padding: 15px 15px 0px 15px;
+        }
+
+        #downloadTime {
+            font-size: 12px;
+            color: white;
+            text-align: left;
+            background-color: black;
+            padding: 0px 15px 0px 15px;
+        }
+
+        #imagesTotal {
+            font-size: 12px;
+            color: white;
+            text-align: left;
+            background-color: black;
+            padding: 0px 15px 0px 15px;
+        }
+
+        #albumDesc {
+            font-size: 12px;
+            color: white;
+            text-align: left;
+            background-color: black;
+            padding: 0px 15px 15px 15px;
+        }
+
+        #photosList {
+            text-align: center;
+            padding: 3px 0px;
+            padding-bottom: 40px;
+            border: #222 solid 15px;
+            border-bottom: #333 solid 35px;
+        }
+
+        #photosList img {
+            border: #333 solid 12px;
+            margin-left: -126px;
+        }
+
+        .photos {
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .number {
+            background-color: #222;
+            font: 30px bolder;
+            padding: 10px;
+            width: 80px;
+            position: absolute;
+            color: #88D9FB;
+        }
+
+        .number-raw-large {
+            background-color: #222;
+            font: 30px bolder;
+            padding: 10px;
+            width: 80px;
+            position: absolute;
+            color: #88D9FB;
+        }
+
+        .number-raw-uncompressed {
+            background-color: #222;
+            font: 30px bolder;
+            padding: 10px;
+            width: 80px;
+            position: absolute;
+            color: #88D9FB;
+        }
+
+        .number-raw-large a:HOVER, .number-raw-large a:VISITED, .number-raw-large a:LINK {
+            color: #FA3E54;
+        }
+
+        .number-raw-uncompressed a:HOVER, .number-raw-uncompressed a:VISITED, .number-raw-uncompressed a:LINK {
+            color: #88D9FB;
+        }
+
+        .desc {
+            color: white;
+            background-color: black;
+            font: 12px bolder;
+            padding: 20px;
+            padding-right: 30px;
+            width: 200px;
+            right: 0px;
+            margin-top: 90px;
+            position: absolute;
+            background-image: url("resource/numberBg.png");
+        }
+
+        a:HOVER, a:VISITED, a:LINK {
+            color: white;
+            text-decoration: none;
+        }
+
+        /*工具栏*/
+        #tools {
+            position: fixed;
+            right: 0px;
+            bottom: 0px;
+        }
+
+        #tools li {
+            background-image: url(half-d.png) !important;
+            padding: 4px 5px;
+            border-left: 2px solid #999;
+            border-top: 1px solid #999;
+            border-right: 1px solid #999;
+            font-size: 12px;
+            list-style: none;
+            text-align: center;
+            color: white;
+        }
+
+        #tools li:HOVER {
+            background-image: url(half-l.png) !important;
+        }
+
+        #tools #lastLi {
+            border-bottom: 1px solid #999;
+        }
+
+        #tools #topA {
+            border-bottom: 1px solid #999;
+        }
+
+        #tools a {
+            padding: 3px 16px;
+        }
+
+        #previousPage, #nextPage {
+            font-size: 40px;
+            width: 55px;
+        }
+
+        #tools li select {
+            width: 55px;
+            text-align: center;
+        }
+
+        /*搜索框*/
+        #searchDialog {
+            position: fixed;
+            right: 100px;
+            bottom: 15px;
+
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            width: 500px;
+            margin: 0px auto;
+            border: #333 solid 1px;
+            padding: 10px;
+            background-image: url(half-d.png) !important;
+        }
+
+        #userId, #userName, #userDesc {
+            width: 80px;
+        }
+
+    </style>
+    <script type="text/javascript">
+
+        var start = 0;
+        var pageSize = 50;
+        var orderById = true;
+        var orderByCommentTotal = false;
+
+        /*大图类型 - 1大图，2大小相同，高质量未压缩图*/
+        var RAW_TYPE_LARGE = 1;
+        var RAW_TYPE_UNCOMPRESSED = 2;
+
+        var images = eval(${images});
+        var imageCount = images.length;
+
+        var _hasUserInfo = true;
+
+        function init() {
+            var image = images[0];
+            /*如果不是活动相册，隐藏ID和昵称搜索*/
+            if (image.ownerName === null) {
+                _hasUserInfo = false;
+                document.getElementById("searchDialog").style.width = "260px";
+                document.getElementById("userId").style.display = "none";
+                document.getElementById("userIdSpan").style.display = "none";
+                document.getElementById("userName").style.display = "none";
+                document.getElementById("userNameSpan").style.display = "none";
+            }
+            initPageSelect();
+            showImage(start, pageSize, orderById, orderByCommentTotal);
+        }
+
+        /*初始化页面选择*/
+        function initPageSelect() {
+            var count = imageCount / pageSize;
+            var pageSelect = document.getElementById("pageSelect");
+            pageSelect.innerHTML = "";
+            for (var i = 0; i < count; i++) {
+                var option = document.createElement("option");
+                option.appendChild(document.createTextNode(i + 1));
+                pageSelect.appendChild(option);
+            }
+        }
+
+        /*翻页后设置当前页*/
+        function setPageSelect() {
+            var page = imageCount / pageSize;
+            var value;
+            if (start === 0) {
+                value = "1";
+            } else {
+                for (var i = 0; i < page; i++) {
+                    if (start === (i * pageSize)) {
+                        value = "" + (i + 1);
+                    }
+                }
+            }
+            var select = document.getElementById("pageSelect");
+            for (i = 0; i <= select.options.length; i++) {
+                if (select.options[i].value === value) {
+                    select.options[i].selected = true;
+                    break;
+                }
+            }
+        }
+
+        /*显示图片*/
+        function showImage(start, pageSize, orderById, orderByCommentTotal) {
+            var photosList = document.getElementById("photosList");
+            photosList.innerHTML = "";
+            /*回应数排序*/
+            if (orderByCommentTotal) {
+                var tempArray = images.slice(0);
+                /*冒泡排序*/
+                for (var x = 0; x < tempArray.length; x++) {
+                    for (var y = x + 1; y < tempArray.length; y++) {
+                        var totalX = tempArray[x].commentTotal;
+                        var totalY = tempArray[y].commentTotal;
+                        if (totalX === undefined) {
+                            totalX = 0
+                        } else {
+                            totalX = Number(tempArray[x].commentTotal)
+                        }
+                        if (totalY === undefined) {
+                            totalY = 0
+                        } else {
+                            totalY = Number(tempArray[y].commentTotal)
+                        }
+                        if (totalX < totalY) {
+                            var temp = tempArray[x];
+                            tempArray[x] = tempArray[y];
+                            tempArray[y] = temp;
+                        }
+                    }
+                }
+                /*显示*/
+                for (var i = start; i < (start + pageSize) && i < imageCount; i++) {
+                    if (orderById) {
+                        image = tempArray[i];
+                    } else {
+                        image = tempArray[imageCount - i - 1];
+                    }
+                    addImage(photosList, image.name, image.desc, image.number, image.commentURL, image.ownerName, image.ownerURL, image.raw, image.commentTotal);
+                }
+            } else {
+                for (var i = start; i < (start + pageSize) && i < imageCount; i++) {
+                    var image;
+                    if (orderById) {
+                        image = images[i];
+                    } else {
+                        image = images[imageCount - i - 1];
+                    }
+                    addImage(photosList, image.name, image.desc, image.number, image.commentURL, image.ownerName, image.ownerURL, image.raw, image.commentTotal);
+                }
+            }
+        }
+
+        /*上一页*/
+        function previousPage() {
+            var s = start - pageSize;
+            if (s >= 0) {
+                showImage(start - pageSize, pageSize, orderById, orderByCommentTotal);
+                start = start - pageSize;
+            }
+            setPageSelect();
+            goTop(20, 100);
+        }
+
+        /*下一页*/
+        function nextPage() {
+            var s = start + pageSize;
+            if (s < imageCount) {
+                showImage(s, pageSize, orderById, orderByCommentTotal);
+                start = start + pageSize;
+            }
+            setPageSelect();
+            goTop(20, 100);
+        }
+
+        /*添加图片*/
+        function addImage(div, image, desc, number, commentURL, ownerName, ownerURL, raw, commentTotal) {
+            var photosDIV = document.createElement("div");
+            photosDIV.setAttribute("class", "photos");
+
+            /*描述*/
+            var descDIV = document.createElement("div");
+            descDIV.setAttribute("class", "desc");
+            if (ownerName !== undefined) {
+                var ownerA = document.createElement("a");
+                ownerA.setAttribute("class", "owner");
+                ownerA.setAttribute("target", "_blank");
+                ownerA.setAttribute("href", ownerURL);
+                ownerA.appendChild(document.createTextNode(ownerName));
+                descDIV.appendChild(ownerA);
+                descDIV.appendChild(document.createTextNode("："));
+            }
+            descDIV.appendChild(document.createTextNode(desc));
+            /*回应数*/
+            if (commentTotal !== undefined) {
+                var commentTotalDIV = document.createElement("div");
+                commentTotalDIV.setAttribute("class", "commentTotalDIV");
+                var commentTotalA = document.createElement("a");
+                commentTotalA.setAttribute("class", "commentTotal");
+                commentTotalA.setAttribute("target", "_blank");
+                commentTotalA.setAttribute("href", commentURL);
+                commentTotalA.appendChild(document.createTextNode("回应：" + commentTotal + ""));
+                commentTotalDIV.appendChild(commentTotalA);
+                descDIV.appendChild(commentTotalDIV);
+            }
+            photosDIV.appendChild(descDIV);
+
+            /*编号*/
+            var numberDIV = document.createElement("div");
+            /*raw*/
+            if (raw !== undefined) {
+                if (raw === RAW_TYPE_UNCOMPRESSED) {
+                    numberDIV.setAttribute("class", "number-raw-uncompressed");
+                } else {
+                    numberDIV.setAttribute("class", "number-raw-large");
+                }
+                var numberA = document.createElement("a");
+                numberA.setAttribute("target", "_blank");
+                numberA.setAttribute("href", "raw/" + image);
+                numberA.appendChild(document.createTextNode(number));
+                numberDIV.appendChild(numberA);
+            } else {
+                numberDIV.setAttribute("class", "number");
+                numberDIV.appendChild(document.createTextNode(number));
+            }
+            photosDIV.appendChild(numberDIV);
+
+            /*图片*/
+            var img = document.createElement("img");
+            img.setAttribute("src", image);
+            if (commentURL === undefined) {
+                photosDIV.appendChild(img);
+            } else {
+                /*评论*/
+                var commentURLDIV = document.createElement("a");
+                commentURLDIV.setAttribute("target", "_blank");
+                commentURLDIV.setAttribute("href", commentURL);
+                commentURLDIV.appendChild(img);
+                photosDIV.appendChild(commentURLDIV);
+            }
+
+            /*所有者*/
+            div.appendChild(photosDIV);
+        }
+
+        /*修改PageSize*/
+        function changePageSize(select) {
+            if (select.value === "ALL") {
+                pageSize = imageCount;
+            } else {
+                pageSize = Number(select.value);
+            }
+            start = 0;
+            showImage(start, pageSize, orderById, orderByCommentTotal);
+            initPageSelect();
+        }
+
+        /*跳转*/
+        function jump(select) {
+            var page = Number(select.value);
+            start = pageSize * (page - 1);
+            showImage(start, pageSize, orderById, orderByCommentTotal);
+            goTop(20, 100);
+        }
+
+        /*排序 - ID*/
+        function doOrderById() {
+            orderById = !orderById;
+            start = 0;
+            showImage(start, pageSize, orderById, orderByCommentTotal);
+            initPageSelect();
+            goTop(20, 100);
+        }
+        /*排序 - 回应数*/
+        function doOrderByCommentTotal() {
+            orderByCommentTotal = !orderByCommentTotal;
+            start = 0;
+            showImage(start, pageSize, orderById, orderByCommentTotal);
+            initPageSelect();
+            goTop(20, 100);
+        }
+
+        /**
+         * 回到页面顶部
+         * 作者：我是UED ，
+         * http://www.iamued.com/qianduan/816.html
+         * @param acceleration 加速度
+         * @param time 时间间隔 (毫秒)
+         **/
+        function goTop(acceleration, time) {
+            acceleration = acceleration || 0.1;
+            time = time || 16;
+            var x1 = 0;
+            var y1 = 0;
+            var x2 = 0;
+            var y2 = 0;
+            var x3 = 0;
+            var y3 = 0;
+            if (document.documentElement) {
+                x1 = document.documentElement.scrollLeft || 0;
+                y1 = document.documentElement.scrollTop || 0;
+            }
+            if (document.body) {
+                x2 = document.body.scrollLeft || 0;
+                y2 = document.body.scrollTop || 0;
+            }
+            var x3 = window.scrollX || 0;
+            var y3 = window.scrollY || 0;
+            /* 滚动条到页面顶部的水平距离 */
+            var x = Math.max(x1, Math.max(x2, x3));
+            /* 滚动条到页面顶部的垂直距离*/
+            var y = Math.max(y1, Math.max(y2, y3));
+            /* 滚动距离 = 目前距离 / 速度, 因为距离原来越小, 速度是大于 1 的数, 所以滚动距离会越来越小*/
+            var speed = 1 + acceleration;
+            window.scrollTo(Math.floor(x / speed), Math.floor(y / speed));
+            /* 如果距离不为零, 继续调用迭代本函数*/
+            if (x > 0 || y > 0) {
+                var invokeFunction = "goTop(" + acceleration + ", " + time + ")";
+                window.setTimeout(invokeFunction, time);
+            }
+        }
+
+        function searchKeyPress(event) {
+            if (event.keyCode === 13) {
+                search();
+            }
+        }
+
+        /*查询*/
+        function showSearchDialog() {
+            var mode = document.getElementById("searchDialog").style.display;
+            if (mode === "none") {
+                document.getElementById("searchDialog").style.display = "block";
+            }
+            if (mode === "block") {
+                document.getElementById("searchDialog").style.display = "none";
+            }
+        }
+        function cancelSearch() {
+            document.getElementById("userId").value = "";
+            document.getElementById("userName").value = "";
+            document.getElementById("userDesc").value = "";
+            document.getElementById("searchDialog").style.display = "none";
+
+            start = 0;
+            showImage(start, pageSize, orderById, orderByCommentTotal);
+            initPageSelect();
+            goTop(20, 100);
+        }
+        function search() {
+
+            var id = document.getElementById("userId").value;
+            var name = document.getElementById("userName").value;
+            var desc = document.getElementById("userDesc").value;
+
+            var photosList = document.getElementById("photosList");
+            photosList.innerHTML = "";
+
+            var num = 1;
+            var hasResult = false;
+            for (var i = 0; i < imageCount; i++) {
+                var image = images[i];
+                var flag = false;
+                if (_hasUserInfo) {
+                    flag = image.ownerURL.indexOf(id) > 0 || (" " + image.ownerName).indexOf(name) > 0 || (" " + image.desc).indexOf(desc) > 0;
+                } else {
+                    flag = (" " + image.desc).indexOf(desc) > 0;
+                }
+                if (flag) {
+                    if (!hasResult) {
+                        hasResult = true
+                    }
+                    addImage(photosList, image.name, image.desc, num + "-" + image.number, image.commentURL, image.ownerName, image.ownerURL);
+                    num++;
+                }
+            }
+            if (!hasResult) {
+                photosList.innerHTML = '<div style="font-size:400px; color: white;" >无</div>';
+            }
+        }
+    </script>
+</head>
+<body onload="init()">
+<!-- 相册名称 -->
+<div id="name"><a href="${url}">${name}</a></div>
+<!-- 照片数量 -->
+<div id="imagesTotal">${imagesTotal}</div>
+<!-- 下载时间 -->
+<div id="downloadTime">${downloadTime}</div>
+<!-- 相册描述 -->
+<div id="albumDesc">${albumDesc}</div>
+<!-- PHOTO -->
+<div id="photosList">
+    <!--
+    <div class="photos">
+        <div class="desc">${owner}${desc}</div>
+        <div class="number">${num}</div>
+            <a href="${commentURL}" target="_blank"><img src="${image}"/></a>
+        </div>
+    -->
+</div>
+<div id="tools">
+    <ul>
+        <li><a id="topA" href="javascript:goTop(20,100);">TOP</a></li>
+        <li><a id="previousPage" href="javascript:previousPage();">↑</a></li>
+        <li><a id="nextPage" href="javascript:nextPage();">↓</a></li>
+        <li><select id="pageSelect" onchange="jump(this)"></select></li>
+        <li>
+            <select id="pageSizeSelect" onchange="changePageSize(this)">
+                <option>50</option>
+                <option>100</option>
+                <option>200</option>
+                <option>300</option>
+                <option>500</option>
+                <option>ALL</option>
+            </select>
+        </li>
+        <li id="search"><a href="javascript:showSearchDialog();">SEARCH</a></li>
+        <li id="lastLi"><a href="javascript:doOrderById();">ORDER</a></li>
+        <li id="lastLi"><a href="javascript:doOrderByCommentTotal();">HOT</a></li>
+    </ul>
+</div>
+<div id="searchDialog" style="display: none;">
+    <span id="userIdSpan">ID：</span><input id="userId" type="text" onkeypress="searchKeyPress(event)">
+    <span id="userNameSpan">用户名：</span><input id="userName" type="text" onkeypress="searchKeyPress(event)">
+    <span>描述：</span><input id="userDesc" type="text" onkeypress="searchKeyPress(event)">
+    <input type="button" onclick="search()" value="搜索">
+    <input type="button" onclick="cancelSearch()" value="取消">
+</div>
+</body>
+</html>

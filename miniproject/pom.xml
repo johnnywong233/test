@@ -17,6 +17,8 @@
     <modules>
         <module>hereDocument</module>
         <module>hereDocumentTest</module>
+        <module>simple_dao</module>
+        <module>pic_downloader</module>
     </modules>
 
 </project>
