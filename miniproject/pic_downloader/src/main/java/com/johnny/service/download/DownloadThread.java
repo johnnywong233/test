@@ -66,15 +66,15 @@ public class DownloadThread extends Thread {
 
     public void run() {
         while (true) {
-            List var2 = this.imageURLList;
+            List<String> list = this.imageURLList;
             int listSize;
-            synchronized (this.imageURLList) {
+            synchronized (list) {
                 if (this.imageURLList.size() == 0) {
                     return;
                 }
 
-                this.url = (String) this.imageURLList.get(0);
-                listSize = this.imageURLList.size() - 1;
+                this.url = list.get(0);
+                listSize = list.size() - 1;
                 this.imageURLList.remove(this.url);
             }
 
@@ -91,29 +91,24 @@ public class DownloadThread extends Thread {
                 if (c == 2) {
                     Console.print(this.getName() + " - 图片不存在(" + (this.imageCount - listSize) + "/" + this.imageCount + ")：" + this.url);
                 }
-
-                Integer var21 = DownloadManager.updateCount;
-                synchronized (DownloadManager.updateCount) {
-                    DownloadManager.updateCount = Integer.valueOf(DownloadManager.updateCount.intValue() + c);
-                }
-            } catch (Exception var17) {
-                if (!var17.getClass().equals(FileNotFoundException.class)) {
-                    Console.print("图片下载失败：" + this.url + " - " + var17.getMessage());
-                    Map var3 = Common.failFileMap;
-                    synchronized (Common.failFileMap) {
-                        if (!Common.failFileMap.containsKey(this.url)) {
-                            Common.failFileMap.put(this.url, this.path);
+            } catch (Exception e) {
+                if (!e.getClass().equals(FileNotFoundException.class)) {
+                    Console.print("图片下载失败：" + this.url + " - " + e.getMessage());
+                    Map<String, String> failFileMap = Common.failFileMap;
+                    synchronized (failFileMap) {
+                        if (!failFileMap.containsKey(this.url)) {
+                        	failFileMap.put(this.url, this.path);
                         }
                     }
 
-                    var17.printStackTrace();
+                    e.printStackTrace();
                 } else {
-                    Console.print("图片不存在：" + this.url + " - " + var17.getMessage());
-                    var17.printStackTrace();
+                    Console.print("图片不存在：" + this.url + " - " + e.getMessage());
+                    e.printStackTrace();
                 }
             } finally {
-                JProgressBar var5 = this.mainProgressBar;
-                synchronized (this.mainProgressBar) {
+                JProgressBar jProgressBar = this.mainProgressBar;
+                synchronized (jProgressBar) {
                     this.mainProgressBar.setValue(this.mainProgressBar.getValue() + 1);
                 }
             }

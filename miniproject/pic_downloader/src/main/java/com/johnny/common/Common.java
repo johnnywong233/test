@@ -58,7 +58,7 @@ public class Common {
     public static String PATH_APP = "";
     public static boolean IS_UPDATE = false;
     public static boolean IS_DOWNLOAD_RAW = false;
-    public static Map<String, String> failFileMap = new TreeMap();
+    public static Map<String, String> failFileMap = new TreeMap<>();
 
     static {
         try {
@@ -70,7 +70,7 @@ public class Common {
             e.printStackTrace();
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         InputStream inputStream = Common.class.getResourceAsStream("/com.johnny/resources/html/Template.html");
         BufferedReader bw = new BufferedReader(new InputStreamReader(inputStream));
         try {

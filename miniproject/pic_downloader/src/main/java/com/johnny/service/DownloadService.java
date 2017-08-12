@@ -32,7 +32,7 @@ public class DownloadService {
         albumListCountLabel.setText("0/" + albums.size() + " ");
 
         for (int i = 0; i < albums.size(); i++) {
-            Album album = (Album) albums.get(i);
+            Album album = albums.get(i);
             album.init();
 
             album.download();
@@ -44,21 +44,20 @@ public class DownloadService {
 
         if (imagesCount != 0L) {
             String sp = "                  ";
-            StringBuffer sb = new StringBuffer();
-            sb.append("==============================\r\n");
-            sb.append(sp).append(" 相册总数：").append(albums.size()).append("(个)\r\n");
-            sb.append(sp).append(" 照片总数:").append(imagesCount).append("(张)\r\n");
-            sb.append(sp).append(" 成功:").append(imagesCount - Common.failFileMap.size()).append("(张)\r\n");
-            sb.append(sp).append(" 失败:").append(Common.failFileMap.size()).append("(张)\r\n");
-            sb.append(sp).append(" 总耗时:").append((System.currentTimeMillis() - time) / 1000L + "s").append(sp).append("~\\(≧▽≦)/~");
-            Console.print(sb.toString());
+            String sb = "==============================\r\n" +
+                    sp + " 相册总数：" + albums.size() + "(个)\r\n" +
+                    sp + " 照片总数:" + imagesCount + "(张)\r\n" +
+                    sp + " 成功:" + (imagesCount - Common.failFileMap.size()) + "(张)\r\n" +
+                    sp + " 失败:" + Common.failFileMap.size() + "(张)\r\n" +
+                    sp + " 总耗时:" + (System.currentTimeMillis() - time) / 1000L + "s" + sp + "~\\(≧▽≦)/~";
+            Console.print(sb);
         }
 
         if (Common.failFileMap.size() != 0) {
             Console.print("【存在下载失败文件,尝试重新下载】");
             int num = 1;
             int flag = 0;
-            while ((num < Common.AUTO_DOWNLOAD_FAIL_FILE.intValue()) && (flag == 0)) {
+            while ((num < Common.AUTO_DOWNLOAD_FAIL_FILE) && (flag == 0)) {
                 flag = DownloadManager.downloadFailFile();
                 if (flag == 0)
                     Console.print("【部分文件依然下载失败，显示失败文件列表】 - " + num);
@@ -69,7 +68,7 @@ public class DownloadService {
             }
         }
 
-        List finishedAlbumPathList = new ArrayList();
+        List<String> finishedAlbumPathList = new ArrayList<>();
         for (Album a : albums) {
             finishedAlbumPathList.add(a.getPath());
         }

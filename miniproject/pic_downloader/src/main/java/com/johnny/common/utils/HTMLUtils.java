@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class HTMLUtils {
-    private static Map<String, String> htmlSignMap = new HashMap();
-    private static Map<String, String> htmlSignMapReversed = new HashMap();
+    private static Map<String, String> htmlSignMap = new HashMap<>();
+    private static Map<String, String> htmlSignMapReversed = new HashMap<>();
 
     static {
         htmlSignMap.put("&Alpha;", "Α");
@@ -154,8 +154,8 @@ public class HTMLUtils {
         htmlSignMap.put("&#39;", "'");
         htmlSignMap.put("&#34;", "\"");
 
-        for (Entry entry : htmlSignMap.entrySet()) {
-            htmlSignMapReversed.put((String) entry.getValue(), (String) entry.getKey());
+        for (Entry<String, String> entry : htmlSignMap.entrySet()) {
+            htmlSignMapReversed.put(entry.getValue(), entry.getKey());
         }
         htmlSignMapReversed.remove("&");
     }
@@ -164,9 +164,9 @@ public class HTMLUtils {
         if (str.contains("&")) {
             str.replace("&", "&amp;");
         }
-        for (Entry entry : htmlSignMapReversed.entrySet()) {
-            if (str.contains((CharSequence) entry.getKey())) {
-                str = str.replaceAll((String) entry.getKey(), (String) entry.getValue());
+        for (Entry<String, String> entry : htmlSignMapReversed.entrySet()) {
+            if (str.contains(entry.getKey())) {
+                str = str.replaceAll(entry.getKey(), entry.getValue());
             }
         }
         return str;
@@ -182,9 +182,9 @@ public class HTMLUtils {
     }
 
     public static String htmlToText(String str) {
-        for (Entry element : htmlSignMap.entrySet()) {
-            if (str.contains((CharSequence) element.getKey())) {
-                str = str.replace((CharSequence) element.getKey(), (CharSequence) element.getValue());
+        for (Entry<String, String> element : htmlSignMap.entrySet()) {
+            if (str.contains(element.getKey())) {
+                str = str.replace(element.getKey(), element.getValue());
             }
         }
         return str;

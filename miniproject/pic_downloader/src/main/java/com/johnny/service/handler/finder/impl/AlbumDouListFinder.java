@@ -21,7 +21,7 @@ public class AlbumDouListFinder
         }
         Console.print("扫描相册豆列首页：" + url);
 
-        List pageURLList = new ArrayList();
+        List<String> pageURLList = new ArrayList<>();
         String source = URLUtils.readSource(url);
         String regex = url + "\\?start=\\d+";
         Pattern p = Pattern.compile(regex);
@@ -34,7 +34,7 @@ public class AlbumDouListFinder
             maxStartNum = num > maxStartNum ? num : maxStartNum;
         }
 
-        for (int i = 0; i <= maxStartNum; i += 25) {
+        for (int i = 0; i <= maxStartNum; i += PAGE_SIZE_ALBUM) {
             String u = url + "?start=" + i;
             pageURLList.add(u);
             Console.print("获取相册分页地址：" + u);
@@ -54,7 +54,7 @@ public class AlbumDouListFinder
                 albumURLSet.add(u);
             }
         }
-        return new ArrayList(albumURLSet);
+        return new ArrayList<>(albumURLSet);
     }
 
     public String getURLRegex() {

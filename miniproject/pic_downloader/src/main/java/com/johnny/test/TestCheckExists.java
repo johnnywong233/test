@@ -6,9 +6,10 @@ import java.net.URL;
 
 public class TestCheckExists {
     public static void main(String[] args) {
-        for (int i = 0; i < 1000; i++)
+    	Integer retryTimes = 3;
+        for (int i = 0; i < retryTimes; i++)
             try {
-                URL url = new URL("http://img3.douban.com/view/photo/photo/public/p1601592092.jpg");
+                URL url = new URL("https://www.douban.com/photos/photo/2494907038/#image");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 HttpURLConnection.setFollowRedirects(false);
 

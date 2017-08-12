@@ -14,7 +14,7 @@ public class TetsInputStream {
     public static void main(String[] args)
             throws IOException {
         for (int i = 0; i < 10; i++) {
-            String url = "http://img3.douban.com/icon/ul37817084-33.jpg";
+            String url = "https://www.douban.com/photos/photo/2494549845";
             URL image = new URL(url);
             HttpURLConnection conn = (HttpURLConnection) image.openConnection();
             conn.setConnectTimeout(10000);

@@ -9,13 +9,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MovieAlbumHandler extends AlbumHandler {
-    public static final int PAGE_SIZE_IMAGES_MOVIE = 40;
-    public static final String PAGE_TAG = "start";
-    public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
-    public static final String ALBUM_URL_REGEX = "(http|https)://movie.douban.com/subject/\\d+/photos\\?(\\w+=\\w+&*)+";
+    private static final int PAGE_SIZE_IMAGES_MOVIE = 40;
+    private static final String PAGE_TAG = "start";
+    private static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
+    private static final String ALBUM_URL_REGEX = "(http|https)://movie.douban.com/subject/\\d+/photos\\?(\\w+=\\w+&*)+";
 
     public String getURLRegex() {
-        return "(http|https)://movie.douban.com/subject/\\d+/photos\\?(\\w+=\\w+&*)+";
+        return ALBUM_URL_REGEX;
     }
 
     public String getPageRegex() {
@@ -50,15 +50,15 @@ public class MovieAlbumHandler extends AlbumHandler {
     }
 
     public Integer getPageSize() {
-        return 40;
+        return PAGE_SIZE_IMAGES_MOVIE;
     }
 
     public String getPageTag() {
-        return "start";
+        return PAGE_TAG;
     }
 
     public String getImageNameRegex() {
-        return "p\\d+.(gif|jpg|png)";
+        return IMAGE_NAME_REGEX;
     }
 
     public boolean hasRaw() {

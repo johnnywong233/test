@@ -37,7 +37,7 @@ public class DropTextArea extends JPopupTextArea
     }
 
     @SuppressWarnings("unchecked")
-    public void drop(DropTargetDropEvent dtde) {
+	public void drop(DropTargetDropEvent dtde) {
         try {
             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                 setText("");

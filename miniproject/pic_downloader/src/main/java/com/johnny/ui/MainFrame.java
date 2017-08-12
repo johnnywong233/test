@@ -34,7 +34,6 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,11 +48,11 @@ public class MainFrame extends JFrame {
     public JLabel processUnitCountLabel;
     public JProgressBar processUnitProgressBar;
     public JProgressBar progressBar;
-    JTextArea albumTextArea;
-    JButton changePathBtn;
-    JTextArea infoTextArea;
-    JCheckBox isDownloadRawCheckBox;
-    JTextField pathTextField;
+    private JTextArea albumTextArea;
+    private JButton changePathBtn;
+    private JTextArea infoTextArea;
+    private JCheckBox isDownloadRawCheckBox;
+    private JTextField pathTextField;
 
     private MainFrame() {
         initComponents();
@@ -262,18 +261,14 @@ public class MainFrame extends JFrame {
                 79,
                 2));
         jMenuItem1.setText("打开存储目录");
-        jMenuItem1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                MainFrame.this.jMenuItem1ActionPerformed(evt);
-            }
-        });
+        jMenuItem1.addActionListener(MainFrame.this::jMenuItem1ActionPerformed);
         jMenu1.add(jMenuItem1);
 
         jMenuItem4.setAccelerator(KeyStroke.getKeyStroke(
                 72,
                 2));
         jMenuItem4.setText("手动生成页面");
-        jMenuItem4.addActionListener(evt -> MainFrame.this.jMenuItem4ActionPerformed(evt));
+        jMenuItem4.addActionListener(MainFrame.this::jMenuItem4ActionPerformed);
         jMenu1.add(jMenuItem4);
         jMenu1.add(jSeparator1);
 
@@ -281,7 +276,7 @@ public class MainFrame extends JFrame {
                 69,
                 2));
         jMenuItem2.setText("关闭程序");
-        jMenuItem2.addActionListener(evt -> MainFrame.this.jMenuItem2ActionPerformed(evt));
+        jMenuItem2.addActionListener(MainFrame.this::jMenuItem2ActionPerformed);
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -514,7 +509,7 @@ public class MainFrame extends JFrame {
     }
 
     private void downloadBtnActionPerformed(ActionEvent evt) {
-        new Thread(() -> MainFrame.this.download()).start();
+        new Thread(MainFrame.this::download).start();
     }
 
     private void download() {
@@ -531,10 +526,9 @@ public class MainFrame extends JFrame {
         }
 
         String[] urls = this.albumTextArea.getText().split("[\\t \\n]+");
-        List urlList = new ArrayList();
+        List<String> urlList = new ArrayList<>();
         boolean flag = true;
-        for (String url1 : urls) {
-            String url = url1;
+        for (String url : urls) {
             if ((!url.startsWith("http://")) && (!url.startsWith("https://"))) {
                 JOptionPane.showMessageDialog(getInstance(),
                         "地址格式错误，请检查后重新输入");

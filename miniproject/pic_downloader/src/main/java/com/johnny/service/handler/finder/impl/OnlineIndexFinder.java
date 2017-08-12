@@ -8,8 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class OnlineIndexFinder
-        implements IAlbumURLFinder {
+public class OnlineIndexFinder implements IAlbumURLFinder {
     public List<String> findAlbumURL(String url) {
         List<String> list = new ArrayList<>();
         String source = URLUtils.readSource(url);

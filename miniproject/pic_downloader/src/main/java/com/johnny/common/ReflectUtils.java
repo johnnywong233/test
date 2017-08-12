@@ -26,9 +26,8 @@ public class ReflectUtils {
         return getFieldValues(obj, null, new Object[0]);
     }
 
-    @SuppressWarnings("unchecked")
     private static Map<String, Object> getFieldValues(Object obj, Integer paraType, Object[] paras) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
-        Set fieldNameSet = new HashSet();
+        Set<String> fieldNameSet = new HashSet<>();
         if ((paraType != null) && (
                 (Objects.equals(paraType, PARA_TYPE_INCLUDE)) || (Objects.equals(paraType, PARA_TYPE_EXCLUDE)))) {
             for (String name : paras[0].toString().split(",")) {
@@ -36,12 +35,12 @@ public class ReflectUtils {
             }
         }
 
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<>();
         Method[] methods = obj.getClass().getMethods();
         for (Method method : methods) {
             String methodName = method.getName();
             if ((methodName.startsWith("get")) || (methodName.startsWith("is"))) {
-                Class returnTypeClass = method.getReturnType();
+                Class<?> returnTypeClass = method.getReturnType();
                 String fieldName;
                 if ((returnTypeClass.equals(Boolean.TYPE)) || (returnTypeClass.equals(Boolean.class)))
                     fieldName = methodName.substring(2, 3).toLowerCase() + methodName.substring(3);
@@ -78,15 +77,14 @@ public class ReflectUtils {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     private static List<Class<?>> getClassWithPackageFromJar(JarFile jar, String pkg)
             throws IOException, ClassNotFoundException {
         String packageName = pkg.replaceAll("\\.", "/");
-        List list = new ArrayList();
+        List<Class<?>> list = new ArrayList<>();
         ClassLoader loader = ReflectUtils.class.getClassLoader();
-        Enumeration e = jar.entries();
+        Enumeration<JarEntry> e = jar.entries();
         while (e.hasMoreElements()) {
-            JarEntry jarEntry = (JarEntry) e.nextElement();
+            JarEntry jarEntry = e.nextElement();
             String entryName = jarEntry.getName();
             if ((entryName.contains(packageName)) && (entryName.endsWith(".class"))) {
                 list.add(loader.loadClass(entryName.replace("/", ".").replace(".class", "")));
@@ -95,16 +93,15 @@ public class ReflectUtils {
         return list;
     }
 
-    @SuppressWarnings("unchecked")
     private static List<Class<?>> getClassWithPackageFromDir(String pkg)
             throws UnsupportedEncodingException, ClassNotFoundException {
-        List list = new ArrayList();
+        List<Class<?>> list = new ArrayList<>();
         String jarPath = URLDecoder.decode(ReflectUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "utf-8");
         File dir = new File(jarPath + "/" + pkg.replaceAll("\\.", "/"));
         File[] files = dir.listFiles((dir1, name) -> name.endsWith(".class"));
         for (File f : files) {
             String className = f.getName().substring(0, f.getName().indexOf("."));
-            Class clazz = Class.forName(pkg + "." + className);
+            Class<?> clazz = Class.forName(pkg + "." + className);
             list.add(clazz);
         }
         return list;
@@ -112,7 +109,7 @@ public class ReflectUtils {
 
     public static void main(String[] args) {
         List<Class<?>> list = getClassWithPackage("com.johnny.service.handler.finder.impl");
-        for (Class cls : list)
+        for (Class<?> cls : list)
             System.out.println(cls);
     }
 }

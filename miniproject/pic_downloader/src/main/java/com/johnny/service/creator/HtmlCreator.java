@@ -27,7 +27,6 @@ public class HtmlCreator {
     public static final String DESC_FRONT_COVER = "【相册封面】";
     public static final String DESC_DEFAULT = "-";
 
-    @SuppressWarnings("unchecked")
     public static boolean createAlbumHTML(String albumPath) throws IOException {
         File albumDir = new File(albumPath);
         if (!albumDir.exists()) {
@@ -90,7 +89,7 @@ public class HtmlCreator {
 
             return id1 - id2;
         });
-        Set rawSet = new HashSet();
+        Set<String> rawSet = new HashSet<>();
         if (albumHandler.hasRaw()) {
             File dir = new File(album.getPath() + File.separatorChar + "raw");
             if (dir.exists()) {
@@ -164,7 +163,7 @@ public class HtmlCreator {
         bw.flush();
         bw.close();
 
-        List<String> resourceList = new ArrayList();
+        List<String> resourceList = new ArrayList<>();
         resourceList.add("/com.johnny/resources/html/bg.jpg");
         resourceList.add("/com.johnny/resources/html/numberBg.png");
         resourceList.add("/com.johnny/resources/html/half-l.png");

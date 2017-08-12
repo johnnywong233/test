@@ -17,7 +17,6 @@ public class DownloadManager {
     private static final JProgressBar mainProgressBar = MainFrame.getInstance().progressBar;
     private static final Integer TIMEOUT = 10;
 
-    @SuppressWarnings("unchecked")
     static int downloadImage(List<String> imageURLList, String path) {
         mainProgressBar.setMaximum(imageURLList.size());
         mainProgressBar.setValue(0);
@@ -77,7 +76,7 @@ public class DownloadManager {
 
                 Console.print("就快好了~ ～(￣▽￣～)(～￣▽￣)～ ");
                 Console.print("---------------------------------------------------");
-                for (Entry entry : waitThreadMap.entrySet()) {
+                for (Entry<Thread, Integer> entry : waitThreadMap.entrySet()) {
                     DownloadThread t = (DownloadThread) entry.getKey();
                     Integer time = (Integer) entry.getValue();
                     String sb = "等待线程" + " - " + t.getName() + " - [" + time + "s]" +
@@ -89,7 +88,6 @@ public class DownloadManager {
         return 0;
     }
 
-    @SuppressWarnings("unchecked")
     public static int downloadFailFile() {
         int num = 1;
         int size = Common.failFileMap.size();
@@ -98,8 +96,8 @@ public class DownloadManager {
         progressBar.setValue(0);
         Console.print("=====================================");
         Console.print("下载图片上次失败图片：" + size + "(张)");
-        Map failMap = new TreeMap();
-        for (Entry element : Common.failFileMap.entrySet()) {
+        Map<String, String> failMap = new TreeMap<>();
+        for (Entry<String, String> element : Common.failFileMap.entrySet()) {
             try {
                 Console.print("下载图片(" + num + "/" + size + ")：" + element.getKey());
                 DownloadThread downloadThread = new DownloadThread();

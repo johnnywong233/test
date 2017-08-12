@@ -23,7 +23,7 @@ public class PageAnalyzer {
         if (source.contains("<title>"))
             name = source.substring(source.indexOf("<title>") + 7, source.indexOf("</title>")).replace("\\t\\n", "").trim();
         else
-            return "NO-NAME";
+            return DEFAULT_ALBUM_NAME;
         if (name.length() != 0) {
             name = HTMLUtils.htmlToText(name);
 
@@ -33,7 +33,7 @@ public class PageAnalyzer {
 
             return name.replaceAll("[\\\\ / : \\* \\? < > \\|]", " ");
         }
-        return "NO-NAME";
+        return DEFAULT_ALBUM_NAME;
     }
 
     public static String findAlbumDesc(AlbumHandler albumHandler) {
@@ -90,7 +90,7 @@ public class PageAnalyzer {
     }
 
     public static Map<String, BGImage> findImageURLAndDesc(Album album, String pageURL) {
-        Map result = new HashMap();
+        Map<String, BGImage> result = new HashMap<>();
         String source = URLUtils.readSource(pageURL);
 
         String regex = "(http|https)://(\\w|\\s|\\.|-|_|/)+[\\.](gif|jpg|png)";
@@ -111,7 +111,7 @@ public class PageAnalyzer {
         }
 
         List<String> removeList = new ArrayList<>();
-        for (Entry element : result.entrySet()) {
+        for (Entry<String, BGImage> element : result.entrySet()) {
             if (!albumHandler.checkBGImage((BGImage) element.getValue())) {
                 removeList.add(element.getKey());
             }

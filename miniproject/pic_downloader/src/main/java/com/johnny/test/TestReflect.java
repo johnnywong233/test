@@ -12,17 +12,16 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class TestReflect {
-    @SuppressWarnings("unchecked")
     private static List<String[]> getJarMethod(String jarFile)
             throws Exception {
         String NORMAL_METHOD = "waitequalsnotifynotifyAlltoStringhashCodegetClass";
-        List a = new ArrayList();
+        List<String[]> list = new ArrayList<>();
         try {
             JarFile jar = new JarFile(jarFile);
-            Enumeration e = jar.entries();
+            Enumeration<JarEntry> e = jar.entries();
 
             while (e.hasMoreElements()) {
-                JarEntry entry = (JarEntry) e.nextElement();
+                JarEntry entry = e.nextElement();
 
                 if (!entry.getName().contains("META-INF")) {
                     String sName = entry.getName();
@@ -37,36 +36,36 @@ public class TestReflect {
                     if (!sName.contains(".class")) {
                         sName = sName.substring(0, sName.length() - 1);
                     } else {
-                        URL url1 = new URL("file:D:\\sip-test.jar");
+                        URL url1 = new URL("file:E:\\Java\\tool\\settings.jar");
                         URLClassLoader myClassLoader = new URLClassLoader(new URL[]{url1}, Thread.currentThread().getContextClassLoader());
                         String ppName = sName.replace("/", ".").replace(".class", "");
                         System.out.println("ppName:" + ppName);
-                        Class myClass = myClassLoader.loadClass(ppName);
+                        Class<?> myClass = myClassLoader.loadClass(ppName);
 
-                        Method[] m = myClass.getMethods();
-                        for (Method aM : m) {
+                        Method[] method = myClass.getMethods();
+                        for (Method aM : method) {
                             String sm = aM.getName();
                             if (!NORMAL_METHOD.contains(sm)) {
                                 String[] c = {sm, sName};
-                                a.add(c);
+                                list.add(c);
                             }
                         }
                         myClassLoader.close();
                     }
                     String[] b = {sName, pName};
-                    a.add(b);
+                    list.add(b);
                 }
             }
             jar.close();
-            return a;
+            return list;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return a;
+        return list;
     }
 
     public static void main(String[] args) throws Exception {
-        List<String[]> list = getJarMethod("D:\\Java\\tool\\jsp-api-2.2.jar");
+        List<String[]> list = getJarMethod("E:\\Java\\tool\\settings.jar");
         for (String[] arr : list)
             System.out.println(Arrays.toString(arr));
     }

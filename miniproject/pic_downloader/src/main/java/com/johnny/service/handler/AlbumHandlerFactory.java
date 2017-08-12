@@ -12,14 +12,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class AlbumHandlerFactory {
-    public static final String PACKAGE_FINDER = "com.johnny.service.handler.finder.impl";
-    public static final String PACKAGE_HANDER = "com.johnny.service.handler.handler";
+    private static final String PACKAGE_FINDER = "com.johnny.service.handler.finder.impl";
+    private static final String PACKAGE_HANDER = "com.johnny.service.handler.handler";
     private static Map<String, IAlbumURLFinder> albumURLFinderMap = new HashMap<>();
     private static Map<String, Class<?>> albumHandlerClassMap = new HashMap<>();
 
     static {
-        List<Class<?>> finderClassList = ReflectUtils.getClassWithPackage("com.johnny.service.handler.finder.impl");
-        for (Class finderClass : finderClassList) {
+        List<Class<?>> finderClassList = ReflectUtils.getClassWithPackage(PACKAGE_FINDER);
+        for (Class<?> finderClass : finderClassList) {
             try {
                 IAlbumURLFinder obj = (IAlbumURLFinder) finderClass.newInstance();
                 albumURLFinderMap.put(obj.getURLRegex(), obj);
@@ -28,11 +28,12 @@ public class AlbumHandlerFactory {
             }
         }
 
-        List<Class<?>> handlerClassList = ReflectUtils.getClassWithPackage("com.johnny.service.handler.handler");
-        for (Class handerClass : handlerClassList)
+        List<Class<?>> handlerClassList = ReflectUtils.getClassWithPackage(PACKAGE_HANDER);
+        assert handlerClassList != null;
+        for (Class<?> handlerClass : handlerClassList)
             try {
-                AlbumHandler obj = (AlbumHandler) handerClass.newInstance();
-                albumHandlerClassMap.put(obj.getURLRegex(), handerClass);
+                AlbumHandler obj = (AlbumHandler) handlerClass.newInstance();
+                albumHandlerClassMap.put(obj.getURLRegex(), handlerClass);
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -42,15 +43,14 @@ public class AlbumHandlerFactory {
         return getHandler(url, true);
     }
 
-    @SuppressWarnings("unchecked")
     public static List<AlbumHandler> getHandler(String url, boolean isPrintLog) {
-        List<String> albumURLList = new ArrayList();
+        List<String> albumURLList = new ArrayList<>();
 
         boolean hasFinder = false;
         List<String> albumURLs;
-        for (Entry element : albumURLFinderMap.entrySet()) {
-            if (url.matches((String) element.getKey())) {
-                IAlbumURLFinder albumURLFinder = (IAlbumURLFinder) element.getValue();
+        for (Entry<String, IAlbumURLFinder> element : albumURLFinderMap.entrySet()) {
+            if (url.matches(element.getKey())) {
+                IAlbumURLFinder albumURLFinder = element.getValue();
                 albumURLs = albumURLFinder.findAlbumURL(url);
                 for (String u : albumURLs) {
                     if (isPrintLog) {
@@ -69,12 +69,12 @@ public class AlbumHandlerFactory {
             }
         }
 
-        List handlerList = new ArrayList();
-        boolean hasHander = false;
+        List<AlbumHandler> handlerList = new ArrayList<>();
+        boolean hasHandler = false;
         for (String albumURL : albumURLList) {
-            for (Entry element : albumHandlerClassMap.entrySet()) {
-                if ((element.getKey() != null) && (albumURL.matches((String) element.getKey()))) {
-                    Class clazz = (Class) element.getValue();
+            for (Entry<String, Class<?>> element : albumHandlerClassMap.entrySet()) {
+                if ((element.getKey() != null) && (albumURL.matches(element.getKey()))) {
+                    Class<?> clazz = element.getValue();
                     try {
                         AlbumHandler handler = (AlbumHandler) clazz.newInstance();
                         handler.setAlbumURL(albumURL);
@@ -82,14 +82,14 @@ public class AlbumHandlerFactory {
                         if (isPrintLog) {
                             Console.print("创建相册处理器：" + clazz.getSimpleName() + " - " + albumURL);
                         }
-                        hasHander = true;
+                        hasHandler = true;
                     } catch (IllegalArgumentException | SecurityException | IllegalAccessException | InstantiationException e) {
                         e.printStackTrace();
                     }
                 }
             }
 
-            if (!hasHander) {
+            if (!hasHandler) {
                 DefaultAlbumHandler defaultAlbumHandler = new DefaultAlbumHandler();
                 defaultAlbumHandler.setAlbumURL(albumURL);
                 handlerList.add(defaultAlbumHandler);

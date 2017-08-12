@@ -11,14 +11,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 public class AlbumFactory {
-    @SuppressWarnings("unchecked")
     static List<Album> getFromURL(String url) {
-        List albums = new ArrayList();
+        List<Album> albums = new ArrayList<>();
 
         List<AlbumHandler> albumHandlers = AlbumHandlerFactory.getHandler(url);
         for (AlbumHandler albumHandler : albumHandlers) {
@@ -30,7 +28,6 @@ public class AlbumFactory {
         return albums;
     }
 
-    @SuppressWarnings("unchecked")
     public static Album getFromLocalFile(String path)
             throws IOException {
         Album album = new Album();
@@ -39,7 +36,7 @@ public class AlbumFactory {
         String charset = "GBK";
         String albumDesc = null;
         Date downloadTime = null;
-        List photosList = new ArrayList();
+        List<BGImage> photosList = new ArrayList<>();
         List<String> imageNameList = new ArrayList<>();
 
         if (descFile.exists()) {
@@ -65,9 +62,9 @@ public class AlbumFactory {
                     downloadTime = new Date(Long.valueOf(strArray[2]));
                     albumDesc = strArray[3];
                 }
-                List handlerList = AlbumHandlerFactory.getHandler(url, false);
+                List<AlbumHandler> handlerList = AlbumHandlerFactory.getHandler(url, false);
                 if ((handlerList != null) && (handlerList.size() != 0)) {
-                    album.setAlbumHandler((AlbumHandler) handlerList.get(0));
+                    album.setAlbumHandler(handlerList.get(0));
                 }
             }
 
@@ -81,7 +78,7 @@ public class AlbumFactory {
 
         File dir = new File(path);
         File[] images = dir.listFiles(file -> {
-            if (!AlbumFactory.contains(file.getName())) {
+            if (!AlbumFactory.class.getName().contains(file.getName())) {
                 if (file.isFile()) {
                     String name = file.getName();
                     return name.substring(name.lastIndexOf(".") + 1).matches("(gif|jpg|png)");
@@ -91,10 +88,10 @@ public class AlbumFactory {
 
             return false;
         });
-        List list = new ArrayList(Arrays.asList(images));
-        list.sort((Comparator<File>) (o1, o2) -> (int) (o1.lastModified() - o2.lastModified()));
+        List<File> list = new ArrayList<>(Arrays.asList(images));
+        list.sort((o1, o2) -> (int) (o1.lastModified() - o2.lastModified()));
         for (int i = 0; i < list.size(); i++) {
-            File imageFile = (File) list.get(i);
+            File imageFile = list.get(i);
             String imagePath = imageFile.getAbsolutePath().replaceAll("\\\\", "/");
             BGImage bgImage = new BGImage("O-" + (i + 1), imagePath, imageFile.getName());
             photosList.add(bgImage);

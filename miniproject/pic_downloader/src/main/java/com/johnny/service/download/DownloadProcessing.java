@@ -35,7 +35,7 @@ public class DownloadProcessing {
     public static void downloadAlbum(Album album) {
         long albumDownloadTime = System.currentTimeMillis();
         int updateCount = 0;
-        Map<String, BGImage> imageMap = new HashMap();
+        Map<String, BGImage> imageMap = new HashMap<>();
         DirUtils.createDir(album);
         int processUnitMax = (new Double(Math.ceil((double) album.getPageURLLsit().size() / 50.0D))).intValue();
         int processUnitNumber = 0;
@@ -45,7 +45,7 @@ public class DownloadProcessing {
 
         for (int j = 0; j < processUnitMax; ++j) {
             long processUnitTime = System.currentTimeMillis();
-            List<String> pageURLList = new ArrayList();
+            List<String> pageURLList = new ArrayList<>();
             int start = processUnitNumber * 50;
             int end = start + 50;
             if (end > album.getPageURLLsit().size()) {
@@ -53,7 +53,7 @@ public class DownloadProcessing {
             }
 
             for (int k = start; k < end; ++k) {
-                pageURLList.add((String) album.getPageURLLsit().get(k));
+                pageURLList.add(album.getPageURLLsit().get(k));
             }
 
             updateCount += processUnit(album, imageMap, pageURLList);
@@ -81,7 +81,7 @@ public class DownloadProcessing {
             }
         }
 
-        album.setPhotosList(new ArrayList(imageMap.values()));
+        album.setPhotosList(new ArrayList<>(imageMap.values()));
         if (album.getPhotosList().size() != 0) {
             album.createDescDoc();
             Console.print("相册下载完成 - " + album.getName());
@@ -97,13 +97,12 @@ public class DownloadProcessing {
 
     }
 
-    @SuppressWarnings("unchecked")
     private static int processUnit(Album album, Map<String, BGImage> imageMap, List<String> pageURLList) {
         Integer update;
         Console.print("处理单元：启动信息获取");
         Set<String> imageURLSet = infoProcess(album, imageMap, pageURLList);
         Console.print("处理单元：开始下载：" + album.getName() + "(" + imageURLSet.size() + "张)");
-        update = DownloadManager.downloadImage(new ArrayList(imageURLSet), album.getPath());
+        update = DownloadManager.downloadImage(new ArrayList<>(imageURLSet), album.getPath());
         AlbumHandler albumHandler = album.getAlbumHandler();
         if (albumHandler.hasRaw()) {
             Console.print("处理单元：检测并下载大图");
@@ -113,7 +112,7 @@ public class DownloadProcessing {
                 file.mkdir();
             }
 
-            List<String> list = new ArrayList();
+            List<String> list = new ArrayList<>();
 
             for (String url : imageURLSet) {
                 list.add(albumHandler.getRawURL(url));
@@ -130,7 +129,7 @@ public class DownloadProcessing {
 
         for (int i = 0; i < pageURLList.size(); ++i) {
             Console.print("分析页面(" + (i + 1) + "/" + pageURLList.size() + ")：" + pageURLList.get(i));
-            Object map = new HashMap();
+            Map<String, BGImage> map = new HashMap<>();
 
             try {
                 map = PageAnalyzer.findImageURLAndDesc(album, pageURLList.get(i));
@@ -143,8 +142,7 @@ public class DownloadProcessing {
                 var11.printStackTrace();
             }
 
-            for (Object o : ((Map) map).entrySet()) {
-                Entry<String, BGImage> entry = (Entry) o;
+            for (Entry<String, BGImage> entry : map.entrySet()) {
                 if (!imageMap.containsKey(entry.getKey())) {
                     imageMap.put(entry.getKey(), entry.getValue());
                     imageURLSet.add(entry.getKey());
@@ -153,22 +151,22 @@ public class DownloadProcessing {
                     if (imageMap.get(entry.getKey()).getDesc().equals("")) {
                         if (entry.getValue().getDesc().equals("")) {
                             bgImage = imageMap.get(entry.getKey());
-                            bgImage.setDesc("※" + ((BGImage) entry.getValue()).getDesc());
-                            imageMap.put((String) entry.getKey(), bgImage);
+                            bgImage.setDesc("※" + entry.getValue().getDesc());
+                            imageMap.put(entry.getKey(), bgImage);
                         } else {
-                            imageMap.put((String) entry.getKey(), (BGImage) entry.getValue());
+                            imageMap.put(entry.getKey(), entry.getValue());
                         }
                     } else {
-                        bgImage = (BGImage) imageMap.get(entry.getKey());
+                        bgImage = imageMap.get(entry.getKey());
                         String desc = ("※" + bgImage.getDesc()).replaceAll("※+", "※");
                         if (desc.equals("※")) {
-                            bgImage = (BGImage) entry.getValue();
+                            bgImage = entry.getValue();
                             bgImage.setDesc("※" + bgImage.getDesc());
                         } else {
                             bgImage.setDesc(desc);
                         }
 
-                        imageMap.put((String) entry.getKey(), bgImage);
+                        imageMap.put(entry.getKey(), bgImage);
                     }
                 }
             }

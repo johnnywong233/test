@@ -112,7 +112,7 @@ public class Album {
     public void init() {
         setUrl(this.albumHandler.getAlbumURL());
 
-        List pageURLLsit = PageAnalyzer.findPageURL(this.albumHandler);
+        List<String> pageURLLsit = PageAnalyzer.findPageURL(this.albumHandler);
         setPageURLLsit(pageURLLsit);
 
         String name = PageAnalyzer.findAlbumName().trim();

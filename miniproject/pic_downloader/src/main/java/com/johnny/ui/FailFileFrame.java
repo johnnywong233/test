@@ -51,7 +51,7 @@ public class FailFileFrame extends JFrame {
 
     private void init() {
         this.failFileInfoTextArea.setText("");
-        for (Entry image : Common.failFileMap.entrySet()) {
+        for (Entry<String, String> image : Common.failFileMap.entrySet()) {
             this.failFileInfoTextArea.append("下载失败：" + (String) image.getKey() + " ——> " +
                     image.getValue() + "\r\n");
         }

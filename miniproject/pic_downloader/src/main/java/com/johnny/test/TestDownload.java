@@ -11,7 +11,7 @@ import java.net.URL;
 public class TestDownload {
     public static void main(String[] args) {
         try {
-            URL url = new URL("http://img3.douban.com/view/photo/photo/public/p1601592092.png");
+            URL url = new URL("https://www.douban.com/photos/photo/2494383222");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             HttpURLConnection.setFollowRedirects(false);
 

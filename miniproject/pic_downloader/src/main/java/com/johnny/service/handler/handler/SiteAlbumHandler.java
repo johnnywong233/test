@@ -13,7 +13,7 @@ public class SiteAlbumHandler extends AlbumHandler {
     public static final String ALBUM_URL_REGEX = "(http|https)://site.douban.com/.+/widget/photos/\\d+/";
 
     public String getURLRegex() {
-        return "(http|https)://site.douban.com/.+/widget/photos/\\d+/";
+        return ALBUM_URL_REGEX;
     }
 
     public String getPageRegex() {
@@ -25,15 +25,15 @@ public class SiteAlbumHandler extends AlbumHandler {
     }
 
     public Integer getPageSize() {
-        return 30;
+        return PAGE_SIZE_IMAGES_SITE;
     }
 
     public String getPageTag() {
-        return "start";
+        return PAGE_TAG;
     }
 
     public String getImageNameRegex() {
-        return "p\\d+.(gif|jpg|png)";
+        return IMAGE_NAME_REGEX;
     }
 
     public boolean hasRaw() {

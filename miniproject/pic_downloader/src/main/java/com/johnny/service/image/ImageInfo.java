@@ -4,7 +4,7 @@ public class ImageInfo {
     private int height;
     private int width;
 
-    public ImageInfo(int width, int height) {
+    ImageInfo(int width, int height) {
         this.height = height;
         this.width = width;
     }

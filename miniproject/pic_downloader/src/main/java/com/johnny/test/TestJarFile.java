@@ -12,7 +12,7 @@ public class TestJarFile {
         String pakageName = "com.johnny.service.handler.finder.impl";
         pakageName = pakageName.replaceAll("\\.", "/");
 
-        Enumeration e = jar.entries();
+        Enumeration<JarEntry> e = jar.entries();
         while (e.hasMoreElements()) {
             JarEntry jarEntry = (JarEntry) e.nextElement();
             String entryName = jarEntry.getName();

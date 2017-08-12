@@ -24,7 +24,7 @@ public class DefaultAlbumHandler extends AlbumHandler {
     }
 
     public Integer getPageSize() {
-        return Integer.valueOf(0);
+        return 0;
     }
 
     public String getPageTag() {
@@ -51,8 +51,3 @@ public class DefaultAlbumHandler extends AlbumHandler {
         return null;
     }
 }
-
-/* Location:           C:\Users\johnny\Downloads\豆瓣相册下载 v0.5.7 Update 2016-04-11 13.18.jar
- * Qualified Name:     com.johnny.service.handler.handler.DefaultAlbumHandler
- * JD-Core Version:    0.6.2
- */

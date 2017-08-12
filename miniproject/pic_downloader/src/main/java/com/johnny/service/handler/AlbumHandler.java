@@ -13,7 +13,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,14 +74,14 @@ public abstract class AlbumHandler {
     }
 
     public void createDescDoc(Album album) {
-        List imageList = album.getPhotosList();
-        Map map = new HashMap();
+        List<BGImage> imageList = album.getPhotosList();
+        Map<String, BGImage> map = new HashMap<>();
         for (BGImage bgImage : imageList) {
             map.put(bgImage.getUrl(), bgImage);
         }
-        List keyList = new ArrayList(map.keySet());
+        List<String> keyList = new ArrayList<>(map.keySet());
 
-        Collections.sort(keyList, new ImageListComparator());
+        keyList.sort(new ImageListComparator());
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(album.getPath() + "/" + "描述.txt"));
 
@@ -94,10 +93,10 @@ public abstract class AlbumHandler {
             bw.newLine();
 
             for (int i = 0; i < keyList.size(); i++) {
-                BGImage bgImage = (BGImage) map.get(keyList.get(i));
+                BGImage bgImage = map.get(keyList.get(i));
                 Integer commentTotal = bgImage.getCommentTotal();
                 String commentTotalStr = commentTotal == null ? "-" : String.valueOf(commentTotal);
-                bw.write(i + 1 + " " + (String) keyList.get(i) + " " + commentTotalStr + " " + bgImage.getDesc());
+                bw.write(i + 1 + " " + keyList.get(i) + " " + commentTotalStr + " " + bgImage.getDesc());
                 bw.newLine();
             }
             bw.flush();
@@ -111,14 +110,13 @@ public abstract class AlbumHandler {
 
     public List<BGImage> getBGImageFromDescDoc(File descFile)
             throws IOException {
-        List list = new ArrayList();
+        List<BGImage> list = new ArrayList<>();
         if (descFile.exists()) {
             BufferedReader reader = new BufferedReader(new FileReader(descFile));
 
             int line = 0;
             String str;
             while ((str = reader.readLine()) != null) {
-                String str;
                 if (line == 0) {
                     line++;
                 } else {

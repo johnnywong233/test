@@ -25,7 +25,7 @@ public class OnlineAlbumHandler extends AlbumHandler {
     public static final String ALBUM_URL_REGEX = "(http|https)://www.douban.com/online/\\d+/album/\\d+/";
 
     public String getURLRegex() {
-        return "(http|https)://www.douban.com/online/\\d+/album/\\d+/";
+        return ALBUM_URL_REGEX;
     }
 
     public String getPageRegex() {
@@ -37,15 +37,15 @@ public class OnlineAlbumHandler extends AlbumHandler {
     }
 
     public Integer getPageSize() {
-        return 90;
+        return PAGE_SIZE_IMAGES_ONLINE;
     }
 
     public String getPageTag() {
-        return "start";
+        return PAGE_TAG;
     }
 
     public String getImageNameRegex() {
-        return "p\\d+.(gif|jpg|png)";
+        return IMAGE_NAME_REGEX;
     }
 
     public String getRawURL(String imageURL) {
@@ -104,14 +104,13 @@ public class OnlineAlbumHandler extends AlbumHandler {
         return !bgImage.getUrl().contains("albumicon");
     }
 
-    @SuppressWarnings("unchecked")
     public void createDescDoc(Album album) {
         List<BGImage> imageList = album.getPhotosList();
-        Map map = new HashMap();
+        Map<String, BGImage> map = new HashMap<>();
         for (BGImage bgImage : imageList) {
             map.put(bgImage.getUrl(), bgImage);
         }
-        List keyList = new ArrayList(map.keySet());
+        List<String> keyList = new ArrayList<>(map.keySet());
 
         keyList.sort(new ImageListComparator());
         try {
@@ -138,10 +137,9 @@ public class OnlineAlbumHandler extends AlbumHandler {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public List<BGImage> getBGImageFromDescDoc(File descFile)
             throws IOException {
-        List list = new ArrayList();
+        List<BGImage> list = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(descFile));
         BGImage tempBGImage = null;
         int line = 0;

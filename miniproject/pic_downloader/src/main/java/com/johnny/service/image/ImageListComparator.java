@@ -16,8 +16,3 @@ public class ImageListComparator
         return p1.compareTo(p2);
     }
 }
-
-/* Location:           C:\Users\johnny\Downloads\豆瓣相册下载 v0.5.7 Update 2016-04-11 13.18.jar
- * Qualified Name:     com.johnny.service.image.ImageListComparator
- * JD-Core Version:    0.6.2
- */

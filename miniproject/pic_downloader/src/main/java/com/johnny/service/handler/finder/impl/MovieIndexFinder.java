@@ -5,8 +5,7 @@ import com.johnny.service.handler.finder.IAlbumURLFinder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieIndexFinder
-        implements IAlbumURLFinder {
+public class MovieIndexFinder implements IAlbumURLFinder {
     public static void main(String[] args) {
         System.out.println(new MovieAlbumListFinder().findAlbumURL("(http|https)://movie.douban.com/subject/3652297/"));
     }

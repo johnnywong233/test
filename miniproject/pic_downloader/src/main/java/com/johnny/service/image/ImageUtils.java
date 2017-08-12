@@ -15,12 +15,13 @@ public class ImageUtils {
         try {
             File file = new File(path);
             String readImageFormat = path.substring(path.lastIndexOf(".") + 1, path.length());
-            Iterator readers = ImageIO.getImageReadersByFormatName(readImageFormat);
-            ImageReader reader = (ImageReader) readers.next();
+            Iterator<ImageReader> readers = ImageIO.getImageReadersByFormatName(readImageFormat);
+            ImageReader reader = readers.next();
             ImageInputStream iis = ImageIO.createImageInputStream(file);
             reader.setInput(iis, true);
             return new ImageInfo(reader.getWidth(0), reader.getHeight(0));
         } catch (IOException e) {
+            e.printStackTrace();
         }
         return getImageSizeByBufferedImage(path);
     }

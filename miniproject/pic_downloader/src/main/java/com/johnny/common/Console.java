@@ -34,7 +34,7 @@ public class Console {
     }
 
     public static void setArea(JTextArea consoleArea) {
-        consoleArea = consoleArea;
+        Console.consoleArea = consoleArea;
     }
 
     public static void print(Logger log, String msg) {

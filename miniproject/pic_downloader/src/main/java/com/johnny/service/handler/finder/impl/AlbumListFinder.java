@@ -21,7 +21,7 @@ public class AlbumListFinder
         }
         Console.print("扫描相册列表首页：" + albumListURL);
 
-        List pageURLList = new ArrayList();
+        List<String> pageURLList = new ArrayList<>();
         String source = URLUtils.readSource(albumListURL);
         String regex = albumListURL + "\\?\\w+=\\d+";
         Pattern p = Pattern.compile(regex);
@@ -34,15 +34,15 @@ public class AlbumListFinder
             maxStartNum = num > maxStartNum ? num : maxStartNum;
         }
 
-        for (int i = 0; i <= maxStartNum; i += 16) {
+        for (int i = 0; i <= maxStartNum; i += PAGE_SIZE_ALBUM) {
             String u = albumListURL + "?start=" + i;
             pageURLList.add(u);
             Console.print("获取相册分页地址：" + u);
         }
 
-        Set albumURLSet = new TreeSet();
-        for (int i = 0; i < pageURLList.size(); i++) {
-            source = URLUtils.readSource((String) pageURLList.get(i));
+        Set<String> albumURLSet = new TreeSet<>();
+        for (String aPageURLList : pageURLList) {
+            source = URLUtils.readSource(aPageURLList);
             String albumRegex = "(http|https)://www.douban.com/photos/album/\\d+";
             Pattern pattern = Pattern.compile(albumRegex);
             Matcher matcher = pattern.matcher(source);
@@ -54,7 +54,7 @@ public class AlbumListFinder
                 albumURLSet.add(url);
             }
         }
-        return new ArrayList(albumURLSet);
+        return new ArrayList<String>(albumURLSet);
     }
 
     public String getURLRegex() {

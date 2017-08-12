@@ -7,10 +7,7 @@ import java.io.File;
 
 public class TestGetImageSize {
     public static void main(String[] args) {
-        ImageInfo rawInfo = ImageUtils.getImageSize("D:\\logs" + File.separatorChar + "p2112306858.jpg");
-        System.out.println(rawInfo);
-
-        rawInfo = ImageUtils.getImageSize("D:\\logs" + File.separatorChar + "p1553084119.jpg");
+        ImageInfo rawInfo = ImageUtils.getImageSize("F:\\pic\\wander" + File.separatorChar + "12a01.jpg");
         System.out.println(rawInfo);
     }
 }

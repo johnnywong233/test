@@ -6,10 +6,12 @@ import java.io.IOException;
 
 public class TestImageExists {
     public static void main(String[] args) throws IOException {
-        boolean i = URLUtils.exists("http://img4.douban.com/view/photo/photo/public/p2112306858.jpg");
-        System.out.println(i);
+        System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795/#image"));
         System.out.println("==========");
-        i = URLUtils.exists("http://img3.douban.com/view/photo/photo/public/p1215810444.jpg");
-        System.out.println(i);
+        System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795"));
+        System.out.println("==========");
+        System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795/"));
+        System.out.println("==========");
+        System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795/#6"));
     }
 }

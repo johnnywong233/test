@@ -13,7 +13,7 @@ public class CelebrityAlbumHandler extends AlbumHandler {
     public static final String ALBUM_URL_REGEX = "(http|https)://movie.douban.com/celebrity/\\d+/photos/";
 
     public String getURLRegex() {
-        return "(http|https)://movie.douban.com/celebrity/\\d+/photos/";
+        return ALBUM_URL_REGEX;
     }
 
     public String albumNameProcess(String name) {
@@ -29,15 +29,15 @@ public class CelebrityAlbumHandler extends AlbumHandler {
     }
 
     public Integer getPageSize() {
-        return 40;
+        return PAGE_SIZE_IMAGES_CELEBRITY;
     }
 
     public String getPageTag() {
-        return "start";
+        return PAGE_TAG;
     }
 
     public String getImageNameRegex() {
-        return "p\\d+.(gif|jpg|png)";
+        return IMAGE_NAME_REGEX;
     }
 
     public boolean hasRaw() {

@@ -128,14 +128,13 @@ public class SitePublicAlbumHandler extends AlbumHandler {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
     public void createDescDoc(Album album) {
         List<BGImage> imageList = album.getPhotosList();
-        Map map = new HashMap();
+        Map<String, BGImage> map = new HashMap<>();
         for (BGImage bgImage : imageList) {
             map.put(bgImage.getUrl(), bgImage);
         }
-        List keyList = new ArrayList(map.keySet());
+        List<String> keyList = new ArrayList<>(map.keySet());
 
         keyList.sort(new ImageListComparator());
         try {
@@ -163,10 +162,9 @@ public class SitePublicAlbumHandler extends AlbumHandler {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public List<BGImage> getBGImageFromDescDoc(File descFile)
             throws IOException {
-        List list = new ArrayList();
+        List<BGImage> list = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(descFile));
         BGImage tempBGImage = null;
         int line = 0;
