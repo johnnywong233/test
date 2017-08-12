@@ -1,6 +1,6 @@
-package project.daoDemo.dao;
+package com.johnny.dao;
 
-import project.daoDemo.vo.Myemp;
+import com.johnny.vo.Myemp;
 
 import java.util.List;
 

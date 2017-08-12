@@ -1,7 +1,7 @@
-package project.daoDemo.impl;
+package com.johnny.impl;
 
-import project.daoDemo.dao.IMyempDAO;
-import project.daoDemo.vo.Myemp;
+import com.johnny.dao.IMyempDAO;
+import com.johnny.vo.Myemp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,4 @@
-package project.daoDemo.vo;
+package com.johnny.vo;
 
 public class Myemp {
     private int id;

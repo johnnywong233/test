@@ -1,9 +1,9 @@
-package project.daoDemo.proxy;
+package com.johnny.proxy;
 
-import project.daoDemo.dao.IMyempDAO;
-import project.daoDemo.impl.MyempDAOImpl;
-import project.daoDemo.util.DatabaseConnection;
-import project.daoDemo.vo.Myemp;
+import com.johnny.dao.IMyempDAO;
+import com.johnny.impl.MyempDAOImpl;
+import com.johnny.util.DatabaseConnection;
+import com.johnny.vo.Myemp;
 
 import java.util.List;
 
@@ -17,10 +17,11 @@ public class MyempDAOProxy implements IMyempDAO {
     }
 
     public boolean doCreate(Myemp emp) throws Exception {
-        boolean flag = false;
+        boolean flag;
         try {
             flag = this.dao.doCreate(emp);   //调用真实类的doCreate方法
         } catch (Exception e) {
+            e.printStackTrace();
             throw e;
         } finally {
             this.dbc.close();
@@ -29,10 +30,11 @@ public class MyempDAOProxy implements IMyempDAO {
     }
 
     public List<Myemp> findAll(String keyWord) throws Exception {
-        List<Myemp> all = null;
+        List<Myemp> all;
         try {
             all = this.dao.findAll(keyWord); //调用真实类的findAll方法
         } catch (Exception e) {
+            e.printStackTrace();
             throw e;
         } finally {
             this.dbc.close();

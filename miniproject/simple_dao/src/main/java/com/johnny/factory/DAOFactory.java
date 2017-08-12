@@ -1,7 +1,7 @@
-package project.daoDemo.factory;
+package com.johnny.factory;
 
-import project.daoDemo.dao.IMyempDAO;
-import project.daoDemo.proxy.MyempDAOProxy;
+import com.johnny.dao.IMyempDAO;
+import com.johnny.proxy.MyempDAOProxy;
 
 public class DAOFactory {
     public static IMyempDAO getIEmpDAOInstance() throws Exception { //取得DAO接口实例

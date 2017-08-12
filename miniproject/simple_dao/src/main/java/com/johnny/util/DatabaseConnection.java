@@ -1,9 +1,10 @@
-package project.daoDemo.util;
+package com.johnny.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DatabaseConnection {
+    //org.postgresql.Driver
     private static final String DBDRIVER = "org.postgresql.Driver";//"org.gjt.mm.mysql.Driver";
     private static final String DBURL = "jdbc:postgresql://localhost:5432/postgres";//"jdbc:mysql://localhost:3306/hxl";
     private static final String DBUSER = "postgres";
@@ -24,6 +25,7 @@ public class DatabaseConnection {
             try {
                 this.conn.close();
             } catch (Exception e) {
+                e.printStackTrace();
                 throw e;
             }
         }

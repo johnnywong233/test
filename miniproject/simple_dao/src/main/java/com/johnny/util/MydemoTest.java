@@ -1,12 +1,11 @@
-package project.daoDemo.util;
+package com.johnny.util;
 
+import com.johnny.factory.DAOFactory;
+import com.johnny.vo.Myemp;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import project.daoDemo.factory.DAOFactory;
-import project.daoDemo.vo.Myemp;
 
-import java.util.Iterator;
 import java.util.List;
 
 //http://huangxiniu.iteye.com/blog/1717196
@@ -32,9 +31,7 @@ public class MydemoTest {
     @Test
     public void findAll() throws Exception {
         List<Myemp> all = DAOFactory.getIEmpDAOInstance().findAll("");
-        Iterator<Myemp> iter = all.iterator();
-        while (iter.hasNext()) {
-            Myemp emp = iter.next();
+        for (Myemp emp : all) {
             System.out.println("username: " + emp.getUsername() + "password: "
                     + emp.getPassword());
         }
