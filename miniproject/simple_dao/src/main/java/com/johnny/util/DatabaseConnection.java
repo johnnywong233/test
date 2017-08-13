@@ -4,9 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DatabaseConnection {
-    //org.postgresql.Driver
-    private static final String DBDRIVER = "org.postgresql.Driver";//"org.gjt.mm.mysql.Driver";
-    private static final String DBURL = "jdbc:postgresql://localhost:5432/postgres";//"jdbc:mysql://localhost:3306/hxl";
+    private static final String DBDRIVER = "org.postgresql.Driver";
+    private static final String DBURL = "jdbc:postgresql://localhost:5432/postgres";
     private static final String DBUSER = "postgres";
     private static final String DBPASSWORD = "1Qaz";
     private Connection conn = null;

@@ -8,10 +8,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-//http://huangxiniu.iteye.com/blog/1717196
 public class MydemoTest {
-    //TODO
-
     @Before
     public void setUp() throws Exception {
     }
@@ -32,8 +29,7 @@ public class MydemoTest {
     public void findAll() throws Exception {
         List<Myemp> all = DAOFactory.getIEmpDAOInstance().findAll("");
         for (Myemp emp : all) {
-            System.out.println("username: " + emp.getUsername() + "password: "
-                    + emp.getPassword());
+            System.out.println("username: " + emp.getUsername() + "password: " + emp.getPassword());
         }
     }
 }
