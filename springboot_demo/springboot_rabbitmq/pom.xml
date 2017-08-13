@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>springboot_demo</artifactId>
+        <groupId>com.johnny</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>springboot_rabbitmq</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>springboot_rabbitmq_consumer</module>
+        <module>springboot_rabbitmq_producer</module>
+    </modules>
+
+
+</project>
