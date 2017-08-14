@@ -32,7 +32,7 @@ public class FileUploadController {
     @ApiOperation(value = "return static upload yaml html page", notes = "return static upload yaml html page")
     @RequestMapping(value = "/upload/yaml", method = RequestMethod.GET)
     public String upload() {
-        return "/yamlFileUpload";
+        return "yamlFileUpload";
     }
 
     @ApiOperation(value = "return static upload json html page", notes = "return static upload json html page")
