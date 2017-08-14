@@ -18,28 +18,25 @@ import java.util.Map;
 public class TestDocument {
     //http://blog.csdn.net/earbao/article/details/41447107
     public static void main(String[] args) throws Exception {
-        parseBodyFragment();
-        parserHTML();
-        parseGmail();
+//        parseBodyFragment();
+//        parserHTML();
+//        parseGmail();
         download();
-        parserFromFile();
-        parseLink();
-        visitDom();
-        parserURL();
-        cleaner();
-        setContent();
+//        parserFromFile();
+//        parseLink();
+//        visitDom();
+//        parserURL();
+//        cleaner();
+//        setContent();
 
-        String html = "<span class=\"yP\" email=\"542335496@qq.com\" name=\"為妳變┳乖\"> - 為妳變┳乖</span>";
-        html = unhtml(html);
+        String html = "<span class=\"yP\" email=\"*@qq.com\" name=\"為妳變┳乖\"> - 為妳變┳乖</span>";
+        html = unHtml(html);
+        System.out.println(html);
         Document doc = Jsoup.parse(html);
         Element span = doc.select("span").first();
         String input = span.text();
         System.out.println(input);
         System.out.println(span.attr("email"));
-        // <span class="y2"> - 您好，邮件我已经收到，我会尽快给您回复。祝你学习进步，
-        // 工作顺利！</span>
-        // <span title="2014年10月16日 下午6:06" id=":3s"
-        // aria-label="2014年10月16日 下午6:06">10月16日</span>
     }
 
     public static String html(String content) {
@@ -56,7 +53,7 @@ public class TestDocument {
         return html;
     }
 
-    public static String unhtml(String content) {
+    private static String unHtml(String content) {
         if (content == null)
             return "";
         String html = content;
@@ -111,7 +108,6 @@ public class TestDocument {
     }
 
 
-
     private static void visitDom() throws Exception {
         File input = new File("d:/login.html");
         Document doc = Jsoup.parse(input, "UTF-8", "http://www.baidu.com/");
@@ -152,7 +148,7 @@ public class TestDocument {
     }
 
     private static void download() throws Exception {
-        Document doc = Jsoup.connect("http://www.baidu.com/").data("query",
+        Document doc = Jsoup.connect("https://www.baidu.com/").data("query",
                 "Java").userAgent("Mozilla").cookie("auth", "token").timeout(
                 3000).get();
         System.out.println(doc);
@@ -166,25 +162,23 @@ public class TestDocument {
     }
 
     private static void parseGmail() throws Exception {
-        Document doc = Jsoup
-                .connect("https://accounts.google.com/ServiceLogin").get();
+        System.setProperty("http.proxyHost", "web-proxy.sgp.hp.com");
+        System.setProperty("http.proxyPort", "8080");
+        Document doc = Jsoup.connect("https://accounts.google.com/ServiceLogin").get();
         Element content = doc.getElementById("gaia_loginform");
         // System.out.println(content);
 
         Elements inputs = content.select("input[name]");
-        // StringBuffer sb=new StringBuffer();
-        Map<String, String> maps = new HashMap<String, String>();
+        Map<String, String> maps = new HashMap<>();
         for (Element element : inputs) {
-            // System.out.println(element);
+             System.out.println(element);
             String name = element.attr("name");
             String value = element.attr("value");
-            // System.out.println(name+"="+value);
+            System.out.println(name + "=" + value);
             if (value != null && !"".equals(value)) {
                 maps.put(name, value);
             }
-
         }
-        // Email= Passwd=
         System.out.println(maps);
     }
 
@@ -193,7 +187,7 @@ public class TestDocument {
         String html = "<div><p>Lorem ipsum.</p>";
         Document doc = Jsoup.parseBodyFragment(html);
         Element body = doc.body();
-
         System.out.println(body);
     }
 }
+

@@ -8,7 +8,7 @@ import java.util.Objects;
  * Date: 2017/2/19
  * Time: 12:45
  */
-public class FinalClassExample {
+public final class FinalClassExample {
     private final int id;
 
     private final String name;

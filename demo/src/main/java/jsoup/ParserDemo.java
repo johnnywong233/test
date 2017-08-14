@@ -20,22 +20,25 @@ public class ParserDemo {
 //        t.parseString();
         t.parseFile();
     }
-    
+
     private void parseString() {
         String html = "<html><head><title>blog</title></head><body onload='test()'><p>Parsed HTML into a doc.</p></body></html>";
         Document doc = Jsoup.parse(html);
-        System.out.println(doc);
+        System.out.println("----------------");
+        System.out.println("doc: \n" + doc);
         Elements es = doc.body().getAllElements();
         System.out.println(es.attr("onload"));
         System.out.println(es.select("p"));
     }
-    
+
     private void parseUrl() {
         try {
+            Document doc = Jsoup.connect("https://www.sina.com.cn/").get();
+            String html = "<p>An <a href='http://example.com/'><b>example</b></a> link.</p>";
             //can also read html file
-            Document doc = Jsoup.connect("http://www.sina.com/").get();
-            Elements hrefs = doc.select("a[href]");
-            System.out.println(hrefs);
+            Document doc1 = Jsoup.parse(html);//解析HTML字符串返回一个Document
+            Elements hrefs = doc1.select("a[href]");
+            System.out.println("hrefs：" + hrefs);
             System.out.println("------------------");
             System.out.println(hrefs.select("[href^=http]"));
         } catch (IOException e) {
@@ -46,10 +49,11 @@ public class ParserDemo {
     //TODO
     private void parseFile() {
         try {
-            File input = new File("D:\\Java_ex\\test\\src\\test\\resources\\index.html");
+            File input = new File("D:\\Java_ex\\test\\demo\\src\\test\\resources\\index.html");
             Document doc = Jsoup.parse(input, "UTF-8");
             // 提取出所有的编号
-            Elements codes = doc.body().select("p");
+//            Elements codes = doc.body().select("p");
+            Elements codes = doc.select("");
             System.out.println(codes);
             System.out.println("------------------");
             System.out.println(codes.html());
