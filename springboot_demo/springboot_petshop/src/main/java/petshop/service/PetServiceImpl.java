@@ -1,6 +1,5 @@
 package petshop.service;
 
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import petshop.domain.Pet;
 
@@ -17,7 +16,6 @@ import java.util.List;
  * Time: 12:36
  */
 @Transactional
-@Service("petService")
 public class PetServiceImpl implements PetService {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("petshop");

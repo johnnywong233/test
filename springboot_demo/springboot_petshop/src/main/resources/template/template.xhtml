@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+<h:head>
+    <title>PetShop</title>
+</h:head>
+
+<h:body>
+
+    <p:dialog widgetVar="status" resizable="false"
+              showEffect="fade"
+              hideEffect="fade" closable="false" width="200">
+        <h:outputText value="Carregando, favor aguardar..."/>
+    </p:dialog>
+
+    <p:ajaxStatus>
+        <f:facet name="start">
+            <h:panelGroup>
+                <h:outputText value="Carregando, favor aguardar..."/>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="complete">
+            <h:outputText value=" "/>
+        </f:facet>
+    </p:ajaxStatus>
+
+    <p:layout fullPage="true">
+        <p:layoutUnit position="north" gutter="0" id="top" size="130" collapsible="true">
+            <ui:include src="topo.html"/>
+        </p:layoutUnit>
+        <p:layoutUnit header=".: Menu :." position="west" id="menu" size="180" resizable="true" closable="true"
+                      collapsible="true" style="font-size: 12px;">
+            <ui:include src="menu.html"/>
+        </p:layoutUnit>
+        <p:layoutUnit position="center" scrollable="true">
+            <ui:insert name="main"/>
+        </p:layoutUnit>
+    </p:layout>
+</h:body>
+</html>

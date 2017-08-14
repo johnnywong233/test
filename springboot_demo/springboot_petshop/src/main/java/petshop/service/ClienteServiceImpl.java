@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
  * Date: 2017/7/6
  * Time: 12:35
  */
-@Service("clientService")
+//@Service("clientService")
 @Transactional
 public class ClienteServiceImpl implements ClienteService {
     @PersistenceContext
