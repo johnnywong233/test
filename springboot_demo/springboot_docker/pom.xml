@@ -17,10 +17,7 @@
         <version>1.5.4.RELEASE</version>
     </parent>-->
 
-    <groupId>com.johnny</groupId>
     <artifactId>springboot_docker</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

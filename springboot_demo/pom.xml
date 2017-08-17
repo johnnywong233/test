@@ -37,6 +37,7 @@
         <module>springboot_websocket2</module>
         <module>springboot_petshop</module>
         <module>springboot_mongodb</module>
+        <module>springboot_saas</module>
     </modules>
 
     <parent>

@@ -6,8 +6,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>springboot_controller</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
     <!--must designate this parent, or eclipse will throw error-->
     <parent>
         <groupId>com.johnny</groupId>
