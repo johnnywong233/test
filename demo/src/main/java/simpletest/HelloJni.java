@@ -4,16 +4,16 @@ package simpletest;
  * Created by johnny on 2016/10/6.
  */
 public class HelloJni {
-    public native void displayHelloJni();
+    //严格对应c文件中的函数名Java_HelloJni_sayHello
+    public native void sayHello();
 
-    //TODO
-    //http://brandnewuser.iteye.com/blog/2117182
     public static void main(String[] args) {
         HelloJni hello = new HelloJni();
-        hello.displayHelloJni();
+        hello.sayHello();
     }
 
     static {
-        System.loadLibrary("HelloJniImpl");
+        //严格对应libhellojni.so动态链接库文件
+        System.loadLibrary("hellojni");
     }
 }
