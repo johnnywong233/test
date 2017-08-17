@@ -1,4 +1,4 @@
-package unsafe;
+//package unsafe;
 
 import sun.misc.Unsafe;
 import sun.nio.ch.DirectBuffer;
@@ -12,10 +12,11 @@ import java.nio.channels.FileChannel;
 
 /**
  * Created by wajian on 2016/10/5.
+ * How to demo it: remove the package line, javac Demo.java open 2 bash windows, run 'java Demo odd'
+ * the other run 'java Demo even'
  */
 public class Demo {
     //http://www.mincoder.com/article/4348.shtml
-    //TODO: how to run it?
     public static void main(String... args) throws IOException {
         boolean odd;
         switch (args.length < 1 ? "usage" : args[0].toLowerCase()) {
@@ -26,7 +27,7 @@ public class Demo {
                 odd = false;
                 break;
             default:
-                System.err.println("Usage: java PingPongMain [odd|even]");
+                System.err.println("Usage: java Demo [odd|even]");
                 return;
         }
         int runs = 10000000;
@@ -55,7 +56,7 @@ public class Demo {
             }
             fc.close();
         }
-        System.out.printf("... Finished, average ping/pong took %,d ns%n", (System.nanoTime() - start) / runs);
+        System.out.printf("... Finished, average time took %,d ns%n", (System.nanoTime() - start) / runs);
     }
 
     private static final Unsafe UNSAFE;

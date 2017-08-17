@@ -1,5 +1,5 @@
 注意事项:
-- 在Windows或者Linux系统上执行**```javah HelloJni```**命令时(不是```javah HelloJni.class```,也不是```javah HelloJni.java```)，请务必删除第一行的package信息;
+- 在Windows或者Linux系统上执行```javah HelloJni```命令时(不是```javah HelloJni.class```,也不是```javah HelloJni.java```)，请务必删除第一行的package信息;
 否则会报错:```Error: Could not find class file for 'HelloJni'.```
 - 需要gcc编译工具, 即需要在Linux系统完成效果演示;
 - 生成.so文件的命令:```gcc -fPIC -D_REENTRANT -I/root/JDK/zulu8.21.0.1-jdk8.0.131-linux_x64/include/ -I/root/JDK/zulu8.21.0.1-jdk8.0.131-linux_x64/include/linux -shared -o hellojni.so HelloJni.c```
@@ -13,8 +13,7 @@
 ```
 - 需要把```hellojni.so```重命名为```libhellojni.so```
 - 以下程序打印输出```java.library.path```, 可是我配置的JDK的输出项只有:
-```/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
-```
+```/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib```
 并没有上面提到的JAVA_HOME路径下面的```java.library.path```, 把so文件copy至```usr/lib64/```.
 ```java
 public class TestLibraryPath{

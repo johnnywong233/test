@@ -17,14 +17,14 @@ import java.util.Map;
 /*
  * This class could be used for any object contents/memory layout printing.  
  */
+@SuppressWarnings("restriction")
 public class ClassIntrospector {
     /*
      * http://www.bianceng.cn/Programming/Java/201502/47854_2.htm
-     * TODO: understand
      */
     public static void main(String[] args) throws IllegalAccessException {
         final ClassIntrospector ci = new ClassIntrospector();
-        final Map<String, BigDecimal> map = new HashMap<String, BigDecimal>(10);
+        final Map<String, BigDecimal> map = new HashMap<>(10);
         map.put("one", BigDecimal.ONE);
         map.put("zero", BigDecimal.ZERO);
         map.put("ten", BigDecimal.TEN);
@@ -44,10 +44,10 @@ public class ClassIntrospector {
      * First test object - testing various arrays and complex objects
      */
     private static class TestObj {
-        protected final String[] strings = {"str1", "str2"};
-        protected final int[] ints = {14, 16};
+        final String[] strings = {"str1", "str2"};
+        final int[] ints = {14, 16};
         private final Integer i = 28;
-        protected final BigDecimal bigDecimal = BigDecimal.ONE;
+        final BigDecimal bigDecimal = BigDecimal.ONE;
 
         @Override
         public String toString() {
@@ -98,11 +98,10 @@ public class ClassIntrospector {
     /**
      * Sizes of all primitive values
      */
-    @SuppressWarnings("rawtypes")
-    private static final Map<Class, Integer> primitiveSizes;
+    private static final Map<Class<?>, Integer> primitiveSizes;
 
     static {
-        primitiveSizes = new HashMap<Class, Integer>(10);
+        primitiveSizes = new HashMap<>(10);
         primitiveSizes.put(byte.class, 1);
         primitiveSizes.put(char.class, 2);
         primitiveSizes.put(int.class, 4);
@@ -118,9 +117,8 @@ public class ClassIntrospector {
      *
      * @param obj Object to introspect
      * @return Object info
-     * @throws IllegalAccessException
      */
-    public ObjectInfo introspect(final Object obj) throws IllegalAccessException {
+    private ObjectInfo introspect(final Object obj) throws IllegalAccessException {
         try {
             return introspect(obj, null);
         } finally { //clean visited cache before returning in order to make this object reusable
@@ -129,9 +127,8 @@ public class ClassIntrospector {
     }
 
     //we need to keep track of already visited objects in order to support cycles in the object graphs    
-    private IdentityHashMap<Object, Boolean> m_visited = new IdentityHashMap<Object, Boolean>(100);
+    private IdentityHashMap<Object, Boolean> m_visited = new IdentityHashMap<>(100);
 
-    @SuppressWarnings("rawtypes")
     private ObjectInfo introspect(final Object obj, final Field fld) throws IllegalAccessException {
         //use Field type only if the field contains null. In this case we will at least know what's expected to be    
         //stored in this field. Otherwise, if a field has interface type, we won't see what's really stored in it.    
@@ -145,7 +142,7 @@ public class ClassIntrospector {
             m_visited.put(obj, true);
         }
 
-        final Class type = (fld == null || (obj != null && !isPrimitive)) ?
+        final Class<?> type = (fld == null || (obj != null && !isPrimitive)) ?
                 obj.getClass() : fld.getType();
         int arraySize = 0;
         int baseOffset = 0;
@@ -189,12 +186,11 @@ public class ClassIntrospector {
     }
 
     //get all fields for this class, including all superclasses fields    
-    @SuppressWarnings("rawtypes")
-    private static List<Field> getAllFields(final Class type) {
+    private static List<Field> getAllFields(final Class<?> type) {
         if (type.isPrimitive())
             return Collections.emptyList();
-        Class cur = type;
-        final List<Field> res = new ArrayList<Field>(10);
+        Class<?> cur = type;
+        final List<Field> res = new ArrayList<>(10);
         while (true) {
             Collections.addAll(res, cur.getDeclaredFields());
             if (cur == Object.class)
@@ -205,19 +201,12 @@ public class ClassIntrospector {
     }
 
     //check if it is an array of objects. I suspect there must be a more API-friendly way to make this check.    
-    @SuppressWarnings("rawtypes")
-    private static boolean isObjectArray(final Class type) {
-        if (!type.isArray())
-            return false;
-        if (type == byte[].class || type == boolean[].class || type == char[].class || type == short[].class ||
-                type == int[].class || type == long[].class || type == float[].class || type == double[].class)
-            return false;
-        return true;
+    private static boolean isObjectArray(final Class<?> type) {
+        return type.isArray() && type != byte[].class && type != boolean[].class && type != char[].class && type != short[].class && type != int[].class && type != long[].class && type != float[].class && type != double[].class;
     }
 
     //advanced toString logic    
-    @SuppressWarnings("rawtypes")
-    private static String getContents(final Object val, final Class type) {
+    private static String getContents(final Object val, final Class<?> type) {
         if (val == null)
             return "null";
         if (type.isArray()) {
@@ -244,8 +233,7 @@ public class ClassIntrospector {
     }
 
     //obtain a shallow size of a field of given class (primitive or object reference size)    
-    @SuppressWarnings("rawtypes")
-    private static int getShallowSize(final Class type) {
+    private static int getShallowSize(final Class<?> type) {
         if (type.isPrimitive()) {
             final Integer res = primitiveSizes.get(type);
             return res != null ? res : 0;
