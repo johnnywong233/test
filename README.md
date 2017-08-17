@@ -27,7 +27,7 @@ mvn install:install-file -Dfile=qrcode-1.0.jar -DgroupId=com.swetake -DartifactI
 mvn install:install-file -Dfile=qrcode-0.1.jar -DgroupId=jp.sourceforge -DartifactId=qrcode -Dversion=0.1 -Dpackaging=jar
 mvn install:install-file -Dfile=jdk.tools-1.8.jar -DgroupId=jdk -DartifactId=tools -Dversion=1.8 -Dpackaging=jar
 mvn install:install-file -Dfile=jmxtools-1.2.1.jar -DgroupId=com.sun.jdmk -DartifactId=jmxtools -Dversion=1.2.1 -Dpackaging=jar
- mvn install:install-file -Dfile=jms-1.1.jar -DgroupId=javax.jms -DartifactId=jms -Dversion=1.1 -Dpackaging=jar
+mvn install:install-file -Dfile=jms-1.1.jar -DgroupId=javax.jms -DartifactId=jms -Dversion=1.1 -Dpackaging=jar
  
 
 

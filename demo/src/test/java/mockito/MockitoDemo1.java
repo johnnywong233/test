@@ -19,17 +19,17 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
 
 //import static org.mockito.hamcrest.MockitoHamcrest.argThat;
-import static org.testng.Assert.assertEquals;
 
 /**
  * Author: Johnny Date: 2017/2/21 Time: 18:20
@@ -124,7 +124,7 @@ public class MockitoDemo1 {
         verify(mockedLinkedList).get(0);
 
 
-        List<String>  singleMock = mock(List.class);
+        List<String> singleMock = mock(List.class);
         //using a single mock
         singleMock.add("was added first");
         singleMock.add("was added second");
@@ -137,15 +137,15 @@ public class MockitoDemo1 {
         inOrder.verify(singleMock).add("was added second");
 
         // B. Multiple mocks that must be used in a particular order
-        List<String>  firstMock = mock(List.class);
-        List<String>  secondMock = mock(List.class);
+        List<String> firstMock = mock(List.class);
+        List<String> secondMock = mock(List.class);
 
         firstMock.add("was called first");
         secondMock.add("was called second");
 
         //following verification will fail
 //        verifyNoMoreInteractions(firstMock);
-        
+
         //create inOrder object passing any mocks that need to be verified in order
         inOrder = inOrder(firstMock, secondMock);
 
@@ -169,11 +169,6 @@ public class MockitoDemo1 {
         verifyNoMoreInteractions(firstMock);
 
     }
-
-//    private <T> T isValid(Object obj) {
-//        if obj instanceof Integer
-//    }
-
 
     @Test
     public void iterator_will_return_hello_world() {
@@ -212,10 +207,8 @@ public class MockitoDemo1 {
         verify(mock).close();
     }
 
-    /*//TODO
-    https://gojko.net/2009/10/23/mockito-in-six-easy-examples/
-    */
-//    @Test
+    //    https://gojko.net/2009/10/23/mockito-in-six-easy-examples/
+    @Test
     public void OutputStreamWriter_Buffers_And_Forwards_To_OutputStream()
             throws IOException {
         OutputStream mock = mock(OutputStream.class);

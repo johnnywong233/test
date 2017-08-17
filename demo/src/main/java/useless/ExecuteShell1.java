@@ -8,19 +8,16 @@ import java.io.InputStreamReader;
  * Created by wajian on 2016/8/16.
  */
 public class ExecuteShell1 {
-    //http://www.jb51.net/article/44211.htm
-    /*
-	 * 结果会创建一个testdir目录。
-	我尝试用这种方法创建通过ssh登录到远程机器，遇到两个问题：
-	1）如果希望没有人机对话方式，则需要使用命令sshpass -p password ssh user@targetIP 'command'
-	2) 在NetBeans上直接运行工程是不行的，因为权限不够,需要在终端里运行java javaapplication3.Main
-	3) 很多命令不能运行，只有如pwd等命令可以运行，原因还不清楚，最好改用Ganymed SSH-2库或者其他类似Java库。
-	 */
-	//TODO
+    /**
+     * http://www.jb51.net/article/44211.htm
+     * run "mkdir testdir"
+     * 尝试用这种方法创建通过ssh登录到远程机器，遇到两个问题：
+     * 1）如果希望没有人机对话方式，则需要使用命令sshpass -p password ssh user@targetIP 'command'
+     * 3) 很多命令不能运行，原因还不清楚，最好改用Ganymed SSH-2库或者其他类似Java库。
+     */
     public static void main(String[] args) {
         try {
-            int timeout = Integer.parseInt(args[0]);
-            CommandHelper.DEFAULT_TIMEOUT = timeout;
+            CommandHelper.DEFAULT_TIMEOUT = Integer.parseInt("20");
             CommandResult result = CommandHelper.exec("mkdir testdir");
             if (result != null) {
                 System.out.println("Output:" + result.getOutput());
@@ -34,9 +31,12 @@ public class ExecuteShell1 {
     }
 }
 
+/**
+ * Command Result
+ */
 class CommandResult {
 
-    public static final int EXIT_VALUE_TIMEOUT = -1;
+    static final int EXIT_VALUE_TIMEOUT = -1;
 
     private String output;
 
@@ -48,7 +48,7 @@ class CommandResult {
         return output;
     }
 
-    int exitValue;
+    private int exitValue;
 
     void setExitValue(int value) {
         exitValue = value;
@@ -75,12 +75,14 @@ class CommandResult {
     }
 }
 
-
+/**
+ * Command Helper
+ */
 class CommandHelper {
-    //default time out, in millseconds
-    public static int DEFAULT_TIMEOUT;
-    public static final int DEFAULT_INTERVAL = 1000;
-    public static long START;
+    //default time out, in mill seconds
+    static int DEFAULT_TIMEOUT;
+    private static final int DEFAULT_INTERVAL = 1000;
+    private static long START;
 
     public static CommandResult exec(String command) throws IOException, InterruptedException {
         Process process = Runtime.getRuntime().exec(command);

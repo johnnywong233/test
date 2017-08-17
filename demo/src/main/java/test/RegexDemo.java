@@ -18,11 +18,14 @@ public class RegexDemo {
         String str = "77Hi, johnny, your life sucks..0";
         System.out.println("number in this string? " + checkNumInString(str));
 
-        //TODO: usage
         String ip = "10.46.128.218";
-        System.out.println(ip2int(ip));
+        System.out.println(ip2Long(ip));
+        System.out.println(ipToLong2(ip));
 
-        System.out.println(int2iP(170819802L));
+        System.out.println(long2Ip(170819802L));
+        System.out.println(long2Ip1(170819802L));
+        System.out.println(longToIp2(170819802L));
+        System.out.println(long2Ip3(170819802L));
 
     }
 
@@ -64,7 +67,7 @@ public class RegexDemo {
     /**
      * convert string ip into long
      */
-    public static Long ip2int(String ip) {
+    public static Long ip2Long(String ip) {
         Long num = 0L;
         if (ip == null) {
             return num;
@@ -83,17 +86,59 @@ public class RegexDemo {
         return num;
     }
 
+    //actually equals the ip2Long mathod
+    public long ipToLong(String ipAddress) {
+        String[] ipAddressInArray = ipAddress.split("\\.");
+        long result = 0;
+        for (int i = 0; i < ipAddressInArray.length; i++) {
+            int power = 3 - i;
+            int ip = Integer.parseInt(ipAddressInArray[i]);
+            result += ip * Math.pow(256, power);
+        }
+        return result;
+    }
+
+    public static long ipToLong2(String ipAddress) {
+        long result = 0;
+        String[] ipAddressInArray = ipAddress.split("\\.");
+        for (int i = 3; i >= 0; i--) {
+            long ip = Long.parseLong(ipAddressInArray[3 - i]);
+            // left shifting 24,16,8,0 and bitwise OR
+            result |= ip << (i * 8);
+        }
+        return result;
+    }
+
+    public static String long2Ip3(long i) {
+        return ((i >> 24) & 0xFF) +
+                "." + ((i >> 16) & 0xFF) +
+                "." + ((i >> 8) & 0xFF) +
+                "." + (i & 0xFF);
+    }
+
+    public static String longToIp2(long ip) {
+        StringBuilder sb = new StringBuilder(15);
+        for (int i = 0; i < 4; i++) {
+            sb.insert(0, Long.toString(ip & 0xff));
+            if (i < 3) {
+                sb.insert(0, '.');
+            }
+            ip = ip >> 8;
+        }
+        return sb.toString();
+    }
+
     /**
      * parse long into string ip
-     * http://www.bianceng.cn/Programming/Java/index3.htm
      */
-    public static String int2iP(Long num) {
+    private static String long2Ip1(Long num) {
         String str;
         Long[] tt = new Long[4];
+        //>>>表示无符号右移，忽略符号位，空位都以0补齐，右移24次，即除以2^24（=2^8*2^8*2^8），
         tt[0] = (num >>> 24);
-        tt[1] = ((num << 8) >>> 24);
-        tt[2] = (num << 16) >>> 24;
-        tt[3] = (num << 24) >>> 24;
+        tt[1] = ((num >>> 16) & 0xff);
+        tt[2] = ((num >>> 8) & 0xff);
+        tt[3] = (num & 0xff);
         str = (tt[0]) + "." + (tt[1]) + "." + (tt[2]) + "." + (tt[3]);
         return str;
     }
