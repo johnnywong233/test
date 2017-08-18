@@ -1,5 +1,7 @@
 package project.httpclient;
 
+import utils.PropertiesFileUtil;
+
 /**
  * Author: Johnny
  * Date: 2016/10/29

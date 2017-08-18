@@ -1,4 +1,4 @@
-package utils;
+package simpletest;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,7 +15,6 @@ import java.util.Set;
  * sensitive word filter
  */
 public class SensitiveWordFilter {
-    @SuppressWarnings("rawtypes")
     private Map sensitiveWordMap = null;
     private static int minMatchTYpe = 1;      //最小匹配规则
     public static int maxMatchType = 2;      //最大匹配规则
@@ -50,7 +49,6 @@ public class SensitiveWordFilter {
      *
      * @param txt       文字
      * @param matchType 匹配规则&nbsp;1：最小匹配规则，2：最大匹配规则
-     * @return
      */
     private Set<String> getSensitiveWord(String txt, int matchType) {
         Set<String> sensitiveWordList = new HashSet<>();
@@ -62,15 +60,12 @@ public class SensitiveWordFilter {
                 i = i + length - 1;//减1的原因，是因为for会自增
             }
         }
-
         return sensitiveWordList;
     }
 
     /**
      * 替换敏感字字符
      *
-     * @param txt
-     * @param matchType
      * @param replaceChar 替换字符，默认*
      */
     public String replaceSensitiveWord(String txt, int matchType, String replaceChar) {
@@ -89,10 +84,6 @@ public class SensitiveWordFilter {
 
     /**
      * 获取替换字符串
-     *
-     * @param replaceChar
-     * @param length
-     * @return
      */
     private String getReplaceChars(String replaceChar, int length) {
         String resultReplace = replaceChar;
@@ -105,12 +96,8 @@ public class SensitiveWordFilter {
     /**
      * 检查文字中是否包含敏感字符，检查规则如下：<br>
      *
-     * @param txt
-     * @param beginIndex
-     * @param matchType
      * @return，如果存在，则返回敏感词字符的长度，不存在返回0
      */
-    @SuppressWarnings({"rawtypes"})
     private int CheckSensitiveWord(String txt, int beginIndex, int matchType) {
         boolean flag = false;    //敏感词结束标识位：用于敏感词只有1位的情况
         int matchFlag = 0;     //匹配标识数默认为0
@@ -156,14 +143,12 @@ public class SensitiveWordFilter {
 
 //初始化敏感词库，将敏感词加入到HashMap中，构建DFA算法模型
 class SensitiveWordInit {
-    @SuppressWarnings("rawtypes")
     private HashMap sensitiveWordMap;
 
     SensitiveWordInit() {
         super();
     }
 
-    @SuppressWarnings("rawtypes")
     Map initKeyWord() {
         try {
             //读取敏感词库
@@ -242,14 +227,12 @@ class SensitiveWordInit {
     /**
      * 读取敏感词库中的内容，将内容添加到set集合中
      */
-    @SuppressWarnings("resource")
     private Set<String> readSensitiveWordFile() throws Exception {
-        Set<String> set = null;
+        Set<String> set;
 
         File file = new File("D:\\SensitiveWord.txt");
         String ENCODING = "GBK";
-        InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING);
-        try {
+        try (InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING)) {
             if (file.isFile() && file.exists()) {
                 set = new HashSet<>();
                 BufferedReader bufferedReader = new BufferedReader(read);
@@ -261,9 +244,8 @@ class SensitiveWordInit {
                 throw new Exception("敏感词库文件不存在");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             throw e;
-        } finally {
-            read.close();
         }
         return set;
     }
