@@ -18,7 +18,7 @@ public class KugouTempToMp3 {
      * 主要使用ChangeByDir方法，参数是临时文件的文件夹和歌词文件的文件夹
      */
     //TODO
-    public void Change(String tempPath, String krcPath) {
+    private void change(String tempPath, String krcPath) {
         File temp = new File(tempPath);
         File krc = new File(krcPath);
         if (temp.exists() && temp.getName().endsWith(KGTEMP)) {
@@ -42,7 +42,7 @@ public class KugouTempToMp3 {
         }
     }
 
-    public void ChangeByDir(String tempPath, String krcPath) {
+    private void changeByDir(String tempPath, String krcPath) {
         Map<String, File> temps = fileMd5Map(tempPath);
         Map<String, String> mp3Names = krcNameMd5Map(krcPath);
         for (String key : temps.keySet()) {
@@ -59,7 +59,7 @@ public class KugouTempToMp3 {
         }
     }
 
-    public Map<String, File> fileMd5Map(String path) {
+    private Map<String, File> fileMd5Map(String path) {
         File dirFile = new File(path);
         Map<String, File> map = null;
         if (dirFile.isDirectory()) {
@@ -76,7 +76,7 @@ public class KugouTempToMp3 {
         return map;
     }
 
-    public Map<String, String> krcNameMd5Map(String path) {
+    private Map<String, String> krcNameMd5Map(String path) {
         File dirFile = new File(path);
         Map<String, String> map = null;
         if (dirFile.isDirectory()) {
@@ -95,16 +95,14 @@ public class KugouTempToMp3 {
         return map;
     }
 
-
-    //TDO
     //http://www.jb51.net/article/90812.htm
     public static void main(String[] args) {
         KugouTempToMp3 test = new KugouTempToMp3();
         String tempPath = "G:\\KuGou\\Temp\\ba8cf32bf3d265653cd14fb6690c2149.kgtemp";
         String krcPath = "G:\\KuGou\\Lyric\\周杰伦 - 超跑女神-ba8cf32bf3d265653cd14fb6690c2149-16053594-00000000.krc";
-        test.Change(tempPath, krcPath);
+        test.change(tempPath, krcPath);
         String tempDir = "G:\\KuGou\\Temp";
         String krcDir = "G:\\KuGou\\Lyric";
-        test.ChangeByDir(tempDir, krcDir);
+        test.changeByDir(tempDir, krcDir);
     }
 }

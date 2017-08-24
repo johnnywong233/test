@@ -17,6 +17,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -42,12 +43,11 @@ public class MyPanel extends JPanel {
 
     MyPanel() {
         try {
-            //TODO
             Image bg = Toolkit.getDefaultToolkit().getImage(this.getClass().getResource("/bg.png"));
             imgs = new ArrayList<>();
             for (int i = 0; i < 2; i++) {
-                imgs.add(ImageIO.read(this.getClass().getResourceAsStream(
-                        "/resources/" + i + ".png")));
+                ClassLoader classLoader = getClass().getClassLoader();
+                imgs.add(ImageIO.read(new File(classLoader.getResource(i + ".png").getFile())));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -134,7 +134,7 @@ public class MyPanel extends JPanel {
         this.addMouseMotionListener(new MouseMotionListener() {
             public void mouseMoved(MouseEvent e) {
                 MyPanel.this.requestFocusInWindow();
-            }//打开窗口不需要点击就可以输入文
+            }
             public void mouseDragged(MouseEvent e) {
                 //move mouse
             }

@@ -7,8 +7,8 @@ import java.util.concurrent.RecursiveTask;
 
 public class BinaryTree {
     public static class Node {
-        public Node leftChild;
-        public Node rightChild;
+        Node leftChild;
+        Node rightChild;
         public String content;
 
         public Node(String ct) {
@@ -16,11 +16,11 @@ public class BinaryTree {
         }
     }
 
-    @SuppressWarnings("serial")
     public static class NodeCopyTask extends RecursiveTask<Node> {
+        private static final long serialVersionUID = 8974245402260284582L;
         Node mNode;
 
-        public NodeCopyTask(Node node) {
+        NodeCopyTask(Node node) {
             mNode = node;
         }
 
@@ -42,11 +42,10 @@ public class BinaryTree {
 
     // http://m.blog.csdn.net/article/details?id=50673797
     public static void main(String[] args) {
-        //TODO: 有什么用？
         Node node = new Node("Hello, Fork-Join");
         node.leftChild = new Node("Left");
         node.rightChild = new Node("Right");
-        
+
         Node parent = new Node("parent node");
         parent.leftChild = node;
 

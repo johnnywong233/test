@@ -3,6 +3,7 @@ package project.game.maze;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
@@ -45,7 +46,7 @@ public class Maze extends JPanel {
         ballY = 0;
         drawPath = false;
         createMaze();
-        // setKeyListener();
+        setKeyListener();
         this.setFocusable(true);
         repaint();
     }
@@ -110,7 +111,6 @@ public class Maze extends JPanel {
                 move(c);
                 repaint();
                 checkIsWin();
-
             }
         });
     }
@@ -128,7 +128,7 @@ public class Maze extends JPanel {
         if (isOutOfBorder(p)) {
             return null;
         }
-        Lattice[] ps = new Lattice[4];// 顺序为上右下左
+        Lattice[] ps = new Lattice[4];
         int xt;
         int yt;
         for (int i = 0; i <= 3; i++) {
@@ -261,7 +261,7 @@ public class Maze extends JPanel {
         JPanel p = new Maze(n, (width - padding - padding) / n, padding);
         JFrame frame = new JFrame("MAZE(按空格键显示或隐藏路径)");
         frame.getContentPane().add(p);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setSize(width + padding, width + padding + padding);
         frame.setLocation(LX, LY);
         frame.setVisible(true);

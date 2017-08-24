@@ -28,7 +28,6 @@ import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
@@ -56,7 +55,7 @@ import java.util.Map;
 public class HttpClientUtil {
     protected static Log logger = LogFactory.getLog(HttpClientUtil.class);
 
-    private CloseableHttpClient closeableHttpClient;
+    private static CloseableHttpClient closeableHttpClient;
 
     protected static HttpClient httpClient = null;
     protected static int maxTotal = 200;
@@ -100,7 +99,7 @@ public class HttpClientUtil {
         }
     }
 
-    public CloseableHttpClient createClient() throws Exception {
+    public static CloseableHttpClient createClient() throws Exception {
         if (closeableHttpClient == null) {
             try {
                 closeableHttpClient = HttpClients.custom().
@@ -343,10 +342,9 @@ public class HttpClientUtil {
      * @param jsonParam      参数
      * @param noNeedResponse 不需要返回结果
      */
-    public static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) {
-
+    public static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) throws Exception {
         //post请求返回结果
-        DefaultHttpClient httpClient = new DefaultHttpClient();
+        CloseableHttpClient  httpClient = createClient();
         JSONObject jsonResult = null;
         HttpPost method = new HttpPost(url);
         try {
@@ -359,16 +357,16 @@ public class HttpClientUtil {
             }
             HttpResponse result = httpClient.execute(method);
             url = URLDecoder.decode(url, "UTF-8");
-            /**请求发送成功，并得到响应**/
+            /*请求发送成功，并得到响应*/
             if (result.getStatusLine().getStatusCode() == 200) {
                 String str;
                 try {
-                    /**读取服务器返回过来的json字符串数据**/
+                    /*读取服务器返回过来的json字符串数据*/
                     str = EntityUtils.toString(result.getEntity());
                     if (noNeedResponse) {
                         return null;
                     }
-                    /**把json字符串转换成json对象**/
+                    /*把json字符串转换成json对象*/
                     jsonResult = JSONObject.fromObject(str);
                 } catch (Exception e) {
                     logger.error("post请求提交失败:" + url, e);
@@ -386,7 +384,7 @@ public class HttpClientUtil {
      * @param url       路径
      * @param jsonParam 参数
      */
-    public static JSONObject httpPost(String url, JSONObject jsonParam) {
+    public static JSONObject httpPost(String url, JSONObject jsonParam) throws Exception {
         return httpPost(url, jsonParam, false);
     }
 
@@ -394,14 +392,14 @@ public class HttpClientUtil {
         //get请求返回结果
         JSONObject jsonResult = null;
         try {
-            DefaultHttpClient client = new DefaultHttpClient();
+            CloseableHttpClient client = createClient();
             //发送get请求
             HttpGet request = new HttpGet(url);
             HttpResponse response = client.execute(request);
 
-            /**请求发送成功，并得到响应**/
+            //请求发送成功，并得到响应
             if (response.getStatusLine().getStatusCode() == org.apache.http.HttpStatus.SC_OK) {
-                /**读取服务器返回过来的json字符串数据**/
+                /*读取服务器返回过来的json字符串数据*/
                 String strResult = EntityUtils.toString(response.getEntity());
                 /*把json字符串转换成json对象*/
                 jsonResult = JSONObject.fromObject(strResult);
@@ -411,6 +409,8 @@ public class HttpClientUtil {
             }
         } catch (IOException e) {
             logger.error("get请求提交失败:" + url, e);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return jsonResult;
     }

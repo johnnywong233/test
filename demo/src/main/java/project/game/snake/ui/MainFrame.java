@@ -1,14 +1,13 @@
-﻿package project.game.snake.ui;
-
-import java.awt.EventQueue;
+package project.game.snake.ui;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
+import java.awt.EventQueue;
 
 public class MainFrame extends JFrame {
     private static final long serialVersionUID = 5398934425180961778L;
 
-    //TODO
+    //TODO: 不能撞墙，不能撞自己
     public static void main(String args[]) {
         EventQueue.invokeLater(() -> {
             try {

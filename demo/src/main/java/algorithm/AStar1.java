@@ -20,23 +20,23 @@ import java.util.Queue;
 public class AStar1 {
 
     // 迷宫图
-    Point[][] maze;
+    private Point[][] maze;
     // 起始节点
-    Point start;
+    private Point start;
     // 终止节点
-    Point goal;
+    private Point goal;
 
     // 开启队列，用于存放待处理的节点
-    Queue<Point> openQueue = null;
+    private Queue<Point> openQueue = null;
     // 关闭队列，用于存放已经处理过的节点
-    Queue<Point> closedQueue = null;
+    private Queue<Point> closedQueue = null;
 
     // 起始节点到某个节点的距离
-    int[][] FList = null;
+    private int[][] FList = null;
     // 某个节点到目的节点的距离
-    int[][] GList = null;
+    private int[][] GList = null;
     // 起始节点经过某个节点到目的节点的距离
-    int[][] HList = null;
+    private int[][] HList = null;
 
     /**
      * 打印行走路径
@@ -47,7 +47,7 @@ public class AStar1 {
      * 目的节点用'a'表示
      * 士兵用'x'表示
      */
-    public void printPath() {
+    private void printPath() {
         System.out.println("================ printPath ================");
         Point father_point;
         char[][] result = new char[7][8];
@@ -91,7 +91,7 @@ public class AStar1 {
      * @param start 起始节点
      * @param goal  目的节点
      */
-    public AStar1(Point[][] maze, Point start, Point goal) {
+    private AStar1(Point[][] maze, Point start, Point goal) {
         this.maze = maze;
         this.start = start;
         this.goal = goal;
@@ -379,17 +379,17 @@ class Point {
      * @param y     节点纵坐标
      * @param value 节点值
      */
-    public Point(int x, int y, char value) {
+    Point(int x, int y, char value) {
         this.x = x;
         this.y = y;
         this.value = value;
     }
 
-    public Point getFather() {
+    Point getFather() {
         return father;
     }
 
-    public void setFather(Point father) {
+    void setFather(Point father) {
         this.father = father;
     }
 

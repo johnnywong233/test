@@ -1,6 +1,10 @@
 package algorithm;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+import java.util.Stack;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -11,12 +15,12 @@ public class AStarTest {
 
     public static void main(String[] args) {
         AStarTest test = new AStarTest();
-        //test.testTree();
-        //test.testBinaryHeap();
+        test.testBinaryHeap();
+        System.out.println("=======test a star=======");
         test.testAStar();
     }
 
-    public void testAStar() {
+    private void testAStar() {
         int col = 10;
         int row = 10;
 
@@ -67,82 +71,31 @@ public class AStarTest {
         }
     }
 
-//    public void testBinaryHeap() {
-//        BinaryHeap<Float> heap = new BinaryHeap<>(new MyComparator());
-////        heap.push(23.323f);
-////        heap.push(40.97f);
-////        heap.push(12.2f);
-////        heap.push(9.009f);
-////        heap.push(3.32f);
-////        heap.push(50.2314f);
-//        //heap.push(13.899494f);
-//        //heap.push(13.313708f);
-//        //heap.push(13.899495f);
-//
-//        float[] values = {13.899494f, 13.899495f, 13.899495f, 14.485281f};
-//        for(float v : values) {
-//            heap.push(v);
-//        }
-//
-//        List<Float> stack = heap.toStack();
-//        for(float value : stack) {
-//            System.out.print(value + "  ");
-//        }
-//        System.out.println("\n");
-//        System.out.println(heap.shift());
-//    }
-//
-//    public void testTree() {
-//        TreeNode<Integer> root = new TreeNode<>(100);
-//        TreeNode<Integer> n101 = new TreeNode<>(101);
-//        TreeNode<Integer> n102 = new TreeNode<>(102);
-//        TreeNode<Integer> n103 = new TreeNode<>(103);
-//        TreeNode<Integer> n104 = new TreeNode<>(104);
-//
-//        TreeNode<Integer> n1021 = new TreeNode<>(1021);
-//        TreeNode<Integer> n1022 = new TreeNode<>(1022);
-//        TreeNode<Integer> n1023 = new TreeNode<>(1023);
-//
-//        TreeNode<Integer> n10231 = new TreeNode<>(10231);
-//
-//        Tree tree = new Tree(root, (TreeNode node) -> {
-//            int depth = node.getDepth();
-//            int rootBindData = root.getBindData();
-//            if(depth == 0 && rootBindData == 0) {
-//                return;
-//            }
-//            if(rootBindData == 0) {
-//                depth -= 1;
-//            }
-//            StringBuilder sb = new StringBuilder();
-//            if(depth > 0) {
-//                for(int i = 0; i < depth; i++) {
-//                    sb.append("  ");
-//                }
-//                sb.append("---");
-//            }
-//            System.out.println(sb.toString() + node.getBindData());
-//        });
-//        tree.appendNode(n101);
-//        tree.appendNode(n102);
-//        tree.appendNode(n103);
-//        tree.appendNode(n104);
-//
-//        tree.appendNode(n1021, n102);
-//        tree.appendNode(n1022, n102);
-//        tree.appendNode(n1023, n102);
-//
-//        tree.appendNode(n10231, n1023);
-//
-//        System.out.println(tree.getDepth());
-//        tree.recursiveTraversal();
-//
-//        System.out.println("----------------------------------------------");
-//        tree.removeNode(n1022);
-//        tree.removeNode(n1023);
-//        System.out.println(tree.getDepth());
-//        tree.traversal();
-//    }
+    private void testBinaryHeap() {
+        BinaryHeap<Float> heap = new BinaryHeap<>(new MyComparator());
+        heap.push(23.323f);
+        heap.push(40.97f);
+        heap.push(12.2f);
+        heap.push(9.009f);
+        heap.push(3.32f);
+        heap.push(50.2314f);
+        heap.push(13.899494f);
+        heap.push(13.313708f);
+        heap.push(13.899495f);
+
+        float[] values = {13.899494f, 13.899495f, 13.899495f, 14.485281f};
+        for(float v : values) {
+            heap.push(v);
+        }
+
+        List<Float> stack = heap.toStack();
+        for(float value : stack) {
+            System.out.print(value + "  ");
+        }
+        System.out.println("\n");
+        System.out.println(heap.shift());
+    }
+
 }
 
 
@@ -187,19 +140,19 @@ class Node {
         return index;
     }
 
-    public boolean isWalkable() {
+    boolean isWalkable() {
         return walkable;
     }
 
-    public void setWalkable(boolean walkable) {
+    void setWalkable(boolean walkable) {
         this.walkable = walkable;
     }
 
-    public float getCostMultiplier() {
+    float getCostMultiplier() {
         return costMultiplier;
     }
 
-    public void setCostMultiplier(float costMultiplier) {
+    void setCostMultiplier(float costMultiplier) {
         this.costMultiplier = costMultiplier;
     }
 
@@ -219,7 +172,7 @@ class Node {
         return parent;
     }
 
-    public boolean getWalkable() {
+    boolean getWalkable() {
         return walkable;
     }
 
@@ -261,10 +214,10 @@ class Grid {
     /**
      * 构造方法，创建一个纯数据化的节点网格
      *
-     * @param numCols
-     * @param numRows
+     * @param numCols num of column
+     * @param numRows num of row
      */
-    public Grid(int numCols, int numRows) {
+    Grid(int numCols, int numRows) {
         this.numCols = numCols;
         this.numRows = numRows;
         nodes = new Stack<>();
@@ -286,7 +239,7 @@ class Grid {
      * @param y 纵向索引位置
      * @return （x,y)二维索引处的节点
      */
-    public Node getNode(int x, int y) {
+    Node getNode(int x, int y) {
         Stack<Node> stack = nodes.get(x);
         if (stack != null) {
             return stack.get(y);
@@ -300,7 +253,7 @@ class Grid {
      * @param x 横向索引位置
      * @param y 纵向索引位置
      */
-    public void setStart(int x, int y) {
+    void setStart(int x, int y) {
         start = getNode(x, y);
     }
 
@@ -310,7 +263,7 @@ class Grid {
      * @param x 横向索引位置
      * @param y 纵向索引位置
      */
-    public void setEnd(int x, int y) {
+    void setEnd(int x, int y) {
         end = getNode(x, y);
     }
 
@@ -330,7 +283,7 @@ class Grid {
      *
      * @return 网格行数
      */
-    public int getNumCols() {
+    int getNumCols() {
         return numCols;
     }
 
@@ -339,7 +292,7 @@ class Grid {
      *
      * @return 网格列数
      */
-    public int getNumRows() {
+    int getNumRows() {
         return numRows;
     }
 
@@ -369,7 +322,7 @@ class Grid {
      * @param exception 例外格，若其值不为空，则在得到一个点下的所有节点后会排除这些例外格
      * @return 共享此点的所有节点
      */
-    public List<Node> getNodesUnderPoint(float xPos, float yPos, List<Node> exception) {
+    private List<Node> getNodesUnderPoint(float xPos, float yPos, List<Node> exception) {
         List<Node> result = new ArrayList<>();
 
         boolean xIsInt = xPos % 1 == 0;
@@ -419,7 +372,7 @@ class Grid {
      * @param yPos 点的纵向位置
      * @return 共享此点的所有节点
      */
-    public List<Node> getNodesUnderPoint(float xPos, float yPos) {
+    private List<Node> getNodesUnderPoint(float xPos, float yPos) {
         return getNodesUnderPoint(xPos, yPos, null);
     }
 
@@ -498,7 +451,7 @@ class Grid {
                 float xPos = lineFunction.function(i);
                 passedNodeList = getNodesUnderPoint(xPos, i);
                 for (Node passedNode : passedNodeList) {
-                    if (passedNode.isWalkable() == false) {
+                    if (!passedNode.isWalkable()) {
                         return true;
                     }
                 }
@@ -516,7 +469,7 @@ class NewPoint {
 
     private float x, y;
 
-    public NewPoint(float x, float y) {
+    NewPoint(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -550,7 +503,7 @@ class LineFunction {
 
     private final int funid;
 
-    public LineFunction(NewPoint point1, NewPoint point2, int type) {
+    LineFunction(NewPoint point1, NewPoint point2, int type) {
         this.point1 = point1;
         this.point2 = point2;
         this.type = type;
@@ -631,9 +584,9 @@ class Heuristic {
     //曼哈顿启发函数
     public static final String MANHATTAN = "manhattan";
     //欧几里得几何启发函数
-    public static final String EUCLIDIAN = "euclidian";
+    static final String EUCLIDIAN = "euclidian";
     //对角启发函数
-    public static final String DIAGONAL = "diagonal";
+    static final String DIAGONAL = "diagonal";
 }
 
 /*A星寻路算法*/
@@ -660,7 +613,7 @@ class NewAStar {
      * @param retractable   以死角点为寻路终点时，是否启用以死角点最近的可行点为路径终点
      * @param heuristicName 启发函数，为Heuristic类的枚举常量
      */
-    public NewAStar(String heuristicName, boolean retractable) {
+    private NewAStar(String heuristicName, boolean retractable) {
         this.heuristicName = heuristicName;
         this.retractable = retractable;
         //node1小于、等于或大于node2，分别返回负整数、零或正整数
@@ -679,22 +632,19 @@ class NewAStar {
      *
      * @param heuristicName 路径代价分析函数
      */
-    public NewAStar(String heuristicName) {
+    private NewAStar(String heuristicName) {
         this(heuristicName, true);
     }
 
     /**
      * 构造方法 默认为对角线启发函数
      */
-    public NewAStar() {
+    NewAStar() {
         this(Heuristic.DIAGONAL);
     }
 
     /**
      * 启发函数计算
-     *
-     * @param node
-     * @return
      */
     private float heuristic(Node node) {
         switch (heuristicName) {
@@ -713,11 +663,11 @@ class NewAStar {
      * @param grid 网格对象
      * @return true为找到了路径，调用getPath获取路径节点列表
      */
-    public boolean findPath(Grid grid) {
+    boolean findPath(Grid grid) {
         try {
             lock.lock();
             this.grid = grid;
-            this.open = new BinaryHeap(comparator);
+            this.open = new BinaryHeap<Node>(comparator);
             this.closed = new Stack<>();
             this.startNode = grid.getStart();
             this.endNode = grid.getEnd();
@@ -753,14 +703,14 @@ class NewAStar {
                     Node vnode = grid.getNode(node.getX(), test.getY());
                     Node hnode = grid.getNode(test.getX(), node.getY());
                     if (retractable) {
-                        if (test.getWalkable() == false || !isDiagonalWalkable(node, test)) {
+                        if (!test.getWalkable() || !isDiagonalWalkable(node, test)) {
                             //设其代价为超级大的一个值，比大便还大哦~
                             test.setCostMultiplier(1000);
                         } else {
                             test.setCostMultiplier(1);
                         }
                     } else {
-                        if (test.getWalkable() == false || vnode.getWalkable() == false || hnode.getWalkable() == false) {
+                        if (!test.getWalkable() || !vnode.getWalkable() || !hnode.getWalkable()) {
                             continue;
                         }
                     }
@@ -857,7 +807,7 @@ class NewAStar {
             //排除无法移动点
             int len = path.size();
             for (int i = 0; i < len; i++) {
-                if (path.get(i).getWalkable() == false) {
+                if (!path.get(i).getWalkable()) {
                     //removeListElement(path, i, len - i);
                     removeStackElement(path, i);
                     break;
@@ -918,9 +868,6 @@ class NewAStar {
 
     /**
      * 曼哈顿启发函数
-     *
-     * @param node
-     * @return
      */
     private float manhattan(Node node) {
         return Math.abs(node.getX() - endNode.getX()) * straightCost + Math.abs(node.getY() + endNode.getY()) * straightCost;
@@ -928,9 +875,6 @@ class NewAStar {
 
     /**
      * 欧几里得几何启发函数
-     *
-     * @param node
-     * @return
      */
     private float euclidian(Node node) {
         float dx = node.getX() - endNode.getX();
@@ -940,9 +884,6 @@ class NewAStar {
 
     /**
      * 对角启发函数
-     *
-     * @param node
-     * @return
      */
     private float diagonal(Node node) {
         float dx = Math.abs(node.getX() - endNode.getX());
@@ -963,7 +904,7 @@ class BinaryHeap<T> {
      *
      * @param comparator 元素比较器
      */
-    public BinaryHeap(Comparator<T> comparator) {
+    BinaryHeap(Comparator<T> comparator) {
         heap = new Stack<>();
         this.comparator = comparator;
     }
@@ -1025,7 +966,7 @@ class BinaryHeap<T> {
      *
      * @param obj 待增加的元素
      */
-    public void push(T obj) {
+    void push(T obj) {
         heap.add(obj);
         int size = heap.size();
         int parentIndex = (size - 2) >> 1;
@@ -1038,7 +979,7 @@ class BinaryHeap<T> {
      *
      * @return 堆顶元素
      */
-    public T shift() {
+    T shift() {
         if (heap.size() > 1) {
             T r = heap.get(0);
             T last = heap.pop();
@@ -1083,7 +1024,7 @@ class BinaryHeap<T> {
      *
      * @return 元素栈
      */
-    public List<T> toStack() {
+    List<T> toStack() {
         return heap;
     }
 
@@ -1092,7 +1033,8 @@ class BinaryHeap<T> {
      *
      * @return 元素数组
      */
-    public T[] toArray() {
+    @SuppressWarnings("unchecked")
+	public T[] toArray() {
         return (T[]) (heap.toArray());
     }
 }

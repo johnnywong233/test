@@ -14,7 +14,7 @@ import utils.HttpClientUtil;
 public class HttpRequestTest {
     private static Logger logger = LoggerFactory.getLogger(HttpRequestTest.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         getRequestTest();
         postRequestTest();
     }
@@ -31,7 +31,7 @@ public class HttpRequestTest {
         }
     }
 
-    private static void postRequestTest() {
+    private static void postRequestTest() throws Exception {
         String url = "http://localhost:8080/SpringMVC/process";
         UserDTO userDTO = new UserDTO();
         userDTO.setName("johnny");

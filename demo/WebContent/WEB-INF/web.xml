@@ -9,29 +9,6 @@
   <display-name>Welcome to johnny's coding world</display-name>
   <description>  </description>
 
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>
-            <!-- classpath:META-INF/server/wink-core-context.xml, -->
-            /WEB-INF/spring/app-context.xml
-        </param-value>
-    </context-param>
-
-    <servlet>
-        <servlet-name>restSdkService</servlet-name>
-        <servlet-class>org.apache.wink.server.internal.servlet.RestServlet</servlet-class>
-        <init-param>
-            <param-name>javax.ws.rs.annotation.Application</param-name>
-            <param-value>wink.HelloWorldApplication</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>restSdkService</servlet-name>
-        <url-pattern>/rest/*</url-pattern>
-    </servlet-mapping>
-
     <servlet>
         <servlet-name>ServletConfigTest</servlet-name>
         <servlet-class>servlet.ServletConfigTest</servlet-class>
@@ -55,11 +32,5 @@
             org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
-
-
-
-
-
-
 
 </web-app>
