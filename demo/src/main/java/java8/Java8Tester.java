@@ -1,6 +1,7 @@
 package java8;
 
 import com.google.common.collect.Lists;
+import org.junit.Test;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -21,13 +22,24 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by wajian on 2016/10/9.
@@ -35,6 +47,18 @@ import java.util.stream.Collectors;
  */
 public class Java8Tester {
     //https://www.tutorialspoint.com/java8/index.htm
+
+    static String wordstr = "How much wood would a wood chuck chuck chuck chuck chuck chuck chuck if a woodchuck could chuck wood? He would chuck, he"
+            + "would, as much as he could, and chuck as much wood as a woodchuck would if a wooddchuck could chuck wood.";
+
+    private static ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
+
+    static BlockingQueue<String> queue = new LinkedBlockingQueue<String>(5);
+
+    private static ReentrantLock lock = new ReentrantLock(true);
+
+    private static CountDownLatch countDown = null;
+
     public static void main(String args[]) {
         List<String> names2 = new ArrayList<>();
         names2.add("stream");
@@ -119,6 +143,7 @@ public class Java8Tester {
         tester.testDuration();
         tester.testAdjusters();
         tester.testBackwardCompatability();
+        tester.testOptional();
 
         //java 8 Base64
         try {
@@ -301,7 +326,7 @@ public class Java8Tester {
     }
 
     private void sortUsingJava8(List<String> names) {
-        Collections.sort(names, String::compareTo);
+        names.sort(String::compareTo);
     }
 
     interface MathOperation {
@@ -315,4 +340,170 @@ public class Java8Tester {
     private int operate(int a, int b, MathOperation mathOperation) {
         return mathOperation.operation(a, b);
     }
+
+    @Test
+    public void testOptional() {
+        Integer[] arr = {23, 64, 12, 100};
+        Optional<Integer> max = Stream.of(arr).max(Comparator.comparingInt(x -> x));
+        max.ifPresent(System.out::println);
+
+        String[] lines = {"abc", "dx", "my", "dy"};
+        Optional<String> result = Stream.of(lines).parallel().filter(x -> x.contains("d")).findAny();
+        result.ifPresent(System.out::println);
+
+        Optional<String> result_reduce = Stream.of(lines).reduce((x, y) -> x + y);
+        result_reduce.ifPresent(System.out::println);
+    }
+
+    @Test
+    public void test2() {
+        List<String> list = new ArrayList<>();
+        list.add("aa1");
+        list.add("bbb133");
+        list.add("cccs");
+        list.add("bb2");
+        list.add("ddd");
+        System.out.println(list.stream().filter(this::check).count());
+    }
+
+    public boolean check(String line) {
+        return line.length() < 4;
+    }
+
+    @Test
+    public void testMap() {
+        List<String> list = new ArrayList<>();
+        list.add("abdddc");
+        list.add("xdyz");
+        list.add("tx");
+        list.size();
+        list.stream().sorted(String::compareTo).forEach(System.out::println);
+        list.stream().map(this::handler).forEach(x -> System.out.println(x.filter(y -> y == 'd').count()));
+    }
+
+    public Stream<Character> handler(String line) {
+        List<Character> list = new ArrayList<>();
+        for (int i = 0; i < line.length(); i++) {
+            list.add(line.charAt(i));
+        }
+        return list.stream();
+    }
+
+    @Test
+    public void testStream() {
+        Supplier<String> supplier = () -> "hello world";
+        System.out.println(supplier.get());
+
+        Stream.generate(Math::random).limit(10).forEach(this::handler);
+        Stream.iterate(10, x -> x * 2).limit(10).forEach(System.out::println);
+    }
+
+    public void handler(Object line) {
+        System.out.println(line);
+    }
+
+    @Test
+    public void tester() {
+        List<Student> list = new ArrayList<>();
+        list.add(new Student(1, "ad", 18, "3"));
+        list.add(new Student(2, "ax", 23, "2"));
+        list.add(new Student(3, "bd", 14, "3"));
+        list.add(new Student(4, "dk", 40, "2"));
+        list.add(new Student(5, "xz", 32, "3"));
+
+        Map<Integer, Student> map = list.stream().collect(Collectors.toMap(Student::getId, x -> x));
+        System.out.println(map.get(3).getName());//bd
+
+        Map<String, List<Student>> map_stus = list.stream().collect(Collectors.groupingBy(Student::getGrade));
+        System.out.println(map_stus.get("3").size());//3
+
+        Map<String, Set<Student>> set_stus = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.toSet()));
+        System.out.println(set_stus.get("dk"));
+
+        Map<Boolean, List<Student>> map_part = list.stream().collect(Collectors.partitioningBy(x -> x.getAge() > 25));
+        System.out.println(map_part.get(false).size());//3
+
+        Map<String, Long> map_stus_count = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.counting()));
+        System.out.println(map_stus_count.get("2"));//2
+
+        Map<String, Double> map_status_avg = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.averagingInt(Student::getAge)));
+        System.out.println(map_status_avg.get("2"));//31.5
+
+        Map<String, Optional<Student>> map_age_max = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.maxBy(Comparator.comparingInt(Student::getAge))));
+        map_age_max.get("3").ifPresent(x -> System.out.println(x.getName()));//xz
+    }
+
+    @Test
+    public void testArray() {
+        String[] lines = {"test", "akx", "mdb"};
+        //并行排序
+        Stream.of(lines).parallel().sorted(String::compareTo).forEach(System.out::println);
+
+        Arrays.parallelSort(lines, String::compareTo);
+        for (String line : lines) {
+            System.out.println(line);
+        }
+    }
+
+    @Test
+    public void testConcurrent() {
+        String[] lines = wordstr.split(" ");
+        ExecutorService pool = Executors.newFixedThreadPool(5);
+        //10
+        countDown = new CountDownLatch(lines.length);
+        for (String line : lines) {
+            pool.execute(() -> {
+                counter(line);
+                //-1
+                countDown.countDown();
+            });
+            counter1(line);
+        }
+        try {
+            countDown.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(map);
+        search(map);
+
+        Integer val = map.reduceValues(1, (x, y) -> {
+            System.out.println(x + " " + y);
+            return x + y;
+        });
+        System.out.println(val);
+
+        int result = map.reduce(100, (k1, v1) -> {
+            System.out.println("trans:" + k1 + " " + v1);
+            return v1 * 2;
+        }, (v, v2) -> {
+            System.out.println("reduce:" + v + " " + v2);
+            return v + v2;
+        });
+        System.out.println("result: " + result);
+
+        map.forEach(1, (k, v) -> k.contains("wood") ? k : null, System.out::println);
+        map.forEachValue(1, System.out::println);
+    }
+
+    public static void search(ConcurrentHashMap<String, Integer> map) {
+        String key = map.search(1, (k, v) -> v == 3 ? k + "" + v : null);
+        System.out.println(key);
+    }
+
+    private void counter(String key) {
+        map.compute(key, (x, y) -> (y == null) ? 1 : y + 1);
+    }
+
+    private void counter1(String key) {
+        Integer count = map.get(key);
+        System.out.println(Thread.currentThread().getName() + " begin=" + count);
+        int newCount = 1;
+        if (count != null) {
+            newCount = count + 1;
+        }
+        map.put(key, newCount);
+        System.out.println(Thread.currentThread().getName() + " end=" + map.get(key));
+    }
+
 }
