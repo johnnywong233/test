@@ -1,7 +1,6 @@
 package project.download;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -20,7 +19,7 @@ import java.util.concurrent.CountDownLatch;
  * Created by johnny on 2016/10/5.
  * 负责文件下载的类
  */
-public class DownloadThreadTest extends Thread{
+public class DownloadThreadTest extends Thread {
     private static final Logger LOGGER = LoggerFactory.getLogger(DownloadThreadTest.class);
     /**
      * 待下载的文件
@@ -41,21 +40,15 @@ public class DownloadThreadTest extends Thread{
     private CountDownLatch end;
     private CloseableHttpClient httpClient;
     private HttpContext context;
+
     /**
-     *
-     * @param url 下载文件地址
-     *
-     * @param file
-     *            另存文件名
-     *
-     * @param offset
-     *            本线程下载偏移量
-     *
-     * @param length
-     *            本线程下载长度
-     * */
-    public DownloadThreadTest(String url, String file, long offset, long length,
-                              CountDownLatch end, CloseableHttpClient httpClient) {
+     * @param url    下载文件地址
+     * @param file   另存文件名
+     * @param offset 本线程下载偏移量
+     * @param length 本线程下载长度
+     */
+    DownloadThreadTest(String url, String file, long offset, long length,
+                       CountDownLatch end, CloseableHttpClient httpClient) {
         this.url = url;
         this.fileName = file;
         this.offset = offset;
@@ -65,16 +58,14 @@ public class DownloadThreadTest extends Thread{
         this.context = new BasicHttpContext();
         LOGGER.debug("偏移量=" + offset + ";字节数=" + length);
     }
-    
+
     public void run() {
         try {
             HttpGet httpGet = new HttpGet(this.url);
             httpGet.addHeader("Range", "bytes=" + this.offset + "-"
                     + (this.offset + this.length - 1));
-            CloseableHttpResponse response = httpClient.execute(httpGet,
-                    context);
-            BufferedInputStream bis = new BufferedInputStream(response
-                    .getEntity().getContent());
+            CloseableHttpResponse response = httpClient.execute(httpGet, context);
+            BufferedInputStream bis = new BufferedInputStream(response.getEntity().getContent());
             byte[] buff = new byte[1024];
             int bytesRead;
             File newFile = new File(fileName);
@@ -86,8 +77,6 @@ public class DownloadThreadTest extends Thread{
             }
             raf.close();
             bis.close();
-        } catch (ClientProtocolException e) {
-            LOGGER.error("DownloadThread exception msg:{}", ExceptionUtils.getFullStackTrace(e));
         } catch (IOException ex) {
             LOGGER.error("DownloadThread exception msg:{}", ExceptionUtils.getFullStackTrace(ex));
         } finally {
