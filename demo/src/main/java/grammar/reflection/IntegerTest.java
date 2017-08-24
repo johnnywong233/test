@@ -16,9 +16,9 @@ public class IntegerTest {
         Integer[] cache = (Integer[]) field.get(clazz);
         // 改变Integer的缓存
         for (int i = 0; i < cache.length; i++) {
-            //TODO: what does it mean?
             cache[i] = new Random().nextInt(cache.length);
         }
+        System.out.println("Cache size for integer type: "+ cache.length);
         for (int i = 0; i < 10; i++) {
             System.out.println((Integer) i); //这个时候1不是1 ，2也不是2
         }
