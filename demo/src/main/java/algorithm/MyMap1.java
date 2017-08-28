@@ -23,12 +23,8 @@ public class MyMap1 {
     // int shortestTime=0; //储存最短时间，用于只输出最短路径的情况
 
     /* ---添加路线，双向添加--- */
-	private void addRoute(String city1, String city2, int cost) {
-        List cityList1 = map.get(city1);// 城市1路线集合
-        if (cityList1 == null) {
-            cityList1 = new ArrayList();
-            map.put(city1, cityList1);
-        }
+    private void addRoute(String city1, String city2, int cost) {
+        List cityList1 = map.computeIfAbsent(city1, k -> new ArrayList());// 城市1路线集合
 
         Way way1 = new Way();
         way1.from = city1;
@@ -40,11 +36,7 @@ public class MyMap1 {
             cityList1.add(way1);
         }
 
-        List cityList2 = map.get(city2);// 城市2路线集合
-        if (cityList2 == null) {
-            cityList2 = new ArrayList();
-            map.put(city2, cityList2);
-        }
+        List cityList2 = map.computeIfAbsent(city2, k -> new ArrayList());// 城市2路线集合
         Way way2 = new Way();
         way2.from = city2;
         way2.to = city1;
@@ -64,7 +56,7 @@ public class MyMap1 {
         }
         reachedWay.add(from);// 把经过的城市加入到城市集合中
         if (reachedWay.size() > 1) {
-			/* ---计算所花时间--- */
+            /* ---计算所花时间--- */
             List initList = map.get(reachedWay.get(0));
 
             for (Object list : initList) {
@@ -101,12 +93,12 @@ public class MyMap1 {
         //start point equals end point, which means arrival
         if (from.equals(to)) {
             // shortestTime=tempTime;
-            String route = reachedWay.get(0);
+            StringBuilder route = new StringBuilder(reachedWay.get(0));
             for (int i = 1; i < reachedWay.size(); i++) {
-                route += "->" + reachedWay.get(i);
+                route.append("->").append(reachedWay.get(i));
             }
             System.out.println(route + "\ttime used：" + tempTime);
-            routeMap.put(tempTime, route);
+            routeMap.put(tempTime, route.toString());
             reachedWay.remove(reachedWay.size() - 1);// 到达后退回去，走下一路线
             return;
         }
@@ -149,7 +141,7 @@ public class MyMap1 {
         map.addRoute("圳", "沪", 4);
         map.addRoute("圳", "乌", 45);
         map.addRoute("圳", "渝", 16);
-        
+
         map.show("汉", "沪");
     }
 

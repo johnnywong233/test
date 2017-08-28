@@ -1,5 +1,6 @@
 package algorithm.encrypt.secure;
 
+import javax.crypto.Cipher;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -8,8 +9,6 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.PKCS8EncodedKeySpec;
-
-import javax.crypto.Cipher;
 
 /**
  * RSA 非对称加密，持有私钥的甲方
@@ -44,8 +43,6 @@ public class RSAForPrivateCodec extends BasicCodec {
 
     /**
      * 初始化私钥和公钥
-     *
-     * @throws NoSuchAlgorithmException
      */
     private void initKey() throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ALGORITHM);
@@ -59,12 +56,12 @@ public class RSAForPrivateCodec extends BasicCodec {
 
     private PrivateKey getRSAPrivateKey() throws Exception {
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(decoder(super.privateKey));
-        KeyFactory keyFacotry = KeyFactory.getInstance(ALGORITHM);
-        return keyFacotry.generatePrivate(pkcs8EncodedKeySpec);
+        KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
+        return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
     }
 
 	/*private PublicKey getRSAPublicKey() throws Exception
-	{
+    {
 		X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(decoder(super.publicKey));
 		KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
 		return keyFactory.generatePublic(x509EncodedKeySpec);
@@ -72,10 +69,6 @@ public class RSAForPrivateCodec extends BasicCodec {
 
     /**
      * 使用私钥 对数据进行签名
-     *
-     * @param data
-     * @return
-     * @throws Exception
      */
     public String sign(byte[] data) throws Exception {
         PrivateKey rsaPrivateKey = getRSAPrivateKey();

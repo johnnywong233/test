@@ -1,23 +1,14 @@
 package algorithm;
 
 public class MD5 {
-    /*
-	 * A Java implementation of the RSA Data Security, Inc. MD5 Message Digest
-	 * Algorithm, as defined in RFC 1321. Based on the JavaScript implementation
-	 * of Paul Johnston Copyright (C) Paul Johnston 1999 - 2000. See
-	 * http://pajhome.org.uk/site/legal.html for details. Java Version by Thomas
-	 * Weber (Orange Interactive GmbH)
-	 */
-
-    //Convert a 32-bit number to a hex string with ls-byte first
-    String hex_chr = "0123456789abcdef";
 
     private String rhex(int num) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
+        String hex_chr = "0123456789abcdef";
         for (int j = 0; j <= 3; j++)
-            str = str + hex_chr.charAt((num >> (j * 8 + 4)) & 0x0F)
-                    + hex_chr.charAt((num >> (j * 8)) & 0x0F);
-        return str;
+            str.append(hex_chr.charAt((num >> (j * 8 + 4)) & 0x0F)
+                    + hex_chr.charAt((num >> (j * 8)) & 0x0F));
+        return str.toString();
     }
 
     /*
@@ -27,7 +18,7 @@ public class MD5 {
     private int[] str2blks_MD5(String str) {
         int nblk = ((str.length() + 8) >> 6) + 1;
         int[] blks = new int[nblk * 16];
-        int i = 0;
+        int i;
         for (i = 0; i < nblk * 16; i++) {
             blks[i] = 0;
         }
@@ -82,7 +73,7 @@ public class MD5 {
     /*
      * Take a string and return the hex representation of its MD5.
      */
-    public String calcMD5(String str) {
+    private String calcMD5(String str) {
         int[] x = str2blks_MD5(str);
         int a = 0x67452301;
         int b = 0xEFCDAB89;

@@ -1,7 +1,6 @@
 package jsoup;
 
 import org.jsoup.Jsoup;
-import org.jsoup.helper.Validate;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -14,10 +13,9 @@ import java.io.IOException;
  * Time: 20:58
  */
 public class ListLinks {
-    //TODO
     public static void main(String[] args) throws IOException {
-        Validate.isTrue(args.length == 1, "usage: supply url to fetch");
-        String url = args[0];
+//        Validate.isTrue(args.length == 1, "usage: supply url to fetch");
+        String url = "http://www.mzitu.com/100462";
         print("Fetching %s...", url);
 
         Document doc = Jsoup.connect(url).get();

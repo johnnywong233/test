@@ -1,12 +1,11 @@
 package algorithm.encrypt.secure;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 public class AESCodec extends BasicCodec {
 
@@ -53,6 +52,5 @@ public class AESCodec extends BasicCodec {
         SecretKey aesKey = keyGenerator.generateKey();
         super.secretKey = encoder(aesKey.getEncoded());
     }
-
 
 }

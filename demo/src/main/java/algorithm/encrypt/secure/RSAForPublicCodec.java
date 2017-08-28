@@ -1,16 +1,13 @@
 package algorithm.encrypt.secure;
 
+import javax.crypto.Cipher;
 import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.Cipher;
-
 /**
  * RSA 非对称加密，持有公钥的乙方
- *
- * @author linling
  */
 public class RSAForPublicCodec extends BasicCodec {
 
@@ -54,11 +51,6 @@ public class RSAForPublicCodec extends BasicCodec {
 
     /**
      * 使用公钥校验签名
-     *
-     * @param data
-     * @param sign
-     * @return
-     * @throws Exception
      */
     public boolean verifySign(byte[] data, String sign) throws Exception {
         if (publicKey == null || "".equals(publicKey)) {

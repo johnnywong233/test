@@ -1,18 +1,15 @@
 package algorithm.encrypt.secure;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 
 /**
  * DES 对称加密类
- *
- * @author linling
  */
 public class DESCodec extends BasicCodec {
 
@@ -20,8 +17,6 @@ public class DESCodec extends BasicCodec {
 
     /**
      * 当为密钥生产者（甲方）调用该构造方法
-     *
-     * @throws NoSuchAlgorithmException
      */
     public DESCodec() throws NoSuchAlgorithmException {
         super();
@@ -41,7 +36,7 @@ public class DESCodec extends BasicCodec {
     @Override
     public byte[] encrypt(byte[] data) throws Exception {
         if (secretKey == null || "".equals(secretKey)) {
-            throw new Exception("scretKey need to exists");
+            throw new Exception("secretKey need to exists");
         }
 
         SecretKey md5Key = getKey(secretKey);
@@ -53,7 +48,7 @@ public class DESCodec extends BasicCodec {
     @Override
     public byte[] decrypt(byte[] data) throws Exception {
         if (secretKey == null || "".equals(secretKey)) {
-            throw new Exception("scretKey need to exists");
+            throw new Exception("secretKey need to exists");
         }
 
         SecretKey mesKey = getKey(secretKey);
@@ -64,9 +59,6 @@ public class DESCodec extends BasicCodec {
 
     /**
      * 生成DES对称秘钥，并对DES对称秘钥进行base64编码
-     *
-     * @return
-     * @throws NoSuchAlgorithmException
      */
     private void initKey() throws NoSuchAlgorithmException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM);
@@ -80,8 +72,6 @@ public class DESCodec extends BasicCodec {
      * 获取对称密钥
      *
      * @param key base64编码后的密钥字符串
-     * @return
-     * @throws Exception
      */
     private SecretKey getKey(String key) throws Exception {
         DESKeySpec desKeySpec = new DESKeySpec(decoder(key));

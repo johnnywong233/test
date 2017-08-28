@@ -1,9 +1,9 @@
-package algorithm.encrypt.secure;
-
-import java.io.IOException;
+package utils;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
+
+import java.io.IOException;
 
 public class Base64Utils {
 
@@ -22,9 +22,6 @@ public class Base64Utils {
 
     /**
      * base64 encode
-     *
-     * @param data
-     * @return
      */
     public String encoder(byte[] data) {
         return base64Encoder.encodeBuffer(data);
@@ -32,10 +29,6 @@ public class Base64Utils {
 
     /**
      * base64 decode
-     *
-     * @param data
-     * @return
-     * @throws IOException
      */
     public byte[] decoder(String data) throws IOException {
         return base64Decoder.decodeBuffer(data);

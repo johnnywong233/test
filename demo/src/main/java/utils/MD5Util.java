@@ -1,4 +1,4 @@
-package algorithm;
+package utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,29 +12,11 @@ import java.security.NoSuchAlgorithmException;
 /**
  * Created by wajian on 2016/8/10.
  */
-public class MyMD5 {
-	//http://blog.csdn.net/xiao__gui/article/details/8148203
-    public static void main(String args[]){
-        long startTime = System.currentTimeMillis();
-        try {
-            System.out.println(fileMD5("C:\\work\\test\\src\\main\\resources\\johnny.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        try {
-			System.out.println(getFileMD5String(new File("C:\\work\\test\\src\\main\\resources\\johnny.txt")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        System.out.println(stringMD5("johnny"));
-        
-        System.out.println((System.currentTimeMillis() - startTime)/1000);
-    }
+public class MD5Util {
+    //http://blog.csdn.net/xiao__gui/article/details/8148203
 
     //compute the MD5 code for a file
-    public static String fileMD5(String inputFile) throws IOException {
+    private static String fileMD5(String inputFile) throws IOException {
         int bufferSize = 256 * 1024;
         FileInputStream fileInputStream = null;
         DigestInputStream digestInputStream = null;
@@ -44,49 +26,49 @@ public class MyMD5 {
             // for big file, use DigestInputStream
             fileInputStream = new FileInputStream(inputFile);
             digestInputStream = new DigestInputStream(fileInputStream, messageDigest);
-            byte[] buffer =new byte[bufferSize];
-            while (digestInputStream.read(buffer) > 0);
-            messageDigest= digestInputStream.getMessageDigest();
+            byte[] buffer = new byte[bufferSize];
+            while (digestInputStream.read(buffer) > 0) ;
+            messageDigest = digestInputStream.getMessageDigest();
             byte[] resultByteArray = messageDigest.digest();
             return byteArrayToHex(resultByteArray);
         } catch (NoSuchAlgorithmException e) {
-        	e.printStackTrace();
+            e.printStackTrace();
             return null;
         } finally {
-        	// two ways to handle the possible unclosed stream, which one is better?
+            // two ways to handle the possible unclosed stream, which one is better?
             try {
                 digestInputStream.close();
             } catch (Exception e) {
-            	e.printStackTrace();
+                e.printStackTrace();
             }
             if (fileInputStream != null)
-            	fileInputStream.close();            
+                fileInputStream.close();
         }
     }
 
     //another simpler method to compute the MD5 code for a file
     //error/exception with 2G+ file, not recommend
-    public static String getFileMD5String(File file) throws IOException{
+    private static String getFileMD5String(File file) throws IOException {
         FileInputStream in = new FileInputStream(file);
         FileChannel ch = in.getChannel();
         MappedByteBuffer byteBuffer = ch.map(FileChannel.MapMode.READ_ONLY, 0, file.length());
         MessageDigest messagedigest = null;
-		try {
-			messagedigest = MessageDigest.getInstance("MD5");
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} finally {
-			if (ch != null)
-				ch.close();
-			if (in != null)
-				in.close();
-		}
+        try {
+            messagedigest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } finally {
+            if (ch != null)
+                ch.close();
+            if (in != null)
+                in.close();
+        }
         messagedigest.update(byteBuffer);
-        return byteArrayToHex (messagedigest.digest());
+        return byteArrayToHex(messagedigest.digest());
     }
 
     //convert byte[] to char[] then to string(0~9, A~E)
-    public static String byteArrayToHex(byte[] byteArray) {
+    private static String byteArrayToHex(byte[] byteArray) {
         char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         //一个byte是八位二进制，也就是2位十六进制字符（2的8次方等于16的2次方））
         char[] resultCharArray = new char[byteArray.length * 2];
@@ -100,10 +82,8 @@ public class MyMD5 {
         return new String(resultCharArray);
     }
 
-
-
     //compute the MD5 code for a string
-    public static String stringMD5(String input) {
+    private static String stringMD5(String input) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             //change the input string to byte[] 字节数组
@@ -115,7 +95,7 @@ public class MyMD5 {
             //byte[] convert to string
             return byteArrayToHex(resultByteArray);
         } catch (NoSuchAlgorithmException e) {
-        	e.printStackTrace();
+            e.printStackTrace();
             return null;
         }
     }

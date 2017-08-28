@@ -12,11 +12,10 @@ import org.htmlparser.util.NodeList;
  */
 public class GetLinkTest {
     //http://www.jb51.net/article/48329.htm
-	//TODO
     public static void main(String[] args) {
         try {
             // 通过过滤器过滤出<A>标签
-            Parser parser = new Parser("https://www.baidu.com/more/");
+            Parser parser = new Parser("http://www.mzitu.com/100462");
             NodeList nodeList = parser.extractAllNodesThatMatch((NodeFilter) node -> {
                 // 标记
                 return node instanceof LinkTag;
@@ -27,7 +26,7 @@ public class GetLinkTest {
                 //System.out.print(n.getStringText() + " ==>> ");
                 //System.out.println(n.extractLink());
                 try {
-                    if (n.extractLink().equals("https://www.baidu.com/")) {
+                    if (n.extractLink().contains("http://www.mzitu.com")) {
                         System.out.println(n.extractLink());
                     }
                 } catch (Exception e) {

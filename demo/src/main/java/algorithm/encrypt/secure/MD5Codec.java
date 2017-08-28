@@ -24,7 +24,6 @@ public class MD5Codec extends BasicCodec {
      *
      * @param data to be encrypted
      * @return encrypted string
-     * @throws Exception
      */
     public String getEncryptForHex(byte[] data) throws Exception {
         byte[] digestData = encrypt(data);

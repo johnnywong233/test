@@ -21,10 +21,6 @@ public class SHACodec extends BasicCodec {
 
     /**
      * 返回SHA单向加密后的十六进制字符串
-     *
-     * @param data
-     * @return
-     * @throws Exception
      */
     public String getEncryptForHex(byte[] data) throws Exception {
         byte[] digestData = encrypt(data);

@@ -1,9 +1,7 @@
 package algorithm.encrypt.secure;
 
 /**
- * 不适用任何安全加密
- *
- * @author linling
+ * 不使用任何安全加密
  */
 public class NoSecureCodec extends BasicCodec {
 
