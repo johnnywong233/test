@@ -13,14 +13,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import java.io.File;
 import java.io.FileFilter;
 
@@ -33,21 +30,17 @@ public class RenameFiles extends JFrame {
     private final class ExtNameFileFilter implements FileFilter {
         private String extName;
 
-        public ExtNameFileFilter(String extName) {
+        ExtNameFileFilter(String extName) {
             this.extName = extName;//save file extension name
         }
 
         @Override
         public boolean accept(File pathname) {
             //filter file extension name
-            if (pathname.getName().toUpperCase()
-                    .endsWith(extName.toUpperCase()))
-                return true;
-            return false;
+            return pathname.getName().toUpperCase().endsWith(extName.toUpperCase());
         }
     }
 
-    private JPanel contentPane;
     private JTextField forderField;
     private JTextField templetField;
     private File dir;
@@ -74,12 +67,12 @@ public class RenameFiles extends JFrame {
     /**
      * Create the frame.
      */
-    public RenameFiles() {
+    private RenameFiles() {
         setResizable(false);
         setTitle("file batch rename");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 383, 409);
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -123,11 +116,7 @@ public class RenameFiles extends JFrame {
         contentPane.add(forderField, gbc_forderField);
 
         JButton button = new JButton();
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                do_button_actionPerformed(e);
-            }
-        });
+        button.addActionListener(e -> do_button_actionPerformed(e));
         button.setText("browser");
         GridBagConstraints gbc_button = new GridBagConstraints();
         gbc_button.anchor = GridBagConstraints.NORTHWEST;
@@ -203,11 +192,7 @@ public class RenameFiles extends JFrame {
         contentPane.add(label_2, gbc_label_2);
 
         JButton startButton = new JButton();
-        startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                do_startButton_actionPerformed(e);
-            }
-        });
+        startButton.addActionListener(e -> do_startButton_actionPerformed(e));
 
         extNameField = new JTextField();
         extNameField.setText("jpg");
@@ -251,10 +236,8 @@ public class RenameFiles extends JFrame {
 
     /**
      * 浏览按钮的事件处理方法
-     *
-     * @param e
      */
-    protected void do_button_actionPerformed(ActionEvent e) {
+    private void do_button_actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();// 创建文件选择器
         // 设置只选择文件夹
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -269,10 +252,8 @@ public class RenameFiles extends JFrame {
 
     /**
      * 开始按钮的事件处理方法
-     *
-     * @param e
      */
-    protected void do_startButton_actionPerformed(ActionEvent e) {
+    private void do_startButton_actionPerformed(ActionEvent e) {
         String templet = templetField.getText();// 获取模板字符串
         if (templet.isEmpty()) {
             JOptionPane.showMessageDialog(this, "请确定重命名模板", "信息对话框",
@@ -288,7 +269,7 @@ public class RenameFiles extends JFrame {
         // 把模板中数字占位字符串替换为指定格式
         templet = templet.replace(code, "%0" + code.length() + "d");
         String extName = extNameField.getText().toLowerCase();
-        if (extName.indexOf(".") == -1)
+        if (!extName.contains("."))
             extName = "." + extName;
         // 获取文件中文件列表数组
         File[] files = dir.listFiles(new ExtNameFileFilter(extName));

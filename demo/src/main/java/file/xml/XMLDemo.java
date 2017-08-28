@@ -20,6 +20,7 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.IOException;
 
 //http://www.jb51.net/article/43715.htm
+@SuppressWarnings("restriction")
 public class XMLDemo {
 
     //DOM
@@ -130,7 +131,7 @@ public class XMLDemo {
             System.out.println((root.selectNodes("//book[author]").size()));
             /* 选择所有book节点，并且有属性category的   */
             System.out.println((root.selectNodes("//book[@category]").size()));
-			/* 选择所有book节点，并且有子节点author值为James McGovern ，并且还有category属性节点值为WEB   下面的price节点*/
+            /* 选择所有book节点，并且有子节点author值为James McGovern ，并且还有category属性节点值为WEB   下面的price节点*/
             System.out.println(root.selectNodes("//book[author='James McGovern'][@category='WEB']/price").size());
         }
     }

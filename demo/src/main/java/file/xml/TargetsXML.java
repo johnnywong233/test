@@ -1,38 +1,37 @@
 package file.xml;
 
-import java.io.FileReader;
-
 import javax.xml.namespace.QName;
-import javax.xml.stream.events.*;
-import javax.xml.stream.*;
+import javax.xml.stream.XMLEventReader;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+import java.io.FileReader;
 
 
 public class TargetsXML {
-	/*
-	 * http://www.ibm.com/developerworks/cn/java/j-5things12/index.html
+    /*
+     * http://www.ibm.com/developerworks/cn/java/j-5things12/index.html
 	 */
-	
-    @SuppressWarnings("restriction")
-	public static void main(String[] args) throws Exception{
-            for (String arg : args){
-                XMLEventReader xsr = XMLInputFactory.newInstance().createXMLEventReader(new FileReader(arg));
-                while (xsr.hasNext()){
-                    XMLEvent evt = xsr.nextEvent();
-                    switch (evt.getEventType()){
-                        case XMLEvent.START_ELEMENT:{
-                            StartElement se = evt.asStartElement();
-                            if (se.getName().getLocalPart().equals("target")){
-                                Attribute targetName = se.getAttributeByName(new QName("name"));
-                                // Found a target!
-                                System.out.println(targetName.getValue());
-                            }
-                            break;
+    public static void main(String[] args) throws Exception {
+        for (String arg : args) {
+            XMLEventReader xsr = XMLInputFactory.newInstance().createXMLEventReader(new FileReader(arg));
+            while (xsr.hasNext()) {
+                XMLEvent evt = xsr.nextEvent();
+                switch (evt.getEventType()) {
+                    case XMLEvent.START_ELEMENT: {
+                        StartElement se = evt.asStartElement();
+                        if (se.getName().getLocalPart().equals("target")) {
+                            Attribute targetName = se.getAttributeByName(new QName("name"));
+                            // Found a target!
+                            System.out.println(targetName.getValue());
                         }
-                        // Ignore everything else
+                        break;
                     }
+                    // Ignore everything else
                 }
             }
         }
-
+    }
 
 }

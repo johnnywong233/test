@@ -42,9 +42,9 @@ public class Dom4jParser implements XmlDocument{
 		try {
 			Document document = saxReader.read(inputXml); 
 			Element employees=document.getRootElement(); 
-			for(Iterator i = employees.elementIterator(); i.hasNext();){
+			for(Iterator<?> i = employees.elementIterator(); i.hasNext();){
 				Element employee = (Element) i.next(); 
-				for(Iterator j = employee.elementIterator(); j.hasNext();){
+				for(Iterator<?> j = employee.elementIterator(); j.hasNext();){
 					Element node=(Element) j.next(); 
 					System.out.println(node.getName()+":"+node.getText()); 
 				} 

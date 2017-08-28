@@ -5,12 +5,14 @@ public class GeneralInterrupt implements Runnable {
      * source code see http://outofmemory.cn/java/java.util.concurrent/multi-threading
 	 *  use interrupt to stop thread
 	 */
-
     public void run() {
         try {
-            System.out.println("in run() - about to work2()");
+            System.out.println("in run() - get in work2()");
             work2();
-            System.out.println("in run() - back from  work2()");
+            System.out.println("in run() - get away from work2()");
+            System.out.println("in run() - get in work()");
+            work();
+            System.out.println("in run() - get away from work()");
         } catch (InterruptedException x) {
             System.out.println("in run() -  interrupted in work2()");
             return;
@@ -20,7 +22,7 @@ public class GeneralInterrupt implements Runnable {
     }
 
 
-    public void work2() throws InterruptedException {
+    private void work2() throws InterruptedException {
         while (true) {
             if (Thread.currentThread().isInterrupted()) {
                 System.out.println("C isInterrupted()=" + Thread.currentThread().isInterrupted());
@@ -33,7 +35,7 @@ public class GeneralInterrupt implements Runnable {
     public void work() throws InterruptedException {
         while (true) {
             for (int i = 0; i < 100000; i++) {
-                int j = i * 2;
+                i = i * 2;
             }
             System.out.println("A isInterrupted()=" + Thread.currentThread().isInterrupted());
             if (Thread.interrupted()) {

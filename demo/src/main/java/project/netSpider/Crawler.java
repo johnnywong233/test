@@ -67,9 +67,7 @@ class LinkDb {
 
     // 保证每个 url 只被访问一次
     static void addUnvisitedUrl(String url) {
-        if (url != null && !url.trim().equals("")
-                && !visitedUrl.contains(url)
-                && !unVisitedUrl.contians(url))
+        if (url != null && !url.trim().equals("") && !visitedUrl.contains(url) && !unVisitedUrl.contains(url))
             unVisitedUrl.enQueue(url);
     }
 

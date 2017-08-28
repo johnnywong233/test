@@ -9,21 +9,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
  * Created by wajian on 2016/8/18.
  */
-public class QuickMoveFiles extends JFrame{
+public class QuickMoveFiles extends JFrame {
     private static final long serialVersionUID = -666045931923008374L;
-    private JPanel contentPane;
     private JTextArea infoArea;
     private JTextField sourceFolderField;
     private JTextField targetFolderField;
@@ -35,14 +32,12 @@ public class QuickMoveFiles extends JFrame{
      * http://www.jb51.net/article/47459.htm
      */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    QuickMoveFiles frame = new QuickMoveFiles();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        EventQueue.invokeLater(() -> {
+            try {
+                QuickMoveFiles frame = new QuickMoveFiles();
+                frame.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -50,20 +45,18 @@ public class QuickMoveFiles extends JFrame{
     /**
      * Create the frame.
      */
-    public QuickMoveFiles() {
+    private QuickMoveFiles() {
         setTitle("\u5FEB\u901F\u6279\u91CF\u79FB\u52A8\u6587\u4EF6");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 507, 299);
-        contentPane = new JPanel();
+        JPanel contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         GridBagLayout gbl_contentPane = new GridBagLayout();
-        gbl_contentPane.columnWidths = new int[] { 0, 178, 0, 0, 0, 0 };
-        gbl_contentPane.rowHeights = new int[] { 0, 0, 169, 0, 0 };
-        gbl_contentPane.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0,
-                Double.MIN_VALUE };
-        gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 1.0, 0.0,
-                Double.MIN_VALUE };
+        gbl_contentPane.columnWidths = new int[]{0, 178, 0, 0, 0, 0};
+        gbl_contentPane.rowHeights = new int[]{0, 0, 169, 0, 0};
+        gbl_contentPane.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+        gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
         contentPane.setLayout(gbl_contentPane);
 
         JLabel label = new JLabel("\u9009\u62E9\u6E90\u6587\u4EF6\uFF1A");
@@ -85,19 +78,14 @@ public class QuickMoveFiles extends JFrame{
         sourceFolderField.setColumns(10);
 
         JButton browserButton1 = new JButton("\u6D4F\u89C8");
-        browserButton1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                do_browserButton1_actionPerformed(e);
-            }
-        });
+        browserButton1.addActionListener(this::do_browserButton1_actionPerformed);
         GridBagConstraints gbc_browserButton1 = new GridBagConstraints();
         gbc_browserButton1.insets = new Insets(0, 0, 5, 0);
         gbc_browserButton1.gridx = 4;
         gbc_browserButton1.gridy = 0;
         contentPane.add(browserButton1, gbc_browserButton1);
 
-        JLabel label_1 = new JLabel(
-                "\u9009\u62E9\u76EE\u6807\u6587\u4EF6\u5939\uFF1A");
+        JLabel label_1 = new JLabel("\u9009\u62E9\u76EE\u6807\u6587\u4EF6\u5939\uFF1A");
         GridBagConstraints gbc_label_1 = new GridBagConstraints();
         gbc_label_1.anchor = GridBagConstraints.EAST;
         gbc_label_1.insets = new Insets(0, 0, 5, 5);
@@ -116,11 +104,7 @@ public class QuickMoveFiles extends JFrame{
         targetFolderField.setColumns(10);
 
         JButton browserButton2 = new JButton("\u6D4F\u89C8");
-        browserButton2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                do_browserButton2_actionPerformed(e);
-            }
-        });
+        browserButton2.addActionListener(this::do_browserButton2_actionPerformed);
         GridBagConstraints gbc_browserButton2 = new GridBagConstraints();
         gbc_browserButton2.insets = new Insets(0, 0, 5, 0);
         gbc_browserButton2.gridx = 4;
@@ -148,11 +132,7 @@ public class QuickMoveFiles extends JFrame{
         scrollPane.setViewportView(infoArea);
 
         JButton moveButton = new JButton("\u79FB\u52A8");
-        moveButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                do_moveButton_actionPerformed(e);
-            }
-        });
+        moveButton.addActionListener(this::do_moveButton_actionPerformed);
         GridBagConstraints gbc_moveButton = new GridBagConstraints();
         gbc_moveButton.insets = new Insets(0, 0, 0, 5);
         gbc_moveButton.gridx = 1;
@@ -160,11 +140,7 @@ public class QuickMoveFiles extends JFrame{
         contentPane.add(moveButton, gbc_moveButton);
 
         JButton closeButton = new JButton("\u5173\u95ED");
-        closeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                do_closeButton_actionPerformed(e);
-            }
-        });
+        closeButton.addActionListener(this::do_closeButton_actionPerformed);
         GridBagConstraints gbc_closeButton = new GridBagConstraints();
         gbc_closeButton.insets = new Insets(0, 0, 0, 5);
         gbc_closeButton.gridx = 2;
@@ -174,9 +150,8 @@ public class QuickMoveFiles extends JFrame{
 
     /**
      * 选择源文件的浏览按钮
-     * @param e
      */
-    protected void do_browserButton1_actionPerformed(ActionEvent e) {
+    private void do_browserButton1_actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
         chooser.setMultiSelectionEnabled(true);
         int option = chooser.showOpenDialog(this);
@@ -185,7 +160,7 @@ public class QuickMoveFiles extends JFrame{
             sourceFolderField.setText("");//clear the JTextField
             StringBuilder filesStr = new StringBuilder();
             for (File file : files) {
-                filesStr.append("、" + file.getName());//append file name
+                filesStr.append("、").append(file.getName());//append file name
             }
             String str = filesStr.substring(1);
             sourceFolderField.setText(str);// 设置文件名称信息到文本框
@@ -197,9 +172,8 @@ public class QuickMoveFiles extends JFrame{
 
     /**
      * 选择目标文件夹的浏览按钮
-     * @param e
      */
-    protected void do_browserButton2_actionPerformed(ActionEvent e) {
+    private void do_browserButton2_actionPerformed(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
         // 设置选择器只针对文件夹生效
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -215,17 +189,15 @@ public class QuickMoveFiles extends JFrame{
 
     /**
      * event handle method of close button
-     * @param e
      */
-    protected void do_closeButton_actionPerformed(ActionEvent e) {
+    private void do_closeButton_actionPerformed(ActionEvent e) {
         System.exit(0);
     }
 
     /**
      * event handle method of move button
-     * @param e
      */
-    protected void do_moveButton_actionPerformed(ActionEvent e) {
+    private void do_moveButton_actionPerformed(ActionEvent e) {
         if (files.length <= 0 || dir == null)
             return;
         for (File file : files) {

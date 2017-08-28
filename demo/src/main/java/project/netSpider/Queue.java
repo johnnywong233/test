@@ -17,7 +17,7 @@ public class Queue<T> {
         return queue.isEmpty();
     }
 
-    boolean contians(T t) {
+    boolean contains(T t) {
         return queue.contains(t);
     }
 

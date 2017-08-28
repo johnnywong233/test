@@ -30,19 +30,18 @@ public class SimpleParser {
     //https://tika.apache.org/1.13/examples.html#Parsing_using_the_Auto-Detect_Parser
     public static void main(String[] args) throws Exception {
         SimpleParser simpleParser = new SimpleParser();
-        simpleParser.parseToString();
-
-
+        System.out.println(simpleParser.parseToString());
     }
 
 
-    //TODO: NO ERROR, BUT STILL GET NOTHING
+    //TODO: GET NOTHING
     private String parseToString() throws IOException, SAXException, TikaException {
         Tika tika = new Tika();
-        //TODO: where to put the test resources, if stick to the method getResourceAsStream
-        try (InputStream stream = SimpleParser.class.getResourceAsStream("testPDF.pdf")) {
-            return tika.parseToString(stream);
-        }
+//        try (InputStream stream = SimpleParser.class.getResourceAsStream("201702.pdf")) {
+//            return tika.parseToString(stream);
+//        }
+        SimpleParser simpleParser = new SimpleParser();
+        return simpleParser.parseFile(new File("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\201702.pdf"));
     }
 
     //parse file to string

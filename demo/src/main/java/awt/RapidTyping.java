@@ -1,11 +1,19 @@
 package awt;
 
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.UIManager;
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -21,26 +29,25 @@ public class RapidTyping extends JFrame implements Runnable {
 
     private static final long serialVersionUID = -2831332650077025158L;
 
-    JPanel contentPane;
-    JPanel jPanel1 = new JPanel();
-    JButton jButton1 = new JButton();
-    JSlider jSlider1 = new JSlider();
-    JLabel jLabel1 = new JLabel();
-    JButton jButton2 = new JButton();
-    JLabel jLabel2 = new JLabel();
-    int count = 1, rapidity = 5; // count 当前进行的个数, rapidity 游标的位置
-    int zhengque = 0, cuowu = 0;
-    int rush[] = {10, 20, 30}; // 游戏每关的个数 可以自由添加
-    int rush_count = 0; // 记录关数
-    char list[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+    private JPanel jPanel1 = new JPanel();
+    private JButton jButton1 = new JButton();
+    private JSlider jSlider1 = new JSlider();
+    private JLabel jLabel1 = new JLabel();
+    private JButton jButton2 = new JButton();
+    private JLabel jLabel2 = new JLabel();
+    private int count = 1, rapidity = 5; // count 当前进行的个数, rapidity 游标的位置
+    private int zhengque = 0, cuowu = 0;
+    private int rush[] = {10, 20, 30}; // 游戏每关的个数 可以自由添加
+    private int rush_count = 0; // 记录关数
+    private char list[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; // 随机出现的数字
     // 可以自由添加
-    Vector number = new Vector();
-    String paiduan = "true";
-    AudioClip Musci_anjian, Music_shibai, Music_chenggong;
+    private Vector number = new Vector();
+    private String paiduan = "true";
+    private AudioClip Musci_anjian, Music_shibai, Music_chenggong;
 
-    public RapidTyping() {
+    private RapidTyping() {
         try {
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             // -----------------声音文件---------------------
@@ -59,11 +66,9 @@ public class RapidTyping extends JFrame implements Runnable {
 
     /**
      * 初始化
-     *
-     * @throws Exception
      */
     private void jbInit() throws Exception {
-        contentPane = (JPanel) getContentPane();
+        JPanel contentPane = (JPanel) getContentPane();
         contentPane.setLayout(null);
         setSize(new Dimension(588, 530));
         setTitle("Frame Title");
@@ -93,11 +98,7 @@ public class RapidTyping extends JFrame implements Runnable {
         this.addKeyListener(new MyListener());
         jButton1.addKeyListener(new MyListener());
         jSlider1.addKeyListener(new MyListener());
-        jSlider1.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                rapidity = 100 - jSlider1.getValue();
-            }
-        });
+        jSlider1.addChangeListener(e -> rapidity = 100 - jSlider1.getValue());
     }
 
     /**
@@ -155,12 +156,12 @@ public class RapidTyping extends JFrame implements Runnable {
         }
     }
 
-    public void jButton1_actionPerformed(ActionEvent e) {
+    void jButton1_actionPerformed(ActionEvent e) {
         Thread t = new Thread(this);
         t.start();
     }
 
-    public void jButton2_actionPerformed(ActionEvent e) {
+    void jButton2_actionPerformed(ActionEvent e) {
         count = rush[rush_count] + 1;
         paiduan = "flase";
     }
@@ -283,8 +284,8 @@ class Frame1_jButton1_actionAdapter implements ActionListener {
  * 下落的字符类
  */
 class Bean {
-    String parameter = null;
-    JLabel show = null;
+    private String parameter = null;
+    private JLabel show = null;
 
     public JLabel getShow() {
         return show;
