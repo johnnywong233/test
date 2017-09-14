@@ -1,0 +1,153 @@
+#!/bin/bash
+#
+# This script provides systemd activation of the tomcat service and tomcat through jsvc wrapper
+
+# check the basic environment variables
+if [[ -z "${CATALINA_BASE}" || \
+    -z "${CATALINA_HOME}" || \
+    -z "${CATALINA_TMPDIR}" ]]; then
+
+echo "ERROR: one of CATALINA_BASE, CATALINA_HOME or CATALINA_TMPDIR is not defined" >&2
+echo "       use proper EnvironmentFile= in your .service file" >&2
+exit 1
+
+fi
+
+# Include the optional setenv.sh script.
+# (See section 3.4 of https://tomcat.apache.org/tomcat-8.0-doc/RUNNING.txt)
+if [ -r "$CATALINA_BASE/bin/setenv.sh" ]; then
+   . "$CATALINA_BASE/bin/setenv.sh"
+elif [ -r "$CATALINA_HOME/bin/setenv.sh" ]; then
+   . "$CATALINA_HOME/bin/setenv.sh"
+fi
+
+if [[ "${0}" =~ tomcat-jsvc ]]; then
+    if [[ ! -x /usr/bin/jsvc ]]; then
+        echo "ERROR: cannot use ${0}, /usr/bin/jsvc does not exists" >&2
+        exit 1
+    fi
+    USE_JSVC=true
+    JSVC_PIDFILE=${JSVC_PIDFILE:-/var/run/${0##*/}}
+else
+    USE_JSVC=false
+fi
+
+#### from /usr/sbin/dtomcat
+if [[ -r /usr/share/java-utils/java-functions ]]; then
+    . /usr/share/java-utils/java-functions
+else
+    echo "ERROR: Can't read Java functions library, aborting" >&2
+    exit 1
+fi
+
+set_javacmd
+# CLASSPATH munging
+if [[ -n "$JSSE_HOME" ]]; then
+    CLASSPATH="${CLASSPATH}:$(build-classpath jcert jnet jsse 2>/dev/null)"
+fi
+CLASSPATH="${CLASSPATH}:${CATALINA_HOME}/bin/bootstrap.jar"
+CLASSPATH="${CLASSPATH}:${CATALINA_HOME}/bin/tomcat-juli.jar"
+CLASSPATH="${CLASSPATH}:$(build-classpath commons-daemon 2>/dev/null)"
+
+#sanitize the classpath - remove double and trailing colons
+CLASSPATH="`echo ${CLASSPATH} | sed 's/::+/:/g; s/^://; s/:$//g'`"
+
+# See how we were called.
+function start() {
+
+    local ret
+
+#TODO: comment this for now, better remove this later, as suite should run as root user
+    # running as root is not allowed if not running with jsvc
+#    if ! ${USE_JSVC} && [ $(id -u) == 0 ]; then
+#        echo "ERROR: starting tomcat under uid 0 is not supported" >&2
+#        echo "       use appropriate User/Group settings in service file" >&2
+#        echo "       see man systemd.exec for details" >&2
+#        exit 2
+#    fi
+
+    if [[ "$SECURITY_MANAGER" = "true" ]]; then
+        DSECURITY_MANAGER="-Djava.security.manager"
+        DSECURITY_POLICY="-Djava.security.policy=${CATALINA_BASE}/conf/catalina.policy"
+    else
+        unset DSECURITY_MANAGER
+        unset DSECURITY_POLICY
+    fi
+
+    if ${USE_JSVC}; then
+        JAVACMD="/usr/bin/jsvc -pidfile ${JSVC_PIDFILE} -nodetach -user ${TOMCAT_USER:-tomcat}"
+    fi
+
+    #bnc#779538
+    cd ${CATALINA_BASE}
+
+    exec ${JAVACMD} $JAVA_OPTS $CATALINA_OPTS \
+        -classpath "$CLASSPATH" \
+        -Dcatalina.base="$CATALINA_BASE" \
+        -Dcatalina.home="$CATALINA_HOME" \
+        -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" \
+        -Djava.io.tmpdir="$CATALINA_TMPDIR" ${DSECURITY_MANAGER} ${DSECURITY_POLICY} \
+        -Djava.util.logging.config.file="${CATALINA_BASE}/conf/logging.properties" \
+        -Djava.util.logging.manager="org.apache.juli.ClassLoaderLogManager" \
+        org.apache.catalina.startup.Bootstrap start
+}
+
+function stop() {
+
+    local ret
+
+    if ${USE_JSVC}; then
+        #XXX: foo is needed because of funny jsvc parser needs a class name
+        /usr/bin/jsvc -stop -pidfile ${JSVC_PIDFILE} foo
+        ret=${?}
+
+        if [[ $ret == 0 ]]; then
+            rm -f ${JSVC_PIDFILE}
+        fi
+    else
+        ${JAVACMD} $JAVA_OPTS \
+            -classpath "$CLASSPATH" \
+            -Dcatalina.base="$CATALINA_BASE" \
+            -Dcatalina.home="$CATALINA_HOME" \
+            -Djava.endorsed.dirs="$JAVA_ENDORSED_DIRS" \
+            -Djava.io.tmpdir="$CATALINA_TMPDIR" \
+            org.apache.catalina.startup.Bootstrap stop
+        ret=${?}
+
+        # workaround the 143 code emmited by jvm in case of sigterm
+        # using ExecStart=- will ignore all other failures as well
+        if [[ ret == 143 ]]; then
+            ret=0
+        fi
+    fi
+
+    return $ret
+}
+
+function version() {
+
+    exec ${JAVACMD} -classpath ${CATALINA_HOME}/lib/catalina.jar \
+        org.apache.catalina.util.ServerInfo
+
+}
+
+# See how we were called.
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    version)
+        version
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|version}" >&2
+        exit 1
+esac
+

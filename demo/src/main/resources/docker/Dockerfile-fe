@@ -1,0 +1,24 @@
+FROM cdfregistry.hpeswlab.net/hpeswitom/opensuse-base:42.2
+MAINTAINER Hewlett Packard Enterprise
+
+# Argument Defaults - These values will be changed during the build process
+ARG HTTP_PROXY=http://web-proxy.houston.hpecorp.net:8080
+ARG HTTPS_PROXY=http://web-proxy.houston.hpecorp.net:8080
+
+# Configuring Environment Variables
+ENV http_proxy="${HTTP_PROXY:-http://web-proxy.atl.hp.com:8080}" https_proxy="${HTTPS_PROXY:-https://web-proxy.atl.hp.com:8080}"
+
+RUN zypper --non-interactive ref && \
+    zypper --non-interactive in --recommends nginx && \
+    zypper clean && \
+    mkdir -p /usr/share/nginx/html/static
+
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY static /usr/share/nginx/html/static
+
+#Updating ENV  for security consideration
+ENV http_proxy="" https_proxy=""
+
+EXPOSE 82
+
+CMD ["nginx", "-g", "daemon off;"]

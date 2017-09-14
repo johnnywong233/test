@@ -1,0 +1,36 @@
+FROM cdfregistry.hpeswlab.net/hpeswitom/opensuse-base:42.2
+
+# Argument Defaults - These values will be changed during the build process: houston
+ARG HTTP_PROXY=http://web-proxy.atl.hpecorp.net:8088
+ARG HTTPS_PROXY=http://web-proxy.atl.hpecorp.net:8088
+
+# Configuring Environment Variables
+ENV http_proxy="${HTTP_PROXY:-http://web-proxy.atl.hpecorp.net:8088}" https_proxy="${HTTPS_PROXY:-http://web-proxy.atl.hpecorp.net:8088}"
+# ENV CATALINA_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket, address=30025, server=y, suspend=n"
+# Prepping Container
+USER root
+
+RUN zypper -n install tomcat net-tools vim
+ADD /tomcat-sysd /usr/sbin/
+ADD /demo-update.sh /
+ADD /update.war /usr/share/tomcat/webapps/
+RUN rm -rf /usr/share/tomcat/webapps/ROOT; \
+    chown -R -L tomcat:tomcat /usr/share/tomcat/; \
+    chmod +x /usr/sbin/tomcat-sysd; \
+    chmod +x /demo-update.sh; \
+    mkdir -p /log; \
+    touch /log/demo-update.log /log/update.log
+
+# Updating ENV
+ENV http_proxy="" https_proxy=""  CATALINA_BASE=/usr/share/tomcat/ CATALINA_HOME=/usr/share/tomcat/ CATALINA_TMPDIR=/var/cache/tomcat/temp/
+
+#TODO: comment this for now, better remove this later, as suite should run as root user for security reason
+#RUN groupadd -g 1999 demo; \
+#    useradd -d /home/demo -m -s /bin/bash -g 1999 -u 1999 demo; \
+#    usermod -a -G tomcat demo;
+
+#USER demo
+
+EXPOSE 8080
+
+ENTRYPOINT ["/demo-update.sh"]
