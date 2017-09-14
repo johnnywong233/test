@@ -14,6 +14,8 @@
         <module>springcloud_eureka</module>
         <module>springcloud_security1</module>
         <module>springcloud_client1</module>
+        <module>springcloud_eureka_ha</module>
+        <module>springcloud_consumer</module>
     </modules>
 
     <parent>
@@ -37,6 +39,11 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
 
@@ -45,7 +52,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Camden.SR5</version>
+                <version>Dalston.SR3</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

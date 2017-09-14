@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 /**
  * Author: Johnny
  * Date: 2017/7/13
@@ -26,11 +28,14 @@ public class ComputeController {
     @Autowired
     private DiscoveryClient client;
 
+    //TODO
     @RequestMapping(value = "/add1", method = RequestMethod.GET)
     public Integer add(@RequestParam Integer a, @RequestParam Integer b) {
-        ServiceInstance instance = client.getLocalServiceInstance();
+        List<ServiceInstance> instances = client.getInstances("compute-service");
         Integer r = a + b;
-        logger.info("/add, host:" + instance.getHost() + ", service_id:" + instance.getServiceId() + ", result:" + r);
+        for (ServiceInstance instance : instances) {
+            logger.info("/add, host:" + instance.getHost() + ", service_id:" + instance.getServiceId() + ", result:" + r);
+        }
         return r;
     }
 
