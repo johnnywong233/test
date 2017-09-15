@@ -38,6 +38,7 @@
         <module>springboot_petshop</module>
         <module>springboot_mongodb</module>
         <module>springboot_saas</module>
+        <module>springboot_session</module>
     </modules>
 
     <parent>
