@@ -1,3 +1,5 @@
+\[!\[Build Status](https://travis-ci.org/johnnywong233/test.svg?branch=master)](https://travis-ci.org/johnnywong233/test)
+
 ## These are some silly test/demo, including 
 - spring boot demo modules, see [here](https://github.com/johnnywong233/test/blob/master/springboot_demo/pom.xml)
 - spring cloud demo modules, see [here](https://github.com/johnnywong233/test/blob/master/springcloud_demo/pom.xml)
