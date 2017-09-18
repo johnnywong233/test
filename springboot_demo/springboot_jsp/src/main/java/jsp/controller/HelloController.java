@@ -13,10 +13,11 @@ import java.util.Map;
  */
 @Controller
 public class HelloController {
-    // 从 application.properties 中读取配置，如取不到默认值为Hello Shanhy
+    // 从 application.properties 中读取配置，如取不到默认值为Hello Angel
     @Value("${application.hello:Hello Angel}")
     private String hello;
 
+    //TODO: 404
     @RequestMapping("/helloJsp")
     public String helloJsp(Map<String, Object> map) {
         System.out.println("HelloController.helloJsp().hello=" + hello);
