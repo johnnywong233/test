@@ -10,6 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <packaging>war</packaging>
     <artifactId>springboot_jsp</artifactId>
 
     <dependencies>
@@ -19,11 +20,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- JSTL（JSP Standard Tag Library，JSP标准标签库)是一个不断完善的开放源代码的JSP标签库，是由apache的jakarta小组来维护的。
         JSTL只能运行在支持JSP1.2和Servlet2.3规范的容器上，如tomcat 4.x。在JSP 2.0中也是作为标准支持的. 不然报异常信息：
@@ -36,12 +37,12 @@
         </dependency>
 
         <!-- tomcat-->
-        <dependency>
+<!--        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <!--NOTED: remove scope to avoid java.lang.ClassNotFoundException: javax.servlet.Filter-->
-            <!--<scope>provided</scope>-->
-        </dependency>
+            &lt;!&ndash;NOTED: remove scope to avoid java.lang.ClassNotFoundException: javax.servlet.Filter&ndash;&gt;
+            &lt;!&ndash;<scope>provided</scope>&ndash;&gt;
+        </dependency>-->
 
         <!-- embed tomcat-->
         <dependency>

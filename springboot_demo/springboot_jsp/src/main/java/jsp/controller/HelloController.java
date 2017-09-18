@@ -17,7 +17,6 @@ public class HelloController {
     @Value("${application.hello:Hello Angel}")
     private String hello;
 
-    //TODO: 404
     @RequestMapping("/helloJsp")
     public String helloJsp(Map<String, Object> map) {
         System.out.println("HelloController.helloJsp().hello=" + hello);

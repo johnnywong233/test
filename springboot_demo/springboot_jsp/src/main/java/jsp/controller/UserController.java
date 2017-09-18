@@ -24,8 +24,8 @@ public class UserController {
      * @apiSuccessExample Success-Response:
      * HTTP/1.1 200 OK
      * {
-     * "firstname": "John",
-     * "lastname": "Doe"
+     * "firstname": "Johnny",
+     * "lastname": "Wong"
      * }
      * @apiError UserNotFound The id of the User was not found.
      * @apiErrorExample Error-Response:
@@ -36,7 +36,7 @@ public class UserController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getUser(@PathVariable(name = "id") long id) {
-        return "用户id为" + id;
+        return "User id: " + id;
     }
 
 
@@ -50,8 +50,8 @@ public class UserController {
      * @apiSuccessExample Success-Response:
      * HTTP/1.1 200 OK
      * {
-     * "firstname": "John",
-     * "lastname": "Doe"
+     * "firstname": "Johnny",
+     * "lastname": "Wong"
      * }
      * @apiError UserNotFound The id of the User was not found.
      * @apiErrorExample Error-Response:
@@ -62,7 +62,7 @@ public class UserController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public String updateUserName(@PathVariable(name = "id") long id, String name) {
-        return "用户id为" + id + ",name:" + name;
+        return "User id: " + id + ", name: " + name;
     }
 
 
