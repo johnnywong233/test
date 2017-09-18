@@ -10,4 +10,4 @@ CREATE TABLE city (
 )
   ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT city VALUES (1, 1, '温岭市', 'BYSocket 的家在温岭');
+INSERT city VALUES (1, 1, 'SH', 'SH is a city that you cannot love.');

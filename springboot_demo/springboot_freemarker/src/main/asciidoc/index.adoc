@@ -1,0 +1,14 @@
+= create API document with Spring REST Docs
+
+This is an example output for a service running at http://localhost:8080:
+
+.request
+include::{snippets}/home/http-request.adoc[]
+
+.response
+include::{snippets}/home/http-response.adoc[]
+
+In this silly demo, all we need to create a API doc is:
+- some UT;
+- config in the pom.xml;
+- one more this index.adoc file
