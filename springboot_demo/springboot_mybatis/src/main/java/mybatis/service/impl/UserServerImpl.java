@@ -1,16 +1,15 @@
-package mybatis.server.impl;
-
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+package mybatis.service.impl;
 
 import mybatis.model.User;
 import mybatis.model.mapper.UserMapper;
-import mybatis.server.UserServer;
+import mybatis.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
-public class UserServerImpl implements UserServer {
+public class UserServerImpl implements UserService {
     @Autowired
     private UserMapper mapper;
 

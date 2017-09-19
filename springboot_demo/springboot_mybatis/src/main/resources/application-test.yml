@@ -1,5 +1,9 @@
+spring:
+  profiles:
+    active: test
+
 server:
-  port: 8081 #8080端口, swagger-ui.html页面显示有问题, 别的就ok; 8080 port has druid?
+  port: 8081
 spring:
   application:
     name: admin-managee

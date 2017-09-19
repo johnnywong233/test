@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: dev
+
+server:
+  port: 8081
+spring:
+  application:
+    name: admin-managee
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springboot?useUnicode=true&amp;characterEncoding=UTF-8
+    username: postgres
+    password: 1Qaz
+    driver_class_namel: org.postgresql.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    
+    max-active: 20
+    initial-size: 1
+    min-idle: 3
+    max-wait: 60000
+    time-between-eviction-runs-millis: 60000
+    min-evictable-idle-time-millis: 300000
+    test-while-idle: true
+    test-on-borrow: false
+    test-on-return: false
+    poolPreparedStatements: true
+
+debug: true
