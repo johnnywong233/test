@@ -39,6 +39,8 @@
         <module>springboot_mongodb</module>
         <module>springboot_saas</module>
         <module>springboot_session</module>
+        <module>springboot_mybatisplus</module>
+        <module>springboot_angular</module>
     </modules>
 
     <parent>

@@ -20,7 +20,7 @@
         <version>1.4.6.RELEASE</version>
     </parent>
     <packaging>war</packaging>
-    <name>springboot-war</name>
+    <name>springboot-velocity</name>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
