@@ -30,7 +30,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("upload.controller"))
+                .apis(RequestHandlerSelectors.basePackage("upload.web"))//swagger-ui.html page
                 //.paths(regex("/user/.*"))
                 .paths(PathSelectors.any())
                 .build();

@@ -1,7 +1,6 @@
 package upload.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -15,7 +14,7 @@ import upload.aop.FileFormatInterceptor;
  * Time: 14:50
  */
 @Configuration
-@ComponentScan(basePackages = {"upload.web"})
+//@ComponentScan(basePackages = {"upload.web"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Autowired

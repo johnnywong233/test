@@ -12,6 +12,7 @@ import javax.servlet.MultipartConfigElement;
  * Date: 2017/4/18
  * Time: 9:50
  */
+//comment this class annotation to see that just an application.properties config is OK for file size config
 @Configuration
 public class FileUploadConfiguration {
 
@@ -30,9 +31,7 @@ public class FileUploadConfiguration {
         factory.setMaxFileSize(maxFileSize); // KB,MB
         //set max total upload file size
         factory.setMaxRequestSize(maxRequestSize);
-        //TODO
-        //特定格式文件上传
-        // Set the directory location where files will be stored.
+        //Set the directory location where files will be stored. not working!!
         factory.setLocation(location);
         return factory.createMultipartConfig();
     }
