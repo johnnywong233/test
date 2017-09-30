@@ -2,6 +2,8 @@ package upload;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 /**
  * Author: Johnny
@@ -9,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Time: 9:50
  */
 @SpringBootApplication
-public class DemoUploadFileApplication {
+public class DemoUploadFileApplication extends SpringBootServletInitializer {
 
     /**
      * test page:
@@ -20,4 +22,10 @@ public class DemoUploadFileApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoUploadFileApplication.class, args);
     }
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(DemoUploadFileApplication.class);
+    }
+
 }
