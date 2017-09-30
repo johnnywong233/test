@@ -15,3 +15,4 @@ libs
 JArchitectOut/
 activemq-data/
 gradlew/
+demo/test-output

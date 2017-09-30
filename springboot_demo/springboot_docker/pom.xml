@@ -25,6 +25,13 @@
         <image.name>johnny-docker-demo:${demo.image.tag}</image.name>
         <full.image.name>${hpe.docker.hub.repository}/${hpe.docker.hub.repository.org}/${image.name}</full.image.name>
         <save.images.tar.directory>/var/opt/kubernetes/offline/suite_images</save.images.tar.directory>
+
+        <!--use one of the bellowing configure-->
+        <!--for docker push images name with tag-->
+        <!--<full.image.name.tag>${demo.docker.registry}/${demo.docker.registry.prefix}/${image.name.tag}</full.image.name.tag>-->
+
+        <!--for docker build localhost:5000 images name with tag-->
+        <full.image.name.tag>${localhost.registry}/${demo.docker.registry.prefix}/${demo.image.tag}</full.image.name.tag>
     </properties>
 
     <dependencies>
@@ -62,6 +69,8 @@
                 <build.publish>false</build.publish>
                 <!-- Developer Registry -->
                 <hpe.docker.hub.repository>hub.docker.hpecorp.net</hpe.docker.hub.repository>
+                <localhost.registry>localhost:5000</localhost.registry>
+                <demo.docker.registry.prefix>hpeswitom</demo.docker.registry.prefix>
                 <hpe.docker.hub.repository.org>shared</hpe.docker.hub.repository.org>
                 <demo.image.tag>1.0</demo.image.tag>
                 <http.proxy>http://web-proxy.sgp.hpecorp.net:8088</http.proxy>
@@ -73,7 +82,11 @@
         <profile>
             <id>docker-save</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <!--<activeByDefault>true</activeByDefault>-->
+                <property>
+                    <name>docker.save</name>
+                    <value>true</value>
+                </property>
             </activation>
             <build>
                 <plugins>
@@ -96,6 +109,43 @@
                                             ${save.images.tar.directory}/${hpe.docker.hub.repository.org}-${image.name}-${demo.image.tag}.tar
                                         </argument>
                                         <argument>${full.image.name}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Docker Push Profile -->
+        <profile>
+            <id>docker-push</id>
+            <activation>
+                <property>
+                    <name>docker.push</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>docker-push</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <arguments>
+                                        <argument>push</argument>
+                                        <!--use docker push for ${demo.docker.registry} not ${localhost.registry}-->
+                                        <argument>${full.image.name.tag}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
