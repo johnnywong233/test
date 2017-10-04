@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: config-repo #对应配置文件的名字
+  cloud:
+    config:
+      uri: http://localhost:9091/
+      profile: test
+      label: v2.0 #对应branch
