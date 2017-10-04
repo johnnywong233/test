@@ -9,3 +9,6 @@
 添加webapp文件夹，添加index.html, app.js等资源文件，配置IntelliJ webapp目录，对于这种web工程如果报错404，一般解法是增加配置
 ```<packaging>war</packaging>```。然后执行```mvn install```，忽略报错信息；执行命令
 ```java -jar springboot_angular-0.0.1-SNAPSHOT.war```，访问页面即可。
+
+## JWT
+集成JWT，登录验证，否则资源不予显示；

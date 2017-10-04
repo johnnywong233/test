@@ -20,6 +20,7 @@ public class StudentController {
     @Autowired
     private StudentService service;
 
+    //http://localhost:8080/student.html
     //http://localhost:8080/student/get?page=0&size=2
     @RequestMapping(value = "/student/get", params = {"page", "size"}, method = RequestMethod.GET, produces = "application/json")
     public Page<Student> findPaginated(@RequestParam("page") int page, @RequestParam("size") int size) throws ResourceNotFoundException {
