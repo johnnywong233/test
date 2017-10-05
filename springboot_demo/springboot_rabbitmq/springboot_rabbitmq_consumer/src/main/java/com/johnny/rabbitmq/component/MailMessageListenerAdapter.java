@@ -22,6 +22,11 @@ public class MailMessageListenerAdapter extends MessageListenerAdapter {
     @Value("${mail.username}")
     private String mailUsername;
 
+    /**
+     1. 从 RabbitMQ 的消息队列中解析消息体。
+     2. 根据消息体的内容，发送邮件给目标的邮箱。
+     3. 手动应答 ACK，让消息队列删除该消息。
+     */
     @Override
     public void onMessage(Message message, Channel channel) throws Exception {
         System.out.println(message.getMessageProperties().getConsumerQueue());

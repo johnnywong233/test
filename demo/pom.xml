@@ -1029,6 +1029,26 @@
             <version>3.1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>deployment</id>
+            <name>internal</name>
+            <url>http://{nexus_server}/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>deployment</id>
+            <name>internal</name>
+            <url>http://{nexus_server}/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
