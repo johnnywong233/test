@@ -1,18 +1,39 @@
 apply plugin: 'java'
 apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'spring-boot'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'docker'
 
 ext { springBootVersion = '1.5.4.RELEASE' }
 
+//This can also used as the docker image prefix (org)
 group = 'com.johnny'
 version = '0.0.1-SNAPSHOT'
 
 description = "Thi is a demo for multi maven projects using gradle"
 
 
-buildscript {
-    repositories { mavenCentral() }
+//仅仅只是一个示例，展示在build.gradle配置文件里面如何集成docker build命令；
+//关于在maven中如何配置插件执行docker build命令，构建镜像，参考springboot_docker demo
+//tag::task[]
+task buildDocker(type: Docker, dependsOn: build) {
+    push = true
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
 }
+// end::task[]
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 tasks.withType(JavaCompile) {
@@ -20,11 +41,12 @@ tasks.withType(JavaCompile) {
 }
 
 buildscript {
+    repositories { mavenCentral() }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.4.RELEASE")
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
-apply plugin: 'org.springframework.boot'
 
 repositories {
     mavenLocal()
