@@ -41,6 +41,9 @@
         <module>springboot_session</module>
         <module>springboot_mybatisplus</module>
         <module>springboot_angular</module>
+        <module>springboot_es</module>
+        <module>springboot_batch</module>
+        <module>springboot_rabbitmq1</module>
     </modules>
 
     <parent>

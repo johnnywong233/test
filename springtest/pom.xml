@@ -79,12 +79,6 @@
             <version>4.3.5.RELEASE</version>
         </dependency>
 
-        <!--Spring boot related, update this main artifactId to fix some unresolved problems -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>

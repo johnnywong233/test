@@ -16,6 +16,9 @@
         <module>springcloud_client1</module>
         <module>springcloud_eureka_ha</module>
         <module>springcloud_consumer</module>
+        <module>springcloud_hystrix</module>
+        <module>springcloud_config_server</module>
+        <module>springcloud_config_client</module>
     </modules>
 
     <parent>
@@ -43,6 +46,14 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--<dependencies>
+                    &lt;!&ndash; mvn spring-boot:run 热部署启动 &ndash;&gt;
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.8.RELEASE</version>
+                    </dependency>
+                </dependencies>-->
             </plugin>
         </plugins>
     </build>
