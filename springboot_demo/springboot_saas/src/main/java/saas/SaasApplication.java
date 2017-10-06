@@ -2,6 +2,8 @@ package saas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 /**
  * Author: Johnny
@@ -9,7 +11,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Time: 0:02
  */
 @SpringBootApplication
-public class SaasApplication {
+public class SaasApplication extends SpringBootServletInitializer {
+    //TODO
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(SaasApplication.class, DbConfig.class);
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(SaasApplication.class, args);
