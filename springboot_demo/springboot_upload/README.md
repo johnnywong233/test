@@ -15,3 +15,7 @@ spring.http.multipart.maxRequestSize=10Mb
 ```Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Unable to execute schema management to JDBC target [create table user (id int8 not null, age int4 not null, password varchar(255) not null, user_name varchar(255) not null, primary key (id))]```
 
 ## bootstrap&thymeleaf实例
+
+## Springboot集成log4j2
+去掉默认的starter-logging，然后配置一个log4j2.xml文件（重点），在application.properties里面再配置
+```logging.config=classpath:log4j2.xml```
