@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -55,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
         final String rawPassword = userToAdd.getPassword();
         userToAdd.setPassword(encoder.encode(rawPassword));
         userToAdd.setLastPasswordResetDate(new Date());
-        userToAdd.setRoles(asList("ROLE_USER"));
+        userToAdd.setRoles(Collections.singletonList("ROLE_USER"));
         return userRepository.insert(userToAdd);
     }
 
@@ -68,8 +69,7 @@ public class AuthServiceImpl implements AuthService {
 
         // Reload password post-security so we can generate token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-        final String token = jwtTokenUtil.generateToken(userDetails);
-        return token;
+        return jwtTokenUtil.generateToken(userDetails);
     }
 
     @Override

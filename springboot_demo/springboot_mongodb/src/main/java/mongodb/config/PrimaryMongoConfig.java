@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
  * Time: 23:08
  */
 @Configuration
-@EnableMongoRepositories(basePackages = "mongodb.model.repository",
+@EnableMongoRepositories(basePackages = "mongodb",
         mongoTemplateRef = PrimaryMongoConfig.MONGO_TEMPLATE)
 public class PrimaryMongoConfig {
     static final String MONGO_TEMPLATE = "primaryMongoTemplate";

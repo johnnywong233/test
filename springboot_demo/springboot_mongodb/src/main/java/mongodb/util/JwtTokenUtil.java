@@ -1,11 +1,17 @@
 package mongodb.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import mongodb.bean.JwtUser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Author: Johnny
@@ -13,7 +19,7 @@ import java.util.Date;
  * Time: 17:19
  */
 @Component
-public class JwtTokenUtil implements Serializable{
+public class JwtTokenUtil implements Serializable {
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
 
@@ -34,7 +40,7 @@ public class JwtTokenUtil implements Serializable{
         return username;
     }
 
-    public Date getCreatedDateFromToken(String token) {
+    private Date getCreatedDateFromToken(String token) {
         Date created;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -45,7 +51,7 @@ public class JwtTokenUtil implements Serializable{
         return created;
     }
 
-    public Date getExpirationDateFromToken(String token) {
+    private Date getExpirationDateFromToken(String token) {
         Date expiration;
         try {
             final Claims claims = getClaimsFromToken(token);
@@ -89,7 +95,7 @@ public class JwtTokenUtil implements Serializable{
         return generateToken(claims);
     }
 
-    String generateToken(Map<String, Object> claims) {
+    private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())

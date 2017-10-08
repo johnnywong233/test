@@ -19,7 +19,7 @@ import java.util.List;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MuliDatabaseTest {
+public class MultiDatabaseTest {
     @Autowired
     private PrimaryRepository primaryRepository;
 
