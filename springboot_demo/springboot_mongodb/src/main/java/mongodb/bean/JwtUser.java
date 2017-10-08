@@ -13,14 +13,15 @@ import java.util.Date;
  * Time: 17:20
  */
 public class JwtUser implements UserDetails {
-    private final String id;
+	private static final long serialVersionUID = -3530699526824664991L;
+	private final String id;
     private final String username;
     private final String password;
     private final String email;
     private final Collection<? extends GrantedAuthority> authorities;
     private final Date lastPasswordResetDate;
 
-    public JwtUser(
+    JwtUser(
             String id,
             String username,
             String password,

@@ -8,7 +8,8 @@ import java.io.Serializable;
  * Time: 17:14
  */
 public class JwtAuthenticationResponse implements Serializable {
-    private final String token;
+	private static final long serialVersionUID = 3146553692183547178L;
+	private final String token;
 
     public JwtAuthenticationResponse(String token) {
         this.token = token;

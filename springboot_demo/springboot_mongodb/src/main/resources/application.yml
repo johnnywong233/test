@@ -1,0 +1,35 @@
+mongodb:
+  primary:
+    host: localhost
+    port: 27017
+    database: first
+  secondary:
+    host: localhost
+    port: 27017
+    database: second
+
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  tokenHead: "Bearer "
+  route:
+    authentication:
+      path: auth
+      refresh: refresh
+#注意不能加引号"auth/register"，否则解析不出来
+      register: auth/register
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: jwt
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+
+logging.level.org.springframework:
+  data: DEBUG
+  security: DEBUG

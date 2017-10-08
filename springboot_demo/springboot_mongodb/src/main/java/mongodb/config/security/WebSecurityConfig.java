@@ -20,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * Date: 2017/10/8
  * Time: 22:30
  */
-@SuppressWarnings("SpringJavaAutowiringInspection")
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

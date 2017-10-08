@@ -42,8 +42,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain chain) throws ServletException, IOException {
         String authHeader = request.getHeader(this.tokenHeader);
+        logger.info("tokenHead" + tokenHead);
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
             final String authToken = authHeader.substring(tokenHead.length()); // The part after "Bearer "
+            //for debugging 401(not wanted 403 error), can only add this in the dev env
+            logger.info("authToken " + authToken);
             String username = jwtTokenUtil.getUsernameFromToken(authToken);
 
             logger.info("checking authentication " + username);
@@ -55,7 +58,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 // 本例中，我们还是通过Spring Security的 @UserDetailsService 进行了数据查询
                 // 但简单验证的话，你可以采用直接验证token是否合法来避免昂贵的数据查询
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
@@ -66,7 +68,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                 }
             }
         }
-
         chain.doFilter(request, response);
     }
 }
