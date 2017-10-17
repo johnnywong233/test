@@ -20,6 +20,7 @@
         <module>springcloud_config_server</module>
         <module>springcloud_config_client</module>
         <module>springcloud_hystrix_dashboard</module>
+        <module>springcloud_api_gateway</module>
     </modules>
 
     <parent>
