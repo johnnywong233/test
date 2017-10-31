@@ -1,15 +1,15 @@
 package demo.beanlifecycle;
 
 public class BeanWayService {
-    public void init() {
+    void init() {
         System.out.println("BeanWayService-init()");
     }
 
-    public BeanWayService() {
+    BeanWayService() {
         System.out.println("BeanWayService-constructor");
     }
 
-    public void destroy() {
+    void destroy() {
         System.out.println("BeanWayService-destroy()");
     }
 }

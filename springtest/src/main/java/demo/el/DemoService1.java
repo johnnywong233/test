@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DemoService1 {
     //注入普通字符串
-    @Value("中文测试")
+    @Value("王健")
     private String author;
 
     public String getAuthor() {

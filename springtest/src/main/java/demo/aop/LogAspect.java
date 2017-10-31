@@ -13,7 +13,7 @@ import java.lang.reflect.Method;
 @Aspect
 @Component
 public class LogAspect {
-    @Pointcut("@annotation(org.sang.Action)")
+    @Pointcut("@annotation(demo.aop.Action)")
     public void annotationPointCut() {
     }
 
@@ -33,7 +33,7 @@ public class LogAspect {
      * 两个点表示任意个参数
      * http://www.cnblogs.com/yansum/p/5898412.html
      */
-    @Before("execution(* org.sang.MethodService.*(..))")
+    @Before("execution(* demo.aop.MethodService.*(..))")
     public void before(JoinPoint joinPoint) {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();

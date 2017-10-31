@@ -9,7 +9,7 @@ public class JSR250WayService {
         System.out.println("JSR250WayService-init()");
     }
 
-    public JSR250WayService() {
+    JSR250WayService() {
         System.out.println("JSR250WayService-构造方法");
     }
 

@@ -30,16 +30,16 @@ public class ELConfig {
 
     @Value("http://www.baidu.com")
     private Resource testUrl;
-    @Value("${sang.username}")
+    @Value("${johnny.username}")
     private String su;
-    @Value("${sang.password}")
+    @Value("${johnny.password}")
     private String sp;
-    @Value("${sang.nickname}")
+    @Value("${johnny.nickname}")
     private String sn;
     @Autowired
     private Environment environment;
 
-    public void output() {
+    void output() {
         try {
             System.out.println(normal);
             System.out.println(osName);
@@ -48,7 +48,7 @@ public class ELConfig {
             System.out.println(author);
             System.out.println(IOUtils.toString(testFile.getInputStream(), "UTF-8"));
             System.out.println(IOUtils.toString(testUrl.getInputStream(), "UTF-8"));
-            System.out.println("testUrl.getURL():" + testUrl.getURL());
+            System.out.println("testUrl.getURL(): " + testUrl.getURL());
             System.out.println(su);
             System.out.println(sp);
             System.out.println(sn);

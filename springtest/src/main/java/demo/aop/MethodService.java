@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MethodService {
-    public void add() {
+    void add() {
         System.out.println("method-add()");
     }
 }
