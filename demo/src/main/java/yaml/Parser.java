@@ -44,7 +44,7 @@ public class Parser {
                     new Phone("work", "4321")));
             List<Contact> contacts = Arrays.asList(c1, c2);
             Yaml yaml = new Yaml();
-            yaml.dump(contacts, new FileWriter("D:\\Java_ex\\test\\src\\test\\resources\\contact.yaml"));
+            yaml.dump(contacts, new FileWriter("contact.yaml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,18 +53,17 @@ public class Parser {
     @Test
     public void load() throws FileNotFoundException {
         Yaml yaml = new Yaml();
-        File f = new File("D:\\Java_ex\\test\\src\\test\\resources\\test.yaml");
+        File f = new File(Parser.class.getClassLoader().getResource("test.yaml").getFile());
         Object result = yaml.load(new FileInputStream(f));
         System.out.println(result.getClass());
         System.out.println(result);
     }
 
-    @SuppressWarnings("unchecked")
     @Test
     public void loadPojo() throws FileNotFoundException {
         Yaml yaml = new Yaml();
-        File f = new File("D:\\Java_ex\\test\\src\\test\\resources\\test.yaml");
-        Map<String, String> result = (Map<String, String>) yaml.load(new FileInputStream(f));
+        File f = new File(Parser.class.getClassLoader().getResource("test.yaml").getFile());
+        Map<String, String> result = yaml.load(new FileInputStream(f));
         System.out.println(result);
         System.out.println(result.get("animal"));
     }

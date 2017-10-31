@@ -18,6 +18,7 @@
         <module>hereDocumentTest</module>
         <module>simple_dao</module>
         <module>pic_downloader</module>
+        <module>spring_freemarker_mail</module>
     </modules>
 
 </project>

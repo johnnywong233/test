@@ -89,5 +89,48 @@ public class StringUtil {
         return buffer.toString();
     }
 
+    //Converting a string of hex character to bytes
+    public static byte[] hexString2byteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i + 1), 16));
+        }
+        return data;
+    }
+
+    //Converting a bytes array to string of hex character
+    public static String byteArray2HexString(byte[] b) {
+        StringBuilder data = new StringBuilder();
+        for (byte aB : b) {
+            data.append(Integer.toHexString((aB >> 4) & 0xf));
+            data.append(Integer.toHexString(aB & 0xf));
+        }
+        return data.toString();
+    }
+
+    /**
+     * 判断输入的字符串是否是回文的，对称的
+     */
+    public static boolean isSymmetrical(String str) {
+        StringBuilder sb = new StringBuilder(str);
+        String str1 = sb.reverse().toString();
+        return str.equals(str1);
+    }
+
+    public static boolean isSymmetrical1(String str) {
+        boolean flag = true;
+        // 把字符串转成字符数组
+        char[] chs = str.toCharArray();
+        for (int start = 0, end = chs.length - 1; start <= end; start++, end--) {
+            if (chs[start] != chs[end]) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+    //
 
 }

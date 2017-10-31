@@ -11,6 +11,7 @@
     </parent>
 
     <artifactId>springboot_freemarker</artifactId>
+    <packaging>war</packaging>
 
     <dependencies>
 
@@ -51,7 +52,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.42</version>
+            <version>5.1.44</version>
         </dependency>
 
         <dependency>
@@ -64,6 +65,11 @@
             <groupId>org.springframework.restdocs</groupId>
             <artifactId>spring-restdocs-mockmvc</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
     </dependencies>

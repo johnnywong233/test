@@ -44,12 +44,16 @@
         <module>springboot_es</module>
         <module>springboot_batch</module>
         <module>springboot_rabbitmq1</module>
+        <module>springboot_aop</module>
+        <module>springboot_webflux</module>
+        <module>springboot_dubbo</module>
+        <module>springboot_kafka</module>
     </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.4.RELEASE</version>
+        <version>1.5.7.RELEASE</version>
     </parent>
 
     <properties>

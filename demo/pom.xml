@@ -212,7 +212,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.17</version>
+            <version>1.19</version>
         </dependency>
 
         <!--all json here-->
@@ -232,7 +232,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20160810</version>
+            <version>20171018</version>
         </dependency>
 
         <!--JExcelApi is a java library which provides the ability to read, write, and modify Microsoft Excel spreadsheets.-->
@@ -954,7 +954,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.24</version>
+            <version>1.2.39</version>
         </dependency>
 
         <!-- Java API for handling configuration files in Windows .ini format. The library includes its own Map based API, Java Preferences API
@@ -1014,7 +1014,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.41</version>
+            <version>5.1.44</version>
         </dependency>
 
         <dependency>
