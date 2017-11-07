@@ -27,7 +27,8 @@ public class MySecurity {
         this(strDefaultKey);
     }
 
-    private MySecurity(String strKey) throws Exception {
+    @SuppressWarnings("restriction")
+	private MySecurity(String strKey) throws Exception {
         Security.addProvider(new com.sun.crypto.provider.SunJCE());
         Key key = getKey(strKey.getBytes());
 
@@ -98,9 +99,9 @@ public class MySecurity {
         try {
             MySecurity des = new MySecurity();
 
-            des.encryptFile("C:\\Users\\wajian\\Documents\\Test\\test.zip", "C:\\Users\\wajian\\Documents\\Test\\entest.zip");
+            des.encryptFile("E:\\GitHub\\test\\demo\\src\\test\\resources\\1.txt", "E:\\GitHub\\test\\demo\\src\\test\\resources\\en1.txt");
 
-            des.decryptFile("C:\\Users\\wajian\\Documents\\Test\\entest.zip", "C:\\Users\\wajian\\Documents\\Test\\detest.zip");
+            des.decryptFile("E:\\GitHub\\test\\demo\\src\\test\\resources\\en1.txt", "E:\\GitHub\\test\\demo\\src\\test\\resources\\2.txt");
 
             System.out.println("string before decrypted:String==" + "123456");
             String enStr = des.encrypt("123456");

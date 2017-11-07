@@ -8,7 +8,7 @@ package algorithm.encrypt.demo1;
 public enum BlowfishManager {
     BRIDGELI_CN("bridgeli_cn!@#$abc123_");
 
-    private BlowfishManager(String secret) {
+    BlowfishManager(String secret) {
         this.blowfish = new Blowfish(secret);
     }
 

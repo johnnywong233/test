@@ -16,11 +16,11 @@ public class Blowfish {
 
     private static class BlowfishCBC extends BlowfishECB {
 
-        public void setCBCIV(long lNewCBCIV) {
+        void setCBCIV(long lNewCBCIV) {
             m_lCBCIV = lNewCBCIV;
         }
 
-        public void setCBCIV(byte newCBCIV[]) {
+        void setCBCIV(byte newCBCIV[]) {
             m_lCBCIV = Blowfish.byteArrayToLong(newCBCIV, 0);
         }
 
@@ -71,7 +71,7 @@ public class Blowfish {
             setCBCIV(0L);
         }
 
-        public BlowfishCBC(byte bfkey[], long lInitCBCIV) {
+        BlowfishCBC(byte bfkey[], long lInitCBCIV) {
             super(bfkey);
             setCBCIV(lInitCBCIV);
         }
@@ -95,7 +95,7 @@ public class Blowfish {
 
         }
 
-        protected long encryptBlock(long lPlainBlock) {
+        long encryptBlock(long lPlainBlock) {
             int nHi = Blowfish.longHi32(lPlainBlock);
             int nLo = Blowfish.longLo32(lPlainBlock);
             int sbox1[] = m_sbox1;
@@ -139,7 +139,7 @@ public class Blowfish {
             return Blowfish.makeLong(nHi, nLo ^ pbox[17]);
         }
 
-        protected long decryptBlock(long lCipherBlock) {
+        long decryptBlock(long lCipherBlock) {
             int nHi = Blowfish.longHi32(lCipherBlock);
             int nLo = Blowfish.longLo32(lCipherBlock);
             nHi ^= m_pbox[17];
@@ -445,11 +445,14 @@ public class Blowfish {
                 0x3f09252d, 0xc208e69f, 0xb74e6132, 0xce77e25b,
                 0x578fdfe3, 0x3ac372e6};
 
-        public BlowfishECB(byte bfkey[]) {
-            m_pbox = new int[18];
-            for (int nI = 0; nI < 18; nI++) {
+        BlowfishECB(byte bfkey[]) {
+            m_pbox = new int[pbox_init.length];
+            System.arraycopy(pbox_init, 0, m_pbox, 0, pbox_init.length);
+
+            //低效
+            /*for (int nI = 0; nI < 18; nI++) {
                 m_pbox[nI] = pbox_init[nI];
-            }
+            }*/
 
             m_sbox1 = new int[256];
             m_sbox2 = new int[256];
@@ -513,7 +516,7 @@ public class Blowfish {
         }
     }
 
-    public Blowfish(String password) {
+    Blowfish(String password) {
         MessageDigest digest = null;
         try {
             digest = MessageDigest.getInstance("SHA1");
@@ -525,7 +528,7 @@ public class Blowfish {
         digest.reset();
     }
 
-    public String encryptString(String sPlainText) {
+    String encryptString(String sPlainText) {
         long lCBCIV;
         synchronized (m_rndGen) {
             lCBCIV = m_rndGen.nextLong();
@@ -554,7 +557,7 @@ public class Blowfish {
         return bytesToBinHex(newCBCIV, 0, 8) + bytesToBinHex(buf, 0, buf.length);
     }
 
-    public String decryptString(String sCipherText) {
+    String decryptString(String sCipherText) {
         int nLen = sCipherText.length() >> 1 & -8;
         if (nLen < 8) {
             return null;
@@ -690,6 +693,6 @@ public class Blowfish {
     }
 
     private BlowfishCBC m_bfish;
-    private static Random m_rndGen = new Random();
-    static final char HEXTAB[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    private static final Random m_rndGen = new Random();
+    private static final char HEXTAB[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 }
