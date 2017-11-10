@@ -1,4 +1,4 @@
-package io.file;
+package io.nio;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -16,13 +16,15 @@ public class DirectoryWatcherDemo {
 	//http://www.phpxs.com/code/1001507/
     public static void main(String[] args) throws IOException, InterruptedException {
         WatchService watchService = FileSystems.getDefault().newWatchService();
-        Path path = Paths.get("C:", "share").toAbsolutePath();
+        Path path = Paths.get("C:", "temp").toAbsolutePath();
+        //类DirectoryWatcherDemo所在的目录
+        //Path this_dir = Paths.get(".");
         path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
                 StandardWatchEventKinds.ENTRY_MODIFY,
                 StandardWatchEventKinds.ENTRY_DELETE);
         while(true) {
             WatchKey watchKey = watchService.take();
-            for (WatchEvent event : watchKey.pollEvents()) {
+            for (WatchEvent<?> event : watchKey.pollEvents()) {
                 if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE) {
                     System.out.println("Create " + path.resolve((Path) event.context()).toAbsolutePath());
                 } else if (event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
