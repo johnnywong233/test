@@ -21,7 +21,8 @@
         <module>springcloud_config_client</module>
         <module>springcloud_hystrix_dashboard</module>
         <module>springcloud_api_gateway</module>
-        <module>springcloud_stream_rabbitmq_hello</module>
+        <module>springcloud_sleuth_case</module>
+        <module>springcloud_contract</module>
     </modules>
 
     <parent>
