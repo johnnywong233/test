@@ -37,7 +37,6 @@ public class CLITest {
         options.addOption(opt);
 
         HelpFormatter hf = new HelpFormatter();
-        //it is OK if Intellij report error here
         hf.setWidth(110);
         CommandLine commandLine;
         CommandLineParser parser = new PosixParser();

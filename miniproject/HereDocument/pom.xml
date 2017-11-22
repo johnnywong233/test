@@ -27,8 +27,9 @@
         </dependency>
         <!--must add-->
         <dependency>
-            <groupId>jdk</groupId>
+            <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
+            <!--下载的是1.5.0-->
             <version>RELEASE</version>
         </dependency>
 

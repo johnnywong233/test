@@ -16,9 +16,10 @@ import java.util.Map;
 @Controller
 public class RootController {
 
+    //多个url指向同一个页面的示例：
     @RequestMapping({"/", "/index"})
     public String index(HttpServletRequest request) {
-        System.out.println(request.getSession().getId());
+        System.out.println("request session id: " +request.getSession().getId());
         return "index";
     }
 
