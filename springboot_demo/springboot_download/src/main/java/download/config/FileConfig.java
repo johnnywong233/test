@@ -15,7 +15,6 @@ import javax.servlet.MultipartConfigElement;
 @Configuration
 public class FileConfig {
 
-    //TODO
     @Value("${multipart.max.FileSize}")
     private  String fileSize;
     @Value("${multipart.max.RequestSize}")

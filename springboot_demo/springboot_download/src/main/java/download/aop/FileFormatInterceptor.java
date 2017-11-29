@@ -24,8 +24,7 @@ import java.util.List;
  * Time: 14:18
  */
 @Component("fileFormatInterceptor")
-//TODO
-@ConfigurationProperties(prefix = "file.allowFileType")
+@ConfigurationProperties(prefix = "file")
 public class FileFormatInterceptor extends HandlerInterceptorAdapter {
 
     private final Logger logger = LoggerFactory.getLogger(FileFormatInterceptor.class);
@@ -75,7 +74,7 @@ public class FileFormatInterceptor extends HandlerInterceptorAdapter {
         ServletOutputStream output = null;
         try {
             output = response.getOutputStream();
-            output.write(("file format not supported, only for json/yaml: " + Arrays.toString(allowFileTypeList.toArray())).getBytes(request.getCharacterEncoding()));
+            output.write(("file format not supported, only for type: " + Arrays.toString(allowFileTypeList.toArray())).getBytes(request.getCharacterEncoding()));
         } catch (IOException e) {
             logger.error("Error occurred at getting output stream.");
             e.printStackTrace();
