@@ -1,0 +1,12 @@
+<config>
+    <input>
+        <jar in="springboot_controller-0.0.1-SNAPSHOT.jar" out="springboot_controller-0.0.1-SNAPSHOT-obfuscated.jar"/>
+    </input>
+    <keep-names>
+        <class access="protected+">
+            <field access="protected+"/>
+            <method access="protected+"/>
+        </class>
+    </keep-names>
+    <property name="log-file" value="log.xml"/>
+</config>
