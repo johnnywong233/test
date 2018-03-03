@@ -19,6 +19,7 @@
         <module>simple_dao</module>
         <module>pic_downloader</module>
         <module>spring_freemarker_mail</module>
+        <module>yaml_groovy</module>
     </modules>
 
 </project>
