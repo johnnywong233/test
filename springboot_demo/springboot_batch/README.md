@@ -27,3 +27,18 @@ o.s.batch.core.job.SimpleStepHandler : Step already complete or not restartable,
 actuator 提供 13 个接口 endpoint(未来版本会有增加和调整)：
 
 http://localhost:8088/monitor/autoconfig
+
+自定义 endpoint 时的 id 有命名规范限制：
+```
+Id must only contains letters, numbers and '_'
+```
+
+引入 dependency
+```xml
+<dependency>
+    <groupId>de.codecentric</groupId>
+    <artifactId>spring-boot-admin-server-ui</artifactId>
+    <version>1.5.7</version>
+</dependency>
+```
+访问 http://localhost:8080/#/ 可以看到一个简单的监控页面。

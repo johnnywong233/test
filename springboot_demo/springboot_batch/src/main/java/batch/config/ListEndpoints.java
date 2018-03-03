@@ -9,7 +9,8 @@ import java.util.List;
 
 /**
  * Created by Johnny on 2018/3/3.
- * 列举所有端点 http://localhost:8088/monitor/allep
+ * 列举所有端点 http://localhost:8088/monitor/All_ep
+ * Id must only contains letters, numbers and '_'
  */
 @Component
 public class ListEndpoints extends AbstractEndpoint<List<Endpoint>> {
@@ -17,7 +18,7 @@ public class ListEndpoints extends AbstractEndpoint<List<Endpoint>> {
 
     @Autowired
     public ListEndpoints(List<Endpoint> endpoints) {
-        super("All-ep");
+        super("All_ep");
         this.endpoints = endpoints;
     }
 
