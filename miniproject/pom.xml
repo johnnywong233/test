@@ -20,6 +20,7 @@
         <module>pic_downloader</module>
         <module>spring_freemarker_mail</module>
         <module>yaml_groovy</module>
+        <module>spock_groovy_test</module>
     </modules>
 
 </project>
