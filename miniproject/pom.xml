@@ -21,6 +21,7 @@
         <module>spring_freemarker_mail</module>
         <module>yaml_groovy</module>
         <module>spock_groovy_test</module>
+        <module>spi_case</module>
     </modules>
 
 </project>
