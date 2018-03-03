@@ -22,6 +22,7 @@
         <module>yaml_groovy</module>
         <module>spock_groovy_test</module>
         <module>spi_case</module>
+        <module>instrument_case</module>
     </modules>
 
 </project>
