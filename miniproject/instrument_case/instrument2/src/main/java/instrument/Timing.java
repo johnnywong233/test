@@ -12,6 +12,9 @@ import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 
+/**
+ * 使用 Apache 的 bcel 字节码类库实现计算方法执行耗时。
+ */
 public class Timing implements ClassFileTransformer {
 
     private String methodName;

@@ -9,53 +9,37 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>instrument2</artifactId>
+    <artifactId>instrument1</artifactId>
 
     <dependencies>
-        <!--Apache Commons Bytecode Engineering Library-->
         <dependency>
-            <groupId>org.apache.bcel</groupId>
-            <artifactId>bcel</artifactId>
-            <version>5.2</version>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.22.0-GA</version>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>agent</finalName>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.1</version>
+                <version>3.0.2</version>
                 <configuration>
                     <archive>
-                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <outputDirectory>${basedir}</outputDirectory>
-                    <archive>
-                        <index>true</index>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
                         <manifestEntries>
-                            <Premain-Class>instrument.Timing</Premain-Class>
+                            <!--指定启动类，功能类似 MANIFEST.MF 文件，告诉 JVM premain 方法所在类。-->
+                            <Premain-Class>instrument.AopAgentTest</Premain-Class>
+                            <!---->
+                            <Boot-Class-Path>
+                                /Users/wangjian/.m2/repository/org/javassist/javassist/3.22.0-GA/javassist-3.22.0-GA.jar
+                            </Boot-Class-Path>
                         </manifestEntries>
                     </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
                 </configuration>
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <source>1.8</source>
