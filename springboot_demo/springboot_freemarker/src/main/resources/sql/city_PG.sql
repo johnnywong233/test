@@ -1,4 +1,3 @@
---TODO: fix
 CREATE DATABASE city;
 DROP TABLE IF EXISTS city;
 CREATE TABLE city (

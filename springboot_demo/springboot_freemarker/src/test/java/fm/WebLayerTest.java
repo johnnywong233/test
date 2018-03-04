@@ -1,6 +1,6 @@
 package fm;
 
-import fm.web.HomeController;
+import fm.web.BeanController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Time: 11:11
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest(HomeController.class)
+@WebMvcTest(BeanController.class)
 @AutoConfigureRestDocs(outputDir = "target/snippets")
 public class WebLayerTest {
     @Autowired

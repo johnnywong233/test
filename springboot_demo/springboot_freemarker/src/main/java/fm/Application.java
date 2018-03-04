@@ -1,6 +1,5 @@
 package fm;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +15,10 @@ import org.springframework.web.client.RestTemplate;
  * Time: 23:17
  */
 @SpringBootApplication
-@MapperScan("fm.dao")
+//No MyBatis mapper was found in '[fm.mapper.**]' package. Please check your configuration.
+//@MapperScan("fm.mapper.**")
+//@MapperScan(basePackages = "fm.mapper") //也不对
+//傻啊，这个是用来配置扫描 mapper.xml 文件的，不是 mapper 接口。
 public class Application {
     private static final Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -37,8 +39,8 @@ public class Application {
     public static void main(String[] args) throws Exception {
 
         //set proxy in code to get rid of <strong>HPE</strong> clients should 'Use automatic configuration script' <strong>http://autocache.hpecorp.net/</strong>.
-        System.setProperty("http.proxyHost", "web-proxy.atl.hpecorp.net");
-        System.setProperty("http.proxyPort", "8080");
+//        System.setProperty("http.proxyHost", "web-proxy.atl.hpecorp.net");
+//        System.setProperty("http.proxyPort", "8080");
         SpringApplication.run(Application.class, args);
     }
 }

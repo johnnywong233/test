@@ -9,5 +9,19 @@
         <typeAlias alias="LinkedHashMap" type="java.util.LinkedHashMap"/>
         <typeAlias alias="ArrayList" type="java.util.ArrayList"/>
         <typeAlias alias="LinkedList" type="java.util.LinkedList"/>
+        <package name="fm.domain"/>
     </typeAliases>
+
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!--配置数据库方言 -->
+            <property name="dialect" value="mysql"/>
+            <!--<property name="offsetAsPageNum" value="false"/>-->
+            <!--<property name="rowBoundsWithCount" value="false"/>-->
+            <!--<property name="pageSizeZero" value="true"/>-->
+            <!--<property name="reasonable" value="false"/>-->
+            <!--<property name="supportMethodsArguments" value="false"/>-->
+            <!--<property name="returnPageInfo" value="none"/>-->
+        </plugin>
+    </plugins>
 </configuration>

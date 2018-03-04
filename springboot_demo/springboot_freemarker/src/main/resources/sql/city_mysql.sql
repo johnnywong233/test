@@ -1,5 +1,3 @@
--- TODO: why this error in dBeaver, right in IDEA?
-CREATE DATABASE city;
 DROP TABLE IF EXISTS `city`;
 CREATE TABLE `city` (
   `id`          INT(10) UNSIGNED NOT NULL AUTO_INCREMENT
@@ -17,10 +15,3 @@ CREATE TABLE `city` (
   DEFAULT CHARSET = utf8;
 
 INSERT city VALUES (1, 1, 'SH', 'SH is a city that you cannot love.');
--- 
--- CREATE TABLE public.city (
--- 	id INTEGER NOT NULL,
--- 	province_id INTEGER NOT NULL,
--- 	city_name VARCHAR,
--- 	description VARCHAR
--- );

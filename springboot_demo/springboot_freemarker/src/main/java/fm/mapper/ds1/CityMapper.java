@@ -1,4 +1,4 @@
-package fm.dao;
+package fm.mapper.ds1;
 
 import fm.domain.City;
 import org.apache.ibatis.annotations.Param;
@@ -10,7 +10,7 @@ import java.util.List;
  * Date: 2017/7/15
  * Time: 23:31
  */
-public interface CityDao {
+public interface CityMapper {
     /**
      * 获取城市信息列表
      */
