@@ -48,6 +48,7 @@
         <module>springboot_webflux</module>
         <module>springboot_dubbo</module>
         <module>springboot_kafka</module>
+        <module>springboot_oauth2_2</module>
     </modules>
 
     <parent>
