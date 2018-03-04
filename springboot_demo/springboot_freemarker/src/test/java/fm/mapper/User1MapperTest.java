@@ -3,7 +3,9 @@ package fm.mapper;
 import fm.domain.User;
 import fm.domain.UserSexEnum;
 import fm.mapper.ds1.User1Mapper;
+import fm.service.UserService;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,15 @@ import java.util.List;
 public class User1MapperTest {
     @Autowired
     private User1Mapper userMapper;
+
+    @Autowired
+    private UserService userService;
+
+    @Before
+    public void setUp() {
+        // 准备，清空user表
+        userService.deleteAllUsers();
+    }
 
     @Test
     public void testInsert() throws Exception {
@@ -44,7 +55,7 @@ public class User1MapperTest {
     @Test
     public void testUpdate() throws Exception {
         userMapper.insert(new User("Johnny", "root", UserSexEnum.MAN));
-        User user = userMapper.getOne(50L);
+        User user = userService.getByName("Johnny");
         System.out.println(user.toString());
         user.setNickName("johnny");
         userMapper.update(user);
