@@ -17,10 +17,10 @@ CREATE TABLE `city` (
   DEFAULT CHARSET = utf8;
 
 INSERT city VALUES (1, 1, 'SH', 'SH is a city that you cannot love.');
-
-CREATE TABLE public.city (
-	id INTEGER NOT NULL,
-	province_id INTEGER NOT NULL,
-	city_name VARCHAR,
-	description VARCHAR
-);
+-- 
+-- CREATE TABLE public.city (
+-- 	id INTEGER NOT NULL,
+-- 	province_id INTEGER NOT NULL,
+-- 	city_name VARCHAR,
+-- 	description VARCHAR
+-- );

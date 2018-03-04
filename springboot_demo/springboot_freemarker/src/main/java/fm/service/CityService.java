@@ -20,6 +20,8 @@ public interface CityService {
      */
     City findCityById(Long id);
 
+    City findCityByName(String name);
+
     /**
      * 新增城市信息
      */

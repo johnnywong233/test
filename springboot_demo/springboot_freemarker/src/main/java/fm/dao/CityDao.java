@@ -18,8 +18,12 @@ public interface CityDao {
 
     /**
      * 根据城市 ID，获取城市信息
+     * 注意这里的定义，添加requestParam来避免这种报错
+     * MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Long';
      */
     City findById(@Param("id") Long id);
+
+    City findByName(@Param("cityName") String cityName);
 
     Long saveCity(City city);
 
