@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.johnny.dao.ScheduleJobDao">
+    <resultMap type="com.johnny.model.ScheduleJob" id="scheduleJobResult">
+        <id column="job_id" property="jobId" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="job_name" property="jobName" jdbcType="VARCHAR"/>
+        <result column="job_group" property="jobGroup" jdbcType="VARCHAR"/>
+        <result column="job_status" property="jobStatus" jdbcType="VARCHAR"/>
+        <result column="cron_expression" property="cronExpression"
+                jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="bean_class" property="beanClass" jdbcType="VARCHAR"/>
+        <result column="is_concurrent" property="isConcurrent"
+                jdbcType="VARCHAR"/>
+        <result column="spring_id" property="springId" jdbcType="VARCHAR"/>
+        <result column="method_name" property="methodName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        job_id, create_time, update_time, job_name, job_group,
+        job_status,
+        cron_expression,
+        description, bean_class, is_concurrent,
+        spring_id, method_name
+    </sql>
+
+</mapper>
