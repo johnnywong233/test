@@ -1,23 +1,11 @@
 package com.johnny.service.image;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class ImageInfo {
-    private int height;
     private int width;
-
-    ImageInfo(int width, int height) {
-        this.height = height;
-        this.width = width;
-    }
-
-    public int getWidth() {
-        return this.width;
-    }
-
-    public int getHeight() {
-        return this.height;
-    }
-
-    public String toString() {
-        return "height: " + this.height + ", width: " + this.width;
-    }
+    private int height;
 }

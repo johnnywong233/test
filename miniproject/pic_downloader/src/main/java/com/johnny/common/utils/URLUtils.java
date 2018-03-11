@@ -69,7 +69,16 @@ public class URLUtils {
 
     public static void main(String[] args) throws IOException {
         try {
+            System.out.println(readSource("http://www.douban.com/photos/album/51681522/"));
             System.out.println(exists("https://img1.doubanio.com/view/photo/raw/public/p2321685527.jpg"));
+
+            System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795/#image"));
+            System.out.println("==========");
+            System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795"));
+            System.out.println("==========");
+            System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795/"));
+            System.out.println("==========");
+            System.out.println(URLUtils.exists("https://www.douban.com/photos/photo/2494849795/#6"));
         } catch (IOException e) {
             e.printStackTrace();
         }

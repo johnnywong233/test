@@ -112,7 +112,7 @@ public class PageAnalyzer {
 
         List<String> removeList = new ArrayList<>();
         for (Entry<String, BGImage> element : result.entrySet()) {
-            if (!albumHandler.checkBGImage((BGImage) element.getValue())) {
+            if (!albumHandler.checkBGImage(element.getValue())) {
                 removeList.add(element.getKey());
             }
         }

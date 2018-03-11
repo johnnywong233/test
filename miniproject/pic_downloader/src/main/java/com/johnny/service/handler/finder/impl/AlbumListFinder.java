@@ -11,8 +11,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AlbumListFinder
-        implements IAlbumURLFinder {
+public class AlbumListFinder implements IAlbumURLFinder {
     private static final int PAGE_SIZE_ALBUM = 16;
 
     public List<String> findAlbumURL(String albumListURL) {
@@ -54,7 +53,7 @@ public class AlbumListFinder
                 albumURLSet.add(url);
             }
         }
-        return new ArrayList<String>(albumURLSet);
+        return new ArrayList<>(albumURLSet);
     }
 
     public String getURLRegex() {

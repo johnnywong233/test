@@ -7,6 +7,7 @@ import com.johnny.model.BGImage;
 import com.johnny.service.handler.AlbumHandler;
 import com.johnny.service.handler.PageAnalyzer;
 import com.johnny.ui.MainFrame;
+import lombok.NoArgsConstructor;
 
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+@NoArgsConstructor
 public class DownloadProcessing {
     private static MainFrame mainFrame = MainFrame.getInstance();
     private static JProgressBar processUnitProgressBar;
@@ -27,9 +29,6 @@ public class DownloadProcessing {
     static {
         processUnitProgressBar = mainFrame.processUnitProgressBar;
         processUnitCountLabel = mainFrame.processUnitCountLabel;
-    }
-
-    public DownloadProcessing() {
     }
 
     public static void downloadAlbum(Album album) {

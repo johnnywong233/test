@@ -33,7 +33,7 @@ public class Common {
     public static final String CHARTSET_GB2312 = "gb2312";
     public static final int DOWNLOAD_THREAD = 15;
     public static final String IMAGE_TYPE = "gif|jpg|png";
-    public static final Integer AUTO_DOWNLOAD_FAIL_FILE = Integer.valueOf(5);
+    public static final Integer AUTO_DOWNLOAD_FAIL_FILE = 5;
     public static final String HTML_TEMPLATE_IMAGE = "<div class=\"photos\"><div class=\"desc\">${owner}${desc}</div><div class=\"number\">${num}</div><a href=\"${commentURL}\" target=\"_blank\"><img src=\"${image}\"/></a></div>";
     public static final String HTML_TAG_IMAGES = "${images}";
     public static final String HTML_TAG_IMAGES_TOTAL = "${imagesTotal}";
@@ -52,7 +52,7 @@ public class Common {
     public static final String HTML_TAG_RAW = "${raw}";
     public static final Integer RAW_TYPE_LARGE = 1;
     public static final Integer RAW_TYPE_UNCOMPRESSED = 2;
-    public static String VERSION = "v0.5.7";
+    public static String VERSION = "v0.5.10";
     public static SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     public static String PATH_DOWNLOAD = "";
     public static String PATH_APP = "";

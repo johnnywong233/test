@@ -2,8 +2,7 @@ package com.johnny.service.image;
 
 import java.util.Comparator;
 
-public class ImageListComparator
-        implements Comparator<String> {
+public class ImageListComparator implements Comparator<String> {
     public int compare(String p1, String p2) {
         String regex = "p\\d+.(gif|jpg|png)";
         p1 = p1.substring(p1.lastIndexOf("/") + 1);

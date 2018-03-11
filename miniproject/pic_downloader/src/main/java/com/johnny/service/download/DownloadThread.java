@@ -3,6 +3,7 @@ package com.johnny.service.download;
 import com.johnny.common.Common;
 import com.johnny.common.Console;
 import com.johnny.common.utils.URLUtils;
+import lombok.NoArgsConstructor;
 
 import javax.swing.JProgressBar;
 import java.io.BufferedInputStream;
@@ -17,6 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+@NoArgsConstructor
 public class DownloadThread extends Thread {
     private List<String> imageURLList;
     private String path;
@@ -25,9 +27,6 @@ public class DownloadThread extends Thread {
     private JProgressBar mainProgressBar;
     private BufferedInputStream inputStream;
     private BufferedOutputStream outputStream;
-
-    DownloadThread() {
-    }
 
     DownloadThread(String name, List<String> imageURLList, int imageCount, String path, JProgressBar mainProgressBar) {
         this.imageURLList = imageURLList;

@@ -9,14 +9,14 @@ public class TestJarFile {
     public static void main(String[] args)
             throws IOException {
         JarFile jar = new JarFile("C:/Users/Think/Desktop/x.jar");
-        String pakageName = "com.johnny.service.handler.finder.impl";
-        pakageName = pakageName.replaceAll("\\.", "/");
+        String packageName = "com.johnny.service.handler.finder.impl";
+        packageName = packageName.replaceAll("\\.", "/");
 
         Enumeration<JarEntry> e = jar.entries();
         while (e.hasMoreElements()) {
-            JarEntry jarEntry = (JarEntry) e.nextElement();
+            JarEntry jarEntry = e.nextElement();
             String entryName = jarEntry.getName();
-            if ((entryName.contains(pakageName)) && (entryName.endsWith(".class"))) {
+            if ((entryName.contains(packageName)) && (entryName.endsWith(".class"))) {
                 System.out.println("name:" + entryName);
             }
         }

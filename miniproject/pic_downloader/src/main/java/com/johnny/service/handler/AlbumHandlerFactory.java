@@ -19,12 +19,14 @@ public class AlbumHandlerFactory {
 
     static {
         List<Class<?>> finderClassList = ReflectUtils.getClassWithPackage(PACKAGE_FINDER);
-        for (Class<?> finderClass : finderClassList) {
-            try {
-                IAlbumURLFinder obj = (IAlbumURLFinder) finderClass.newInstance();
-                albumURLFinderMap.put(obj.getURLRegex(), obj);
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
+        if (finderClassList != null) {
+            for (Class<?> finderClass : finderClassList) {
+                try {
+                    IAlbumURLFinder obj = (IAlbumURLFinder) finderClass.newInstance();
+                    albumURLFinderMap.put(obj.getURLRegex(), obj);
+                } catch (InstantiationException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

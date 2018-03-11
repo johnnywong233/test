@@ -2,33 +2,12 @@ package com.johnny.ui;
 
 import com.johnny.common.Common;
 import com.johnny.common.Console;
-import com.johnny.common.VersionChecker;
 import com.johnny.service.DownloadService;
 import com.johnny.service.creator.HtmlCreator;
 import com.johnny.ui.component.DropTextArea;
 
-import javax.swing.GroupLayout;
+import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.LayoutStyle;
-import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -108,14 +87,14 @@ public class MainFrame extends JFrame {
             }
             MainFrame.getInstance().setVisible(true);
         });
-        if (VersionChecker.haveNewVersion()) {
+       /* if (VersionChecker.haveNewVersion()) {
             int result = JOptionPane.showConfirmDialog(getInstance(),
                     "有新版本，是否立即查看？", "版本提示", 0,
                     3);
             if (result == 0)
                 Common.openURLWithBrowse("http://www.douban.com/note/206320326/",
                         getInstance());
-        }
+        }*/
     }
 
     private void initComponents() {

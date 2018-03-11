@@ -78,7 +78,7 @@ public class DownloadManager {
                 Console.print("---------------------------------------------------");
                 for (Entry<Thread, Integer> entry : waitThreadMap.entrySet()) {
                     DownloadThread t = (DownloadThread) entry.getKey();
-                    Integer time = (Integer) entry.getValue();
+                    Integer time = entry.getValue();
                     String sb = "等待线程" + " - " + t.getName() + " - [" + time + "s]" +
                             " = " + t.getUrl();
                     Console.print(sb);
@@ -101,7 +101,7 @@ public class DownloadManager {
             try {
                 Console.print("下载图片(" + num + "/" + size + ")：" + element.getKey());
                 DownloadThread downloadThread = new DownloadThread();
-                downloadThread.downloadImage((String) element.getKey(), (String) element.getValue(), true);
+                downloadThread.downloadImage(element.getKey(), element.getValue(), true);
             } catch (IOException e) {
                 Console.print("图片下载失败：" + element.getKey());
                 failMap.put(element.getKey(), element.getValue());

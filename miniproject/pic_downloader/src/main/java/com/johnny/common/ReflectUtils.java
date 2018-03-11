@@ -99,17 +99,21 @@ public class ReflectUtils {
         String jarPath = URLDecoder.decode(ReflectUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "utf-8");
         File dir = new File(jarPath + "/" + pkg.replaceAll("\\.", "/"));
         File[] files = dir.listFiles((dir1, name) -> name.endsWith(".class"));
-        for (File f : files) {
-            String className = f.getName().substring(0, f.getName().indexOf("."));
-            Class<?> clazz = Class.forName(pkg + "." + className);
-            list.add(clazz);
+        if (files != null) {
+            for (File f : files) {
+                String className = f.getName().substring(0, f.getName().indexOf("."));
+                Class<?> clazz = Class.forName(pkg + "." + className);
+                list.add(clazz);
+            }
         }
         return list;
     }
 
     public static void main(String[] args) {
         List<Class<?>> list = getClassWithPackage("com.johnny.service.handler.finder.impl");
-        for (Class<?> cls : list)
-            System.out.println(cls);
+        if (list != null) {
+            for (Class<?> cls : list)
+                System.out.println(cls);
+        }
     }
 }

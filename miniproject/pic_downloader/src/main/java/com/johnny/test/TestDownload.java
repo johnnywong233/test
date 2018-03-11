@@ -24,7 +24,8 @@ public class TestDownload {
             InputStream in = conn.getInputStream();
 
             BufferedInputStream inputStream = new BufferedInputStream(in);
-            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File("d://TEST.JPG")));
+            //保存的实际上是 html 文件
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File("TEST")));
             byte[] data = new byte[1024];
             int n;
             while ((n = inputStream.read(data)) != -1) {

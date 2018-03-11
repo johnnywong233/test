@@ -5,6 +5,7 @@ import com.johnny.common.utils.URLUtils;
 import com.johnny.model.Album;
 import com.johnny.model.BGImage;
 import com.johnny.service.image.ImageListComparator;
+import lombok.NoArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,11 +18,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@NoArgsConstructor
 public abstract class AlbumHandler {
     protected String albumURL;
-
-    public AlbumHandler() {
-    }
 
     public AlbumHandler(String albumURL) {
         this.albumURL = albumURL;
