@@ -1,0 +1,25 @@
+.jqis {
+    position: relative;
+}
+
+.jqis_header {
+    background: url('../images/arrow.png') no-repeat right center;
+    cursor: pointer;
+}
+
+.jqis_header img {
+    cursor: pointer;
+}
+
+.jqis_dropdown {
+    padding: 5px;
+    position: absolute;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.jqis_dropdown img {
+    margin-right: 3px;
+    cursor: pointer;
+    float: left;
+}
