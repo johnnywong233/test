@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Hello Spring Boot!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}"/>
+    <link href="../static/css/core.css" rel="stylesheet" media="screen" th:href="@{/css/core.css}"/>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+</head>
+<body>
+<!-- Header -->
+<div th:replace="fragments/header :: header">
+    <!-- ============================================================================ -->
+    <!-- This content is only used for static prototyping purposes (natural templates)-->
+    <!-- and is therefore entirely optional, as this markup fragment will be included -->
+    <!-- from "fragments/header.html" at runtime.                                     -->
+    <!-- ============================================================================ -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Static header</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+
+    <h1>Bean validation examples</h1>
+
+    <p>
+        <a href="bettermessages/bid.html" th:href="@{bettermessages}">Better error messages</a>
+    </p>
+    <p>
+        <a href="validationgroups/start.html" th:href="@{validationgroups}">Validation groups</a>
+    </p>
+    <p>
+        <a href="globalerrors/password.html" th:href="@{globalerrors/password}">Global errors</a>
+    </p>
+
+    <p>
+        <a href="groupsequence/code.html" th:href="@{groupsequence/code}">Group sequence</a>
+    </p>
+
+    <p>
+        <a href="manual/user.html" th:href="@{manual/user}">Manual validation</a>
+    </p>
+
+    <div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
+</div>
+</body>
+</html>
