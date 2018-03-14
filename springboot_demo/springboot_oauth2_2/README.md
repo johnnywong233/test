@@ -40,3 +40,14 @@ Authorization=bearer 1ca2b5a8-8288-414c-abad-96f0627f6c6c
 ### 参考
 - [oauth2理论](http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html)
 - [应用项目](http://blog.csdn.net/lightofmiracle/article/details/79151074)
+
+### 修改 tomcat 版本
+pom 文件添加：
+```xml
+<properties>
+    <tomcat.version>9.0.0.M6</tomcat.version>
+</properties>
+```
+一个问题，想要修改 tomcat 的默认版本，必须要添加```spring-boot-starter-tomcat```，
+不要因为```spring-boot-starter-web```包含```spring-boot-starter-tomcat```，
+就可以不需要添加，现在是期望更改 tomcat 的默认版本，只有直接添加这个dependency 之后，修改才可以生效。
