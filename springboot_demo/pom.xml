@@ -49,6 +49,10 @@
         <module>springboot_dubbo</module>
         <module>springboot_kafka</module>
         <module>springboot_oauth2_2</module>
+        <module>springboot_jpa</module>
+        <module>springboot_neo4j</module>
+        <module>springboot_security</module>
+        <module>springboot_validator</module>
     </modules>
 
     <parent>
