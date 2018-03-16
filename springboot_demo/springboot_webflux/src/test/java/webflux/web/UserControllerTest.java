@@ -1,6 +1,8 @@
 package webflux.web;
 
+import org.junit.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 import webflux.domain.User;
 
@@ -10,6 +12,7 @@ import webflux.domain.User;
 public class UserControllerTest {
     private final WebTestClient client = WebTestClient.bindToServer().baseUrl("http://localhost:8080").build();
 
+    //需要 main 方法启动
     @Test
     public void testCreateUser() throws Exception {
         final User user = new User();
