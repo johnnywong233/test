@@ -19,7 +19,7 @@ public class Client {
      * </head>
      * </html>
      */
-    @annotation.HereDocument
+    @HereDocument
     private static String html;
 
     public static void main(final String[] args) {
