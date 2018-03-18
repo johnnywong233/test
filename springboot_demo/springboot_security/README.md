@@ -1,3 +1,5 @@
+仅学习用，[源码](https://github.com/chenfromsz/spring-boot-security)
+
 ### step
 1. create Mysql DB: test
 2. config application.yml set db url,username,password

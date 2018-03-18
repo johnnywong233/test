@@ -6,7 +6,7 @@ package pattern.chain.case1;
  * Time: 17:19
  */
 public abstract class ChainHandler {
-    void execute(Chain chain){
+    void execute(Chain chain) {
         handleProcess();
         chain.proceed();
     }

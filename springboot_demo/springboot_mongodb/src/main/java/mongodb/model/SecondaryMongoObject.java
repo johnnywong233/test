@@ -24,6 +24,6 @@ public class SecondaryMongoObject {
 
     @Override
     public String toString() {
-        return "PrimaryMongoObject{" + "id='" + id + '\'' + ", value='" + value + '\'' + '}';
+        return "SecondaryMongoObject{" + "id='" + id + '\'' + ", value='" + value + '\'' + '}';
     }
 }

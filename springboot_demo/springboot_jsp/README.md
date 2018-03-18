@@ -52,7 +52,8 @@ How:
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
-
+```
+```xml
 <build>
         <plugins>
             <!--NOTED: do not use 2.2.2 version, because when execute
@@ -77,6 +78,23 @@ How:
         </plugins>
 </build>
 ```
+using git-commit-id plugin to run command: git-commit-id:revision, double click;
+check run message like:
+```
+[INFO] pl.project13.maven.git.log.MavenLoggerBridge - dotGitDirectory /Users/wangjian/GitHub/test/.git
+[INFO] pl.project13.maven.git.log.MavenLoggerBridge - git.build.user.name 王健
+...
+```
+check the folder under target, see git.properties file;
+
+start app, check /info: 
+```curl localhost:8080/info```
+
+and config in application.properties:
+```
+management.info.git.mode=full
+```
+to get a full git commit info through actuator.
 
 ## spring event
 annotation @EventListener and abstract class ApplicationEvent

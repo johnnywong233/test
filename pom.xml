@@ -48,6 +48,7 @@
         <module>web_project</module>
         <module>miniproject</module>
         <module>spring_showcase</module>
+        <module>pattern</module>
     </modules>
 
     <name>test</name>

@@ -7,6 +7,18 @@ package pattern.chain.case1;
  * 责任链模式的演示demo
  */
 public class Client {
+    public static void main(String[] args) {
+        Handler handlerA = new HandlerA();
+        Handler handlerB = new HandlerB();
+        Handler handlerC = new HandlerC();
+
+        //缺点：需要反复set下一个对象
+        handlerA.setSuccessor(handlerB);
+        handlerB.setSuccessor(handlerC);
+
+        handlerA.execute();
+    }
+
     static class HandlerA extends Handler {
         @Override
         protected void handleProcess() {
@@ -26,17 +38,5 @@ public class Client {
         protected void handleProcess() {
             System.out.println("handle by c");
         }
-    }
-
-    public static void main(String[] args) {
-        Handler handlerA = new HandlerA();
-        Handler handlerB = new HandlerB();
-        Handler handlerC = new HandlerC();
-
-        //缺点：需要反复set下一个对象
-        handlerA.setSuccessor(handlerB);
-        handlerB.setSuccessor(handlerC);
-
-        handlerA.execute();
     }
 }

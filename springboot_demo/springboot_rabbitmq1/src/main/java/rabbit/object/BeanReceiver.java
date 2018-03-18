@@ -11,6 +11,7 @@ import rabbit.entity.Person;
  * Time: 7:59
  */
 @Component
+//通过 @RabbitListener 注解定义该类对 object 队列的监听，并用 @RabbitHandler 注解来指定对消息的处理方法。
 @RabbitListener(queues = "object")
 public class BeanReceiver {
     @RabbitHandler

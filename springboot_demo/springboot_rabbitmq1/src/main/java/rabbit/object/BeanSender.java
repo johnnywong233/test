@@ -17,6 +17,7 @@ public class BeanSender {
 
     public void send(Person person) {
         System.out.println("Sender object: " + person.toString());
+        //发送到名为 object 的队列中。
         this.rabbitTemplate.convertAndSend("object", person);
     }
 }

@@ -11,9 +11,9 @@ import lombok.Data;
 public abstract class Handler {
     private Handler successor;
 
-    void execute(){
+    void execute() {
         handleProcess();
-        if(successor != null){
+        if (successor != null) {
             successor.execute();
         }
     }

@@ -2,6 +2,7 @@ package project.mvcDemo.action;
 
 import com.google.gson.Gson;
 
+@Data
 public class ResultContent {
     private String url;
     private Object obj;
