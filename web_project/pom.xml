@@ -16,7 +16,7 @@
         <module>mail_demo</module>
         <module>web_exception_project</module>
         <module>spring_cxf_ws</module>
-        <module>wink_rest</module>
+        <module>jfreechart</module>
     </modules>
 
 
