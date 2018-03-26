@@ -1,9 +1,14 @@
 package cache;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 /**
  * Created by johnny on 2016/10/6.
  * define class cache
  */
+@Data
+@AllArgsConstructor
 public class Cache {
     private String key;//缓存ID
     private Object value;//缓存数据
@@ -12,44 +17,5 @@ public class Cache {
 
     Cache() {
         super();
-    }
-
-    public Cache(String key, Object value, long timeOut, boolean expired) {
-        this.key = key;
-        this.value = value;
-        this.timeOut = timeOut;
-        this.expired = expired;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    long getTimeOut() {
-        return timeOut;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    public void setKey(String string) {
-        key = string;
-    }
-
-    void setTimeOut(long l) {
-        timeOut = l;
-    }
-
-    public void setValue(Object object) {
-        value = object;
-    }
-
-    public boolean isExpired() {
-        return expired;
-    }
-
-    void setExpired(boolean b) {
-        expired = b;
     }
 }

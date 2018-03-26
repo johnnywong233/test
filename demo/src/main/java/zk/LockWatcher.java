@@ -1,5 +1,9 @@
 package zk;
 
+import org.apache.zookeeper.*;
+import org.apache.zookeeper.data.Stat;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
@@ -27,7 +31,7 @@ public class LockWatcher implements Watcher {
     private static final String LOCK_ROOT_PATH = "/myDisLocks";
     private static final String LOCK_SUB_PATH = LOCK_ROOT_PATH + "/thread";
 
-    public LockWatcher(CountDownLatch latch) {
+    LockWatcher(CountDownLatch latch) {
         this.threadCompleteLatch = latch;
     }
 
@@ -85,7 +89,7 @@ public class LockWatcher implements Watcher {
      * @param path 节点path
      * @param data 初始数据内容
      */
-    public boolean createPersistentPath(String path, String data, boolean needWatch) throws KeeperException, InterruptedException {
+    boolean createPersistentPath(String path, String data, boolean needWatch) throws KeeperException, InterruptedException {
         if (zk.exists(path, needWatch) == null) {
             String result = zk.create(path, data.getBytes(), ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             System.out.println(Thread.currentThread().getName() + "创建节点成功, path: " + result + ", content: " + data);

@@ -1,6 +1,7 @@
 package project.mvcDemo.action;
 
 import com.google.gson.Gson;
+import lombok.Data;
 
 @Data
 public class ResultContent {
@@ -13,10 +14,6 @@ public class ResultContent {
 
     public ResultContent(Object obj) {
         this.obj = obj;
-    }
-
-    public String getUrl() {
-        return url;
     }
 
     public String getJson() {

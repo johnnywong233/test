@@ -18,7 +18,7 @@ public class IntegerTest {
         for (int i = 0; i < cache.length; i++) {
             cache[i] = new Random().nextInt(cache.length);
         }
-        System.out.println("Cache size for integer type: "+ cache.length);
+        System.out.println("Cache size for integer type: " + cache.length);
         for (int i = 0; i < 10; i++) {
             System.out.println((Integer) i); //这个时候1不是1 ，2也不是2
         }

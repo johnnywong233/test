@@ -19,7 +19,7 @@ public class MyDistributedLockByZK {
     /**
      * ZK的相关配置常量
      **/
-    private static final String CONNECTION_STRING = "192.168.224.170:2181";
+    private static final String CONNECTION_STRING = "192.0.0.1:2181";
     private static final int SESSION_TIMEOUT = 10000;
     // 此变量在LockWatcher中也有一个同名的静态变量，正式使用的时候，提取到常量类中共同维护即可。
     private static final String LOCK_ROOT_PATH = "/myDisLocks";
@@ -42,7 +42,7 @@ public class MyDistributedLockByZK {
     /**
      *  模拟并发执行任务
      */
-    public static void startProcess() {
+    private static void startProcess() {
         Runnable disposeBusinessRunnable = new Thread(() -> {
             String threadName = Thread.currentThread().getName();
 
