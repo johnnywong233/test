@@ -31,6 +31,7 @@ mvn install:install-file -Dfile=jdk.tools-1.8.jar -DgroupId=jdk -DartifactId=too
 mvn install:install-file -Dfile=jmxtools-1.2.1.jar -DgroupId=com.sun.jdmk -DartifactId=jmxtools -Dversion=1.2.1 -Dpackaging=jar
 mvn install:install-file -Dfile=jms-1.1.jar -DgroupId=javax.jms -DartifactId=jms -Dversion=1.1 -Dpackaging=jar
  
+mvn install:install-file -Dfile=mybatis-pagination-1.0.0.jar -DgroupId=org.mybatis -DartifactId=mybatis-pagination -Dversion=1.0.0 -Dpackaging=jar
 
 
 
