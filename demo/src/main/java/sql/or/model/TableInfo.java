@@ -1,36 +1,19 @@
 package sql.or.model;
 
+import lombok.Data;
+
 /**
  * Author: Johnny
  * Date: 2017/7/1
  * Time: 22:25
  */
+@Data
 public class TableInfo {
     private String databaseName;
 
     private String tableName;
 
     private String fullName;
-
-    public String getDatabaseName() {
-        return databaseName;
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -48,9 +31,5 @@ public class TableInfo {
         result = 31 * result + this.databaseName.hashCode();
         result = 31 * result + this.fullName.hashCode();
         return result;
-    }
-
-    public void setDatabaseName(String databaseName) {
-        this.databaseName = databaseName;
     }
 }
