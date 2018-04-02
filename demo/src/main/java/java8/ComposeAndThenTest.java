@@ -1,12 +1,15 @@
 package java8;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.testng.annotations.Test;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import org.testng.annotations.Test;
 
 /**
  * Author: Johnny
@@ -92,55 +95,18 @@ public class ComposeAndThenTest {
         return employeeList.stream().map(funcEmpToEmp).collect(Collectors.toList());
     }
 
+    @AllArgsConstructor
     private class Student {
         public int id;
         public double gpa;
         public String name;
-
-        Student(int id, long g, String name) {
-            this.id = id;
-            this.gpa = g;
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return id + ">" + name + ": " + gpa;
-        }
     }
 
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     private class Employee {
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
         public String name;
-
-        public int getAge() {
-            return age;
-        }
-
-        public void setAge(int age) {
-            this.age = age;
-        }
-
         public int age;
-
-        public Employee(String name, int age) {
-            this.name = name;
-            this.age = age;
-        }
-        
-        public Employee() {
-        	
-        }
-        
     }
-
-
 }

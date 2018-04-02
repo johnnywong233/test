@@ -1,9 +1,8 @@
 package java8;
 
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
-
 
 /**
  * Created by wajian on 2016/10/12.

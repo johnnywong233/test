@@ -69,12 +69,12 @@
             <version>1.1</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
             <version>1.7.0.13</version>
             <scope>system</scope>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.mongodb</groupId>
@@ -84,10 +84,10 @@
 
         <!--comment this due to conflict with logback, when need this, then add its components one by one if stick to logback-->
         <dependency>
-              <groupId>org.apache.activemq</groupId>
-              <artifactId>activemq-all</artifactId>
-              <version>5.8.0</version>
-          </dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-all</artifactId>
+            <version>5.15.3</version>
+        </dependency>
 
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -1023,9 +1023,9 @@
         </dependency>-->
 
         <dependency>
-            <groupId>open-replicator</groupId>
+            <groupId>com.flipkart</groupId>
             <artifactId>open-replicator</artifactId>
-            <version>1.0.7</version>
+            <version>1.0.8</version>
         </dependency>
 
         <dependency>
@@ -1106,20 +1106,50 @@
             <version>2.29</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.aviator</groupId>
+            <artifactId>aviator</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
     </dependencies>
 
-<!--    <distributionManagement>
-        <repository>
-            <id>deployment</id>
-            <name>internal</name>
-            <url>http://{nexus_server}/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>deployment</id>
-            <name>internal</name>
-            <url>http://{nexus_server}/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>-->
+    <!--    <distributionManagement>
+            <repository>
+                <id>deployment</id>
+                <name>internal</name>
+                <url>http://{nexus_server}/nexus/content/repositories/releases</url>
+            </repository>
+            <snapshotRepository>
+                <id>deployment</id>
+                <name>internal</name>
+                <url>http://{nexus_server}/nexus/content/repositories/snapshots</url>
+            </snapshotRepository>
+        </distributionManagement>-->
 
     <repositories><!--
         <repository>

@@ -1,15 +1,19 @@
 package utils;
 
-import java.text.DateFormat;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
+
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * Author: Johnny
@@ -19,6 +23,46 @@ import org.testng.annotations.Test;
 public class DateUtil {
 
     private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
+
+    public static Date minusDays(Date date, Integer days) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        LocalDateTime endOfMonth = localDateTime.minusDays(days);
+        return localDateTimeToDate(endOfMonth);
+    }
+
+    public static Date getEndOfDay(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        LocalDateTime endOfDay = localDateTime.with(LocalTime.MAX);
+        return localDateTimeToDate(endOfDay);
+    }
+
+    public static Date getEndOfMonth(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        LocalDateTime endOfMonth = localDateTime.plusMonths(1).withDayOfMonth(1).minusDays(1)
+                .with(LocalTime.MAX);
+        return localDateTimeToDate(endOfMonth);
+    }
+
+    public static Date getStartOfDay(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        LocalDateTime startOfDay = localDateTime.with(LocalTime.MIN);
+        return localDateTimeToDate(startOfDay);
+    }
+
+    public static Date getStartOfMonth(Date date) {
+        LocalDateTime localDateTime = dateToLocalDateTime(date);
+        LocalDateTime startOfMonth = localDateTime.withDayOfMonth(1).with(LocalTime.MIN);
+        return localDateTimeToDate(startOfMonth);
+    }
+
+    private static Date localDateTimeToDate(LocalDateTime startOfDay) {
+        return Date.from(startOfDay.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    private static LocalDateTime dateToLocalDateTime(Date date) {
+        return LocalDateTime
+                .ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
+    }
 
     /**
      * @description：获取现在时间
