@@ -22,8 +22,8 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        Set<String> roleNames = new HashSet<String>();
-        Set<String> permissions = new HashSet<String>();
+        Set<String> roleNames = new HashSet<>();
+        Set<String> permissions = new HashSet<>();
         roleNames.add("administrator");//add user
         permissions.add("newPage.jhtml");  //add permission
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleNames);

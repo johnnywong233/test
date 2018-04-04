@@ -1,11 +1,6 @@
 package util;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -16,7 +11,7 @@ import java.security.SecureRandom;
 public class DecriptUtil {
 
     /**
-     * @parameter： str：待加密字符串，secretKeyBase：用于生成密钥的基础字符串
+     * @param str：待加密字符串，secretKeyBase：用于生成密钥的基础字符串
      **/
     public static byte[] encryptAES(String str, String secretKeyBase) {
         try {
@@ -29,26 +24,17 @@ public class DecriptUtil {
             byte[] byteContent = str.getBytes("UTF-8");
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return cipher.doFinal(byteContent);
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
+                | UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
         return null;
     }
 
     /**
-     * @parameter： strByteArray：待解密字节数组，
-     * @parameter： secretKeyBase：用于生成密钥的基础字符串， 需要注意的是EAS是对称加密，所以secretKeyBase在加密解密时要一样的
-     * @return： 解密后字符串
+     * @param strByteArray：待解密字节数组，
+     * @param secretKeyBase：用于生成密钥的基础字符串， 需要注意的是EAS是对称加密，所以secretKeyBase在加密解密时要一样的
+     * @return 解密后字符串
      **/
     public static String decryptAES(byte[] strByteArray, String secretKeyBase) {
         try {
@@ -60,17 +46,8 @@ public class DecriptUtil {
             Cipher cipher = Cipher.getInstance("AES");//create a instance
             cipher.init(Cipher.DECRYPT_MODE, key);//init
             return new String(cipher.doFinal(strByteArray), "UTF-8"); //encrypt
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException | BadPaddingException
+                | IllegalBlockSizeException | InvalidKeyException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
         return null;

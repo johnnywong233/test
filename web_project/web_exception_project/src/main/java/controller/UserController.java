@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import util.DecriptUtil;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,46 +20,46 @@ import java.util.Map;
 public class UserController {
 
     @RequestMapping("/index.jhtml")
-    public ModelAndView getIndex(HttpServletRequest request) throws Exception {
+    public ModelAndView getIndex() {
         return new ModelAndView("index");
     }
 
     @RequestMapping("/exceptionForPageJumps.jhtml")
-    public ModelAndView exceptionForPageJumps(HttpServletRequest request) throws Exception {
+    public ModelAndView exceptionForPageJumps() {
         throw new BusinessException(ErrorCode.NULL_OBJ);
     }
 
     @RequestMapping(value = "/businessException.json", method = RequestMethod.POST)
     @ResponseBody
-    public String businessException(HttpServletRequest request) {
+    public String businessException() {
         throw new BusinessException(ErrorCode.NULL_OBJ);
     }
 
     @RequestMapping(value = "/otherException.json", method = RequestMethod.POST)
     @ResponseBody
-    public String otherException(HttpServletRequest request) throws Exception {
+    public String otherException() throws Exception {
         throw new Exception();
     }
 
     //redirect to login page
     @RequestMapping("/login.jhtml")
-    public ModelAndView login() throws Exception {
+    public ModelAndView login() {
         return new ModelAndView("login");
     }
 
     //redirect to login success page
     @RequestMapping("/loginsuccess.jhtml")
-    public ModelAndView loginsuccess() throws Exception {
+    public ModelAndView loginsuccess() {
         return new ModelAndView("loginsuccess");
     }
 
     @RequestMapping("/newPage.jhtml")
-    public ModelAndView newPage() throws Exception {
+    public ModelAndView newPage() {
         return new ModelAndView("newPage");
     }
 
     @RequestMapping("/newPageNotAdd.jhtml")
-    public ModelAndView newPageNotAdd() throws Exception {
+    public ModelAndView newPageNotAdd() {
         return new ModelAndView("newPageNotAdd");
     }
 
@@ -68,7 +67,7 @@ public class UserController {
     @RequestMapping(value = "/checkLogin.json", method = RequestMethod.POST)
     @ResponseBody
     public String checkLogin(String username, String password) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         try {
             UsernamePasswordToken token = new UsernamePasswordToken(username, DecriptUtil.MD5(password));
             Subject currentUser = SecurityUtils.getSubject();
@@ -88,7 +87,7 @@ public class UserController {
     @RequestMapping(value = "/logout.json", method = RequestMethod.POST)
     @ResponseBody
     public String logout() {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         result.put("success", true);
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.logout();

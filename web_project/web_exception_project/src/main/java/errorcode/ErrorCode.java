@@ -1,5 +1,10 @@
 package errorcode;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum ErrorCode {
 
     NULL_OBJ("LUO001", "object is null"),
@@ -9,30 +14,4 @@ public enum ErrorCode {
 
     private String value;
     private String desc;
-
-    private ErrorCode(String value, String desc) {
-        this.setValue(value);
-        this.setDesc(desc);
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + this.value + "]" + this.desc;
-    }
 }

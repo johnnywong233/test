@@ -15,7 +15,7 @@ login successfully...........
             data: {},
             dataType: "json",
             success: function (data) {
-                if (data.success == false) {
+                if (data.success === false) {
                     alert(data.errorMsg);
                 } else {
                     alert("logout succeed");
