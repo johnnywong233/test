@@ -1,40 +1,43 @@
-// Fig. 5.6_01:  CodeMakerServlet.java
-// 生成验证码 的 Servlet
-
 package servlet.loginValidate;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-import java.awt.image.*;
-import java.awt.*;
-import javax.imageio.*;
+import javax.imageio.ImageIO;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-public class CodeMakerServlet extends HttpServlet
-{
-	private static final long serialVersionUID = 4612235776159128501L;
+/**
+ * 生成验证码 的 Servlet
+ */
+public class CodeMakerServlet extends HttpServlet {
+    private static final long serialVersionUID = 4612235776159128501L;
 
-	private Font[] codeFont =
-    {
-        new Font("Algerian", Font.BOLD, 65), 
-		new Font("Vivaldi", Font.BOLD, 85),
-        new Font("Broadway", Font.BOLD, 60),
-		new Font("Forte", Font.BOLD, 75)
-    };
+    private Font[] codeFont =
+            {
+                    new Font("Algerian", Font.BOLD, 65),
+                    new Font("Vivaldi", Font.BOLD, 85),
+                    new Font("Broadway", Font.BOLD, 60),
+                    new Font("Forte", Font.BOLD, 75)
+            };
 
     private Color[] color =
-    {
-       Color.BLACK, Color.RED, Color.DARK_GRAY, Color.BLUE
-    };
+            {
+                    Color.BLACK, Color.RED, Color.DARK_GRAY, Color.BLUE
+            };
 
-    String codeNumbers = "";
+    private String codeNumbers = "";
 
-    int width = 250, height = 70;
+    private int width = 250, height = 70;
 
     // 处理 HTTP get 请求
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-                      throws ServletException, IOException
-    {
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 清空缓冲区 
         response.reset();
 
@@ -46,8 +49,7 @@ public class CodeMakerServlet extends HttpServlet
         response.setDateHeader("Expires", 0);
 
         // create a image of 250X70
-        BufferedImage image = new BufferedImage(width, height,
-                                                BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         // 得到图形环境对象 g
         Graphics g = image.getGraphics();
@@ -56,8 +58,7 @@ public class CodeMakerServlet extends HttpServlet
         g.setColor(Color.YELLOW);
         g.fillRect(0, 0, width, height);
 
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             drawCode(g, i);
         }
 
@@ -69,8 +70,8 @@ public class CodeMakerServlet extends HttpServlet
         // 将验证码内容保存进session中
         HttpSession session = request.getSession(true);
         session.setAttribute("codeNumbers", codeNumbers);
-        
-		//重设字符串
+
+        //重设字符串
         codeNumbers = "";
 
         // 利用ImageIO类的write方法对图像进行编码
@@ -79,32 +80,28 @@ public class CodeMakerServlet extends HttpServlet
         sos.close();
     }
 
-    public void drawCode(Graphics graphics, int i)
-    {
-        int number = (int)(Math.random() * 10);
+    private void drawCode(Graphics graphics, int i) {
+        int number = (int) (Math.random() * 10);
         graphics.setFont(codeFont[i]);
         graphics.setColor(color[i]);
         graphics.drawString("" + number, 10 + i * 60, 60);
-
         codeNumbers += number;
     }
 
-    public void drawNoise(Graphics graphics, int lineNumber)
-    {
+    private void drawNoise(Graphics graphics, int lineNumber) {
         graphics.setColor(Color.YELLOW);
-        for (int i = 0; i < lineNumber; i++)
-        {
-            int pointX1 = 1 + (int)(Math.random() * width);
-            int pointY1 = 1 + (int)(Math.random() * height);
-            int pointX2 = 1 + (int)(Math.random() * width);
-            int pointY2 = 1 + (int)(Math.random() * height);
+        for (int i = 0; i < lineNumber; i++) {
+            int pointX1 = 1 + (int) (Math.random() * width);
+            int pointY1 = 1 + (int) (Math.random() * height);
+            int pointX2 = 1 + (int) (Math.random() * width);
+            int pointY2 = 1 + (int) (Math.random() * height);
             graphics.drawLine(pointX1, pointY1, pointX2, pointY2);
         }
     }
+
     // 处理 HTTP post 请求, 和doGet一样
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException
-    {
+            throws ServletException, IOException {
         doGet(request, response);
     }
 }

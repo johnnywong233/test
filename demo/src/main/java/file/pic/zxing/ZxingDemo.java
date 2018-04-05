@@ -44,7 +44,7 @@ public class ZxingDemo {
     public static void main(String[] args) {
         try {
             //BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400, 400,hints);
-            String content = "13400000000";//二维码的内容
+            String content = "https://github.com/johnnywong233";//二维码的内容
             BufferedImage image = genBarcode(content, 400, 400, "F:\\amazed.png");
             if (!ImageIO.write(image, "jpg", new File("F:\\2122.jpg"))) {
                 throw new IOException("Could not write an image of format ");

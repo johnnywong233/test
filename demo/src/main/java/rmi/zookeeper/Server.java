@@ -9,7 +9,7 @@ public class Server {
             System.err.println("please using command: java Server <rmi_host> <rmi_port>");
             System.exit(-1);
         }
- 
+
         String host = args[0];
         int port = Integer.parseInt(args[1]);
         ServiceProvider provider = new ServiceProvider();

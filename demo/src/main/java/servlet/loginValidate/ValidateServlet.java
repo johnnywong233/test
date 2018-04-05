@@ -1,20 +1,22 @@
-// Fig. 5.6_01_02:  ValidateServlet.java
-// 校验认证码的Servlet
-
 package servlet.loginValidate;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 
-public class ValidateServlet extends HttpServlet
-{
-	private static final long serialVersionUID = 3391706760785590707L;
+/**
+ * 校验认证码的Servlet
+ */
+public class ValidateServlet extends HttpServlet {
+    private static final long serialVersionUID = 3391706760785590707L;
 
-	//处理客户端提交数据的 "Post" 请求
+    //处理客户端提交数据的 "Post" 请求
     protected void doPost(HttpServletRequest request, HttpServletResponse
-        response)throws ServletException, IOException
-    {
+            response) throws ServletException, IOException {
         //发送 XHTML 格式的页面给客户端
         response.setContentType("text/html;charset=utf-8");
 
@@ -28,14 +30,13 @@ public class ValidateServlet extends HttpServlet
 
         // 获取保存在session中的验证码
         HttpSession session = request.getSession();
-        String codeNumbers = (String)session.getAttribute("codeNumbers");
+        String codeNumbers = (String) session.getAttribute("codeNumbers");
 
         String url = "/validate.html";
 
-        if (codeNumbers == null)
-        {
+        if (codeNumbers == null) {
             response.sendRedirect(url);
-            return ;
+            return;
         }
 
         PrintWriter out = response.getWriter();
@@ -43,9 +44,9 @@ public class ValidateServlet extends HttpServlet
         // 开始生成 XHTML 文档
         out.println("<?xml version = \"1.0\"?>");
 
-        out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD " + 
-			"XHTML 1.0 Strict//EN\" \"http://www.w3.org" + 
-			"/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
+        out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD " +
+                "XHTML 1.0 Strict//EN\" \"http://www.w3.org" +
+                "/TR/xhtml1/DTD/xhtml1-strict.dtd\">");
 
         out.println("<html xmlns = \"http://www.w3.org/1999/xhtml\">");
 
@@ -56,20 +57,15 @@ public class ValidateServlet extends HttpServlet
         out.println("<body>");
 
         // 校验用户输入的验证码和session中的验证码是否相同
-        if (codeNumbers.equals(validateCode))
-        {
+        if (codeNumbers.equals(validateCode)) {
             out.println(
-                "<h1><font color=\"green\">输入相同,校验成功</font></h1> ");
-        }
-        else
-        {
+                    "<h1><font color=\"green\">输入相同,校验成功</font></h1> ");
+        } else {
             out.println("<h1><font color=\"red\">Input error, validate fail</font> <br>");
             out.println("<p>Please input again<a href=\"" + url +
-				"\">Input code</a><h1></p>");
+                    "\">Input code</a><h1></p>");
         }
-
         out.println("</body>");
-
         // 结束 XHTML 文档
         out.println("</html>");
         out.close();
@@ -77,8 +73,7 @@ public class ValidateServlet extends HttpServlet
 
     // 处理客户端提交数据的 "get" 请求, 和doPost一样
     protected void doGet(HttpServletRequest request, HttpServletResponse
-        response)throws ServletException, IOException
-    {
+            response) throws ServletException, IOException {
         doPost(request, response);
     }
 }

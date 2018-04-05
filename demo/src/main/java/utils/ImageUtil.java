@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -20,6 +21,8 @@ import java.util.List;
  */
 public class ImageUtil {
     private static final String PICTRUE_FORMATE_JPG = "jpg";
+
+    private static double screenWidth, screenHeight;  // for resizing the wallpaper
 
     public ImageUtil() {
     }
@@ -166,4 +169,72 @@ public class ImageUtil {
         }
         return null;
     }
+
+    /**
+     * Check which image dimension (width or height) is bigger than the
+     * screen, and crop it. Only one dimension, or none, will be too big.
+     */
+    public static BufferedImage cropImage(BufferedImage scIm) {
+        int imWidth = scIm.getWidth();
+        int imHeight = scIm.getHeight();
+
+        BufferedImage croppedImage;
+        if (imWidth > screenWidth) {     // image width is bigger than screen width
+            // System.out.println("Cropping the width");
+            croppedImage = new BufferedImage((int) screenWidth, imHeight, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = croppedImage.createGraphics();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            int x = ((int) screenWidth - imWidth) / 2;    // crop so image center remains in the center
+            g2d.drawImage(scIm, x, 0, null);
+            g2d.dispose();
+        } else if (imHeight > screenHeight) {
+            // image height is bigger than screen height
+            // System.out.println("Cropping the height");
+            croppedImage = new BufferedImage(imWidth, (int) screenHeight, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = croppedImage.createGraphics();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                    RenderingHints.VALUE_ANTIALIAS_ON);
+            int y = ((int) screenHeight - imHeight) / 2;     // crop so image center remains in the center
+            g2d.drawImage(scIm, 0, y, null);
+            g2d.dispose();
+        } else   // do nothing
+            croppedImage = scIm;
+        // System.out.println("Cropped Image (w, h): (" + croppedImage.getWidth() + ", " + croppedImage.getHeight() + ")");
+        return croppedImage;
+    }
+
+    /**
+     * Scale the image either horizontally or vertically
+     * depending on which screen-dimension/image-dimension ratio is larger, so the image
+     * becomes as large as the screen in one dimension and maybe bigger in the other dimension.
+     */
+    public static BufferedImage scaleImage(BufferedImage im) {
+        int imWidth = im.getWidth();
+        int imHeight = im.getHeight();
+
+        // calculate screen-dimension/image-dimension for width and height
+        double widthRatio = screenWidth / (double) imWidth;
+        double heightRatio = screenHeight / (double) imHeight;
+
+        double scale = (widthRatio > heightRatio) ? widthRatio : heightRatio;
+        // scale is the largest screen-dimension/image-dimension
+
+        // calculate new image dimensions which fit the screen (or makes the image bigger)
+        int scWidth = (int) (imWidth * scale);
+        int scHeight = (int) (imHeight * scale);
+
+        // resize the image
+        BufferedImage scaledImage = new BufferedImage(scWidth, scHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = scaledImage.createGraphics();
+        AffineTransform at = AffineTransform.getScaleInstance(scale, scale);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2d.drawImage(im, at, null);
+        g2d.dispose();
+        return scaledImage;
+    }
+
+
+
 }

@@ -57,14 +57,13 @@ function start() {
 
     local ret
 
-#TODO: comment this for now, better remove this later, as suite should run as root user
-    # running as root is not allowed if not running with jsvc
-#    if ! ${USE_JSVC} && [ $(id -u) == 0 ]; then
-#        echo "ERROR: starting tomcat under uid 0 is not supported" >&2
-#        echo "       use appropriate User/Group settings in service file" >&2
-#        echo "       see man systemd.exec for details" >&2
-#        exit 2
-#    fi
+   # running as root is not allowed if not running with jsvc
+   if ! ${USE_JSVC} && [ $(id -u) == 0 ]; then
+       echo "ERROR: starting tomcat under uid 0 is not supported" >&2
+       echo "       use appropriate User/Group settings in service file" >&2
+       echo "       see man systemd.exec for details" >&2
+       exit 2
+    fi
 
     if [[ "$SECURITY_MANAGER" = "true" ]]; then
         DSECURITY_MANAGER="-Djava.security.manager"

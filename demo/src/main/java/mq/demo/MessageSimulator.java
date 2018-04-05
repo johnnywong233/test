@@ -1,5 +1,7 @@
 package mq.demo;
 
+import lombok.Data;
+
 import java.util.Scanner;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -27,6 +29,7 @@ public class MessageSimulator {
     }
 }
 
+@Data
 class Message {
     //消息类型
     static final int KEY_MSG = 1;
@@ -42,42 +45,6 @@ class Message {
         this.source = source;
         this.type = type;
         this.info = info;
-    }
-
-    public Object getSource() {
-        return source;
-    }
-
-    public void setSource(Object source) {
-        this.source = source;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public static int getKeyMsg() {
-        return KEY_MSG;
-    }
-
-    public static int getMouseMsg() {
-        return MOUSE_MSG;
-    }
-
-    public static int getSysMsg() {
-        return SYS_MSG;
     }
 }
 

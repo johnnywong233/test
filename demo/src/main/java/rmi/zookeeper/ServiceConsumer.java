@@ -1,5 +1,12 @@
 package rmi.zookeeper;
 
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.ConnectException;
@@ -12,14 +19,6 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadLocalRandom;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import org.apache.zookeeper.KeeperException;
-import org.apache.zookeeper.WatchedEvent;
-import org.apache.zookeeper.Watcher;
-import org.apache.zookeeper.ZooKeeper;
-
 public class ServiceConsumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceConsumer.class);
     // 用于等待 SyncConnected 事件触发后继续执行当前线程
@@ -29,7 +28,7 @@ public class ServiceConsumer {
     private volatile List<String> urlList = new ArrayList<>();
  
     // 构造器
-    public ServiceConsumer() {
+    ServiceConsumer() {
         ZooKeeper zk = connectServer(); // 连接 ZooKeeper 服务器并获取 ZooKeeper 对象
         if (zk != null) {
             watchNode(zk); // 观察 /registry 节点的所有子节点并更新 urlList 成员变量
@@ -37,7 +36,7 @@ public class ServiceConsumer {
     }
  
     // 查找 RMI 服务
-    public <T extends Remote> T lookup() {
+    <T extends Remote> T lookup() {
         T service = null;
         int size = urlList.size();
         if (size > 0) {

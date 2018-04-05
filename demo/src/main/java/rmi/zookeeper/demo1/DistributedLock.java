@@ -38,7 +38,7 @@ public class DistributedLock implements Lock, Watcher {
      * @param config   127.0.0.1:2181
      * @param lockName 竞争资源标志,lockName中不能包含单词lock
      */
-    public DistributedLock(String config, String lockName) {
+    DistributedLock(String config, String lockName) {
         this.lockName = lockName;
         // 创建一个与服务器的连接
         try {
@@ -154,11 +154,11 @@ public class DistributedLock implements Lock, Watcher {
     public class LockException extends RuntimeException {
         private static final long serialVersionUID = 1L;
 
-        public LockException(String e) {
+        LockException(String e) {
             super(e);
         }
 
-        public LockException(Exception e) {
+        LockException(Exception e) {
             super(e);
         }
     }

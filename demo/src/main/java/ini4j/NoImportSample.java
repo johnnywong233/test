@@ -7,7 +7,7 @@ import java.util.prefs.Preferences;
  * Date: 2017/2/10
  * Time: 19:02
  */
-public class NoImportSample {
+public class  NoImportSample {
     static {
         System.setProperty("java.util.prefs.PreferencesFactory", "org.ini4j.IniPreferencesFactory");
 

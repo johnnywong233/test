@@ -24,12 +24,12 @@ RUN rm -rf /usr/share/tomcat/webapps/ROOT; \
 # Updating ENV
 ENV http_proxy="" https_proxy=""  CATALINA_BASE=/usr/share/tomcat/ CATALINA_HOME=/usr/share/tomcat/ CATALINA_TMPDIR=/var/cache/tomcat/temp/
 
-#TODO: comment this for now, better remove this later, as suite should run as root user for security reason
-#RUN groupadd -g 1999 demo; \
-#    useradd -d /home/demo -m -s /bin/bash -g 1999 -u 1999 demo; \
-#    usermod -a -G tomcat demo;
+# better run as non-root for security reason
+RUN groupadd -g 1999 demo; \
+    useradd -d /home/demo -m -s /bin/bash -g 1999 -u 1999 demo; \
+    usermod -a -G tomcat demo;
 
-#USER demo
+USER demo
 
 EXPOSE 8080
 

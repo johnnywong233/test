@@ -31,14 +31,14 @@ public class ZxingTest {
         //generate QR code
         try {
             //realise link redirect
-            String content = "http://www.cnblogs.com/jtmjx";
-            String path = "D:\\Java_ex\\test\\src\\test\\resources";
+            String content = "http://blog.csdn.net/lonelymanontheway";
+            String path = "F:\\";
 
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
             Map hints = new HashMap();
             hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-            BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400, 400, hints);
-            File file1 = new File(path, "qxs.jpg");
+            BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 200, 200, hints);
+            File file1 = new File(path, "0.jpeg");
             MatrixToImageWriter.writeToFile(bitMatrix, "jpg", file1);
         } catch (Exception e) {
             e.printStackTrace();

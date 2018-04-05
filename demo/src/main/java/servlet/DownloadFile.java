@@ -1,19 +1,17 @@
 package servlet;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.Date;
 
 /*
  * 文件下载类。为了防止客户端浏览器直接打开目标文件（例如在装了MS Office套件的Windows中
@@ -89,12 +87,14 @@ public class DownloadFile extends HttpServlet {
                     fis.close();
                 }
             } catch (IOException e) {
+                e.printStackTrace();
             } finally {
                 try {
                     if (sos != null) {
                         sos.close();
                     }
                 } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }

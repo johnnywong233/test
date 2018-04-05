@@ -5,7 +5,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.Enumeration;
 
@@ -15,11 +14,11 @@ import java.util.Enumeration;
  * Time: 18:09
  */
 public class ServletConfigTest extends HttpServlet {
-	private static final long serialVersionUID = 4949899146301099570L;
+    private static final long serialVersionUID = 4949899146301099570L;
 
-	//TODO
-	@SuppressWarnings("rawtypes")
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
+    //TODO
+    @SuppressWarnings("rawtypes")
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         ServletConfig config = this.getServletConfig();

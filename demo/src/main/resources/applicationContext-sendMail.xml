@@ -26,7 +26,7 @@
             </props>
         </property>
     </bean>
-    <bean id="templateEmail" class="mail.spring.TemplateEmail">
+    <bean id="templateEmail" class="mail.TemplateEmail">
         <property name="sender" ref="mailSender"></property>
         <property name="freeMarkerConfigurer" ref="freeMarker"></property>
     </bean>

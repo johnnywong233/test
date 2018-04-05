@@ -1,5 +1,14 @@
 package rmi.zookeeper;
 
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooDefs;
+import org.apache.zookeeper.ZooKeeper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -13,18 +22,13 @@ import java.util.concurrent.CountDownLatch;
 //import org.apache.zookeeper.ZooDefs;
 //import org.apache.zookeeper.ZooKeeper;
 
-import org.apache.zookeeper.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class ServiceProvider {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceProvider.class);
     // 用于等待 SyncConnected 事件触发后继续执行当前线程
     private CountDownLatch latch = new CountDownLatch(1);
  
     // 发布 RMI 服务并注册 RMI 地址到 ZooKeeper 中
-    public void publish(Remote remote, String host, int port) {
+    void publish(Remote remote, String host, int port) {
         String url = publishService(remote, host, port); // 发布 RMI 服务并返回 RMI 地址
         if (url != null) {
             ZooKeeper zk = connectServer(); // 连接 ZooKeeper 服务器并获取 ZooKeeper 对象

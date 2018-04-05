@@ -1,25 +1,27 @@
 package useless;
-// Andrew Davison, May 2010, ad@fivedots.coe.psu.ac.th
+/**
+ * Load a series of search words from a file supplied on the command line, and randomly choose one to  use as a query to Google's image search.
+ * <p>
+ * The search results are listed (description and URL), and one is randomly selected. The URL's image is downloaded and
+ * saved as a local BMP file (in WALL_FNM). The image may be scaled and cropped to better fit the screen size.
+ * <p>
+ * Then JNA (https://jna.dev.java.net/) is used to update the Win32 registry's
+ * wallpaper information, and to refresh the desktop without requiring a system reboot.
+ */
 
-/* Load a series of search words from a file supplied on the
-   command line, and randomly choose one to  use as a query to 
-   Google's image search.
+import com.sun.jna.Native;
+import com.sun.jna.platform.win32.Advapi32Util;
+import com.sun.jna.platform.win32.WinReg;
+import com.sun.jna.win32.StdCallLibrary;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import utils.ImageUtil;
+import utils.WebUtils;
 
-   The search results are listed (description and URL), and one is 
-   randomly selected. The URL's image is downloaded and
-   saved as a local BMP file (in WALL_FNM). The image may be
-   scaled and cropped to better fit the screen size.
-
-   Then JNA (https://jna.dev.java.net/) is used to update the Win32 registry's
-   wallpaper information, and to refresh the desktop without requiring
-   a system reboot.
-*/
-
+import javax.imageio.ImageIO;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,20 +31,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import utils.WebUtils;
-
-import com.sun.jna.Native;
-import com.sun.jna.platform.win32.Advapi32Util;
-import com.sun.jna.platform.win32.WinReg;
-import com.sun.jna.win32.StdCallLibrary;
-
 
 public class BaiduWallpaper {
     private static final String DEFAULT_SEARCH = "nature";
@@ -68,8 +56,8 @@ public class BaiduWallpaper {
 
         BufferedImage im = selectImage(json);         // select a result and download its image
         if (im != null) {
-            BufferedImage scaleIm = scaleImage(im);     // scale
-            BufferedImage cropIm = cropImage(scaleIm);  // crop
+            BufferedImage scaleIm = ImageUtil.scaleImage(im);     // scale
+            BufferedImage cropIm = ImageUtil.cropImage(scaleIm);  // crop
 
             saveWallPaper(WALL_FNM, cropIm);    // save image as a BMP in WALL_FNM
             installWallpaper(WALL_FNM);   // make WALL_FNM the new desktop wallpaper
@@ -78,7 +66,7 @@ public class BaiduWallpaper {
 
     // load the search words from wordsFnm and select one at random
     @SuppressWarnings("unused")
-	private static String selectSearchWord(String wordsFnm) {
+    private static String selectSearchWord(String wordsFnm) {
         ArrayList<String> words = loadSearchWords(wordsFnm);
         if (words.size() == 0)
             return DEFAULT_SEARCH;
@@ -93,7 +81,7 @@ public class BaiduWallpaper {
      * Return the words as a list.
      */
     private static ArrayList<String> loadSearchWords(String wordsFnm) {
-        ArrayList<String> words = new ArrayList<String>();
+        ArrayList<String> words = new ArrayList<>();
         System.out.println("Reading file: " + wordsFnm);
         try {
             BufferedReader br = new BufferedReader(new FileReader(wordsFnm));
@@ -212,72 +200,6 @@ public class BaiduWallpaper {
         return image;
     }
 
-    /**
-     * Scale the image either horizontally or vertically
-     * depending on which screen-dimension/image-dimension ratio is larger, so the image
-     * becomes as large as the screen in one dimension and maybe bigger in the other dimension.
-     */
-    private static BufferedImage scaleImage(BufferedImage im) {
-        int imWidth = im.getWidth();
-        int imHeight = im.getHeight();
-
-        // calculate screen-dimension/image-dimension for width and height
-        double widthRatio = screenWidth / (double) imWidth;
-        double heightRatio = screenHeight / (double) imHeight;
-
-        double scale = (widthRatio > heightRatio) ? widthRatio : heightRatio;
-        // scale is the largest screen-dimension/image-dimension
-
-        // calculate new image dimensions which fit the screen (or makes the image bigger)
-        int scWidth = (int) (imWidth * scale);
-        int scHeight = (int) (imHeight * scale);
-
-        // resize the image
-        BufferedImage scaledImage = new BufferedImage(scWidth, scHeight, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2d = scaledImage.createGraphics();
-        AffineTransform at = AffineTransform.getScaleInstance(scale, scale);
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-                RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        g2d.drawImage(im, at, null);
-        g2d.dispose();
-        return scaledImage;
-    }
-
-    /**
-     * Check which image dimension (width or height) is bigger than the
-     * screen, and crop it. Only one dimension, or none, will be too big.
-     */
-    private static BufferedImage cropImage(BufferedImage scIm) {
-        int imWidth = scIm.getWidth();
-        int imHeight = scIm.getHeight();
-
-        BufferedImage croppedImage;
-        if (imWidth > screenWidth) {     // image width is bigger than screen width
-            // System.out.println("Cropping the width");
-            croppedImage = new BufferedImage((int) screenWidth, imHeight, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = croppedImage.createGraphics();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            int x = ((int) screenWidth - imWidth) / 2;    // crop so image center remains in the center
-            g2d.drawImage(scIm, x, 0, null);
-            g2d.dispose();
-        } else if (imHeight > screenHeight) {  // image height is bigger than screen height
-            // System.out.println("Cropping the height");
-            croppedImage = new BufferedImage(imWidth, (int) screenHeight, BufferedImage.TYPE_INT_RGB);
-            Graphics2D g2d = croppedImage.createGraphics();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            int y = ((int) screenHeight - imHeight) / 2;     // crop so image center remains in the center
-            g2d.drawImage(scIm, 0, y, null);
-            g2d.dispose();
-        } else   // do nothing
-            croppedImage = scIm;
-
-        // System.out.println("Cropped Image (w, h): (" + croppedImage.getWidth() + ", " +
-        //                                               croppedImage.getHeight() + ")");
-        return croppedImage;
-    }
-
     // save the image as a BMP in <fnm>
     private static void saveWallPaper(String fnm, BufferedImage im) {
         System.out.println("Saving image to " + fnm);
@@ -287,7 +209,6 @@ public class BaiduWallpaper {
             System.out.println("Could not save file");
         }
     }
-
 
     /**
      * Wallpaper installation requires three changes to thw Win32
@@ -328,8 +249,6 @@ public class BaiduWallpaper {
             System.out.println("Could not find directory path");
         }
     }
-
-    // ---------------------------------------------
 
     /**
      * JNA Win32 extensions includes a User32 class, but it doesn't contain

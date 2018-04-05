@@ -33,7 +33,7 @@ public class QRCode {
     //http://blog.csdn.net/u013142781/article/details/50310419
     public static void main(String[] args) throws WriterException {
         try {
-            getLogoQRCode("https://www.baidu.com/", "跳转到百度的二维码");
+            getLogoQRCode("https://github.com/johnnywong233", "跳转到百度的二维码");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -1,13 +1,12 @@
 package servlet;
 
-import java.util.logging.Logger;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.logging.Logger;
 
 /**
  * Created by wajian on 2016/8/28.

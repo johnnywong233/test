@@ -1,10 +1,5 @@
 package rmi.zookeeper;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
@@ -15,6 +10,11 @@ import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Id;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by wajian on 2016/8/30.
  */
@@ -22,19 +22,17 @@ public class ZookeeperClientDemo implements Watcher {
 
     private static class PropertiesDynLoading {
 
-        public static final String connectString = "192.168.57.128:9181";
-        public static final int sessionTimeout = 3000;
-        public static final String authScheme = "digest";
-        public static final String accessKey = "cache:svcctlg";
-        public static final boolean authentication = false;
+        static final String connectString = "localhost:9181";
+        static final int sessionTimeout = 3000;
+        static final String authScheme = "digest";
+        static final String accessKey = "cache:svcctlg";
+        static final boolean authentication = false;
     }
 
     private ZooKeeper zk;
 
     /**
      * 创建zookeeper客户端
-     *
-     * @return
      */
     private boolean createZkClient() {
         try {
@@ -68,11 +66,9 @@ public class ZookeeperClientDemo implements Watcher {
      *
      * @param path 节点路径
      * @param data 节点数据
-     * @return
      */
     private boolean createPersistentNode(String path, String data) {
         if (isConnected()) {
-
             try {
                 if (PropertiesDynLoading.authentication) {
                     zk.create(path, data.getBytes(), getAdminAcls(), CreateMode.PERSISTENT);
@@ -93,9 +89,8 @@ public class ZookeeperClientDemo implements Watcher {
     /**
      * 创建瞬时节点
      *
-     * @param path
-     * @param data
-     * @return
+     * @param path 节点路径
+     * @param data 节点数据
      */
     private boolean createEphemeralNode(String path, String data) {
         if (isConnected()) {
@@ -119,9 +114,8 @@ public class ZookeeperClientDemo implements Watcher {
     /**
      * 修改数据
      *
-     * @param path
-     * @param data
-     * @return
+     * @param path 节点路径
+     * @param data 节点数据
      */
     private boolean setNodeData(String path, String data) {
         if (isConnected()) {
@@ -141,8 +135,7 @@ public class ZookeeperClientDemo implements Watcher {
     /**
      * 删除节点
      *
-     * @param path
-     * @return
+     * @param path 节点路径
      */
     private boolean deleteNode(String path) {
         if (isConnected()) {
@@ -162,10 +155,9 @@ public class ZookeeperClientDemo implements Watcher {
     /**
      * 获取节点值
      *
-     * @param path
-     * @return
+     * @param path 节点路径
      */
-    public String getNodeData(String path) {
+    private String getNodeData(String path) {
         if (isConnected()) {
             String data;
             try {
@@ -185,10 +177,9 @@ public class ZookeeperClientDemo implements Watcher {
     /**
      * 获取path子节点名列表
      *
-     * @param path
-     * @return
+     * @param path 节点路径
      */
-    public List<String> getChildren(String path) {
+    private List<String> getChildren(String path) {
         if (isConnected()) {
             try {
                 return zk.getChildren(path, false);
@@ -208,18 +199,13 @@ public class ZookeeperClientDemo implements Watcher {
 
     /**
      * zookeeper是否连接服务器
-     *
-     * @return
      */
-    public boolean isConnected() {
+    private boolean isConnected() {
         return zk.getState().isConnected();
     }
 
     /**
      * 是否存在path路径节点
-     *
-     * @param path
-     * @return
      */
     public boolean exists(String path) {
         try {
@@ -233,7 +219,7 @@ public class ZookeeperClientDemo implements Watcher {
     /**
      * 关闭zookeeper
      */
-    public void closeZk() {
+    private void closeZk() {
         if (isConnected()) {
             try {
                 zk.close();
@@ -247,9 +233,6 @@ public class ZookeeperClientDemo implements Watcher {
         }
     }
 
-    /**
-     * @return
-     */
     public List<ACL> getCreateNodeAcls() {
         List<ACL> listAcls = new ArrayList<>(3);
         try {
@@ -264,7 +247,7 @@ public class ZookeeperClientDemo implements Watcher {
         return listAcls;
     }
 
-    public List<ACL> getAdminAcls() {
+    private List<ACL> getAdminAcls() {
         List<ACL> listAcls = new ArrayList<>(3);
         try {
             Id id = new Id(PropertiesDynLoading.authScheme,
