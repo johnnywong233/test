@@ -38,7 +38,7 @@ public class BatchConfig {
     }
 
     @Bean
-    public Job job(Step step1) throws Exception {
+    public Job job(Step step1) {
         return jobBuilderFactory.get("job1")
                 .incrementer(new RunIdIncrementer())
                 .start(step1)

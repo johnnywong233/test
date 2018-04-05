@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentItemProcessor implements ItemProcessor<Student, Student> {
     @Override
-    public Student process(Student student) throws Exception {
+    public Student process(Student student) {
         student.setAge(student.getAge() + 1);
         student.setName(student.getName() + "awesome");
         return student;
