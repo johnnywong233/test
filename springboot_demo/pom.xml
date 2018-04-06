@@ -53,6 +53,7 @@
         <module>springboot_neo4j</module>
         <module>springboot_security</module>
         <module>springboot_validator</module>
+        <module>springboot_drools</module>
     </modules>
 
     <parent>
