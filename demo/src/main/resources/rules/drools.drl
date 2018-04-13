@@ -1,0 +1,43 @@
+package drools
+
+import drools.EntityRule;
+
+rule accountEntity
+//One
+salience 100
+lock-on-active true
+when
+    $entityRule : EntityRule(account == true)
+then
+    System.out.println("The new account:Present ￥20.0");
+    $entityRule.setCurrentMoney($entityRule.getCurrentMoney() + 20);
+    $entityRule.getSerialNumber($entityRule.getUsername(), $entityRule.getCurrentMoney());
+    System.out.println();
+end
+
+rule billEntity
+//two
+salience 99
+lock-on-active true
+date-effective "2018-010-01 00:00:00"
+date-expires "2018-012-31 23:59:59"
+when
+    $entityRule : EntityRule(addTime >= 3)
+then
+    System.out.println("Prepaid phone number reach " + $entityRule.getAddTime() + " times:Present ￥" + $entityRule.getAddTime()/3*5);
+    $entityRule.setCurrentMoney($entityRule.getCurrentMoney() + $entityRule.getAddTime()/3*5);
+    $entityRule.getSerialNumber($entityRule.getUsername(), $entityRule.getCurrentMoney());
+    System.out.println();
+end
+
+rule addMoney
+//Three
+salience 98
+lock-on-active true
+when
+    $entityRule : EntityRule(totalAddMoney >= 100)
+then
+System.out.println("The account for the month top-up total amount is " +$entityRule.getTotalAddMoney()+":Present ￥" + (int)$entityRule.getTotalAddMoney()/100*10);
+$entityRule.setCurrentMoney($entityRule.getCurrentMoney() + (int)$entityRule.getTotalAddMoney()/100 * 10);
+$entityRule.getSerialNumber($entityRule. getUsername(), $entityRule.getCurrentMoney());
+end
