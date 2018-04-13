@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -23,6 +24,21 @@ import java.util.TimeZone;
 public class DateUtil {
 
     private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
+
+    public static final String STANDARD_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
+    public static Date convert2Date(String str, String format) {
+        if (str == null || "".equals(str)) {
+            return null;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        try {
+            return sdf.parse(str);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
     public static Date minusDays(Date date, Integer days) {
         LocalDateTime localDateTime = dateToLocalDateTime(date);
@@ -172,15 +188,16 @@ public class DateUtil {
     }
 
     //get the days in current month
-    public static int daysInMonth(){
+    public static int daysInMonth() {
         Calendar c = Calendar.getInstance();
         return c.getActualMaximum(Calendar.DAY_OF_MONTH);
     }
 
     /**
      * parse the timezone string into a TimeZone object.
+     *
      * @param strTimeZone timeZone in string
-     * @return  timeZone
+     * @return timeZone
      */
     public static TimeZone parseTimeZone(String strTimeZone) {
         TimeZone timeZone = null;
@@ -192,7 +209,7 @@ public class DateUtil {
     }
 
     public static String discardMillsAndConvert(String dateString) {
-        if("0001-01-01T00:00:00".equalsIgnoreCase(dateString)){
+        if ("0001-01-01T00:00:00".equalsIgnoreCase(dateString)) {
             return null;
         }
         return convertDateFormat(discardMills(dateString));
@@ -213,9 +230,9 @@ public class DateUtil {
     }
 
     private static String discardMills(String dateString) {
-        if(dateString != null){
+        if (dateString != null) {
             int i = dateString.indexOf(".");
-            if(i != -1){
+            if (i != -1) {
                 dateString = dateString.substring(0, i) + "Z";
             }
         }
@@ -223,7 +240,7 @@ public class DateUtil {
     }
 
     @Test
-    public static void testDiscardMillsAndConvert(){
+    public static void testDiscardMillsAndConvert() {
         System.out.println(discardMillsAndConvert("2016-04-15T08:29:34.1874452Z"));
         System.out.println(discardMillsAndConvert("2016-05-26T05:34:35.914Z"));
         System.out.println(discardMillsAndConvert("2016-05-26T05:28:37Z"));
@@ -235,9 +252,9 @@ public class DateUtil {
     public static void main(String[] args) {
 
         Calendar date = Calendar.getInstance();
-        date.set(2017,03,04);
+        date.set(2017, 03, 04);
         System.out.println("to" + Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH));//4
-        
+
         //to get which day of the week is the current day:Day of week in month(1-5):一个月的第几个周几？
         System.out.println(new SimpleDateFormat("F").format(new Date()));
         //Day name in week

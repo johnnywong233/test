@@ -1,32 +1,23 @@
 package utils;
 
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.io.FileUtils;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Author: Johnny
  * Date: 2016/11/17
  * Time: 23:45
  */
+@Slf4j
 public class CsvUtil {
     private BufferedReader br = null;
     private List<String> list = new ArrayList<>();
@@ -255,6 +246,91 @@ public class CsvUtil {
                         file1.delete();
                         return;
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * 生成Csv文件
+     *
+     * @param dataList     数据列表
+     * @param destFileFold 目标文件目录
+     * @param destFileName 目标文件文件名
+     * @param title        标题
+     */
+    public static void writeCsv(List<String[]> dataList, String destFileFold, String destFileName, String[] title) {
+        OutputStreamWriter out = null;
+        CSVWriter writer = null;
+        try {
+            File file = new File(destFileFold);
+            if (!file.exists()) {
+                FileUtils.forceMkdir(file);
+            }
+            String filePath = destFileFold + File.separator + destFileName;
+            out = new OutputStreamWriter(new FileOutputStream(new File(filePath)), "UTF-8");
+            writer = new CSVWriter(out);
+            if (title.length != 0) {
+                writer.writeNext(title);
+            }
+            writer.writeAll(dataList);
+        } catch (Exception e) {
+            log.warn("WriteCsv failed.", e);
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    log.warn("Failed to close CSV writer.", e);
+                }
+            }
+
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    log.warn("Failed to close output stream reader.", e);
+                }
+            }
+        }
+    }
+
+    /**
+     * 解析Csv文件
+     *
+     * @param srcFilePath 源文件路径
+     * @param hasTitle    是否包含标题
+     */
+    public static List<String[]> readCsv(String srcFilePath, boolean hasTitle) throws Exception {
+        List<String[]> dataList;
+        InputStreamReader isr = null;
+        CSVReader csvReader = null;
+        try {
+            File file = new File(srcFilePath);
+            isr = new InputStreamReader(new FileInputStream(file), "UTF-8");
+            csvReader = new CSVReader(isr);
+            if (hasTitle) {
+                csvReader.readNext();
+            }
+            dataList = csvReader.readAll();
+            return dataList;
+        } catch (Exception e) {
+            log.warn("ReadCsv failed.", e);
+            throw new Exception();
+        } finally {
+            if (csvReader != null) {
+                try {
+                    csvReader.close();
+                } catch (IOException e) {
+                    log.warn("Failed to close CSV reader.", e);
+                }
+            }
+
+            if (isr != null) {
+                try {
+                    isr.close();
+                } catch (IOException e) {
+                    log.warn("Failed to close input stream reader.", e);
                 }
             }
         }

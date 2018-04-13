@@ -34,7 +34,7 @@ public class SerilizationUtils {
     /**
      * 装配属性到key&value类
      */
-    public static <T> List<T> buildExtendClz(Object rawObject, Class<T> targetClz) {
+    public static <T> List<T> buildExtendClz(Object rawObject, Class<T> targetClz) throws Exception {
         if (!checkKeyValueFieldExist(targetClz)) {
             return null;
         }
@@ -73,7 +73,7 @@ public class SerilizationUtils {
             return result;
         } catch (Exception e) {
             log.error("无法序列为domain类" + targetClz.getName());
-            throw new CjjServerException(ERR_SERIALIZATION_FAIL_CODE, ERR_SERIALIZATION_FAIL_MSG);
+            throw new Exception();
         }
     }
 
@@ -158,7 +158,7 @@ public class SerilizationUtils {
     /**
      * 从key&value表读取到Bo层对象重载方法，输入为KeyPair结构
      */
-    public static <T> T parseKVListToObject(List<?> list, Class<T> beanClass) {
+    public static <T> T parseKVListToObject(List<?> list, Class<T> beanClass) throws Exception {
         try {
             if (CollectionUtils.isEmpty(list)) {
                 return null;
@@ -188,7 +188,7 @@ public class SerilizationUtils {
             return parseKVMapToObject(keyValueMap, beanClass);
         } catch (Exception e) {
             log.error("解析为bean{}失败", beanClass.getName());
-            throw new CjjServerException(ERR_DESERIALIZATION_FAIL_CODE, ERR_DESERIALIZATION_FAIL_MSG);
+            throw new Exception();
         }
     }
 
