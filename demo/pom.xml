@@ -346,6 +346,10 @@
                     <artifactId>commons-cli</artifactId>
                     <groupId>commons-cli</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>core</artifactId>
+                    <groupId>org.eclipse.jdt</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -1146,6 +1150,19 @@
             <groupId>org.drools</groupId>
             <artifactId>drools-compiler</artifactId>
             <version>5.0.1</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>core</artifactId>
+                    <groupId>org.eclipse.jdt</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--for drools-compiler -->
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>org.eclipse.jdt.core</artifactId>
+            <version>3.13.101</version>
         </dependency>
         
         <dependency>
