@@ -1,6 +1,11 @@
 package junit.junit5;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+
+import java.util.EnumSet;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -56,5 +61,14 @@ class FirstJUnit5Tests {
     @DisplayName("依赖注入2")
     void testReporter(final TestReporter testReporter) {
         testReporter.publishEntry("name", "Alex");
+    }
+
+    /**
+     * junit5 参数化单元测试，在 Junit4时，想要实现这个效果需要外部化数据，或者使用JUnitParams
+     */
+    @ParameterizedTest
+    @EnumSource(value = TimeUnit.class, names = {"DAYS", "HOURS"})
+    void testWithEnumSourceInclude(TimeUnit timeUnit) {
+        assertTrue(EnumSet.of(TimeUnit.DAYS, TimeUnit.HOURS).contains(timeUnit));
     }
 }
