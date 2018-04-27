@@ -1,21 +1,10 @@
 package file.cpdetector;
 
-import info.monitorenter.cpdetector.io.ASCIIDetector;
-import info.monitorenter.cpdetector.io.ByteOrderMarkDetector;
-import info.monitorenter.cpdetector.io.CodepageDetectorProxy;
-import info.monitorenter.cpdetector.io.JChardetFacade;
-import info.monitorenter.cpdetector.io.ParsingDetector;
-import info.monitorenter.cpdetector.io.UnicodeDetector;
-
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
-
+import info.monitorenter.cpdetector.io.*;
 import org.apache.log4j.Logger;
+
+import java.io.*;
+import java.nio.charset.Charset;
 
 /**
  * Created by johnny on 2016/8/20.
@@ -148,7 +137,7 @@ public class FileDetectorTest {
             detector.add(parsingDetector);
             // This one does the tricks of exclusion and frequency detection, if first implementation is
             // unsuccessful:
-            detector.add(JChardetFacade.getInstance());
+//            detector.add(JChardetFacade.getInstance());
             detector.add(ASCIIDetector.getInstance());
             detector.add(UnicodeDetector.getInstance());
         }
@@ -160,7 +149,7 @@ public class FileDetectorTest {
             fastDetector = CodepageDetectorProxy.getInstance();
             fastDetector.add(UnicodeDetector.getInstance());
             fastDetector.add(byteOrderMarkDetector);
-            fastDetector.add(JChardetFacade.getInstance());
+//            fastDetector.add(JChardetFacade.getInstance());
             fastDetector.add(ASCIIDetector.getInstance());
         }
         return fastDetector;

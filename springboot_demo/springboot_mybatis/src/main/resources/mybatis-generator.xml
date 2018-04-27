@@ -10,13 +10,14 @@
             <property name="replaceString" value="Criteria"/>
         </plugin>
 
+        <!-- optional，旨在创建class时，对注释进行控制 -->
         <commentGenerator>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
 
         <jdbcConnection driverClass="org.postgresql.Driver"
-                        connectionURL="jdbc:postgresql://localhost:5432/springboot" userId="postgres"
-                        password="1Qaz">
+                        connectionURL="jdbc:postgresql://localhost:5432/springboot" userId="wangjian"
+                        password="">
         </jdbcConnection>
 
         <javaTypeResolver>
@@ -24,12 +25,24 @@
         </javaTypeResolver>
 
         <!-- generate Model -->
-        <javaModelGenerator targetPackage="mybatis.model"
+        <javaModelGenerator targetPackage="mybatis.domain"
                             targetProject="${entity.target.dir}">
-            <property name="enableSubPackages" value="true"/>
+            <!-- 是否对model添加 构造函数 -->
+            <property name="constructorBased" value="true"/>
+
+            <!-- 是否允许子包，即targetPackage.schemaName.tableName -->
+            <property name="enableSubPackages" value="false"/>
+
+            <!-- 建立的Model对象是否 不可改变  即生成的Model对象不会有 setter方法，只有构造方法 -->
+            <property name="immutable" value="false"/>
+
+            <!-- 给Model添加一个父类 -->
+
+            <!-- 是否对类CHAR类型的列的数据进行trim操作 -->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
+        <!--Mapper映射文件生成所在的目录 为每一个数据库的表生成对应的SqlMap文件 -->
         <!-- 自动生成xml（但是好像一直没有生成功，反正也不用xml） -->
         <sqlMapGenerator targetPackage="mybatis.model.mapper"
                          targetProject="${dao.resources.dir}">
@@ -43,8 +56,8 @@
                              targetProject="${entity.target.dir}">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName="menu"></table>
-        <table tableName="user"></table>
+        <table tableName="student"></table>
+        <!--<table tableName="user"></table>-->
 
         <!--
         <table tableName="appusers" ></table>

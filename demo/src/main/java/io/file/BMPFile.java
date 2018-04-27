@@ -58,7 +58,7 @@ public class BMPFile extends Component {
     }
 
     public static void main(String args[]) {
-        saveBitmap("C:\\work\\test_git\\test\\demo\\src\\main\\resources", aImage, 32, 48);
+//        saveBitmap("C:\\work\\test_git\\test\\demo\\src\\main\\resources", aImage, 32, 48);
     }
 
     private boolean convertImage(Image parImage, int parWidth, int parHeight) {

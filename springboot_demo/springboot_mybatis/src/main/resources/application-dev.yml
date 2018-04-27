@@ -9,8 +9,8 @@ spring:
     name: admin-managee
   datasource:
     url: jdbc:postgresql://localhost:5432/springboot?useUnicode=true&amp;characterEncoding=UTF-8
-    username: postgres
-    password: 1Qaz
+    username: wangjian
+    password:
     driver_class_namel: org.postgresql.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     

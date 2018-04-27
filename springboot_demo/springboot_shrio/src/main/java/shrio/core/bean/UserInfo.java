@@ -1,5 +1,7 @@
 package shrio.core.bean;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +18,7 @@ import java.util.List;
  * 3个实体类对应数据库的五张表: UserInfo, SysUserRole, SysRole, SysRolePermission, SysPermission
  */
 @Entity
+@Data
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -36,71 +39,8 @@ public class UserInfo implements Serializable {
     @JoinTable(name = "SysUserRole", joinColumns = {@JoinColumn(name = "uid")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
     private List<SysRole> roleList;// 一个用户具有多个角色
 
-    public List<SysRole> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<SysRole> roleList) {
-        this.roleList = roleList;
-    }
-
-    public long getUid() {
-        return uid;
-    }
-
-    public void setUid(long uid) {
-        this.uid = uid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public byte getState() {
-        return state;
-    }
-
-    public void setState(byte state) {
-        this.state = state;
-    }
-
     //密码盐
     public String getCredentialsSalt() {
         return this.username + this.salt;
     }
-
-    @Override
-    public String toString() {
-        return "UserInfo [uid=" + uid + ", username=" + username + ", name=" + name + ", password=" + password
-                + ", salt=" + salt + ", state=" + state + "]";
-    }
-
 }

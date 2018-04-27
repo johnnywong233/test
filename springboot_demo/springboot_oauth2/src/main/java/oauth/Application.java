@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Date: 2017/5/1
  * Time: 23:09
  */
+//@EnableOAuth2Sso
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {

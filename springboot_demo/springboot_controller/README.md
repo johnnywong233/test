@@ -46,3 +46,14 @@ maven  projects 面板双击执行 mvn install，失败：
 [ERROR] Failed to execute goal org.apache.maven.plugins:maven-install-plugin:2.5.2:install (default-cli) on project springboot_controller: The packaging for this project did not assign a file to the build artifact -> [Help 1]
 ```
 是 spring boot 2.0.0.RELEASE 的使用不当造成的。
+
+### spring boot with ldap
+- 报错1
+```
+org.springframework.ldap.odm.core.impl.MetaDataException: All Entry classes must define a field with the interface org.springframework.ldap.odm.annotations.Id annotation, error in class class johnny.domain.Person
+```
+说得很清楚，import 注解时错误；
+
+- 报错2
+
+### 

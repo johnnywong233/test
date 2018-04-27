@@ -54,7 +54,6 @@
         <module>springboot_security</module>
         <module>springboot_validator</module>
         <module>springboot_drools</module>
-        <module>springboot_drools1</module>
         <module>springboot_excel_kit</module>
     </modules>
 

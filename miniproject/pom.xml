@@ -24,6 +24,7 @@
         <module>spi_case</module>
         <module>instrument_case</module>
         <module>discovery</module>
+        <module>hadoop_learn</module>
     </modules>
 
 </project>
