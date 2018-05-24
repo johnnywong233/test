@@ -35,7 +35,6 @@
         <module>springboot_websocket</module>
         <module>springboot_websocket1</module>
         <module>springboot_websocket2</module>
-        <module>springboot_petshop</module>
         <module>springboot_mongodb</module>
         <module>springboot_saas</module>
         <module>springboot_session</module>
