@@ -16,7 +16,7 @@
 
     <properties>
         <!-- spring版本号 -->
-        <mysql.version>5.1.24</mysql.version>
+        <mysql.version>5.1.44</mysql.version>
         <spring.version>4.0.6.RELEASE</spring.version>
         <!-- mybatis版本号 -->
         <mybatis.version>3.2.7</mybatis.version>

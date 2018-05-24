@@ -32,7 +32,7 @@ public class MyClient {
                     String echo = buf.readLine();
                     System.out.println(echo);
                 } catch (SocketTimeoutException e) {
-                    System.out.println("Time out, No response");
+                    System.out.println("Time out, No response.");
                 }
             }
         }

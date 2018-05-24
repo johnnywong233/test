@@ -1,4 +1,4 @@
-//package unsafe;
+package unsafe;
 
 import sun.misc.Unsafe;
 import sun.nio.ch.DirectBuffer;

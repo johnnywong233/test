@@ -12,7 +12,7 @@ import java.net.Socket;
 public class SocketThread extends Thread {
     private ServerSocket serverSocket = null;
 
-    public SocketThread(ServerSocket serverScoket) {
+    SocketThread(ServerSocket serverScoket) {
         try {
             if (null == serverSocket) {
                 this.serverSocket = new ServerSocket(8877);
@@ -47,7 +47,7 @@ public class SocketThread extends Thread {
         }
     }
 
-    public void closeSocketServer() {
+    void closeSocketServer() {
         try {
             if (null != serverSocket && !serverSocket.isClosed()) {
                 serverSocket.close();

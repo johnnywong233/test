@@ -7,19 +7,19 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class ClientTcpSend {
-	public static String clientip = "127.0.0.1";
+	private static String CLIENT_IP = "127.0.0.1";
     public static int port = 33456;
  
     public static void main(String[] args) {
-        int length = 0;
-        byte[] sendBytes = null;
+        int length;
+        byte[] sendBytes;
         Socket socket = null;
         DataOutputStream dos = null;
         FileInputStream fis = null;
         try {
             try {
                 socket = new Socket();
-                socket.connect(new InetSocketAddress(clientip, port),30 * 1000);
+                socket.connect(new InetSocketAddress(CLIENT_IP, port),30 * 1000);
                 dos = new DataOutputStream(socket.getOutputStream());
                 File file = new File("E:\\Java_ex\\test_file\\11.xml");
                 fis = new FileInputStream(file);

@@ -134,11 +134,6 @@ public class SortCompare {
 
     /**
      * 划分
-     *
-     * @param list
-     * @param left
-     * @param right
-     * @return
      */
     private static int partition(int[] list, int left, int right) {
         int pivotKey = list[left];
@@ -307,7 +302,6 @@ public class SortCompare {
      *
      * @param arr  待分配数组
      * @param iBit 要分配第几位
-     * @return
      */
     private static List<List<Integer>> distribute(int[] arr, int iBit) {
         List<List<Integer>> buf = new ArrayList<>();
@@ -324,7 +318,6 @@ public class SortCompare {
      * 收集
      *
      * @param arr 把分配的数据收集到arr中
-     * @param buf
      */
     private static int[] collect(int[] arr, List<List<Integer>> buf) {
         int k = 0;
@@ -339,8 +332,6 @@ public class SortCompare {
     /**
      * 获取最大位数
      *
-     * @param arr
-     * @return
      */
     private static int getMaxBit(int[] arr) {
         int max = Integer.MIN_VALUE;
@@ -355,9 +346,6 @@ public class SortCompare {
     /**
      * 获取x的第n位，如果没有则为0.
      *
-     * @param x
-     * @param n
-     * @return
      */
     private static int getNBit(int x, int n) {
         String sx = x + "";

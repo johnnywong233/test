@@ -1,22 +1,9 @@
 package test.producer_consumer;
 
+import lombok.Data;
+
+@Data
 public class Info {
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public synchronized void set(String name, int age) {
         if (!flag) {
             try {

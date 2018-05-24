@@ -9,7 +9,7 @@ public class ServerThread implements Runnable {
 
     private Socket client = null;
 
-    public ServerThread(Socket client) {
+    ServerThread(Socket client) {
         this.client = client;
     }
 
@@ -30,7 +30,7 @@ public class ServerThread implements Runnable {
                         flag = false;
                     } else {
                         //将接收到的字符串前面加上echo，发送到对应的客户端  
-                        out.println("echo:" + str);
+                        out.println("echo: " + str);
                     }
                 }
             }
