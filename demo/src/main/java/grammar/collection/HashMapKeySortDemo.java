@@ -8,10 +8,7 @@ import java.util.*;
 public class HashMapKeySortDemo {
     public static void main(String[] args) {
         Map<String, String> map = new TreeMap<>(
-                (obj1, obj2) -> {
-                    //desc sort
-                    return obj2.compareTo(obj1);
-                });
+                Comparator.reverseOrder());
         map.put("b", "ccccc");
         map.put("d", "aaaaa");
         map.put("c", "bbbbb");

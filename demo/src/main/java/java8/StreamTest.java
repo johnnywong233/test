@@ -1,11 +1,18 @@
 package java8;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Created by wajian on 2016/10/9.
@@ -84,6 +91,24 @@ public class StreamTest {
         //parallel processing
         count = strings.parallelStream().filter(String::isEmpty).count();
         System.out.println("Empty Strings: " + count);
+    }
+
+    @Test
+    public void test1() {
+
+        //生成一个不结束的Stream。 在无限的Stream上调用终端方法导致Stream进入无限循环。
+        //limit方法可以用于限制处理的Stream的术语数。
+        // Generate infinite stream - 1, 2, 3, 4, 5, 6, 7, ...
+        IntStream naturalNumbers = IntStream.iterate(1, x -> x + 1);
+        // Print out only the first 5 terms
+        naturalNumbers.limit(5).forEach(System.out::println);
+
+        // 将Stream转换成容器或Map
+        Stream<String> stream = Stream.of("I", "love", "you", "too");
+        List<String> list = stream.collect(Collectors.toList()); // (1)
+        Set<String> set = stream.collect(Collectors.toSet()); // (2)
+        Map<String, Integer> map = stream.collect(Collectors.toMap(Function.identity(), String::length)); // (3)
+
     }
 
     private static int getCountEmptyStringUsingJava7(List<String> strings) {

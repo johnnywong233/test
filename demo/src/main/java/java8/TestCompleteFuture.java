@@ -3,12 +3,21 @@ package java8;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Author: Johnny
@@ -18,8 +27,84 @@ import java.util.concurrent.Future;
 public class TestCompleteFuture {
     //promise A+
     public static void main(String[] args) {
+//        System.out.println(cal("abcadefeca"));
+        System.out.println(cou("abcadefeca"));
+    }
+
+    public static char cal(String str) {
+
+        char[] chars = str.toCharArray();
+
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : chars) {
+            map.put(c, map.containsKey(c) ? map.get(c) + 1 : 1);
+        }
+        Iterator<Character> iter = map.keySet().iterator();
+        Character key = null;
+        while (iter.hasNext()) {
+            if (map.get(key) == 1) {
+                continue;
+//                map.remove(key);
+            }
+            key = iter.next();
+        }
+
+
+        return key;
+
 
     }
+
+    public static char count(String str) {
+
+        char s = str.charAt(0);
+        for (int i = 0; i < str.length(); i++) {
+
+            char t = str.charAt(i);
+            if (s == t) {
+                return s;
+            }
+        }
+
+        return s;
+    }
+
+    public static Map cou(String inputStr) {
+        List<String> list = Arrays.asList(inputStr.split(""));
+        Map<String, Integer> map = new TreeMap<>();
+        for (String str : list) {
+            map.put(str, Collections.frequency(list, str));
+        }
+        Set set = map.keySet();
+        for (Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator(); it.hasNext();) {
+
+            String key = it.next().getKey();
+            Integer value =  map.get(key);
+            if (value==1) {
+                map.remove(key);
+            }
+        }
+        System.out.println(map);
+        return map;
+    }
+
+    public String filter(String str) {
+        String regex = "^(ios)|(apple)((?!mediaplayer).)*$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(str);
+        while (m.find()) {
+            return m.group();
+        }
+        return "";
+    }
+
+    @Test
+    public void test() {
+//        filter("apple-ios");
+        System.out.println(filter("apple-ios"));
+//        System.out.println(filter("apple-mediaplayer"));
+    }
+
 
     @Test
     public void testCompletableFuture() {

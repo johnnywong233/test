@@ -54,7 +54,7 @@ public class LinkedReverse {
     }
 
     //采用交换前后值
-    public static N reverseOne(N n) {
+    private static N reverseOne(N n) {
         if (n != null) {
             N preN = n; //前一个节点
             N curN = n.nextN; //当前节点
@@ -73,7 +73,7 @@ public class LinkedReverse {
     }
 
     //采用递归实现
-    public static N reverseTwo(N n, N newN) {
+    private static N reverseTwo(N n, N newN) {
         // 采用递归 返回 返回条件是最后一个几点nextN为空
         if (n == null) {
             return newN;
@@ -113,5 +113,5 @@ public class LinkedReverse {
 //define a node
 class N {
     public String name;
-    public N nextN;
+    N nextN;
 }

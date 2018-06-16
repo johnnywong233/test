@@ -1,6 +1,7 @@
 package test;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
@@ -13,7 +14,7 @@ import java.util.regex.Pattern;
 public class RegexDemo {
     public static void main(String[] args) {
         sillyTest();
-        threeMatches();
+//        threeMatches();
 
         String str = "77Hi, johnny, your life sucks..0";
         System.out.println("number in this string? " + checkNumInString(str));
@@ -35,7 +36,8 @@ public class RegexDemo {
         return m.matches();
     }
 
-    private static void threeMatches() {
+    @Test
+    public void threeMatches() {
         String string = "abbbaabbbaaabbb1234";
 //        String string = "/m/t/wd/nl/n/p/m/wd/nl/n/p/m/wd/nl/n/p/m/v/n";
         //Greedy match, max match
