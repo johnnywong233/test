@@ -1,4 +1,4 @@
-package io.file.zip.compare;
+package benchmark.zip.compare;
 
 import net.jpountz.lz4.LZ4BlockOutputStream;
 import net.jpountz.lz4.LZ4Compressor;
@@ -13,18 +13,18 @@ import java.io.IOException;
 public class Lz4Test extends TestParent {
 
     @Benchmark
-    int testFastNative64K() throws IOException {
+    public int testFastNative64K() throws IOException {
         return lz4(LZ4Factory.nativeInstance().fastCompressor(), BLOCK_64K);
     }
 
     @Benchmark
-    int testFastNative128K() throws IOException {
+    public int testFastNative128K() throws IOException {
         int BLOCK_128K = 128 * 1024;
         return lz4(LZ4Factory.nativeInstance().fastCompressor(), BLOCK_128K);
     }
 
     @Benchmark
-    int testFastNative32M() throws IOException {
+    public int testFastNative32M() throws IOException {
         return lz4(LZ4Factory.nativeInstance().fastCompressor(), MAX_BLOCK_SIZE);
     }
 
@@ -35,7 +35,7 @@ public class Lz4Test extends TestParent {
     //by increasing a compressor buffer.
 
     @Benchmark
-    int testHighNative() throws IOException {
+    public int testHighNative() throws IOException {
         return lz4(LZ4Factory.nativeInstance().highCompressor(), BLOCK_64K);
     }
 
@@ -63,19 +63,19 @@ public class Lz4Test extends TestParent {
     private final int MAX_BLOCK_SIZE = 32 * 1024 * 1024;
 
     @Benchmark
-    int testFastNativeDouble64K() throws IOException {
+    public int testFastNativeDouble64K() throws IOException {
         final LZ4Compressor compressor = LZ4Factory.nativeInstance().fastCompressor();
         return baseBenchmark(underlyingStream -> new LZ4BlockOutputStream(new LZ4BlockOutputStream(underlyingStream, BLOCK_64K, compressor), BLOCK_64K, compressor));
     }
 
     @Benchmark
-    int testFastNativeDouble32M() throws IOException {
+    public int testFastNativeDouble32M() throws IOException {
         final LZ4Compressor compressor = LZ4Factory.nativeInstance().fastCompressor();
         return baseBenchmark(underlyingStream -> new LZ4BlockOutputStream(new LZ4BlockOutputStream(underlyingStream, MAX_BLOCK_SIZE, compressor), MAX_BLOCK_SIZE, compressor));
     }
 
     @Benchmark
-    int testFastNativeTriple32M() throws IOException {
+    public int testFastNativeTriple32M() throws IOException {
         final LZ4Compressor compressor = LZ4Factory.nativeInstance().fastCompressor();
         return baseBenchmark(underlyingStream -> new LZ4BlockOutputStream(new LZ4BlockOutputStream(new LZ4BlockOutputStream(underlyingStream, MAX_BLOCK_SIZE, compressor), MAX_BLOCK_SIZE, compressor), MAX_BLOCK_SIZE, compressor));
     }

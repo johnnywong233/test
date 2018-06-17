@@ -1,4 +1,4 @@
-package io.file.zip.compare;
+package benchmark.zip.compare;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.Param;
@@ -12,10 +12,11 @@ import java.util.zip.DeflaterOutputStream;
  */
 public class JdkDeflateTest extends TestParent {
     @Param({"1", "2", "3", "4", "5", "6", "7", "8", "9"})
-    int m_lvl;
+    public int m_lvl;
 
+    //@Benchmark method should be public.
     @Benchmark
-    int deflate() throws IOException {
+    public int deflate() throws IOException {
         return baseBenchmark(underlyingStream -> new DeflaterOutputStream(underlyingStream, new Deflater(m_lvl, true), 512));
     }
 }

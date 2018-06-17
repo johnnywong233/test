@@ -1,4 +1,4 @@
-package io.file.zip.compare;
+package benchmark.zip.compare;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.xerial.snappy.SnappyFramedOutputStream;
@@ -12,12 +12,12 @@ import java.io.IOException;
 public class SnappyTest extends TestParent {
 
     @Benchmark
-    int snappyNormalOutput() throws IOException {
+    public int snappyNormalOutput() throws IOException {
         return baseBenchmark(underlyingStream -> new SnappyOutputStream(underlyingStream, 65536));
     }
 
     @Benchmark
-    int snappyFramedOutput() throws IOException {
+    public int snappyFramedOutput() throws IOException {
         return baseBenchmark(SnappyFramedOutputStream::new);
     }
 }

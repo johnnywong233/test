@@ -1,4 +1,4 @@
-package io.file.zip.compare;
+package benchmark.zip.compare;
 
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;

@@ -1,4 +1,4 @@
-package io.file.zip.compare;
+package benchmark.zip.compare;
 
 import org.openjdk.jmh.annotations.Benchmark;
 
@@ -10,7 +10,7 @@ import java.util.zip.GZIPOutputStream;
  */
 public class GZipTest extends TestParent {
     @Benchmark
-    int gzip() throws IOException {
+    public int gzip() throws IOException {
         return baseBenchmark(underlyingStream -> new GZIPOutputStream(underlyingStream, 65536));
     }
 }

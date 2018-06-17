@@ -1,4 +1,4 @@
-package io.file.zip.compare;
+package benchmark.zip.compare;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
