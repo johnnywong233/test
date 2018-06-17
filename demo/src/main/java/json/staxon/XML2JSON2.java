@@ -22,8 +22,6 @@ public class XML2JSON2 {
      * Copy/format JSON using {@link XMLEventWriter#add(XMLEventReader)}.
      *
      * @param args ignored
-     * @throws XMLStreamException
-     * @throws IOException
      */
     public static void main(String[] args) throws XMLStreamException, IOException {
         /*

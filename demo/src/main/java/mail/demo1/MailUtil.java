@@ -1,5 +1,6 @@
 package mail.demo1;
 
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -138,6 +139,7 @@ public class MailUtil {
     }
 }
 
+@Data
 class Mail implements Serializable {
     private static final long serialVersionUID = -6390720891150157552L;
     static final String ENCODING = "UTF-8";
@@ -161,100 +163,4 @@ class Mail implements Serializable {
     private String subject;
     // 信息(支持HTML)
     private String message;
-
-    public String getHost() {
-        return host;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    String getSender() {
-        return sender;
-    }
-
-    void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    String getReceiver() {
-        return receiver;
-    }
-
-    void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    String getSubject() {
-        return subject;
-    }
-
-    void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    String getReceiverName() {
-        return receiverName;
-    }
-
-    void setReceiverName(String receiverName) {
-        this.receiverName = receiverName;
-    }
-
-    public Map<String, String> getTo() {
-        return to;
-    }
-
-    public void setTo(Map<String, String> to) {
-        this.to = to;
-    }
-
-    public Map<String, String> getCc() {
-        return cc;
-    }
-
-    public void setCc(Map<String, String> cc) {
-        this.cc = cc;
-    }
-
-    Map<String, String> getBcc() {
-        return bcc;
-    }
-
-    public void setBcc(Map<String, String> bcc) {
-        this.bcc = bcc;
-    }
 }

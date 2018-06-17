@@ -72,7 +72,7 @@ public class TemplateEmail {
             e.printStackTrace();
             return false;
         } catch (MessagingException e) {
-            System.out.println("send template mail fail.");
+            System.out.println("send template mail fail..");
             e.printStackTrace();
             return false;
         }

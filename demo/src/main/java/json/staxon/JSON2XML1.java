@@ -29,8 +29,6 @@ public class JSON2XML1 {
      * Copy/format JSON as XML using {@Transformer #transform( Source, Result)}.
      *
      * @param args ignored
-     * @throws TransformerException
-     * @throws XMLStreamException
      */
 	//as it, JSON2XML2 will use XMLEventReader, XMLEventWriter
     public static void main(String[] args) throws TransformerException, XMLStreamException, IOException {

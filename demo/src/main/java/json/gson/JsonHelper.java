@@ -27,7 +27,7 @@ public class JsonHelper {
         Bean bean2 = JsonHelper.getInstance().getObject(result, Bean.class);
         System.out.println(bean2.toString());
 
-        ArrayList<Bean> list = new ArrayList<Bean>();
+        ArrayList<Bean> list = new ArrayList<>();
         list.add(bean);
         list.add(bean2);
         result = JsonHelper.getInstance().createJsonString(list);
@@ -53,8 +53,7 @@ public class JsonHelper {
 
     public String createJsonString(Object value) {
         Gson gson = new Gson();
-        String str = gson.toJson(value);
-        return str;
+        return gson.toJson(value);
     }
 
     public <T> T getObject(String jsonString, Class<T> cls) {

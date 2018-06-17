@@ -1,5 +1,7 @@
 package project.game.fiveChess;
 
+import lombok.Data;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -87,7 +89,7 @@ public class StartChess extends JFrame {
                 System.exit(0);
             else if (obj == backMenuItem || obj == backButton) {
                 System.out.println("悔棋...");
-                chessBoard.goback();
+                chessBoard.goBack();
             }
         }
     }
@@ -105,6 +107,7 @@ public class StartChess extends JFrame {
  * Time: 0:21
  * 棋子类
  */
+@Data
 class Point {
     private int x;//棋盘中的x索引
     private int y;//棋盘中的y索引
@@ -115,18 +118,6 @@ class Point {
         this.x = x;
         this.y = y;
         this.color = color;
-    }
-
-    public int getX() {//拿到棋盘中x的索引
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public Color getColor() {//获得棋子的颜色
-        return color;
     }
 }
 
@@ -406,7 +397,7 @@ class ChessBoard extends JPanel implements MouseListener {
     }
 
     //悔棋
-    void goback() {
+    void goBack() {
         if (chessCount == 0)
             return;
         chessList[chessCount - 1] = null;

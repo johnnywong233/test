@@ -1,5 +1,8 @@
 package project.game.sudoku;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -115,20 +118,13 @@ public class Sudoku {
  * Created by wajian on 2016/10/5.
  * class to define a space in the sodoku
  */
+@Data
+@AllArgsConstructor
 class Point {
     private int col;// 行号
     private int row;// 列号
     private boolean flag;// 真为未设置。
     private int value;
-
-    //构造点
-    Point(int col, int row, boolean flag, int value) {
-        super();
-        this.col = col;
-        this.row = row;
-        this.flag = flag;
-        this.value = value;
-    }
 
     void changeFlag() {
         flag = !flag;
@@ -136,14 +132,6 @@ class Point {
 
     public boolean getFlag() {
         return flag;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     boolean canHere(Point[][] pArr) {

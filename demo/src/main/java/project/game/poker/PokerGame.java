@@ -1,5 +1,7 @@
 package project.game.poker;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -84,6 +86,7 @@ public class PokerGame {
     }
 }
 
+@Data
 class Player {
     /*
      * 玩家
@@ -94,22 +97,10 @@ class Player {
     private String name;
     private List<Poker> handPockers;
 
-    public Player(int id, String name) {
+    Player(int id, String name) {
         this.id = id;
         this.name = name;
         this.handPockers = new ArrayList<>();
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<Poker> getHandPockers() {
-        return handPockers;
     }
 }
 
@@ -127,7 +118,7 @@ class Poker implements Comparable<Poker> {
     public Poker() {
     }
 
-    public Poker(String color, String value) {
+    Poker(String color, String value) {
         this.color = color;
         this.value = value;
     }
@@ -145,7 +136,7 @@ class Poker implements Comparable<Poker> {
      * return List<Pocker>
      */
 
-    public static List<Poker> createPocker() {
+    static List<Poker> createPocker() {
         List<Poker> pockers = new ArrayList<>();
         for (int i = 0; i < CARDNUM; i++) {
             String newValue;
@@ -205,10 +196,9 @@ class Poker implements Comparable<Poker> {
         List<String> valueBase = Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A");
         List<String> colorBase = Arrays.asList("方块", "梅花", "红桃", "黑桃");
         if (valueBase.indexOf(this.value) == valueBase.indexOf(o.value))
-            return Integer.valueOf(colorBase.indexOf(this.color)).compareTo(colorBase.indexOf(o.getColor()));
+            return Integer.compare(colorBase.indexOf(this.color), colorBase.indexOf(o.getColor()));
         else
-            return Integer.valueOf(valueBase.indexOf(this.value)).compareTo(valueBase.indexOf(o.getValue()));
-
+            return Integer.compare(valueBase.indexOf(this.value), valueBase.indexOf(o.getValue()));
     }
 
     @Override

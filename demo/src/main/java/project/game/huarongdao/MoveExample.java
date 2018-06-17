@@ -175,7 +175,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         if (manRect.intersects(belowRect)) {
             move = false;
         }
-        if (move == true) {
+        if (move) {
             man.setLocation(x, y);
         }
     }
@@ -197,7 +197,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         if (manRect.intersects(aboveRect)) {
             move = false;
         }
-        if (move == true) {
+        if (move) {
             man.setLocation(x, y);
         }
     }
@@ -219,7 +219,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         if (manRect.intersects(leftRect)) {
             move = false;
         }
-        if (move == true) {
+        if (move) {
             man.setLocation(x, y);
         }
     }
@@ -243,7 +243,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         if (manRect.intersects(leftRect)) {
             move = false;
         }
-        if (move == true) {
+        if (move) {
             man.setLocation(x, y);
         }
     }
@@ -265,7 +265,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         if (manRect.intersects(rightRect)) {
             move = false;
         }
-        if (move == true) {
+        if (move) {
             man.setLocation(x, y);
         }
     }

@@ -1,5 +1,7 @@
 package project.game.maze;
 
+import lombok.Data;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -268,6 +270,7 @@ public class Maze extends JPanel {
     }
 }
 
+@Data
 class Lattice {
     static final int INTREE = 1;
     static final int NOTINTREE = 0;
@@ -279,33 +282,5 @@ class Lattice {
     Lattice(int xx, int yy) {
         x = xx;
         y = yy;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getFlag() {
-        return flag;
-    }
-
-    Lattice getFather() {
-        return father;
-    }
-
-    void setFather(Lattice f) {
-        father = f;
-    }
-
-    public void setFlag(int f) {
-        flag = f;
-    }
-
-    public String toString() {
-        return "(" + x + "," + y + ")\n";
     }
 }

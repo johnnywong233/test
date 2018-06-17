@@ -28,8 +28,6 @@ public class XML2JSON1 {
      * Copy/format XML as JSON using {@Transformer#transform(Source, Result)}.
      *
      * @param args ignored
-     * @throws TransformerException
-     * @throws XMLStreamException
      */
     //https://github.com/beckchr/staxon/wiki/Converting-XML-to-JSON
     public static void main(String[] args) throws TransformerException, XMLStreamException, IOException {

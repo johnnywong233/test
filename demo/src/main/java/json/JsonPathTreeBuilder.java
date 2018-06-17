@@ -1,6 +1,11 @@
 package json;
 
-import static org.junit.Assert.assertEquals;
+import lombok.Data;
+import org.apache.log4j.BasicConfigurator;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,11 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.BasicConfigurator;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.junit.Assert.assertEquals;
 
 /**
  * 生成形象化的JSON　tree
@@ -110,6 +111,7 @@ public class JsonPathTreeBuilder {
 
 }
 
+@Data
 class Node {
     private static final String lineSeparator = System.lineSeparator();
     private String pathName;
@@ -137,30 +139,6 @@ class Node {
         return childNode;
     }
 
-    private String getPathName() {
-        return pathName;
-    }
-
-    public Node getParentNode() {
-        return parentNode;
-    }
-
-    public List<Node> getChildNodeList() {
-        return childNodeList;
-    }
-
-    private void setParentNode(Node parentNode) {
-        this.parentNode = parentNode;
-    }
-
-    public String getColumnName() {
-        return columnName;
-    }
-
-    void setColumnName(String columnName) {
-        this.columnName = columnName;
-    }
-
     String getTreePicture() {
         StringBuilder treePicture = new StringBuilder();
         getTreePicture("", true, treePicture);
@@ -175,12 +153,5 @@ class Node {
         if (childNodeList.size() > 0) {
             childNodeList.get(childNodeList.size() - 1).getTreePicture(prefix + (isTail ? "    " : "│   "), true, treePicture);
         }
-    }
-
-    @Override
-    public String toString() {
-        String parentNodeName = parentNode == null ? null : parentNode.getPathName();
-        return "Node [pathName=" + pathName + ", parentNodeName=" + parentNodeName
-                + ", childNodeListSize=" + childNodeList.size() + ", hash=" + super.toString() + "]";
     }
 }

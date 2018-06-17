@@ -3,8 +3,6 @@ package json.jackson;
 import org.codehaus.jackson.JsonEncoding;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.File;
@@ -61,10 +59,6 @@ public class JacksonTest {
             System.out.println(dataMap.get("age"));
             System.out.println(dataMap.get("verified"));
             System.out.println(dataMap.get("marks"));
-        } catch (JsonParseException e) {
-            e.printStackTrace();
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

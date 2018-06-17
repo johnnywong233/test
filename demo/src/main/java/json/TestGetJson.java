@@ -1,11 +1,10 @@
 package json;
 
-import java.io.IOException;
-
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
@@ -16,8 +15,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import java.io.IOException;
 
 @SuppressWarnings("deprecation")
 public class TestGetJson {
@@ -43,9 +41,6 @@ public class TestGetJson {
 
     /**
      * httpClient
-     *
-     * @return
-     * @throws Exception
      */
     public static String doGet(String url, String charset)
             throws Exception {
@@ -67,8 +62,6 @@ public class TestGetJson {
             response = new String(responseBody, charset);
             System.out.println("----------response:" + response);
             // InputStream response = getMethod.getResponseBodyAsStream();
-        } catch (HttpException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -79,10 +72,6 @@ public class TestGetJson {
 
     /**
      * post
-     *
-     * @param url
-     * @param json
-     * @return
      */
     @SuppressWarnings({ "resource" })
 	public static JSONObject doPost(String url, JSONObject json) {
