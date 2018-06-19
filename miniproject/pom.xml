@@ -14,8 +14,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>hereDocument</module>
-        <module>hereDocumentTest</module>
+        <module>HereDocument</module>
+        <module>HereDocumentTest</module>
         <module>simple_dao</module>
         <module>pic_downloader</module>
         <!--<module>spring_freemarker_mail</module>-->

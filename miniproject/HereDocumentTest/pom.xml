@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>hereDocumentTest</artifactId>
+    <artifactId>HereDocumentTest</artifactId>
     <packaging>jar</packaging>
-    <name>hereDocumentTest</name>
+    <name>HereDocumentTest</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
@@ -21,7 +21,7 @@
         </dependency>
         <dependency>
             <groupId>com.johnny</groupId>
-            <artifactId>hereDocument</artifactId>
+            <artifactId>HereDocument</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
