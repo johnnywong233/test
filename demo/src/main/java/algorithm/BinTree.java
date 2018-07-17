@@ -95,10 +95,12 @@ public class BinTree {
             while (!stack.empty()) {
                 p = stack.pop();
                 visit(p);
-                if (p.getRight() != null)
+                if (p.getRight() != null) {
                     stack.push(p.getRight());
-                if (p.getLeft() != null)
+                }
+                if (p.getLeft() != null) {
                     stack.push(p.getLeft());
+                }
             }
         }
     }
@@ -111,14 +113,16 @@ public class BinTree {
         Stack<BTNode> stack = new Stack<>();
         while (p != null) {
 // 左子树入栈
-            for (; p.getLeft() != null; p = p.getLeft())
+            for (; p.getLeft() != null; p = p.getLeft()) {
                 stack.push(p);
+            }
 // 当前节点无右子或右子已经输出
             while (p != null && (p.getRight() == null || p.getRight() == q)) {
                 visit(p);
                 q = p;// 记录上一个已输出节点
-                if (stack.empty())
+                if (stack.empty()) {
                     return;
+                }
                 p = stack.pop();
             }
 // 处理右子
@@ -134,8 +138,9 @@ public class BinTree {
         Stack<BTNode> stack = new Stack<>();
         while (p != null) {
             while (p != null) {
-                if (p.getRight() != null)
+                if (p.getRight() != null) {
                     stack.push(p.getRight());// 当前节点右子入栈
+                }
                 stack.push(p);// 当前节点入栈
                 p = p.getLeft();
             }
@@ -145,10 +150,11 @@ public class BinTree {
                 p = stack.pop();
             }
             visit(p);
-            if (!stack.empty())
+            if (!stack.empty()) {
                 p = stack.pop();
-            else
+            } else {
                 p = null;
+            }
         }
     }
 

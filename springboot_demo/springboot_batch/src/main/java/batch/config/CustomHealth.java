@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class CustomHealth implements HealthIndicator {
+    @Override
     public Health health() {
         return Health.up().build();
     }

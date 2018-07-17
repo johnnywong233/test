@@ -436,7 +436,7 @@ public class MainFrame extends JFrame {
             chooser.showOpenDialog(MainFrame.getInstance());
             File[] dirs = chooser.getSelectedFiles();
             Console.print("开始生成，请骚等~");
-            if (dirs.length != 0)
+            if (dirs.length != 0) {
                 try {
                     for (File dir : dirs) {
                         HtmlCreator.createAlbumHTML(dir.getAbsolutePath());
@@ -448,6 +448,7 @@ public class MainFrame extends JFrame {
                     Console.print(e.getMessage());
                     e.printStackTrace();
                 }
+            }
         }).start();
     }
 
@@ -474,10 +475,11 @@ public class MainFrame extends JFrame {
         Desktop desktop = Desktop.getDesktop();
         try {
             File dir = new File(Common.PATH_DOWNLOAD);
-            if (dir.exists())
+            if (dir.exists()) {
                 desktop.open(dir);
-            else
+            } else {
                 JOptionPane.showMessageDialog(this, "暂无图片");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -494,9 +496,9 @@ public class MainFrame extends JFrame {
     private void download() {
         this.downloadBtn.setEnabled(false);
 
-        if (Common.IS_UPDATE)
+        if (Common.IS_UPDATE) {
             Common.IS_UPDATE = false;
-        else {
+        } else {
             Common.PATH_DOWNLOAD = this.pathTextField.getText();
         }
         File file = new File(Common.PATH_DOWNLOAD);
@@ -521,9 +523,9 @@ public class MainFrame extends JFrame {
                 url = url.substring(0, url.indexOf("?start="));
             }
 
-            if ((url.contains("?")) || (url.substring(url.length() - 1).equals("/")))
+            if ((url.contains("?")) || ("/".equals(url.substring(url.length() - 1)))) {
                 urlList.add(url);
-            else {
+            } else {
                 urlList.add(url + "/");
             }
             System.out.println(url);

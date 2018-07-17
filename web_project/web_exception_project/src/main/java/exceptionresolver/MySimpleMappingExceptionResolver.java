@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MySimpleMappingExceptionResolver implements HandlerExceptionResolver {
+    @Override
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object object, Exception exception) {
         //assert it not a ajax request

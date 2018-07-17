@@ -21,6 +21,7 @@ public class ListNotHasNullValidatorImpl implements ConstraintValidator<ListNotH
         this.value = constraintAnnotation.value();
     }
 
+    @Override
     public boolean isValid(List list, ConstraintValidatorContext constraintValidatorContext) {
         for (Object object : list) {
             if (object == null) {

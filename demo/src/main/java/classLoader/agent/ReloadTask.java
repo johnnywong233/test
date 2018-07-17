@@ -21,8 +21,9 @@ public class ReloadTask extends TimerTask {
             ClassDefinition[] cd = new ClassDefinition[1];
             Class[] classes = inst.getAllLoadedClasses();
             for (Class cls : classes) {
-                if (cls.getClassLoader() == null || !cls.getClassLoader().getClass().getName().equals("sun.misc.Launcher$AppClassLoader"))
+                if (cls.getClassLoader() == null || !"sun.misc.Launcher$AppClassLoader".equals(cls.getClassLoader().getClass().getName())) {
                     continue;
+                }
                 String name = cls.getName().replaceAll("\\.", "/");
                 cd[0] = new ClassDefinition(cls, loadClassBytes(cls, name + ".class"));
                 inst.redefineClasses(cd);
@@ -35,8 +36,9 @@ public class ReloadTask extends TimerTask {
     private byte[] loadClassBytes(Class cls, String clsname) throws Exception {
         System.out.println(clsname + ":" + cls);
         InputStream is = cls.getClassLoader().getSystemClassLoader().getResourceAsStream(clsname);
-        if (is == null)
+        if (is == null) {
             return null;
+        }
         byte[] bt = new byte[is.available()];
         is.read(bt);
         is.close();

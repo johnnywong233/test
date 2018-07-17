@@ -22,6 +22,7 @@ public class ListEndpoints extends AbstractEndpoint<List<Endpoint>> {
         this.endpoints = endpoints;
     }
 
+    @Override
     public List<Endpoint> invoke() {
         return this.endpoints;
     }

@@ -33,6 +33,7 @@ public class TextFileViewer extends Frame implements ActionListener {
     public TextFileViewer(String directory, String filename) {
         super();
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 dispose();
             }
@@ -61,16 +62,18 @@ public class TextFileViewer extends Frame implements ActionListener {
             if ((filename != null) && (f = new File(filename)).isAbsolute()) {
                 directory = f.getParent();
                 filename = f.getName();
-            } else
+            } else {
                 directory = System.getProperty("user.dir");
+            }
         }
         this.directory = directory;
         setFile(directory, filename);
     }
 
     public void setFile(String directory, String filename) {
-        if ((filename == null) || (filename.length() == 0))
+        if ((filename == null) || (filename.length() == 0)) {
             return;
+        }
         File f;
         FileReader in = null;
         try {
@@ -90,32 +93,36 @@ public class TextFileViewer extends Frame implements ActionListener {
             this.setTitle("TextFileViewer: " + filename + ": I/O Exception");
         } finally {
             try {
-                if (in != null)
+                if (in != null) {
                     in.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+    @Override
     @SuppressWarnings("deprecation")
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
-        if (cmd.equals("open")) {
+        if ("open".equals(cmd)) {
             FileDialog myFileDialog = new FileDialog(this, "Open File", FileDialog.LOAD);
             myFileDialog.setDirectory(directory);
             myFileDialog.show();
             directory = myFileDialog.getDirectory();
             setFile(directory, myFileDialog.getFile());
             myFileDialog.dispose();
-        } else if (cmd.equals("close"))
+        } else if ("close".equals(cmd)) {
             this.dispose();
+        }
     }
 
     @SuppressWarnings("deprecation")
     static public void main(String[] args) throws IOException {
         Frame myFrame = new TextFileViewer((args.length == 1) ? args[0] : null);
         myFrame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosed(WindowEvent e) {
                 System.exit(0);
             }

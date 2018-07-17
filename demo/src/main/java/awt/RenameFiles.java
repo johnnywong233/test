@@ -53,6 +53,7 @@ public class RenameFiles extends JFrame {
      */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     RenameFiles frame = new RenameFiles();
@@ -269,8 +270,9 @@ public class RenameFiles extends JFrame {
         // 把模板中数字占位字符串替换为指定格式
         templet = templet.replace(code, "%0" + code.length() + "d");
         String extName = extNameField.getText().toLowerCase();
-        if (!extName.contains("."))
+        if (!extName.contains(".")) {
             extName = "." + extName;
+        }
         // 获取文件中文件列表数组
         File[] files = dir.listFiles(new ExtNameFileFilter(extName));
         for (File file : files) {// 变量文件数组

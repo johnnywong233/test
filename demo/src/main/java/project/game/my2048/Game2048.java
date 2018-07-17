@@ -193,8 +193,9 @@ public class Game2048 extends JPanel {
     private Tile[] moveLine(Tile[] oldLine) {
         LinkedList<Tile> l = new LinkedList<>();
         for (int i = 0; i < 4; i++) {
-            if (!oldLine[i].isEmpty())
+            if (!oldLine[i].isEmpty()) {
                 l.addLast(oldLine[i]);
+            }
         }
         if (l.size() == 0) {
             return oldLine;
@@ -281,8 +282,9 @@ public class Game2048 extends JPanel {
         final int w = fm.stringWidth(s);
         final int h = -(int) fm.getLineMetrics(s, g).getBaselineOffsets()[2];
 
-        if (value != 0)
+        if (value != 0) {
             g.drawString(s, xOffset + (TILE_SIZE - w) / 2, yOffset + TILE_SIZE - (TILE_SIZE - h) / 2 - 2);
+        }
 
         if (myWin || myLose) {
             g.setColor(new Color(255, 255, 255, 30));

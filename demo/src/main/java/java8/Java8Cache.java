@@ -24,19 +24,23 @@ public class Java8Cache {
     }
 
     private static int fibonacci(int i) {
-        if (i == 0)
+        if (i == 0) {
             return i;
-        if (i == 1)
+        }
+        if (i == 1) {
             return 1;
+        }
         return fibonacci(i - 2) + fibonacci(i - 1);
     }
 
     private static int cacheFibonacci(int i) {
         Map<Integer, Integer> cache = new ConcurrentHashMap<>();//can not move outside of method, or will too much slower
-        if (i == 0)
+        if (i == 0) {
             return i;
-        if (i == 1)
+        }
+        if (i == 1) {
             return 1;
+        }
         return cache.computeIfAbsent(i, (key) -> cacheFibonacci(i - 2) + cacheFibonacci(i - 1));
     }
 

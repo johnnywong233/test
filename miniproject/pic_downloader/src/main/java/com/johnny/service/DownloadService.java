@@ -59,9 +59,9 @@ public class DownloadService {
             int flag = 0;
             while ((num < Common.AUTO_DOWNLOAD_FAIL_FILE) && (flag == 0)) {
                 flag = DownloadManager.downloadFailFile();
-                if (flag == 0)
+                if (flag == 0) {
                     Console.print("【部分文件依然下载失败，显示失败文件列表】 - " + num);
-                else {
+                } else {
                     Console.print("【失败文件下载完成】");
                 }
                 num++;

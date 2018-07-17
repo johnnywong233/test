@@ -23,10 +23,11 @@ public class Timing implements ClassFileTransformer {
         this.methodName = methodName;
     }
 
+    @Override
     public byte[] transform(ClassLoader loader, String className, Class cBR,
                             java.security.ProtectionDomain pD, byte[] classfileBuffer)
             throws IllegalClassFormatException {
-        if (!className.equalsIgnoreCase("test/RunEntry")) {
+        if (!"test/RunEntry".equalsIgnoreCase(className)) {
             return null;
         }
         try {

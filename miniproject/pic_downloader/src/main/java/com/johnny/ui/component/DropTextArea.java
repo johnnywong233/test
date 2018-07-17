@@ -24,20 +24,25 @@ public class DropTextArea extends JPopupTextArea
         new DropTarget(this, 3, this);
     }
 
+    @Override
     public void dragEnter(DropTargetDragEvent dtde) {
     }
 
+    @Override
     public void dragOver(DropTargetDragEvent dtde) {
     }
 
+    @Override
     public void dropActionChanged(DropTargetDragEvent dtde) {
     }
 
+    @Override
     public void dragExit(DropTargetEvent dte) {
     }
 
+    @Override
     @SuppressWarnings("unchecked")
-	public void drop(DropTargetDropEvent dtde) {
+    public void drop(DropTargetDropEvent dtde) {
         try {
             if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                 setText("");
@@ -49,21 +54,22 @@ public class DropTextArea extends JPopupTextArea
                         File dir = new File(file.getAbsolutePath());
                         if (dir.isDirectory()) {
                             File doc = new File(dir.getAbsolutePath() + "/描述.txt");
-                            if (doc.exists())
+                            if (doc.exists()) {
                                 try {
                                     BufferedReader br = new BufferedReader(new FileReader(doc));
                                     String str = br.readLine();
                                     br.close();
                                     if ((str == null) || (str.length() == 0) ||
-                                            (str.split(" ").length < 2))
+                                            (str.split(" ").length < 2)) {
                                         continue;
+                                    }
                                     setText(str.split(" ")[1]);
                                     com.johnny.common.Common.PATH_DOWNLOAD = dir.getParent();
                                     com.johnny.common.Common.IS_UPDATE = true;
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                            else {
+                            } else {
                                 JOptionPane.showMessageDialog(MainFrame.getInstance(), "所需要的描述文档不存在，无法更新，T^T");
                             }
                         }

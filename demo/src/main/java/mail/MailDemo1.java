@@ -104,14 +104,14 @@ class ReciveMail {
         String addrType = type.toUpperCase();
         InternetAddress[] address = null;
 
-        if (addrType.equals("TO") || addrType.equals("CC") || addrType.equals("BCC")) {
-            if (addrType.equals("TO")) {
+        if ("TO".equals(addrType) || "CC".equals(addrType) || "BCC".equals(addrType)) {
+            if ("TO".equals(addrType)) {
                 address = (InternetAddress[]) msg.getRecipients(Message.RecipientType.TO);
             }
-            if (addrType.equals("CC")) {
+            if ("CC".equals(addrType)) {
                 address = (InternetAddress[]) msg.getRecipients(Message.RecipientType.CC);
             }
-            if (addrType.equals("BCC")) {
+            if ("BCC".equals(addrType)) {
                 address = (InternetAddress[]) msg.getRecipients(Message.RecipientType.BCC);
             }
             if (address != null) {

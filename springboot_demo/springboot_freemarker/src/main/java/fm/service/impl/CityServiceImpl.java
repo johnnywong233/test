@@ -19,14 +19,17 @@ public class CityServiceImpl implements CityService {
     @Autowired
     private CityMapper cityMapper;
 
+    @Override
     public List<City> findAllCity() {
         return cityMapper.findAllCity();
     }
 
+    @Override
     public City findCityById(Long id) {
         return cityMapper.findById(id);
     }
 
+    @Override
     public City findCityByName(String name) {
         return cityMapper.findByName(name);
     }

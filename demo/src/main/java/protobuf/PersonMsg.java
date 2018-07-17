@@ -16,7 +16,7 @@ public final class PersonMsg {
      * <code>required int32 id = 1;</code>
      *
      * <pre>
-     * ID£¨±ØÐè£©  
+     * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
     boolean hasId();
@@ -24,7 +24,7 @@ public final class PersonMsg {
      * <code>required int32 id = 1;</code>
      *
      * <pre>
-     * ID£¨±ØÐè£©  
+     * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
     int getId();
@@ -34,7 +34,7 @@ public final class PersonMsg {
      * <code>required string name = 2;</code>
      *
      * <pre>
-     * ÐÕÃû£¨±ØÐè£©  
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
     boolean hasName();
@@ -42,7 +42,7 @@ public final class PersonMsg {
      * <code>required string name = 2;</code>
      *
      * <pre>
-     * ÐÕÃû£¨±ØÐè£©  
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
     java.lang.String getName();
@@ -50,7 +50,7 @@ public final class PersonMsg {
      * <code>required string name = 2;</code>
      *
      * <pre>
-     * ÐÕÃû£¨±ØÐè£©  
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -61,7 +61,7 @@ public final class PersonMsg {
      * <code>optional string email = 3;</code>
      *
      * <pre>
-     * email£¨¿ÉÑ¡£©  
+     * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
      * </pre>
      */
     boolean hasEmail();
@@ -69,7 +69,7 @@ public final class PersonMsg {
      * <code>optional string email = 3;</code>
      *
      * <pre>
-     * email£¨¿ÉÑ¡£©  
+     * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
      * </pre>
      */
     java.lang.String getEmail();
@@ -77,7 +77,7 @@ public final class PersonMsg {
      * <code>optional string email = 3;</code>
      *
      * <pre>
-     * email£¨¿ÉÑ¡£©  
+     * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -88,7 +88,7 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
     java.util.List<java.lang.String>
@@ -97,7 +97,7 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
     int getFriendsCount();
@@ -105,7 +105,7 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
     java.lang.String getFriends(int index);
@@ -113,7 +113,7 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
     com.google.protobuf.ByteString
@@ -137,9 +137,10 @@ public final class PersonMsg {
       return defaultInstance;
     }
 
-    public Person getDefaultInstanceForType() {
-      return defaultInstance;
-    }
+      @Override
+      public Person getDefaultInstanceForType() {
+          return defaultInstance;
+      }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
@@ -213,21 +214,23 @@ public final class PersonMsg {
       return PersonMsg.internal_static_Person_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return PersonMsg.internal_static_Person_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              PersonMsg.Person.class, PersonMsg.Person.Builder.class);
-    }
+      @Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+          return PersonMsg.internal_static_Person_fieldAccessorTable
+                  .ensureFieldAccessorsInitialized(
+                          PersonMsg.Person.class, PersonMsg.Person.Builder.class);
+      }
 
     public static com.google.protobuf.Parser<Person> PARSER =
         new com.google.protobuf.AbstractParser<Person>() {
-      public Person parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Person(input, extensionRegistry);
-      }
+            @Override
+            public Person parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new Person(input, extensionRegistry);
+            }
     };
 
     @java.lang.Override
@@ -243,9 +246,10 @@ public final class PersonMsg {
      * <code>required int32 id = 1;</code>
      *
      * <pre>
-     * ID£¨±ØÐè£©  
+     * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
+    @Override
     public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
@@ -253,9 +257,10 @@ public final class PersonMsg {
      * <code>required int32 id = 1;</code>
      *
      * <pre>
-     * ID£¨±ØÐè£©  
+     * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
+    @Override
     public int getId() {
       return id_;
     }
@@ -267,9 +272,10 @@ public final class PersonMsg {
      * <code>required string name = 2;</code>
      *
      * <pre>
-     * ÐÕÃû£¨±ØÐè£©  
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
+    @Override
     public boolean hasName() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
@@ -277,9 +283,10 @@ public final class PersonMsg {
      * <code>required string name = 2;</code>
      *
      * <pre>
-     * ÐÕÃû£¨±ØÐè£©  
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
+    @Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -298,9 +305,10 @@ public final class PersonMsg {
      * <code>required string name = 2;</code>
      *
      * <pre>
-     * ÐÕÃû£¨±ØÐè£©  
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
      * </pre>
      */
+    @Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -322,9 +330,10 @@ public final class PersonMsg {
      * <code>optional string email = 3;</code>
      *
      * <pre>
-     * email£¨¿ÉÑ¡£©  
+     * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
      * </pre>
      */
+    @Override
     public boolean hasEmail() {
       return ((bitField0_ & 0x00000004) == 0x00000004);
     }
@@ -332,9 +341,10 @@ public final class PersonMsg {
      * <code>optional string email = 3;</code>
      *
      * <pre>
-     * email£¨¿ÉÑ¡£©  
+     * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
      * </pre>
      */
+    @Override
     public java.lang.String getEmail() {
       java.lang.Object ref = email_;
       if (ref instanceof java.lang.String) {
@@ -353,9 +363,10 @@ public final class PersonMsg {
      * <code>optional string email = 3;</code>
      *
      * <pre>
-     * email£¨¿ÉÑ¡£©  
+     * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
      * </pre>
      */
+    @Override
     public com.google.protobuf.ByteString
         getEmailBytes() {
       java.lang.Object ref = email_;
@@ -377,9 +388,10 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
+    @Override
     public java.util.List<java.lang.String>
         getFriendsList() {
       return friends_;
@@ -388,9 +400,10 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
+    @Override
     public int getFriendsCount() {
       return friends_.size();
     }
@@ -398,9 +411,10 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
+    @Override
     public java.lang.String getFriends(int index) {
       return friends_.get(index);
     }
@@ -408,9 +422,10 @@ public final class PersonMsg {
      * <code>repeated string friends = 4;</code>
      *
      * <pre>
-     * ÅóÓÑ£¨¼¯ºÏ£©  
+     * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
      * </pre>
      */
+    @Override
     public com.google.protobuf.ByteString
         getFriendsBytes(int index) {
       return friends_.getByteString(index);
@@ -423,71 +438,80 @@ public final class PersonMsg {
       friends_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
+      @Override
+      public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized != -1) {
+              return isInitialized == 1;
+          }
 
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, id_);
+          if (!hasId()) {
+              memoizedIsInitialized = 0;
+              return false;
+          }
+          if (!hasName()) {
+              memoizedIsInitialized = 0;
+              return false;
+          }
+          memoizedIsInitialized = 1;
+          return true;
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getNameBytes());
+
+      @Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+              throws java.io.IOException {
+          getSerializedSize();
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              output.writeInt32(1, id_);
+          }
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              output.writeBytes(2, getNameBytes());
+          }
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+              output.writeBytes(3, getEmailBytes());
+          }
+          for (int i = 0; i < friends_.size(); i++) {
+              output.writeBytes(4, friends_.getByteString(i));
+          }
+          getUnknownFields().writeTo(output);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getEmailBytes());
-      }
-      for (int i = 0; i < friends_.size(); i++) {
-        output.writeBytes(4, friends_.getByteString(i));
-      }
-      getUnknownFields().writeTo(output);
-    }
 
     private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
 
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
+      @Override
+      public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) {
+              return size;
+          }
+
+          size = 0;
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              size += com.google.protobuf.CodedOutputStream
+                      .computeInt32Size(1, id_);
+          }
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              size += com.google.protobuf.CodedOutputStream
+                      .computeBytesSize(2, getNameBytes());
+          }
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+              size += com.google.protobuf.CodedOutputStream
+                      .computeBytesSize(3, getEmailBytes());
+          }
+          {
+              int dataSize = 0;
+              for (int i = 0; i < friends_.size(); i++) {
+                  dataSize += com.google.protobuf.CodedOutputStream
+                          .computeBytesSizeNoTag(friends_.getByteString(i));
+              }
+              size += dataSize;
+              size += 1 * getFriendsList().size();
+          }
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getNameBytes());
-      }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getEmailBytes());
-      }
-      {
-        int dataSize = 0;
-        for (int i = 0; i < friends_.size(); i++) {
-          dataSize += com.google.protobuf.CodedOutputStream
-            .computeBytesSizeNoTag(friends_.getByteString(i));
-        }
-        size += dataSize;
-        size += 1 * getFriendsList().size();
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
@@ -550,11 +574,15 @@ public final class PersonMsg {
     }
 
     public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+
+      @Override
+      public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(PersonMsg.Person prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+      @Override
+      public Builder toBuilder() { return newBuilder(this); }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -573,12 +601,13 @@ public final class PersonMsg {
         return PersonMsg.internal_static_Person_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return PersonMsg.internal_static_Person_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                PersonMsg.Person.class, PersonMsg.Person.Builder.class);
-      }
+        @Override
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return PersonMsg.internal_static_Person_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            PersonMsg.Person.class, PersonMsg.Person.Builder.class);
+        }
 
       // Construct using PersonMsg.Person.newBuilder()
       private Builder() {
@@ -598,78 +627,87 @@ public final class PersonMsg {
         return new Builder();
       }
 
-      public Builder clear() {
-        super.clear();
-        id_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        email_ = "";
-        bitField0_ = (bitField0_ & ~0x00000004);
-        friends_ = com.google.protobuf.LazyStringArrayList.EMPTY;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return PersonMsg.internal_static_Person_descriptor;
-      }
-
-      public PersonMsg.Person getDefaultInstanceForType() {
-        return PersonMsg.Person.getDefaultInstance();
-      }
-
-      public PersonMsg.Person build() {
-        PersonMsg.Person result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        @Override
+        public Builder clear() {
+            super.clear();
+            id_ = 0;
+            bitField0_ = (bitField0_ & ~0x00000001);
+            name_ = "";
+            bitField0_ = (bitField0_ & ~0x00000002);
+            email_ = "";
+            bitField0_ = (bitField0_ & ~0x00000004);
+            friends_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+            bitField0_ = (bitField0_ & ~0x00000008);
+            return this;
         }
-        return result;
-      }
 
-      public PersonMsg.Person buildPartial() {
-        PersonMsg.Person result = new PersonMsg.Person(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
+        @Override
+        public Builder clone() {
+            return create().mergeFrom(buildPartial());
         }
-        result.id_ = id_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
-        result.name_ = name_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
-        result.email_ = email_;
-        if (((bitField0_ & 0x00000008) == 0x00000008)) {
-          friends_ = new com.google.protobuf.UnmodifiableLazyStringList(
-              friends_);
-          bitField0_ = (bitField0_ & ~0x00000008);
-        }
-        result.friends_ = friends_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
 
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof PersonMsg.Person) {
-          return mergeFrom((PersonMsg.Person)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @Override
+        public com.google.protobuf.Descriptors.Descriptor
+        getDescriptorForType() {
+            return PersonMsg.internal_static_Person_descriptor;
         }
-      }
+
+        @Override
+        public PersonMsg.Person getDefaultInstanceForType() {
+            return PersonMsg.Person.getDefaultInstance();
+        }
+
+        @Override
+        public PersonMsg.Person build() {
+            PersonMsg.Person result = buildPartial();
+            if (!result.isInitialized()) {
+                throw newUninitializedMessageException(result);
+            }
+            return result;
+        }
+
+        @Override
+        public PersonMsg.Person buildPartial() {
+            PersonMsg.Person result = new PersonMsg.Person(this);
+            int from_bitField0_ = bitField0_;
+            int to_bitField0_ = 0;
+            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+                to_bitField0_ |= 0x00000001;
+            }
+            result.id_ = id_;
+            if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+                to_bitField0_ |= 0x00000002;
+            }
+            result.name_ = name_;
+            if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+                to_bitField0_ |= 0x00000004;
+            }
+            result.email_ = email_;
+            if (((bitField0_ & 0x00000008) == 0x00000008)) {
+                friends_ = new com.google.protobuf.UnmodifiableLazyStringList(
+                        friends_);
+                bitField0_ = (bitField0_ & ~0x00000008);
+            }
+            result.friends_ = friends_;
+            result.bitField0_ = to_bitField0_;
+            onBuilt();
+            return result;
+        }
+
+        @Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof PersonMsg.Person) {
+                return mergeFrom((PersonMsg.Person)other);
+            } else {
+                super.mergeFrom(other);
+                return this;
+            }
+        }
 
       public Builder mergeFrom(PersonMsg.Person other) {
-        if (other == PersonMsg.Person.getDefaultInstance()) return this;
+          if (other == PersonMsg.Person.getDefaultInstance()) {
+              return this;
+          }
         if (other.hasId()) {
           setId(other.getId());
         }
@@ -697,35 +735,37 @@ public final class PersonMsg {
         return this;
       }
 
-      public final boolean isInitialized() {
-        if (!hasId()) {
-          
-          return false;
-        }
-        if (!hasName()) {
-          
-          return false;
-        }
-        return true;
-      }
+        @Override
+        public final boolean isInitialized() {
+            if (!hasId()) {
 
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        PersonMsg.Person parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (PersonMsg.Person) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+                return false;
+            }
+            if (!hasName()) {
+
+                return false;
+            }
+            return true;
         }
-        return this;
-      }
+
+        @Override
+        public Builder mergeFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            PersonMsg.Person parsedMessage = null;
+            try {
+                parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                parsedMessage = (PersonMsg.Person) e.getUnfinishedMessage();
+                throw e;
+            } finally {
+                if (parsedMessage != null) {
+                    mergeFrom(parsedMessage);
+                }
+            }
+            return this;
+        }
       private int bitField0_;
 
       // required int32 id = 1;
@@ -734,9 +774,10 @@ public final class PersonMsg {
        * <code>required int32 id = 1;</code>
        *
        * <pre>
-       * ID£¨±ØÐè£©  
+       * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
+      @Override
       public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
@@ -744,9 +785,10 @@ public final class PersonMsg {
        * <code>required int32 id = 1;</code>
        *
        * <pre>
-       * ID£¨±ØÐè£©  
+       * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
+      @Override
       public int getId() {
         return id_;
       }
@@ -754,7 +796,7 @@ public final class PersonMsg {
        * <code>required int32 id = 1;</code>
        *
        * <pre>
-       * ID£¨±ØÐè£©  
+       * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
       public Builder setId(int value) {
@@ -767,7 +809,7 @@ public final class PersonMsg {
        * <code>required int32 id = 1;</code>
        *
        * <pre>
-       * ID£¨±ØÐè£©  
+       * IDï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
       public Builder clearId() {
@@ -783,9 +825,10 @@ public final class PersonMsg {
        * <code>required string name = 2;</code>
        *
        * <pre>
-       * ÐÕÃû£¨±ØÐè£©  
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
+      @Override
       public boolean hasName() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
@@ -793,9 +836,10 @@ public final class PersonMsg {
        * <code>required string name = 2;</code>
        *
        * <pre>
-       * ÐÕÃû£¨±ØÐè£©  
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
+      @Override
       public java.lang.String getName() {
         java.lang.Object ref = name_;
         if (!(ref instanceof java.lang.String)) {
@@ -811,9 +855,10 @@ public final class PersonMsg {
        * <code>required string name = 2;</code>
        *
        * <pre>
-       * ÐÕÃû£¨±ØÐè£©  
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
+      @Override
       public com.google.protobuf.ByteString
           getNameBytes() {
         java.lang.Object ref = name_;
@@ -831,7 +876,7 @@ public final class PersonMsg {
        * <code>required string name = 2;</code>
        *
        * <pre>
-       * ÐÕÃû£¨±ØÐè£©  
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
       public Builder setName(
@@ -848,7 +893,7 @@ public final class PersonMsg {
        * <code>required string name = 2;</code>
        *
        * <pre>
-       * ÐÕÃû£¨±ØÐè£©  
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
       public Builder clearName() {
@@ -861,7 +906,7 @@ public final class PersonMsg {
        * <code>required string name = 2;</code>
        *
        * <pre>
-       * ÐÕÃû£¨±ØÐè£©  
+       * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½è£©  
        * </pre>
        */
       public Builder setNameBytes(
@@ -881,9 +926,10 @@ public final class PersonMsg {
        * <code>optional string email = 3;</code>
        *
        * <pre>
-       * email£¨¿ÉÑ¡£©  
+       * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
        * </pre>
        */
+      @Override
       public boolean hasEmail() {
         return ((bitField0_ & 0x00000004) == 0x00000004);
       }
@@ -891,9 +937,10 @@ public final class PersonMsg {
        * <code>optional string email = 3;</code>
        *
        * <pre>
-       * email£¨¿ÉÑ¡£©  
+       * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
        * </pre>
        */
+      @Override
       public java.lang.String getEmail() {
         java.lang.Object ref = email_;
         if (!(ref instanceof java.lang.String)) {
@@ -909,9 +956,10 @@ public final class PersonMsg {
        * <code>optional string email = 3;</code>
        *
        * <pre>
-       * email£¨¿ÉÑ¡£©  
+       * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
        * </pre>
        */
+      @Override
       public com.google.protobuf.ByteString
           getEmailBytes() {
         java.lang.Object ref = email_;
@@ -929,7 +977,7 @@ public final class PersonMsg {
        * <code>optional string email = 3;</code>
        *
        * <pre>
-       * email£¨¿ÉÑ¡£©  
+       * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
        * </pre>
        */
       public Builder setEmail(
@@ -946,7 +994,7 @@ public final class PersonMsg {
        * <code>optional string email = 3;</code>
        *
        * <pre>
-       * email£¨¿ÉÑ¡£©  
+       * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
        * </pre>
        */
       public Builder clearEmail() {
@@ -959,7 +1007,7 @@ public final class PersonMsg {
        * <code>optional string email = 3;</code>
        *
        * <pre>
-       * email£¨¿ÉÑ¡£©  
+       * emailï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½  
        * </pre>
        */
       public Builder setEmailBytes(
@@ -985,9 +1033,10 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
+      @Override
       public java.util.List<java.lang.String>
           getFriendsList() {
         return java.util.Collections.unmodifiableList(friends_);
@@ -996,9 +1045,10 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
+      @Override
       public int getFriendsCount() {
         return friends_.size();
       }
@@ -1006,9 +1056,10 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
+      @Override
       public java.lang.String getFriends(int index) {
         return friends_.get(index);
       }
@@ -1016,9 +1067,10 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
+      @Override
       public com.google.protobuf.ByteString
           getFriendsBytes(int index) {
         return friends_.getByteString(index);
@@ -1027,7 +1079,7 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
       public Builder setFriends(
@@ -1044,7 +1096,7 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
       public Builder addFriends(
@@ -1061,7 +1113,7 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
       public Builder addAllFriends(
@@ -1075,7 +1127,7 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
       public Builder clearFriends() {
@@ -1088,7 +1140,7 @@ public final class PersonMsg {
        * <code>repeated string friends = 4;</code>
        *
        * <pre>
-       * ÅóÓÑ£¨¼¯ºÏ£©  
+       * ï¿½ï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½Ï£ï¿½  
        * </pre>
        */
       public Builder addFriendsBytes(
@@ -1133,17 +1185,18 @@ public final class PersonMsg {
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_Person_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_Person_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_Person_descriptor,
-              new java.lang.String[] { "Id", "Name", "Email", "Friends", });
-          return null;
-        }
+          @Override
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                  com.google.protobuf.Descriptors.FileDescriptor root) {
+              descriptor = root;
+              internal_static_Person_descriptor =
+                      getDescriptor().getMessageTypes().get(0);
+              internal_static_Person_fieldAccessorTable = new
+                      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+                      internal_static_Person_descriptor,
+                      new java.lang.String[] { "Id", "Name", "Email", "Friends", });
+              return null;
+          }
       };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

@@ -14,6 +14,7 @@ public class DelimFramer implements Framer {
         this.in = in;
     }
 
+    @Override
     public void frameMsg(byte[] message, OutputStream out) throws IOException {
         for (byte b : message) {
             if (b == DELIMITER) {
@@ -26,6 +27,7 @@ public class DelimFramer implements Framer {
         out.flush();
     }
 
+    @Override
     public byte[] nextMsg() throws IOException {
         ByteArrayOutputStream messageBuffer = new ByteArrayOutputStream();
         int nextByte;

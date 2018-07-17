@@ -82,6 +82,7 @@ class DeepStudent implements Cloneable {
      * 重写clone()方法
      * this is the difference
      */
+    @Override
     public Object clone() {
         // 深拷贝，创建拷贝类的一个新对象，这样就和原始对象相互独立
         return new DeepStudent(name, subj.getName());

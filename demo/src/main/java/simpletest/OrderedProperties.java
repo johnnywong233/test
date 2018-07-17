@@ -37,19 +37,23 @@ public class OrderedProperties extends Properties {
 
     private final LinkedHashSet<Object> keys = new LinkedHashSet<>();
 
+    @Override
     public Enumeration<Object> keys() {
         return Collections.enumeration(keys);
     }
 
+    @Override
     public Object put(Object key, Object value) {
         keys.add(key);
         return super.put(key, value);
     }
 
+    @Override
     public Set<Object> keySet() {
         return keys;
     }
 
+    @Override
     public Set<String> stringPropertyNames() {
         return this.keys.stream().map(key -> (String) key).collect(Collectors.toCollection(LinkedHashSet::new));
     }

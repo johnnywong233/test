@@ -49,7 +49,7 @@ public class CsvUtil {
      * 获取列数
      */
     public int getColNum() {
-        if (!list.toString().equals("[]")) {
+        if (!"[]".equals(list.toString())) {
             if (list.get(0).contains(",")) {
                 return list.get(0).split(",").length;
             } else if (list.get(0).trim().length() != 0) {

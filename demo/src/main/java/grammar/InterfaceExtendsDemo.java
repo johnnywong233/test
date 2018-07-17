@@ -7,6 +7,7 @@ public class InterfaceExtendsDemo extends cow{
 
 class cow extends animals{
 
+    @Override
     public void print() {
 
     }
@@ -14,6 +15,7 @@ class cow extends animals{
 
 class sheep extends animals{
 
+    @Override
     public void print() {
 
     }

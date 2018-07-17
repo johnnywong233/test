@@ -7,19 +7,19 @@ public class TestCountDownLatch {
 
     /*
      * http://janeky.iteye.com/blog/769965
-     * ¼ÙÉèÎÒÃÇÒª´òÓ¡1-100£¬×îºóÔÙÊä³ö¡°Ok¡°¡£1-100µÄ´òÓ¡Ë³Ðò²»ÒªÇóÍ³Ò»£¬Ö»Ðè±£Ö¤¡°Ok¡°ÊÇÔÚ×îºó³öÏÖ¼´¿É¡£
-     * Êµ¼ÊÉÏ£¬±¾´úÂëÊÇ·Ç³£ÓÐ´ýÓÅ»¯µÄ£¡
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ó¡1-100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Okï¿½ï¿½ï¿½ï¿½1-100ï¿½Ä´ï¿½Ó¡Ë³ï¿½ï¿½Òªï¿½ï¿½Í³Ò»ï¿½ï¿½Ö»ï¿½è±£Ö¤ï¿½ï¿½Okï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½É¡ï¿½
+     * Êµï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·Ç³ï¿½ï¿½Ð´ï¿½ï¿½Å»ï¿½ï¿½Ä£ï¿½
      */
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch doneSignal = new CountDownLatch(N);
-        CountDownLatch startSignal = new CountDownLatch(1);//¿ªÊ¼Ö´ÐÐÐÅºÅ  
+        CountDownLatch startSignal = new CountDownLatch(1);//ï¿½ï¿½Ê¼Ö´ï¿½ï¿½ï¿½Åºï¿½  
 
         for (int i = 1; i <= N; i++) {
-            new Thread(new Worker(i, doneSignal, startSignal)).start();//Ïß³ÌÆô¶¯
+            new Thread(new Worker(i, doneSignal, startSignal)).start();//ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
         }
         System.out.println("begin------------");
-        startSignal.countDown();//¿ªÊ¼Ö´ÐÐ 
-        doneSignal.await();//µÈ´ýËùÓÐµÄÏß³ÌÖ´ÐÐÍê±Ï  
+        startSignal.countDown();//ï¿½ï¿½Ê¼Ö´ï¿½ï¿½ 
+        doneSignal.await();//ï¿½È´ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ß³ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½  
         System.out.println("Ok");
 
     }
@@ -35,9 +35,10 @@ public class TestCountDownLatch {
             this.doneSignal = doneSignal;
         }
 
+        @Override
         public void run() {
             try {
-                startSignal.await(); //µÈ´ý¿ªÊ¼Ö´ÐÐÐÅºÅµÄ·¢²¼  
+                startSignal.await(); //ï¿½È´ï¿½ï¿½ï¿½Ê¼Ö´ï¿½ï¿½ï¿½ÅºÅµÄ·ï¿½ï¿½ï¿½  
                 beginIndex = (beginIndex - 1) * 10 + 1;
                 for (int i = beginIndex; i <= beginIndex + 10; i++) {
                     System.out.println(i);

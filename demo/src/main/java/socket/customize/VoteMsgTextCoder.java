@@ -21,6 +21,7 @@ public class VoteMsgTextCoder implements VoteMsgCoder {
     public static final String DELIMSTR = " ";
     public static final int MAX_WIRE_LENGTH = 2000;
 
+    @Override
     public byte[] toWire(VoteMsg msg) throws IOException {
         String msgString = MAGIC + DELIMSTR + (msg.isInquiry() ? INQSTR : VOTESTR)
                 + DELIMSTR + (msg.isResponse() ? RESPONSESTR + DELIMSTR : "")
@@ -30,6 +31,7 @@ public class VoteMsgTextCoder implements VoteMsgCoder {
         return data;
     }
 
+    @Override
     public VoteMsg fromWire(byte[] message) throws IOException {
         ByteArrayInputStream msgStream = new ByteArrayInputStream(message);
         Scanner s = new Scanner(new InputStreamReader(msgStream, CHARSETNAME));

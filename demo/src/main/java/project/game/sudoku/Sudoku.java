@@ -87,8 +87,9 @@ public class Sudoku {
         System.out.println("请按格式输入点信息（i行号, j列号 v值）,输入【over】结束: i j v ");
         System.out.println("横纵方向上，索引都是从0开始的。");
         while ((line = br.readLine()) != null) {
-            if (line.equals("over"))
+            if ("over".equals(line)) {
                 break;
+            }
             p = line.trim().split(" +");
             numMat[Integer.parseInt(p[0])][Integer.parseInt(p[1])].setValue(Integer.parseInt(p[2]));
             numMat[Integer.parseInt(p[0])][Integer.parseInt(p[1])].changeFlag();
@@ -100,15 +101,17 @@ public class Sudoku {
         System.out.println("--------┬---------┬---------┐");
         for (int i = 0; i < numMat.length; i++) {
             for (int j = 0; j < numMat[i].length; j++) {
-                if ((j + 1) % 3 == 0)
+                if ((j + 1) % 3 == 0) {
                     System.out.print(numMat[i][j].getValue() + " | ");
-                else
+                } else {
                     System.out.print(numMat[i][j].getValue() + "  ");
+                }
             }
-            if ((i + 1) % 3 == 0)
+            if ((i + 1) % 3 == 0) {
                 System.out.println("\r\n--------┼---------┼---------┤");
-            else
+            } else {
                 System.out.println();
+            }
         }
     }
 

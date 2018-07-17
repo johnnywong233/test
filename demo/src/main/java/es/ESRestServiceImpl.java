@@ -266,7 +266,7 @@ public class ESRestServiceImpl implements ESRestService {
         result.append("\"" + k.first + "\":{");
         result.append("\"type\":\"" + k.second.getType() + "\"");
         if (k.second.getIndex() != null) {
-            if (k.second.getIndex().equalsIgnoreCase("not_analyzed")) {
+            if ("not_analyzed".equalsIgnoreCase(k.second.getIndex())) {
                 result.append(",\"index\":\"not_analyzed\"");
             } else {
                 result.append(",\"analyzer\":\"" + k.second.getIndex() + "\"");

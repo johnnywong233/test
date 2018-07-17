@@ -41,9 +41,10 @@ public class DomParser implements XmlDocument {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	public void createXml(String fileName) {
-		Element root = this.document.createElement("employees");
+
+    @Override
+    public void createXml(String fileName) {
+        Element root = this.document.createElement("employees");
 		this.document.appendChild(root);
 		Element employee = this.document.createElement("employee");
 		Element name = this.document.createElement("name");
@@ -76,9 +77,10 @@ public class DomParser implements XmlDocument {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	public void parserXml(String fileName) {
-		try {
+
+    @Override
+    public void parserXml(String fileName) {
+        try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document document = db.parse(fileName);

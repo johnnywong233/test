@@ -130,8 +130,9 @@ public class InstanceListener implements BinlogEventListener {
             case MySQLConstants.QUERY_EVENT: {
                 QueryEvent qe = (QueryEvent) be;
                 TableInfo tableInfo = createTableInfo(qe);
-                if (tableInfo == null)
+                if (tableInfo == null) {
                     break;
+                }
                 String databaseName = tableInfo.getDatabaseName();
                 String tableName = tableInfo.getTableName();
                 logger.trace("QUERY_EVENT:databaseName:{},tableName:{}", databaseName, tableName);
@@ -170,8 +171,9 @@ public class InstanceListener implements BinlogEventListener {
 
         String fullName = databaseName + "." + tableName;
         List<ColumnInfo> columnInfoList = TableInfoKeeper.getColumns(fullName);
-        if (columnInfoList == null)
+        if (columnInfoList == null) {
             return null;
+        }
         if (columnInfoList.size() != cols.size()) {
             TableInfoKeeper.refreshColumnsMap();
             if (columnInfoList.size() != cols.size()) {
@@ -181,10 +183,11 @@ public class InstanceListener implements BinlogEventListener {
         }
 
         for (int i = 0; i < columnInfoList.size(); i++) {
-            if (cols.get(i).getValue() == null)
+            if (cols.get(i).getValue() == null) {
                 map.put(columnInfoList.get(i).getName(), "");
-            else
+            } else {
                 map.put(columnInfoList.get(i).getName(), cols.get(i).toString());
+            }
         }
 
         return map;

@@ -77,7 +77,7 @@ public class SFTPTest {
             String ftpPassword = sftpDetails.get(SFTPConstants.SFTP_REQ_PASSWORD);
 
             int ftpPort = SFTPConstants.SFTP_DEFAULT_PORT;
-            if (port != null && !port.equals("")) {
+            if (port != null && !"".equals(port)) {
                 ftpPort = Integer.valueOf(port);
             }
 

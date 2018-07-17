@@ -41,9 +41,9 @@ public class ExpressionStack {
                     stack.push(c);
                 }
             } else if (c == '*' || c == '/') {
-                if (stack.isEmpty() || stack.peek() == '+' || stack.peek() == '-' || stack.peek() == '(')
+                if (stack.isEmpty() || stack.peek() == '+' || stack.peek() == '-' || stack.peek() == '(') {
                     stack.push(c);
-                else {
+                } else {
                     while (!stack.isEmpty() && (stack.peek() == '/' || stack.peek() == '*')) {
                         System.out.print(stack.pop());
                     }

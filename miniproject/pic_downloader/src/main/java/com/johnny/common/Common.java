@@ -90,8 +90,9 @@ public class Common {
 
                 Desktop desktop = Desktop.getDesktop();
 
-                if (!desktop.isSupported(Action.BROWSE))
+                if (!desktop.isSupported(Action.BROWSE)) {
                     return;
+                }
                 desktop.browse(uri);
             } catch (NullPointerException e) {
                 e.printStackTrace();

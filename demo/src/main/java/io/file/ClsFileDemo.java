@@ -20,18 +20,21 @@ public class ClsFileDemo {
                         + f.getParent() + "\n getPath: " + f.getPath()
                         + "\n length: " + f.length() + "\n lastModified: "
                         + f.lastModified());
-        if (f.isFile())
+        if (f.isFile()) {
             System.out.println("it's a file");
-        else if (f.isDirectory())
+        } else if (f.isDirectory()) {
             System.out.println("it's a directory");
+        }
     }
 
     public static void main(String[] args) {
-        if (args.length < 1)
+        if (args.length < 1) {
             myUsage();
-        if (args[0].equals("-r")) {
-            if (args.length != 3)
+        }
+        if ("-r".equals(args[0])) {
+            if (args.length != 3) {
                 myUsage();
+            }
             File old = new File(args[1]), rname = new File(args[2]);
             old.renameTo(rname);
             System.out.println(old + "is renamed to a new one: " + rname);
@@ -41,7 +44,7 @@ public class ClsFileDemo {
         }
         int count = 0;
         boolean del = false;
-        if (args[0].equals("-d")) {
+        if ("-d".equals(args[0])) {
             count++;
             del = true;
         }

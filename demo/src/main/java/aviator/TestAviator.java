@@ -154,6 +154,7 @@ class AddFunction extends AbstractFunction {
         return new AviatorDouble(left.doubleValue() + right.doubleValue());
     }
 
+    @Override
     public String getName() {
         return "add";
     }

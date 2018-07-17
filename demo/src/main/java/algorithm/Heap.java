@@ -26,8 +26,9 @@ public class Heap<E extends Comparable<E>> {
     }
 
     public boolean add(E element) {
-        if (null == element)
+        if (null == element) {
             return false;
+        }
         ensureCapacityInternal(size + 1);
         elementData[size++] = element;
         minHeapify();
@@ -248,7 +249,9 @@ public class Heap<E extends Comparable<E>> {
 
     public int hugeCapacity(int minCapacity) {
         if (minCapacity < 0) // overflow
+        {
             throw new OutOfMemoryError();
+        }
         return (minCapacity > MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;
     }
 

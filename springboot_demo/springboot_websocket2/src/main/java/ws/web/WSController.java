@@ -17,7 +17,7 @@ public class WSController {
 
     @MessageMapping("/chat")
     public void handleChat(Principal principal, String msg) {
-        if (principal.getName().equals("root")) {
+        if ("root".equals(principal.getName())) {
             //向用户发送消息
             messagingTemplate.convertAndSendToUser("johnny",
                     "/point/notifications", principal.getName() + "-send:" + msg);

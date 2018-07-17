@@ -56,6 +56,7 @@ public class RabbitController implements RabbitTemplate.ConfirmCallback {
      * 消息的回调，主要是实现RabbitTemplate.ConfirmCallback接口
      * 注意，消息回调只能代表成功消息发送到RabbitMQ服务器，不能代表消息被成功处理和接受
      */
+    @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         System.out.println(" 回调id:" + correlationData);
         if (ack) {

@@ -52,6 +52,7 @@ public class JMSDemo {
     }
 
     private static class HelloWorldProducer implements Runnable {
+        @Override
         public void run() {
             try {
                 // Create a ConnectionFactory
@@ -90,6 +91,7 @@ public class JMSDemo {
     }
 
     private static class HelloWorldConsumer implements Runnable, ExceptionListener {
+        @Override
         public void run() {
             try {
                 // Create a ConnectionFactory
@@ -130,6 +132,7 @@ public class JMSDemo {
             }
         }
 
+        @Override
         public synchronized void onException(JMSException ex) {
             System.out.println("JMS Exception occured.  Shutting down client.");
         }

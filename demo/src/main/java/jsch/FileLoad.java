@@ -172,14 +172,17 @@ public class FileLoad {
                             localFile));
             channel.get(remoteFile, outs, new SftpProgressMonitor() {
 
+                @Override
                 public void init(int op, String src, String dest, long max) {
                     logger.info(String.format("start downloading file from", remoteFile));
                 }
 
+                @Override
                 public void end() {
                     logger.info("download file complete");
                 }
 
+                @Override
                 public boolean count(long count) {
                     return true;
                 }

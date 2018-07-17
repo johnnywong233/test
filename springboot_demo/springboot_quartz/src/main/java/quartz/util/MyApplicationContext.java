@@ -16,6 +16,7 @@ public class MyApplicationContext implements ApplicationContextAware {
     // 声明一个静态变量保存
     private static ApplicationContext applicationContext;
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
         MyApplicationContext.applicationContext = applicationContext;

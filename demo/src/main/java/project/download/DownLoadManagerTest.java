@@ -124,7 +124,7 @@ public class DownLoadManagerTest extends AbstractTransactionalJUnit4SpringContex
         String sHeader;
         for (int i = 1; ; i++) {
             sHeader = httpConnection.getHeaderFieldKey(i);
-            if (sHeader != null && sHeader.equals("Content-Length")) {
+            if (sHeader != null && "Content-Length".equals(sHeader)) {
                 System.out.println("文件大小ContentLength:" + httpConnection.getContentLength());
                 fileSize = Long.parseLong(httpConnection.getHeaderField(sHeader));
                 break;

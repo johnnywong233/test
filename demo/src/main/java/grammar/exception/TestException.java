@@ -24,10 +24,11 @@ public class TestException{
 			System.out.println("illeagal exception message"); 
 		} 
 		finally{
-			if (a > 20)
-				return a.toString();
-			
-			System.out.println("with return in try block, I will be executed first"); 
+            if (a > 20) {
+                return a.toString();
+            }
+
+            System.out.println("with return in try block, I will be executed first");
 		} 
 		return "OK"; 
 	}

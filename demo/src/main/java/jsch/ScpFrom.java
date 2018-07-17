@@ -82,7 +82,9 @@ public class ScpFrom {
                         // error
                         break;
                     }
-                    if (buf[0] == ' ') break;
+                    if (buf[0] == ' ') {
+                        break;
+                    }
                     filesize = filesize * 10L + (long) (buf[0] - '0');
                 }
 
@@ -106,8 +108,11 @@ public class ScpFrom {
                 fos = new FileOutputStream(prefix == null ? lfile : prefix + file);
                 int foo;
                 while (true) {
-                    if (buf.length < filesize) foo = buf.length;
-                    else foo = (int) filesize;
+                    if (buf.length < filesize) {
+                        foo = buf.length;
+                    } else {
+                        foo = (int) filesize;
+                    }
                     foo = in.read(buf, 0, foo);
                     if (foo < 0) {
                         // error
@@ -115,7 +120,9 @@ public class ScpFrom {
                     }
                     fos.write(buf, 0, foo);
                     filesize -= foo;
-                    if (filesize == 0L) break;
+                    if (filesize == 0L) {
+                        break;
+                    }
                 }
                 fos.close();
                 fos = null;
@@ -136,7 +143,9 @@ public class ScpFrom {
         } catch (Exception e) {
             System.out.println(e);
             try {
-                if (fos != null) fos.close();
+                if (fos != null) {
+                    fos.close();
+                }
             } catch (Exception ee) {
             }
         }
@@ -148,8 +157,12 @@ public class ScpFrom {
         //          1 for error,
         //          2 for fatal error,
         //          -1
-        if (b == 0) return b;
-        if (b == -1) return b;
+        if (b == 0) {
+            return b;
+        }
+        if (b == -1) {
+            return b;
+        }
 
         if (b == 1 || b == 2) {
             StringBuffer sb = new StringBuffer();
@@ -170,10 +183,12 @@ public class ScpFrom {
     }
 
     public static class MyUserInfo implements UserInfo, UIKeyboardInteractive {
+        @Override
         public String getPassword() {
             return passwd;
         }
 
+        @Override
         public boolean promptYesNo(String str) {
             Object[] options = {"yes", "no"};
             int foo = JOptionPane.showOptionDialog(null,
@@ -188,14 +203,17 @@ public class ScpFrom {
         String passwd;
         JTextField passwordField = (JTextField) new JPasswordField(20);
 
+        @Override
         public String getPassphrase() {
             return null;
         }
 
+        @Override
         public boolean promptPassphrase(String message) {
             return true;
         }
 
+        @Override
         public boolean promptPassword(String message) {
             Object[] ob = {passwordField};
             int result =
@@ -209,6 +227,7 @@ public class ScpFrom {
             }
         }
 
+        @Override
         public void showMessage(String message) {
             JOptionPane.showMessageDialog(null, message);
         }
@@ -220,6 +239,7 @@ public class ScpFrom {
                         new Insets(0, 0, 0, 0), 0, 0);
         private Container panel;
 
+        @Override
         public String[] promptKeyboardInteractive(String destination,
                                                   String name,
                                                   String instruction,

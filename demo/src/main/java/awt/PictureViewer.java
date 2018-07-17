@@ -60,6 +60,7 @@ public class PictureViewer implements ActionListener {
         frame.setSize(360, 360);
         frame.setLocation(400, 200);
         frame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
@@ -71,6 +72,7 @@ public class PictureViewer implements ActionListener {
         fd_load.setFilenameFilter(filter);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
@@ -86,14 +88,16 @@ public class PictureViewer implements ActionListener {
                 break;
             case "previous":
                 findex--;
-                if (findex < 0)
+                if (findex < 0) {
                     findex = 0;
+                }
                 this.display(files[findex]);
                 break;
             case "next":
                 findex++;
-                if (findex >= files.length)
+                if (findex >= files.length) {
                     findex = files.length - 1;
+                }
                 this.display(files[findex]);
                 break;
         }
@@ -141,10 +145,12 @@ class MyCanvas extends Canvas implements ComponentListener {
         this.zoom();
     }
 
+    @Override
     public void paint(Graphics g) {
         g.drawImage(im, (this.getWidth() - image_width) / 2, (this.getHeight() - image_height) / 2, this);
     }
 
+    @Override
     public void componentResized(ComponentEvent e) {
         if (bi != null) {
             System.out.println("resize!!");
@@ -154,18 +160,22 @@ class MyCanvas extends Canvas implements ComponentListener {
         }
     }
 
+    @Override
     public void componentMoved(ComponentEvent e) {
     }
 
+    @Override
     public void componentShown(ComponentEvent e) {
     }
 
+    @Override
     public void componentHidden(ComponentEvent e) {
     }
 
     private void zoom() {
-        if (bi == null)
+        if (bi == null) {
             return;
+        }
         int screen_width = this.getWidth();
         int screen_height = this.getHeight();
         double screen_proportion = 1.0 * screen_height / screen_width;
@@ -200,6 +210,7 @@ class MyFilter implements FilenameFilter {
         this.extension = extension;
     }
 
+    @Override
     public boolean accept(File dir, String name) {
         for (String s : extension) {
             if (name.endsWith(s)) {

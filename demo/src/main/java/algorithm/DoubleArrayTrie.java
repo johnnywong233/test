@@ -108,20 +108,26 @@ public class DoubleArrayTrie {
             boolean flag = true;
             for (Integer aSet : set) {
                 int cur_p = i + aSet;
-                if (cur_p >= Base.length) Extend_Array();
+                if (cur_p >= Base.length) {
+                    Extend_Array();
+                }
                 if (Base[cur_p] != 0 || Check[cur_p] != 0) {
                     flag = false;
                     break;
                 }
             }
-            if (flag) return i;
+            if (flag) {
+                return i;
+            }
         }
     }
 
     private ArrayList<Integer> GetChildList(int p) {
         ArrayList<Integer> ret = new ArrayList<>();
         for (int i = 1; i <= CharMap.size(); ++i) {
-            if (Base[p] + i >= Check.length) break;
+            if (Base[p] + i >= Check.length) {
+                break;
+            }
             if (Check[Base[p] + i] == p) {
                 ret.add(i);
             }
@@ -131,8 +137,9 @@ public class DoubleArrayTrie {
 
     private boolean TailContainString(int start, String s2) {
         for (int i = 0; i < s2.length(); ++i) {
-            if (s2.charAt(i) != Tail[i + start])
+            if (s2.charAt(i) != Tail[i + start]) {
                 return false;
+            }
         }
         return true;
     }
@@ -140,8 +147,9 @@ public class DoubleArrayTrie {
     private boolean TailMatchString(int start, String s2) {
         s2 += END_CHAR;
         for (int i = 0; i < s2.length(); ++i) {
-            if (s2.charAt(i) != Tail[i + start])
+            if (s2.charAt(i) != Tail[i + start]) {
                 return false;
+            }
         }
         return true;
     }
@@ -154,7 +162,9 @@ public class DoubleArrayTrie {
             //获取状态位置
             cur_p = Base[pre_p] + GetCharCode(s.charAt(i));
             //如果长度超过现有，拓展数组
-            if (cur_p >= Base.length) Extend_Array();
+            if (cur_p >= Base.length) {
+                Extend_Array();
+            }
             //空闲状态
             if (Base[cur_p] == 0 && Check[cur_p] == 0) {
                 Base[cur_p] = -Pos;
@@ -188,14 +198,16 @@ public class DoubleArrayTrie {
                             Check[avail_base + GetCharCode(Tail[head])] = cur_p;
                             Check[avail_base + GetCharCode(s.charAt(i + 1))] = cur_p;
                             //Tail 为END_FLAG 的情况
-                            if (Tail[head] == END_CHAR)
+                            if (Tail[head] == END_CHAR) {
                                 Base[avail_base + GetCharCode(Tail[head])] = 0;
-                            else
+                            } else {
                                 Base[avail_base + GetCharCode(Tail[head])] = -(head + 1);
-                            if (s.charAt(i + 1) == END_CHAR)
+                            }
+                            if (s.charAt(i + 1) == END_CHAR) {
                                 Base[avail_base + GetCharCode(s.charAt(i + 1))] = 0;
-                            else
+                            } else {
                                 Base[avail_base + GetCharCode(s.charAt(i + 1))] = -Pos;
+                            }
                             Pos = CopyToTailArray(s, i + 2);
                             break;
                         }
@@ -232,10 +244,11 @@ public class DoubleArrayTrie {
                             }
                             //更新新的cur_p
                             cur_p = Base[pre_p] + GetCharCode(s.charAt(i));
-                            if (s.charAt(i) == END_CHAR)
+                            if (s.charAt(i) == END_CHAR) {
                                 Base[cur_p] = 0;
-                            else
+                            } else {
                                 Base[cur_p] = -Pos;
+                            }
                             Check[cur_p] = pre_p;
                             Pos = CopyToTailArray(s, i + 1);
                             break;
@@ -248,7 +261,9 @@ public class DoubleArrayTrie {
         int cur_p = 0;
         for (int i = 0; i < word.length(); ++i) {
             cur_p = Base[pre_p] + GetCharCode(word.charAt(i));
-            if (Check[cur_p] != pre_p) return false;
+            if (Check[cur_p] != pre_p) {
+                return false;
+            }
             if (Base[cur_p] < 0) {
                 return TailMatchString(-Base[cur_p], word.substring(i + 1));
             }
@@ -318,7 +333,9 @@ public class DoubleArrayTrie {
         ArrayList<String> result = new ArrayList<>();
         FindStruct fs = Find(word);
         int p = fs.p;
-        if (p == -1) return result;
+        if (p == -1) {
+            return result;
+        }
         if (Base[p] < 0) {
             String r = "";
             for (int i = -Base[p]; Tail[i] != END_CHAR; ++i) {

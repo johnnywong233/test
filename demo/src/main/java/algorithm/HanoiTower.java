@@ -29,9 +29,9 @@ public class HanoiTower {
      * three stake
      */
     private void move(int n, char a, char b, char c){
-        if(n == 1)
+        if (n == 1) {
             System.out.println("plate " + n + " is moved from " + a + " to " + c);
-        else {
+        } else {
             move(n - 1, a, c, b);
             System.out.println("plate " + n + " is moved from " + a + " to " + c);
             move(n - 1, b, a, c);

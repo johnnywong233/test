@@ -54,8 +54,9 @@ public class JdbcException {
         } finally {
             //finally block used to close resources
             try {
-                if (conn != null)
+                if (conn != null) {
                     conn.close();
+                }
             } catch (SQLException se) {
                 se.printStackTrace();
             }//end finally try

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
-import java.util.Date;
 
 /*
  * 文件下载类。为了防止客户端浏览器直接打开目标文件（例如在装了MS Office套件的Windows中
@@ -25,6 +24,7 @@ public class DownloadFile extends HttpServlet {
     private static final long serialVersionUID = 8329640086276677328L;
     private static final Log log = LogFactory.getLog(DownloadFile.class);
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         long timeStart = 0;
         if (log.isDebugEnabled()) {
@@ -77,7 +77,7 @@ public class DownloadFile extends HttpServlet {
             }
             sos.flush();
             if (log.isDebugEnabled()) {
-                log.debug("文件下载完成，文件大小：" + byteCount + "，总共用时:" + (new Date().getTime() - timeStart) + "毫秒。");
+                log.debug("文件下载完成，文件大小：" + byteCount + "，总共用时:" + (System.currentTimeMillis() - timeStart) + "毫秒。");
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -100,6 +100,7 @@ public class DownloadFile extends HttpServlet {
         }
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();

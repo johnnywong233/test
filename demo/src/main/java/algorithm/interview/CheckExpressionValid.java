@@ -69,8 +69,8 @@ public class CheckExpressionValid {
     }
 
     private boolean isOperator(String str) {
-        return str.equals("+") || str.equals("-") || str.equals("*")
-                || str.equals("/");
+        return "+".equals(str) || "-".equals(str) || "*".equals(str)
+                || "/".equals(str);
     }
 
     private List infixExpToPostExp(String exp) throws Exception {
@@ -119,8 +119,9 @@ public class CheckExpressionValid {
                         String c1;
                         while (!opStack.isEmpty()) {
                             c1 = opStack.pop();
-                            if (c1.charAt(0) != '#')
+                            if (c1.charAt(0) != '#') {
                                 postExp.add("" + c1);
+                            }
                         }
                         i++;
                         break;

@@ -84,8 +84,11 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
     /**
      * 实现了SftpProgressMonitor接口的count方法
      */
+    @Override
     public boolean count(long count) {
-        if (isEnd()) return false;
+        if (isEnd()) {
+            return false;
+        }
         if (!isScheduled) {
             start();
         }
@@ -93,6 +96,7 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
         return true;
     }
 
+    @Override
     public void end() {
         setEnd(true);
         System.out.println("transfer end.");
@@ -118,6 +122,7 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
         return isEnd;
     }
 
+    @Override
     public void init(int op, String src, String dest, long max) {
         // Not used for putting InputStream
     }

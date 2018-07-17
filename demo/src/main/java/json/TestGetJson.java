@@ -56,8 +56,9 @@ public class TestGetJson {
                 System.err.println("error: " + getMethod.getStatusLine());
             }
             Header[] headers = getMethod.getResponseHeaders();
-            for (Header h : headers)
+            for (Header h : headers) {
                 System.out.println(h.getName() + "------------ " + h.getValue());
+            }
             byte[] responseBody = getMethod.getResponseBody();
             response = new String(responseBody, charset);
             System.out.println("----------response:" + response);

@@ -85,6 +85,7 @@ class Student implements Cloneable {
     /**
      * 重写clone()方法
      */
+    @Override
     public Object clone() {
         // 浅拷贝
         try {

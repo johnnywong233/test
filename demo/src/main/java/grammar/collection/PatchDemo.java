@@ -43,20 +43,23 @@ public class PatchDemo {
     private static void testStreamMap() {
         // 用filter过滤，然后再使用map进行转换
         persons.parallelStream().map(p -> {
-            if (p.getAge() > 18)
+            if (p.getAge() > 18) {
                 return p;
+            }
             return null;
         }).collect(Collectors.toCollection(ArrayList::new)).forEach(p -> {
-            if (p != null)
+            if (p != null) {
                 System.out.println(p);
+            }
         });
 
         persons.parallelStream().filter(p -> p.getAge() > 18)
                 .map(Adult::new)
                 .collect(Collectors.toCollection(ArrayList::new))
                 .forEach(p -> {
-                    if (p != null)
+                    if (p != null) {
                         System.out.println(p);
+                    }
                 });
     }
 
@@ -65,8 +68,9 @@ public class PatchDemo {
                 .map(Adult::new)
                 .collect(Collectors.toCollection(ArrayList::new))
                 .forEach(p -> {
-                    if (p != null)
+                    if (p != null) {
                         System.out.println(p);
+                    }
                 });
     }
 

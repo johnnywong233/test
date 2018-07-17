@@ -56,8 +56,9 @@ public class ObjectInfo {
     }
 
     void addChild(final ObjectInfo info) {
-        if (info != null)
+        if (info != null) {
             children.add(info);
+        }
     }
 
     /**
@@ -74,14 +75,17 @@ public class ObjectInfo {
 
     private long getUnderlyingSize(final boolean isArray) {
         long size = 0;
-        for (final ObjectInfo child : children)
+        for (final ObjectInfo child : children) {
             size += child.arraySize + child.getUnderlyingSize(child.arraySize != 0);
-        if (!isArray && !children.isEmpty())
+        }
+        if (!isArray && !children.isEmpty()) {
             size += children.get(children.size() - 1).offset + children.get(children.size() - 1).length;
+        }
         return size;
     }
 
     private static final class OffsetComparator implements Comparator<ObjectInfo> {
+        @Override
         public int compare(final ObjectInfo o1, final ObjectInfo o2) {
             return o1.offset - o2.offset; //safe because offsets are small non-negative numbers    
         }
@@ -115,8 +119,9 @@ public class ObjectInfo {
     }
 
     private StringBuilder depth(final StringBuilder sb, final int depth) {
-        for (int i = 0; i < depth; ++i)
+        for (int i = 0; i < depth; ++i) {
             sb.append('t');
+        }
         return sb;
     }
 }

@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class OnlineIndexFinder implements IAlbumURLFinder {
+    @Override
     public List<String> findAlbumURL(String url) {
         List<String> list = new ArrayList<>();
         String source = URLUtils.readSource(url);
@@ -17,15 +18,16 @@ public class OnlineIndexFinder implements IAlbumURLFinder {
         Matcher m = p.matcher(source);
         if (m.find()) {
             String str = m.group();
-            if (str.endsWith("/"))
+            if (str.endsWith("/")) {
                 list.add(str);
-            else {
+            } else {
                 list.add(str + "/");
             }
         }
         return list;
     }
 
+    @Override
     public String getURLRegex() {
         return "(http|https)://www.douban.com/online/\\d+/";
     }

@@ -60,9 +60,9 @@ public class AStar1 {
         int step = 0;
         father_point = maze[goal.getX()][goal.getY()];
         while (father_point != null) {
-            if (father_point.equals(start))
+            if (father_point.equals(start)) {
                 result[father_point.getX()][father_point.getY()] = 'r';
-            else if (father_point.equals(goal)) {
+            } else if (father_point.equals(goal)) {
                 result[father_point.getX()][father_point.getY()] = 'a';
                 step++;
             } else if (father_point.getValue() == 'x') {
@@ -148,8 +148,9 @@ public class AStar1 {
 
         while ((currentPoint = findShortestFPoint()) != null) {
             if (currentPoint.getX() == goal.getX()
-                    && currentPoint.getY() == goal.getY())
+                    && currentPoint.getY() == goal.getY()) {
                 return;
+            }
             updateNeighborPoints(currentPoint);
         }
     }
@@ -201,8 +202,9 @@ public class AStar1 {
             Point point;
             while (it.hasNext()) {
                 if ((point = it.next()) != null) {
-                    if (point.getX() == x && point.getY() == y)
+                    if (point.getX() == x && point.getY() == y) {
                         return false;
+                    }
                 }
             }
             return true;
@@ -308,7 +310,9 @@ public class AStar1 {
         // 起始节点到当前节点的距离
         int temp_g = GList[last_x][last_y] + 1;
         if (maze[current_x][current_y].getValue() == 'x') // 如果当前节点是看守
+        {
             ++temp_g;
+        }
         // 当前节点到目的位置的距离
         int temp_h = getDistance(current_x, current_y, goal.getX(), goal.getY());
         // f(x) = g(x) + h(x)

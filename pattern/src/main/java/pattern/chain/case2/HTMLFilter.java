@@ -5,6 +5,7 @@ package pattern.chain.case2;
  * 处理字符串中的HTML标记
  */
 public class HTMLFilter implements Filter {
+    @Override
     public void doFilter(Request request, Response response, FilterChain chain) {
         request.request = request.request.replace('<', '[').replace('>', ']') + "----HTMLFilter()";
         chain.doFilter(request, response, chain);

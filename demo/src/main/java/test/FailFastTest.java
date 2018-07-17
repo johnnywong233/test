@@ -7,6 +7,7 @@ public class FailFastTest {
     private static List<Integer> list = new ArrayList<>();
 
     private static class threadOne extends Thread {
+        @Override
         public void run() {
             for (Integer i : list) {
                 System.out.println("ThreadOne iterate:" + i);
@@ -20,6 +21,7 @@ public class FailFastTest {
     }
 
     private static class threadTwo extends Thread {
+        @Override
         public void run() {
             int i = 0;
             while (i < 6) {

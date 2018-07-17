@@ -37,10 +37,11 @@ public class JwtUtil {
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody();
             String username = (String) (body.get("username"));
-            if (username == null || username.isEmpty())
+            if (username == null || username.isEmpty()) {
                 throw new TokenValidationException("Wrong token without username");
-            else
+            } else {
                 return username;
+            }
         } else {
             throw new TokenValidationException("Missing token");
         }

@@ -66,6 +66,7 @@ public class VoteMsg {
         return voteCount;
     }
 
+    @Override
     public String toString() {
         String res = (isInquiry ? "inquiry" : "vote") + " for candidate " + candidateID;
         if (isResponse) {

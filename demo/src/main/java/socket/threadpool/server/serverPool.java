@@ -17,6 +17,7 @@ public class serverPool {
         for (int i = 0; i < THREADPOOLSIZE; i++) {
             //匿名内部类，当前线程为匿名线程，还没有为任何客户端连接提供服务
             Thread thread = new Thread() {
+                @Override
                 public void run() {
                     //线程为某连接提供完服务后，循环等待其他的连接请求
                     while (true) {

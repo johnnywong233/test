@@ -11,6 +11,7 @@ import javax.servlet.ServletContextListener;
 public class AttendSocetListener implements ServletContextListener {
     private SocketThread socketThread;
 
+    @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         if (null != socketThread && !socketThread.isInterrupted()) {
             socketThread.closeSocketServer();

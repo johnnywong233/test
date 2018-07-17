@@ -147,8 +147,8 @@ public class DownloadProcessing {
                     imageURLSet.add(entry.getKey());
                 } else {
                     BGImage bgImage;
-                    if (imageMap.get(entry.getKey()).getDesc().equals("")) {
-                        if (entry.getValue().getDesc().equals("")) {
+                    if ("".equals(imageMap.get(entry.getKey()).getDesc())) {
+                        if ("".equals(entry.getValue().getDesc())) {
                             bgImage = imageMap.get(entry.getKey());
                             bgImage.setDesc("※" + entry.getValue().getDesc());
                             imageMap.put(entry.getKey(), bgImage);
@@ -158,7 +158,7 @@ public class DownloadProcessing {
                     } else {
                         bgImage = imageMap.get(entry.getKey());
                         String desc = ("※" + bgImage.getDesc()).replaceAll("※+", "※");
-                        if (desc.equals("※")) {
+                        if ("※".equals(desc)) {
                             bgImage = entry.getValue();
                             bgImage.setDesc("※" + bgImage.getDesc());
                         } else {

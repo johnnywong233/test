@@ -27,6 +27,7 @@ public class HtmlParserDemo {
                             private static final long serialVersionUID = 1L;
 
                             //实现该方法,用以过滤标签
+                            @Override
                             public boolean accept(Node node) {
                                 return node instanceof LinkTag;
                             }

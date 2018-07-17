@@ -13,6 +13,7 @@ public class FileClassLoader extends ClassLoader {
     private static final String drive = "D:\\Java_ex\\test\\target\\classes\\pic\\";
     private static final String fileType = ".class";
 
+    @Override
     public Class<?> findClass(String name) {
         byte[] data = loadClassData(name);
         return defineClass(name, data, 0, data.length);

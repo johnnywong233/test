@@ -4,6 +4,7 @@ package pattern.prototype.case1;
  * Created by Johnny on 2018/3/18.
  */
 public class PrototypeDemo implements Cloneable {
+    @Override
     public Object clone() {
         Object object = null;
         try {

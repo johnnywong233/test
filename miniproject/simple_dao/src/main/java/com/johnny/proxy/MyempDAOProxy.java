@@ -16,6 +16,7 @@ public class MyempDAOProxy implements IMyempDAO {
         this.dao = new MyempDAOImpl(this.dbc.getConnection());
     }
 
+    @Override
     public boolean doCreate(Myemp emp) throws Exception {
         boolean flag;
         try {
@@ -29,6 +30,7 @@ public class MyempDAOProxy implements IMyempDAO {
         return flag;
     }
 
+    @Override
     public List<Myemp> findAll(String keyWord) throws Exception {
         List<Myemp> all;
         try {

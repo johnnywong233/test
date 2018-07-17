@@ -45,6 +45,7 @@ class MyThread implements Runnable {
         this.countDownLatch = countDownLatch;
     }
 
+    @Override
     public void run() {
         // 每个线程向List中添加100个元素
         for (int i = 0; i < 100; i++) {

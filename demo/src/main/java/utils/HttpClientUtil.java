@@ -254,8 +254,9 @@ public class HttpClientUtil {
             /* 5 处理 HTTP 响应内容 */
             // HTTP响应头部信息，这里简单打印
             Header[] headers = getMethod.getResponseHeaders();
-            for (Header h : headers)
+            for (Header h : headers) {
                 System.out.println(h.getName() + "------------ " + h.getValue());
+            }
             // 读取 HTTP 响应内容，这里简单打印网页内容
             byte[] responseBody = getMethod.getResponseBody();// 读取为字节数组
             response = new String(responseBody, charset);
@@ -318,10 +319,11 @@ public class HttpClientUtil {
                         charset));
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    if (pretty)
+                    if (pretty) {
                         response.append(line).append(System.getProperty("line.separator"));
-                    else
+                    } else {
                         response.append(line);
+                    }
                 }
                 reader.close();
             }

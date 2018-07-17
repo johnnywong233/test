@@ -35,10 +35,13 @@ public class Demo1 {
     //http://www.jb51.net/article/69306.htm
     public static void main(String[] args) {
         Map<Key, String> m = new HashMap<>();
-        while (true)
-            for (int i = 0; i < 10000; i++)
-                if (!m.containsKey(i))
+        while (true) {
+            for (int i = 0; i < 10000; i++) {
+                if (!m.containsKey(i)) {
                     m.put(new Key(i), "Number:" + i);
+                }
+            }
+        }
     }
 
 }

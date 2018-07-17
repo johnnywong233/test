@@ -55,8 +55,9 @@ public class FileDemo {
                 InputStream xmlInputStream = rs.getAsciiStream(1);
                 int c;
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                while ((c = xmlInputStream.read()) != -1)
+                while ((c = xmlInputStream.read()) != -1) {
                     bos.write(c);
+                }
                 System.out.println(bos.toString());
             }
             rs.close();
@@ -67,20 +68,23 @@ public class FileDemo {
             e.printStackTrace();
         } finally {
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } catch (SQLException se) {
                 se.printStackTrace();
             }
             try {
-                if (pstmt != null)
+                if (pstmt != null) {
                     pstmt.close();
+                }
             } catch (SQLException se2) {
                 se2.printStackTrace();
             }
             try {
-                if (conn != null)
+                if (conn != null) {
                     conn.close();
+                }
             } catch (SQLException se) {
                 se.printStackTrace();
             }

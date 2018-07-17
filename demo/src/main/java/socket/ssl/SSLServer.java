@@ -25,6 +25,7 @@ public class SSLServer extends Thread {
         this.socket = socket;
     }
 
+    @Override
     public void run() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));

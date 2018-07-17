@@ -66,20 +66,23 @@ public class JdbcOdbcBridge {
         } finally {
             //close all the connection
             try {
-                if (rst != null)
+                if (rst != null) {
                     rst.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
-                if (stmt != null)
+                if (stmt != null) {
                     stmt.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
             try {
-                if (conn != null)
+                if (conn != null) {
                     conn.close();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -24,11 +24,13 @@ public class ListenerDemo implements ServletRequestListener {
 
     private static final String START = "Start";
 
+    @Override
     public void requestInitialized(ServletRequestEvent sre) {
         ServletRequest request = sre.getServletRequest();
         request.setAttribute(START, System.nanoTime());
     }
 
+    @Override
     public void requestDestroyed(ServletRequestEvent sre) {
         HttpServletRequest request = (HttpServletRequest) sre.getServletRequest();
         long start = (Long) request.getAttribute(START);

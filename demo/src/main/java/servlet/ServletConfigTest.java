@@ -17,6 +17,7 @@ public class ServletConfigTest extends HttpServlet {
     private static final long serialVersionUID = 4949899146301099570L;
 
     //TODO
+    @Override
     @SuppressWarnings("rawtypes")
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,6 +40,7 @@ public class ServletConfigTest extends HttpServlet {
         }
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);

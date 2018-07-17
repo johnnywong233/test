@@ -45,6 +45,7 @@ public class Resume implements Cloneable {
     /**
      * 克隆该实例
      */
+    @Override
     public Object clone() {
         Resume resume = null;
         try {

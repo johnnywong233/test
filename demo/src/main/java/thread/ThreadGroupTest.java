@@ -21,6 +21,7 @@ public class ThreadGroupTest extends ThreadGroup {
     }
 
     public class Task implements Runnable {
+        @Override
         public void run() {
             int result;
             Random random = new Random(Thread.currentThread().getId());

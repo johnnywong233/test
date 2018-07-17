@@ -246,7 +246,7 @@ public class XlsxReader extends DefaultHandler {
             mCurrentRef = attributes.getValue("r");
             // Figure out if the value is an index in the SST
             String cellType = attributes.getValue("t");
-            mNextIsString = (cellType != null && cellType.equals("s"));
+            mNextIsString = (cellType != null && "s".equals(cellType));
         }
         mIsTElement = "t".equals(name);
 

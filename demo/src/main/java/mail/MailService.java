@@ -58,6 +58,7 @@ public class MailService {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
         return Session.getDefaultInstance(props, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(MAIL_SENDER_MAIL, MAIL_SENDER_PASS);
             }

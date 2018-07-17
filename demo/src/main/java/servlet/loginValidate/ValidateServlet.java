@@ -15,6 +15,7 @@ public class ValidateServlet extends HttpServlet {
     private static final long serialVersionUID = 3391706760785590707L;
 
     //处理客户端提交数据的 "Post" 请求
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
         //发送 XHTML 格式的页面给客户端
@@ -72,6 +73,7 @@ public class ValidateServlet extends HttpServlet {
     }
 
     // 处理客户端提交数据的 "get" 请求, 和doPost一样
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse
             response) throws ServletException, IOException {
         doPost(request, response);

@@ -30,8 +30,9 @@ public class NumSearch {
         k = k % len;
         int i;
         int num;
-        for (i = 0; i < k; i++)
+        for (i = 0; i < k; i++) {
             set.add(arr[i]);
+        }
         for (i = k; i < len; i++) {
             set.add(arr[i]);
             num = set.last();

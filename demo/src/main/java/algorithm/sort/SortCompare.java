@@ -30,8 +30,9 @@ public class SortCompare {
 
     //计数排序算法实现
     private int[] countSort(int[] list) {
-        if (list == null || list.length == 0)
+        if (list == null || list.length == 0) {
             return null;
+        }
 
         int max = max(list);
 
@@ -54,8 +55,9 @@ public class SortCompare {
     public static int max(int[] list) {
         int max = Integer.MIN_VALUE;
         for (int ele : list) {
-            if (ele > max)
+            if (ele > max) {
                 max = ele;
+            }
         }
         return max;
     }
@@ -72,8 +74,9 @@ public class SortCompare {
      * @param right 右指针
      */
     private static int[] mSort(int[] list, int left, int right) {
-        if (left >= right)
+        if (left >= right) {
             return null;
+        }
         int mid = (left + right) / 2;
         mSort(list, left, mid); //递归排序左边
         mSort(list, mid + 1, right); //递归排序右边
@@ -124,8 +127,9 @@ public class SortCompare {
      * @param right right part
      */
     private static int[] qSort(int[] list, int left, int right) {
-        if (left >= right)
+        if (left >= right) {
             return null;
+        }
         int pivotPos = partition(list, left, right);
         qSort(list, left, pivotPos - 1);
         qSort(list, pivotPos + 1, right);
@@ -139,11 +143,13 @@ public class SortCompare {
         int pivotKey = list[left];
 
         while (left < right) {
-            while (left < right && list[right] >= pivotKey)
+            while (left < right && list[right] >= pivotKey) {
                 right--;
+            }
             list[left] = list[right]; //把小的移动到左边
-            while (left < right && list[left] <= pivotKey)
+            while (left < right && list[left] <= pivotKey) {
                 left++;
+            }
             list[right] = list[left]; //把大的移动到右边
         }
         list[left] = pivotKey; //最后把pivot赋值到中间
@@ -151,8 +157,9 @@ public class SortCompare {
     }
 
     public int[] quickSort(int[] list) {
-        if (list == null || list.length == 0)
+        if (list == null || list.length == 0) {
             return null;
+        }
         qSort(list, 0, list.length - 1);
         return list;
     }
@@ -167,8 +174,9 @@ public class SortCompare {
             }
             list[j + 1] = temp;
         }
-        for (int anA : list)
+        for (int anA : list) {
             System.out.println(anA);
+        }
         return list;
     }
 
@@ -188,10 +196,13 @@ public class SortCompare {
                     list[j + d] = temp;
                 }
             }
-            if (d == 1)
+            if (d == 1) {
                 break;
+            }
         }
-        for (int aList : list) System.out.println(aList);
+        for (int aList : list) {
+            System.out.println(aList);
+        }
         return list;
     }
 
@@ -210,7 +221,9 @@ public class SortCompare {
             list[position] = list[i];
             list[i] = temp;
         }
-        for (int aList : list) System.out.println(aList);
+        for (int aList : list) {
+            System.out.println(aList);
+        }
         return list;
     }
 
@@ -275,7 +288,9 @@ public class SortCompare {
                 }
             }
         }
-        for (int a : list) System.out.println(a);
+        for (int a : list) {
+            System.out.println(a);
+        }
         return list;
     }
 
@@ -285,8 +300,9 @@ public class SortCompare {
      */
     public int[] RadixSort(int[] list) {
 
-        if (list == null && list.length == 0)
+        if (list == null && list.length == 0) {
             return null;
+        }
 
         int maxBit = getMaxBit(list);
 
@@ -337,8 +353,9 @@ public class SortCompare {
         int max = Integer.MIN_VALUE;
         for (int ele : arr) {
             int len = (ele + "").length();
-            if (len > max)
+            if (len > max) {
                 max = len;
+            }
         }
         return max;
     }
@@ -349,16 +366,18 @@ public class SortCompare {
      */
     private static int getNBit(int x, int n) {
         String sx = x + "";
-        if (sx.length() < n)
+        if (sx.length() < n) {
             return 0;
-        else
+        } else {
             return sx.charAt(sx.length() - n) - '0';
+        }
     }
 
 
     public int[] bucketSort(int[] list) {
-        if (list == null && list.length == 0)
+        if (list == null && list.length == 0) {
             return null;
+        }
 
         int bucketNums = 10; //这里默认为10，规定待排数[0,100)
         List<List<Integer>> buckets = new ArrayList<>(); //桶的索引

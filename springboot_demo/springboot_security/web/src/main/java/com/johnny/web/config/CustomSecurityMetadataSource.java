@@ -65,8 +65,9 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
 
         logger.debug("request url is  " + url);
 
-        if (resourceMap == null)
+        if (resourceMap == null) {
             resourceMap = loadResourceMatchAuthority();
+        }
 
         for (String resURL : resourceMap.keySet()) {
             if (pathMatcher.match(resURL, url)) {
@@ -76,6 +77,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
         return resourceMap.get(url);
     }
 
+    @Override
     public boolean supports(Class<?> clazz) {
         return true;
     }

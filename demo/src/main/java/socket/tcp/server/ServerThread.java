@@ -13,6 +13,7 @@ public class ServerThread implements Runnable {
         this.client = client;
     }
 
+    @Override
     public void run() {
         try {
             //获取Socket的输出流，用来向客户端发送数据  

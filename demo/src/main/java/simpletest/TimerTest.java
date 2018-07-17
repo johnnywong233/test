@@ -18,6 +18,7 @@ public class TimerTest {
         // 表明这个timer以daemon方式运行（优先级低，程序结束timer也自动结束）
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
+            @Override
             public void run() {
                 System.out.println("-------设定要指定任务--------");
             }
@@ -29,6 +30,7 @@ public class TimerTest {
     private static void timer2() {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
+            @Override
             public void run() {
                 System.out.println("-------设定要指定任务--------");
             }
@@ -40,6 +42,7 @@ public class TimerTest {
     private static void timer3() {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
             public void run() {
                 System.out.println("----设定要指定任务------");
             }
@@ -56,6 +59,7 @@ public class TimerTest {
         Date time = calendar.getTime(); // 得出执行任务的时间,此处为今天的12：00：00
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
             public void run() {
                 System.out.println("-------设定要指定任务--------");
             }

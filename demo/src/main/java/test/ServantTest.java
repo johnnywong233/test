@@ -9,12 +9,15 @@ public class ServantTest {
         ServiceLoader<IPersonalServant> servantLoader = ServiceLoader.load(IPersonalServant.class);
 
         IPersonalServant i = null;
-        for (IPersonalServant ii : servantLoader)
-            if (ii.can("fetch tea"))
+        for (IPersonalServant ii : servantLoader) {
+            if (ii.can("fetch tea")) {
                 i = ii;
+            }
+        }
 
-        if (i == null)
+        if (i == null) {
             throw new IllegalArgumentException("No suitable servant found");
+        }
 
         for (String arg : args) {
             i.process(new File(arg));

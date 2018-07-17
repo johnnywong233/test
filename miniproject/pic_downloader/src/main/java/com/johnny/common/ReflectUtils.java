@@ -42,9 +42,9 @@ public class ReflectUtils {
             if ((methodName.startsWith("get")) || (methodName.startsWith("is"))) {
                 Class<?> returnTypeClass = method.getReturnType();
                 String fieldName;
-                if ((returnTypeClass.equals(Boolean.TYPE)) || (returnTypeClass.equals(Boolean.class)))
+                if ((returnTypeClass.equals(Boolean.TYPE)) || (returnTypeClass.equals(Boolean.class))) {
                     fieldName = methodName.substring(2, 3).toLowerCase() + methodName.substring(3);
-                else {
+                } else {
                     fieldName = methodName.substring(3, 4).toLowerCase() + methodName.substring(4);
                 }
                 boolean flag = true;
@@ -112,8 +112,9 @@ public class ReflectUtils {
     public static void main(String[] args) {
         List<Class<?>> list = getClassWithPackage("com.johnny.service.handler.finder.impl");
         if (list != null) {
-            for (Class<?> cls : list)
+            for (Class<?> cls : list) {
                 System.out.println(cls);
+            }
         }
     }
 }

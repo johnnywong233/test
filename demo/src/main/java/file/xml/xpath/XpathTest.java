@@ -55,6 +55,7 @@ public class XpathTest {
 
 //self-defined namespace context
 class CustomNamespaceContext implements NamespaceContext {
+    @Override
     public String getNamespaceURI(String prefix) {
         switch (prefix) {
             case "ns":
@@ -68,10 +69,12 @@ class CustomNamespaceContext implements NamespaceContext {
         return XMLConstants.NULL_NS_URI;
     }
 
+    @Override
     public String getPrefix(String namespaceURI) {
         return null;
     }
 
+    @Override
     public Iterator<?> getPrefixes(String namespaceURI) {
         return null;
     }

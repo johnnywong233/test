@@ -44,10 +44,13 @@ public class Demo {
                     boolean isOdd = (value & 1) != 0;
                     if (isOdd != odd)
                         // wait for the other side.
+                    {
                         continue;
+                    }
                     // make the change atomic, just in case there is more than one odd/even process
-                    if (UNSAFE.compareAndSwapLong(null, address, value, value + 1))
+                    if (UNSAFE.compareAndSwapLong(null, address, value, value + 1)) {
                         break;
+                    }
                 }
                 if (i == 0) {
                     System.out.println("Started");

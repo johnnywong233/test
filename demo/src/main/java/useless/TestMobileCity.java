@@ -135,8 +135,10 @@ public class TestMobileCity {
 				public void checkServerTrusted(X509Certificate[] xcs,
 						String string) throws CertificateException {
 				}
-				public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-					return null;
+
+                @Override
+                public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                    return null;
 				}
 				@Override
 				public void checkClientTrusted(
@@ -159,6 +161,7 @@ public class TestMobileCity {
     public static void fixUntrustCertificate() throws KeyManagementException, NoSuchAlgorithmException{
         TrustManager[] trustAllCerts = new TrustManager[]{
             new X509TrustManager() {
+                @Override
                 public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                     return null;
                 }
@@ -213,6 +216,7 @@ public class TestMobileCity {
         
      // Create all-trusting host name verifier
         HostnameVerifier allHostsValid = new HostnameVerifier() {
+            @Override
             public boolean verify(String hostname, SSLSession session) {
                 return true;
             }

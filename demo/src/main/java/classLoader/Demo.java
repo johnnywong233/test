@@ -51,12 +51,12 @@ class FileSystemClassLoader extends ClassLoader {
         this.rootDir = rootDir;
     }
 
+    @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         byte[] classData = getClassData(name);
         if (classData == null) {
             throw new ClassNotFoundException();
-        }
-        else {
+        } else {
             return defineClass(name, classData, 0, classData.length);
         }
     }

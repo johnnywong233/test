@@ -40,8 +40,9 @@ public class FileDownLoader {
         try {
             DataOutputStream out = new DataOutputStream(
                     new FileOutputStream(new File(filePath)));
-            for (byte aData : data)
+            for (byte aData : data) {
                 out.write(aData);
+            }
             out.flush();
             out.close();
         } catch (IOException e) {

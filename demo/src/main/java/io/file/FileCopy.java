@@ -19,19 +19,24 @@ public class FileCopy {
         File resourceFile = new File(sourceFileName);
         File targetFile = new File(targetFileName);
 
-        if (!resourceFile.exists())
+        if (!resourceFile.exists()) {
             abort("source file does not exist: " + sourceFileName);
-        if (!resourceFile.isFile())
+        }
+        if (!resourceFile.isFile()) {
             abort("source is not a file" + sourceFileName);
-        if (!resourceFile.canRead())
+        }
+        if (!resourceFile.canRead()) {
             abort("source " + sourceFileName + "does not have read permission");
+        }
 
-        if (targetFile.isDirectory())
+        if (targetFile.isDirectory()) {
             targetFile = new File(targetFile, resourceFile.getName());
+        }
 
         if (targetFile.exists()) {
-            if (!targetFile.canWrite())
+            if (!targetFile.canWrite()) {
                 abort("target does not have write permission " + targetFileName);
+            }
 
             System.out.print("target is already exist, overwrite or not " + targetFile.getName() + "? (Y/N): ");
             System.out.flush();
@@ -40,19 +45,24 @@ public class FileCopy {
                     System.in));
             String response = in.readLine();
 
-            if (!response.equals("Y") && !response.equals("y"))
+            if (!"Y".equals(response) && !"y".equals(response)) {
                 abort("target has already existed, and choose not overwrite..");
+            }
         } else {
             String parent = targetFile.getParent();
-            if (parent == null)
+            if (parent == null) {
                 parent = System.getProperty("user.dir");
+            }
             File directory = new File(parent);
-            if (!directory.exists())
+            if (!directory.exists()) {
                 abort("parent " + parent + "does not exist");
-            if (directory.isFile())
+            }
+            if (directory.isFile()) {
                 abort("parent " + parent + "is not a file");
-            if (!directory.canWrite())
+            }
+            if (!directory.canWrite()) {
                 abort("parent " + parent + "does not have write permission");
+            }
         }
 
         FileInputStream resource = null;
@@ -63,22 +73,25 @@ public class FileCopy {
             byte[] buffer = new byte[4096];
             int byteNum;
 
-            while ((byteNum = resource.read(buffer)) != -1)
+            while ((byteNum = resource.read(buffer)) != -1) {
                 target.write(buffer, 0, byteNum);
+            }
             System.out.print("succeed");
         } finally {
-            if (resource != null)
+            if (resource != null) {
                 try {
                     resource.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            if (target != null)
+            }
+            if (target != null) {
                 try {
                     target.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
         }
     }
 

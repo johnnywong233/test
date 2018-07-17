@@ -8,11 +8,12 @@ public class CyclicBarrierTest {
         int N = 4;
         CyclicBarrier barrier = new CyclicBarrier(N, () -> {
             System.out.println("current " + Thread.currentThread().getName());
-            //当四个线程都到达barrier状态后，会从四个线程中选择一个线程去执行Runnable。
+            //锟斤拷锟侥革拷锟竭程讹拷锟斤拷锟斤拷barrier状态锟襟，伙拷锟斤拷母锟斤拷叱锟斤拷锟窖★拷锟揭伙拷锟斤拷叱锟饺ブ达拷锟絉unnable锟斤拷
         });
 
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++) {
             new Writer(barrier).start();
+        }
     }
 
     static class Writer extends Thread {

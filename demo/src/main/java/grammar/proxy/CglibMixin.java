@@ -25,12 +25,14 @@ interface Interface2 {
 }
 
 class ImpletmentClass1 implements Interface1 {
+    @Override
     public void doInterface1() {
         System.out.println("===========>方法1");
     }
 }
 
 class ImpletmentClass2 implements Interface2 {
+    @Override
     public void doInterface2() {
         System.out.println("===========>方法2");
     }

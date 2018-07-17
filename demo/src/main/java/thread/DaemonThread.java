@@ -6,6 +6,7 @@ public class DaemonThread implements Runnable {
      * demo of Daemon thread
      * source code see http://outofmemory.cn/java/java.util.concurrent/multi-threading
      */
+    @Override
     public void run() {
         System.out.println("entering run()");
         try {

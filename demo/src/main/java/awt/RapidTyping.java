@@ -104,6 +104,7 @@ public class RapidTyping extends JFrame implements Runnable {
     /**
      * 主线程
      */
+    @Override
     public void run() {
         number.clear();
         zhengque = 0;
@@ -129,7 +130,7 @@ public class RapidTyping extends JFrame implements Runnable {
             zhengque = 1;
         }
 
-        if (paiduan.equals("true")) { // 判断是否是自然结束
+        if ("true".equals(paiduan)) { // 判断是否是自然结束
             if (cuowu <= 2) { // 错误不超过2个的过关
                 JOptionPane.showMessageDialog(null, "恭喜你过关了");
                 rush_count += 1; // 自动加1关
@@ -170,6 +171,7 @@ public class RapidTyping extends JFrame implements Runnable {
      * 字符下移线程
      */
     class Tthread implements Runnable {
+        @Override
         public void run() {
             boolean fo = true;
             int Y = 0, X = 0;
@@ -213,6 +215,7 @@ public class RapidTyping extends JFrame implements Runnable {
      * 键盘监听器
      */
     class MyListener extends KeyAdapter {
+        @Override
         public void keyPressed(KeyEvent e) {
             String uu = e.getKeyChar() + "";
             for (int i = 0; i < number.size(); i++) {
@@ -261,6 +264,7 @@ class Frame1_jButton2_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton2_actionPerformed(e);
     }
@@ -274,6 +278,7 @@ class Frame1_jButton1_actionAdapter implements ActionListener {
         this.adaptee = adaptee;
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         adaptee.jButton1_actionPerformed(e);
     }

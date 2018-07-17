@@ -14,10 +14,12 @@ public class MovieAlbumHandler extends AlbumHandler {
     private static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
     private static final String ALBUM_URL_REGEX = "(http|https)://movie.douban.com/subject/\\d+/photos\\?(\\w+=\\w+&*)+";
 
+    @Override
     public String getURLRegex() {
         return ALBUM_URL_REGEX;
     }
 
+    @Override
     public String getPageRegex() {
         String url = getAlbumURL();
         if (url.contains("?")) {
@@ -30,6 +32,7 @@ public class MovieAlbumHandler extends AlbumHandler {
         return url + "\\?(\\w+=\\w+&*(amp;)*)+";
     }
 
+    @Override
     public String getAlbumURL() {
         if (this.albumURL.endsWith("/")) {
             return this.albumURL.substring(0, this.albumURL.length() - 1);
@@ -37,38 +40,47 @@ public class MovieAlbumHandler extends AlbumHandler {
         return this.albumURL;
     }
 
+    @Override
     public void setAlbumURL(String albumURL) {
         super.setAlbumURL(albumURL);
         Pattern p = Pattern.compile("type=\\w+");
         Matcher m = p.matcher(albumURL);
-        if (m.find())
+        if (m.find()) {
             this.albumURL = (this.albumURL + "?" + m.group());
+        }
     }
 
+    @Override
     public boolean removeURLParameter() {
         return true;
     }
 
+    @Override
     public Integer getPageSize() {
         return PAGE_SIZE_IMAGES_MOVIE;
     }
 
+    @Override
     public String getPageTag() {
         return PAGE_TAG;
     }
 
+    @Override
     public String getImageNameRegex() {
         return IMAGE_NAME_REGEX;
     }
 
+    @Override
     public boolean hasRaw() {
         return true;
     }
 
+    @Override
     public String getRawURL(String imageURL) {
         return imageURL.replace("photo/photo", "photo/raw").trim();
     }
 
+    @Override
     public void createBGImage(String source, String pageURL, String imageURL, Map<String, BGImage> map) {
         String imageId = imageURL.substring(imageURL.lastIndexOf("/p") + 2, imageURL.lastIndexOf("."));
 
@@ -99,14 +111,17 @@ public class MovieAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public boolean checkBGImage(BGImage bgImage) {
         return !bgImage.getUrl().contains("albumicon");
     }
 
+    @Override
     public String getCommentURL(Album album, BGImage image) {
         return "http://movie.douban.com/photos/photo/" + image.getId();
     }
 
+    @Override
     public String getAlbumDesc(String source) {
         return null;
     }

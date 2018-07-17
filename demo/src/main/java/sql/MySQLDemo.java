@@ -52,8 +52,9 @@ public class MySQLDemo {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (conn != null)
+            if (conn != null) {
                 conn.close();
+            }
         }
     }
 }

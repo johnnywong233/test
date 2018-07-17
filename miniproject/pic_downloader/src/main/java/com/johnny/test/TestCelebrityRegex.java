@@ -9,7 +9,8 @@ public class TestCelebrityRegex {
         String regex = url + "\\?(\\w+=\\w+&*(amp;)*)+";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher("http://movie.douban.com/celebrity/1040543/photos/?type=C&start=0&sortby=all&size=a&subtype=a http://movie.douban.com/celebrity/1040543/photos/?type=C&amp;start=0&amp;sortby=all&amp;size=a&amp;subtype=a");
-        while (m.find())
+        while (m.find()) {
             System.out.println(m.group());
+        }
     }
 }

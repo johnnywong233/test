@@ -5,9 +5,10 @@ public class MD5 {
     private String rhex(int num) {
         StringBuilder str = new StringBuilder();
         String hex_chr = "0123456789abcdef";
-        for (int j = 0; j <= 3; j++)
+        for (int j = 0; j <= 3; j++) {
             str.append(hex_chr.charAt((num >> (j * 8 + 4)) & 0x0F)
                     + hex_chr.charAt((num >> (j * 8)) & 0x0F));
+        }
         return str.toString();
     }
 

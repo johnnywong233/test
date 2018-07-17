@@ -42,8 +42,9 @@ public class LoginController {
         if (validCredentials(credentials)) {
             String jwt = JwtUtil.generateToken(credentials.username);
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + jwt);
-        } else
+        } else {
             logger.warn("You have provided a invalid credentials! ");
+        }
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong credentials");
     }
 

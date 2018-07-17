@@ -24,9 +24,11 @@ public class BinaryTree {
             mNode = node;
         }
 
+        @Override
         protected Node compute() {
-            if (mNode == null)
+            if (mNode == null) {
                 return null;
+            }
 
             NodeCopyTask taskLeft = new NodeCopyTask(mNode.leftChild);
             taskLeft.fork();

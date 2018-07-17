@@ -42,6 +42,7 @@ public class MyCalendar extends JApplet {
         cPane = (JPanel) getContentPane();
     }
 
+    @Override
     public void init() {
         cPane.setLayout(new BorderLayout());
         calendar = Calendar.getInstance();
@@ -92,14 +93,17 @@ public class MyCalendar extends JApplet {
         daysModel = new AbstractTableModel() {
             private static final long serialVersionUID = 1L;
 
+            @Override
             public int getRowCount() {
                 return 7;
             }
 
+            @Override
             public int getColumnCount() {
                 return 7;
             }
 
+            @Override
             public Object getValueAt(int row, int column) {
                 if (row == 0) {
                     return getHeader(column);
@@ -185,6 +189,7 @@ public class MyCalendar extends JApplet {
             this.calendar = calendar;
         }
 
+        @Override
         public void changeSelection(int row, int column, boolean toggle, boolean extend) {
             super.changeSelection(row, column, toggle, extend);
             if (row == 0) {

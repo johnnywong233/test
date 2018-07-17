@@ -70,10 +70,12 @@ public class HDFSUtil {
             IOUtils.copyBytes(inputStream, outputStream, conf);
             res = outputStream.toString();
         } finally {
-            if (inputStream != null)
+            if (inputStream != null) {
                 IOUtils.closeStream(inputStream);
-            if (outputStream != null)
+            }
+            if (outputStream != null) {
                 IOUtils.closeStream(outputStream);
+            }
         }
         return res;
     }

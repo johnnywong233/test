@@ -30,8 +30,9 @@ public class FibonacciServiceImpl {
     @Memoize
     public int compute(int i) {
         LOGGER.info("Calculate fibonacci for number {}", i);
-        if (i == 0 || i == 1)
+        if (i == 0 || i == 1) {
             return i;
+        }
         return fibonacciService.compute(i - 2) + fibonacciService.compute(i - 1);
     }
 }

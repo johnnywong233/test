@@ -15,6 +15,7 @@ public class GetPageContent {
     //key code
     private static void initProxy(String host, int port, final String username, final String password) {
         Authenticator.setDefault(new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password.toCharArray());
             }

@@ -51,22 +51,22 @@ public class SampleUsage {
             for (Tag tag : directory.getTags()) {
                 String tagName = tag.getTagName();
                 String desc = tag.getDescription();
-                if (tagName.equals("Image Height")) {
+                if ("Image Height".equals(tagName)) {
                     //图片高度
                     imgInfoBean.setImgHeight(desc);
-                } else if (tagName.equals("Image Width")) {
+                } else if ("Image Width".equals(tagName)) {
                     //图片宽度
                     imgInfoBean.setImgWidth(desc);
-                } else if (tagName.equals("Date/Time Original")) {
+                } else if ("Date/Time Original".equals(tagName)) {
                     //拍摄时间
                     imgInfoBean.setDateTime(desc);
-                } else if (tagName.equals("GPS Altitude")) {
+                } else if ("GPS Altitude".equals(tagName)) {
                     //海拔
                     imgInfoBean.setAltitude(desc);
-                } else if (tagName.equals("GPS Latitude")) {
+                } else if ("GPS Latitude".equals(tagName)) {
                     //纬度
                     imgInfoBean.setLatitude(pointToLatlong(desc));
-                } else if (tagName.equals("GPS Longitude")) {
+                } else if ("GPS Longitude".equals(tagName)) {
                     //经度
                     imgInfoBean.setLongitude(pointToLatlong(desc));
                 }
@@ -173,6 +173,7 @@ class ImgInfoBean {
         this.longitude = longitude;
     }
 
+    @Override
     public String toString() {
         return "\n[pic info]\nfile name:" + this.imgName + "\nfile size:" + this.imgSize + "\nheight:" + this.imgHeight + "\nwidth:"
                 + this.imgWidth + "\nshot time:" + this.dateTime + "\naltitude:" + this.altitude + "\nlatitude:" + this.latitude + "\nlongitude:" + this.longitude;

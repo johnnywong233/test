@@ -1890,7 +1890,7 @@ public class VCardEngine {
                     parameterTypes.add(new ParameterType("ENCODING", paramValue));
                 } else if (paramValue.equals(EncodingType.QUOTED_PRINTABLE.getType())) {
                     parameterTypes.add(new ParameterType("ENCODING", paramValue));
-                } else if (paramValue.equals("URI")) {
+                } else if ("URI".equals(paramValue)) {
                     parameterTypes.add(new ParameterType("VALUE", paramValue));
                 } else {
                     try {

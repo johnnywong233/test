@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 @EnableCaching
 public class RedisSessionConfig extends CachingConfigurerSupport {
 
+    @Override
     @Bean
     public KeyGenerator keyGenerator() {
         return new KeyGenerator() {

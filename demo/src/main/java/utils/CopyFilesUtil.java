@@ -68,10 +68,12 @@ public class CopyFilesUtil {
                 output.write(buf, 0, bytesRead);
             }
         } finally {
-            if (input != null)
+            if (input != null) {
                 input.close();
-            if (output != null)
+            }
+            if (output != null) {
                 output.close();
+            }
         }
     }
 
@@ -86,10 +88,12 @@ public class CopyFilesUtil {
             outputChannel = new FileOutputStream(dest).getChannel();
             outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
         } finally {
-            if (inputChannel != null)
+            if (inputChannel != null) {
                 inputChannel.close();
-            if (outputChannel != null)
+            }
+            if (outputChannel != null) {
                 outputChannel.close();
+            }
         }
     }
 

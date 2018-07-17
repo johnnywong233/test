@@ -16,6 +16,7 @@ import java.security.ProtectionDomain;
  */
 public class AopAgentTransformer implements ClassFileTransformer {
 
+    @Override
     public byte[] transform(ClassLoader loader, String className,
                             Class<?> classBeingRedefined, ProtectionDomain protectionDomain,
                             byte[] classfileBuffer) throws IllegalClassFormatException {
@@ -55,6 +56,7 @@ public class AopAgentTransformer implements ClassFileTransformer {
     private void AOPInsertMethod(CtMethod method) throws NotFoundException, CannotCompileException {
         //situation 1:添加监控时间
         method.instrument(new ExprEditor() {
+            @Override
             public void edit(MethodCall m) throws CannotCompileException {
                 m.replace("{ long stime = System.currentTimeMillis(); $_ = $proceed($$);System.out.println(\""
                         + m.getClassName() + "." + m.getMethodName() + " cost:\" + (System.currentTimeMillis() - stime) + \" ms\");}");

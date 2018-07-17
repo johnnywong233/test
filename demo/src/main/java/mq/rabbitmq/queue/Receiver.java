@@ -55,7 +55,7 @@ public class Receiver {
             if (ch == '.') {
                 try {
                     Thread.sleep(1000);
-                } catch (InterruptedException _ignored) {
+                } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             }

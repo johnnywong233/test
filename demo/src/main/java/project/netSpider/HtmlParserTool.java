@@ -22,6 +22,8 @@ public class HtmlParserTool {
             // 过滤 <frame >标签的 filter，用来提取 frame 标签里的 src 属性所表示的链接
             NodeFilter frameFilter = new NodeFilter() {
                 private static final long serialVersionUID = -4089743698359926423L;
+
+                @Override
                 public boolean accept(Node node) {
                     return node.getText().startsWith("frame src=");
                 }
@@ -37,8 +39,9 @@ public class HtmlParserTool {
                 {
                     LinkTag link = (LinkTag) tag;
                     String linkUrl = link.getLink();// url
-                    if (filter.accept(linkUrl))
+                    if (filter.accept(linkUrl)) {
                         links.add(linkUrl);
+                    }
                 } else {
                     // <frame> 标签
                     // 提取 frame 里 src 属性的链接如 <frame src="test.html"/>
@@ -46,11 +49,13 @@ public class HtmlParserTool {
                     int start = frame.indexOf("src=");
                     frame = frame.substring(start);
                     int end = frame.indexOf(" ");
-                    if (end == -1)
+                    if (end == -1) {
                         end = frame.indexOf(">");
+                    }
                     String frameUrl = frame.substring(5, end - 1);
-                    if (filter.accept(frameUrl))
+                    if (filter.accept(frameUrl)) {
                         links.add(frameUrl);
+                    }
                 }
             }
         } catch (ParserException e) {

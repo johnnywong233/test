@@ -24,34 +24,42 @@ public class OnlineAlbumHandler extends AlbumHandler {
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
     public static final String ALBUM_URL_REGEX = "(http|https)://www.douban.com/online/\\d+/album/\\d+/";
 
+    @Override
     public String getURLRegex() {
         return ALBUM_URL_REGEX;
     }
 
+    @Override
     public String getPageRegex() {
         return super.getAlbumURL() + "\\?\\w+=\\d+";
     }
 
+    @Override
     public boolean removeURLParameter() {
         return true;
     }
 
+    @Override
     public Integer getPageSize() {
         return PAGE_SIZE_IMAGES_ONLINE;
     }
 
+    @Override
     public String getPageTag() {
         return PAGE_TAG;
     }
 
+    @Override
     public String getImageNameRegex() {
         return IMAGE_NAME_REGEX;
     }
 
+    @Override
     public String getRawURL(String imageURL) {
         return null;
     }
 
+    @Override
     public void createBGImage(String source, String pageURL, String imageURL, Map<String, BGImage> map) {
         String imageId = imageURL.substring(imageURL.lastIndexOf("/p") + 2, imageURL.lastIndexOf("."));
         String onlineId = pageURL.substring(pageURL.indexOf("online/") + 7, pageURL.indexOf("/album"));
@@ -100,10 +108,12 @@ public class OnlineAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public boolean checkBGImage(BGImage bgImage) {
         return !bgImage.getUrl().contains("albumicon");
     }
 
+    @Override
     public void createDescDoc(Album album) {
         List<BGImage> imageList = album.getPhotosList();
         Map<String, BGImage> map = new HashMap<>();
@@ -137,6 +147,7 @@ public class OnlineAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public List<BGImage> getBGImageFromDescDoc(File descFile)
             throws IOException {
         List<BGImage> list = new ArrayList<>();
@@ -152,7 +163,7 @@ public class OnlineAlbumHandler extends AlbumHandler {
 
                 tempBGImage = new BGImage(info[0], info[1], info[3]);
 
-                if (!info[2].equals("-")) {
+                if (!"-".equals(info[2])) {
                     tempBGImage.setCommentTotal(Integer.valueOf(info[2]));
                 }
                 line++;
@@ -169,10 +180,12 @@ public class OnlineAlbumHandler extends AlbumHandler {
         return list;
     }
 
+    @Override
     public String getCommentURL(Album album, BGImage image) {
         return album.getUrl().substring(0, album.getUrl().indexOf("/album/")) + "/photo/" + image.getId();
     }
 
+    @Override
     public String getAlbumDesc(String source) {
         return null;
     }

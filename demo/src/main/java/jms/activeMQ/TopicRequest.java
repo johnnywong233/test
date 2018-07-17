@@ -42,12 +42,15 @@ public class TopicRequest {
  
     public void close() {
         try {
-            if(session != null)
+            if (session != null) {
                 session.close();
-            if(producer != null)
+            }
+            if (producer != null) {
                 producer.close();
-            if(connection !=null )
+            }
+            if (connection != null) {
                 connection.close();
+            }
         }
         catch (JMSException e) {
             e.printStackTrace();

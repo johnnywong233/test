@@ -5,6 +5,7 @@ package pattern.chain.case2;
  * 定义的过滤敏感字眼的过滤规则
  */
 public class SensitiveFilter implements Filter {
+    @Override
     public void doFilter(Request request, Response response, FilterChain chain) {
         request.request = request.request.replace("被就业", "就业").replace("敏感", "") + " ---sensitiveFilter()";
         chain.doFilter(request, response, chain);

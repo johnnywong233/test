@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class AlbumListFinder implements IAlbumURLFinder {
     private static final int PAGE_SIZE_ALBUM = 16;
 
+    @Override
     public List<String> findAlbumURL(String albumListURL) {
         if (albumListURL.endsWith("/")) {
             albumListURL = albumListURL.substring(0, albumListURL.length() - 1);
@@ -56,6 +57,7 @@ public class AlbumListFinder implements IAlbumURLFinder {
         return new ArrayList<>(albumURLSet);
     }
 
+    @Override
     public String getURLRegex() {
         return "(http|https)://www.douban.com/people/\\w+/photos/";
     }

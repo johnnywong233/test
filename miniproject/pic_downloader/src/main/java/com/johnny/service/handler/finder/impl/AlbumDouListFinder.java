@@ -15,6 +15,7 @@ public class AlbumDouListFinder
         implements IAlbumURLFinder {
     private static final int PAGE_SIZE_ALBUM = 25;
 
+    @Override
     public List<String> findAlbumURL(String url) {
         if (!url.endsWith("/")) {
             url = url + "/";
@@ -57,6 +58,7 @@ public class AlbumDouListFinder
         return new ArrayList<>(albumURLSet);
     }
 
+    @Override
     public String getURLRegex() {
         return "(http|https)://www.douban.com/doulist/\\d+/";
     }

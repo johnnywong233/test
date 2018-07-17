@@ -10,6 +10,7 @@ public class MovieIndexFinder implements IAlbumURLFinder {
         System.out.println(new MovieAlbumListFinder().findAlbumURL("(http|https)://movie.douban.com/subject/3652297/"));
     }
 
+    @Override
     public List<String> findAlbumURL(String url) {
         List<String> list = new ArrayList<>();
         list.add(url + "photos?type=S");
@@ -18,6 +19,7 @@ public class MovieIndexFinder implements IAlbumURLFinder {
         return list;
     }
 
+    @Override
     public String getURLRegex() {
         return "(http|https)://movie.douban.com/subject/\\d+/";
     }

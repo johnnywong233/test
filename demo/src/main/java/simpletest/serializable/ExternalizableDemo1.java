@@ -52,9 +52,11 @@ public class ExternalizableDemo1 {
             this.age = age;
         }
 
+        @Override
         public void writeExternal(ObjectOutput out) throws IOException {
         }
 
+        @Override
         public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         }
 

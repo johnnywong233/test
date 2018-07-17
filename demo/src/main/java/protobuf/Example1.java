@@ -44,9 +44,10 @@ public final class Example1 {
       return defaultInstance;
     }
 
-    public BaseData getDefaultInstanceForType() {
-      return defaultInstance;
-    }
+      @Override
+      public BaseData getDefaultInstanceForType() {
+          return defaultInstance;
+      }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
@@ -99,21 +100,23 @@ public final class Example1 {
       return Example1.internal_static_BaseData_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return Example1.internal_static_BaseData_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              Example1.BaseData.class, Example1.BaseData.Builder.class);
-    }
+      @Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+          return Example1.internal_static_BaseData_fieldAccessorTable
+                  .ensureFieldAccessorsInitialized(
+                          Example1.BaseData.class, Example1.BaseData.Builder.class);
+      }
 
     public static com.google.protobuf.Parser<BaseData> PARSER =
         new com.google.protobuf.AbstractParser<BaseData>() {
-      public BaseData parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new BaseData(input, extensionRegistry);
-      }
+            @Override
+            public BaseData parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new BaseData(input, extensionRegistry);
+            }
     };
 
     @java.lang.Override
@@ -128,12 +131,14 @@ public final class Example1 {
     /**
      * <code>required int32 code = 1;</code>
      */
+    @Override
     public boolean hasCode() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>required int32 code = 1;</code>
      */
+    @Override
     public int getCode() {
       return code_;
     }
@@ -142,50 +147,59 @@ public final class Example1 {
       code_ = 0;
     }
     private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasCode()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!extensionsAreInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
+      @Override
+      public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized != -1) {
+              return isInitialized == 1;
+          }
 
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      com.google.protobuf.GeneratedMessage
-        .ExtendableMessage<Example1.BaseData>.ExtensionWriter extensionWriter =
-          newExtensionWriter();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, code_);
+          if (!hasCode()) {
+              memoizedIsInitialized = 0;
+              return false;
+          }
+          if (!extensionsAreInitialized()) {
+              memoizedIsInitialized = 0;
+              return false;
+          }
+          memoizedIsInitialized = 1;
+          return true;
       }
-      extensionWriter.writeUntil(200, output);
-      getUnknownFields().writeTo(output);
-    }
+
+      @Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+              throws java.io.IOException {
+          getSerializedSize();
+          com.google.protobuf.GeneratedMessage
+                  .ExtendableMessage<Example1.BaseData>.ExtensionWriter extensionWriter =
+                  newExtensionWriter();
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              output.writeInt32(1, code_);
+          }
+          extensionWriter.writeUntil(200, output);
+          getUnknownFields().writeTo(output);
+      }
 
     private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
 
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, code_);
+      @Override
+      public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) {
+              return size;
+          }
+
+          size = 0;
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              size += com.google.protobuf.CodedOutputStream
+                      .computeInt32Size(1, code_);
+          }
+          size += extensionsSerializedSize();
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
       }
-      size += extensionsSerializedSize();
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
@@ -248,11 +262,15 @@ public final class Example1 {
     }
 
     public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+
+      @Override
+      public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(Example1.BaseData prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+      @Override
+      public Builder toBuilder() { return newBuilder(this); }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -275,12 +293,13 @@ public final class Example1 {
         return Example1.internal_static_BaseData_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return Example1.internal_static_BaseData_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                Example1.BaseData.class, Example1.BaseData.Builder.class);
-      }
+        @Override
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return Example1.internal_static_BaseData_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            Example1.BaseData.class, Example1.BaseData.Builder.class);
+        }
 
       // Construct using Example1.BaseData.newBuilder()
       private Builder() {
@@ -300,58 +319,67 @@ public final class Example1 {
         return new Builder();
       }
 
-      public Builder clear() {
-        super.clear();
-        code_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return Example1.internal_static_BaseData_descriptor;
-      }
-
-      public Example1.BaseData getDefaultInstanceForType() {
-        return Example1.BaseData.getDefaultInstance();
-      }
-
-      public Example1.BaseData build() {
-        Example1.BaseData result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        @Override
+        public Builder clear() {
+            super.clear();
+            code_ = 0;
+            bitField0_ = (bitField0_ & ~0x00000001);
+            return this;
         }
-        return result;
-      }
 
-      public Example1.BaseData buildPartial() {
-        Example1.BaseData result = new Example1.BaseData(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
+        @Override
+        public Builder clone() {
+            return create().mergeFrom(buildPartial());
         }
-        result.code_ = code_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
 
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof Example1.BaseData) {
-          return mergeFrom((Example1.BaseData)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @Override
+        public com.google.protobuf.Descriptors.Descriptor
+        getDescriptorForType() {
+            return Example1.internal_static_BaseData_descriptor;
         }
-      }
+
+        @Override
+        public Example1.BaseData getDefaultInstanceForType() {
+            return Example1.BaseData.getDefaultInstance();
+        }
+
+        @Override
+        public Example1.BaseData build() {
+            Example1.BaseData result = buildPartial();
+            if (!result.isInitialized()) {
+                throw newUninitializedMessageException(result);
+            }
+            return result;
+        }
+
+        @Override
+        public Example1.BaseData buildPartial() {
+            Example1.BaseData result = new Example1.BaseData(this);
+            int from_bitField0_ = bitField0_;
+            int to_bitField0_ = 0;
+            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+                to_bitField0_ |= 0x00000001;
+            }
+            result.code_ = code_;
+            result.bitField0_ = to_bitField0_;
+            onBuilt();
+            return result;
+        }
+
+        @Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof Example1.BaseData) {
+                return mergeFrom((Example1.BaseData)other);
+            } else {
+                super.mergeFrom(other);
+                return this;
+            }
+        }
 
       public Builder mergeFrom(Example1.BaseData other) {
-        if (other == Example1.BaseData.getDefaultInstance()) return this;
+          if (other == Example1.BaseData.getDefaultInstance()) {
+              return this;
+          }
         if (other.hasCode()) {
           setCode(other.getCode());
         }
@@ -360,35 +388,37 @@ public final class Example1 {
         return this;
       }
 
-      public final boolean isInitialized() {
-        if (!hasCode()) {
-          
-          return false;
-        }
-        if (!extensionsAreInitialized()) {
-          
-          return false;
-        }
-        return true;
-      }
+        @Override
+        public final boolean isInitialized() {
+            if (!hasCode()) {
 
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Example1.BaseData parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (Example1.BaseData) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+                return false;
+            }
+            if (!extensionsAreInitialized()) {
+
+                return false;
+            }
+            return true;
         }
-        return this;
-      }
+
+        @Override
+        public Builder mergeFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            Example1.BaseData parsedMessage = null;
+            try {
+                parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                parsedMessage = (Example1.BaseData) e.getUnfinishedMessage();
+                throw e;
+            } finally {
+                if (parsedMessage != null) {
+                    mergeFrom(parsedMessage);
+                }
+            }
+            return this;
+        }
       private int bitField0_;
 
       // required int32 code = 1;
@@ -396,12 +426,14 @@ public final class Example1 {
       /**
        * <code>required int32 code = 1;</code>
        */
+      @Override
       public boolean hasCode() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>required int32 code = 1;</code>
        */
+      @Override
       public int getCode() {
         return code_;
       }
@@ -475,9 +507,10 @@ public final class Example1 {
       return defaultInstance;
     }
 
-    public Data getDefaultInstanceForType() {
-      return defaultInstance;
-    }
+      @Override
+      public Data getDefaultInstanceForType() {
+          return defaultInstance;
+      }
 
     private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
@@ -530,21 +563,23 @@ public final class Example1 {
       return Example1.internal_static_Data_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return Example1.internal_static_Data_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              Example1.Data.class, Example1.Data.Builder.class);
-    }
+      @Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internalGetFieldAccessorTable() {
+          return Example1.internal_static_Data_fieldAccessorTable
+                  .ensureFieldAccessorsInitialized(
+                          Example1.Data.class, Example1.Data.Builder.class);
+      }
 
     public static com.google.protobuf.Parser<Data> PARSER =
         new com.google.protobuf.AbstractParser<Data>() {
-      public Data parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Data(input, extensionRegistry);
-      }
+            @Override
+            public Data parsePartialFrom(
+                    com.google.protobuf.CodedInputStream input,
+                    com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                    throws com.google.protobuf.InvalidProtocolBufferException {
+                return new Data(input, extensionRegistry);
+            }
     };
 
     @java.lang.Override
@@ -559,12 +594,14 @@ public final class Example1 {
     /**
      * <code>required string msg = 1;</code>
      */
+    @Override
     public boolean hasMsg() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
      * <code>required string msg = 1;</code>
      */
+    @Override
     public java.lang.String getMsg() {
       java.lang.Object ref = msg_;
       if (ref instanceof java.lang.String) {
@@ -582,6 +619,7 @@ public final class Example1 {
     /**
      * <code>required string msg = 1;</code>
      */
+    @Override
     public com.google.protobuf.ByteString
         getMsgBytes() {
       java.lang.Object ref = msg_;
@@ -600,41 +638,50 @@ public final class Example1 {
       msg_ = "";
     }
     private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasMsg()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
+      @Override
+      public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized != -1) {
+              return isInitialized == 1;
+          }
 
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getMsgBytes());
+          if (!hasMsg()) {
+              memoizedIsInitialized = 0;
+              return false;
+          }
+          memoizedIsInitialized = 1;
+          return true;
       }
-      getUnknownFields().writeTo(output);
-    }
+
+      @Override
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+              throws java.io.IOException {
+          getSerializedSize();
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              output.writeBytes(1, getMsgBytes());
+          }
+          getUnknownFields().writeTo(output);
+      }
 
     private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
 
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getMsgBytes());
+      @Override
+      public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) {
+              return size;
+          }
+
+          size = 0;
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              size += com.google.protobuf.CodedOutputStream
+                      .computeBytesSize(1, getMsgBytes());
+          }
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
@@ -697,11 +744,15 @@ public final class Example1 {
     }
 
     public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
+
+      @Override
+      public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder(Example1.Data prototype) {
       return newBuilder().mergeFrom(prototype);
     }
-    public Builder toBuilder() { return newBuilder(this); }
+
+      @Override
+      public Builder toBuilder() { return newBuilder(this); }
 
     @java.lang.Override
     protected Builder newBuilderForType(
@@ -724,12 +775,13 @@ public final class Example1 {
         return Example1.internal_static_Data_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return Example1.internal_static_Data_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                Example1.Data.class, Example1.Data.Builder.class);
-      }
+        @Override
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+            return Example1.internal_static_Data_fieldAccessorTable
+                    .ensureFieldAccessorsInitialized(
+                            Example1.Data.class, Example1.Data.Builder.class);
+        }
 
       // Construct using Example1.Data.newBuilder()
       private Builder() {
@@ -749,58 +801,67 @@ public final class Example1 {
         return new Builder();
       }
 
-      public Builder clear() {
-        super.clear();
-        msg_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return Example1.internal_static_Data_descriptor;
-      }
-
-      public Example1.Data getDefaultInstanceForType() {
-        return Example1.Data.getDefaultInstance();
-      }
-
-      public Example1.Data build() {
-        Example1.Data result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
+        @Override
+        public Builder clear() {
+            super.clear();
+            msg_ = "";
+            bitField0_ = (bitField0_ & ~0x00000001);
+            return this;
         }
-        return result;
-      }
 
-      public Example1.Data buildPartial() {
-        Example1.Data result = new Example1.Data(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
+        @Override
+        public Builder clone() {
+            return create().mergeFrom(buildPartial());
         }
-        result.msg_ = msg_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
 
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof Example1.Data) {
-          return mergeFrom((Example1.Data)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
+        @Override
+        public com.google.protobuf.Descriptors.Descriptor
+        getDescriptorForType() {
+            return Example1.internal_static_Data_descriptor;
         }
-      }
+
+        @Override
+        public Example1.Data getDefaultInstanceForType() {
+            return Example1.Data.getDefaultInstance();
+        }
+
+        @Override
+        public Example1.Data build() {
+            Example1.Data result = buildPartial();
+            if (!result.isInitialized()) {
+                throw newUninitializedMessageException(result);
+            }
+            return result;
+        }
+
+        @Override
+        public Example1.Data buildPartial() {
+            Example1.Data result = new Example1.Data(this);
+            int from_bitField0_ = bitField0_;
+            int to_bitField0_ = 0;
+            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+                to_bitField0_ |= 0x00000001;
+            }
+            result.msg_ = msg_;
+            result.bitField0_ = to_bitField0_;
+            onBuilt();
+            return result;
+        }
+
+        @Override
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof Example1.Data) {
+                return mergeFrom((Example1.Data)other);
+            } else {
+                super.mergeFrom(other);
+                return this;
+            }
+        }
 
       public Builder mergeFrom(Example1.Data other) {
-        if (other == Example1.Data.getDefaultInstance()) return this;
+          if (other == Example1.Data.getDefaultInstance()) {
+              return this;
+          }
         if (other.hasMsg()) {
           bitField0_ |= 0x00000001;
           msg_ = other.msg_;
@@ -810,31 +871,33 @@ public final class Example1 {
         return this;
       }
 
-      public final boolean isInitialized() {
-        if (!hasMsg()) {
-          
-          return false;
-        }
-        return true;
-      }
+        @Override
+        public final boolean isInitialized() {
+            if (!hasMsg()) {
 
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Example1.Data parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (Example1.Data) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
+                return false;
+            }
+            return true;
         }
-        return this;
-      }
+
+        @Override
+        public Builder mergeFrom(
+                com.google.protobuf.CodedInputStream input,
+                com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+                throws java.io.IOException {
+            Example1.Data parsedMessage = null;
+            try {
+                parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+                parsedMessage = (Example1.Data) e.getUnfinishedMessage();
+                throw e;
+            } finally {
+                if (parsedMessage != null) {
+                    mergeFrom(parsedMessage);
+                }
+            }
+            return this;
+        }
       private int bitField0_;
 
       // required string msg = 1;
@@ -842,12 +905,14 @@ public final class Example1 {
       /**
        * <code>required string msg = 1;</code>
        */
+      @Override
       public boolean hasMsg() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
        * <code>required string msg = 1;</code>
        */
+      @Override
       public java.lang.String getMsg() {
         java.lang.Object ref = msg_;
         if (!(ref instanceof java.lang.String)) {
@@ -862,6 +927,7 @@ public final class Example1 {
       /**
        * <code>required string msg = 1;</code>
        */
+      @Override
       public com.google.protobuf.ByteString
           getMsgBytes() {
         java.lang.Object ref = msg_;
@@ -960,23 +1026,24 @@ public final class Example1 {
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-        public com.google.protobuf.ExtensionRegistry assignDescriptors(
-            com.google.protobuf.Descriptors.FileDescriptor root) {
-          descriptor = root;
-          internal_static_BaseData_descriptor =
-            getDescriptor().getMessageTypes().get(0);
-          internal_static_BaseData_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_BaseData_descriptor,
-              new java.lang.String[] { "Code", });
-          internal_static_Data_descriptor =
-            getDescriptor().getMessageTypes().get(1);
-          internal_static_Data_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_Data_descriptor,
-              new java.lang.String[] { "Msg", });
-          return null;
-        }
+          @Override
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+                  com.google.protobuf.Descriptors.FileDescriptor root) {
+              descriptor = root;
+              internal_static_BaseData_descriptor =
+                      getDescriptor().getMessageTypes().get(0);
+              internal_static_BaseData_fieldAccessorTable = new
+                      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+                      internal_static_BaseData_descriptor,
+                      new java.lang.String[] { "Code", });
+              internal_static_Data_descriptor =
+                      getDescriptor().getMessageTypes().get(1);
+              internal_static_Data_fieldAccessorTable = new
+                      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+                      internal_static_Data_descriptor,
+                      new java.lang.String[] { "Msg", });
+              return null;
+          }
       };
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

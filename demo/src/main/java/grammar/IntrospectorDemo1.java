@@ -53,14 +53,14 @@ public class IntrospectorDemo1 {
 
         for (PropertyDescriptor aPd0 : pd0) {
             if (aPd0.getPropertyType().isArray()) {
-                if (aPd0.getName().equals("childname")) {
+                if ("childname".equals(aPd0.getName())) {
                     if (aPd0.getPropertyType().getComponentType().equals(String.class)) {//getComponentType()可以得到数组类型的元素类型
                         //getWriteMethod()得到此属性的set方法---Method对象，然后用invoke调用这个方法
                         aPd0.getWriteMethod().invoke(pb0, new Object[]{childname});
                     }
                 }
             } else {
-                if (aPd0.getName().equals("name")) {
+                if ("name".equals(aPd0.getName())) {
                     aPd0.getWriteMethod().invoke(pb0, name);
                 }
             }

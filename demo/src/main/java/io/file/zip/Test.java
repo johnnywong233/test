@@ -139,7 +139,9 @@ public class Test {
 //				System.out.println("file: "+name);
                 File f = new File(outputDirectory + name);
                 File parentDir = f.getParentFile();
-                if (parentDir != null && !parentDir.exists()) parentDir.mkdirs();
+                if (parentDir != null && !parentDir.exists()) {
+                    parentDir.mkdirs();
+                }
                 f.createNewFile();
                 FileOutputStream out = new FileOutputStream(f);
                 int b;

@@ -25,8 +25,9 @@ public class KugouTempToMp3 {
             String filename = temp.getName();
             String fileMd5 = filename
                     .substring(0, filename.lastIndexOf(KGTEMP));
-            if (!krc.exists())
+            if (!krc.exists()) {
                 return;
+            }
             String krcName = krc.getName();
             String krcMd5 = krcName.substring(krcName.lastIndexOf("-") + 1,
                     krcName.lastIndexOf(KRC) - 1);
@@ -84,7 +85,9 @@ public class KugouTempToMp3 {
             for (File f : dirFile.listFiles()) {
                 if (f.exists() && f.isFile() && f.getName().endsWith(KRC)) {
                     String krcName = f.getName();
-                    if (!krcName.contains("-")) continue;
+                    if (!krcName.contains("-")) {
+                        continue;
+                    }
                     String krcNd5 = krcName.substring(krcName.lastIndexOf("-") + 1,
                             krcName.lastIndexOf(KRC) - 1);
                     String mp3name = krcName.substring(0, krcName.lastIndexOf("-"));

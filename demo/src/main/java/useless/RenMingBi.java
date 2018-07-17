@@ -29,16 +29,16 @@ public class RenMingBi {
         // System.out.println("四舍五入之后整数部分为：" + intPart + "小数部分为：" + decimalPart);
 
         String strIntPart;
-        if (intPart == 0)
+        if (intPart == 0) {
             strIntPart = "0";
-        else {
+        } else {
             strIntPart = "" + intPart;
         }
 
         String strDecimalPart;
-        if (decimalPart < 10 && decimalPart >= 0)
+        if (decimalPart < 10 && decimalPart >= 0) {
             strDecimalPart = "0" + decimalPart;
-        else {
+        } else {
             strDecimalPart = "" + decimalPart;
         }
         // 处理输入为0的时候
@@ -51,7 +51,7 @@ public class RenMingBi {
 
     // 用来转换小数部分
     private String transDecimal(String str) {
-        if (str.equals("100") || str.equals("00")) {
+        if ("100".equals(str) || "00".equals(str)) {
             return "零角零分";
         } else {
             String strResult;
@@ -113,9 +113,9 @@ public class RenMingBi {
         // 转换整数部分
         String result2 = "";
         int len = strTempRmb[0].length();
-        if (len > 12)
+        if (len > 12) {
             return "数据过大，无法进行转换，请重新输入！";
-        else {
+        } else {
             if (len >= 9) {
                 String strBit1 = strTempRmb[0].substring(0, len - 8);
                 String strBit2 = strTempRmb[0].substring(len - 8, len - 4);
@@ -133,8 +133,9 @@ public class RenMingBi {
             } else if (len >= 1) {
                 if (nr.zero) {
                     result2 = "零元";
-                } else
+                } else {
                     result2 = nr.transInt(strTempRmb[0]) + "元";
+                }
             }
             return result2 + result1;
         }

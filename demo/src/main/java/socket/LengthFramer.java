@@ -19,6 +19,7 @@ public class LengthFramer implements Framer {
     }
 
     //对字节流message添加成帧信息，并输出到指定流
+    @Override
     public void frameMsg(byte[] message, OutputStream out) throws IOException {
         if (message.length > MAXMESSAGELENGTH) {
             throw new IOException("message too long");
@@ -29,6 +30,7 @@ public class LengthFramer implements Framer {
         out.flush();
     }
 
+    @Override
     public byte[] nextMsg() throws IOException {
         int length;
         try {

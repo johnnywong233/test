@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class ForkJoinSimple {
     /*
      * https://www.ibm.com/developerworks/cn/java/j-lo-forkjoin/
-	 * ²»¶®
+	 * ï¿½ï¿½ï¿½ï¿½
 	 */
 
     private static final int NARRAY = 16; //For demo only
@@ -72,15 +72,16 @@ class SortTask extends RecursiveAction {
         this.hi = hi;
     }
 
+    @Override
     protected void compute() {
-        if (hi - lo < THRESHOLD)
+        if (hi - lo < THRESHOLD) {
             sequentiallySort(array, lo, hi);
-        else {
+        } else {
             int pivot = partition(array, lo, hi);
             System.out.println("\npivot = " + pivot + ", low = " + lo + ", high = " + hi);
             System.out.println("array" + Arrays.toString(array));
 
-            //RecursiveAction ÀàÏÂÃæ²¢Ã»ÓÐcoInvoke·½·¨
+            //RecursiveAction ï¿½ï¿½ï¿½ï¿½ï¿½æ²¢Ã»ï¿½ï¿½coInvokeï¿½ï¿½ï¿½ï¿½
 //            coInvoke(new SortTask(array, lo, pivot - 1), new SortTask(array, pivot + 1, hi));
         }
     }

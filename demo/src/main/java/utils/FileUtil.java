@@ -56,8 +56,9 @@ public class FileUtil {
         byte[] b = new byte[100];
         int len;
         try {
-            while ((len = inStream.read(b)) > 0)
+            while ((len = inStream.read(b)) > 0) {
                 response.getOutputStream().write(b, 0, len);
+            }
             inStream.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -409,7 +410,7 @@ public class FileUtil {
 
     public static void createDirectory(String outputDir, String subDir) {
         File file = new File(outputDir);
-        if (!(subDir == null || subDir.trim().equals(""))) {
+        if (!(subDir == null || "".equals(subDir.trim()))) {
             file = new File(outputDir + File.separator + subDir);
         }
         if (!file.exists()) {

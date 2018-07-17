@@ -9,10 +9,12 @@ import java.util.ResourceBundle;
 public class MyResources extends ResourceBundle{
     @Override
     protected Object handleGetObject(String key) {
-        if (key.equals("okKey"))
+        if ("okKey".equals(key)) {
             return "Ok";
-        if (key.equals("cancelKey"))
+        }
+        if ("cancelKey".equals(key)) {
             return "Cancel";
+        }
         return null;
     }
 

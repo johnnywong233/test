@@ -34,14 +34,16 @@ class SelfBounded<T extends SelfBounded<T>>{
 }
 
 class A extends SelfBounded<A>{
+    @Override
     public void print(){
-    	System.out.println("class A");
+        System.out.println("class A");
     }
 }
 
 class B extends SelfBounded<A>{
+    @Override
     public void print(){
-    	System.out.println("class B");
+        System.out.println("class B");
     }
 }
 
@@ -50,7 +52,9 @@ class C extends SelfBounded<C>{
         set(arg);
         return get();
     }
+
+    @Override
     public void print(){
-    	System.out.println("class C");
+        System.out.println("class C");
     }
 }

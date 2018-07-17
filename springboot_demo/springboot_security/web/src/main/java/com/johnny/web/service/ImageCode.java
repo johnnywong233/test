@@ -17,8 +17,12 @@ public class ImageCode {
 
     public static Map<String, Object> getImageCode(int width, int height, OutputStream os) {
         Map<String, Object> returnMap = new HashMap<>();
-        if (width <= 0) width = 60;
-        if (height <= 0) height = 20;
+        if (width <= 0) {
+            width = 60;
+        }
+        if (height <= 0) {
+            height = 20;
+        }
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         // 获取图形上下文
         Graphics g = image.getGraphics();
@@ -60,8 +64,12 @@ public class ImageCode {
     //给定范围获得随机颜色
     private static Color getRandColor(int fc, int bc) {
         Random random = new Random();
-        if (fc > 255) fc = 255;
-        if (bc > 255) bc = 255;
+        if (fc > 255) {
+            fc = 255;
+        }
+        if (bc > 255) {
+            bc = 255;
+        }
         int r = fc + random.nextInt(bc - fc);
         int g = fc + random.nextInt(bc - fc);
         int b = fc + random.nextInt(bc - fc);

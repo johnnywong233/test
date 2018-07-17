@@ -18,8 +18,9 @@ public class Test {
         DatabaseMetaData meta = conn.getMetaData();
         ResultSet mrs = meta.getTables(null, null, "book%",
                 new String[]{"TABLE"});
-        while (mrs.next())
+        while (mrs.next()) {
             System.out.println(mrs.getString(3));
+        }
         mrs.close();
         conn.close();
     }
@@ -31,8 +32,9 @@ public class Test {
         in.close();
 
         String drivers = props.getProperty("jdbc.drivers");
-        if (drivers != null)
+        if (drivers != null) {
             System.setProperty("jdbc.drivers", drivers);
+        }
         String url = props.getProperty("jdbc.url");
         String username = props.getProperty("jdbc.username");
         String password = props.getProperty("jdbc.password");

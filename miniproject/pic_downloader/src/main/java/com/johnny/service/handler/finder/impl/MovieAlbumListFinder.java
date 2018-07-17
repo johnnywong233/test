@@ -13,6 +13,7 @@ public class MovieAlbumListFinder implements IAlbumURLFinder {
         System.out.println(finder.findAlbumURL(url));
     }
 
+    @Override
     public List<String> findAlbumURL(String url) {
         url = url.substring(0, url.lastIndexOf("all_photos"));
         List<String> list = new ArrayList<>();
@@ -22,6 +23,7 @@ public class MovieAlbumListFinder implements IAlbumURLFinder {
         return list;
     }
 
+    @Override
     public String getURLRegex() {
         return "(http|https)://movie.douban.com/subject/\\d+/all_photos(/)*";
     }

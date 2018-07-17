@@ -95,8 +95,9 @@ public class BMPFile extends Component {
         byte rgb[] = new byte[3];
         size = (biWidth * biHeight) - 1;
         pad = 4 - ((biWidth * 3) % 4);
-        if (pad == 4)
+        if (pad == 4) {
             pad = 0;
+        }
         rowCount = 1;
         padCount = 0;
         rowIndex = size - biWidth;
@@ -116,8 +117,9 @@ public class BMPFile extends Component {
                     rowCount = 1;
                     rowIndex = lastRowIndex - biWidth;
                     lastRowIndex = rowIndex;
-                } else
+                } else {
                     rowCount++;
+                }
                 rowIndex++;
             }
             bfSize += padCount - pad;

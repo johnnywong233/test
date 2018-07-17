@@ -25,9 +25,9 @@ public class DownloadManager {
         DownloadThread downloadThread;
         for (int i = 0; i < 15; i++) {
             String threadName = "线程0";
-            if (i < 10)
+            if (i < 10) {
                 threadName = threadName + i;
-            else {
+            } else {
                 threadName = "线程" + String.valueOf(i);
             }
             downloadThread = new DownloadThread(threadName, imageURLList, imageSize, path, mainProgressBar);
@@ -45,9 +45,9 @@ public class DownloadManager {
             if (imageURLList.size() == 0) {
                 for (DownloadThread thread : threadList) {
                     if (thread.isAlive()) {
-                        if (waitThreadMap.containsKey(thread))
+                        if (waitThreadMap.containsKey(thread)) {
                             waitThreadMap.put(thread, waitThreadMap.get(thread) + 1);
-                        else {
+                        } else {
                             waitThreadMap.put(thread, 0);
                         }
 
@@ -56,8 +56,9 @@ public class DownloadManager {
                                 Console.print("下载超时,中断线程,请稍等.. - " + thread.getName() + " - " + thread.getUrl());
                                 thread.closeStream();
 
-                                if (!Common.failFileMap.containsKey(thread.getUrl()))
+                                if (!Common.failFileMap.containsKey(thread.getUrl())) {
                                     Common.failFileMap.put(thread.getUrl(), thread.getPath());
+                                }
                             } catch (IOException e) {
                                 Console.print("线程中断操作异常：" + e.getMessage());
                                 e.printStackTrace();

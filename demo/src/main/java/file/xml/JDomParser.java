@@ -144,7 +144,7 @@ public class JDomParser {
             System.out.println("删除节点前的集合个数：" + elementList.size());
             for (Element element : elementList) {
                 if (element.getAttributeValue("id") != null) {
-                    if (element.getAttributeValue("id").equals("ele01")) {
+                    if ("ele01".equals(element.getAttributeValue("id"))) {
                         Element element01 = new Element("new_name");
                         element01.setText("新添加的名称");
                         Element element02 = new Element("new_value");
@@ -154,7 +154,7 @@ public class JDomParser {
                         element.addContent(element01);
                         element.addContent(element02);
                         element.addContent(element03);
-                    } else if (element.getAttributeValue("id").equals("ele02")) {
+                    } else if ("ele02".equals(element.getAttributeValue("id"))) {
                     /*
                     rootElement.removeContent(element);
                     break;

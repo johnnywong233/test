@@ -37,6 +37,7 @@ public class ChartDemoServlet extends HttpServlet {
     }
 
 
+    @Override
     @SuppressWarnings("deprecation")
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 

@@ -32,6 +32,7 @@ public class SimpleURLClassLoader extends URLClassLoader {
         return loadClass(name);
     }
 
+    @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
         return loadClass(name, false);
     }
@@ -58,8 +59,9 @@ public class SimpleURLClassLoader extends URLClassLoader {
                 ClassLoader system = ClassLoader.getSystemClassLoader();
                 clazz = system.loadClass(name);
                 if (clazz != null) {
-                    if (resolve)
+                    if (resolve) {
                         resolveClass(clazz);
+                    }
                     return (clazz);
                 }
             } catch (ClassNotFoundException e) {
@@ -78,8 +80,9 @@ public class SimpleURLClassLoader extends URLClassLoader {
             throws ClassNotFoundException {
         //findClass()调用的是URLClassLoader里面重载了ClassLoader的findClass()方法
         Class clazz = ((SimpleURLClassLoader) cl).findClass(name);
-        if (resolve)
+        if (resolve) {
             ((SimpleURLClassLoader) cl).resolveClass(clazz);
+        }
         return clazz;
     }
 

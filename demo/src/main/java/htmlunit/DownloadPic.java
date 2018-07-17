@@ -91,8 +91,9 @@ public class DownloadPic {
                     httpCon = (HttpURLConnection) con;
                     in = httpCon.getInputStream();
                     while ((num = in.read(size)) != -1) {
-                        for (int i = 0; i < num; i++)
+                        for (int i = 0; i < num; i++) {
                             fos.write(size[i]);
+                        }
                     }
                 }
             }

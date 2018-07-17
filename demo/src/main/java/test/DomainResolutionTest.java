@@ -13,15 +13,18 @@ import java.net.UnknownHostException;
  */
 public class DomainResolutionTest {
     public static void main(String[] args) {
-        if (args.length == 0)
+        if (args.length == 0) {
             args = new String[]{"www.google.com"};
+        }
         try {
             InetAddress ip = InetAddress.getByName(args[0]);
             System.out.println(ip.toString());
         } catch (UnknownHostException uhx) {
             System.out.println("ERROR: " + uhx.getMessage() + "\n" + getStackTrace(uhx));
             Throwable cause = uhx.getCause();
-            if (cause != null) System.out.println("CAUSE: " + cause.getMessage());
+            if (cause != null) {
+                System.out.println("CAUSE: " + cause.getMessage());
+            }
         }
     }
 

@@ -17,10 +17,12 @@ public class TableInfo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || this.getClass() != o.getClass())
+        }
+        if (o == null || this.getClass() != o.getClass()) {
             return false;
+        }
         TableInfo tableInfo = (TableInfo) o;
         return this.databaseName.equals(tableInfo.getDatabaseName()) && this.tableName.equals(tableInfo.getTableName()) && this.fullName.equals(tableInfo.getFullName());
     }

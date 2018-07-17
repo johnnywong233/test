@@ -12,8 +12,9 @@ public class Demo2 {
 
     private static String createLongString(int length) {
         StringBuilder sb = new StringBuilder(length);
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < length; i++) {
             sb.append('a');
+        }
         sb.append(System.nanoTime());
         return sb.toString();
     }

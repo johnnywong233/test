@@ -47,6 +47,7 @@ class SampleAuthenticationManager implements AuthenticationManager {
         AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
+    @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
         if (auth.getName().equals(auth.getCredentials())) {
             return new UsernamePasswordAuthenticationToken(auth.getName(), auth.getCredentials(), AUTHORITIES);

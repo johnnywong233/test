@@ -1,15 +1,14 @@
 package file.xml;
 
-import java.io.FileInputStream;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.FileInputStream;
 
 public class TestXML {
 	
@@ -90,10 +89,11 @@ public class TestXML {
 			} else{
 				nodeName = curChild.getNodeName();
 				nodeValue = curChild.getNodeValue();
-				
-				for(int j=0;j<depth;j++)
-					System.out.print(" ");
-				System.out.println(nodeName+" = "+nodeValue);
+
+                for (int j = 0; j < depth; j++) {
+                    System.out.print(" ");
+                }
+                System.out.println(nodeName+" = "+nodeValue);
 			}
 		}
 	}

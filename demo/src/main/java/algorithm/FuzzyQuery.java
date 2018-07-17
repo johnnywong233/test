@@ -98,6 +98,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         add(TB, BorderLayout.WEST);
     }
 
+    @Override
     public void actionPerformed(ActionEvent event) {
 
         if (event.getSource() == btn) {
@@ -179,6 +180,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         }
     }
 
+    @Override
     public void valueChanged(ListSelectionEvent event) {
         System.out.println(list.getSelectedIndex());
     }

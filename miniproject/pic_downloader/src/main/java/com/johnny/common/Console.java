@@ -16,7 +16,7 @@ public class Console {
         if (isDebug) {
             System.out.println(text);
         }
-        if (consoleArea != null)
+        if (consoleArea != null) {
             synchronized (consoleArea) {
                 int lineCount = consoleArea.getLineCount();
                 if (lineCount >= MAX_LINE) {
@@ -32,6 +32,7 @@ public class Console {
                 consoleArea.setCaretPosition(consoleArea.getText().length());
                 count = count + 1L;
             }
+        }
     }
 
     public static void setArea(JTextArea consoleArea) {

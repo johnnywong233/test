@@ -16,8 +16,9 @@ public class InputGenerator {
 
     static {
         try {
-            if (!FILE_PATH.exists())
+            if (!FILE_PATH.exists()) {
                 makeJavadocFile();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,10 +33,11 @@ public class InputGenerator {
 
     private static void appendDir(final OutputStream os, final File root) throws IOException {
         for (File f : root.listFiles()) {
-            if (f.isDirectory())
+            if (f.isDirectory()) {
                 appendDir(os, f);
-            else
+            } else {
                 Files.copy(f.toPath(), os);
+            }
         }
     }
 }

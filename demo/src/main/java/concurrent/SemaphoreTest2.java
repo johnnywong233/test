@@ -15,8 +15,9 @@ public class SemaphoreTest2 {
     }
 
     public void putItem(Object x) {
-        if (markAsUnused(x))
+        if (markAsUnused(x)) {
             available.release();
+        }
     }
 
     // Not a particularly efficient data structure; just for demo
@@ -41,8 +42,9 @@ public class SemaphoreTest2 {
                 if (used[i]) {
                     used[i] = false;
                     return true;
-                } else
+                } else {
                     return false;
+                }
             }
         }
         return false;

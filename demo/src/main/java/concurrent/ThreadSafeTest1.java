@@ -38,6 +38,7 @@ class MyThread1 implements Runnable {
         this.countDownLatch = countDownLatch;
     }
 
+    @Override
     public void run() {
         // 每个线程向Counter中进行10000次累加
         for (int i = 0; i < 10000; i++) {

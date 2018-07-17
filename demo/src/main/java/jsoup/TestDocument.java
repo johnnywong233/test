@@ -40,8 +40,9 @@ public class TestDocument {
     }
 
     public static String html(String content) {
-        if (content == null)
+        if (content == null) {
             return "";
+        }
         String html = content;
         // html = html.replace( "'", "'");
         html = html.replaceAll("&", "&");
@@ -54,8 +55,9 @@ public class TestDocument {
     }
 
     private static String unHtml(String content) {
-        if (content == null)
+        if (content == null) {
             return "";
+        }
         String html = content;
         html = html.replaceAll("&", "&");
         html = html.replace("\"", "\"");

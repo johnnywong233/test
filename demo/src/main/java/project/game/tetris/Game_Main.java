@@ -96,8 +96,9 @@ class Game_Box {
 
     // 实现块落下的操作的方法
     boolean fallDown() {
-        if (blockState == 2)
+        if (blockState == 2) {
             return false;
+        }
         if (assertValid(blockType, turnState, row - 1, col)) {
             dispBlock(0);
             row--;
@@ -118,8 +119,9 @@ class Game_Box {
             for (int j = 0; j < 4; j++) {
                 if ((pattern[t][s] & k) != 0) {
                     int temp = scr.getScrArrXY(row - i, col + j);
-                    if (temp < 0 || temp == 2)
+                    if (temp < 0 || temp == 2) {
                         return false;
+                    }
                 }
                 k = k / 2;
             }
@@ -247,18 +249,23 @@ class Game_Draw extends Canvas implements KeyListener {
 
     // 初始化屏幕，并将屏幕数组清零的方法
     void initScr() {
-        for (int i = 0; i < rowNum; i++)
-            for (int j = 0; j < columnNum; j++)
+        for (int i = 0; i < rowNum; i++) {
+            for (int j = 0; j < columnNum; j++) {
                 scrArr[i][j] = 0;
+            }
+        }
         b.reset();
         repaint();
     }
 
     // 重新刷新画布方法
+    @Override
     public void paint(Graphics g) {
-        for (int i = 0; i < rowNum; i++)
-            for (int j = 0; j < columnNum; j++)
+        for (int i = 0; i < rowNum; i++) {
+            for (int j = 0; j < columnNum; j++) {
                 drawUnit(i, j, scrArr[i][j]);
+            }
+        }
     }
 
     // 画方块的方法
@@ -291,10 +298,11 @@ class Game_Draw extends Canvas implements KeyListener {
 
     // 返回屏幕数组中(row,col)位置的属性值
     int getScrArrXY(int row, int col) {
-        if (row < 0 || row >= rowNum || col < 0 || col >= columnNum)
+        if (row < 0 || row >= rowNum || col < 0 || col >= columnNum) {
             return (-1);
-        else
+        } else {
             return (scrArr[row][col]);
+        }
     }
 
 
@@ -316,22 +324,26 @@ class Game_Draw extends Canvas implements KeyListener {
         int k = 0;
         for (int i = 0; i < rowNum; i++) {
             boolean isfull = true;
-            for (int j = 0; j < columnNum; j++)
+            for (int j = 0; j < columnNum; j++) {
                 if (scrArr[i][j] == 0) {
                     k++;
                     isfull = false;
                     break;
                 }
-            if (isfull)
+            }
+            if (isfull) {
                 full_line_num += 100;
-            if (k != 0 && k - 1 != i && !isfull)
+            }
+            if (k != 0 && k - 1 != i && !isfull) {
                 for (int j = 0; j < columnNum; j++) {
-                    if (scrArr[i][j] == 0)
+                    if (scrArr[i][j] == 0) {
                         drawUnit(k - 1, j, 0);
-                    else
+                    } else {
                         drawUnit(k - 1, j, 2);
+                    }
                     scrArr[k - 1][j] = scrArr[i][j];
                 }
+            }
         }
         for (int i = k - 1; i < rowNum; i++) {
             for (int j = 0; j < columnNum; j++) {
@@ -347,26 +359,31 @@ class Game_Draw extends Canvas implements KeyListener {
     // 判断游戏是否结束方法
     boolean isGameEnd() {
         for (int col = 0; col < columnNum; col++) {
-            if (scrArr[maxAllowRowNum][col] != 0)
+            if (scrArr[maxAllowRowNum][col] != 0) {
                 return true;
+            }
         }
         return false;
     }
 
 
+    @Override
     public void keyTyped(KeyEvent e) {
     }
 
 
+    @Override
     public void keyReleased(KeyEvent e) {
     }
 
 
     // 处理键盘输入的方法
+    @Override
     public void keyPressed(KeyEvent e) {
 //boolean T=true;
-        if (!Game_Layout.isPlay)
+        if (!Game_Layout.isPlay) {
             return;
+        }
         switch (e.getKeyCode()) {
             case KeyEvent.VK_DOWN:
                 b.fallDown();
@@ -391,6 +408,7 @@ class Game_Draw extends Canvas implements KeyListener {
 class Game_MyPanel extends Panel {
     private static final long serialVersionUID = 1085036222452518986L;
 
+    @Override
     public Insets getInsets() {
         return new Insets(30, 60, 30, 60);//顶 左 底 右
     }
@@ -407,6 +425,7 @@ class Game_MyTimer extends Thread {
         this.scr = scr;
     }
 
+    @Override
     @SuppressWarnings("deprecation")
     public void run() {
         while (true) {
@@ -420,8 +439,9 @@ class Game_MyTimer extends Thread {
                 if (scr.isGameEnd()) {
                     Game_Layout.isPlay = false;
                     stop();
-                } else
+                } else {
                     scr.getBlock().reset();
+                }
             }
         }
     }
@@ -446,6 +466,7 @@ class Game_Command implements ActionListener {
     }
 
     // 按钮执行方法
+    @Override
     @SuppressWarnings("deprecation")
     public void actionPerformed(ActionEvent e) {
         switch (curButton) {

@@ -5,10 +5,11 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreTest {
     //http://www.cnblogs.com/dolphin0520/p/3920397.html
     public static void main(String[] args) {
-        int N = 8;            //¹¤ÈËÊý
-        Semaphore semaphore = new Semaphore(5); //»úÆ÷ÊýÄ¿
-        for (int i = 0; i < N; i++)
+        int N = 8;            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Semaphore semaphore = new Semaphore(5); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿
+        for (int i = 0; i < N; i++) {
             new Worker(i, semaphore).start();
+        }
     }
 
     static class Worker extends Thread {
@@ -24,9 +25,9 @@ public class SemaphoreTest {
         public void run() {
             try {
                 semaphore.acquire();
-                System.out.println("¹¤ÈË" + this.num + "Õ¼ÓÃÒ»¸ö»úÆ÷ÔÚÉú²ú...");
+                System.out.println("ï¿½ï¿½ï¿½ï¿½" + this.num + "Õ¼ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½...");
                 Thread.sleep(2000);
-                System.out.println("¹¤ÈË" + this.num + "ÊÍ·Å³ö»úÆ÷");
+                System.out.println("ï¿½ï¿½ï¿½ï¿½" + this.num + "ï¿½Í·Å³ï¿½ï¿½ï¿½ï¿½ï¿½");
                 semaphore.release();
             } catch (InterruptedException e) {
                 e.printStackTrace();

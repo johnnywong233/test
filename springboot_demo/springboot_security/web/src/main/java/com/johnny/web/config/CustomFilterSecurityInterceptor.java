@@ -50,9 +50,11 @@ public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor
         return this.securityMetadataSource;
     }
 
+    @Override
     public void destroy() {
     }
 
+    @Override
     public void init(FilterConfig arg0) throws ServletException {
     }
 

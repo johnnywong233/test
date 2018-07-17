@@ -195,10 +195,11 @@ class Poker implements Comparable<Poker> {
     public int compareTo(Poker o) {
         List<String> valueBase = Arrays.asList("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A");
         List<String> colorBase = Arrays.asList("方块", "梅花", "红桃", "黑桃");
-        if (valueBase.indexOf(this.value) == valueBase.indexOf(o.value))
+        if (valueBase.indexOf(this.value) == valueBase.indexOf(o.value)) {
             return Integer.compare(colorBase.indexOf(this.color), colorBase.indexOf(o.getColor()));
-        else
+        } else {
             return Integer.compare(valueBase.indexOf(this.value), valueBase.indexOf(o.getValue()));
+        }
     }
 
     @Override

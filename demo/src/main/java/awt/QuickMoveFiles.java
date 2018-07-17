@@ -198,8 +198,9 @@ public class QuickMoveFiles extends JFrame {
      * event handle method of move button
      */
     private void do_moveButton_actionPerformed(ActionEvent e) {
-        if (files.length <= 0 || dir == null)
+        if (files.length <= 0 || dir == null) {
             return;
+        }
         for (File file : files) {
             File newFile = new File(dir, file.getName());// 创建移动目标文件
             infoArea.append(file.getName() + "\tmove to\t" + dir);//show record of file move

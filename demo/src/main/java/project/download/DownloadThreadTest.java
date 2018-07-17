@@ -59,6 +59,7 @@ public class DownloadThreadTest extends Thread {
         LOGGER.debug("偏移量=" + offset + ";字节数=" + length);
     }
 
+    @Override
     public void run() {
         try {
             HttpGet httpGet = new HttpGet(this.url);

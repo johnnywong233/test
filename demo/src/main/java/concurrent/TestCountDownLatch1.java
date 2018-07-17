@@ -6,8 +6,8 @@ public class TestCountDownLatch1 {
     private static final int N = 10;
 
     /*
-     * http://janeky.iteye.com/blog/769965  ÓÅ»¯Ö®ºóµÄ´úÂë
-     * ¼ÙÉèÎÒÃÇÒª´òÓ¡1-100£¬×îºóÔÙÊä³ö¡°Ok¡°¡£1-100µÄ´òÓ¡Ë³Ðò²»ÒªÇóÍ³Ò»£¬Ö»Ðè±£Ö¤¡°Ok¡°ÊÇÔÚ×îºó³öÏÖ¼´¿É¡£
+     * http://janeky.iteye.com/blog/769965  ï¿½Å»ï¿½Ö®ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ó¡1-100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Okï¿½ï¿½ï¿½ï¿½1-100ï¿½Ä´ï¿½Ó¡Ë³ï¿½ï¿½Òªï¿½ï¿½Í³Ò»ï¿½ï¿½Ö»ï¿½è±£Ö¤ï¿½ï¿½Okï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½É¡ï¿½
      */
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch Signal = new CountDownLatch(N);
@@ -30,6 +30,7 @@ public class TestCountDownLatch1 {
             this.Signal = Signal;
         }
 
+        @Override
         public void run() {
             try {
                 beginIndex = (beginIndex - 1) * 10 + 1;

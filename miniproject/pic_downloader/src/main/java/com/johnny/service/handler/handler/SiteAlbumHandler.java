@@ -12,38 +12,47 @@ public class SiteAlbumHandler extends AlbumHandler {
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
     public static final String ALBUM_URL_REGEX = "(http|https)://site.douban.com/.+/widget/photos/\\d+/";
 
+    @Override
     public String getURLRegex() {
         return ALBUM_URL_REGEX;
     }
 
+    @Override
     public String getPageRegex() {
         return "/widget/photos/\\d+/\\?\\w+=\\d+";
     }
 
+    @Override
     public boolean removeURLParameter() {
         return true;
     }
 
+    @Override
     public Integer getPageSize() {
         return PAGE_SIZE_IMAGES_SITE;
     }
 
+    @Override
     public String getPageTag() {
         return PAGE_TAG;
     }
 
+    @Override
     public String getImageNameRegex() {
         return IMAGE_NAME_REGEX;
     }
 
+    @Override
     public boolean hasRaw() {
         return true;
     }
 
+    @Override
     public String getRawURL(String imageURL) {
         return imageURL.replace("photo/photo", "photo/raw").trim();
     }
 
+    @Override
     public void createBGImage(String source, String pageURL, String imageURL, Map<String, BGImage> map) {
         String imageId = imageURL.substring(imageURL.lastIndexOf("/p") + 2, imageURL.lastIndexOf("."));
         String siteAlbumId = pageURL.substring(pageURL.indexOf("photos/") + 7, pageURL.lastIndexOf("/"));
@@ -74,14 +83,17 @@ public class SiteAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public boolean checkBGImage(BGImage bgImage) {
         return !bgImage.getUrl().contains("albumicon");
     }
 
+    @Override
     public String getCommentURL(Album album, BGImage image) {
         return album.getUrl() + "photo/" + image.getId();
     }
 
+    @Override
     public String getAlbumDesc(String source) {
         return null;
     }

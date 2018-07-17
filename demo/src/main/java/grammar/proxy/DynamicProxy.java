@@ -26,19 +26,23 @@ class HelloImplements implements Hello {
 
     private volatile String infos2;
 
+    @Override
     public String getInfos1() {
         return infos1;
     }
 
+    @Override
     public String getInfos2() {
         return infos2;
     }
 
+    @Override
     public void setInfo(String infos1, String infos2) {
         this.infos1 = infos1;
         this.infos2 = infos2;
     }
 
+    @Override
     public void display() {
         System.out.println("\t\t" + infos1 + "\t" + infos2);
     }
@@ -64,6 +68,7 @@ class AOPFactory implements InvocationHandler {
         }
     }
 
+    @Override
     public Object invoke(Object proxyed, Method method, Object[] args) throws IllegalArgumentException, IllegalAccessException,
             InvocationTargetException {
         System.out.println("\n\n====>调用方法名：" + method.getName());

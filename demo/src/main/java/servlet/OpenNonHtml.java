@@ -19,10 +19,12 @@ public class OpenNonHtml extends HttpServlet {
 
     private static final long serialVersionUID = 4079867801426536027L;
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doPost(request, response);
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         //doGet(request,response);
         ServletOutputStream out = response.getOutputStream();
@@ -94,10 +96,12 @@ public class OpenNonHtml extends HttpServlet {
             System.out.println("IOException." + e.getMessage());
             throw e;
         } finally {
-            if (bis != null)
+            if (bis != null) {
                 bis.close();
-            if (bos != null)
+            }
+            if (bos != null) {
                 bos.close();
+            }
         }
     }
 }

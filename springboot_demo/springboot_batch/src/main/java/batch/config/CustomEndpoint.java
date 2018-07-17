@@ -12,18 +12,22 @@ import java.util.List;
  */
 @Component
 public class CustomEndpoint implements Endpoint<List<String>> {
+    @Override
     public String getId() {
         return "ep";
     }
 
+    @Override
     public boolean isEnabled() {
         return true;
     }
 
+    @Override
     public boolean isSensitive() {
         return true;
     }
 
+    @Override
     public List<String> invoke() {
         List<String> messages = new ArrayList<>();
         messages.add("This is message 1");

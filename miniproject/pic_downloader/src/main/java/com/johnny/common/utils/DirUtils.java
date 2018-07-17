@@ -11,6 +11,7 @@ public class DirUtils {
     private static File getDir(Album album) {
         File parentDir = new File(Common.PATH_DOWNLOAD);
         File[] files = parentDir.listFiles(new FilenameFilter() {
+            @Override
             public boolean accept(File dir, String name) {
                 return name.startsWith(this.getClass().getName());
             }

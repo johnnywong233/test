@@ -2,9 +2,10 @@ package thread;
 
 public class SynchronizedTest implements Runnable {
 
+    @Override
     public void run() {
         for (int i = 0; i < 10; ++i) {
-            //Í¬²½´úÂë¿é
+            //Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             synchronized (this) {
                 if (count > 0) {
                     try {

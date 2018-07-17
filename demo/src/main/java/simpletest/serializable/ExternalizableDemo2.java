@@ -53,11 +53,13 @@ public class ExternalizableDemo2 {
             this.age = age;
         }
 
+        @Override
         public void writeExternal(ObjectOutput out) throws IOException {
             out.writeObject(name);
             out.writeInt(age);
         }
 
+        @Override
         public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
             name = (String) in.readObject();
             age = in.readInt();

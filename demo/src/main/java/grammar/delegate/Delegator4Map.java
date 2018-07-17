@@ -31,8 +31,9 @@ public class Delegator4Map extends Delegator {
         proxyClass = (Map) super.obj_proxy;
     }
 
+    @Override
     public Object invoke(Object obj, Method method, Object[] args) throws Throwable {
-        if (method.getName().equals("size")) { //修改size处理逻辑
+        if ("size".equals(method.getName())) { //修改size处理逻辑
             Object res2 = new Integer(-1);
             System.out.println("调用委托的方法");
             return res2;

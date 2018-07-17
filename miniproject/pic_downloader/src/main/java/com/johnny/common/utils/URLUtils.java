@@ -36,9 +36,9 @@ public class URLUtils {
         }
         String charsetCheck;
 
-        if (result.contains("gbk"))
+        if (result.contains("gbk")) {
             charsetCheck = "gbk";
-        else if (result.contains("gb2312")) {
+        } else if (result.contains("gb2312")) {
             charsetCheck = "gb2312";
         } else {
             charsetCheck = "utf-8";

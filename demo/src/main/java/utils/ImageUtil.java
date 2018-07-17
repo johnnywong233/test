@@ -199,7 +199,9 @@ public class ImageUtil {
             g2d.drawImage(scIm, 0, y, null);
             g2d.dispose();
         } else   // do nothing
+        {
             croppedImage = scIm;
+        }
         // System.out.println("Cropped Image (w, h): (" + croppedImage.getWidth() + ", " + croppedImage.getHeight() + ")");
         return croppedImage;
     }

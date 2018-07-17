@@ -63,7 +63,9 @@ public class SimpleDemo {
         File exampleFile = FileUtils.getFile(TXT_PATH);
         LineIterator iter = FileUtils.lineIterator(exampleFile);
         System.out.println("Contents of 1.txt...");
-        while (iter.hasNext()) System.out.println("t" + iter.next());
+        while (iter.hasNext()) {
+            System.out.println("t" + iter.next());
+        }
         iter.close();/*check if a file exists somewhere inside a certain directory.*/
         File parent = FileUtils.getFile(PARENT_DIR);
         System.out.println("Parent directory contains exampleTxt file: " + FileUtils.directoryContains(parent, exampleFile));/*version 2.1 does not contain method directoryContains, 2.4 does*/
@@ -126,16 +128,21 @@ public class SimpleDemo {
         System.out.println("File Filter example...");/* Get all the files in the specified directory that are named "example".*/
         File dir = FileUtils.getFile(PARENT_DIR);
         String[] acceptedNames = {"example", "exampleTxt.txt"};
-        for (String file : dir.list(new NameFileFilter(acceptedNames, IOCase.INSENSITIVE)))
+        for (String file : dir.list(new NameFileFilter(acceptedNames, IOCase.INSENSITIVE))) {
             System.out.println("File found, named: " + file);/* We can use wildcards in order to get less specific results ? used for 1 missing char * used for multiple missing chars*/
-        for (String file : dir.list(new WildcardFileFilter("*ample*")))
+        }
+        for (String file : dir.list(new WildcardFileFilter("*ample*"))) {
             System.out.println("Wildcard file found, named: " + file);/*use the equivalent of startsWith for filtering files.*/
-        for (String file : dir.list(new PrefixFileFilter("example")))
+        }
+        for (String file : dir.list(new PrefixFileFilter("example"))) {
             System.out.println("Prefix file found, named: " + file);/*use the equivalent of endsWith for filtering files.*/
-        for (String file : dir.list(new SuffixFileFilter(".txt")))
+        }
+        for (String file : dir.list(new SuffixFileFilter(".txt"))) {
             System.out.println("Suffix file found, named: " + file);/* We can use some filters of filters. in this case, we use a filter to apply a logical or between our filters.*/
-        for (String file : dir.list(new OrFileFilter(new WildcardFileFilter("*ample*"), new SuffixFileFilter(".txt"))))
+        }
+        for (String file : dir.list(new OrFileFilter(new WildcardFileFilter("*ample*"), new SuffixFileFilter(".txt")))) {
             System.out.println("Or file found, named: " + file);/* And this can become very detailed. Eg, get all the files that have "ample" in their name but they are not text files (so they have no ".txt" extension.*/
+        }
         for (String file : dir.list(new AndFileFilter( /* we will match 2 filters...*/ new WildcardFileFilter("*ample*"), /* ...the 1st is a wildcard...*/ new NotFileFilter(new SuffixFileFilter(".txt"))))) { /* ...and the 2nd is NOT .txt.*/
             System.out.println("And/Not file found, named: " + file);
         }
@@ -147,11 +154,15 @@ public class SimpleDemo {
         NameFileComparator comparator = new NameFileComparator(IOCase.SENSITIVE);
         File[] sortedFiles = comparator.sort(parentDir.listFiles());
         System.out.println("Sorted by name files in parent directory: ");
-        for (File file : sortedFiles) System.out.println("t" + file.getAbsolutePath());/* We can compare files based on their size. The boolean in the constructor is about the directories. true: directory's contents count to the size. false: directory is considered zero size.*/
+        for (File file : sortedFiles) {
+            System.out.println("t" + file.getAbsolutePath());/* We can compare files based on their size. The boolean in the constructor is about the directories. true: directory's contents count to the size. false: directory is considered zero size.*/
+        }
         SizeFileComparator sizeComparator = new SizeFileComparator(true);
         File[] sizeFiles = sizeComparator.sort(parentDir.listFiles());
         System.out.println("Sorted by size files in parent directory: ");
-        for (File file : sizeFiles) System.out.println("t" + file.getName() + " with size (kb): " + file.length());/* LastModifiedFileComparator We can use this class to find which file was more recently modified.*/
+        for (File file : sizeFiles) {
+            System.out.println("t" + file.getName() + " with size (kb): " + file.length());/* LastModifiedFileComparator We can use this class to find which file was more recently modified.*/
+        }
         LastModifiedFileComparator lastModified = new LastModifiedFileComparator();
         File[] lastModifiedFiles = lastModified.sort(parentDir.listFiles());
         System.out.println("Sorted by last modified files in parent directory: ");
@@ -184,12 +195,16 @@ public class SimpleDemo {
             e.printStackTrace();
         } finally {
             try {
-                if (xmlReader != null) xmlReader.close();
+                if (xmlReader != null) {
+                    xmlReader.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             try {
-                if (tee != null) tee.close();
+                if (tee != null) {
+                    tee.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -213,7 +228,9 @@ public class SimpleDemo {
             e.printStackTrace();
         } finally {/* No need to close teeOut. When teeIn closes, it will also close its Output stream (which is teeOut), which will in turn close the 2 branches (out1, out2).*/
             try {
-                if (teeIn != null) teeIn.close();
+                if (teeIn != null) {
+                    teeIn.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

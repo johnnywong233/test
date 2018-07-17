@@ -98,6 +98,7 @@ public class DBApplet extends JApplet {
 
         btnExecute.setText("Execute Query");
         btnExecute.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExecuteActionPerformed(evt);
             }
@@ -142,6 +143,7 @@ public class DBApplet extends JApplet {
         btnConnect.setText("Connect");
         btnConnect.setMinimumSize(new java.awt.Dimension(89, 27));
         btnConnect.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConnectActionPerformed(evt);
             }
@@ -150,6 +152,7 @@ public class DBApplet extends JApplet {
 
         btnDisconnect.setText("Disconnect");
         btnDisconnect.addActionListener(new java.awt.event.ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDisconnectActionPerformed(evt);
             }
@@ -162,6 +165,7 @@ public class DBApplet extends JApplet {
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {
         if (!connected) {
             SwingUtilities.invokeLater(new Runnable() {
+                @Override
                 public void run() {
                     taResponse.append("No database connected.\n");
                 }
@@ -169,6 +173,7 @@ public class DBApplet extends JApplet {
         } else {
             if (connection == null) {
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         taResponse.append("Database connection error.\n");
                     }
@@ -178,6 +183,7 @@ public class DBApplet extends JApplet {
                     query = tfSql.getText();
                     Statement stmt = connection.createStatement();
                     SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                             taResponse.append("Executing query: " + query
                                     + "\n");
@@ -203,12 +209,14 @@ public class DBApplet extends JApplet {
                     rsLine += "\n";
                     stmt.close();
                     SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                             taResponse.append(rsLine);
                         }
                     });
                 } catch (SQLException e) {
                     SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                             taResponse.append("Query failed.\n");
                         }
@@ -227,6 +235,7 @@ public class DBApplet extends JApplet {
                     connection.close();
                     connection = null;
                     SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                             taResponse.append("Database disconnected.\n");
                         }
@@ -234,6 +243,7 @@ public class DBApplet extends JApplet {
                 }
             } catch (SQLException e) {
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         taResponse.append("Database disconnecting error.\n");
                     }
@@ -247,6 +257,7 @@ public class DBApplet extends JApplet {
             password = null;
         } else {
             SwingUtilities.invokeLater(new Runnable() {
+                @Override
                 public void run() {
                     taResponse.append("Database already disconnected.\n");
                 }
@@ -265,6 +276,7 @@ public class DBApplet extends JApplet {
             password = tfPassword.getText();
             try {
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         taResponse
                                 .append("Using JDBC driver: " + driver + "\n");
@@ -276,6 +288,7 @@ public class DBApplet extends JApplet {
                 //�������ݿ�
                 if (connection != null) {
                     SwingUtilities.invokeLater(new Runnable() {
+                        @Override
                         public void run() {
                             taResponse.append("Database " + url
                                     + " connected.\n");
@@ -285,6 +298,7 @@ public class DBApplet extends JApplet {
                 }
             } catch (ClassNotFoundException e) {
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         taResponse.append("Cannot load the driver.\n");
                     }
@@ -292,6 +306,7 @@ public class DBApplet extends JApplet {
                 e.printStackTrace();
             } catch (SQLException e) {
                 SwingUtilities.invokeLater(new Runnable() {
+                    @Override
                     public void run() {
                         taResponse.append("Cannot connect to the database.\n");
                     }
@@ -346,6 +361,7 @@ public class DBApplet extends JApplet {
         JFrame frame = new JFrame("ͨ��JApplet�������ݿ�...");
         DBApplet hwj = new DBApplet();
         frame.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }

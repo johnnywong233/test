@@ -24,38 +24,47 @@ public class SitePublicAlbumHandler extends AlbumHandler {
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
     public static final String ALBUM_URL_REGEX = "(http|https)://site.douban.com/\\d+/widget/public_album/\\d+/";
 
+    @Override
     public String getURLRegex() {
         return "(http|https)://site.douban.com/\\d+/widget/public_album/\\d+/";
     }
 
+    @Override
     public String getPageRegex() {
         return "/widget/public_album/\\d+/\\?\\w+=\\d+";
     }
 
+    @Override
     public boolean removeURLParameter() {
         return true;
     }
 
+    @Override
     public Integer getPageSize() {
         return 30;
     }
 
+    @Override
     public String getPageTag() {
         return "start";
     }
 
+    @Override
     public String getImageNameRegex() {
         return "p\\d+.(gif|jpg|png)";
     }
 
+    @Override
     public boolean hasRaw() {
         return false;
     }
 
+    @Override
     public String getRawURL(String imageURL) {
         return null;
     }
 
+    @Override
     public void createBGImage(String source, String pageURL, String imageURL, Map<String, BGImage> map) {
         String imageId = imageURL.substring(imageURL.lastIndexOf("/p") + 2, imageURL.lastIndexOf("."));
         String siteAlbumId = pageURL.substring(pageURL.indexOf("public_album/") + 13, pageURL.lastIndexOf("/"));
@@ -107,14 +116,17 @@ public class SitePublicAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public boolean checkBGImage(BGImage bgImage) {
         return !bgImage.getUrl().contains("albumicon");
     }
 
+    @Override
     public String getCommentURL(Album album, BGImage image) {
         return album.getUrl() + "photo/" + image.getId();
     }
 
+    @Override
     public String getAlbumDesc(String source) {
         String startTag = "data-desc=\"";
         if (source.contains(startTag)) {
@@ -128,6 +140,7 @@ public class SitePublicAlbumHandler extends AlbumHandler {
         return null;
     }
 
+    @Override
     public void createDescDoc(Album album) {
         List<BGImage> imageList = album.getPhotosList();
         Map<String, BGImage> map = new HashMap<>();
@@ -162,6 +175,7 @@ public class SitePublicAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public List<BGImage> getBGImageFromDescDoc(File descFile)
             throws IOException {
         List<BGImage> list = new ArrayList<>();
@@ -177,7 +191,7 @@ public class SitePublicAlbumHandler extends AlbumHandler {
 
                 tempBGImage = new BGImage(info[0], info[1], info[3]);
 
-                if (!info[2].equals("-")) {
+                if (!"-".equals(info[2])) {
                     tempBGImage.setCommentTotal(Integer.valueOf(info[2]));
                 }
                 line++;

@@ -6,8 +6,9 @@ import java.util.Set;
 public class Crawler {
     /* 使用种子 url 初始化 URL 队列*/
     private void initCrawlerWithSeeds(String[] seeds) {
-        for (String seed : seeds)
+        for (String seed : seeds) {
             LinkDb.addUnvisitedUrl(seed);
+        }
     }
 
     /* 爬取方法*/
@@ -20,8 +21,9 @@ public class Crawler {
         while (!LinkDb.unVisitedUrlsEmpty() && LinkDb.getVisitedUrlNum() <= 1000) {
             //队头 URL 出对
             String visitUrl = LinkDb.unVisitedUrlDeQueue();
-            if (visitUrl == null)
+            if (visitUrl == null) {
                 continue;
+            }
             FileDownLoader downLoader = new FileDownLoader();
             //下载网页
             downLoader.downloadFile(visitUrl);
@@ -67,8 +69,9 @@ class LinkDb {
 
     // 保证每个 url 只被访问一次
     static void addUnvisitedUrl(String url) {
-        if (url != null && !url.trim().equals("") && !visitedUrl.contains(url) && !unVisitedUrl.contains(url))
+        if (url != null && !"".equals(url.trim()) && !visitedUrl.contains(url) && !unVisitedUrl.contains(url)) {
             unVisitedUrl.enQueue(url);
+        }
     }
 
     static int getVisitedUrlNum() {

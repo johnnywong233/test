@@ -2,6 +2,7 @@ package thread;
 
 public class SynchronizedTest1 implements Runnable {
 
+    @Override
     public void run() {
         for (int i = 0; i < 10; ++i) {
             sale();

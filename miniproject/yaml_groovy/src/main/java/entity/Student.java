@@ -11,14 +11,17 @@ public class Student implements Person {
     private String name;
     private String able;
 
+    @Override
     public String getId() {
         return studentId;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String able() {
         return able;
     }

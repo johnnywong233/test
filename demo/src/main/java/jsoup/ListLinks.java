@@ -25,12 +25,13 @@ public class ListLinks {
 
         print("\nMedia: (%d)", media.size());
         for (Element src : media) {
-            if (src.tagName().equals("img"))
+            if ("img".equals(src.tagName())) {
                 print(" * %s: <%s> %sx%s (%s)",
                         src.tagName(), src.attr("abs:src"), src.attr("width"), src.attr("height"),
                         trim(src.attr("alt"), 20));
-            else
+            } else {
                 print(" * %s: <%s>", src.tagName(), src.attr("abs:src"));
+            }
         }
 
         print("\nImports: (%d)", imports.size());
@@ -49,9 +50,10 @@ public class ListLinks {
     }
 
     private static String trim(String s, int width) {
-        if (s.length() > width)
+        if (s.length() > width) {
             return s.substring(0, width - 1) + ".";
-        else
+        } else {
             return s;
+        }
     }
 }

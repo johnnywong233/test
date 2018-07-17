@@ -20,8 +20,9 @@ public class ZkTest {
                 e.printStackTrace();
             }
             finally {
-                if(lock != null)
+                if (lock != null) {
                     lock.unlock();
+                }
             }
         };
         new Thread(task1).start();

@@ -32,13 +32,14 @@ public class AlbumHandlerFactory {
 
         List<Class<?>> handlerClassList = ReflectUtils.getClassWithPackage(PACKAGE_HANDER);
         assert handlerClassList != null;
-        for (Class<?> handlerClass : handlerClassList)
+        for (Class<?> handlerClass : handlerClassList) {
             try {
                 AlbumHandler obj = (AlbumHandler) handlerClass.newInstance();
                 albumHandlerClassMap.put(obj.getURLRegex(), handlerClass);
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
+        }
     }
 
     public static List<AlbumHandler> getHandler(String url) {

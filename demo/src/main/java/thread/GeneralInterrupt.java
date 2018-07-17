@@ -5,6 +5,7 @@ public class GeneralInterrupt implements Runnable {
      * source code see http://outofmemory.cn/java/java.util.concurrent/multi-threading
 	 *  use interrupt to stop thread
 	 */
+    @Override
     public void run() {
         try {
             System.out.println("in run() - get in work2()");

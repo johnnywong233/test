@@ -34,6 +34,7 @@ public class Index {
         this.id = id;
     }
 
+    @Override
     public String toString() {
         return this.id + "#" + this.name + "#" + this.manu + "#" + this.cat;
     }

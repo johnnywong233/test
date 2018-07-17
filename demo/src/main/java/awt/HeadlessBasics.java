@@ -1,22 +1,11 @@
 package awt;
 
-import java.awt.Button;
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterJob;
 import java.io.File;
-
-import javax.imageio.ImageIO;
 
 public class HeadlessBasics {
     /*
@@ -67,7 +56,8 @@ public class HeadlessBasics {
         final Canvas c = new Canvas() {
 			private static final long serialVersionUID = 1L;
 
-			public void paint(Graphics g) {
+            @Override
+            public void paint(Graphics g) {
                 Rectangle r = getBounds();
                 g.drawLine(0, 0, r.width - 1, r.height - 1);
                 // Colors work too.
@@ -94,6 +84,7 @@ public class HeadlessBasics {
         // Print system is available.
         PrinterJob pj = PrinterJob.getPrinterJob();
         pj.setPrintable(new Printable() {
+            @Override
             public int print(Graphics g, PageFormat pf, int pageIndex) {
                 if (pageIndex > 0) {
                     return Printable.NO_SUCH_PAGE;

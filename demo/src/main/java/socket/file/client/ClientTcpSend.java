@@ -29,12 +29,15 @@ public class ClientTcpSend {
                     dos.flush();
                 }
             } finally {
-                if (dos != null)
+                if (dos != null) {
                     dos.close();
-                if (fis != null)
+                }
+                if (fis != null) {
                     fis.close();
-                if (socket != null)
+                }
+                if (socket != null) {
                     socket.close();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

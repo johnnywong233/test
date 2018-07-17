@@ -49,8 +49,9 @@ public class GetReady {
         }
         // 1:跟""
         calculate(sb, i + 1, r, n, f);
-        if (sb.charAt(sb.length() - 1) == '+' || sb.charAt(sb.length() - 1) == '-')
+        if (sb.charAt(sb.length() - 1) == '+' || sb.charAt(sb.length() - 1) == '-') {
             return;
+        }
         r += f * n;
         // 2:跟"+"
         sb.append('+');
@@ -111,9 +112,9 @@ public class GetReady {
             while (!nst.isEmpty()) {
                 String s1 = nst.pop();
                 sb.append(s1);
-                if (s1.equals("+")) {
+                if ("+".equals(s1)) {
                     opt = 1;
-                } else if (s1.equals("-")) {
+                } else if ("-".equals(s1)) {
                     opt = 2;
                 } else {
                     if (opt == 1) {

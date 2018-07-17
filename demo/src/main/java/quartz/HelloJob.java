@@ -9,6 +9,7 @@ import org.quartz.JobExecutionException;
  * simple job as print something
  */
 public class HelloJob implements Job {
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         System.out.println("this is the job to execute!");
         //Throw	exception	for	testing

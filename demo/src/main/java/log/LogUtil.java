@@ -39,10 +39,11 @@ public class LogUtil {
      * @return Logger对象
      */
     public static LogUtil getLogger(Class<?> classObject) {
-        if (log != null)
+        if (log != null) {
             return log;
-        else
+        } else {
             return new LogUtil(Logger.getLogger(classObject));
+        }
     }
 
     /*
@@ -101,8 +102,9 @@ public class LogUtil {
     }
 
     public static void info(String content) {
-        if (logger.isInfoEnabled())
+        if (logger.isInfoEnabled()) {
             logger.info(content);
+        }
     }
 
     public void warn(String keyWord, String content) {

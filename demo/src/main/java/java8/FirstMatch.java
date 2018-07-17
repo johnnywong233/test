@@ -27,7 +27,9 @@ public class FirstMatch {
     private Integer findFirstMatchJava7() {
         List<Integer> integers = Arrays.asList(1, 4, 2, 5, 6, 3);
         for (int i : integers) {
-            if (i > 3) return i;
+            if (i > 3) {
+                return i;
+            }
         }
         return null;
     }

@@ -26,6 +26,7 @@ public class Address {
         this.street2 = street2;
     }
 
+    @Override
     public String toString() {
         return street1 + "|" + street2;
     }

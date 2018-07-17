@@ -40,10 +40,12 @@ class Person extends JButton implements FocusListener {
         addFocusListener(this);
     }
 
+    @Override
     public void focusGained(FocusEvent e) {
         setBackground(Color.cyan);
     }
 
+    @Override
     public void focusLost(FocusEvent e) {
         setBackground(c);
     }
@@ -103,6 +105,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         con.validate();
     }
 
+    @Override
     public void keyPressed(KeyEvent e) {
         Person man = (Person) e.getSource();
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -119,12 +122,15 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         }
     }
 
+    @Override
     public void keyTyped(KeyEvent e) {
     }
 
+    @Override
     public void keyReleased(KeyEvent e) {
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
         Person man = (Person) e.getSource();
         int x, y;
@@ -146,15 +152,19 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         }
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
     }
 
@@ -270,6 +280,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         }
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         con.removeAll();
         init();

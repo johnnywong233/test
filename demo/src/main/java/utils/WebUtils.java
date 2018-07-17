@@ -47,8 +47,9 @@ public class WebUtils {
             StringBuilder sb = new StringBuilder();
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(url.openStream(), "UTF-8"));
-            while ((line = reader.readLine()) != null)
+            while ((line = reader.readLine()) != null) {
                 sb.append(line);
+            }
             reader.close();
             return sb.toString();
         } catch (Exception e) {
@@ -102,13 +103,15 @@ public class WebUtils {
             System.out.println(" " + spe.getMessage());
             // Use the contained exception, if any
             Exception x = spe;
-            if (spe.getException() != null)
+            if (spe.getException() != null) {
                 x = spe.getException();
+            }
             x.printStackTrace();
         } catch (SAXException sxe) {  // Error generated during parsing
             Exception x = sxe;
-            if (sxe.getException() != null)
+            if (sxe.getException() != null) {
                 x = sxe.getException();
+            }
             x.printStackTrace();
         } catch (ParserConfigurationException | IOException pce) {
             // Parser with specified options can't be built
@@ -136,13 +139,15 @@ public class WebUtils {
             System.out.println(" " + spe.getMessage());
             // Use the contained exception, if any
             Exception x = spe;
-            if (spe.getException() != null)
+            if (spe.getException() != null) {
                 x = spe.getException();
+            }
             x.printStackTrace();
         } catch (SAXException sxe) {  // Error generated during parsing
             Exception x = sxe;
-            if (sxe.getException() != null)
+            if (sxe.getException() != null) {
                 x = sxe.getException();
+            }
             x.printStackTrace();
         } catch (ParserConfigurationException | IOException pce) {
             // Parser with specified options can't be built
@@ -194,8 +199,9 @@ public class WebUtils {
     // return the text of the first element with the name 'tagName' below elem
     public static String getElemText(Element elem, String tagName) {
         NodeList nodeList = elem.getElementsByTagName(tagName);
-        if (nodeList.getLength() > 0)
+        if (nodeList.getLength() > 0) {
             return nodeList.item(0).getFirstChild().getNodeValue();
+        }
         return null;
     }
 
@@ -222,10 +228,11 @@ public class WebUtils {
     private static void savePNG(String fnm, BufferedImage im) {
         int extPosn = fnm.lastIndexOf(".");
         String pngFnm;
-        if (extPosn == -1)
+        if (extPosn == -1) {
             pngFnm = "cover.png";
-        else
+        } else {
             pngFnm = fnm.substring(0, extPosn) + "Cover.png";
+        }
         System.out.println("Saving image to " + pngFnm);
         try {
             ImageIO.write(im, "png", new File(pngFnm));

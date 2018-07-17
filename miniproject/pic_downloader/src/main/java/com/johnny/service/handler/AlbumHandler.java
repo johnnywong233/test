@@ -32,10 +32,11 @@ public abstract class AlbumHandler {
 
     public void setAlbumURL(String albumURL) {
         boolean isRemoveURLPara = removeURLParameter();
-        if ((isRemoveURLPara) && (albumURL.indexOf("?") > 0))
+        if ((isRemoveURLPara) && (albumURL.indexOf("?") > 0)) {
             this.albumURL = albumURL.substring(0, albumURL.indexOf("?"));
-        else
+        } else {
             this.albumURL = albumURL;
+        }
     }
 
     public abstract String getAlbumDesc(String paramString);
@@ -84,9 +85,9 @@ public abstract class AlbumHandler {
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(album.getPath() + "/" + "描述.txt"));
 
-            if (album.getDesc() == null)
+            if (album.getDesc() == null) {
                 bw.write(URLUtils.charset + " " + album.getUrl() + " " + album.getDate().getTime() + " -");
-            else {
+            } else {
                 bw.write(URLUtils.charset + " " + album.getUrl() + " " + album.getDate().getTime() + " " + album.getDesc());
             }
             bw.newLine();
@@ -123,7 +124,7 @@ public abstract class AlbumHandler {
 
                     BGImage bgImage = new BGImage(info[0], info[1], info[3]);
 
-                    if (!info[2].equals("-")) {
+                    if (!"-".equals(info[2])) {
                         bgImage.setCommentTotal(Integer.valueOf(info[2]));
                     }
                     list.add(bgImage);

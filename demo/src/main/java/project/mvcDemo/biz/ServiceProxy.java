@@ -28,9 +28,13 @@ public class ServiceProxy implements InvocationHandler {
         DbSession session = DbSessionFactory.openSession();
         boolean isTxNeeded = !method.getName().startsWith("get");
         try {
-            if (isTxNeeded) session.beginTx();
+            if (isTxNeeded) {
+                session.beginTx();
+            }
             retValue = method.invoke(target, args);
-            if (isTxNeeded) session.commitTx();
+            if (isTxNeeded) {
+                session.commitTx();
+            }
         } finally {
             DbSessionFactory.closeSession();
         }

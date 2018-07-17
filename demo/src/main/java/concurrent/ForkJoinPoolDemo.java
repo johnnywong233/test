@@ -78,6 +78,7 @@ class NewTask extends RecursiveAction {
     // 5. 用任务的中心逻辑来实现 compute()
     // 方法。如果此任务已经处理了超过100任务，那么把元素集分成2部分，再创建2个任务分别来执行这些部分，使用 fork() 方法开始执行，并使用
     // join() 方法等待它的终结。
+    @Override
     protected void compute() {
         if (end - start > 100) {
             int mid = (start + end) / 2;

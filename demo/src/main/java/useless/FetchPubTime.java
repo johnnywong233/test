@@ -47,8 +47,9 @@ public class FetchPubTime {
 
         //链接里面没有，匹配文本中的
         if (pubTime == null) {
-            if (urlContent != null && !urlContent.trim().equals(""))
+            if (urlContent != null && !"".equals(urlContent.trim())) {
                 return extractPageDate(urlContent);
+            }
         }
 
         return pubTime;
@@ -128,8 +129,9 @@ public class FetchPubTime {
             if (!(matcher_detail.find(0) && matcher_detail.groupCount() >= 1)) {
                 matcher_detail = p.matcher(dateStr);
                 containsHMS = true;
-            } else
+            } else {
                 matcher_detail = p_detail.matcher(dateStr);
+            }
             if (matcher_detail.find() && matcher_detail.groupCount() >= 1) {
                 matches = new ArrayList<>();
                 for (int i = 1; i <= matcher_detail.groupCount(); i++) {
@@ -146,8 +148,9 @@ public class FetchPubTime {
                     //取出第一个值
                     pubTime = pubTime.replace("/", "-").replace("年", "-").replace("月", "-").replace("日", "-");
                     if (current.compareTo(TimeUtils.strToCalendar(pubTime, "yyyy-MM-dd")) >= 0) {
-                        if (containsHMS)
+                        if (containsHMS) {
                             pubTime += " " + "00:00:00";
+                        }
                         if (pubTime.matches(rightTimeReg)) {
                             return pubTime;
                         }

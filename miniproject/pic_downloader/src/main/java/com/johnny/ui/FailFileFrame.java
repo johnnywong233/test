@@ -69,6 +69,7 @@ public class FailFileFrame extends JFrame {
 
         setDefaultCloseOperation(3);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent evt) {
                 FailFileFrame.this.formWindowClosing(evt);
             }

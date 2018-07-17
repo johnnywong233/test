@@ -13,10 +13,12 @@ public class UserServerImpl implements UserService {
     @Autowired
     private UserMapper mapper;
 
+    @Override
     public boolean add(User user) {
         return mapper.insert(user) > 0;
     }
 
+    @Override
     public List<User> findAll() {
         return mapper.selectByExample(null);
     }

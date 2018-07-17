@@ -47,6 +47,7 @@ public class FutureTaskTest {
 class PrivateAccount implements Callable {
     Integer totalMoney;
 
+    @Override
     public Object call() throws Exception {
         Thread.sleep(5000);
         totalMoney = new Integer(new Random().nextInt(10000));

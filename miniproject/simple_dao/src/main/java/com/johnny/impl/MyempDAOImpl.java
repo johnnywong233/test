@@ -17,6 +17,7 @@ public class MyempDAOImpl implements IMyempDAO {
         this.conn = conn;
     }
 
+    @Override
     public boolean doCreate(Myemp emp) throws Exception {
         boolean flag = false;
         String sql = "INSERT INTO myemp(username,password) VALUES (?,?)";
@@ -30,6 +31,7 @@ public class MyempDAOImpl implements IMyempDAO {
         return flag;
     }
 
+    @Override
     public List<Myemp> findAll(String keyWord) throws Exception {
         List<Myemp> all = new ArrayList<>();     //定义集合接收数据
         String sql = "SELECT id,username,password FROM myemp WHERE username LIKE ? OR password LIKE ?";

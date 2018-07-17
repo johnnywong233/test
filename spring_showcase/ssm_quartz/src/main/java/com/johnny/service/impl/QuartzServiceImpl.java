@@ -15,6 +15,7 @@ public class QuartzServiceImpl implements QuartzService {
     @Autowired
     private Scheduler scheduler;// 获取调度器
 
+    @Override
     public void addJob(JobEntity jobEntity, HttpServletResponse response, JobController jobController) {
 
         try {

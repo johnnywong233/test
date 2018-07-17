@@ -21,13 +21,13 @@ public class TimerTest1 {
 
     private void timerOne(){
         timer.schedule(new TimerTask() {
+            @Override
             public void run() {
                 System.out.println("timerOne invoked, the time:" + (System.currentTimeMillis() - start));
                 try {
                     Thread.sleep(4000);
                     //线程休眠4000
-                }
-                catch (InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -36,6 +36,7 @@ public class TimerTest1 {
 
     private void timerTwo(){
         timer.schedule(new TimerTask() {
+            @Override
             public void run() {
                 System.out.println("timerTwo invoked, the time:" + (System.currentTimeMillis() - start));
             }

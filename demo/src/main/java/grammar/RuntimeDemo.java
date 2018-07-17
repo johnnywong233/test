@@ -37,7 +37,9 @@ public class RuntimeDemo {
         BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
         while (true) {
             String s = br.readLine();
-            if (s == null) break;
+            if (s == null) {
+                break;
+            }
             System.out.println(s);
         }
         br.close();

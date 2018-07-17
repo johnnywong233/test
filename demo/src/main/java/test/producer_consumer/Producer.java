@@ -7,6 +7,7 @@ public class Producer implements Runnable {
         this.info = info;
     }
 
+    @Override
     public void run() {
         boolean flag = false;
         for (int i = 0; i < 25; ++i) {

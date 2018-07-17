@@ -89,7 +89,7 @@ public class PreventImgTamper {
 
     //16进制转字节数组
     private static byte[] hexStringToBytes(String hexString) {
-        if (hexString == null || hexString.equals("")) {
+        if (hexString == null || "".equals(hexString)) {
             return null;
         }
         hexString = hexString.toUpperCase();

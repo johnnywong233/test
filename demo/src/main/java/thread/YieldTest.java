@@ -5,20 +5,21 @@ public class YieldTest implements Runnable {
      * (non-Javadoc)
      * @see java.lang.Runnable#run()
      */
+    @Override
     public void run() {
         for (int i = 0; i < 5; ++i) {
-            System.out.println(Thread.currentThread().getName() + "ÔËÐÐ" + i);
+            System.out.println(Thread.currentThread().getName() + "ï¿½ï¿½ï¿½ï¿½" + i);
             if (i == 3) {
-                System.out.println("Ïß³ÌµÄÀñÈÃ");
+                System.out.println("ï¿½ß³Ìµï¿½ï¿½ï¿½ï¿½ï¿½");
                 Thread.currentThread();
                 Thread.yield();
-//				Thread.currentThread().yield(); //ÉÏÃæÁ½ÐÐµÄµÈ¼Û
+//				Thread.currentThread().yield(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄµÈ¼ï¿½
             }
         }
     }
 
     /*
-     * ÔÚÏß³Ì²Ù×÷ÖÐ£¬Ò²¿ÉÒÔÊ¹ÓÃyield£¨£©·½·¨£¬½«Ò»¸öÏß³ÌµÄ²Ù×÷ÔÝÊ±½»¸øÆäËûÏß³ÌÖ´ÐÐ¡£
+     * ï¿½ï¿½ï¿½ß³Ì²ï¿½ï¿½ï¿½ï¿½Ð£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½yieldï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ß³ÌµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½Ö´ï¿½Ð¡ï¿½
      */
     public static void main(String[] args) {
         Thread h1 = new Thread(new YieldTest(), "A");

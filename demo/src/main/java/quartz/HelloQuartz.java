@@ -10,6 +10,7 @@ import org.quartz.JobExecutionException;
  * Time: 19:54
  */
 public class HelloQuartz implements Job {
+    @Override
     public void execute(JobExecutionContext arg0) throws JobExecutionException {
         System.out.println("Hello Quartz !");
     }

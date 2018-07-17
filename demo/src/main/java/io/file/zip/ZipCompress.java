@@ -30,9 +30,10 @@ public class ZipCompress {
 				BufferedReader in = new BufferedReader(new FileReader(args[i]));
 				out.putNextEntry(new ZipEntry(args[i]));
 				int c;
-				while((c = in.read()) != -1)
-				out.write(c);
-				in.close();
+                while ((c = in.read()) != -1) {
+                    out.write(c);
+                }
+                in.close();
 			}
 			out.close();
 			// Checksum valid only after the file has been closed!
@@ -47,9 +48,10 @@ public class ZipCompress {
 			while((ze = in2.getNextEntry()) != null) {
 				System.out.println("Reading file " + ze);
 				int x;
-				while((x = in2.read()) != -1)
-				System.out.write(x);
-			}
+                while ((x = in2.read()) != -1) {
+                    System.out.write(x);
+                }
+            }
 			in2.close();
 			// Alternative way to open and read
 			// zip files:

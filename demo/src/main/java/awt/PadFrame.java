@@ -30,24 +30,28 @@ public class PadFrame extends Frame {
      * Message Handle
      */
     private class EventExit implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
     }
 
     private class SystemExit extends WindowAdapter {
+        @Override
         public void windowClosing(WindowEvent e) {
             System.exit(0);
         }
     }
 
     private class EventMenuClose implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             ta.setText(null);
         }
     }
 
     private  class EventOpenFile implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             //Create the OpenFile Dialog
             FileDialog dlg = new FileDialog(frame, "Open Files", FileDialog.LOAD);

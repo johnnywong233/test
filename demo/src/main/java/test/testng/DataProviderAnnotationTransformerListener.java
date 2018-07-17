@@ -19,7 +19,7 @@ public class DataProviderAnnotationTransformerListener implements IAnnotationTra
 
     @Override
     public void transform(IDataProviderAnnotation annotation, Method method) {
-        if (annotation.getName().equals("largeDataSet")) {
+        if ("largeDataSet".equals(annotation.getName())) {
             System.out.println("Large data set, run parallely");
             annotation.setParallel(true);
         }

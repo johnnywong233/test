@@ -47,6 +47,7 @@ class MyConsumer implements Runnable {
         this.queue = queue;
     }
 
+    @Override
     public void run() {
         System.out.println("start consumer thread!");
         Random r = new Random();
@@ -82,8 +83,9 @@ class MyProducer implements Runnable {
         this.queue = queue;
     }
 
+    @Override
     @SuppressWarnings("unchecked")
-	public void run() {
+    public void run() {
         String data;
         Random r = new Random();
 

@@ -56,9 +56,9 @@ public class HtmlCreator {
         page = page.replace("${name}", HTMLUtils.textToHTML(name));
         page = page.replace("${url}", album.getUrl());
 
-        if ((album.getDesc() == null) || (album.getDesc().equals("-")))
+        if ((album.getDesc() == null) || ("-".equals(album.getDesc()))) {
             page = page.replace("${albumDesc}", "");
-        else {
+        } else {
             page = page.replace("${albumDesc}", HTMLUtils.textToHTML("■相册描述：" + album.getDesc()));
         }
 
@@ -137,17 +137,18 @@ public class HtmlCreator {
                 try {
                     ImageInfo imageInfo = ImageUtils.getImageSize(album.getPath() + File.separatorChar + image.getName());
                     ImageInfo rawInfo = ImageUtils.getImageSize(album.getPath() + File.separatorChar + "raw" + File.separatorChar + image.getName());
-                    if ((imageInfo.getWidth() == rawInfo.getWidth()) && (imageInfo.getHeight() == rawInfo.getHeight()))
+                    if ((imageInfo.getWidth() == rawInfo.getWidth()) && (imageInfo.getHeight() == rawInfo.getHeight())) {
                         images.append("'raw':'").append(Common.RAW_TYPE_UNCOMPRESSED).append("'");
-                    else
+                    } else {
                         images.append("'raw':'").append(Common.RAW_TYPE_LARGE).append("'");
+                    }
                 } catch (Exception e) {
                     images.append("'raw':'").append(Common.RAW_TYPE_LARGE).append("'");
                 }
 
             }
 
-            if (images.substring(images.length() - 1, images.length()).equals(",")) {
+            if (",".equals(images.substring(images.length() - 1, images.length()))) {
                 images.delete(images.length() - 1, images.length());
             }
 
@@ -189,7 +190,7 @@ public class HtmlCreator {
     }
 
     public static void createAlbumHTML(List<String> paths) {
-        for (String path : paths)
+        for (String path : paths) {
             try {
                 createAlbumHTML(path);
             } catch (IOException e) {
@@ -197,5 +198,6 @@ public class HtmlCreator {
                 Console.print("HTML文档生成失败");
                 e.printStackTrace();
             }
+        }
     }
 }

@@ -106,6 +106,7 @@ public class MyPanel extends JPanel {
 
         setFocusable(true);
         this.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
                 int key = e.getKeyCode();
                 switch (key) {
@@ -132,15 +133,19 @@ public class MyPanel extends JPanel {
         });
 
         this.addMouseMotionListener(new MouseMotionListener() {
+            @Override
             public void mouseMoved(MouseEvent e) {
                 MyPanel.this.requestFocusInWindow();
             }
+
+            @Override
             public void mouseDragged(MouseEvent e) {
                 //move mouse
             }
         });
     }
 
+    @Override
     protected void paintComponent(Graphics g1) {
         BufferedImage bg = new BufferedImage(COLS * SPAN, ROWS * SPAN,
                 BufferedImage.TYPE_INT_ARGB);
@@ -196,6 +201,7 @@ public class MyPanel extends JPanel {
         return false;
     }
 
+    @Override
     public Dimension getPreferredSize() {
         return new Dimension(COLS * SPAN, ROWS * SPAN);
     }

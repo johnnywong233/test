@@ -8,7 +8,7 @@ import java.util.UUID;
 public class TokenRetrievalService {
 
     String getToken(String code) throws TokenNotFoundException {
-        if (code.equals("42")) { // possible NPE
+        if ("42".equals(code)) { // possible NPE
             throw new TokenNotFoundException();
         }
         return UUID.randomUUID().toString();

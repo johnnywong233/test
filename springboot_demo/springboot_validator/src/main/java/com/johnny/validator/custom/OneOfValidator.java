@@ -17,8 +17,9 @@ public class OneOfValidator implements ConstraintValidator<OneOf, Object> {
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        if (fields == null || fields.length == 0)
+        if (fields == null || fields.length == 0) {
             return true;
+        }
         try {
             int notNullFieldCount = 0;
             for (String field : fields) {

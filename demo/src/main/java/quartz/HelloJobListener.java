@@ -40,7 +40,7 @@ public class HelloJobListener implements JobListener {
         System.out.println("job Was Executed");
         String jobName = context.getJobDetail().getKey().toString();
         System.out.println("Job: " + jobName + "is finished...");
-        if (!jobException.getMessage().equals("")) {
+        if (!"".equals(jobException.getMessage())) {
             System.out.println("Exception thrown by: " + jobName + " Exception: " + jobException.getMessage());
         }
     }

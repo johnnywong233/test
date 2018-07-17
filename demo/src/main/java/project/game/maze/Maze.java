@@ -30,20 +30,23 @@ public class Maze extends JPanel {
         width = wi;
         padding = p;
         maze = new Lattice[NUM][NUM];
-        for (int i = 0; i <= NUM - 1; i++)
-            for (int j = 0; j <= NUM - 1; j++)
+        for (int i = 0; i <= NUM - 1; i++) {
+            for (int j = 0; j <= NUM - 1; j++) {
                 maze[i][j] = new Lattice(i, j);
+            }
+        }
         createMaze();
         setKeyListener();
         this.setFocusable(true);
     }
 
     private void init() {
-        for (int i = 0; i <= NUM - 1; i++)
+        for (int i = 0; i <= NUM - 1; i++) {
             for (int j = 0; j <= NUM - 1; j++) {
                 maze[i][j].setFather(null);
                 maze[i][j].setFlag(Lattice.NOTINTREE);
             }
+        }
         ballX = 0;
         ballY = 0;
         drawPath = false;
@@ -108,6 +111,7 @@ public class Maze extends JPanel {
 
     private void setKeyListener() {
         this.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
                 int c = e.getKeyCode();
                 move(c);
@@ -136,8 +140,9 @@ public class Maze extends JPanel {
         for (int i = 0; i <= 3; i++) {
             xt = p.getX() + adds[i];
             yt = p.getY() + adds[i + 1];
-            if (isOutOfBorder(xt, yt))
+            if (isOutOfBorder(xt, yt)) {
                 continue;
+            }
             ps[i] = maze[xt][yt];
         }
         return ps;
@@ -160,8 +165,9 @@ public class Maze extends JPanel {
                 ran++;
                 ran %= 4;
                 assert neis != null;
-                if (neis[ran] == null || neis[ran].getFlag() == Lattice.INTREE)
+                if (neis[ran] == null || neis[ran].getFlag() == Lattice.INTREE) {
                     continue;
+                }
                 s.push(neis[ran]);
                 neis[ran].setFather(p);
             }
@@ -192,6 +198,7 @@ public class Maze extends JPanel {
         g.drawLine(sx, sy, dx, dy);
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         for (int i = 0; i <= NUM; i++) {
@@ -218,16 +225,18 @@ public class Maze extends JPanel {
         g.setColor(Color.RED);
         g.fillOval(getCenterX(ballY) - width / 3, getCenterY(ballX) - width / 3,
                 width / 2, width / 2);
-        if (drawPath)
+        if (drawPath) {
             drawPath(g);
+        }
     }
 
     private void drawPath(Graphics g) {
         Color PATH_COLOR = Color.ORANGE, BOTH_PATH_COLOR = Color.PINK;
-        if (drawPath)
+        if (drawPath) {
             g.setColor(PATH_COLOR);
-        else
+        } else {
             g.setColor(this.getBackground());
+        }
         Lattice p = maze[NUM - 1][NUM - 1];
         while (p.getFather() != null) {
             p.setFlag(2);
@@ -248,8 +257,9 @@ public class Maze extends JPanel {
         g.setColor(PATH_COLOR);
         p = maze[NUM - 1][NUM - 1];
         while (p.getFather() != null) {
-            if (p.getFlag() == 3)
+            if (p.getFlag() == 3) {
                 break;
+            }
             g.drawLine(getCenterX(p), getCenterY(p), getCenterX(p.getFather()),
                     getCenterY(p.getFather()));
             p = p.getFather();

@@ -27,7 +27,9 @@ public class MD5Util {
             fileInputStream = new FileInputStream(inputFile);
             digestInputStream = new DigestInputStream(fileInputStream, messageDigest);
             byte[] buffer = new byte[bufferSize];
-            while (digestInputStream.read(buffer) > 0) ;
+            while (digestInputStream.read(buffer) > 0) {
+                ;
+            }
             messageDigest = digestInputStream.getMessageDigest();
             byte[] resultByteArray = messageDigest.digest();
             return byteArrayToHex(resultByteArray);
@@ -41,8 +43,9 @@ public class MD5Util {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            if (fileInputStream != null)
+            if (fileInputStream != null) {
                 fileInputStream.close();
+            }
         }
     }
 
@@ -58,10 +61,12 @@ public class MD5Util {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } finally {
-            if (ch != null)
+            if (ch != null) {
                 ch.close();
-            if (in != null)
+            }
+            if (in != null) {
                 in.close();
+            }
         }
         messagedigest.update(byteBuffer);
         return byteArrayToHex(messagedigest.digest());

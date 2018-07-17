@@ -50,7 +50,9 @@ public class JxlTest {
             e.printStackTrace();
         }
 
-        if (wb == null) return null;
+        if (wb == null) {
+            return null;
+        }
         Sheet[] sheets = wb.getSheets();
         if (sheets != null && sheets.length > 0) {
             for (Sheet sheet : sheets) {

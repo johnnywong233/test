@@ -12,42 +12,52 @@ public class CelebrityAlbumHandler extends AlbumHandler {
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
     public static final String ALBUM_URL_REGEX = "(http|https)://movie.douban.com/celebrity/\\d+/photos/";
 
+    @Override
     public String getURLRegex() {
         return ALBUM_URL_REGEX;
     }
 
+    @Override
     public String albumNameProcess(String name) {
         return name = "影人-" + super.albumNameProcess(name);
     }
 
+    @Override
     public String getPageRegex() {
         return getAlbumURL() + "\\?(\\w+=\\w+&*(amp;)*)+";
     }
 
+    @Override
     public boolean removeURLParameter() {
         return true;
     }
 
+    @Override
     public Integer getPageSize() {
         return PAGE_SIZE_IMAGES_CELEBRITY;
     }
 
+    @Override
     public String getPageTag() {
         return PAGE_TAG;
     }
 
+    @Override
     public String getImageNameRegex() {
         return IMAGE_NAME_REGEX;
     }
 
+    @Override
     public boolean hasRaw() {
         return true;
     }
 
+    @Override
     public String getRawURL(String imageURL) {
         return imageURL.replace("photo/photo", "photo/raw").trim();
     }
 
+    @Override
     public void createBGImage(String source, String pageURL, String imageURL, Map<String, BGImage> map) {
         String imageId = imageURL.substring(imageURL.lastIndexOf("/p") + 2, imageURL.lastIndexOf("."));
         String celebrityId = pageURL.substring(pageURL.indexOf("celebrity/") + 10, pageURL.indexOf("/photos"));
@@ -79,14 +89,17 @@ public class CelebrityAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public boolean checkBGImage(BGImage bgImage) {
         return !bgImage.getUrl().contains("albumicon");
     }
 
+    @Override
     public String getCommentURL(Album album, BGImage image) {
         return album.getUrl().replace("photos", "photo") + "/" + image.getId();
     }
 
+    @Override
     public String getAlbumDesc(String source) {
         return null;
     }

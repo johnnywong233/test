@@ -33,6 +33,7 @@ public class ServerTcpListener implements Runnable {
         }
     }
 
+    @Override
     public void run() {
     }
 
@@ -55,12 +56,15 @@ public class ServerTcpListener implements Runnable {
                 }
                 System.out.println("finish receiving...");
             } finally {
-                if (fos != null)
+                if (fos != null) {
                     fos.close();
-                if (dis != null)
+                }
+                if (dis != null) {
                     dis.close();
-                if (socket != null)
+                }
+                if (socket != null) {
                     socket.close();
+                }
             }
         } catch (Exception e) {
             System.out.println(e);

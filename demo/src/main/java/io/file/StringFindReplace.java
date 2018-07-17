@@ -114,8 +114,9 @@ public class StringFindReplace implements MouseListener, WindowListener {
     }
 
     /** ����mouseClicked���ڴ�����굥�����¼���Ҳ���ǵ���굥���¼������󣬳���ͻ����÷�����ִ�� */
+    @Override
     @SuppressWarnings("deprecation")
-	public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(MouseEvent e) {
         //�������������ڻ���¼�Դ��ť
         Button myBTN = (Button) (e.getSource());
         //�����if��䴦���¼�Դ�ǡ����ҡ���ť���滻����ťʱ�����
@@ -161,38 +162,49 @@ public class StringFindReplace implements MouseListener, WindowListener {
     }
 
     //����������дMouseListener��WindowListener�ӿ��еķ���
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
     }
 
     //��дwindowClosing�������رմ���ʱ�������˳�
+    @Override
     public void windowClosing(WindowEvent e) {
         System.exit(0);
     }
 
+    @Override
     public void windowOpened(WindowEvent e) {
     }
 
+    @Override
     public void windowIconified(WindowEvent e) {
     }
 
+    @Override
     public void windowDeiconified(WindowEvent e) {
     }
 
+    @Override
     public void windowClosed(WindowEvent e) {
     }
 
+    @Override
     public void windowActivated(WindowEvent e) {
     }
 
+    @Override
     public void windowDeactivated(WindowEvent e) {
     }
 }

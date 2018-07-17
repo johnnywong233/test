@@ -19,12 +19,15 @@ public class FibonacciGuavaCacheTest {
     private LoadingCache<Integer, Integer> fibonacciCache = CacheBuilder.newBuilder()
             .maximumSize(2)
             .build(new CacheLoader<Integer, Integer>() {
+                @Override
                 public Integer load(Integer i) {
-                    if (i == 0)
+                    if (i == 0) {
                         return i;
+                    }
 
-                    if (i == 1)
+                    if (i == 1) {
                         return 1;
+                    }
                     return fibonacciCache.getUnchecked(i - 2) + fibonacciCache.getUnchecked(i - 1);
                 }
             });

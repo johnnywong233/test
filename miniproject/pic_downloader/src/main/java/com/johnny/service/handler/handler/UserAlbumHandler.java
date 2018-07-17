@@ -12,47 +12,56 @@ public class UserAlbumHandler extends AlbumHandler {
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
     public static final String ALBUM_URL_REGEX = "(http|https)://www.douban.com/photos/album/\\d+/";
 
+    @Override
     public String getURLRegex() {
         return ALBUM_URL_REGEX;
     }
 
+    @Override
     public String getPageRegex() {
         return super.getAlbumURL() + "\\?\\w+=\\d+";
     }
 
+    @Override
     public boolean removeURLParameter() {
         return true;
     }
 
+    @Override
     public Integer getPageSize() {
         return PAGE_SIZE_IMAGES;
     }
 
+    @Override
     public String getPageTag() {
         return PAGE_TAG;
     }
 
+    @Override
     public String getImageNameRegex() {
         return IMAGE_NAME_REGEX;
     }
 
+    @Override
     public boolean hasRaw() {
         return true;
     }
 
+    @Override
     public String getRawURL(String imageURL) {
         return imageURL.replace("photo/photo", "photo/large").trim();
     }
 
+    @Override
     public void createBGImage(String source, String pageURL, String imageURL, Map<String, BGImage> map) {
         String imageId = imageURL.substring(imageURL.lastIndexOf("/p") + 2, imageURL.lastIndexOf("."));
 
         String descStartIndexStr = "<a href=\"https://www.douban.com/photos/photo/" + imageId + "/\" class=\"photolst_photo\" title=\"";
         int descStartIndex = source.indexOf(descStartIndexStr);
         String desc;
-        if (descStartIndex != -1)
+        if (descStartIndex != -1) {
             desc = source.substring(descStartIndex + descStartIndexStr.length(), source.indexOf("\">", descStartIndex));
-        else {
+        } else {
             desc = "";
         }
 
@@ -77,14 +86,17 @@ public class UserAlbumHandler extends AlbumHandler {
         }
     }
 
+    @Override
     public boolean checkBGImage(BGImage bgImage) {
         return !bgImage.getUrl().contains("albumicon");
     }
 
+    @Override
     public String getCommentURL(Album album, BGImage image) {
         return "http://www.douban.com/photos/photo/" + image.getId();
     }
 
+    @Override
     public String getAlbumDesc(String source) {
         String startTag = "data-desc=\"";
         if (source.contains(startTag)) {

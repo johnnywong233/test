@@ -56,6 +56,7 @@ public class JPopupTextArea extends JTextArea
         addMouseListener(this);
     }
 
+    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.copyMenu) {
             copy();
@@ -75,20 +76,25 @@ public class JPopupTextArea extends JTextArea
         }
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
         popupMenuTrigger(e);
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
         popupMenuTrigger(e);
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 

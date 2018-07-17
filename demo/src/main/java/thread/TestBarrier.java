@@ -8,8 +8,9 @@ public class TestBarrier {
     public static void main(String[] args) {
         int N = 4;
         CyclicBarrier barrier = new CyclicBarrier(N);
-        for (int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++) {
             new Writer(barrier).start();
+        }
     }
 
     static class Writer extends Thread {

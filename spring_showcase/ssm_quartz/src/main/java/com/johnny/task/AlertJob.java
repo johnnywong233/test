@@ -8,6 +8,7 @@ import org.quartz.SchedulerException;
 
 public class AlertJob implements Job {
 
+    @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
 
         String msg = context.getJobDetail().getJobDataMap().getString("message");

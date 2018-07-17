@@ -24,17 +24,20 @@ public class DownloadFileDemo extends HttpServlet {
         super();
     }
 
+    @Override
     public void destroy() {
         super.destroy(); // Just puts "destroy" string in log
         // Put your code here
     }
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         this.doPost(request, response);
     }
 
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String path = "D:/upload/哈哈哈.txt";
@@ -63,6 +66,7 @@ public class DownloadFileDemo extends HttpServlet {
         }
     }
 
+    @Override
     public void init() throws ServletException {
         // Put your code here
     }

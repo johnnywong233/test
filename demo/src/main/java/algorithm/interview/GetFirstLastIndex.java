@@ -33,8 +33,9 @@ public class GetFirstLastIndex {
             } else if (target == nMidData) {
                 if ((target != A[nMid - 1] && nMid > 0) || nMid == 0) {
                     return nMid;
-                } else
+                } else {
                     nEnd = nMid - 1;
+                }
             }
             //更新中间值得索引和值
             nMid = nStart + ((nEnd - nStart) >> 1);
@@ -64,8 +65,9 @@ public class GetFirstLastIndex {
             } else if (target == nMidData) {
                 if ((target != A[nMid + 1] && nMid < n) || nMid == n - 1) {
                     return nMid;
-                } else
+                } else {
                     nStart = nMid + 1;
+                }
             }
             //更新中间值得索引和值
             nMid = nStart + ((nEnd - nStart) >> 1);

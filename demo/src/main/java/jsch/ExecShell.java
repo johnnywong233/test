@@ -56,11 +56,15 @@ public class ExecShell {
             while (true) {
                 while (in.available() > 0) {
                     int i = in.read(tmp, 0, 1024);
-                    if (i < 0) break;
+                    if (i < 0) {
+                        break;
+                    }
                     System.out.print(new String(tmp, 0, i));
                 }
                 if (channel.isClosed()) {
-                    if (in.available() > 0) continue;
+                    if (in.available() > 0) {
+                        continue;
+                    }
                     System.out.println("exit-status: " + channel.getExitStatus());
                     break;
                 }

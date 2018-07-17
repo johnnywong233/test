@@ -42,6 +42,7 @@ public class MybatisPlusApplication extends SpringBootServletInitializer impleme
 
     //springboot运行后此方法首先被调用
     //实现CommandLineRunner抽象类中的run方法
+    @Override
     public void run(String... args) throws Exception {
         System.out.println("springboot启动完成！");
     }

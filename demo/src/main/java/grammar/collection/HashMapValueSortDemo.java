@@ -14,6 +14,7 @@ import java.util.Map;
 public class HashMapValueSortDemo {
     //http://blog.csdn.net/exceptional_derek/article/details/9852929
     private static class ValueComparator implements Comparator<Map.Entry<String, Integer>> {
+        @Override
         public int compare(Map.Entry<String, Integer> m, Map.Entry<String, Integer> n) {
             return n.getValue() - m.getValue();
         }

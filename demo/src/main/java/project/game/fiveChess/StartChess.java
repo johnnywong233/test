@@ -78,6 +78,7 @@ public class StartChess extends JFrame {
     }
 
     private class MyItemListener implements ActionListener {
+        @Override
         public void actionPerformed(ActionEvent e) {
             Object obj = e.getSource();//获得事件源
             if (obj == StartChess.this.startMenuItem || obj == startButton) {
@@ -85,9 +86,9 @@ public class StartChess extends JFrame {
                 //JFiveFrame.this内部类引用外部类
                 System.out.println("重新开始");
                 chessBoard.restartGame();
-            } else if (obj == exitMenuItem || obj == exitButton)
+            } else if (obj == exitMenuItem || obj == exitButton) {
                 System.exit(0);
-            else if (obj == backMenuItem || obj == backButton) {
+            } else if (obj == backMenuItem || obj == backButton) {
                 System.out.println("悔棋...");
                 chessBoard.goBack();
             }
@@ -146,10 +147,12 @@ class ChessBoard extends JPanel implements MouseListener {
         img = Toolkit.getDefaultToolkit().getImage("board.jpg");//so where is this jpg?
         addMouseListener(this);
         addMouseMotionListener(new MouseMotionListener() {
+            @Override
             public void mouseDragged(MouseEvent e) {
 
             }
 
+            @Override
             public void mouseMoved(MouseEvent e) {
                 int x1 = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
                 //将鼠标点击的坐标位置转成网格索引
@@ -157,10 +160,12 @@ class ChessBoard extends JPanel implements MouseListener {
                 //游戏已经结束不能下
                 //落在棋盘外不能下
                 //x，y位置已经有棋子存在，不能下
-                if (x1 < 0 || x1 > ROWS || y1 < 0 || y1 > COLS || gameOver || findChess(x1, y1))
+                if (x1 < 0 || x1 > ROWS || y1 < 0 || y1 > COLS || gameOver || findChess(x1, y1)) {
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    //设置成默认状态
-                else setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }//设置成默认状态
+                else {
+                    setCursor(new Cursor(Cursor.HAND_CURSOR));
+                }
 
             }
         });
@@ -168,6 +173,7 @@ class ChessBoard extends JPanel implements MouseListener {
 
 
     //绘制
+    @Override
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);//画棋盘
@@ -227,10 +233,13 @@ class ChessBoard extends JPanel implements MouseListener {
         }
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {//鼠标在组件上按下时调用
 
         //游戏结束时，不再能下
-        if (gameOver) return;
+        if (gameOver) {
+            return;
+        }
 
         String colorName = isBlack ? "黑棋" : "白棋";
 
@@ -239,11 +248,14 @@ class ChessBoard extends JPanel implements MouseListener {
         yIndex = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 
         //落在棋盘外不能下
-        if (xIndex < 0 || xIndex > ROWS || yIndex < 0 || yIndex > COLS)
+        if (xIndex < 0 || xIndex > ROWS || yIndex < 0 || yIndex > COLS) {
             return;
+        }
 
         //如果x，y位置已经有棋子存在，不能下
-        if (findChess(xIndex, yIndex)) return;
+        if (findChess(xIndex, yIndex)) {
+            return;
+        }
 
         //可以进行时的处理
         Point ch = new Point(xIndex, yIndex, isBlack ? Color.black : Color.white);
@@ -262,18 +274,22 @@ class ChessBoard extends JPanel implements MouseListener {
     }
 
     //覆盖mouseListener的方法
+    @Override
     public void mouseClicked(MouseEvent e) {
         //鼠标按键在组件上单击时调用
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
         //鼠标进入到组件上时调用
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
         //鼠标离开组件时调用
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
         //鼠标按钮在组件上释放时调用
     }
@@ -281,8 +297,9 @@ class ChessBoard extends JPanel implements MouseListener {
     //在棋子数组中查找是否有索引为x，y的棋子存在
     private boolean findChess(int x, int y) {
         for (Point c : chessList) {
-            if (c != null && c.getX() == x && c.getY() == y)
+            if (c != null && c.getX() == x && c.getY() == y) {
                 return true;
+            }
         }
         return false;
     }
@@ -296,21 +313,24 @@ class ChessBoard extends JPanel implements MouseListener {
             Color c = isBlack ? Color.black : Color.white;
             if (getChess(x, yIndex, c) != null) {
                 continueCount++;
-            } else
+            } else {
                 break;
+            }
         }
         //横向向东寻找
         for (int x = xIndex + 1; x <= COLS; x++) {
             Color c = isBlack ? Color.black : Color.white;
             if (getChess(x, yIndex, c) != null) {
                 continueCount++;
-            } else
+            } else {
                 break;
+            }
         }
         if (continueCount >= 5) {
             return true;
-        } else
+        } else {
             continueCount = 1;
+        }
 
         //继续另一种搜索纵向
         //向上搜索
@@ -318,22 +338,25 @@ class ChessBoard extends JPanel implements MouseListener {
             Color c = isBlack ? Color.black : Color.white;
             if (getChess(xIndex, y, c) != null) {
                 continueCount++;
-            } else
+            } else {
                 break;
+            }
         }
         //纵向向下寻找
         for (int y = yIndex + 1; y <= ROWS; y++) {
             Color c = isBlack ? Color.black : Color.white;
-            if (getChess(xIndex, y, c) != null)
+            if (getChess(xIndex, y, c) != null) {
                 continueCount++;
-            else
+            } else {
                 break;
+            }
 
         }
-        if (continueCount >= 5)
+        if (continueCount >= 5) {
             return true;
-        else
+        } else {
             continueCount = 1;
+        }
 
 
         //继续另一种情况的搜索：斜向
@@ -342,34 +365,44 @@ class ChessBoard extends JPanel implements MouseListener {
             Color c = isBlack ? Color.black : Color.white;
             if (getChess(x, y, c) != null) {
                 continueCount++;
-            } else break;
+            } else {
+                break;
+            }
         }
         //西南寻找
         for (int x = xIndex - 1, y = yIndex + 1; x >= 0 && y <= ROWS; x--, y++) {
             Color c = isBlack ? Color.black : Color.white;
             if (getChess(x, y, c) != null) {
                 continueCount++;
-            } else break;
+            } else {
+                break;
+            }
         }
-        if (continueCount >= 5)
+        if (continueCount >= 5) {
             return true;
-        else continueCount = 1;
+        } else {
+            continueCount = 1;
+        }
 
 
         //继续另一种情况的搜索：斜向
         //西北寻找
         for (int x = xIndex - 1, y = yIndex - 1; x >= 0 && y >= 0; x--, y--) {
             Color c = isBlack ? Color.black : Color.white;
-            if (getChess(x, y, c) != null)
+            if (getChess(x, y, c) != null) {
                 continueCount++;
-            else break;
+            } else {
+                break;
+            }
         }
         //东南寻找
         for (int x = xIndex + 1, y = yIndex + 1; x <= COLS && y <= ROWS; x++, y++) {
             Color c = isBlack ? Color.black : Color.white;
-            if (getChess(x, y, c) != null)
+            if (getChess(x, y, c) != null) {
                 continueCount++;
-            else break;
+            } else {
+                break;
+            }
         }
         return continueCount >= 5;
     }
@@ -377,8 +410,9 @@ class ChessBoard extends JPanel implements MouseListener {
     private Point getChess(int xIndex, int yIndex, Color color) {
         for (Point p : chessList) {
             if (p != null && p.getX() == xIndex && p.getY() == yIndex
-                    && p.getColor() == color)
+                    && p.getColor() == color) {
                 return p;
+            }
         }
         return null;
     }
@@ -398,8 +432,9 @@ class ChessBoard extends JPanel implements MouseListener {
 
     //悔棋
     void goBack() {
-        if (chessCount == 0)
+        if (chessCount == 0) {
             return;
+        }
         chessList[chessCount - 1] = null;
         chessCount--;
         if (chessCount > 0) {
@@ -412,6 +447,7 @@ class ChessBoard extends JPanel implements MouseListener {
 
     //矩形Dimension
 
+    @Override
     public Dimension getPreferredSize() {
         return new Dimension(MARGIN * 2 + GRID_SPAN * COLS, MARGIN * 2
                 + GRID_SPAN * ROWS);

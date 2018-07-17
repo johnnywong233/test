@@ -20,11 +20,13 @@ public class StringSearch {
         for (int i = 0; i <= M - N; i++) {
             int j;
             for (j = 0; j < N; j++) {
-                if (txt.charAt(i + j) != pat.charAt(j))
+                if (txt.charAt(i + j) != pat.charAt(j)) {
                     break;
+                }
             }
-            if (j == N)
+            if (j == N) {
                 return i;
+            }
         }
         return -1;
     }
@@ -68,10 +70,11 @@ class KMP {
                 j = next[j];
             }
         }
-        if (j == N)
+        if (j == N) {
             return i - j;
-        else
+        } else {
             return -1;
+        }
     }
 
     static void getNext(String pat, int[] next) {
@@ -84,8 +87,9 @@ class KMP {
                 ++k;
                 ++j;
                 next[j] = k;
-            } else
+            } else {
                 k = next[k];
+            }
         }
     }
 
@@ -119,8 +123,9 @@ class BoyerMoore {
                     break;
                 }
             }
-            if (skip == 0)
+            if (skip == 0) {
                 return i;
+            }
         }
         return -1;
     }
@@ -134,8 +139,9 @@ class BoyerMoore {
 class Sunday {
     private static int getIndex(String pat, Character c) {
         for (int i = pat.length() - 1; i >= 0; i--) {
-            if (pat.charAt(i) == c)
+            if (pat.charAt(i) == c) {
                 return i;
+            }
         }
         return -1;
     }
@@ -148,14 +154,16 @@ class Sunday {
         for (i = 0; i <= M - N; i += skip) {
             for (j = 0; j < N; j++) {
                 if (txt.charAt(i + j) != pat.charAt(j)) {
-                    if (i == M - N)
+                    if (i == M - N) {
                         break;
+                    }
                     skip = N - getIndex(pat, txt.charAt(i + N));
                     break;
                 }
             }
-            if (j == N)
+            if (j == N) {
                 return i;
+            }
         }
         return -1;
     }

@@ -56,12 +56,14 @@ public class Demo {
 
             //create folder
             File files = new File(picPath);
-            if (!files.exists())
+            if (!files.exists()) {
                 files.mkdirs();
+            }
 
             out = new BufferedOutputStream(new FileOutputStream(files + name));
-            for (int b; (b = in.read()) != -1; )
+            for (int b; (b = in.read()) != -1; ) {
                 out.write(b);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

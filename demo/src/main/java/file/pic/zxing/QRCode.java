@@ -1,23 +1,18 @@
 package file.pic.zxing;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,7 +87,7 @@ public class QRCode {
             g.dispose();
 
             //把商品名称添加上去，商品名称不要太长哦，这里最多支持两行。太长就会自动截取啦
-            if (productName != null && !productName.equals("")) {
+            if (productName != null && !"".equals(productName)) {
                 //新的图片，把带logo的二维码下面加上文字
                 BufferedImage outImage = new BufferedImage(400, 445, BufferedImage.TYPE_4BYTE_ABGR);
                 Graphics2D outg = outImage.createGraphics();
@@ -136,7 +131,7 @@ public class QRCode {
             //二维码生成的路径，但是实际项目中，我们是把这生成的二维码显示到界面上的，因此下面的折行代码可以注释掉
             //可以看到这个方法最终返回的是这个二维码的imageBase64字符串
             //前端用 <img src="data:image/png;base64,${imageBase64QRCode}"/>  其中${imageBase64QRCode}对应二维码的imageBase64字符串
-            ImageIO.write(image, "png", new File("D:\\Java_ex\\test\\src\\test\\resources\\QR-" + new Date().getTime() + "KatyPerry.png"));
+            ImageIO.write(image, "png", new File("D:\\Java_ex\\test\\src\\test\\resources\\QR-" + System.currentTimeMillis() + "KatyPerry.png"));
             String imageBase64QRCode = Base64.encodeBase64URLSafeString(baos.toByteArray());
 
             baos.close();

@@ -63,6 +63,7 @@ public class DownloadThread extends Thread {
         return this.outputStream;
     }
 
+    @Override
     public void run() {
         while (true) {
             List<String> list = this.imageURLList;
@@ -96,7 +97,7 @@ public class DownloadThread extends Thread {
                     Map<String, String> failFileMap = Common.failFileMap;
                     synchronized (failFileMap) {
                         if (!failFileMap.containsKey(this.url)) {
-                        	failFileMap.put(this.url, this.path);
+                            failFileMap.put(this.url, this.path);
                         }
                     }
 

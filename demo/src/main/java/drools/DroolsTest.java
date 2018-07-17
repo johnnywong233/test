@@ -21,8 +21,9 @@ public class DroolsTest {
         builder.add(ResourceFactory.newClassPathResource("rules/user.drl"), ResourceType.DRL);
         if (builder.hasErrors()) {
             System.out.println("规则错误：");
-            for (KnowledgeBuilderError knowledgeBuilderError : builder.getErrors())
+            for (KnowledgeBuilderError knowledgeBuilderError : builder.getErrors()) {
                 System.out.println(knowledgeBuilderError);
+            }
             return;
         }
         KnowledgeBase kb = KnowledgeBaseFactory.newKnowledgeBase();

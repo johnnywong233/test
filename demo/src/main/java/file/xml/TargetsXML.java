@@ -21,7 +21,7 @@ public class TargetsXML {
                 switch (evt.getEventType()) {
                     case XMLEvent.START_ELEMENT: {
                         StartElement se = evt.asStartElement();
-                        if (se.getName().getLocalPart().equals("target")) {
+                        if ("target".equals(se.getName().getLocalPart())) {
                             Attribute targetName = se.getAttributeByName(new QName("name"));
                             // Found a target!
                             System.out.println(targetName.getValue());

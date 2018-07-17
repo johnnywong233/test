@@ -28,10 +28,11 @@ public class TestReflect {
                     String[] subStr = sName.split("/");
                     String pName = "";
                     for (int i = 0; i < subStr.length - 1; i++) {
-                        if (i > 0)
+                        if (i > 0) {
                             pName = pName + "/" + subStr[i];
-                        else
+                        } else {
                             pName = subStr[i];
+                        }
                     }
                     if (!sName.contains(".class")) {
                         sName = sName.substring(0, sName.length() - 1);
@@ -66,7 +67,8 @@ public class TestReflect {
 
     public static void main(String[] args) throws Exception {
         List<String[]> list = getJarMethod("E:\\Java\\tool\\settings.jar");
-        for (String[] arr : list)
+        for (String[] arr : list) {
             System.out.println(Arrays.toString(arr));
+        }
     }
 }

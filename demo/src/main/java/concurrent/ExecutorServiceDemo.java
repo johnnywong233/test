@@ -24,10 +24,11 @@ public class ExecutorServiceDemo {
         ExecutorService exec = Executors.newCachedThreadPool();
         for (int i = 0; i < 10; i++) {
             Elem e = new Elem();
-            if (i == 0)
+            if (i == 0) {
                 e.setPriority(Thread.MAX_PRIORITY);
-            else
+            } else {
                 e.setPriority(Thread.MIN_PRIORITY);
+            }
             exec.execute(e);
         }
         exec.shutdown();
@@ -47,13 +48,15 @@ class Elem implements Runnable {
         return this.priority;
     }
 
+    @Override
     public void run() {
         Thread.currentThread().setPriority(priority);
         int threadId = id++;
         while (cutDown-- > 0) {
             double d = 1.2;
-            while (d < 10000)
+            while (d < 10000) {
                 d = d + (Math.E + Math.PI) / d;
+            }
             System.out.println("#" + threadId + "(" + cutDown + ")");
         }
     }

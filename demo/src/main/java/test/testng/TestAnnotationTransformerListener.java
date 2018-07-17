@@ -13,15 +13,15 @@ public class TestAnnotationTransformerListener implements IAnnotationTransformer
     @Override
     public void transform(ITestAnnotation annotation, Class testClass,
                           Constructor testConstructor, Method testMethod) {
-        if (testMethod.getName().equals("t1")) {
+        if ("t1".equals(testMethod.getName())) {
             System.out.println("set data provider for " + testMethod.getName());
             annotation.setDataProviderClass(DataProviderFactory.class);
             annotation.setDataProvider("getDp1");
-        } else if (testMethod.getName().equals("t2")) {
+        } else if ("t2".equals(testMethod.getName())) {
             System.out.println("set data provider for " + testMethod.getName());
             annotation.setDataProviderClass(DataProviderFactory.class);
             annotation.setDataProvider("getDp2");
-        } else if (testMethod.getName().equals("t3")) {
+        } else if ("t3".equals(testMethod.getName())) {
             System.out.println("Disable " + testMethod.getName());
             annotation.setEnabled(false);
         }

@@ -20,10 +20,11 @@ public class PageAnalyzer {
 
     public static String findAlbumName() {
         String name;
-        if (source.contains("<title>"))
+        if (source.contains("<title>")) {
             name = source.substring(source.indexOf("<title>") + 7, source.indexOf("</title>")).replace("\\t\\n", "").trim();
-        else
+        } else {
             return DEFAULT_ALBUM_NAME;
+        }
         if (name.length() != 0) {
             name = HTMLUtils.htmlToText(name);
 
@@ -71,9 +72,9 @@ public class PageAnalyzer {
             int size = albumHandler.getPageSize();
             for (int i = 0; i <= maxStartNum; i += size) {
                 String pageURL = albumURL;
-                if (!albumURL.contains("?"))
+                if (!albumURL.contains("?")) {
                     pageURL = pageURL + "?";
-                else {
+                } else {
                     pageURL = pageURL + "&";
                 }
                 pageURL = pageURL + albumHandler.getPageTag() + "=" + i;

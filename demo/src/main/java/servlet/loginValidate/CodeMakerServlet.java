@@ -37,6 +37,7 @@ public class CodeMakerServlet extends HttpServlet {
     private int width = 250, height = 70;
 
     // 处理 HTTP get 请求
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // 清空缓冲区 
         response.reset();
@@ -100,6 +101,7 @@ public class CodeMakerServlet extends HttpServlet {
     }
 
     // 处理 HTTP post 请求, 和doGet一样
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doGet(request, response);

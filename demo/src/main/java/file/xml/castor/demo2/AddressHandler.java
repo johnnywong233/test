@@ -9,6 +9,7 @@ import org.exolab.castor.mapping.ValidityException;
  * Time: 20:40
  */
 public class AddressHandler implements FieldHandler {
+    @Override
     public Object getValue(Object object) throws IllegalStateException {
         Person root = (Person) object;
         if (root.getAddress() == null) {
@@ -17,6 +18,7 @@ public class AddressHandler implements FieldHandler {
         return root.getAddress().getStreet1() + "|" + root.getAddress().getStreet2();
     }
 
+    @Override
     public void setValue(Object object, Object value) throws IllegalStateException, IllegalArgumentException {
         Person root = (Person) object;
         Address address = new Address();
@@ -27,12 +29,15 @@ public class AddressHandler implements FieldHandler {
         root.setAddress(address);
     }
 
+    @Override
     public void resetValue(Object object) throws IllegalStateException, IllegalArgumentException {
     }
 
+    @Override
     public void checkValidity(Object object) throws ValidityException, IllegalStateException {
     }
 
+    @Override
     public Object newInstance(Object parent) throws IllegalStateException {
         return null;
     }

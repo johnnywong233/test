@@ -125,12 +125,15 @@ public class MysqlConnection {
             logger.error(e.getMessage(), e);
         } finally {
             try {
-                if (resultSet != null)
+                if (resultSet != null) {
                     resultSet.close();
-                if (statement != null)
+                }
+                if (statement != null) {
                     statement.close();
-                if (conn != null)
+                }
+                if (conn != null) {
                     conn.close();
+                }
             } catch (SQLException e) {
                 logger.error(e.getMessage(), e);
             }
@@ -169,12 +172,15 @@ public class MysqlConnection {
             logger.error(e.getMessage(), e);
         } finally {
             try {
-                if (resultSet != null)
+                if (resultSet != null) {
                     resultSet.close();
-                if (statement != null)
+                }
+                if (statement != null) {
                     statement.close();
-                if (conn != null)
+                }
+                if (conn != null) {
                     conn.close();
+                }
             } catch (SQLException e) {
                 logger.error(e.getMessage(), e);
             }
@@ -203,12 +209,15 @@ public class MysqlConnection {
             logger.error(e.getMessage(), e);
         } finally {
             try {
-                if (resultSet != null)
+                if (resultSet != null) {
                     resultSet.close();
-                if (statement != null)
+                }
+                if (statement != null) {
                     statement.close();
-                if (conn != null)
+                }
+                if (conn != null) {
                     conn.close();
+                }
             } catch (SQLException e) {
                 logger.error(e.getMessage(), e);
             }

@@ -16,6 +16,7 @@ public class DBConnectPostgreSQL extends HttpServlet {
 
     private static final long serialVersionUID = -9067901169816249112L;
 
+    @Override
     public void init() throws ServletException {
         try {
             Class.forName("org.postgresql.Driver").newInstance();
@@ -24,6 +25,7 @@ public class DBConnectPostgreSQL extends HttpServlet {
         }
     }
 
+    @Override
     public void doPost(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
         ServletOutputStream out = res.getOutputStream();
@@ -70,12 +72,15 @@ public class DBConnectPostgreSQL extends HttpServlet {
             System.out.println("��ѯ���ݿ��¼ʱ�����쳣." + se);
         } finally {
             try {
-                if (conn != null)
+                if (conn != null) {
                     conn.close();
-                if (stmt != null)
+                }
+                if (stmt != null) {
                     stmt.close();
-                if (rs != null)
+                }
+                if (rs != null) {
                     rs.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

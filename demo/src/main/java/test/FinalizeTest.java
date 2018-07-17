@@ -22,9 +22,10 @@ public class FinalizeTest {
         SAVE_HOOK = null;
         System.gc();
         Thread.sleep(2500);
-        if (SAVE_HOOK == null)
+        if (SAVE_HOOK == null) {
             SAVE_HOOK.isAlive();
-        else
+        } else {
             System.out.println("no, i am dead :(");
+        }
     }
 }

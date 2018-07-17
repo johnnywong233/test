@@ -135,7 +135,9 @@ public class JschUtil {
                 byte[] buf = new byte[1024];
                 while (true) {
                     int len = fis.read(buf, 0, buf.length);
-                    if (len <= 0) break;
+                    if (len <= 0) {
+                        break;
+                    }
                     out.write(buf, 0, len); //out.flush();
                 }
                 fis.close();
@@ -158,7 +160,9 @@ public class JschUtil {
         }
         finally {
             try {
-                if (fis != null) fis.close();
+                if (fis != null) {
+                    fis.close();
+                }
             } catch (Exception ee) {
                 ee.printStackTrace();
             }
@@ -171,8 +175,12 @@ public class JschUtil {
         //          1 for error,
         //          2 for fatal error,
         //          -1
-        if (b == 0) return b;
-        if (b == -1) return b;
+        if (b == 0) {
+            return b;
+        }
+        if (b == -1) {
+            return b;
+        }
 
         if (b == 1 || b == 2) {
             StringBuffer sb = new StringBuffer();

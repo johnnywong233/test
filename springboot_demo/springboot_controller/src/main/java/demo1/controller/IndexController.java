@@ -49,8 +49,9 @@ public class IndexController {
         if (validCredentials(credentials)) {
             String jwt = JwtUtil.generateToken(credentials.username);
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + jwt);
-        } else
+        } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong credentials");
+        }
     }
 
     private boolean validCredentials(AccountCredentials credentials) {
