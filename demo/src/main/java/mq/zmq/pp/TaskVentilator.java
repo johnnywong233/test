@@ -22,17 +22,17 @@ public class TaskVentilator {
         System.out.println("Sending task to worker\n");
         sink.send("0", 0);
         Random random = new Random(System.currentTimeMillis());
-        int task_nbr;
-        int total_msec = 0;
-        for (task_nbr = 0; task_nbr < 100; task_nbr++) {
+        int taskNbr;
+        int totalMsec = 0;
+        for (taskNbr = 0; taskNbr < 100; taskNbr++) {
             int worklad;
             worklad = random.nextInt(100) + 1;
-            total_msec += worklad;
+            totalMsec += worklad;
             System.out.println(worklad + ".");
             String str = String.format("%d" + worklad);
             sender.send(str, 0);
         }
-        System.out.println("Total expected cost: " + total_msec + "msec");
+        System.out.println("Total expected cost: " + totalMsec + "msec");
         Thread.sleep(1000);
         sink.close();
         sender.close();

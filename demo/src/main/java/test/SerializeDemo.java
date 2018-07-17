@@ -13,7 +13,7 @@ public class SerializeDemo {
         Employee e = new Employee();
         e.name = "Reyan Ali";
         e.address = "Phokka Kuan, Ambehta Peer";
-        e.SSN = 11122333;
+        e.ssn = 11122333;
         e.number = 101;
         try {
             FileOutputStream fileOut = new FileOutputStream("C:\\work\\test\\src\\main\\resources\\employee.ser");

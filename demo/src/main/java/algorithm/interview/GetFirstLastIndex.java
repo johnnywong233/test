@@ -16,22 +16,22 @@ public class GetFirstLastIndex {
         System.out.println(getSecondTarget(sortedArray, length, target, 0, length - 1));
     }
 
-    static int getFirstTarget(int A[], int n, int target, int nStart, int nEnd) {
+    private static int getFirstTarget(int[] input, int n, int target, int nStart, int nEnd) {
         if (nStart > nEnd) {
             //返回-1表示没有待查询的元素
             return -1;
         }
         //中间索引
         int nMid = nStart + ((nEnd - nStart) >> 1);
-        int nMidData = A[nMid];
+        int nMidData = input[nMid];
 
         while (nStart <= nEnd) {
             if (target > nMidData) {
                 nStart = nMid + 1;
             } else if (target < nMidData) {
                 nEnd = nMid - 1;
-            } else if (target == nMidData) {
-                if ((target != A[nMid - 1] && nMid > 0) || nMid == 0) {
+            } else {
+                if ((target != input[nMid - 1] && nMid > 0) || nMid == 0) {
                     return nMid;
                 } else {
                     nEnd = nMid - 1;
@@ -43,27 +43,27 @@ public class GetFirstLastIndex {
             if (nMid < 0) {
                 return -1;
             }
-            nMidData = A[nMid];
+            nMidData = input[nMid];
         }
         return -1;
     }
 
     //寻找结束索引
-    static int getSecondTarget(int A[], int n, int target, int nStart, int nEnd) {
+    private static int getSecondTarget(int[] input, int n, int target, int nStart, int nEnd) {
         if (nStart > nEnd) {
             return -1;
         }
         //中间索引
         int nMid = nStart + ((nEnd - nStart) >> 1);
-        int nMidData = A[nMid];
+        int nMidData = input[nMid];
 
         while (nStart <= nEnd) {
             if (target > nMidData) {
                 nStart = nMid + 1;
             } else if (target < nMidData) {
                 nEnd = nMid - 1;
-            } else if (target == nMidData) {
-                if ((target != A[nMid + 1] && nMid < n) || nMid == n - 1) {
+            } else {
+                if ((target != input[nMid + 1] && nMid < n) || nMid == n - 1) {
                     return nMid;
                 } else {
                     nStart = nMid + 1;
@@ -74,7 +74,7 @@ public class GetFirstLastIndex {
             if (nMid < 0) {
                 return -1;
             }
-            nMidData = A[nMid];
+            nMidData = input[nMid];
         }
         return -1;
     }

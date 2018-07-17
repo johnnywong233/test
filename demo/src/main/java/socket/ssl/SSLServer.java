@@ -53,10 +53,10 @@ public class SSLServer extends Thread {
         kf.init(ks, SERVER_KEY_STORE_PASSWORD.toCharArray());
         context.init(kf.getKeyManagers(), null, null);
         ServerSocketFactory factory = context.getServerSocketFactory();
-        ServerSocket _socket = factory.createServerSocket(8443);
-        ((SSLServerSocket) _socket).setNeedClientAuth(false);
+        ServerSocket socket = factory.createServerSocket(8443);
+        ((SSLServerSocket) socket).setNeedClientAuth(false);
         while (true) {
-            new SSLServer(_socket.accept()).start();
+            new SSLServer(socket.accept()).start();
         }
     }
 

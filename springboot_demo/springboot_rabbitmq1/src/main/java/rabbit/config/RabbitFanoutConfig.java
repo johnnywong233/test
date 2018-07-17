@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Bean;
 //@Configuration
 //no-use
 public class RabbitFanoutConfig {
-    private final static String message = "topic.message";
-    private final static String messages = "topic.messages";
+    private static final String MESSAGE = "topic.message";
+    private static final String MESSAGES = "topic.messages";
 
     @Bean
     FanoutExchange fanoutExchange() {
@@ -24,23 +24,23 @@ public class RabbitFanoutConfig {
     }
 
     @Bean
-    Binding bindingExchangeA(Queue AMessage, FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(AMessage).to(fanoutExchange);
+    Binding bindingExchangeA(Queue message, FanoutExchange fanoutExchange) {
+        return BindingBuilder.bind(message).to(fanoutExchange);
     }
 
     @Bean
-    Binding bindingExchangeB(Queue BMessage, FanoutExchange fanoutExchange) {
-        return BindingBuilder.bind(BMessage).to(fanoutExchange);
+    Binding bindingExchangeB(Queue message, FanoutExchange fanoutExchange) {
+        return BindingBuilder.bind(message).to(fanoutExchange);
     }
 
     @Bean
     public Queue queueMessage() {
-        return new Queue(RabbitFanoutConfig.message);
+        return new Queue(RabbitFanoutConfig.MESSAGE);
     }
 
     @Bean
     public Queue queueMessages() {
-        return new Queue(RabbitFanoutConfig.messages);
+        return new Queue(RabbitFanoutConfig.MESSAGES);
     }
 
     @Bean
@@ -50,7 +50,7 @@ public class RabbitFanoutConfig {
 
     @Bean
     Binding bindingExchangeMessage(Queue queueMessage, TopicExchange exchange) {
-        return BindingBuilder.bind(queueMessage).to(exchange).with("topic.message");
+        return BindingBuilder.bind(queueMessage).to(exchange).with(MESSAGE);
     }
 
     @Bean

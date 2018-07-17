@@ -9,6 +9,7 @@ import org.htmlparser.util.NodeList;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -19,13 +20,13 @@ public class Htmlparser {
             String sCurrentLine;
             String sTotalString;
             sTotalString = "";
-            InputStream l_urlStream;
-            URL l_url = new URL("http://www.ideagrace.com/html/doc/2006/07/04/00929.html");
-            HttpURLConnection l_connection = (HttpURLConnection) l_url.openConnection();
-            l_connection.connect();
-            l_urlStream = l_connection.getInputStream();
-            BufferedReader l_reader = new BufferedReader(new java.io.InputStreamReader(l_urlStream));
-            while ((sCurrentLine = l_reader.readLine()) != null) {
+            InputStream urlStream;
+            URL url = new URL("http://www.ideagrace.com/html/doc/2006/07/04/00929.html");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.connect();
+            urlStream = connection.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(urlStream));
+            while ((sCurrentLine = reader.readLine()) != null) {
                 sTotalString += sCurrentLine + "/r/n";
                 //  System.out.println(sTotalString);
             }

@@ -7,21 +7,21 @@ package aop.pattern.chain;
  * 责任链模式的演示demo
  */
 public class Client {
-    static class HandlerA extends Handler {
+    static class HandlerA extends AbstractHandler {
         @Override
         protected void handleProcess() {
             System.out.println("handle by a");
         }
     }
 
-    static class HandlerB extends Handler {
+    static class HandlerB extends AbstractHandler {
         @Override
         protected void handleProcess() {
             System.out.println("handle by b");
         }
     }
 
-    static class HandlerC extends Handler {
+    static class HandlerC extends AbstractHandler {
         @Override
         protected void handleProcess() {
             System.out.println("handle by c");
@@ -29,9 +29,9 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        Handler handlerA = new HandlerA();
-        Handler handlerB = new HandlerB();
-        Handler handlerC = new HandlerC();
+        AbstractHandler handlerA = new HandlerA();
+        AbstractHandler handlerB = new HandlerB();
+        AbstractHandler handlerC = new HandlerC();
 
         //缺点是：需要反复set下一个对象
         handlerA.setSuccessor(handlerB);

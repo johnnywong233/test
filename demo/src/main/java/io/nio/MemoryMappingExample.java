@@ -17,14 +17,14 @@ public class MemoryMappingExample {
         RandomAccessFile memoryMappedFile = new RandomAccessFile(fn, "rw");
 
         //Mapping a file into memory
-        int mem_map_size = 20 * 1024 * 1024;
-        MappedByteBuffer out = memoryMappedFile.getChannel().map(FileChannel.MapMode.READ_WRITE, 0, mem_map_size);
+        int memMapSize = 20 * 1024 * 1024;
+        MappedByteBuffer out = memoryMappedFile.getChannel().map(FileChannel.MapMode.READ_WRITE, 0, memMapSize);
 
         //Writing into Memory Mapped File
-        for (int i = 0; i < mem_map_size; i++) {
+        for (int i = 0; i < memMapSize; i++) {
             out.put((byte) 'A');
         }
-        System.out.println("File '" + fn + "' is now " + Integer.toString(mem_map_size) + " bytes full.");
+        System.out.println("File '" + fn + "' is now " + Integer.toString(memMapSize) + " bytes full.");
 
         // Read from memory-mapped file.
         for (int i = 0; i < 30; i++) {

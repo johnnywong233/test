@@ -5,14 +5,14 @@ package aop.pattern.chain;
  * Date: 2017/10/7
  * Time: 17:20
  */
-public abstract class Handler {
-    private Handler successor;
+public abstract class AbstractHandler {
+    private AbstractHandler successor;
 
-    public Handler getSuccessor() {
+    public AbstractHandler getSuccessor() {
         return successor;
     }
 
-    void setSuccessor(Handler successor) {
+    void setSuccessor(AbstractHandler successor) {
         this.successor = successor;
     }
 

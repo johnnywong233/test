@@ -122,12 +122,12 @@ public class ClassIntrospector {
         try {
             return introspect(obj, null);
         } finally { //clean visited cache before returning in order to make this object reusable
-            m_visited.clear();
+            visited.clear();
         }
     }
 
     //we need to keep track of already visited objects in order to support cycles in the object graphs    
-    private IdentityHashMap<Object, Boolean> m_visited = new IdentityHashMap<>(100);
+    private IdentityHashMap<Object, Boolean> visited = new IdentityHashMap<>(100);
 
     private ObjectInfo introspect(final Object obj, final Field fld) throws IllegalAccessException {
         //use Field type only if the field contains null. In this case we will at least know what's expected to be    
@@ -137,10 +137,10 @@ public class ClassIntrospector {
         boolean isPrimitive = fld != null && fld.getType().isPrimitive();
         boolean isRecursive = false; //will be set to true if we have already seen this object    
         if (!isPrimitive) {
-            if (m_visited.containsKey(obj)) {
+            if (visited.containsKey(obj)) {
                 isRecursive = true;
             }
-            m_visited.put(obj, true);
+            visited.put(obj, true);
         }
 
         final Class<?> type = (fld == null || (obj != null && !isPrimitive)) ?
