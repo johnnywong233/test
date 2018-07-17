@@ -1,28 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+         pageEncoding="utf-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>sucks</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>sucks</title>
 </head>
 <body>
- you suck, Johnny!  中文测试
- 
- 
-<%="Hello,johnny,your life sucks!" %> <hr>
+you suck, Johnny! 中文测试
 
-<%! int day = 3; %> 
+
+    <%="Hello,johnny,your life sucks!" %>
+<hr>
+
+    <%! int day = 3; %>
 <h3>IF...ELSE 实例</h3>
-<% if (day == 1 | day == 7) { %>
-      <p>今天是周末</p>
-<% } else { %>
-      <p>今天不是周末</p>
-<% } %>
+    <% if (day == 1 | day == 7) { %>
+<p>今天是周末</p>
+    <% } else { %>
+<p>今天不是周末</p>
+    <% } %>
 <hr>
 
 <h3>SWITCH...CASE 实例</h3>
-<% 
+    <%
 switch(day) {
 	case 0:
 	   out.println("星期天");
@@ -48,31 +49,32 @@ switch(day) {
 %>
 <hr>
 
-<%! int fontSize; %>
+    <%! int fontSize; %>
 <h3>For 循环实例1 </h3>
-<%for ( fontSize = 1; fontSize <= 3; fontSize++){ %>
-   <font color="green" size="<%= fontSize %>">
+    <%for ( fontSize = 1; fontSize <= 3; fontSize++){ %>
+<font color="green" size="<%= fontSize %>">
     菜鸟教程
-   </font><br />
-<%}%>
+</font><br/>
+    <%}%>
 <hr>
 
-<%! int fontSize1; %> <!-- 此处会初始化为0 -->
+    <%! int fontSize1; %> <!-- 此处会初始化为0 -->
 <h3>While 循环实例2 </h3>
-<%while ( fontSize1 <= 3){ %>
-   <font color="green" size="<%= fontSize1 %>">
+    <%while ( fontSize1 <= 3){ %>
+<font color="green" size="<%= fontSize1 %>">
     菜鸟教程
-   </font><br />
-<%fontSize1++;%>
-<%}%>	<hr>
+</font><br/>
+    <%fontSize1++;%>
+    <%}%>
+<hr>
 
-<%@ page import="java.io.*,java.util.*" %>
+<%@ page import="java.util.Calendar,java.util.GregorianCalendar" %>
 <head>
-<title>自动刷新实例</title>
+    <title>自动刷新实例</title>
 </head>
 
 <h4>自动刷新实例</h4>
-<%
+    <%
    // 设置每隔5秒刷新一次
    response.setIntHeader("Refresh", 5);
    // 获取当前时间
@@ -87,11 +89,14 @@ switch(day) {
       am_pm = "PM";
    String CT = hour+":"+ minute +":"+ second +" "+ am_pm;
    out.println("当前时间为: " + CT + "\n");
-%><hr>
+%>
+<hr>
 
 
-<head><title><h3>访问量统计 </h3></title></head>
-<%
+<head>
+    <title><h3>访问量统计 </h3></title>
+</head>
+    <%
     Integer hitsCount = 
       (Integer)application.getAttribute("hitCounter");
     if( hitsCount ==null || hitsCount == 0 ){
@@ -105,23 +110,24 @@ switch(day) {
     }
     application.setAttribute("hitCounter", hitsCount);
 %>
-<p>页面访问量为: <%= hitsCount%></p>
+<p>页面访问量为: <%= hitsCount%>
+</p>
 
 <hr>
-<a href = "result.jsp"> result.jsp</a>
+<a href="result.jsp"> result.jsp</a>
 
 <hr>
 <body>
 <form action="Servlet1" method="get">  <!--url-pattern-->
-  <input type=text name=text1>
-  <input type=submit>
+    <input type=text name=text1>
+    <input type=submit>
 </form>
 
 <hr>
 <%
-	session.setAttribute("a", "10");
-	session.setAttribute("b", "11");
-	session.setAttribute("c", "a>b");
+    session.setAttribute("a", "10");
+    session.setAttribute("b", "11");
+    session.setAttribute("c", "a>b");
 %>
 ${a > b ? b : c}
 
