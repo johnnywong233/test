@@ -18,8 +18,15 @@ public class Id18 {
         return validate[mode];
     }
 
+    private String convert15To18(String id15) {
+        String result = id15.substring(0, 6).concat("19").concat(id15.substring(6, 15));
+        return result.concat(String.valueOf(getValidateCode(result)));
+    }
+
     public static void main(String[] args) {
         Id18 test = new Id18();
         System.out.println("verify code of this ID:" + test.getValidateCode("14230219700101101"));//3
+        System.out.println(test.convert15To18("370986890623212"));
+        System.out.println(test.convert15To18("370725881105149"));
     }
 }

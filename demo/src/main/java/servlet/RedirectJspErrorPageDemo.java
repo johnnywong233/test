@@ -33,7 +33,7 @@ public class RedirectJspErrorPageDemo extends HttpServlet {
             System.out.println("for test");
         } catch (Exception ex) {
             try {
-                sendErrorRedirect(request, response, "ErrorPage.jsp", ex);
+                sendErrorRedirect(request, response, "index.jsp", ex);
             } catch (Exception e) {
                 e.printStackTrace();
             }

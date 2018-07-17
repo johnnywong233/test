@@ -1,21 +1,20 @@
 package log;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+
 import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
-
 /**
  * Created by wajian on 2016/8/30.
- *
  */
 public class LogUtil {
     // http://www.phpxs.com/code/1001617/
 
-    protected Logger logger;
+    protected static Logger logger;
     // 将Log类封装成单实例的模式，独立于其他类。以后要用到日志的地方只要获得Log的实例就可以方便使用
     private static LogUtil log;
 
@@ -72,55 +71,60 @@ public class LogUtil {
         return nowTime + nowIP;
     }
 
-    public void debug(String KeyWord, String Content) {
+    public void debug(String keyWord, String content) {
         if (logger.isDebugEnabled()) {
-            String message = " " + KeyWord + " " + Content;
+            String message = " " + keyWord + " " + content;
             logger.debug(message);
         }
     }
 
-    public void debug(String Content) {
+    public void debug(String content) {
         if (logger.isDebugEnabled()) {
-            logger.debug(Content);
+            logger.debug(content);
         }
     }
 
-    public void fatal(String KeyWord, String Content) {
-        String message = " " + KeyWord + " " + Content;
+    public void fatal(String keyWord, String content) {
+        String message = " " + keyWord + " " + content;
         logger.fatal(message);
     }
 
-    public void fatal(String Content) {
-        logger.fatal(Content);
+    public void fatal(String content) {
+        logger.fatal(content);
     }
 
-    public void info(String KeyWord, String Content) {
+    public static void info(String keyWord, String content) {
         if (logger.isInfoEnabled()) {
-            String message = KeyWord + " " + Content;
+            String message = keyWord + " " + content;
             logger.info(message);
         }
     }
 
-    public void info(String Content) {
+    public static void info(String content) {
         if (logger.isInfoEnabled())
-            logger.info(Content);
+            logger.info(content);
     }
 
-    public void warn(String KeyWord, String Content) {
-        String message = KeyWord + " " + Content;
+    public void warn(String keyWord, String content) {
+        String message = keyWord + " " + content;
         logger.warn(message);
     }
 
-    public void warn(String Content) {
-        logger.warn(Content);
+    public void warn(String content) {
+        logger.warn(content);
     }
 
-    public void error(String KeyWord, String Content) {
-        String message1 = KeyWord + " " + Content;
+    public void error(String keyWord, String content) {
+        String message1 = keyWord + " " + content;
         logger.error(message1);
     }
 
-    public void error(String Content) {
-        logger.error(Content);
+    public static void error(String keyWord, Exception content) {
+        String message1 = keyWord + " " + content.getMessage();
+        logger.error(message1);
+    }
+
+    public void error(String content) {
+        logger.error(content);
     }
 }

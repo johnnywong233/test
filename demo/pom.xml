@@ -13,7 +13,6 @@
     <packaging>jar</packaging>
 
     <name>demo</name>
-    <url>http://maven.apache.org</url>
     <build>
         <plugins>
             <plugin>
@@ -26,15 +25,25 @@
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
+
+            <!--本地生成代码时使用,当然也可以下载工具本地生成-->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF8</encoding>
-                </configuration>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.5.1</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <protoSourceRoot>${basedir}/src/main/resources/protobuf</protoSourceRoot>
+                            <protocArtifact>com.google.protobuf:protoc:3.4.0:exe:${os.detected.classifier}</protocArtifact>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <!--benchmark 测试插件-->
@@ -1217,7 +1226,7 @@
             <artifactId>org.eclipse.jdt.core</artifactId>
             <version>3.13.101</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
@@ -1243,6 +1252,17 @@
             <version>2.0.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>rest</artifactId>
+            <version>5.5.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>6.3.0</version>
+        </dependency>
     </dependencies>
 
     <!--    <distributionManagement>
