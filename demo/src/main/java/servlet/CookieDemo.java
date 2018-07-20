@@ -19,12 +19,12 @@ public class CookieDemo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String L_A_T = "lastAccessTime";
+        String lastAccessTime = "lastAccessTime";
         Cookie[] cookies = request.getCookies();
         Cookie latCookie = null;
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals(L_A_T)) {
+                if (cookie.getName().equals(lastAccessTime)) {
                     latCookie = cookie;
                     break;
                 }
@@ -37,7 +37,7 @@ public class CookieDemo extends HttpServlet {
             latCookie.setValue(new Date().toString());
         } else {
             printResponse("This is your first visit", response);
-            latCookie = new Cookie(L_A_T, new Date().toString());
+            latCookie = new Cookie(lastAccessTime, new Date().toString());
         }
 
         response.addCookie(latCookie);

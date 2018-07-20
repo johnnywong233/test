@@ -69,7 +69,7 @@ public class UserController {
     public String checkLogin(String username, String password) {
         Map<String, Object> result = new HashMap<>();
         try {
-            UsernamePasswordToken token = new UsernamePasswordToken(username, DecriptUtil.MD5(password));
+            UsernamePasswordToken token = new UsernamePasswordToken(username, DecriptUtil.md5(password));
             Subject currentUser = SecurityUtils.getSubject();
             if (!currentUser.isAuthenticated()) {
                 //through shiro

@@ -28,11 +28,11 @@ import java.util.concurrent.TimeUnit;
 @BenchmarkMode(Mode.SingleShotTime)
 public class TestParent {
     //uncomment the following line to run file size tests
-    private Path m_inputFile = InputGenerator.FILE_PATH.toPath();
+    private Path inputFile = InputGenerator.FILE_PATH.toPath();
 
     @Setup
     public void setup() {
-        m_inputFile = InputGenerator.FILE_PATH.toPath();
+        inputFile = InputGenerator.FILE_PATH.toPath();
     }
 
     interface StreamFactory {
@@ -40,9 +40,9 @@ public class TestParent {
     }
 
     int baseBenchmark(final StreamFactory factory) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream((int) m_inputFile.toFile().length());
+        ByteArrayOutputStream bos = new ByteArrayOutputStream((int) inputFile.toFile().length());
         try (OutputStream os = factory.getStream(bos)) {
-            Files.copy(m_inputFile, os);
+            Files.copy(inputFile, os);
         }
         return bos.size();
     }

@@ -19,7 +19,7 @@ public class Hello implements HelloMBean {
 	}
 
 	@Override
-	public void PrintHello(String whoName) {
-		System.out.println("Hello, Johnny " + whoName);
+    public void printHello(String whoName) {
+        System.out.println("Hello, Johnny " + whoName);
 	}
 }

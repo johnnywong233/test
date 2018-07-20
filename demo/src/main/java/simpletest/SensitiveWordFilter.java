@@ -36,7 +36,7 @@ public class SensitiveWordFilter {
     public boolean isContaintSensitiveWord(String txt, int matchType) {
         boolean flag = false;
         for (int i = 0; i < txt.length(); i++) {
-            int matchFlag = this.CheckSensitiveWord(txt, i, matchType);
+            int matchFlag = this.checkSensitiveWord(txt, i, matchType);
             if (matchFlag > 0) {
                 flag = true;
             }
@@ -54,7 +54,7 @@ public class SensitiveWordFilter {
         Set<String> sensitiveWordList = new HashSet<>();
 
         for (int i = 0; i < txt.length(); i++) {
-            int length = CheckSensitiveWord(txt, i, matchType);
+            int length = checkSensitiveWord(txt, i, matchType);
             if (length > 0) {
                 sensitiveWordList.add(txt.substring(i, i + length));
                 i = i + length - 1;//减1的原因，是因为for会自增
@@ -98,7 +98,7 @@ public class SensitiveWordFilter {
      *
      * @return，如果存在，则返回敏感词字符的长度，不存在返回0
      */
-    private int CheckSensitiveWord(String txt, int beginIndex, int matchType) {
+    private int checkSensitiveWord(String txt, int beginIndex, int matchType) {
         boolean flag = false;    //敏感词结束标识位：用于敏感词只有1位的情况
         int matchFlag = 0;     //匹配标识数默认为0
         char word;
@@ -231,8 +231,8 @@ class SensitiveWordInit {
         Set<String> set;
 
         File file = new File("D:\\SensitiveWord.txt");
-        String ENCODING = "GBK";
-        try (InputStreamReader read = new InputStreamReader(new FileInputStream(file), ENCODING)) {
+        String encoding = "GBK";
+        try (InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding)) {
             if (file.isFile() && file.exists()) {
                 set = new HashSet<>();
                 BufferedReader bufferedReader = new BufferedReader(read);

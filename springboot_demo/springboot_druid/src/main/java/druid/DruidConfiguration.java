@@ -20,7 +20,7 @@ public class DruidConfiguration {
      * 注册一个StatViewServlet
      */
     @Bean
-    public ServletRegistrationBean DruidStatViewServle2() {
+    public ServletRegistrationBean druidStatViewServle2() {
         //org.springframework.boot.context.embedded.ServletRegistrationBean提供类的进行注册.
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid2/*");
 

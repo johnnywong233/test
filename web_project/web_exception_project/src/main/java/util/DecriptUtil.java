@@ -54,11 +54,11 @@ public class DecriptUtil {
     }
 
     //SHA or SHA1 encrypt
-    public static String SHA1(String str) {
+    public static String sha1(String str) {
         try {
             MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
             digest.update(str.getBytes());
-            byte messageDigest[] = digest.digest();
+            byte[] messageDigest = digest.digest();
             // Create Hex String
             StringBuilder hexStr = new StringBuilder();
             //convert byte[] into hex string
@@ -77,7 +77,7 @@ public class DecriptUtil {
         return null;
     }
 
-    public static String MD5(String str) {
+    public static String md5(String str) {
         try {
             MessageDigest mdInst = MessageDigest.getInstance("MD5");
             mdInst.update(str.getBytes());
@@ -97,7 +97,7 @@ public class DecriptUtil {
         return null;
     }
 
-    public static byte[] MD5ToByteArray(String str) {
+    public static byte[] md5ToByteArray(String str) {
         try {
             MessageDigest mdInst = MessageDigest.getInstance("MD5");
             mdInst.update(str.getBytes());

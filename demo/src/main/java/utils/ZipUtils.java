@@ -14,16 +14,16 @@ public class ZipUtils {
     private static Logger logger = LoggerFactory.getLogger(ZipUtils.class);
 
     //zip
-    private static String zlibInflate(byte[] Bytes, int resultSizeLimit) throws Exception {
+    private static String zlibInflate(byte[] bytes, int resultSizeLimit) throws Exception {
         // Decompress the bytes
         Inflater deCompressor = new Inflater();
-        deCompressor.setInput(Bytes);
+        deCompressor.setInput(bytes);
         byte[] result = new byte[resultSizeLimit];
         int resultLength = deCompressor.inflate(result);
         deCompressor.end();
         if (resultLength == resultSizeLimit) {
             logger.info("Access result limit, going to double result size and zlib inflate again.");
-            return zlibInflate(Bytes, 2 * resultSizeLimit);
+            return zlibInflate(bytes, 2 * resultSizeLimit);
         } else {
             return new String(result, 0, resultLength, "UTF-8");
         }

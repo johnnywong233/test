@@ -18,7 +18,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 
     //only one user just for test
     private static final String USER_NAME = "johnny";
-    private static final String PASSWORD = "123456";
+    private static final String PASS = "123456";
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -37,7 +37,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         if (token.getUsername().equals(USER_NAME)) {
-            return new SimpleAuthenticationInfo(USER_NAME, DecriptUtil.MD5(PASSWORD), getName());
+            return new SimpleAuthenticationInfo(USER_NAME, DecriptUtil.md5(PASS), getName());
         } else {
             throw new AuthenticationException();
         }

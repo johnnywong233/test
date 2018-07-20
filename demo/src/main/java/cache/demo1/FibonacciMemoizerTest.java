@@ -16,7 +16,7 @@ public class FibonacciMemoizerTest {
     private FibonacciService fibonacciService;
 
     @Test
-    public void test_fibonacci() {
+    public void testFibonacci() {
         assertEquals(55, fibonacciService.compute(10));
     }
 }

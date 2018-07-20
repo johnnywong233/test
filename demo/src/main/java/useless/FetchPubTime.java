@@ -10,6 +10,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FetchPubTime {
+
+    private static Pattern pDetail = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+    //如果是仅仅抽取年月日，则按照上面的，如果是抽取年月日-时分秒，则按照下面的
+    private static Pattern p = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+
+
     /*http://www.phpxs.com/code/1009947/
      * 对网页中各种不同格式的发布时间进行抽取，将发布时间以规整的“yyyy-MM-dd HH:mm:ss”格式表示出来，
      * 只能尽量追求精确，但是因为网络发布时间的格式十分灵活，所以做不到百分百地正确抽取
@@ -62,10 +68,10 @@ public class FetchPubTime {
      * @return time string
      */
     public static String getPubTimeFromUrl(String url) {
-        Pattern p_whole = Pattern.compile(url_reg_whole);
-        Matcher m_whole = p_whole.matcher(url);
-        if (m_whole.find(0) && m_whole.groupCount() > 0) {
-            String time = m_whole.group(0);
+        Pattern whole = Pattern.compile(url_reg_whole);
+        Matcher matcher = whole.matcher(url);
+        if (matcher.find(0) && matcher.groupCount() > 0) {
+            String time = matcher.group(0);
             time = time.substring(1, time.length());
             //每一步都不能够超出当前时间
             if (current.compareTo(TimeUtils.strToCalendar(time, "yyyyMMdd")) >= 0) {
@@ -75,10 +81,10 @@ public class FetchPubTime {
             }
         }
 
-        Pattern p_sep = Pattern.compile(url_reg_sep_ymd);
-        Matcher m_sep = p_sep.matcher(url);
-        if (m_sep.find(0) && m_sep.groupCount() > 0) {
-            String time = m_sep.group(0);
+        Pattern pSep = Pattern.compile(url_reg_sep_ymd);
+        Matcher mSep = pSep.matcher(url);
+        if (mSep.find(0) && mSep.groupCount() > 0) {
+            String time = mSep.group(0);
             time = time.substring(1, time.length());
             String[] seg = time.split("[-|/|_]{1}");
             Calendar theTime = Calendar.getInstance();
@@ -119,18 +125,15 @@ public class FetchPubTime {
         boolean containsHMS = false;
         String dateStr = text.replaceAll("r?n", " ");
         try {
-            List<String> matches = null;
-            Pattern p_detail = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
-            //如果是仅仅抽取年月日，则按照上面的，如果是抽取年月日-时分秒，则按照下面的
-            Pattern p = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+            List<String> matches;
             //Matcher matcher = p.matcher(dateStr);
-            Matcher matcher_detail = p_detail.matcher(dateStr);
+            Matcher matcher_detail = pDetail.matcher(dateStr);
 
             if (!(matcher_detail.find(0) && matcher_detail.groupCount() >= 1)) {
                 matcher_detail = p.matcher(dateStr);
                 containsHMS = true;
             } else {
-                matcher_detail = p_detail.matcher(dateStr);
+                matcher_detail = pDetail.matcher(dateStr);
             }
             if (matcher_detail.find() && matcher_detail.groupCount() >= 1) {
                 matches = new ArrayList<>();

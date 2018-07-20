@@ -1,5 +1,6 @@
 package htmlparser;
 
+import lombok.Data;
 import org.htmlparser.Node;
 import org.htmlparser.Parser;
 import org.htmlparser.filters.AndFilter;
@@ -14,8 +15,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Htmlparser1 {
+    private static Pattern pattern = Pattern.compile("[\\s\\wa-z\\-]+\\{'songItem':\\{'sid':'([\\d]+)','sname':'([\\s\\S]*)','author':'([\\s\\S]*)'\\}\\}");
+
     //http://www.jb51.net/article/46762.htm
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         List<Mp3> mp3List = new ArrayList<>();
         //TODO replace with a meaningful url
         String url = "http://www.jb51.net";
@@ -47,7 +50,6 @@ public class Htmlparser1 {
                 String claStr = tagNode.getAttribute("class");//claStr为bb-dotimg clearfix  song-item-hook { 'songItem': { 'sid': '113275822', 'sname': '我的要求不算高', 'author': '黄渤' } }
                 claStr = claStr.replaceAll(" ", "");
                 if (!claStr.contains("\\?")) {
-                    Pattern pattern = Pattern.compile("[\\s\\wa-z\\-]+\\{'songItem':\\{'sid':'([\\d]+)','sname':'([\\s\\S]*)','author':'([\\s\\S]*)'\\}\\}");
                     Matcher matcher = pattern.matcher(claStr);
                     if (matcher.find()) {
                         Mp3 mp3 = new Mp3();
@@ -69,35 +71,11 @@ public class Htmlparser1 {
 
 }
 
+@Data
 class Mp3 {
     private String sid;
 
     private String sname;
 
     private String author;
-
-
-    public String getSid() {
-        return sid;
-    }
-
-    public void setSid(String sid) {
-        this.sid = sid;
-    }
-
-    public String getSname() {
-        return sname;
-    }
-
-    public void setSname(String sname) {
-        this.sname = sname;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
 }

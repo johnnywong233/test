@@ -9,7 +9,7 @@ public class BlockingQueueTest {
 
     private int limit = 10;
 
-    public void BlockingQueue(int limit) {
+    public void blockingQueue(int limit) {
         this.limit = limit;
     }
 

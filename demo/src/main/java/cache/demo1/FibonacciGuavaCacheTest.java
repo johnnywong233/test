@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
  * test for fibonacci guava caching
  */
 public class FibonacciGuavaCacheTest {
-    private Logger LOGGER = LoggerFactory.getLogger(FibonacciGuavaCacheTest.class);
+    private Logger logger = LoggerFactory.getLogger(FibonacciGuavaCacheTest.class);
 
     private LoadingCache<Integer, Integer> fibonacciCache = CacheBuilder.newBuilder()
             .maximumSize(2)
@@ -35,7 +35,7 @@ public class FibonacciGuavaCacheTest {
     @Test
     public void test() {
         for (int i = 0; i < 10; i++) {
-            LOGGER.info("f(" + i + ") = " + fibonacciCache.getUnchecked(i));
+            logger.info("f(" + i + ") = " + fibonacciCache.getUnchecked(i));
         }
     }
 }

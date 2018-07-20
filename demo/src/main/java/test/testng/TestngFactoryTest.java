@@ -3,10 +3,10 @@ package test.testng;
 import org.testng.annotations.Test;
 
 public class TestngFactoryTest {
-    private int m_numberOfTimes;
+    private int numberOfTimes;
 
     public TestngFactoryTest(int numberOfTimes) {
-        this.m_numberOfTimes = numberOfTimes;
+        this.numberOfTimes = numberOfTimes;
     }
 
     private static int num;
@@ -14,6 +14,6 @@ public class TestngFactoryTest {
     @Test
     public void testServer() {
         num ++;
-        System.out.println("num " + num + "  m_numberOfTimes ：" + m_numberOfTimes);
+        System.out.println("num " + num + "  m_numberOfTimes ：" + numberOfTimes);
     }
 }

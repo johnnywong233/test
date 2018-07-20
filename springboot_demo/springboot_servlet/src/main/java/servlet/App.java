@@ -15,7 +15,7 @@ public class App {
      * 注册Servlet.不需要添加注解：@ServletComponentScan
      */
 	@Bean
-    public ServletRegistrationBean MyServlet1() {
+    public ServletRegistrationBean myServlet1() {
         return new ServletRegistrationBean(new MyServlet1(), "/myServlet1/*");
     }
 

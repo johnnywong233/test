@@ -19,7 +19,7 @@ public class MessageSimulator {
     public static void main(String[] args) {
         WindowSimulator generator = new WindowSimulator(messageQueue);
         //产生消息
-        generator.GenerateMsg();
+        generator.generateMsg();
 
         //消息循环
         Message msg;
@@ -63,7 +63,7 @@ class WindowSimulator implements MessageProcess {
     }
 
     @SuppressWarnings("resource")
-	void GenerateMsg() {
+    void generateMsg() {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             int msgType = scanner.nextInt();

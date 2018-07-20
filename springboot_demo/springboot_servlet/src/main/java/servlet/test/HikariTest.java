@@ -14,8 +14,9 @@ import java.util.List;
  * Created by Johnny on 2018/3/26.
  */
 public class HikariTest {
+    private static final String SQL_QUERY = "select * from emp";
+
     private static List<Employee> fetchData() {
-        final String SQL_QUERY = "select * from emp";
         List<Employee> employees = null;
         try (Connection con = DataSource.getConnection();
              PreparedStatement pst = con.prepareStatement(SQL_QUERY);

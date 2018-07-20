@@ -4,10 +4,10 @@ public class MD5 {
 
     private String rhex(int num) {
         StringBuilder str = new StringBuilder();
-        String hex_chr = "0123456789abcdef";
+        String hex = "0123456789abcdef";
         for (int j = 0; j <= 3; j++) {
-            str.append(hex_chr.charAt((num >> (j * 8 + 4)) & 0x0F)
-                    + hex_chr.charAt((num >> (j * 8)) & 0x0F));
+            str.append(hex.charAt((num >> (j * 8 + 4)) & 0x0F)
+                    + hex.charAt((num >> (j * 8)) & 0x0F));
         }
         return str.toString();
     }
@@ -16,7 +16,7 @@ public class MD5 {
      * Convert a string to a sequence of 16-word blocks, stored as an array.
      * Append padding bits and the length, as described in the MD5 standard.
      */
-    private int[] str2blks_MD5(String str) {
+    private int[] str2blks(String str) {
         int nblk = ((str.length() + 8) >> 6) + 1;
         int[] blks = new int[nblk * 16];
         int i;
@@ -75,7 +75,7 @@ public class MD5 {
      * Take a string and return the hex representation of its MD5.
      */
     private String calcMD5(String str) {
-        int[] x = str2blks_MD5(str);
+        int[] x = str2blks(str);
         int a = 0x67452301;
         int b = 0xEFCDAB89;
         int c = 0x98BADCFE;

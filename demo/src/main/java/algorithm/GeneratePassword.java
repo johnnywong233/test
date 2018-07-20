@@ -11,10 +11,10 @@ public class GeneratePassword {
     /**
      * generate random password
      *
-     * @param pwd_len length of generated password
+     * @param len length of generated password
      * @return password string
      */
-    public static String genRandomNum(int pwd_len) {
+    public static String genRandomNum(int len) {
         // 26*2 letter and 10 digits, equals 62
         final int maxNum = 62;
         int i; //generated password
@@ -26,7 +26,7 @@ public class GeneratePassword {
                 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
         StringBuffer pwd = new StringBuffer("");
         Random r = new Random();
-        while (count < pwd_len) {
+        while (count < len) {
             //use abs to avoid negative number
             i = Math.abs(r.nextInt(maxNum));
             if (i >= 0 && i < str.length) {

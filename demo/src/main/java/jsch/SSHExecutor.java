@@ -6,7 +6,10 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UserInfo;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+import javax.ws.rs.GET;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,8 +46,8 @@ public class SSHExecutor {
         session = jsch.getSession(sshInfo.getUser(), sshInfo.getHost(), sshInfo.getPort());
         session.setPassword(sshInfo.getPassword());
         session.setUserInfo(new MyUserInfo());
-        int SESSION_TIMEOUT = 30000;
-        session.connect(SESSION_TIMEOUT);
+        int sessionTimeout = 30000;
+        session.connect(sessionTimeout);
     }
 
     /**
@@ -66,12 +69,12 @@ public class SSHExecutor {
         FileOutputStream fileOut = new FileOutputStream(outputFileName, true);
         channel.setInputStream(pipeIn);
         channel.setOutputStream(fileOut);
-        int CHANNEL_TIMEOUT = 3000;
-        channel.connect(CHANNEL_TIMEOUT);
+        int channelTimeout = 3000;
+        channel.connect(channelTimeout);
 
         pipeOut.write(cmd.getBytes());
-        long INTERVAL = 100L;
-        Thread.sleep(INTERVAL);
+        long interval = 100L;
+        Thread.sleep(interval);
         pipeOut.close();
         pipeIn.close();
         fileOut.close();
@@ -118,34 +121,13 @@ public class SSHExecutor {
         getSession().disconnect();
     }
 
+    @Getter
+    @AllArgsConstructor
     private static class SSHInfo {
         private String user;
         private String password;
         private String host;
         private int port;
-
-        SSHInfo(String user, String password, String host, int port) {
-            this.user = user;
-            this.password = password;
-            this.host = host;
-            this.port = port;
-        }
-
-        public String getUser() {
-            return user;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public String getHost() {
-            return host;
-        }
-
-        public int getPort() {
-            return port;
-        }
     }
 
     /*

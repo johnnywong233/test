@@ -1,12 +1,5 @@
 package jfreechart;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Font;
-import java.io.File;
-import java.io.IOException;
-import java.util.Random;
-
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -17,6 +10,11 @@ import org.jfree.chart.title.LegendTitle;
 import org.jfree.chart.title.TextTitle;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by johnny on 2016/10/7.
@@ -111,16 +109,16 @@ public class LineChartTest {
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot
                 .getRenderer();
         //设置折点处以某种形状凸出
-        renderer.setShapesVisible(true);
+        renderer.setBaseShapesVisible(true);
         renderer.setDrawOutlines(true);
         renderer.setUseFillPaint(true);
-        renderer.setFillPaint(java.awt.Color.WHITE);
+        renderer.setBaseFillPaint(Color.WHITE);
         //设置显示折点处的数据值
         //renderer.setBaseItemLabelGenerator (new StandardCategoryItemLabelGenerator ());
         //renderer.setItemLabelFont (new Font ("黑体", Font.PLAIN, 12));
         //renderer.setItemLabelsVisible (true);
         BasicStroke realLine = new BasicStroke(2.0f); // 设置实线
-        float dashes[] = {8.0f}; // 定义虚线数组
+        float[] dashes = {8.0f}; // 定义虚线数组
         BasicStroke brokenLine = new BasicStroke(2.0f, // 线条粗细
                 BasicStroke.CAP_SQUARE, // 端点风格
                 BasicStroke.JOIN_MITER, // 折点风格

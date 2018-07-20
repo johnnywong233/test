@@ -21,7 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
-import java.awt.Font;
+import java.awt.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -171,21 +171,21 @@ public class ChartDemoServlet extends HttpServlet {
         //numberaxis.setLabelFont(new java.awt.Font("黑体", Font.PLAIN, 12));
 
 
-        FileOutputStream fos_jpg = null;
+        FileOutputStream jpg = null;
         try {
-            fos_jpg = new FileOutputStream("D:\\ok_bing.jpg");
+            jpg = new FileOutputStream("D:\\ok_bing.jpg");
    /*
     * 第二个参数如果为100，会报异常：
     * java.lang.IllegalArgumentException: The 'quality' must be in the range 0.0f to 1.0f
     * 限制quality必须小于等于1,把100改成 0.1f。
     */
-            ChartUtilities.writeChartAsJPEG(fos_jpg, 0.99f, chart, 600, 300, null);
+            ChartUtilities.writeChartAsJPEG(jpg, 0.99f, chart, 600, 300, null);
         } catch (Exception e) {
             System.out.println("[e]" + e);
         } finally {
             try {
-                if (fos_jpg != null) {
-                    fos_jpg.close();
+                if (jpg != null) {
+                    jpg.close();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -196,8 +196,6 @@ public class ChartDemoServlet extends HttpServlet {
 
     /**
      * 获取一个演示用的简单数据集对象
-     *
-     * @return
      */
     //生成饼图数据
     private static DefaultPieDataset getDataSet() {
@@ -232,7 +230,7 @@ public class ChartDemoServlet extends HttpServlet {
     }
 
     //生成折线图数据
-    public static DefaultCategoryDataset createDataset() {
+    private static DefaultCategoryDataset createDataset() {
         DefaultCategoryDataset linedataset = new DefaultCategoryDataset();
         //  各曲线名称
         String series1 = "冰箱";
