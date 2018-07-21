@@ -27,8 +27,7 @@ public class TestAopInJDK {
         List<AbstractHandler> handlers = new ArrayList<>();
         handlers.add(before);
         handlers.add(after);
-        Calculator proxy = (Calculator) ProxyFactory.getProxy(calcImpl,
-                handlers);
+        Calculator proxy = (Calculator) ProxyFactory.getProxy(calcImpl, handlers);
         int result = proxy.calculate(20, 10);
         System.out.println("Final Result :::" + result);
     }

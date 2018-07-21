@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class SwitchString {
     private enum Day {
+        //
         SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, NOVALUE;
 
         public static Day toDay(String str) {
@@ -15,7 +16,7 @@ public class SwitchString {
         }
     }
 
-    /*
+    /**
      * http://jun1986.iteye.com/blog/1462637
      */
     public static void main(String[] args) {

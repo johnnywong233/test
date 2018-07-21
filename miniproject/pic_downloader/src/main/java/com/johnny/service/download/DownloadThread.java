@@ -3,6 +3,7 @@ package com.johnny.service.download;
 import com.johnny.common.Common;
 import com.johnny.common.Console;
 import com.johnny.common.utils.URLUtils;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.swing.JProgressBar;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
+@Data
 public class DownloadThread extends Thread {
     private List<String> imageURLList;
     private String path;
@@ -45,22 +47,6 @@ public class DownloadThread extends Thread {
             this.outputStream.close();
             this.outputStream = null;
         }
-    }
-
-    public String getPath() {
-        return this.path;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
-
-    public BufferedInputStream getInputStream() {
-        return this.inputStream;
-    }
-
-    public BufferedOutputStream getOutputStream() {
-        return this.outputStream;
     }
 
     @Override

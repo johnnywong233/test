@@ -21,16 +21,16 @@ import java.net.URL;
  */
 public class Demo {
     //cannot change another url
-    private static final String url = "http://www.dbmeinv.com/?p=";
-    private static final String picPath = "d:/picTest";
+    private static final String URL = "http://www.dbmeinv.com/?p=";
+    private static final String PIC_PATH = "d:/picTest";
 
     //http://www.phpxs.com/code/1001569/
     public static void main(String[] args) {
         System.out.println("save pictures in d:/picTest");
         for (int i = 0; i < 5; i++) {
             try {
-                String USER_AGENT = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0";
-                Document doc = Jsoup.connect(url + i).userAgent(USER_AGENT).timeout(3000).data("pager_offset", i + 1 + "").post();
+                String userAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; WOW64; Trident/5.0";
+                Document doc = Jsoup.connect(URL + i).userAgent(userAgent).timeout(3000).data("pager_offset", i + 1 + "").post();
                 Elements img = doc.select("img");
                 for (Element ele : img) {
                     String src = ele.absUrl("src");
@@ -55,7 +55,7 @@ public class Demo {
             in = url.openStream();
 
             //create folder
-            File files = new File(picPath);
+            File files = new File(PIC_PATH);
             if (!files.exists()) {
                 files.mkdirs();
             }

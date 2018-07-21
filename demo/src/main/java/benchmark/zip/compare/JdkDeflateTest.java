@@ -12,11 +12,11 @@ import java.util.zip.DeflaterOutputStream;
  */
 public class JdkDeflateTest extends TestParent {
     @Param({"1", "2", "3", "4", "5", "6", "7", "8", "9"})
-    public int m_lvl;
+    public int level;
 
     //@Benchmark method should be public.
     @Benchmark
     public int deflate() throws IOException {
-        return baseBenchmark(underlyingStream -> new DeflaterOutputStream(underlyingStream, new Deflater(m_lvl, true), 512));
+        return baseBenchmark(underlyingStream -> new DeflaterOutputStream(underlyingStream, new Deflater(level, true), 512));
     }
 }

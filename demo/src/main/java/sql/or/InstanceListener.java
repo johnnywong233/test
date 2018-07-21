@@ -44,8 +44,8 @@ public class InstanceListener implements BinlogEventListener {
                 logger.trace("FORMAT_DESCRIPTION_EVENT");
                 break;
             }
-            case MySQLConstants.TABLE_MAP_EVENT://每次ROW_EVENT前都伴随一个TABLE_MAP_EVENT事件，保存一些表信息，如tableId, tableName, databaseName, 而ROW_EVENT只有tableId
-            {
+            //每次ROW_EVENT前都伴随一个TABLE_MAP_EVENT事件，保存一些表信息，如tableId, tableName, databaseName, 而ROW_EVENT只有tableId
+            case MySQLConstants.TABLE_MAP_EVENT: {
                 TableMapEvent tme = (TableMapEvent) be;
                 TableInfoKeeper.saveTableIdMap(tme);
                 logger.trace("TABLE_MAP_EVENT:tableId:{}", tme.getTableId());
@@ -65,11 +65,11 @@ public class InstanceListener implements BinlogEventListener {
                     List<Column> before = row.getColumns();
                     Map<String, String> beforeMap = getMap(before, databaseName, tableName);
                     if (beforeMap != null && beforeMap.size() > 0) {
-                        CDCEvent cdcEvent = new CDCEvent(dre, databaseName, tableName);
+                        CdcEvent cdcEvent = new CdcEvent(dre, databaseName, tableName);
                         cdcEvent.setIsDdl(false);
                         cdcEvent.setSql(null);
                         cdcEvent.setBefore(beforeMap);
-                        CDCEventManager.queue.addLast(cdcEvent);
+                        CDCEventManager.QUEUE.addLast(cdcEvent);
                         logger.info("cdcEvent:{}", cdcEvent);
                     }
                 }
@@ -92,12 +92,12 @@ public class InstanceListener implements BinlogEventListener {
                     Map<String, String> beforeMap = getMap(colsBefore, databaseName, tableName);
                     Map<String, String> afterMap = getMap(colsAfter, databaseName, tableName);
                     if (beforeMap != null && afterMap != null && beforeMap.size() > 0 && afterMap.size() > 0) {
-                        CDCEvent cdcEvent = new CDCEvent(upe, databaseName, tableName);
+                        CdcEvent cdcEvent = new CdcEvent(upe, databaseName, tableName);
                         cdcEvent.setIsDdl(false);
                         cdcEvent.setSql(null);
                         cdcEvent.setBefore(beforeMap);
                         cdcEvent.setAfter(afterMap);
-                        CDCEventManager.queue.addLast(cdcEvent);
+                        CDCEventManager.QUEUE.addLast(cdcEvent);
                         logger.info("cdcEvent:{}", cdcEvent);
                     }
                 }
@@ -117,11 +117,11 @@ public class InstanceListener implements BinlogEventListener {
                     List<Column> after = row.getColumns();
                     Map<String, String> afterMap = getMap(after, databaseName, tableName);
                     if (afterMap != null && afterMap.size() > 0) {
-                        CDCEvent cdcEvent = new CDCEvent(wre, databaseName, tableName);
+                        CdcEvent cdcEvent = new CdcEvent(wre, databaseName, tableName);
                         cdcEvent.setIsDdl(false);
                         cdcEvent.setSql(null);
                         cdcEvent.setAfter(afterMap);
-                        CDCEventManager.queue.addLast(cdcEvent);
+                        CDCEventManager.QUEUE.addLast(cdcEvent);
                         logger.info("cdcEvent:{}", cdcEvent);
                     }
                 }
@@ -137,11 +137,11 @@ public class InstanceListener implements BinlogEventListener {
                 String tableName = tableInfo.getTableName();
                 logger.trace("QUERY_EVENT:databaseName:{},tableName:{}", databaseName, tableName);
 
-                CDCEvent cdcEvent = new CDCEvent(qe, databaseName, tableName);
+                CdcEvent cdcEvent = new CdcEvent(qe, databaseName, tableName);
                 cdcEvent.setIsDdl(true);
                 cdcEvent.setSql(qe.getSql().toString());
 
-                CDCEventManager.queue.addLast(cdcEvent);
+                CDCEventManager.QUEUE.addLast(cdcEvent);
                 logger.info("cdcEvent:{}", cdcEvent);
 
                 break;
@@ -202,7 +202,7 @@ public class InstanceListener implements BinlogEventListener {
 
         TableInfo ti = new TableInfo();
         String databaseName = qe.getDatabaseName().toString();
-        String tableName = null;
+        String tableName;
         if (checkFlag(sql, "table")) {
             tableName = getTableName(sql, "table");
         } else if (checkFlag(sql, "truncate")) {

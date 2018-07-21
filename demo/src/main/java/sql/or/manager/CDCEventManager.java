@@ -1,6 +1,6 @@
 package sql.or.manager;
 
-import sql.or.CDCEvent;
+import sql.or.CdcEvent;
 
 import java.util.concurrent.ConcurrentLinkedDeque;
 
@@ -10,5 +10,5 @@ import java.util.concurrent.ConcurrentLinkedDeque;
  * Time: 22:27
  */
 public class CDCEventManager {
-    public static final ConcurrentLinkedDeque<CDCEvent> queue = new ConcurrentLinkedDeque<>();
+    public static final ConcurrentLinkedDeque<CdcEvent> QUEUE = new ConcurrentLinkedDeque<>();
 }

@@ -10,8 +10,8 @@ import java.io.IOException;
  * try to use some other's class file
  */
 public class FileClassLoader extends ClassLoader {
-    private static final String drive = "D:\\Java_ex\\test\\target\\classes\\pic\\";
-    private static final String fileType = ".class";
+    private static final String DRIVER = "D:\\Java_ex\\test\\target\\classes\\pic\\";
+    private static final String FILE_TYPE = ".class";
 
     @Override
     public Class<?> findClass(String name) {
@@ -23,7 +23,7 @@ public class FileClassLoader extends ClassLoader {
         FileInputStream fis;
         byte[] data = null;
         try {
-            fis = new FileInputStream(new File(drive + name + fileType));
+            fis = new FileInputStream(new File(DRIVER + name + FILE_TYPE));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int ch;
             while ((ch = fis.read()) != -1) {

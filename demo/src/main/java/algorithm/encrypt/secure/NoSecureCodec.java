@@ -3,7 +3,7 @@ package algorithm.encrypt.secure;
 /**
  * 不使用任何安全加密
  */
-public class NoSecureCodec extends BasicCodec {
+public class NoSecureCodec extends AbstractBasicCodec {
 
     @Override
     public byte[] encrypt(byte[] data) throws Exception {

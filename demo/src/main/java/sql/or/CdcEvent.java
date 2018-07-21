@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 @Data
 @NoArgsConstructor
-public class CDCEvent {
+public class CdcEvent {
     private long eventId = 0;//事件唯一标识
     private String databaseName = null;
     private String tableName = null;
@@ -34,7 +34,7 @@ public class CDCEvent {
 
     private static AtomicLong uuid = new AtomicLong(0);
 
-    CDCEvent(final AbstractBinlogEventV4 are, String databaseName, String tableName) {
+    CdcEvent(final AbstractBinlogEventV4 are, String databaseName, String tableName) {
         this.init(are);
         this.databaseName = databaseName;
         this.tableName = tableName;

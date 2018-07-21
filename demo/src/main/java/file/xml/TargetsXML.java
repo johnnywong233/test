@@ -28,7 +28,8 @@ public class TargetsXML {
                         }
                         break;
                     }
-                    // Ignore everything else
+                    default:
+                        // Ignore everything else
                 }
             }
         }

@@ -29,7 +29,8 @@ public class HeapSelect {
 
     private void heapSort(int[] arrays, int e) {
         if (e > 0) {
-            initSort(arrays, e);// 初始化堆，找出最大的放在堆顶
+            // 初始化堆，找出最大的放在堆顶
+            initSort(arrays, e);
             // snp(arrays);
             arrays[0] = arrays[e] + arrays[0];
             arrays[e] = arrays[0] - arrays[e];
@@ -52,40 +53,45 @@ public class HeapSelect {
         }
     }
 
-    // 返回一个标记，如果有根与孩子交换就要重新从顶根开始查找不满足最大堆树结构
-    private boolean buildHeap(int arrays[], int e, int i) {
-        int l_child = 2 * i + 1;// 左孩子
-        int r_child = 2 * i + 2;// 右孩子
-        if (r_child > e) { // 判断是否有右孩子，没有右孩子的话直接比较左孩子，小于左孩子则交换
-            if (arrays[i] < arrays[l_child]) {
-                arrays[i] = arrays[i] + arrays[l_child];
-                arrays[l_child] = arrays[i] - arrays[l_child];
-                arrays[i] = arrays[i] - arrays[l_child];
+    /**
+     * 返回一个标记，如果有根与孩子交换就要重新从顶根开始查找不满足最大堆树结构
+     */
+    private boolean buildHeap(int[] arrays, int e, int i) {
+        // 左孩子
+        int leftChild = 2 * i + 1;
+        // 右孩子
+        int rightChild = 2 * i + 2;
+        // 判断是否有右孩子，没有右孩子的话直接比较左孩子，小于左孩子则交换
+        if (rightChild > e) {
+            if (arrays[i] < arrays[leftChild]) {
+                arrays[i] = arrays[i] + arrays[leftChild];
+                arrays[leftChild] = arrays[i] - arrays[leftChild];
+                arrays[i] = arrays[i] - arrays[leftChild];
                 return true;
             } else {
                 return false;
             }
         }
         // 在根与两个孩子之间找出最大的那个值进行交换
-        if (arrays[i] < arrays[l_child]) {
-            if (arrays[l_child] > arrays[r_child]) {
+        if (arrays[i] < arrays[leftChild]) {
+            if (arrays[leftChild] > arrays[rightChild]) {
                 // 交换根与左孩子的值
-                arrays[i] = arrays[i] + arrays[l_child];
-                arrays[l_child] = arrays[i] - arrays[l_child];
-                arrays[i] = arrays[i] - arrays[l_child];
+                arrays[i] = arrays[i] + arrays[leftChild];
+                arrays[leftChild] = arrays[i] - arrays[leftChild];
+                arrays[i] = arrays[i] - arrays[leftChild];
                 return true;
             } else {
                 // 交换根与右孩子的值
-                arrays[i] = arrays[i] + arrays[r_child];
-                arrays[r_child] = arrays[i] - arrays[r_child];
-                arrays[i] = arrays[i] - arrays[r_child];
+                arrays[i] = arrays[i] + arrays[rightChild];
+                arrays[rightChild] = arrays[i] - arrays[rightChild];
+                arrays[i] = arrays[i] - arrays[rightChild];
                 return true;
             }
-        } else if (arrays[i] < arrays[r_child]) {
+        } else if (arrays[i] < arrays[rightChild]) {
             // 交换根与右孩子的值
-            arrays[i] = arrays[i] + arrays[r_child];
-            arrays[r_child] = arrays[i] - arrays[r_child];
-            arrays[i] = arrays[i] - arrays[r_child];
+            arrays[i] = arrays[i] + arrays[rightChild];
+            arrays[rightChild] = arrays[i] - arrays[rightChild];
+            arrays[i] = arrays[i] - arrays[rightChild];
             return true;
         }
         return false;

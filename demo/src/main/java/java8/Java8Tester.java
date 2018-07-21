@@ -351,8 +351,8 @@ public class Java8Tester {
         Optional<String> result = Stream.of(lines).parallel().filter(x -> x.contains("d")).findAny();
         result.ifPresent(System.out::println);
 
-        Optional<String> result_reduce = Stream.of(lines).reduce((x, y) -> x + y);
-        result_reduce.ifPresent(System.out::println);
+        Optional<String> reduce = Stream.of(lines).reduce((x, y) -> x + y);
+        reduce.ifPresent(System.out::println);
     }
 
     @Test
@@ -414,23 +414,23 @@ public class Java8Tester {
         Map<Integer, Student> map = list.stream().collect(Collectors.toMap(Student::getId, x -> x));
         System.out.println(map.get(3).getName());//bd
 
-        Map<String, List<Student>> map_stus = list.stream().collect(Collectors.groupingBy(Student::getGrade));
-        System.out.println(map_stus.get("3").size());//3
+        Map<String, List<Student>> stusSize = list.stream().collect(Collectors.groupingBy(Student::getGrade));
+        System.out.println(stusSize.get("3").size());//3
 
-        Map<String, Set<Student>> set_stus = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.toSet()));
-        System.out.println(set_stus.get("dk"));
+        Map<String, Set<Student>> stus = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.toSet()));
+        System.out.println(stus.get("dk"));
 
-        Map<Boolean, List<Student>> map_part = list.stream().collect(Collectors.partitioningBy(x -> x.getAge() > 25));
-        System.out.println(map_part.get(false).size());//3
+        Map<Boolean, List<Student>> part = list.stream().collect(Collectors.partitioningBy(x -> x.getAge() > 25));
+        System.out.println(part.get(false).size());
 
-        Map<String, Long> map_stus_count = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.counting()));
-        System.out.println(map_stus_count.get("2"));//2
+        Map<String, Long> count = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.counting()));
+        System.out.println(count.get("2"));
 
-        Map<String, Double> map_status_avg = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.averagingInt(Student::getAge)));
-        System.out.println(map_status_avg.get("2"));//31.5
+        Map<String, Double> avgStatus = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.averagingInt(Student::getAge)));
+        System.out.println(avgStatus.get("2"));
 
-        Map<String, Optional<Student>> map_age_max = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.maxBy(Comparator.comparingInt(Student::getAge))));
-        map_age_max.get("3").ifPresent(x -> System.out.println(x.getName()));//xz
+        Map<String, Optional<Student>> maxAge = list.stream().collect(Collectors.groupingBy(Student::getGrade, Collectors.maxBy(Comparator.comparingInt(Student::getAge))));
+        maxAge.get("3").ifPresent(x -> System.out.println(x.getName()));
     }
 
     @Test

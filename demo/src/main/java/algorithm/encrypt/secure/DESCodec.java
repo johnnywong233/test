@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 /**
  * DES 对称加密类
  */
-public class DESCodec extends BasicCodec {
+public class DESCodec extends AbstractBasicCodec {
 
     private static final String ALGORITHM = "DES";
 

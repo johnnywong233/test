@@ -61,7 +61,7 @@ public class TestParent {
         System.out.println("LZ4 (high);" + new Lz4Test().testHighNative());
         for (int i = 1; i <= 9; ++i) {
             JdkDeflateTest test = new JdkDeflateTest();
-            test.m_lvl = i;
+            test.level = i;
             System.out.println("Deflate (lvl=" + i + ");" + test.deflate());
         }
     }

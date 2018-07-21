@@ -37,6 +37,7 @@ public class ESCombineQuery {
     }
 
     enum ESCombineType {
+        //
         MUST, MUST_NOT, SHOULD, FILTER
     }
 

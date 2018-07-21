@@ -1,6 +1,14 @@
 package algorithm;
 
-import java.util.*;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 
 /**
  * Created by Johnny on 2018/4/22.
@@ -42,6 +50,7 @@ public class BFS {
     }
 
 
+    @Data
     public static class User {
         //这个friends是该用户的直接好友，也就是一度好友、
         private List<User> friends;
@@ -52,8 +61,5 @@ public class BFS {
             return Collections.unmodifiableList(friends);
         }
 
-        public String getUserName() {
-            return name;
-        }
     }
 }

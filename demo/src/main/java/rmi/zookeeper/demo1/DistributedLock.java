@@ -95,8 +95,8 @@ public class DistributedLock implements Lock, Watcher {
             //取出所有lockName的锁
             List<String> lockObjNodes = new ArrayList<>();
             for (String node : subNodes) {
-                String _node = node.split(splitStr)[0];
-                if (_node.equals(lockName)) {
+                String firstNode = node.split(splitStr)[0];
+                if (firstNode.equals(lockName)) {
                     lockObjNodes.add(node);
                 }
             }

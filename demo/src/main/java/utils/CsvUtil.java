@@ -112,7 +112,7 @@ public class CsvUtil {
         return temp;
     }
 
-    public void CsvClose() throws Exception {
+    public void csvClose() throws Exception {
         this.br.close();
     }
 
@@ -184,7 +184,6 @@ public class CsvUtil {
      *
      * @param csvFilePath 文件路径
      * @param fileName    文件名称
-     * @throws IOException
      */
     public static void exportFile(HttpServletResponse response, String csvFilePath, String fileName)
             throws IOException {
@@ -222,9 +221,11 @@ public class CsvUtil {
         File file = new File(filePath);
         if (file.exists()) {
             File[] files = file.listFiles();
-            for (File file1 : files) {
-                if (file1.isFile()) {
-                    file1.delete();
+            if (files != null) {
+                for (File file1 : files) {
+                    if (file1.isFile()) {
+                        file1.delete();
+                    }
                 }
             }
         }
@@ -240,11 +241,13 @@ public class CsvUtil {
         File file = new File(filePath);
         if (file.exists()) {
             File[] files = file.listFiles();
-            for (File file1 : files) {
-                if (file1.isFile()) {
-                    if (file1.getName().equals(fileName)) {
-                        file1.delete();
-                        return;
+            if (files != null) {
+                for (File file1 : files) {
+                    if (file1.isFile()) {
+                        if (file1.getName().equals(fileName)) {
+                            file1.delete();
+                            return;
+                        }
                     }
                 }
             }

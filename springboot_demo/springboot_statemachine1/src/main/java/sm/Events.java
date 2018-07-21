@@ -6,7 +6,9 @@ package sm;
  * Time: 0:51
  */
 public enum Events {
-    A,        // 支付
-    B,     // 收货
+    //支付
+    A,
+    // 收货
+    B,
     E
 }

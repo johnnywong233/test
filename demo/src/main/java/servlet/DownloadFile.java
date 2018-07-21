@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -32,7 +33,7 @@ public class DownloadFile extends HttpServlet {
         }
         response.setContentType("application/x-download charset=UTF-8");
         java.io.FileInputStream fis = null;
-        String filepath = request.getRealPath("");
+        String filepath = request.getContextPath();
         javax.servlet.ServletOutputStream sos = null;
         // System.out.println("DownloadFile filename:" + filename);
         try {
@@ -44,7 +45,7 @@ public class DownloadFile extends HttpServlet {
             String showName = request.getParameter("showName");
             request.setCharacterEncoding("UTF-8");
             response.setCharacterEncoding("UTF-8");
-            java.io.File file = new java.io.File(filepath + filename);
+            java.io.File file = new File(filepath + filename);
             if (!file.exists()) {
                 log.error(file.getAbsolutePath() + " 文件不存在!");
                 return;
@@ -123,15 +124,15 @@ public class DownloadFile extends HttpServlet {
     private String getBrowser(HttpServletRequest request) {
         String userAgent = request.getHeader("USER-AGENT").toLowerCase();
         if (userAgent != null) {
-            if (userAgent.indexOf("msie") >= 0) {
+            if (userAgent.contains("msie")) {
                 return "IE";
-            } else if (userAgent.indexOf("mozilla") >= 0) {
+            } else if (userAgent.contains("mozilla")) {
                 return "FF";
-            } else if (userAgent.indexOf("applewebkit") >= 0) {
+            } else if (userAgent.contains("applewebkit")) {
                 return "CH";
-            } else if (userAgent.indexOf("safari") >= 0) {
+            } else if (userAgent.contains("safari")) {
                 return "SF";
-            } else if (userAgent.indexOf("opera") >= 0) {
+            } else if (userAgent.contains("opera")) {
                 return "OP";
             }
         }

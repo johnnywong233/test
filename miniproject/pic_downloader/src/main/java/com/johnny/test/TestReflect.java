@@ -14,7 +14,7 @@ import java.util.jar.JarFile;
 public class TestReflect {
     private static List<String[]> getJarMethod(String jarFile)
             throws Exception {
-        String NORMAL_METHOD = "waitequalsnotifynotifyAlltoStringhashCodegetClass";
+        String normalMethod = "waitequalsnotifynotifyAlltoStringhashCodegetClass";
         List<String[]> list = new ArrayList<>();
         try {
             JarFile jar = new JarFile(jarFile);
@@ -46,7 +46,7 @@ public class TestReflect {
                         Method[] method = myClass.getMethods();
                         for (Method aM : method) {
                             String sm = aM.getName();
-                            if (!NORMAL_METHOD.contains(sm)) {
+                            if (!normalMethod.contains(sm)) {
                                 String[] c = {sm, sName};
                                 list.add(c);
                             }

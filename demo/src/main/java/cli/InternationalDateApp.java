@@ -1,10 +1,10 @@
 package cli;
 
-import org.apache.commons.cli.BasicParser;
+import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.CommandLine;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +31,7 @@ public class InternationalDateApp {
         options.addOption("t", false, "display current time");
         options.addOption("c", true, "country code");
 
-        CommandLineParser parser = new BasicParser();
+        CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
         if (cmd.hasOption("t")) {

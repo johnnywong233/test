@@ -21,7 +21,8 @@ import java.util.concurrent.TimeUnit;
  */
 public class RetryTest {
     private static final Logger logger = LoggerFactory.getLogger(RetryTest.class);
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         Retryer<Boolean> retryer = RetryerBuilder.<Boolean>newBuilder()
                 .retryIfResult(Predicates.isNull())// 设置自定义段元重试源
                 .retryIfExceptionOfType(Exception.class)// 设置异常重试源
@@ -32,12 +33,13 @@ public class RetryTest {
         try {
             retryer.call(new Callable<Boolean>() {
                 int i = 0;
+
                 @Override
                 public Boolean call() throws Exception {
                     i++;
                     logger.info("第{}次执行！", i);
                     // do something
-                    if (i<6) {// 模拟错2次
+                    if (i < 6) {// 模拟错2次
                         logger.info("模拟执行失败！");
                         throw new IOException("异常");
                     }

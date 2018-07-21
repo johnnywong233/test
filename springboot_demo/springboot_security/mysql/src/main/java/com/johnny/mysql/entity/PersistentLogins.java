@@ -21,5 +21,5 @@ public class PersistentLogins implements Serializable {
     private String token;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_used", nullable = false)
-    private Date last_used;
+    private Date lastUsed;
 }

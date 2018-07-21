@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sql.or.CDCEvent;
+import sql.or.CdcEvent;
 import sql.or.InstanceListener;
 import sql.or.MysqlConnection;
 import sql.or.manager.CDCEventManager;
@@ -20,10 +20,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class OpenReplicatorTest {
     private static final Logger logger = LoggerFactory.getLogger(OpenReplicatorTest.class);
-    private static final String host = "localhost";
-    private static final int port = 3306;
-    private static final String user = "root";
-    private static final String password = "root";
+    private static String host = "localhost";
+    private static int port = 3306;
+    private static String user = "root";
+    private static String password = "root";
 
     //http://blog.csdn.net/u013256816/article/details/53072560
     public static void main(String[] args) {
@@ -47,16 +47,16 @@ public class OpenReplicatorTest {
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
-        Thread thread = new Thread(new PrintCDCEvent());
+        Thread thread = new Thread(new PrintCdcEvent());
         thread.start();
     }
 
-    private static class PrintCDCEvent implements Runnable {
+    private static class PrintCdcEvent implements Runnable {
         @Override
         public void run() {
             while (true) {
-                if (!CDCEventManager.queue.isEmpty()) {
-                    CDCEvent ce = CDCEventManager.queue.pollFirst();
+                if (!CDCEventManager.QUEUE.isEmpty()) {
+                    CdcEvent ce = CDCEventManager.QUEUE.pollFirst();
                     Gson gson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
                     String prettyStr1 = gson.toJson(ce);
                     System.out.println(prettyStr1);

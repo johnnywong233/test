@@ -43,7 +43,7 @@ public class BarcodeCreator {
         test.barcode = jBarcode;
 //        test.toBufferedImage("johnny");
         //java.lang.NumberFormatException: Invalid number
-        for(BarcodeEncoder code: BarcodeEncoder.values()) {
+        for (BarcodeEncoder code : BarcodeEncoder.values()) {
             test.write(code.toString(), new File("bar.png"));
         }
     }
@@ -223,11 +223,15 @@ public class BarcodeCreator {
                 barcode.setCheckDigit(true);
                 barcode.setShowCheckDigit(false);
                 break;
+            default:
         }
     }
 
-    /*条形码编码方式*/
+    /**
+     * 条形码编码方式
+     */
     private enum BarcodeEncoder {
+        //
         EAN13, UPCA, EAN8, UPCE, Codabar, Code11, Code39, Code39Ext, Code93, Code93Ext, Code128, MSIPlessey, Standard2of5, Interleaved2of5, PostNet
     }
 }

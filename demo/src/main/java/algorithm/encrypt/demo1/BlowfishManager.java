@@ -1,11 +1,15 @@
 package algorithm.encrypt.demo1;
 
+import lombok.Getter;
+
 /**
  * Author: Johnny
  * Date: 2017/2/9
  * Time: 10:01
  */
+@Getter
 public enum BlowfishManager {
+    //
     BRIDGELI_CN("bridgeli_cn!@#$abc123_");
 
     BlowfishManager(String secret) {
@@ -13,10 +17,6 @@ public enum BlowfishManager {
     }
 
     private Blowfish blowfish;
-
-    public Blowfish getBlowfish() {
-        return blowfish;
-    }
 
     public String decryptString(String sCipherText) {
         return this.getBlowfish().decryptString(sCipherText);

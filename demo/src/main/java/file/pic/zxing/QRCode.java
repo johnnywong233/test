@@ -6,10 +6,13 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import lombok.Getter;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -46,7 +49,7 @@ public class QRCode {
         try {
             QRCode zp = new QRCode();
             BufferedImage bim = zp.getQR_CODEBufferedImage(qrUrl, BarcodeFormat.QR_CODE, 400, 400, zp.getDecodeHintType());
-            return zp.addLogo_QRCode(bim, new File(filePath), new LogoConfig(), productName);
+            return zp.addLogo(bim, new File(filePath), new LogoConfig(), productName);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,7 +59,7 @@ public class QRCode {
     /**
      * 给二维码图片添加Logo
      */
-    private String addLogo_QRCode(BufferedImage bim, File logoPic, LogoConfig logoConfig, String productName) {
+    private String addLogo(BufferedImage bim, File logoPic, LogoConfig logoConfig, String productName) {
         try {
             //读取二维码图片，并构建绘图对象
             BufferedImage image = bim;
@@ -212,6 +215,7 @@ public class QRCode {
     }
 }
 
+@Getter
 class LogoConfig {
     private static final Color DEFAULT_BORDER_COLOR = Color.WHITE;
     private static final int DEFAULT_BORDER_WIDTH = 2;
@@ -233,16 +237,8 @@ class LogoConfig {
         this.logoPart = logoPart;
     }
 
-    public Color getBorderColor() {
-        return borderColor;
-    }
-
     public int getBorder() {
         return DEFAULT_BORDER_WIDTH;
-    }
-
-    public int getLogoPart() {
-        return logoPart;
     }
 
 }

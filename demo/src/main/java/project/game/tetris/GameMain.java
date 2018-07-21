@@ -1,7 +1,17 @@
 package project.game.tetris;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Panel;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -11,12 +21,12 @@ import java.awt.event.KeyListener;
  * Created by johnny on 2016/9/15.
  * main class
  */
-public class Game_Main {
+public class GameMain {
     //http://www.phpxs.com/code/1001579/
     public static void main(String args[]) {
-        Game_Layout ers = new Game_Layout();
+        GameLayout ers = new GameLayout();
         ers.isEnabled();
-        ers.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ers.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
 
@@ -24,7 +34,7 @@ public class Game_Main {
  * Created by johnny on 2016/9/15.
  * 方块类
  */
-class Game_Box {
+class Box {
     private static int[][] pattern = {
             {0x0f00, 0x4444, 0x0f00, 0x4444},// 长条形
             {0x04e0, 0x0464, 0x00e4, 0x04c4},//T型
@@ -39,17 +49,17 @@ class Game_Box {
     private int blockState; // 块的下落状态
     private int row;//行
     private int col;//列
-    private Game_Draw scr; //声明类型
+    private GameDraw scr; //声明类型
 
 
     // 块类的构造方法
-    Game_Box(Game_Draw game_scr) {
-        this.scr = game_scr;
+    Box(GameDraw gameScr) {
+        this.scr = gameScr;
         blockType = (int) (Math.random() * 7);
 //turnState = (int) Math.random()*3 ;
         blockState = 1;
-        row = game_scr.getInitRow();
-        col = game_scr.getInitCol();
+        row = gameScr.getInitRow();
+        col = gameScr.getInitCol();
     }
 
 
@@ -148,23 +158,23 @@ class Game_Box {
 /**
  * Layout class
  */
-class Game_Layout extends JFrame {
+class GameLayout extends JFrame {
     private static final long serialVersionUID = 198665761980976795L;
     static int level = 1;
     static int score = 0;
     static TextField scoreField;
     static TextField levelField;
     static boolean isPlay = false;
-    static Game_MyTimer timer;
+    static GameMyTimer timer;
 
     @SuppressWarnings("deprecation")
-    Game_Layout() {
+    GameLayout() {
         setTitle("俄罗斯方块");
         setSize(620, 480);
         setLayout(new GridLayout(1, 2));//整体分为两个部分
-        Game_Draw gameScr = new Game_Draw();
+        GameDraw gameScr = new GameDraw();
         gameScr.addKeyListener(gameScr);//就收键盘监听,监听的内容是游戏主界面
-        timer = new Game_MyTimer(gameScr);
+        timer = new GameMyTimer(gameScr);
         timer.setDaemon(true);
         timer.start();
         timer.suspend();
@@ -176,7 +186,7 @@ class Game_Layout extends JFrame {
         add(rightScr);
         //add(LeftScr);
         // 右边信息窗体的布局
-        Game_MyPanel infoScr = new Game_MyPanel();
+        MyPanel infoScr = new MyPanel();
         infoScr.setLayout(new GridLayout(4, 1, 0, 0));//4行一列 水平0 垂直5
         //infoScr.setSize(120, 300);
         rightScr.add(infoScr);
@@ -198,27 +208,27 @@ class Game_Layout extends JFrame {
         scoreField.setText("0");
         levelField.setText("1");
         // 右边控制按钮窗体的布局
-        Game_MyPanel controlScr = new Game_MyPanel(); //控制面板
+        MyPanel controlScr = new MyPanel(); //控制面板
         controlScr.setLayout(new GridLayout(4, 1, 0, 10));//5行 1列 水平间隔为0 垂直为 5
         rightScr.add(controlScr);
         // 定义按钮play
-        JButton play_b = new JButton("开始游戏");
+        JButton playB = new JButton("开始游戏");
         //play_b.setSize(new Dimension(50, 20));
-        play_b.addActionListener(new Game_Command(1, gameScr));
+        playB.addActionListener(new Command(1, gameScr));
         // 定义按钮Level UP
-        JButton level_up_b = new JButton("提高级数");
-        level_up_b.addActionListener(new Game_Command(2, gameScr));
+        JButton levelUpButton = new JButton("提高级数");
+        levelUpButton.addActionListener(new Command(2, gameScr));
         // 定义按钮Level Down
-        JButton level_down_b = new JButton("降低级数");
-        level_down_b.addActionListener(new Game_Command(3, gameScr));
+        JButton levelDownButton = new JButton("降低级数");
+        levelDownButton.addActionListener(new Command(3, gameScr));
         // 定义按钮Quit
-        JButton quit_b = new JButton("退出游戏");
-        quit_b.addActionListener(new Game_Command(4, gameScr));
-        controlScr.add(play_b);
-        controlScr.add(level_up_b);
-        controlScr.add(level_down_b);
+        JButton quitB = new JButton("退出游戏");
+        quitB.addActionListener(new Command(4, gameScr));
+        controlScr.add(playB);
+        controlScr.add(levelUpButton);
+        controlScr.add(levelDownButton);
         //controlScr.add(pause_b);
-        controlScr.add(quit_b);
+        controlScr.add(quitB);
         setVisible(true);
         gameScr.requestFocus();
     }
@@ -227,7 +237,7 @@ class Game_Layout extends JFrame {
 /**
  * Draw class
  */
-class Game_Draw extends Canvas implements KeyListener {
+class GameDraw extends Canvas implements KeyListener {
     private static final long serialVersionUID = 5699414920465296745L;
     private int rowNum; // 正方格的行数
     private int columnNum; // 正方格的列数
@@ -235,10 +245,10 @@ class Game_Draw extends Canvas implements KeyListener {
     private int blockInitRow; // 新出现块的起始行坐标
     private int blockInitCol; // 新出现块的起始列坐标
     private int[][] scrArr; // 屏幕数组
-    private Game_Box b = new Game_Box(this); // 对方快的引用
+    private Box b = new Box(this); // 对方快的引用
 
     // 画布类的构造方法
-    Game_Draw() {
+    GameDraw() {
         rowNum = 15;
         columnNum = 10;
         maxAllowRowNum = rowNum - 2;
@@ -273,7 +283,8 @@ class Game_Draw extends Canvas implements KeyListener {
         System.out.println(getSize().height);
         scrArr[row][col] = type;
         Graphics g = getGraphics();
-        switch (type) { // 表示画方快的方法
+        // 表示画方快的方法
+        switch (type) {
             case 0:
                 g.setColor(Color.BLACK);
                 break; // 以背景为颜色画
@@ -283,6 +294,7 @@ class Game_Draw extends Canvas implements KeyListener {
             case 2:
                 g.setColor(Color.GRAY);
                 break; // 画已经落下的方法
+            default:
         }
         int unitSize = 30;
         g.fill3DRect(col * unitSize, getSize().height - (row + 1) * unitSize,
@@ -291,7 +303,7 @@ class Game_Draw extends Canvas implements KeyListener {
     }
 
 
-    Game_Box getBlock() {
+    Box getBlock() {
         return b; // 返回block实例的引用
     }
 
@@ -320,7 +332,7 @@ class Game_Draw extends Canvas implements KeyListener {
 
     // 满行删除方法
     void deleteFullLine() {
-        int full_line_num = 0;
+        int fullLineNum = 0;
         int k = 0;
         for (int i = 0; i < rowNum; i++) {
             boolean isfull = true;
@@ -332,7 +344,7 @@ class Game_Draw extends Canvas implements KeyListener {
                 }
             }
             if (isfull) {
-                full_line_num += 100;
+                fullLineNum += 100;
             }
             if (k != 0 && k - 1 != i && !isfull) {
                 for (int j = 0; j < columnNum; j++) {
@@ -351,8 +363,8 @@ class Game_Draw extends Canvas implements KeyListener {
                 scrArr[i][j] = 0;
             }
         }
-        Game_Layout.score += full_line_num;
-        Game_Layout.scoreField.setText("" + Game_Layout.score);
+        GameLayout.score += fullLineNum;
+        GameLayout.scoreField.setText("" + GameLayout.score);
     }
 
 
@@ -381,7 +393,7 @@ class Game_Draw extends Canvas implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
 //boolean T=true;
-        if (!Game_Layout.isPlay) {
+        if (!GameLayout.isPlay) {
             return;
         }
         switch (e.getKeyCode()) {
@@ -397,6 +409,7 @@ class Game_Draw extends Canvas implements KeyListener {
             case KeyEvent.VK_SPACE:
                 b.leftTurn();
                 break;
+            default:
         }
 
     }
@@ -405,23 +418,24 @@ class Game_Draw extends Canvas implements KeyListener {
 /**
  *
  */
-class Game_MyPanel extends Panel {
+class MyPanel extends Panel {
     private static final long serialVersionUID = 1085036222452518986L;
 
     @Override
     public Insets getInsets() {
-        return new Insets(30, 60, 30, 60);//顶 左 底 右
+        //顶 左 底 右
+        return new Insets(30, 60, 30, 60);
     }
 }
 
 /**
  * Timer control
  */
-class Game_MyTimer extends Thread {
-    private Game_Draw scr;
+class GameMyTimer extends Thread {
+    private GameDraw scr;
 
 
-    Game_MyTimer(Game_Draw scr) {
+    GameMyTimer(GameDraw scr) {
         this.scr = scr;
     }
 
@@ -430,14 +444,14 @@ class Game_MyTimer extends Thread {
     public void run() {
         while (true) {
             try {
-                sleep((10 - Game_Layout.level + 1) * 100);
+                sleep((10 - GameLayout.level + 1) * 100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if (!scr.getBlock().fallDown()) {
                 scr.deleteFullLine();
                 if (scr.isGameEnd()) {
-                    Game_Layout.isPlay = false;
+                    GameLayout.isPlay = false;
                     stop();
                 } else {
                     scr.getBlock().reset();
@@ -450,17 +464,19 @@ class Game_MyTimer extends Thread {
 /**
  * define command class
  */
-class Game_Command implements ActionListener {
-    static final int button_play = 1; // 给按钮分配编号
-    static final int button_levelup = 2;
-    static final int button_leveldown = 3;
-    static final int button_quit = 4;
-    static final int button_pause = 5;
-    static boolean pause_resume = true;
-    private int curButton; // 当前按钮
-    private Game_Draw scr;
+class Command implements ActionListener {
+    // 给按钮分配编号
+    static int buttonPlay = 1;
+    static int buttonLevelUp = 2;
+    static int buttonLevelDown = 3;
+    static int buttonQuit = 4;
+    static int buttonPause = 5;
+    static boolean pauseResume = true;
+    // 当前按钮
+    private int curButton;
+    private GameDraw scr;
 
-    Game_Command(int button, Game_Draw scr) {
+    Command(int button, GameDraw scr) {
         curButton = button;
         this.scr = scr;
     }
@@ -471,35 +487,36 @@ class Game_Command implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (curButton) {
             case 1:
-                if (!Game_Layout.isPlay) {
+                if (!GameLayout.isPlay) {
                     scr.initScr();
-                    Game_Layout.isPlay = true;
-                    Game_Layout.score = 0;
-                    Game_Layout.scoreField.setText("0");
-                    Game_Layout.timer.resume();
+                    GameLayout.isPlay = true;
+                    GameLayout.score = 0;
+                    GameLayout.scoreField.setText("0");
+                    GameLayout.timer.resume();
                 }
                 scr.requestFocus();
                 break;
             case 2:
-                if (Game_Layout.level < 10) {
-                    Game_Layout.level++;
-                    Game_Layout.levelField.setText("" + Game_Layout.level);
-                    Game_Layout.score = 0;
-                    Game_Layout.scoreField.setText("" + Game_Layout.score);
+                if (GameLayout.level < 10) {
+                    GameLayout.level++;
+                    GameLayout.levelField.setText("" + GameLayout.level);
+                    GameLayout.score = 0;
+                    GameLayout.scoreField.setText("" + GameLayout.score);
                 }
                 scr.requestFocus();
                 break;
             case 3:
-                if (Game_Layout.level > 1) {
-                    Game_Layout.level--;
-                    Game_Layout.levelField.setText("" + Game_Layout.level);
-                    Game_Layout.score = 0;
-                    Game_Layout.scoreField.setText("" + Game_Layout.score);
+                if (GameLayout.level > 1) {
+                    GameLayout.level--;
+                    GameLayout.levelField.setText("" + GameLayout.level);
+                    GameLayout.score = 0;
+                    GameLayout.scoreField.setText("" + GameLayout.score);
                 }
                 scr.requestFocus();
                 break;
             case 4:
                 System.exit(0);
+            default:
         }
     }
 }

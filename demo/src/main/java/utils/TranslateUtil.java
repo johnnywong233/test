@@ -1,15 +1,14 @@
 package utils;
 
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.text.MessageFormat;
-
+import org.apache.commons.io.IOUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.testng.annotations.Test;
 
-import org.apache.commons.io.IOUtils;
+import java.io.InputStream;
+import java.net.URLEncoder;
+import java.text.MessageFormat;
 
 public class TranslateUtil {
 
@@ -17,7 +16,7 @@ public class TranslateUtil {
 //    http://www.jb51.net/article/46175.htm
     //用HttpClient發送一個request給http://translate.google.com
     public void test() throws Exception {
-    	System.out.println(translate("朱茵", "en"));
+        System.out.println(translate("朱茵", "en"));
     }
 
     protected static final String URL_TEMPLATE = "http://translate.google.com/?langpair={0}&text={1}";
@@ -34,25 +33,19 @@ public class TranslateUtil {
      * PS: let google judge the source language
      * </pre>
      *
-     * @param text
-     * @param target_lang target language
-     * @return
-     * @throws Exception
+     * @param targetLang target language
      */
-    public static String translate(final String text, final String target_lang) throws Exception {
-        return translate(text, AUTO, target_lang);
+    public static String translate(final String text, final String targetLang) throws Exception {
+        return translate(text, AUTO, targetLang);
     }
 
     /**
      * <pre>Google translate</pre>
      *
-     * @param text
-     * @param src_lang    來源語系
-     * @param target_lang target language
-     * @return
-     * @throws Exception
+     * @param srcLang    來源語系
+     * @param targetLang target language
      */
-    public static String translate(final String text, final String src_lang, final String target_lang)
+    public static String translate(final String text, final String srcLang, final String targetLang)
             throws Exception {
         InputStream is = null;
         Document doc;
@@ -60,15 +53,14 @@ public class TranslateUtil {
         try {
             // create URL string
             String url = MessageFormat.format(URL_TEMPLATE,
-                    URLEncoder.encode(src_lang + "|" + target_lang, ENCODING),
+                    URLEncoder.encode(srcLang + "|" + targetLang, ENCODING),
                     URLEncoder.encode(text, ENCODING));
             // connect & download html
             is = HttpClientUtil.downloadAsStream(url);
             // parse html by Jsoup
             doc = Jsoup.parse(is, ENCODING, "");
             ele = doc.getElementById(ID_RESULTBOX);
-            String result = ele.text();
-            return result;
+            return ele.text();
         } finally {
             IOUtils.closeQuietly(is);
             is = null;
@@ -79,10 +71,6 @@ public class TranslateUtil {
 
     /**
      * Google translate
-     *
-     * @param text
-     * @return
-     * @throws Exception
      */
     public static String cn2tw(final String text) throws Exception {
         return translate(text, CHINA, TAIWAN);
@@ -90,9 +78,6 @@ public class TranslateUtil {
 
     /**
      * <pre>Google translate</pre>
-     * @param text
-     * @return
-     * @throws Exception
      */
     public static String tw2cn(final String text) throws Exception {
         return translate(text, TAIWAN, CHINA);
@@ -100,9 +85,6 @@ public class TranslateUtil {
 
     /**
      * <pre>Google translate</pre>
-     * @param text
-     * @return
-     * @throws Exception
      */
     public static String en2tw(final String text) throws Exception {
         return translate(text, ENGLISH, TAIWAN);
@@ -110,9 +92,6 @@ public class TranslateUtil {
 
     /**
      * <pre>Google translate</pre>
-     * @param text
-     * @return
-     * @throws Exception
      */
     public static String tw2en(final String text) throws Exception {
         return translate(text, TAIWAN, ENGLISH);
@@ -120,10 +99,6 @@ public class TranslateUtil {
 
     /**
      * <pre>Google translate</pre>
-     *
-     * @param text
-     * @return
-     * @throws Exception
      */
     public static String jp2tw(final String text) throws Exception {
         return translate(text, JAPAN, TAIWAN);
@@ -131,10 +106,6 @@ public class TranslateUtil {
 
     /**
      * <pre>Google translate</pre>
-     *
-     * @param text
-     * @return
-     * @throws Exception
      */
     public static String tw2jp(final String text) throws Exception {
         return translate(text, TAIWAN, JAPAN);

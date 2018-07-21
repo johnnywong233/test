@@ -106,6 +106,7 @@ public class XMLDemo {
                     case XMLStreamReader.START_ELEMENT:
                         System.out.println("start_element");
                     case XMLStreamReader.END_ELEMENT:
+                    default:
                         // do something...
                 }
             }

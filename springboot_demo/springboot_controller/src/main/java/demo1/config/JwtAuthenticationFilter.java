@@ -20,7 +20,7 @@ import static demo1.util.JwtUtil.HEADER_STRING;
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final String protectUrlPattern;
-    private static final PathMatcher pathMatcher = new AntPathMatcher();
+    private static final PathMatcher PATH_MATCHER = new AntPathMatcher();
 
     public JwtAuthenticationFilter(String protectUrlPattern) {
         this.protectUrlPattern = protectUrlPattern;
@@ -29,7 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            if (pathMatcher.match(protectUrlPattern, request.getServletPath())) {
+            if (PATH_MATCHER.match(protectUrlPattern, request.getServletPath())) {
                 String token = request.getHeader(HEADER_STRING);
                 JwtUtil.validateToken(token);
             }

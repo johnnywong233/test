@@ -53,7 +53,7 @@ public class DownloadPic {
                 if (str.contains(".jpg")) {
                     int end = str.indexOf(".jpg") + 4;
                     str = str.substring(0, end);
-                    download(URLDecoder.decode(str), "pic");
+                    download(URLDecoder.decode(str,"UTF-8"), "pic");
                 }
                 System.out.println(i);
             }

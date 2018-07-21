@@ -171,13 +171,14 @@ class Poker implements Comparable<Poker> {
                     break;
                 case 3:
                     newColor = "方块";
+                default:
             }
             pockers.add(new Poker(newColor, newValue));
         }
         return pockers;
     }
 
-    /*
+    /**
      * Collections.shuffle进行洗牌
      */
     public static List<Poker> shuffle(List<Poker> pockers) {
@@ -185,7 +186,7 @@ class Poker implements Comparable<Poker> {
         return pockers;
     }
 
-    /*
+    /**
      * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      * 重写了copmareTo方法，实现了Comparable接口

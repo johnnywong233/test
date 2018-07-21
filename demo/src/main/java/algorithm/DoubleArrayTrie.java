@@ -13,8 +13,8 @@ import java.util.Scanner;
  * Created by wajian on 2016/10/5.
  * 双数组Trie树
  * note: a word ends may be either of these two case:
- * 1. Base[cur_p] == pos  ( pos<0 and Tail[-pos] == 'END_CHAR' )
- * 2. Check[Base[cur_p] + Code('END_CHAR')] ==  cur_p
+ * 1. Base[curP] == pos  ( pos<0 and tail[-pos] == 'END_CHAR' )
+ * 2. check[Base[curP] + Code('END_CHAR')] ==  curP
  * 传统的Trie实现简单，但是占用的空间实在是难以接受，特别是当字符集不仅限于英文26个字符的时候，爆炸起来的空间根本无法接受。
  * 双数组Trie就是优化了空间的Trie树，原理本文就不讲了，请参考An Efficient Implementation of Trie Structures，本程序的编写也是参考这篇论文的。
  * 关于几点论文没有提及的细节和与论文不一一致的实现：
@@ -26,13 +26,14 @@ import java.util.Scanner;
 public class DoubleArrayTrie {
 
     private final char END_CHAR = '\0';
-    private final int DEFAULT_LEN = 1024;//base length, the size of array grow as double of it.
-    private int Base[] = new int[DEFAULT_LEN];
-    private int Check[] = new int[DEFAULT_LEN];
-    private char Tail[] = new char[DEFAULT_LEN];
-    private int Pos = 1;
-    private Map<Character, Integer> CharMap = new HashMap<>();
-    private ArrayList<Character> CharList = new ArrayList<>();
+    //base length, the size of array grow as double of it.
+    private final int DEFAULT_LEN = 1024;
+    private int base[] = new int[DEFAULT_LEN];
+    private int check[] = new int[DEFAULT_LEN];
+    private char tail[] = new char[DEFAULT_LEN];
+    private int pos = 1;
+    private Map<Character, Integer> charMap = new HashMap<>();
+    private ArrayList<Character> charList = new ArrayList<>();
 
     //http://www.mincoder.com/article/3855.shtml
     public static void main(String[] args) throws Exception {
@@ -48,15 +49,15 @@ public class DoubleArrayTrie {
         }
         DoubleArrayTrie dat = new DoubleArrayTrie();
         for (String word : words) {
-            dat.Insert(word);
+            dat.insert(word);
         }
-        System.out.println(dat.Base.length);
-        System.out.println(dat.Tail.length);
+        System.out.println(dat.base.length);
+        System.out.println(dat.tail.length);
         Scanner sc = new Scanner(System.in);
         while (sc.hasNext()) {
             String word = sc.next();
-            System.out.println(dat.Exists(word));
-            System.out.println(dat.FindAllWords(word));
+            System.out.println(dat.exists(word));
+            System.out.println(dat.findAllWords(word));
         }
         System.out.println(System.currentTimeMillis() - start);
         sc.close();
@@ -64,54 +65,54 @@ public class DoubleArrayTrie {
     }
 
     private DoubleArrayTrie() {
-        Base[1] = 1;
-        CharMap.put(END_CHAR, 1);
-        CharList.add(END_CHAR);
-        CharList.add(END_CHAR);
+        base[1] = 1;
+        charMap.put(END_CHAR, 1);
+        charList.add(END_CHAR);
+        charList.add(END_CHAR);
         for (int i = 0; i < 26; ++i) {
-            CharMap.put((char) ('a' + i), CharMap.size() + 1);
-            CharList.add((char) ('a' + i));
+            charMap.put((char) ('a' + i), charMap.size() + 1);
+            charList.add((char) ('a' + i));
         }
     }
 
-    private void Extend_Array() {
-        Base = Arrays.copyOf(Base, Base.length * 2);
-        Check = Arrays.copyOf(Check, Check.length * 2);
+    private void extendArray() {
+        base = Arrays.copyOf(base, base.length * 2);
+        check = Arrays.copyOf(check, check.length * 2);
     }
 
-    private void Extend_Tail() {
-        Tail = Arrays.copyOf(Tail, Tail.length * 2);
+    private void extendTail() {
+        tail = Arrays.copyOf(tail, tail.length * 2);
     }
 
-    private int GetCharCode(char c) {
-        if (!CharMap.containsKey(c)) {
-            CharMap.put(c, CharMap.size() + 1);
-            CharList.add(c);
+    private int getCharCode(char c) {
+        if (!charMap.containsKey(c)) {
+            charMap.put(c, charMap.size() + 1);
+            charList.add(c);
         }
-        return CharMap.get(c);
+        return charMap.get(c);
     }
 
-    private int CopyToTailArray(String s, int p) {
-        int _Pos = Pos;
-        while (s.length() - p + 1 > Tail.length - Pos) {
-            Extend_Tail();
+    private int copyToTailArray(String s, int p) {
+        int index = pos;
+        while (s.length() - p + 1 > tail.length - pos) {
+            extendTail();
         }
         for (int i = p; i < s.length(); ++i) {
-            Tail[_Pos] = s.charAt(i);
-            _Pos++;
+            tail[index] = s.charAt(i);
+            index++;
         }
-        return _Pos;
+        return index;
     }
 
-    private int x_check(Integer[] set) {
+    private int xCheck(Integer[] set) {
         for (int i = 1; ; ++i) {
             boolean flag = true;
             for (Integer aSet : set) {
-                int cur_p = i + aSet;
-                if (cur_p >= Base.length) {
-                    Extend_Array();
+                int curP = i + aSet;
+                if (curP >= base.length) {
+                    extendArray();
                 }
-                if (Base[cur_p] != 0 || Check[cur_p] != 0) {
+                if (base[curP] != 0 || check[curP] != 0) {
                     flag = false;
                     break;
                 }
@@ -122,154 +123,154 @@ public class DoubleArrayTrie {
         }
     }
 
-    private ArrayList<Integer> GetChildList(int p) {
+    private ArrayList<Integer> getChildList(int p) {
         ArrayList<Integer> ret = new ArrayList<>();
-        for (int i = 1; i <= CharMap.size(); ++i) {
-            if (Base[p] + i >= Check.length) {
+        for (int i = 1; i <= charMap.size(); ++i) {
+            if (base[p] + i >= check.length) {
                 break;
             }
-            if (Check[Base[p] + i] == p) {
+            if (check[base[p] + i] == p) {
                 ret.add(i);
             }
         }
         return ret;
     }
 
-    private boolean TailContainString(int start, String s2) {
+    private boolean tailContainString(int start, String s2) {
         for (int i = 0; i < s2.length(); ++i) {
-            if (s2.charAt(i) != Tail[i + start]) {
+            if (s2.charAt(i) != tail[i + start]) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean TailMatchString(int start, String s2) {
+    private boolean tailMatchString(int start, String s2) {
         s2 += END_CHAR;
         for (int i = 0; i < s2.length(); ++i) {
-            if (s2.charAt(i) != Tail[i + start]) {
+            if (s2.charAt(i) != tail[i + start]) {
                 return false;
             }
         }
         return true;
     }
 
-    private void Insert(String s) throws Exception {
+    private void insert(String s) throws Exception {
         s += END_CHAR;
-        int pre_p = 1;
-        int cur_p;
+        int preP = 1;
+        int curP;
         for (int i = 0; i < s.length(); ++i) {
             //获取状态位置
-            cur_p = Base[pre_p] + GetCharCode(s.charAt(i));
+            curP = base[preP] + getCharCode(s.charAt(i));
             //如果长度超过现有，拓展数组
-            if (cur_p >= Base.length) {
-                Extend_Array();
+            if (curP >= base.length) {
+                extendArray();
             }
             //空闲状态
-            if (Base[cur_p] == 0 && Check[cur_p] == 0) {
-                Base[cur_p] = -Pos;
-                Check[cur_p] = pre_p;
-                Pos = CopyToTailArray(s, i + 1);
+            if (base[curP] == 0 && check[curP] == 0) {
+                base[curP] = -pos;
+                check[curP] = preP;
+                pos = copyToTailArray(s, i + 1);
                 break;
             } else
                 //已存在状态
-                if (Base[cur_p] > 0 && Check[cur_p] == pre_p) {
-                    pre_p = cur_p;
+                if (base[curP] > 0 && check[curP] == preP) {
+                    preP = curP;
                 } else
-                    //冲突 1：遇到 Base[cur_p]小于0的，即遇到一个被压缩存到Tail中的字符串
-                    if (Base[cur_p] < 0 && Check[cur_p] == pre_p) {
-                        int head = -Base[cur_p];
-                        if (s.charAt(i + 1) == END_CHAR && Tail[head] == END_CHAR)//插入重复字符串
+                    //冲突 1：遇到 base[curP]小于0的，即遇到一个被压缩存到Tail中的字符串
+                    if (base[curP] < 0 && check[curP] == preP) {
+                        int head = -base[curP];
+                        if (s.charAt(i + 1) == END_CHAR && tail[head] == END_CHAR)//插入重复字符串
                         {
                             break;
                         }
                         //公共字母的情况，因为上一个判断已经排除了结束符，所以一定是2个都不是结束符
-                        if (Tail[head] == s.charAt(i + 1)) {
-                            int avail_base = x_check(new Integer[]{GetCharCode(s.charAt(i + 1))});
-                            Base[cur_p] = avail_base;
-                            Check[avail_base + GetCharCode(s.charAt(i + 1))] = cur_p;
-                            Base[avail_base + GetCharCode(s.charAt(i + 1))] = -(head + 1);
-                            pre_p = cur_p;
+                        if (tail[head] == s.charAt(i + 1)) {
+                            int availBase = xCheck(new Integer[]{getCharCode(s.charAt(i + 1))});
+                            base[curP] = availBase;
+                            check[availBase + getCharCode(s.charAt(i + 1))] = curP;
+                            base[availBase + getCharCode(s.charAt(i + 1))] = -(head + 1);
+                            preP = curP;
                         } else {
                             //2个字母不相同的情况，可能有一个为结束符
-                            int avail_base;
-                            avail_base = x_check(new Integer[]{GetCharCode(s.charAt(i + 1)), GetCharCode(Tail[head])});
-                            Base[cur_p] = avail_base;
-                            Check[avail_base + GetCharCode(Tail[head])] = cur_p;
-                            Check[avail_base + GetCharCode(s.charAt(i + 1))] = cur_p;
-                            //Tail 为END_FLAG 的情况
-                            if (Tail[head] == END_CHAR) {
-                                Base[avail_base + GetCharCode(Tail[head])] = 0;
+                            int availBase;
+                            availBase = xCheck(new Integer[]{getCharCode(s.charAt(i + 1)), getCharCode(tail[head])});
+                            base[curP] = availBase;
+                            check[availBase + getCharCode(tail[head])] = curP;
+                            check[availBase + getCharCode(s.charAt(i + 1))] = curP;
+                            //tail 为END_FLAG 的情况
+                            if (tail[head] == END_CHAR) {
+                                base[availBase + getCharCode(tail[head])] = 0;
                             } else {
-                                Base[avail_base + GetCharCode(Tail[head])] = -(head + 1);
+                                base[availBase + getCharCode(tail[head])] = -(head + 1);
                             }
                             if (s.charAt(i + 1) == END_CHAR) {
-                                Base[avail_base + GetCharCode(s.charAt(i + 1))] = 0;
+                                base[availBase + getCharCode(s.charAt(i + 1))] = 0;
                             } else {
-                                Base[avail_base + GetCharCode(s.charAt(i + 1))] = -Pos;
+                                base[availBase + getCharCode(s.charAt(i + 1))] = -pos;
                             }
-                            Pos = CopyToTailArray(s, i + 2);
+                            pos = copyToTailArray(s, i + 2);
                             break;
                         }
                     } else
                         //冲突2：当前结点已经被占用，需要调整pre的base
-                        if (Check[cur_p] != pre_p) {
-                            ArrayList<Integer> list1 = GetChildList(pre_p);
+                        if (check[curP] != preP) {
+                            ArrayList<Integer> list1 = getChildList(preP);
                             int toBeAdjust;
-                            ArrayList<Integer> list = null;
+                            ArrayList<Integer> list;
                             if (true) {
-                                toBeAdjust = pre_p;
+                                toBeAdjust = preP;
                                 list = list1;
                             }
-                            int origin_base = Base[toBeAdjust];
-                            list.add(GetCharCode(s.charAt(i)));
-                            int avail_base = x_check(list.toArray(new Integer[list.size()]));
+                            int originBase = base[toBeAdjust];
+                            list.add(getCharCode(s.charAt(i)));
+                            int availBase = xCheck(list.toArray(new Integer[list.size()]));
                             list.remove(list.size() - 1);
-                            Base[toBeAdjust] = avail_base;
+                            base[toBeAdjust] = availBase;
                             for (Integer aList : list) {
                                 //BUG
-                                int tmp1 = origin_base + aList;
-                                int tmp2 = avail_base + aList;
-                                Base[tmp2] = Base[tmp1];
-                                Check[tmp2] = Check[tmp1];
+                                int tmp1 = originBase + aList;
+                                int tmp2 = availBase + aList;
+                                base[tmp2] = base[tmp1];
+                                check[tmp2] = check[tmp1];
                                 //有后续
-                                if (Base[tmp1] > 0) {
-                                    ArrayList<Integer> subsequence = GetChildList(tmp1);
+                                if (base[tmp1] > 0) {
+                                    ArrayList<Integer> subsequence = getChildList(tmp1);
                                     for (Integer sub : subsequence) {
-                                        Check[Base[tmp1] + sub] = tmp2;
+                                        check[base[tmp1] + sub] = tmp2;
                                     }
                                 }
-                                Base[tmp1] = 0;
-                                Check[tmp1] = 0;
+                                base[tmp1] = 0;
+                                check[tmp1] = 0;
                             }
                             //更新新的cur_p
-                            cur_p = Base[pre_p] + GetCharCode(s.charAt(i));
+                            curP = base[preP] + getCharCode(s.charAt(i));
                             if (s.charAt(i) == END_CHAR) {
-                                Base[cur_p] = 0;
+                                base[curP] = 0;
                             } else {
-                                Base[cur_p] = -Pos;
+                                base[curP] = -pos;
                             }
-                            Check[cur_p] = pre_p;
-                            Pos = CopyToTailArray(s, i + 1);
+                            check[curP] = preP;
+                            pos = copyToTailArray(s, i + 1);
                             break;
                         }
         }
     }
 
-    private boolean Exists(String word) {
-        int pre_p = 1;
-        int cur_p = 0;
+    private boolean exists(String word) {
+        int preP = 1;
+        int curP = 0;
         for (int i = 0; i < word.length(); ++i) {
-            cur_p = Base[pre_p] + GetCharCode(word.charAt(i));
-            if (Check[cur_p] != pre_p) {
+            curP = base[preP] + getCharCode(word.charAt(i));
+            if (check[curP] != preP) {
                 return false;
             }
-            if (Base[cur_p] < 0) {
-                return TailMatchString(-Base[cur_p], word.substring(i + 1));
+            if (base[curP] < 0) {
+                return tailMatchString(-base[curP], word.substring(i + 1));
             }
-            pre_p = cur_p;
+            preP = curP;
         }
-        return Check[Base[cur_p] + GetCharCode(END_CHAR)] == cur_p;
+        return check[base[curP] + getCharCode(END_CHAR)] == curP;
     }
 
     //内部函数，返回匹配单词的最靠后的Base index，
@@ -278,74 +279,74 @@ public class DoubleArrayTrie {
         String prefix = "";
     }
 
-    private FindStruct Find(String word) {
-        int pre_p = 1;
-        int cur_p = 0;
+    private FindStruct find(String word) {
+        int preP = 1;
+        int curP = 0;
         FindStruct fs = new FindStruct();
         for (int i = 0; i < word.length(); ++i) {
             // BUG
             fs.prefix += word.charAt(i);
-            cur_p = Base[pre_p] + GetCharCode(word.charAt(i));
-            if (Check[cur_p] != pre_p) {
+            curP = base[preP] + getCharCode(word.charAt(i));
+            if (check[curP] != preP) {
                 fs.p = -1;
                 return fs;
             }
-            if (Base[cur_p] < 0) {
-                if (TailContainString(-Base[cur_p], word.substring(i + 1))) {
-                    fs.p = cur_p;
+            if (base[curP] < 0) {
+                if (tailContainString(-base[curP], word.substring(i + 1))) {
+                    fs.p = curP;
                     return fs;
                 }
                 fs.p = -1;
                 return fs;
             }
-            pre_p = cur_p;
+            preP = curP;
         }
-        fs.p = cur_p;
+        fs.p = curP;
         return fs;
     }
 
-    private ArrayList<String> GetAllChildWord(int index) {
+    private ArrayList<String> getAllChildWord(int index) {
         ArrayList<String> result = new ArrayList<>();
-        if (Base[index] == 0) {
+        if (base[index] == 0) {
             result.add("");
             return result;
         }
-        if (Base[index] < 0) {
+        if (base[index] < 0) {
             String r = "";
-            for (int i = -Base[index]; Tail[i] != END_CHAR; ++i) {
-                r += Tail[i];
+            for (int i = -base[index]; tail[i] != END_CHAR; ++i) {
+                r += tail[i];
             }
             result.add(r);
             return result;
         }
-        for (int i = 1; i <= CharMap.size(); ++i) {
-            if (Check[Base[index] + i] == index) {
-                for (String s : GetAllChildWord(Base[index] + i)) {
-                    result.add(CharList.get(i) + s);
+        for (int i = 1; i <= charMap.size(); ++i) {
+            if (check[base[index] + i] == index) {
+                for (String s : getAllChildWord(base[index] + i)) {
+                    result.add(charList.get(i) + s);
                 }
-                //result.addAll(GetAllChildWord(Base[index]+i));
+                //result.addAll(getAllChildWord(base[index]+i));
             }
         }
         return result;
     }
 
-    private ArrayList<String> FindAllWords(String word) {
+    private ArrayList<String> findAllWords(String word) {
         ArrayList<String> result = new ArrayList<>();
-        FindStruct fs = Find(word);
+        FindStruct fs = find(word);
         int p = fs.p;
         if (p == -1) {
             return result;
         }
-        if (Base[p] < 0) {
+        if (base[p] < 0) {
             String r = "";
-            for (int i = -Base[p]; Tail[i] != END_CHAR; ++i) {
-                r += Tail[i];
+            for (int i = -base[p]; tail[i] != END_CHAR; ++i) {
+                r += tail[i];
             }
             result.add(fs.prefix + r);
             return result;
         }
-        if (Base[p] > 0) {
-            ArrayList<String> r = GetAllChildWord(p);
+        if (base[p] > 0) {
+            ArrayList<String> r = getAllChildWord(p);
             for (int i = 0; i < r.size(); ++i) {
                 r.set(i, fs.prefix + r.get(i));
             }

@@ -55,8 +55,8 @@ public class TestScriptEngine {
 
         // 通过js创建java对象
 
-        Student stu_re = (Student) engine.eval(new FileReader(new File(classLoader.getResource("script/newobject.js").getFile())));
-        stu_re.sayHello();
+        Student stu1 = (Student) engine.eval(new FileReader(new File(classLoader.getResource("script/newobject.js").getFile())));
+        stu1.sayHello();
 
         engine.put("x", 100);
         engine.put("y", 50);

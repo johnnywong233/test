@@ -9,7 +9,7 @@ import java.security.spec.X509EncodedKeySpec;
 /**
  * RSA 非对称加密，持有公钥的乙方
  */
-public class RSAForPublicCodec extends BasicCodec {
+public class RSAForPublicCodec extends AbstractBasicCodec {
 
     private static final String ALGORITHM = "RSA";
     private static final String SIGN_ALGORITHM = "MD5withRSA";

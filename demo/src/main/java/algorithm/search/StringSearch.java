@@ -1,10 +1,10 @@
 package algorithm.search;
 
-import static algorithm.search.BoyerMoore.BoyerMooreSearch;
+import static algorithm.search.BoyerMoore.boyerMooreSearch;
 import static algorithm.search.BoyerMoore.getRight;
-import static algorithm.search.KMP.KMPSearch;
-import static algorithm.search.KMP.getNext;
-import static algorithm.search.Sunday.SundaySearch;
+import static algorithm.search.Kmp.kmpSearch;
+import static algorithm.search.Kmp.getNext;
+import static algorithm.search.Sunday.sundaySearch;
 
 /**
  * Author: Johnny
@@ -15,16 +15,16 @@ public class StringSearch {
 
     //https://juejin.im/post/58b61dbe2f301e006c45de9d
     private static int forceSearch(String txt, String pat) {
-        int M = txt.length();
-        int N = pat.length();
-        for (int i = 0; i <= M - N; i++) {
+        int txtLength = txt.length();
+        int patLength = pat.length();
+        for (int i = 0; i <= txtLength - patLength; i++) {
             int j;
-            for (j = 0; j < N; j++) {
+            for (j = 0; j < patLength; j++) {
                 if (txt.charAt(i + j) != pat.charAt(j)) {
                     break;
                 }
             }
-            if (j == N) {
+            if (j == patLength) {
                 return i;
             }
         }
@@ -37,17 +37,17 @@ public class StringSearch {
         System.out.println(forceSearch(txt, pat));
 
         //sunday
-        System.out.println(SundaySearch(txt, pat));
+        System.out.println(sundaySearch(txt, pat));
 
         //KMP
         int[] next = new int[pat.length()];
         getNext(pat, next);
-        System.out.println(KMPSearch(txt, pat, next));
+        System.out.println(kmpSearch(txt, pat, next));
 
         //BoyerMoore
         int[] right = new int[256];
         getRight(pat, right);
-        System.out.println(BoyerMooreSearch(txt, pat, right));
+        System.out.println(boyerMooreSearch(txt, pat, right));
 
     }
 }
@@ -56,13 +56,13 @@ public class StringSearch {
  * Knuth-Morris-Pratt
  * 关键是求 next 数组, 其长度为模式串的长度。next 数组中每个值代表模式串中当前字符前面的字符串中，有多大长度的相同前缀后缀
  */
-class KMP {
-    static int KMPSearch(String txt, String pat, int[] next) {
-        int M = txt.length();
-        int N = pat.length();
+class Kmp {
+    static int kmpSearch(String txt, String pat, int[] next) {
+        int txtLength = txt.length();
+        int patLength = pat.length();
         int i = 0;
         int j = 0;
-        while (i < M && j < N) {
+        while (i < txtLength && j < patLength) {
             if (j == -1 || txt.charAt(i) == pat.charAt(j)) {
                 i++;
                 j++;
@@ -70,7 +70,7 @@ class KMP {
                 j = next[j];
             }
         }
-        if (j == N) {
+        if (j == patLength) {
             return i - j;
         } else {
             return -1;
@@ -78,11 +78,11 @@ class KMP {
     }
 
     static void getNext(String pat, int[] next) {
-        int N = pat.length();
+        int patLength = pat.length();
         next[0] = -1;
         int k = -1;
         int j = 0;
-        while (j < N - 1) {
+        while (j < patLength - 1) {
             if (k == -1 || pat.charAt(j) == pat.charAt(k)) {
                 ++k;
                 ++j;
@@ -108,13 +108,13 @@ class BoyerMoore {
         }
     }
 
-    static int BoyerMooreSearch(String txt, String pat, int[] right) {
-        int M = txt.length();
-        int N = pat.length();
+    static int boyerMooreSearch(String txt, String pat, int[] right) {
+        int txtLength = txt.length();
+        int patLength = pat.length();
         int skip;
-        for (int i = 0; i <= M - N; i += skip) {
+        for (int i = 0; i <= txtLength - patLength; i += skip) {
             skip = 0;
-            for (int j = N - 1; j >= 0; j--) {
+            for (int j = patLength - 1; j >= 0; j--) {
                 if (pat.charAt(j) != txt.charAt(i + j)) {
                     skip = j - right[txt.charAt(i + j)];
                     if (skip < 1) {
@@ -146,22 +146,22 @@ class Sunday {
         return -1;
     }
 
-    static int SundaySearch(String txt, String pat) {
-        int M = txt.length();
-        int N = pat.length();
+    static int sundaySearch(String txt, String pat) {
+        int txtLength = txt.length();
+        int patLength = pat.length();
         int i, j;
         int skip = -1;
-        for (i = 0; i <= M - N; i += skip) {
-            for (j = 0; j < N; j++) {
+        for (i = 0; i <= txtLength - patLength; i += skip) {
+            for (j = 0; j < patLength; j++) {
                 if (txt.charAt(i + j) != pat.charAt(j)) {
-                    if (i == M - N) {
+                    if (i == txtLength - patLength) {
                         break;
                     }
-                    skip = N - getIndex(pat, txt.charAt(i + N));
+                    skip = patLength - getIndex(pat, txt.charAt(i + patLength));
                     break;
                 }
             }
-            if (j == N) {
+            if (j == patLength) {
                 return i;
             }
         }

@@ -2,8 +2,6 @@ package aop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * Author: Johnny
@@ -12,8 +10,9 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  */
 @SpringBootApplication
 //强制使用Cglib代理
-@EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableCaching
+//@EnableAspectJAutoProxy(proxyTargetClass = true)
+//@EnableCaching
+//@EntityScan("aop.entity.*")
 public class AopApplication {
     public static void main(String[] args) {
         SpringApplication.run(AopApplication.class, args);

@@ -134,26 +134,27 @@ class HashFunctions {
     static int hash(byte[] bytes, int k) {
         switch (k) {
             case 0:
-                return RSHash(bytes);
+                return rsHash(bytes);
             case 1:
-                return JSHash(bytes);
+                return jsHash(bytes);
             case 2:
-                return ELFHash(bytes);
+                return elfHash(bytes);
             case 3:
-                return BKDRHash(bytes);
+                return bkdrHash(bytes);
             case 4:
-                return APHash(bytes);
+                return apHash(bytes);
             case 5:
-                return DJBHash(bytes);
+                return djbHash(bytes);
             case 6:
-                return SDBMHash(bytes);
+                return sdbmHash(bytes);
             case 7:
-                return PJWHash(bytes);
+                return pjwHash(bytes);
+            default:
         }
         return 0;
     }
 
-    private static int RSHash(byte[] bytes) {
+    private static int rsHash(byte[] bytes) {
         int hash = 0;
         int magic = 63689;
         for (byte aByte : bytes) {
@@ -163,7 +164,7 @@ class HashFunctions {
         return hash;
     }
 
-    private static int JSHash(byte[] bytes) {
+    private static int jsHash(byte[] bytes) {
         int hash = 1315423911;
         for (byte aByte : bytes) {
             hash ^= ((hash << 5) + aByte + (hash >> 2));
@@ -171,7 +172,7 @@ class HashFunctions {
         return hash;
     }
 
-    private static int ELFHash(byte[] bytes) {
+    private static int elfHash(byte[] bytes) {
         int hash = 0;
         int x;
         for (byte aByte : bytes) {
@@ -184,7 +185,7 @@ class HashFunctions {
         return hash;
     }
 
-    private static int BKDRHash(byte[] bytes) {
+    private static int bkdrHash(byte[] bytes) {
         int seed = 131;
         int hash = 0;
         for (byte aByte : bytes) {
@@ -193,7 +194,7 @@ class HashFunctions {
         return hash;
     }
 
-    private static int APHash(byte[] bytes) {
+    private static int apHash(byte[] bytes) {
         int hash = 0;
         int len = bytes.length;
         for (int i = 0; i < len; i++) {
@@ -206,7 +207,7 @@ class HashFunctions {
         return hash;
     }
 
-    private static int DJBHash(byte[] bytes) {
+    private static int djbHash(byte[] bytes) {
         int hash = 5381;
         for (byte aByte : bytes) {
             hash = ((hash << 5) + hash) + aByte;
@@ -214,7 +215,7 @@ class HashFunctions {
         return hash;
     }
 
-    private static int SDBMHash(byte[] bytes) {
+    private static int sdbmHash(byte[] bytes) {
         int hash = 0;
         for (byte aByte : bytes) {
             hash = aByte + (hash << 6) + (hash << 16) - hash;
@@ -222,17 +223,17 @@ class HashFunctions {
         return hash;
     }
 
-    private static int PJWHash(byte[] bytes) {
-        long BitsInUnsignedInt = (4 * 8);
-        long ThreeQuarters = ((BitsInUnsignedInt * 3) / 4);
-        long OneEighth = (BitsInUnsignedInt / 8);
-        long HighBits = (long) (0xFFFFFFFF) << (BitsInUnsignedInt - OneEighth);
+    private static int pjwHash(byte[] bytes) {
+        long bitsInUnsignedInt = (4 * 8);
+        long threeQuarters = ((bitsInUnsignedInt * 3) / 4);
+        long oneEighth = (bitsInUnsignedInt / 8);
+        long highBits = (long) (0xFFFFFFFF) << (bitsInUnsignedInt - oneEighth);
         int hash = 0;
         long test;
         for (byte aByte : bytes) {
-            hash = (hash << OneEighth) + aByte;
-            if ((test = hash & HighBits) != 0) {
-                hash = (int) ((hash ^ (test >> ThreeQuarters)) & (~HighBits));
+            hash = (hash << oneEighth) + aByte;
+            if ((test = hash & highBits) != 0) {
+                hash = (int) ((hash ^ (test >> threeQuarters)) & (~highBits));
             }
         }
         return hash;

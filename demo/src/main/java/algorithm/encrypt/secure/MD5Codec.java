@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 /**
  * MD5 单向加密
  */
-public class MD5Codec extends BasicCodec {
+public class MD5Codec extends AbstractBasicCodec {
     private static final String ALGORITHM = "MD5";
 
     @Override

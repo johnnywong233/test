@@ -2,7 +2,6 @@ package com.johnny;
 
 import com.johnny.service.BeautifulPicturesService;
 import com.johnny.service.PictureService;
-import javafx.application.Application;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,6 +21,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @SpringBootApplication
 public class MybatisPlusApplication extends SpringBootServletInitializer implements CommandLineRunner {
 
+    //http://z77z.oschina.io/2017/01/23/SpringBoot+SpringMVC+MybatisPlus%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88%E7%BB%83%E4%B9%A0%E4%B9%8B%E3%80%90%E7%BE%8E%E5%A5%B3%E5%9B%BE%E7%89%87%E3%80%91%E7%88%AC%E8%99%AB---%E5%9B%BE%E6%96%87%E8%AF%A6%E7%BB%86%E6%B5%81%E7%A8%8B/
 
     @Autowired
     BeautifulPicturesService beautifulPicturesService;
@@ -37,7 +37,7 @@ public class MybatisPlusApplication extends SpringBootServletInitializer impleme
     //如果要使用tomcat来加载jsp的话就必须继承SpringBootServletInitializer类并且重写其中configure方法
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(Application.class);
+        return application.sources(MybatisPlusApplication.class);
     }
 
     //springboot运行后此方法首先被调用

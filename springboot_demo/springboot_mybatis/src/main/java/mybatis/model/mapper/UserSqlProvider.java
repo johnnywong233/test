@@ -1,13 +1,13 @@
 package mybatis.model.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.jdbc.SQL;
 import mybatis.model.User;
+import mybatis.model.UserCriteria;
 import mybatis.model.UserCriteria.Criteria;
 import mybatis.model.UserCriteria.Criterion;
-import mybatis.model.UserCriteria;
+import org.apache.ibatis.jdbc.SQL;
+
+import java.util.List;
+import java.util.Map;
 
 public class UserSqlProvider {
 
@@ -161,25 +161,25 @@ public class UserSqlProvider {
             return;
         }
         String parmPhrase1;
-        String parmPhrase1_th;
+        String parmPhrase1Th;
         String parmPhrase2;
-        String parmPhrase2_th;
+        String parmPhrase2Th;
         String parmPhrase3;
-        String parmPhrase3_th;
+        String parmPhrase3Th;
         if (includeExamplePhrase) {
             parmPhrase1 = "%s #{example.oredCriteria[%d].allCriteria[%d].value}";
-            parmPhrase1_th = "%s #{example.oredCriteria[%d].allCriteria[%d].value,typeHandler=%s}";
+            parmPhrase1Th = "%s #{example.oredCriteria[%d].allCriteria[%d].value,typeHandler=%s}";
             parmPhrase2 = "%s #{example.oredCriteria[%d].allCriteria[%d].value} and #{example.oredCriteria[%d].criteria[%d].secondValue}";
-            parmPhrase2_th = "%s #{example.oredCriteria[%d].allCriteria[%d].value,typeHandler=%s} and #{example.oredCriteria[%d].criteria[%d].secondValue,typeHandler=%s}";
+            parmPhrase2Th = "%s #{example.oredCriteria[%d].allCriteria[%d].value,typeHandler=%s} and #{example.oredCriteria[%d].criteria[%d].secondValue,typeHandler=%s}";
             parmPhrase3 = "#{example.oredCriteria[%d].allCriteria[%d].value[%d]}";
-            parmPhrase3_th = "#{example.oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
+            parmPhrase3Th = "#{example.oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         } else {
             parmPhrase1 = "%s #{oredCriteria[%d].allCriteria[%d].value}";
-            parmPhrase1_th = "%s #{oredCriteria[%d].allCriteria[%d].value,typeHandler=%s}";
+            parmPhrase1Th = "%s #{oredCriteria[%d].allCriteria[%d].value,typeHandler=%s}";
             parmPhrase2 = "%s #{oredCriteria[%d].allCriteria[%d].value} and #{oredCriteria[%d].criteria[%d].secondValue}";
-            parmPhrase2_th = "%s #{oredCriteria[%d].allCriteria[%d].value,typeHandler=%s} and #{oredCriteria[%d].criteria[%d].secondValue,typeHandler=%s}";
+            parmPhrase2Th = "%s #{oredCriteria[%d].allCriteria[%d].value,typeHandler=%s} and #{oredCriteria[%d].criteria[%d].secondValue,typeHandler=%s}";
             parmPhrase3 = "#{oredCriteria[%d].allCriteria[%d].value[%d]}";
-            parmPhrase3_th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
+            parmPhrase3Th = "#{oredCriteria[%d].allCriteria[%d].value[%d],typeHandler=%s}";
         }
 
         StringBuilder sb = new StringBuilder();
@@ -211,13 +211,13 @@ public class UserSqlProvider {
                         if (criterion.getTypeHandler() == null) {
                             sb.append(String.format(parmPhrase1, criterion.getCondition(), i, j));
                         } else {
-                            sb.append(String.format(parmPhrase1_th, criterion.getCondition(), i, j, criterion.getTypeHandler()));
+                            sb.append(String.format(parmPhrase1Th, criterion.getCondition(), i, j, criterion.getTypeHandler()));
                         }
                     } else if (criterion.isBetweenValue()) {
                         if (criterion.getTypeHandler() == null) {
                             sb.append(String.format(parmPhrase2, criterion.getCondition(), i, j, i, j));
                         } else {
-                            sb.append(String.format(parmPhrase2_th, criterion.getCondition(), i, j, criterion.getTypeHandler(), i, j, criterion.getTypeHandler()));
+                            sb.append(String.format(parmPhrase2Th, criterion.getCondition(), i, j, criterion.getTypeHandler(), i, j, criterion.getTypeHandler()));
                         }
                     } else if (criterion.isListValue()) {
                         sb.append(criterion.getCondition());
@@ -233,7 +233,7 @@ public class UserSqlProvider {
                             if (criterion.getTypeHandler() == null) {
                                 sb.append(String.format(parmPhrase3, i, j, k));
                             } else {
-                                sb.append(String.format(parmPhrase3_th, i, j, k, criterion.getTypeHandler()));
+                                sb.append(String.format(parmPhrase3Th, i, j, k, criterion.getTypeHandler()));
                             }
                         }
                         sb.append(')');

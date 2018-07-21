@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringCloudContractConsumerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureStubRunner(ids = {"contract:springcloud_contract_provider:+:8080"}, workOffline = true)
+@AutoConfigureStubRunner(ids = {"com.johnny:springcloud_contract_provider:+:8080"}, workOffline = true)
 public class SpringCloudContractConsumerApplicationTest {
     @Autowired
     private RestTemplate restTemplate;

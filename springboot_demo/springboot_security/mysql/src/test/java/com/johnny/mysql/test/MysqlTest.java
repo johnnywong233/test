@@ -49,7 +49,7 @@ public class MysqlTest {
         user.setName("user");
         BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
         user.setPassword(bpe.encode("user"));
-        user.setCreatedate(new Date());
+        user.setCreateDate(new Date());
         user.setDepartment(department);
         userRepository.save(user);
         Assert.notNull(user.getId(), "");

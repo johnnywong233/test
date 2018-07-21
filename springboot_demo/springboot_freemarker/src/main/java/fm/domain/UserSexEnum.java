@@ -6,5 +6,6 @@ package fm.domain;
  * Time: 1:02
  */
 public enum UserSexEnum {
+    //
     MAN, WOMAN
 }

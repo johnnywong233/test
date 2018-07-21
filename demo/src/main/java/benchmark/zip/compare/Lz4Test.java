@@ -19,8 +19,8 @@ public class Lz4Test extends TestParent {
 
     @Benchmark
     public int testFastNative128K() throws IOException {
-        int BLOCK_128K = 128 * 1024;
-        return lz4(LZ4Factory.nativeInstance().fastCompressor(), BLOCK_128K);
+        int num = 128 * 1024;
+        return lz4(LZ4Factory.nativeInstance().fastCompressor(), num);
     }
 
     @Benchmark

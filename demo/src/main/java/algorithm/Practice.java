@@ -12,7 +12,7 @@ public class Practice {
      * 其中从最初的数字中选取的数字可以任意排序。以两个0结尾的数字是不允许的，例如，下列数字都是“吸血鬼”数字：
      * 1260=21*60,1827=21*87. 找出4为数的所有吸血鬼数字。
      */
-    private static void Fun() {
+    private static void fun() {
         int x = 1000;
         while (x < 10000) {
             int d, c, b, a;
@@ -88,6 +88,6 @@ public class Practice {
 
     //http://www.bianceng.cn/Programming/Java/201608/50343.htm
     public static void main(String[] args) {
-        Fun();
+        fun();
     }
 }

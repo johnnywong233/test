@@ -282,29 +282,29 @@ public class HttpClientUtil {
      * 执行一个HTTP POST请求，返回请求响应的HTML
      *
      * @param url     请求的URL地址
-     * @param _params 请求的查询参数,可以为null
+     * @param params 请求的查询参数,可以为null
      * @param charset 字符集
      * @param pretty  是否美化
      * @return 返回请求响应的HTML
      */
-    public static String doPost(String url, Map<String, Object> _params, String charset, boolean pretty) {
+    public static String doPost(String url, Map<String, Object> params, String charset, boolean pretty) {
 
         StringBuilder response = new StringBuilder();
         org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
         PostMethod method = new PostMethod(url);
 
         // 设置Http Post数据
-        if (_params != null) {
-            for (Map.Entry<String, Object> entry : _params.entrySet()) {
+        if (params != null) {
+            for (Map.Entry<String, Object> entry : params.entrySet()) {
                 method.setParameter(entry.getKey(), String.valueOf(entry.getValue()));
             }
         }
 
         // 设置Http Post数据  方法二
-//        if(_params != null) {
-//            NameValuePair[] pairs = new NameValuePair[_params.size()];//纯参数了，键值对
+//        if(params != null) {
+//            NameValuePair[] pairs = new NameValuePair[params.size()];//纯参数了，键值对
 //            int i = 0;
-//            for (Map.Entry<String, Object> entry : _params.entrySet()) {
+//            for (Map.Entry<String, Object> entry : params.entrySet()) {
 //                pairs[i] = new NameValuePair(entry.getKey(), String.valueOf(entry.getValue()));
 //                i++;
 //            }

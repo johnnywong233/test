@@ -15,10 +15,10 @@ public class TaskSink {
         receiver.bind("tcp://*:5558");
         String str = new String(receiver.recv(0));
         long start = System.currentTimeMillis();
-        int task_nbr;
-        for (task_nbr = 0; task_nbr < 100; task_nbr++) {
+        int taskNbr;
+        for (taskNbr = 0; taskNbr < 100; taskNbr++) {
             str = new String(receiver.recv(0)).trim();
-            if ((task_nbr / 10) * 10 == task_nbr) {
+            if ((taskNbr / 10) * 10 == taskNbr) {
                 System.out.println(":");
             } else {
                 System.out.println(".");

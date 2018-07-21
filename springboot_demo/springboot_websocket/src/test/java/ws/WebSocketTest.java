@@ -70,12 +70,12 @@ public class WebSocketTest {
         }
     }
     private class TestWebSocketHandler implements WebSocketHandler {
-        private final AtomicReference failure;
+        private final AtomicReference<?> failure;
         TestWebSocketHandler() {
             this.failure = null;
         }
 
-        TestWebSocketHandler(AtomicReference failure) {
+        TestWebSocketHandler(AtomicReference<?> failure) {
             this.failure = failure;
         }
 
@@ -86,7 +86,7 @@ public class WebSocketTest {
         }
 
         @Override
-        public void handleMessage(WebSocketSession session, WebSocketMessage message) throws Exception {
+        public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
             String payload = (String) message.getPayload();
             logger.info("client handle message: " + payload);
             if (payload.equals("hello websocket client!")) {

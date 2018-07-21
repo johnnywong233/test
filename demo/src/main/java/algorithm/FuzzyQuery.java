@@ -20,7 +20,7 @@ public class FuzzyQuery {
     //http://www.jb51.net/article/83264.htm
     public static void main(String args[]) {
         JFrame frame = new MediaFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 }
@@ -36,7 +36,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
     private JButton btn4;
     private JFileChooser chooser;
     private JTextField textField;
-    Map<Integer, String> hashtable = new Hashtable<Integer, String>();
+    private Map<Integer, String> hashTable = new Hashtable<>();
     private int i = 0;
     int s = 0;
 
@@ -52,7 +52,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         menu.add(label);
         menu.add(textField);
 
-        JToolBar TB = new JToolBar();
+        JToolBar toolBar = new JToolBar();
 
         m = new DefaultListModel();
 
@@ -90,12 +90,12 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         panel.add(btn3);
         panel.add(btn4);
 
-        TB.setLayout(new GridLayout(1, 2));
+        toolBar.setLayout(new GridLayout(1, 2));
 
-        TB.add(pane);
-        TB.add(panel);
+        toolBar.add(pane);
+        toolBar.add(panel);
 
-        add(TB, BorderLayout.WEST);
+        add(toolBar, BorderLayout.WEST);
     }
 
     @Override
@@ -112,20 +112,18 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
 
                 String name = chooser.getSelectedFile().getPath();
 
-                String str1 = name;
-
                 int str2 = name.lastIndexOf("//");
 
-                String name1 = name.substring(str2 + 1, str1.length());
+                String name1 = name.substring(str2 + 1, name.length());
 
                 //截取最后一个"/"之前的所有字符串
                 int str3 = name1.lastIndexOf(".");
                 String name2 = name1.substring(0, str3);
 
                 //截取"."后面所有字符串后缀
-                hashtable.put(i, name2);
-                m.add(0, hashtable.get(i));
-                System.out.println(hashtable);
+                hashTable.put(i, name2);
+                m.add(0, hashTable.get(i));
+                System.out.println(hashTable);
             }
         }
 
@@ -137,7 +135,7 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
         if (event.getSource() == btn2) {
             System.out.println(m);
             i = 0;
-            hashtable.clear();
+            hashTable.clear();
             m.clear();
         }
 
@@ -152,13 +150,13 @@ class MediaFrame extends JFrame implements ActionListener, ListSelectionListener
 
                 for (j = 1; j <= m.getSize(); j++) {
                     Pattern p = Pattern.compile("^" + name + "+");//正则表达式选取以你填的单词为首的所有查询结果
-                    Matcher match = p.matcher((String) hashtable.get(j));
+                    Matcher match = p.matcher((String) hashTable.get(j));
 
                     if (match.find()) {
                         s++;
                         //记录索引结点到数组中a[]中
                         a[s] = a[s] + m.getSize() - j;
-                        System.out.println(hashtable.get(j));
+                        System.out.println(hashTable.get(j));
                         System.out.println(a[s]);
                     }
                 }

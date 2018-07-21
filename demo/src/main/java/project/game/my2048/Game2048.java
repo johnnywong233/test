@@ -1,7 +1,15 @@
 package project.game.my2048;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -14,8 +22,8 @@ import java.util.List;
  * Time: 20:50
  */
 public class Game2048 extends JPanel {
-	private static final long serialVersionUID = -2363725872305037132L;
-	private static final Color BG_COLOR = new Color(0xbbada0);
+    private static final long serialVersionUID = -2363725872305037132L;
+    private static final Color BG_COLOR = new Color(0xbbada0);
     private static final String FONT_NAME = "Arial";
     private static final int TILE_SIZE = 64;
     private static final int TILES_MARGIN = 16;
@@ -52,6 +60,7 @@ public class Game2048 extends JPanel {
                         case KeyEvent.VK_UP:
                             up();
                             break;
+                        default:
                     }
                 }
 

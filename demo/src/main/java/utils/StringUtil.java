@@ -74,6 +74,7 @@ public class StringUtil {
                     data = randData.nextInt(26) + 97;//97~122, a~z
                     sb.append((char) data);
                     break;
+                default:
             }
         }
         return sb.toString();

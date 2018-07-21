@@ -19,6 +19,12 @@ import java.util.Properties;
  * a mail corresponding to a SMTP, such as smtp.163.com
  */
 public class MailUtil {
+    private static final String MAIL_SMTP_HOST = "smtp.163.com";
+    private static final Object MAIL_SMTP_PORT = 25;
+    private static final String MAIL_SENDER_MAIL = "wangjianloveblue@163.com";
+    private static final String MAIL_RECEIVER_MAIL = "1224017485@qq.com";
+    private static final String MAIL_SENDER_PASS = "wjlb38745";
+
     //http://blog.csdn.net/xiao__gui/article/details/8108214
     public static void main(String[] args) throws MessagingException {
         try {
@@ -83,11 +89,6 @@ public class MailUtil {
     private static void sendMail() throws MessagingException {
         Properties props = new Properties();
         // 发送邮件的服务器的IP和端口
-        String MAIL_SMTP_HOST = "smtp.163.com";
-        Object MAIL_SMTP_PORT = 25;
-        String MAIL_SENDER_MAIL = "wangjianloveblue@163.com";
-        String MAIL_RECEIVER_MAIL = "1224017485@qq.com";
-        String MAIL_SENDER_PASS = "wjlb38745";
 
         props.put("mail.smtp.host", MAIL_SMTP_HOST);
         props.put("mail.smtp.port", MAIL_SMTP_PORT);

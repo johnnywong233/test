@@ -8,8 +8,16 @@ package sql;
  */
 
 import javax.swing.JApplet;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import java.awt.event.ActionEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.Connection;
@@ -26,7 +34,7 @@ public class DBApplet extends JApplet {
 
     private static final long serialVersionUID = 2120527743401981439L;
 
-    final static private String[] jdbcDriver = {"com.mysql.jdbc.Driver",
+    final static private String[] JDBC_DRIVER = {"com.mysql.jdbc.Driver",
             "org.postgresql.Driver",
             "com.informix.jdbc.IfxDriver", "sun.jdbc.odbc.JdbcOdbcDriver",
             "com.borland.datastore.jdbc.DataStoreDriver",
@@ -57,31 +65,31 @@ public class DBApplet extends JApplet {
     }
 
     private void postInit() {
-        for (int i = 0; i < jdbcDriver.length; i++) {
-            cbDriver.addItem(jdbcDriver[i]);
+        for (String aJDBC_DRIVER : JDBC_DRIVER) {
+            cbDriver.addItem(aJDBC_DRIVER);
         }
     }
 
     private void initComponents() {
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taResponse = new javax.swing.JTextArea();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        tfSql = new javax.swing.JTextField();
-        btnExecute = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        cbDriver = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
-        tfUrl = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        tfUser = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        tfPassword = new javax.swing.JTextField();
-        btnConnect = new javax.swing.JButton();
-        btnDisconnect = new javax.swing.JButton();
+        jScrollPane1 = new JScrollPane();
+        taResponse = new JTextArea();
+        jPanel2 = new JPanel();
+        jPanel1 = new JPanel();
+        jLabel6 = new JLabel();
+        tfSql = new JTextField();
+        btnExecute = new JButton();
+        jPanel3 = new JPanel();
+        jLabel3 = new JLabel();
+        jPanel4 = new JPanel();
+        cbDriver = new JComboBox();
+        jLabel7 = new JLabel();
+        tfUrl = new JTextField();
+        jLabel9 = new JLabel();
+        tfUser = new JTextField();
+        jLabel10 = new JLabel();
+        tfPassword = new JTextField();
+        btnConnect = new JButton();
+        btnDisconnect = new JButton();
         setFont(new java.awt.Font("Verdana", 0, 12));
         jScrollPane1.setViewportView(taResponse);
 
@@ -97,12 +105,7 @@ public class DBApplet extends JApplet {
         jPanel1.add(tfSql);
 
         btnExecute.setText("Execute Query");
-        btnExecute.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExecuteActionPerformed(evt);
-            }
-        });
+        btnExecute.addActionListener(this::btnExecuteActionPerformed);
         jPanel1.add(btnExecute);
         getContentPane().add(jPanel1, java.awt.BorderLayout.SOUTH);
 
@@ -142,21 +145,11 @@ public class DBApplet extends JApplet {
         btnConnect.setMaximumSize(new java.awt.Dimension(89, 27));
         btnConnect.setText("Connect");
         btnConnect.setMinimumSize(new java.awt.Dimension(89, 27));
-        btnConnect.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConnectActionPerformed(evt);
-            }
-        });
+        btnConnect.addActionListener(this::btnConnectActionPerformed);
         jPanel3.add(btnConnect);
 
         btnDisconnect.setText("Disconnect");
-        btnDisconnect.addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDisconnectActionPerformed(evt);
-            }
-        });
+        btnDisconnect.addActionListener(this::btnDisconnectActionPerformed);
         jPanel3.add(btnDisconnect);
         getContentPane().add(jPanel3, java.awt.BorderLayout.NORTH);
 
@@ -164,33 +157,17 @@ public class DBApplet extends JApplet {
 
     private void btnExecuteActionPerformed(java.awt.event.ActionEvent evt) {
         if (!connected) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    taResponse.append("No database connected.\n");
-                }
-            });
+            SwingUtilities.invokeLater(() -> taResponse.append("No database connected.\n"));
         } else {
             if (connection == null) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        taResponse.append("Database connection error.\n");
-                    }
-                });
+                SwingUtilities.invokeLater(() -> taResponse.append("Database connection error.\n"));
             } else {
                 try {
                     query = tfSql.getText();
                     Statement stmt = connection.createStatement();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            taResponse.append("Executing query: " + query
-                                    + "\n");
-                        }
-                    });
+                    SwingUtilities.invokeLater(() -> taResponse.append("Executing query: " + query
+                            + "\n"));
                     rs = stmt.executeQuery(query);
-                    //ʹ��Ԫ����
                     ResultSetMetaData rsmd = rs.getMetaData();
 
                     int count = rsmd.getColumnCount();
@@ -208,46 +185,25 @@ public class DBApplet extends JApplet {
                     }
                     rsLine += "\n";
                     stmt.close();
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            taResponse.append(rsLine);
-                        }
-                    });
+                    SwingUtilities.invokeLater(() -> taResponse.append(rsLine));
                 } catch (SQLException e) {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            taResponse.append("Query failed.\n");
-                        }
-                    });
+                    SwingUtilities.invokeLater(() -> taResponse.append("Query failed.\n"));
                     e.printStackTrace();
                 }
             }
         }
     }
 
-    //�ͷ����ݿ�����
     private void btnDisconnectActionPerformed(java.awt.event.ActionEvent evt) {
         if (connected) {
             try {
                 if (connection != null) {
                     connection.close();
                     connection = null;
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            taResponse.append("Database disconnected.\n");
-                        }
-                    });
+                    SwingUtilities.invokeLater(() -> taResponse.append("Database disconnected.\n"));
                 }
             } catch (SQLException e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        taResponse.append("Database disconnecting error.\n");
-                    }
-                });
+                SwingUtilities.invokeLater(() -> taResponse.append("Database disconnecting error.\n"));
                 e.printStackTrace();
             }
             connected = false;
@@ -256,17 +212,12 @@ public class DBApplet extends JApplet {
             user = null;
             password = null;
         } else {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    taResponse.append("Database already disconnected.\n");
-                }
-            });
+            SwingUtilities.invokeLater(() -> taResponse.append("Database already disconnected.\n"));
         }
     }
 
     //�������ݿ�
-    private void btnConnectActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnConnectActionPerformed(ActionEvent evt) {
         if (connected) {
             taResponse.append("Database already connected.\n");
         } else {
@@ -275,42 +226,19 @@ public class DBApplet extends JApplet {
             user = tfUser.getText();
             password = tfPassword.getText();
             try {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        taResponse
-                                .append("Using JDBC driver: " + driver + "\n");
-                    }
-                });
-                //ע�����ݿ����� ͨ��jdbc�ķ�ʽ�������ݿ�
+                SwingUtilities.invokeLater(() -> taResponse
+                        .append("Using JDBC driver: " + driver + "\n"));
                 Class.forName(driver).newInstance();
                 connection = DriverManager.getConnection(url, user, password);
-                //�������ݿ�
                 if (connection != null) {
-                    SwingUtilities.invokeLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            taResponse.append("Database " + url
-                                    + " connected.\n");
-                        }
-                    });
+                    SwingUtilities.invokeLater(() -> taResponse.append("Database " + url + " connected.\n"));
                     connected = true;
                 }
             } catch (ClassNotFoundException e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        taResponse.append("Cannot load the driver.\n");
-                    }
-                });
+                SwingUtilities.invokeLater(() -> taResponse.append("Cannot load the driver.\n"));
                 e.printStackTrace();
             } catch (SQLException e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        taResponse.append("Cannot connect to the database.\n");
-                    }
-                });
+                SwingUtilities.invokeLater(() -> taResponse.append("Cannot connect to the database.\n"));
                 e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -318,44 +246,44 @@ public class DBApplet extends JApplet {
         }
     }
 
-    private javax.swing.JScrollPane jScrollPane1;
+    private JScrollPane jScrollPane1;
 
-    private javax.swing.JTextArea taResponse;
+    private JTextArea taResponse;
 
-    private javax.swing.JPanel jPanel2;
+    private JPanel jPanel2;
 
-    private javax.swing.JPanel jPanel1;
+    private JPanel jPanel1;
 
-    private javax.swing.JLabel jLabel6;
+    private JLabel jLabel6;
 
-    private javax.swing.JTextField tfSql;
+    private JTextField tfSql;
 
-    private javax.swing.JButton btnExecute;
+    private JButton btnExecute;
 
-    private javax.swing.JPanel jPanel3;
+    private JPanel jPanel3;
 
-    private javax.swing.JLabel jLabel3;
+    private JLabel jLabel3;
 
-    private javax.swing.JPanel jPanel4;
+    private JPanel jPanel4;
 
     @SuppressWarnings("rawtypes")
-    private javax.swing.JComboBox cbDriver;
+    private JComboBox cbDriver;
 
-    private javax.swing.JLabel jLabel7;
+    private JLabel jLabel7;
 
-    private javax.swing.JTextField tfUrl;
+    private JTextField tfUrl;
 
-    private javax.swing.JLabel jLabel9;
+    private JLabel jLabel9;
 
-    private javax.swing.JTextField tfUser;
+    private JTextField tfUser;
 
-    private javax.swing.JLabel jLabel10;
+    private JLabel jLabel10;
 
-    private javax.swing.JTextField tfPassword;
+    private JTextField tfPassword;
 
-    private javax.swing.JButton btnConnect;
+    private JButton btnConnect;
 
-    private javax.swing.JButton btnDisconnect;
+    private JButton btnDisconnect;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("ͨ��JApplet�������ݿ�...");

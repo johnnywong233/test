@@ -13,7 +13,7 @@ public class ChineseName {
     public static void main(String[] args) {
         Random random = new Random(System.currentTimeMillis());
         /* 598 百家姓 */
-        String[] Surname = {"赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈", "褚", "卫", "蒋", "沈", "韩", "杨", "朱", "秦", "尤", "许",
+        String[] surname = {"赵", "钱", "孙", "李", "周", "吴", "郑", "王", "冯", "陈", "褚", "卫", "蒋", "沈", "韩", "杨", "朱", "秦", "尤", "许",
                 "何", "吕", "施", "张", "孔", "曹", "严", "华", "金", "魏", "陶", "姜", "戚", "谢", "邹", "喻", "柏", "水", "窦", "章", "云", "苏", "潘", "葛", "奚", "范", "彭", "郎",
                 "鲁", "韦", "昌", "马", "苗", "凤", "花", "方", "俞", "任", "袁", "柳", "酆", "鲍", "史", "唐", "费", "廉", "岑", "薛", "雷", "贺", "倪", "汤", "滕", "殷",
                 "罗", "毕", "郝", "邬", "安", "常", "乐", "于", "时", "傅", "皮", "卞", "齐", "康", "伍", "余", "元", "卜", "顾", "孟", "平", "黄", "和",
@@ -42,8 +42,9 @@ public class ChineseName {
 
 		/* 从常用字中选取一个或两个字作为名 */
         for (int i = 0; i < 10; i++) {
-        	int index = random.nextInt(Surname.length - 1);
-        	String name = Surname[index]; //获得一个随机的姓氏
+        	int index = random.nextInt(surname.length - 1);
+        	//获得一个随机的姓氏
+        	String name = surname[index];
             if (random.nextBoolean()) {
                 name += getChinese() + getChinese();
             } else {
@@ -57,15 +58,18 @@ public class ChineseName {
         String str = null;
         int highPos, lowPos;
         Random random = new Random();
-        highPos = (176 + Math.abs(random.nextInt(71)));//区码，0xA0打头，从第16区开始，即0xB0=11*16=176,16~55一级汉字，56~87二级汉字
+        //区码，0xA0打头，从第16区开始，即0xB0=11*16=176,16~55一级汉字，56~87二级汉字
+        highPos = (176 + Math.abs(random.nextInt(71)));
         random = new Random();
-        lowPos = 161 + Math.abs(random.nextInt(94));//位码，0xA0打头，范围第1~94列
+        //位码，0xA0打头，范围第1~94列
+        lowPos = 161 + Math.abs(random.nextInt(94));
 
         byte[] bArr = new byte[2];
         bArr[0] = (new Integer(highPos)).byteValue();
         bArr[1] = (new Integer(lowPos)).byteValue();
         try {
-            str = new String(bArr, "GB2312");    //区位码组合成汉字
+            //区位码组合成汉字
+            str = new String(bArr, "GB2312");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

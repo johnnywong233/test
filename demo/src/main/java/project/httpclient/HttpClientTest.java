@@ -51,10 +51,10 @@ public class HttpClientTest {
 
     private static void postRequestTest() {
         String url = "http://localhost:8080/SpringMVC/processing";
-        Map<String, Object> _params = new HashMap<>();
-        _params.put("name", "johnny");
-        _params.put("age", 25);
-        String str = HttpClientUtil.doPost(url, _params, "UTF-8", true);
+        Map<String, Object> params = new HashMap<>();
+        params.put("name", "johnny");
+        params.put("age", 25);
+        String str = HttpClientUtil.doPost(url, params, "UTF-8", true);
         if (str != null) {
             logger.info("http Post request result:" + str);
         } else {

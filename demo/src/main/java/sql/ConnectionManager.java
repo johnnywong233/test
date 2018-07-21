@@ -8,21 +8,14 @@ import java.util.Vector;
 
 public class ConnectionManager {
 
-    /**
-     * ʹ�õ���ģʽ�������ӳأ��ͻ���ֻ��ͨ��ConnecitonManager.getInstance()�õ�һ��ʵ����
-     * ���ͻ��˹ر�ʱ��Ӧ�õ���release()�����ر����е����ݿ����ӣ���������������������
-     */
     private static final int TIME_BETWEEN_RETRIES = 500; // 0.5 second
 
     // static variable
     static private ConnectionManager instance = null; // The single instance
 
     // instance variable
-    private DBConnectionPool pool = null;
+    private DbConnectionPool pool = null;
 
-    /**
-     * ˽�й��췽�� ��ʼ�����ݿ������
-     */
     private ConnectionManager() {
         DBOptions option = new DBOptions();
         String driverClassName = option.getDriverClassName();
@@ -39,12 +32,10 @@ public class ConnectionManager {
         int maxConnection = option.getMaxConnection();
 
         //always new the pool because pool is an instance variable
-        pool = new DBConnectionPool(url, user, password, maxConnection);
+        pool = new DbConnectionPool(url, user, password, maxConnection);
     }
 
     /**
-     * ����һ��������ʵ���������������ǵ�һ�α����þʹ���һ���µ�ʵ��
-     *
      * @return ConnectionManager The single instance.
      */
     public static synchronized ConnectionManager getInstance() {
@@ -55,9 +46,6 @@ public class ConnectionManager {
     }
 
     /**
-     * ����һ�����ӡ�
-     * ���û�п���ʹ�õ����ӣ�������������û�дﵽ��󣬾ʹ���һ���µ�����
-     *
      * @return Connection The connection or null
      */
     Connection getConnection() {
@@ -65,11 +53,6 @@ public class ConnectionManager {
     }
 
     /**
-     * ����һ�����ӡ�
-     * ���û�п���ʹ�õ����ӣ�������������û�дﵽ��󣬾ʹ���һ���µ����ӣ�
-     * ����������ﵽ�����ֵ����ָ����ʱ��ȴ���������ʱ�����������ͷ��ˣ��ͷ���һ�����ӣ�
-     * ���û�����ӱ��ͷţ��ͷ���null
-     *
      * @param time The number of milliseconds to wait
      * @return Connection The connection or null
      */
@@ -85,10 +68,7 @@ public class ConnectionManager {
         return pool.release();
     }
 
-    /**
-     * ���ӳ�ʹ���ڲ�����ʵ��
-     */
-    class DBConnectionPool {
+    class DbConnectionPool {
         private int checkedOut = 0;
 
         private Vector freeConnections = new Vector();
@@ -97,7 +77,7 @@ public class ConnectionManager {
 
         private String password = null;
 
-        private String URL = null;
+        private String url = null;
 
         private String user = null;
 
@@ -105,14 +85,14 @@ public class ConnectionManager {
          * Creates new connection pool. NOTE: new an instance of this class is
          * lightweight since it does not create any connections
          *
-         * @param URL      The JDBC URL for the database
+         * @param url      The JDBC URL for the database
          * @param user     The database user, or null
          * @param password The database user password, or null
          * @param maxConn  The maximal number of connections, or 0 for no limit
          */
-        public DBConnectionPool(String URL, String user, String password,
+        public DbConnectionPool(String url, String user, String password,
                                 int maxConn) {
-            this.URL = URL;
+            this.url = url;
             this.user = user;
             this.password = password;
             this.maxConn = maxConn;
@@ -178,11 +158,6 @@ public class ConnectionManager {
         }
 
         /**
-         * ����һ�����ӡ�
-         * ���û�п���ʹ�õ����ӣ�������������û�дﵽ��󣬾ʹ���һ���µ����ӣ�
-         * ����������ﵽ�����ֵ����ָ����ʱ��ȴ���������ʱ�����������ͷ��ˣ��ͷ���һ�����ӣ�
-         * ���û�����ӱ��ͷţ��ͷ���null
-         *
          * @param timeout The timeout value in milliseconds
          */
         Connection getConnection(long timeout) {
@@ -238,15 +213,15 @@ public class ConnectionManager {
             try {
                 //login without a user
                 if (user == null) {
-                    con = DriverManager.getConnection(URL);
+                    con = DriverManager.getConnection(url);
                 } else {
-                    con = DriverManager.getConnection(URL, user, password);
+                    con = DriverManager.getConnection(url, user, password);
                 }
                 con.setAutoCommit(true);
             } catch (SQLException e) {
                 System.out.println(
                         "Cannot create a new connection in DBConnectionPool. URL = "
-                                + URL + e.getMessage());
+                                + url + e.getMessage());
                 return null;
             }
             return con;

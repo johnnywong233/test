@@ -1,5 +1,6 @@
 package algorithm.encrypt.secure;
 
+import lombok.Getter;
 import utils.Base64Utils;
 
 import java.io.IOException;
@@ -8,8 +9,9 @@ import java.nio.charset.Charset;
 /**
  * 编解码基类
  */
-public abstract class BasicCodec {
-    public static final Charset charset = Charset.forName("UTF-8");
+@Getter
+public abstract class AbstractBasicCodec {
+    public static final Charset CHAR_SET = Charset.forName("UTF-8");
     /**
      * 对称加密的密钥，经过base64编程的密钥字符串
      */
@@ -26,7 +28,7 @@ public abstract class BasicCodec {
     String privateKey;
     private Base64Utils base64Utils;
 
-    BasicCodec() {
+    AbstractBasicCodec() {
         base64Utils = Base64Utils.getInstance();
     }
 
@@ -90,18 +92,6 @@ public abstract class BasicCodec {
             data[i] = (byte) (height * 16 + low);
         }
         return data;
-    }
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public String getPrivateKey() {
-        return privateKey;
     }
 
 }

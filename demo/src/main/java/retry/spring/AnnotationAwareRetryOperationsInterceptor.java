@@ -19,18 +19,18 @@ public class AnnotationAwareRetryOperationsInterceptor implements MethodIntercep
         //获取拦截的方法中的Retryable注解
         Retryable retryable = method.getAnnotation(Retryable.class);
         if (retryable == null) {
-            return proxy.invokeSuper(obj,args);
+            return proxy.invokeSuper(obj, args);
         } else { //有Retryable注解，加入异常重试逻辑
             int maxAttemps = retryable.maxAttemps();
             try {
-                return proxy.invokeSuper(obj,args);
+                return proxy.invokeSuper(obj, args);
             } catch (Throwable e) {
-                if(times++ == maxAttemps){
+                if (times++ == maxAttemps) {
                     System.out.println("已达最大重试次数：" + maxAttemps + ",不再重试！");
-                }else{
-                    System.out.println("调用" + method.getName() + "方法异常，开始第" + times +"次重试。。。");
+                } else {
+                    System.out.println("调用" + method.getName() + "方法异常，开始第" + times + "次重试。。。");
                     //注意这里不是invokeSuper方法，invokeSuper会退出当前interceptor的处理
-                    proxy.invoke(obj,args);
+                    proxy.invoke(obj, args);
                 }
             }
         }

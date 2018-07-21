@@ -139,12 +139,12 @@ public class RabbitConfig {
     }
 
     @Bean
-    public Queue AMessage() {
+    public Queue aMessage() {
         return new Queue("fanout.1");
     }
 
     @Bean
-    public Queue BMessage() {
+    public Queue bMessage() {
         return new Queue("fanout.2");
     }
 

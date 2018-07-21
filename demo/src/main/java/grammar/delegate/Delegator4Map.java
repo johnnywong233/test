@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 public class Delegator4Map extends Delegator {
-    private static Log _log = LogFactory.getLog(Delegator4Map.class);
+    private static Log log = LogFactory.getLog(Delegator4Map.class);
     private Map orginClass = null; //原始对象
     private Map proxyClass = null; //代理对象
 
@@ -28,13 +28,13 @@ public class Delegator4Map extends Delegator {
     public Delegator4Map(Map orgin) {
         super(orgin);
         orginClass = orgin;
-        proxyClass = (Map) super.obj_proxy;
+        proxyClass = (Map) super.objProxy;
     }
 
     @Override
     public Object invoke(Object obj, Method method, Object[] args) throws Throwable {
         if ("size".equals(method.getName())) { //修改size处理逻辑
-            Object res2 = new Integer(-1);
+            Object res2 = -1;
             System.out.println("调用委托的方法");
             return res2;
         } else {

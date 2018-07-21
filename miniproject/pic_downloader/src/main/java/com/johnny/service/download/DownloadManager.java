@@ -14,12 +14,12 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class DownloadManager {
-    private static final JProgressBar mainProgressBar = MainFrame.getInstance().progressBar;
+    private static final JProgressBar MAIN_PROGRESS_BAR = MainFrame.getInstance().progressBar;
     private static final Integer TIMEOUT = 10;
 
     static int downloadImage(List<String> imageURLList, String path) {
-        mainProgressBar.setMaximum(imageURLList.size());
-        mainProgressBar.setValue(0);
+        MAIN_PROGRESS_BAR.setMaximum(imageURLList.size());
+        MAIN_PROGRESS_BAR.setValue(0);
         List<DownloadThread> threadList = new ArrayList<>();
         int imageSize = imageURLList.size();
         DownloadThread downloadThread;
@@ -30,7 +30,7 @@ public class DownloadManager {
             } else {
                 threadName = "线程" + String.valueOf(i);
             }
-            downloadThread = new DownloadThread(threadName, imageURLList, imageSize, path, mainProgressBar);
+            downloadThread = new DownloadThread(threadName, imageURLList, imageSize, path, MAIN_PROGRESS_BAR);
             downloadThread.start();
             threadList.add(downloadThread);
         }
@@ -71,7 +71,7 @@ public class DownloadManager {
                 }
 
                 if (waitThreadMap.size() == 0) {
-                    mainProgressBar.setValue(mainProgressBar.getMaximum());
+                    MAIN_PROGRESS_BAR.setValue(MAIN_PROGRESS_BAR.getMaximum());
                     break;
                 }
 

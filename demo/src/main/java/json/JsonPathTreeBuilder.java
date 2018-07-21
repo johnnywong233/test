@@ -26,7 +26,7 @@ public class JsonPathTreeBuilder {
 
     private static final String PATH_DELIMITER = "/";
 
-    private static final String lineSeparator = System.lineSeparator();
+    private static final String LINE_SEPARATOR = System.lineSeparator();
 
 
     private static Map<String, String> columnMapping;
@@ -51,10 +51,10 @@ public class JsonPathTreeBuilder {
     }
 
     private String getPic() {
-        return "└── ROOT" + lineSeparator +
-                "    └── summary" + lineSeparator +
-                "        ├── modified  [MODIFIED]" + lineSeparator +
-                "        └── guid  [GUID]" + lineSeparator;
+        return "└── ROOT" + LINE_SEPARATOR +
+                "    └── summary" + LINE_SEPARATOR +
+                "        ├── modified  [MODIFIED]" + LINE_SEPARATOR +
+                "        └── guid  [GUID]" + LINE_SEPARATOR;
     }
 
     public static Node build(Map<String, String> columnMapping) {
@@ -95,7 +95,7 @@ public class JsonPathTreeBuilder {
         if (logger.isDebugEnabled()) {
             logger.debug("Build path tree for columnMapping successfully!");
             logger.debug("Root Node: [{}]", rootNode.toString());
-            logger.debug("Column Mapping Path tree:" + lineSeparator + rootNode.getTreePicture());
+            logger.debug("Column Mapping Path tree:" + LINE_SEPARATOR + rootNode.getTreePicture());
         }
     }
 
@@ -113,7 +113,7 @@ public class JsonPathTreeBuilder {
 
 @Data
 class Node {
-    private static final String lineSeparator = System.lineSeparator();
+    private static final String LINE_SEPARATOR = System.lineSeparator();
     private String pathName;
     private Node parentNode;
     private List<Node> childNodeList;
@@ -146,7 +146,7 @@ class Node {
     }
 
     private void getTreePicture(String prefix, boolean isTail, StringBuilder treePicture) {
-        treePicture.append(prefix + (isTail ? "└── " : "├── ") + pathName + (columnName == null ? "" : "  [" + columnName + "]") + lineSeparator);
+        treePicture.append(prefix + (isTail ? "└── " : "├── ") + pathName + (columnName == null ? "" : "  [" + columnName + "]") + LINE_SEPARATOR);
         for (int i = 0; i < childNodeList.size() - 1; i++) {
             childNodeList.get(i).getTreePicture(prefix + (isTail ? "    " : "│   "), false, treePicture);
         }

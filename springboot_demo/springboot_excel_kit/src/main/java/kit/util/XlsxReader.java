@@ -92,7 +92,7 @@ public class XlsxReader extends DefaultHandler {
      * @param fileName excel文件
      * @throws Exception IOException, OpenXML4JException, SAXException
      */
-    public void process(InputStream is, String fileName) throws Exception {
+    void process(InputStream is, String fileName) throws Exception {
         POIUtils.checkExcelFile(fileName);
         processAll(OPCPackage.open(is));
     }
@@ -104,7 +104,7 @@ public class XlsxReader extends DefaultHandler {
      * @param sheetIndex 从0开始
      * @throws Exception IOException, OpenXML4JException, SAXException
      */
-    public void process(String fileName, int sheetIndex) throws Exception {
+    void process(String fileName, int sheetIndex) throws Exception {
         POIUtils.checkExcelFile(fileName);
         processBySheet(sheetIndex, OPCPackage.open(fileName));
     }
@@ -133,7 +133,7 @@ public class XlsxReader extends DefaultHandler {
      * @param sheetIndex 从0开始
      * @throws Exception IOException, OpenXML4JException, SAXException
      */
-    public void process(InputStream is, String fileName, int sheetIndex) throws Exception {
+    void process(InputStream is, String fileName, int sheetIndex) throws Exception {
         POIUtils.checkExcelFile(fileName);
         processBySheet(sheetIndex, OPCPackage.open(is));
     }
@@ -324,29 +324,29 @@ public class XlsxReader extends DefaultHandler {
     private int countNullCell(String ref, String ref2) {
         // excel2007最大行数是1048576，最大列数是16384，最后一列列名是XFD
         String xfd = ref.replaceAll("\\d+", "");
-        String xfd_1 = ref2.replaceAll("\\d+", "");
+        String xfd1 = ref2.replaceAll("\\d+", "");
 
         xfd = fillChar(xfd, 3, '@', true);
-        xfd_1 = fillChar(xfd_1, 3, '@', true);
+        xfd1 = fillChar(xfd1, 3, '@', true);
 
         char[] letter = xfd.toCharArray();
-        char[] letter_1 = xfd_1.toCharArray();
-        int res = (letter[0] - letter_1[0]) * 26 * 26 + (letter[1] - letter_1[1]) * 26 + (letter[2] - letter_1[2]);
+        char[] letter1 = xfd1.toCharArray();
+        int res = (letter[0] - letter1[0]) * 26 * 26 + (letter[1] - letter1[1]) * 26 + (letter[2] - letter1[2]);
         return res - 1;
     }
 
     private String fillChar(String str, int len, char let, boolean isPre) {
-        int len_1 = str.length();
-        if (len_1 < len) {
+        int strLen = str.length();
+        if (strLen < len) {
             if (isPre) {
                 StringBuilder strBuilder = new StringBuilder(str);
-                for (int i = 0; i < (len - len_1); i++) {
+                for (int i = 0; i < (len - strLen); i++) {
                     strBuilder.insert(0, let);
                 }
                 str = strBuilder.toString();
             } else {
                 StringBuilder strBuilder = new StringBuilder(str);
-                for (int i = 0; i < (len - len_1); i++) {
+                for (int i = 0; i < (len - strLen); i++) {
                     strBuilder.append(let);
                 }
                 str = strBuilder.toString();
@@ -356,6 +356,7 @@ public class XlsxReader extends DefaultHandler {
     }
 
     enum CellValueType {
+        //
         BOOL, ERROR, FORMULA, INLINESTR, STRING, NUMBER, DATE, NULL
     }
 }

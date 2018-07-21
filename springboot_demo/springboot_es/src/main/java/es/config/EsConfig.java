@@ -22,22 +22,22 @@ import java.net.InetAddress;
 @EnableElasticsearchRepositories(basePackages = "es.repository")
 public class EsConfig {
     @Value("${elasticsearch.host}")
-    private String EsHost;
+    private String esHost;
 
     @Value("${elasticsearch.port}")
-    private int EsPort;
+    private int esPort;
 
     @Value("${elasticsearch.clustername}")
-    private String EsClusterName;
+    private String esClusterName;
 
     @Bean
     public Client client() throws Exception {
 
-        Settings esSettings = Settings.settingsBuilder().put("cluster.name", EsClusterName).build();
+        Settings esSettings = Settings.settingsBuilder().put("cluster.name", esClusterName).build();
 
         //https://www.elastic.co/guide/en/elasticsearch/guide/current/_transport_client_versus_node_client.html
         return TransportClient.builder().settings(esSettings).build()
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(esHost), esPort));
     }
 
     @Bean

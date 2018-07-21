@@ -1,5 +1,7 @@
 package project.mvcDemo.util;
 
+import lombok.Data;
+
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -8,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+@Data
 public class DbResourceManager {
     // 最好的做法是将配置保存到配置文件中(可以用properteis文件或XML文件)
     private static final String JDBC_DRV = "com.mysql.jdbc.Driver";
@@ -30,10 +33,6 @@ public class DbResourceManager {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void setDriver(Driver _driver) {
-        driver = _driver;
     }
 
     private static void loadDriver() throws Exception {
@@ -86,8 +85,6 @@ public class DbResourceManager {
 
     /**
      * 注销驱动
-     *
-     * @throws SQLException
      */
     public static void unloadDriver() throws SQLException {
         if (driver != null) {

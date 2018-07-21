@@ -20,8 +20,8 @@ public class SortCompare {
         demo.shellSort(a);
         demo.selectSort(a);
         demo.bubbleSort(a);
-        demo.HeapSort(a);
-        demo.RadixSort(a);
+        demo.heapSort(a);
+        demo.radixSort(a);
         demo.bucketSort(a);
         demo.quickSort(a);
         demo.countSort(a);
@@ -78,9 +78,12 @@ public class SortCompare {
             return null;
         }
         int mid = (left + right) / 2;
-        mSort(list, left, mid); //递归排序左边
-        mSort(list, mid + 1, right); //递归排序右边
-        merge(list, left, mid, right); //合并
+        //递归排序左边
+        mSort(list, left, mid);
+        //递归排序右边
+        mSort(list, mid + 1, right);
+        //合并
+        merge(list, left, mid, right);
         return list;
     }
 
@@ -94,7 +97,8 @@ public class SortCompare {
      */
     private static void merge(int[] arr, int left, int mid, int right) {
         //[left, mid] [mid+1, right]
-        int[] temp = new int[right - left + 1]; //中间数组
+        //中间数组
+        int[] temp = new int[right - left + 1];
 
         int i = left;
         int j = mid + 1;
@@ -227,7 +231,7 @@ public class SortCompare {
         return list;
     }
 
-    public int[] HeapSort(int[] list) {
+    public int[] heapSort(int[] list) {
         int arrayLength = list.length;
         //循环建堆
         for (int i = 0; i < arrayLength - 1; i++) {
@@ -295,10 +299,10 @@ public class SortCompare {
     }
 
 
-    /*
+    /**
      * @Description:<p>基数排序算法实现</p>
      */
-    public int[] RadixSort(int[] list) {
+    public int[] radixSort(int[] list) {
 
         if (list == null && list.length == 0) {
             return null;

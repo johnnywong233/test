@@ -24,12 +24,12 @@ public class MyCalendar extends JApplet {
     private static final String WEEK_THU = "THU";
     private static final String WEEK_FRI = "FRI";
     private static final String WEEK_SAT = "SAT";
-    private static final Color background = Color.white;
-    private static final Color foreground = Color.black;
-    private static final Color headerBackground = Color.blue;
-    private static final Color headerForeground = Color.white;
-    private static final Color selectedBackground = Color.blue;
-    private static final Color selectedForeground = Color.white;
+    private static final Color BACKGROUND = Color.white;
+    private static final Color FOREGROUND = Color.black;
+    private static final Color HEADER_BACKGROUND = Color.blue;
+    private static final Color HEADER_FOREGROUND = Color.white;
+    private static final Color SELECTED_BACKGROUND = Color.blue;
+    private static final Color SELECTED_FOREGROUND = Color.white;
 
     private JPanel cPane;
     private JSpinner yearsSpinner;
@@ -132,15 +132,15 @@ public class MyCalendar extends JApplet {
             JLabel cell = new JLabel(text);
             cell.setOpaque(true);
             if (row == 0) {
-                cell.setForeground(headerForeground);
-                cell.setBackground(headerBackground);
+                cell.setForeground(HEADER_FOREGROUND);
+                cell.setBackground(HEADER_BACKGROUND);
             } else {
                 if (isSelected) {
-                    cell.setForeground(selectedForeground);
-                    cell.setBackground(selectedBackground);
+                    cell.setForeground(SELECTED_FOREGROUND);
+                    cell.setBackground(SELECTED_BACKGROUND);
                 } else {
-                    cell.setForeground(foreground);
-                    cell.setBackground(background);
+                    cell.setForeground(FOREGROUND);
+                    cell.setBackground(BACKGROUND);
                 }
             }
             return cell;
@@ -209,7 +209,7 @@ public class MyCalendar extends JApplet {
         MyCalendar myCalendar = new MyCalendar();
         myCalendar.init();
         frame.getContentPane().add(myCalendar);
-        frame.setSize(240, 172);
+        frame.setSize(400, 260);
         frame.setVisible(true);
     }
 

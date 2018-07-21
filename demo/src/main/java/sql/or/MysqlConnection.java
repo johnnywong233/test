@@ -71,7 +71,7 @@ public class MysqlConnection {
         try {
             DatabaseMetaData metaData = conn.getMetaData();
             ResultSet r = metaData.getCatalogs();
-            String tableType[] = {"TABLE"};
+            String[] tableType = {"TABLE"};
             while (r.next()) {
                 String databaseName = r.getString("TABLE_CAT");
                 ResultSet result = metaData.getTables(databaseName, null, null, tableType);
@@ -150,8 +150,6 @@ public class MysqlConnection {
      * +------------------+----------+--------------+------------------+
      * | mysql-bin.000004 |     1868 |              |                  |
      * +------------------+----------+--------------+------------------+
-     *
-     * @return
      */
     public static BinlogMasterStatus getBinlogMasterStatus() {
         BinlogMasterStatus binlogMasterStatus = new BinlogMasterStatus();
@@ -222,7 +220,6 @@ public class MysqlConnection {
                 logger.error(e.getMessage(), e);
             }
         }
-
         return serverId;
     }
 }

@@ -27,6 +27,9 @@ import java.util.Properties;
  */
 @Service
 public class MailService {
+    private final String MAIL_SMTP_HOST = "smtp.163.com";
+    private final String MAIL_SMTP_PORT = "465";
+    private final String MAIL_SENDER_NICKNAME = "johnny";
     private final String MAIL_SENDER_MAIL = "wangjianloveblue@163.com";
     private final String MAIL_SENDER_PASS = "w**5";
 
@@ -50,9 +53,7 @@ public class MailService {
      */
     private Session getMailSession() {
         Properties props = new Properties();
-        String MAIL_SMTP_HOST = "smtp.163.com";
         props.put("mail.smtp.host", MAIL_SMTP_HOST);
-        String MAIL_SMTP_PORT = "465";
         props.put("mail.smtp.port", MAIL_SMTP_PORT);
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -81,7 +82,6 @@ public class MailService {
         List<InternetAddress> bccAddresses = parseStringToAddress(secretCopyToRecipients);
         //init email content
         Message message = new MimeMessage(getMailSession());
-        String MAIL_SENDER_NICKNAME = "johnny";
         message.setFrom(new InternetAddress(MAIL_SENDER_MAIL, MAIL_SENDER_NICKNAME));
         String subject = MimeUtility.encodeWord(title, "UTF-8", "Q");//set title encoding
         message.setSubject(subject);
@@ -93,7 +93,8 @@ public class MailService {
 
         message.saveChanges();
         Transport.send(message);
-        return true;//不报异常表示邮件发送成功
+        //不报异常表示邮件发送成功
+        return true;
     }
 
     /**

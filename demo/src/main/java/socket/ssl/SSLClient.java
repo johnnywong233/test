@@ -13,12 +13,12 @@ import java.net.Socket;
  * Time: 0:00
  */
 public class SSLClient {
+    private static final String CLIENT_KEY_STORE = "/Users/liweinan/projs/ssl/src/main/resources/META-INF/client_ks";
 
     //TODO
     //http://www.codeceo.com/article/ssl-communication-and-examples-in-java.html
     public static void main(String[] args) throws Exception {
         // Set the key store to use for validating the server cert.
-        String CLIENT_KEY_STORE = "/Users/liweinan/projs/ssl/src/main/resources/META-INF/client_ks";
         System.setProperty("javax.net.ssl.trustStore", CLIENT_KEY_STORE);
 
         System.setProperty("javax.net.debug", "ssl,handshake");

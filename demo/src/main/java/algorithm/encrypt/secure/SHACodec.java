@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 /**
  * SHA 单向加密
  */
-public class SHACodec extends BasicCodec {
+public class SHACodec extends AbstractBasicCodec {
     private static final String ALGORITHM = "SHA";
 
     @Override

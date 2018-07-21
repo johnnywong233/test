@@ -1,5 +1,7 @@
 package file.xml.jaxb;
 
+import lombok.Data;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
@@ -56,57 +58,19 @@ public class XmlUtil {
 
 @XmlRootElement(namespace = "jaxb.demo1")
 @XmlAccessorType(XmlAccessType.FIELD)
+@Data
 class NewClassA {
     private int classAId;
 
     @XmlElement(name = "ClassAName")
     private String classAName;
     private NewClassB classB;
-
-    public int getClassAId() {
-        return classAId;
-    }
-
-    public void setClassAId(int classAId) {
-        this.classAId = classAId;
-    }
-
-    public String getClassAName() {
-        return classAName;
-    }
-
-    public void setClassAName(String classAName) {
-        this.classAName = classAName;
-    }
-
-    public NewClassB getClassB() {
-        return classB;
-    }
-
-    public void setClassB(NewClassB classB) {
-        this.classB = classB;
-    }
 }
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@Data
 class NewClassB {
-    private int ClassBId;
-    private String ClassBName;
-
-    public int getClassBId() {
-        return ClassBId;
-    }
-
-    public void setClassBId(int classBId) {
-        this.ClassBId = classBId;
-    }
-
-    public String getClassBName() {
-        return ClassBName;
-    }
-
-    public void setClassBName(String classBName) {
-        this.ClassBName = classBName;
-    }
+    private int classBId;
+    private String classBName;
 }

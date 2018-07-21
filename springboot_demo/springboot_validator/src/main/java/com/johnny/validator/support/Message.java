@@ -33,6 +33,7 @@ public class Message implements Serializable {
      * The type of the message to be displayed. The type is used to show message in a different style.
      */
     public enum Type {
+        //
         DANGER, WARNING, INFO, SUCCESS
     }
 }

@@ -15,12 +15,12 @@ import com.jcraft.jsch.Session;
  * JSch案例地址： http://www.jcraft.com/jsch/examples/
  */
 public class SSHProxy {
-    private static final SSHProxy proxy = new SSHProxy();
+    private static final SSHProxy PROXY = new SSHProxy();
 
     private Session session;
 
     public static SSHProxy getInstance() {
-        return proxy;
+        return PROXY;
     }
 
     private void createSSHSession(String host, int port, String userId, String password)

@@ -7,7 +7,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class AESCodec extends BasicCodec {
+public class AESCodec extends AbstractBasicCodec {
 
     private static final String ALGORITHM = "AES";
     private static final int KEY_SIZE = 128;

@@ -13,7 +13,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 /**
  * RSA 非对称加密，持有私钥的甲方
  */
-public class RSAForPrivateCodec extends BasicCodec {
+public class RSAForPrivateCodec extends AbstractBasicCodec {
     private static final String ALGORITHM = "RSA";
 
     //rsa，签名算法可以是 md5withrsa 、 sha1withrsa 、 sha256withrsa 、 sha384withrsa 、 sha512withrsa

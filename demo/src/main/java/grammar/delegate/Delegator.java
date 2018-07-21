@@ -5,8 +5,8 @@ import java.lang.reflect.Proxy;
 import java.lang.reflect.InvocationHandler;
 
 public class Delegator implements InvocationHandler {
-    protected Object obj_orgin = null; //原始对象
-    protected Object obj_proxy = null; //代理对象
+    protected Object objOrgin = null; //原始对象
+    protected Object objProxy = null; //代理对象
 
     public Delegator() {
     }
@@ -16,14 +16,14 @@ public class Delegator implements InvocationHandler {
     }
 
     protected Object createProxy(Object orgin) {
-        obj_orgin = orgin;
+        objOrgin = orgin;
         //下面语句中orgin.getClass().getClassLoader()为加载器，orgin.getClass().getInterfaces()为接口集
-        obj_proxy = Proxy.newProxyInstance(orgin.getClass().getClassLoader(), orgin.getClass().getInterfaces(), this); //委托
-        return obj_proxy;
+        objProxy = Proxy.newProxyInstance(orgin.getClass().getClassLoader(), orgin.getClass().getInterfaces(), this); //委托
+        return objProxy;
     }
 
     protected Object invokeSuper(Method method, Object[] args) throws Throwable {
-        return method.invoke(obj_orgin, args);
+        return method.invoke(objOrgin, args);
     }
     //--------------实现InvocationHandler接口，要求覆盖------------
     //下面实现的方法是当委托的类调用toString()方法时，操作其他方法而不是该类默认的toString()，这个类的其他方法则不会。

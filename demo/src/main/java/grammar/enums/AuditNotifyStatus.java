@@ -6,24 +6,25 @@ package grammar.enums;
  * Time: 23:40
  */
 public enum AuditNotifyStatus implements EnumMessage {
+    //
     Sms(2, "短信"),
     Mail(4, "邮箱"),
-    SmsAndMail(6, "短信和邮箱"),;
-    private final Integer _code;
-    private final String _message;
+    SmsAndMail(6, "短信和邮箱");
+    private final Integer code;
+    private final String message;
 
     AuditNotifyStatus(Integer code, String message) {
-        _code = code;
-        _message = message;
+        this.code = code;
+        this.message = message;
     }
 
     @Override
     public Integer getValue() {
-        return _code;
+        return code;
     }
 
     @Override
     public String getMessage() {
-        return _message;
+        return message;
     }
 }

@@ -15,7 +15,6 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -34,7 +33,7 @@ public class XpathTest {
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse("D:\\Java_ex\\test\\src\\test\\resources\\xpath.xml");
         System.out.println("length of node:" + doc.getChildNodes().getLength());
-        
+
         XPathFactory xFactory = XPathFactory.newInstance();
         XPath xpath = xFactory.newXPath();
         //if the xml to be parsed has defined namespace
@@ -45,7 +44,7 @@ public class XpathTest {
         System.out.println("length of node:" + nodes.getLength());
         for (int i = 0; i < nodes.getLength(); i++) {
             Element eElement = (Element) nodes.item(i);
-        	System.out.println(nodes.item(i).getNodeName());
+            System.out.println(nodes.item(i).getNodeName());
 //            System.out.println(nodes.item(i).getNodeValue());
             System.out.println("title:" + eElement.getElementsByTagName("title").item(0).getTextContent());
             System.out.println("price:" + eElement.getElementsByTagName("price").item(0).getTextContent());
@@ -64,6 +63,7 @@ class CustomNamespaceContext implements NamespaceContext {
                 return "http://www.tibco.com/cdc/liugang/tg";
             case "df":
                 return "http://www.tibco.com/cdc/liugang";
+            default:
         }
         //eclipse IDE error can be ignored
         return XMLConstants.NULL_NS_URI;

@@ -17,15 +17,15 @@ import java.util.Set;
  * Time: 20:16
  */
 public class MultiPortEcho {
-    private int ports[];
+    private int[] ports;
     private ByteBuffer echoBuffer = ByteBuffer.allocate(1024);
 
-    private MultiPortEcho(int ports[]) throws IOException {
+    private MultiPortEcho(int[] ports) throws IOException {
         this.ports = ports;
-        configure_selector();
+        configureSelector();
     }
 
-    private void configure_selector() throws IOException {
+    private void configureSelector() throws IOException {
         // Create a new selector
         Selector selector = Selector.open();
 
@@ -69,13 +69,13 @@ public class MultiPortEcho {
                     int bytesEchoed = 0;
                     while (true) {
                         echoBuffer.clear();
-                        int number_of_bytes = sc.read(echoBuffer);
-                        if (number_of_bytes <= 0) {
+                        int bytesNum = sc.read(echoBuffer);
+                        if (bytesNum <= 0) {
                             break;
                         }
                         echoBuffer.flip();
                         sc.write(echoBuffer);
-                        bytesEchoed += number_of_bytes;
+                        bytesEchoed += bytesNum;
                     }
                     System.out.println("Echoed " + bytesEchoed + " from " + sc);
                     it.remove();
@@ -84,12 +84,12 @@ public class MultiPortEcho {
         }
     }
 
-    static public void main(String args[]) throws Exception {
+    static public void main(String[] args) throws Exception {
         if (args.length <= 0) {
             System.err.println("Usage: java MultiPortEcho port [port port ...]");
             System.exit(1);
         }
-        int ports[] = new int[args.length];
+        int[] ports = new int[args.length];
         for (int i = 0; i < args.length; ++i) {
             ports[i] = Integer.parseInt(args[i]);
         }

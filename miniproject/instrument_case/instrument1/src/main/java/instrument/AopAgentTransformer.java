@@ -29,8 +29,8 @@ public class AopAgentTransformer implements ClassFileTransformer {
 
             cl = pool.makeClass(new ByteArrayInputStream(classfileBuffer));
 
-            CtMethod aop_method = pool.get("instrument.AopAgentTest").getDeclaredMethod("premain");
-            System.out.println(aop_method.getLongName());
+            CtMethod aopMethod = pool.get("instrument.AopAgentTest").getDeclaredMethod("premain");
+            System.out.println(aopMethod.getLongName());
 
 //            CodeConverter convert = new CodeConverter();
 
@@ -38,7 +38,7 @@ public class AopAgentTransformer implements ClassFileTransformer {
                 CtMethod[] methods = cl.getDeclaredMethods();
                 for (CtMethod method : methods) {
                     if (!method.isEmpty()) {
-                        AOPInsertMethod(method);
+                        aopInsertMethod(method);
                     }
                 }
                 transformed = cl.toBytecode();
@@ -53,7 +53,7 @@ public class AopAgentTransformer implements ClassFileTransformer {
         return transformed;
     }
 
-    private void AOPInsertMethod(CtMethod method) throws NotFoundException, CannotCompileException {
+    private void aopInsertMethod(CtMethod method) throws NotFoundException, CannotCompileException {
         //situation 1:添加监控时间
         method.instrument(new ExprEditor() {
             @Override

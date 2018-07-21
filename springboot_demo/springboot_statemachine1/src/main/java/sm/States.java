@@ -6,6 +6,7 @@ package sm;
  * Time: 0:53
  */
 public enum States {
+    //
     S0,
     S1,
     S2

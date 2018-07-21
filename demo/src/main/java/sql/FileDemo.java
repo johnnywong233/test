@@ -41,14 +41,14 @@ public class FileDemo {
 //			InputStream  is = new FileInputStream(file);
             FileInputStream fis = new FileInputStream(file);
             //Create PreparedStatement and stream data
-            String SQL = "INSERT INTO XML_Data VALUES (?,?)";
-            pstmt = conn.prepareStatement(SQL);
+            String sql = "INSERT INTO XML_Data VALUES (?,?)";
+            pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, 100);
             pstmt.setAsciiStream(2, fis, (int) fileLength);
             pstmt.execute();
             fis.close();
-            SQL = "SELECT Data FROM XML_Data WHERE id=100";
-            rs = stmt.executeQuery(SQL);
+            sql = "SELECT Data FROM XML_Data WHERE id=100";
+            rs = stmt.executeQuery(sql);
             // Get the first row
             if (rs.next()) {
                 //Retrieve data from input stream

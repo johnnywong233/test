@@ -52,16 +52,17 @@ public class CrawlerUtil {
         HttpURLConnection httpUrl = null;
         URL url;
         String uuid = UUID.randomUUID().toString();
-        String fileAddress = saveUrl + uuid;// 存储本地文件地址
-        int BUFFER_SIZE = 1024;
-        byte[] buf = new byte[BUFFER_SIZE];
+        // 存储本地文件地址
+        String fileAddress = saveUrl + uuid;
+        int bufferSize = 1024;
+        byte[] buf = new byte[bufferSize];
         int size;
         try {
             url = new URL(destUrl);
             httpUrl = (HttpURLConnection) url.openConnection();
             httpUrl.connect();
-            String Type = httpUrl.getHeaderField("Content-Type");
-            switch (Type) {
+            String type = httpUrl.getHeaderField("Content-Type");
+            switch (type) {
                 case "image/gif":
                     fileAddress += ".gif";
                     break;
@@ -86,9 +87,15 @@ public class CrawlerUtil {
             e.printStackTrace();
         } finally {
             try {
-                fos.close();
-                bis.close();
-                httpUrl.disconnect();
+                if (fos != null) {
+                    fos.close();
+                }
+                if (bis != null) {
+                    bis.close();
+                }
+                if (httpUrl != null) {
+                    httpUrl.disconnect();
+                }
             } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             }

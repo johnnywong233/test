@@ -11,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
  * 缺点：其单例对象不是懒加载，而是在枚举类被加载的时候进行初始化的。
  */
 public enum SingletonEnum {
+    //
     INSTANCE;
 
     public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {

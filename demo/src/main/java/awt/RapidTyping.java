@@ -1,5 +1,7 @@
 package awt;
 
+import lombok.Data;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -8,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.Dimension;
@@ -19,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.util.Random;
 import java.util.Vector;
 
 /**
@@ -38,26 +42,24 @@ public class RapidTyping extends JFrame implements Runnable {
     private int count = 1, rapidity = 5; // count 当前进行的个数, rapidity 游标的位置
     private int zhengque = 0, cuowu = 0;
     private int rush[] = {10, 20, 30}; // 游戏每关的个数 可以自由添加
-    private int rush_count = 0; // 记录关数
-    private char list[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+    private int rushCount = 0; // 记录关数
+    private char[] list = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; // 随机出现的数字
     // 可以自由添加
     private Vector number = new Vector();
     private String paiduan = "true";
-    private AudioClip Musci_anjian, Music_shibai, Music_chenggong;
+    private AudioClip musicClick, musicFail, musicSuccess;
 
     private RapidTyping() {
         try {
-            setDefaultCloseOperation(EXIT_ON_CLOSE);
-            // -----------------声音文件---------------------
-            Musci_anjian = Applet.newAudioClip(new File("sounds//anjian.wav")
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            musicClick = Applet.newAudioClip(new File("sounds//anjian.wav")
                     .toURL());
-            Music_shibai = Applet.newAudioClip(new File("sounds//shibai.wav")
+            musicFail = Applet.newAudioClip(new File("sounds//shibai.wav")
                     .toURL());
-            Music_chenggong = Applet.newAudioClip(new File(
+            musicSuccess = Applet.newAudioClip(new File(
                     "sounds//chenggong.wav").toURL());
-            // ---------------------------------------
             jbInit();
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -77,7 +79,7 @@ public class RapidTyping extends JFrame implements Runnable {
         jPanel1.setLayout(null);
         jButton1.setBounds(new Rectangle(277, 442, 89, 31));
         jButton1.setText("开始");
-        jButton1.addActionListener(new Frame1_jButton1_actionAdapter(this));
+        jButton1.addActionListener(new ActionAdapter(this));
         jSlider1.setBounds(new Rectangle(83, 448, 164, 21));
         jSlider1.setMaximum(100);
         jSlider1.setMinimum(0);
@@ -86,7 +88,7 @@ public class RapidTyping extends JFrame implements Runnable {
         jLabel1.setBounds(new Rectangle(35, 451, 39, 18));
         jButton2.setBounds(new Rectangle(408, 442, 89, 31));
         jButton2.setText("结束");
-        jButton2.addActionListener(new Frame1_jButton2_actionAdapter(this));
+        jButton2.addActionListener(new ActionAdapter2(this));
         jLabel2.setText("第一关:10个");
         jLabel2.setBounds(new Rectangle(414, 473, 171, 21));
         contentPane.add(jPanel1);
@@ -110,7 +112,7 @@ public class RapidTyping extends JFrame implements Runnable {
         zhengque = 0;
         cuowu = 0;
         paiduan = "true";
-        while (count <= rush[rush_count]) {
+        while (count <= rush[rushCount]) {
             try {
                 Thread t = new Thread(new Tthread());
                 t.start();
@@ -133,8 +135,8 @@ public class RapidTyping extends JFrame implements Runnable {
         if ("true".equals(paiduan)) { // 判断是否是自然结束
             if (cuowu <= 2) { // 错误不超过2个的过关
                 JOptionPane.showMessageDialog(null, "恭喜你过关了");
-                rush_count += 1; // 自动加1关
-                if (rush_count < rush.length) {
+                rushCount += 1; // 自动加1关
+                if (rushCount < rush.length) {
                     if (rapidity > 10) { // 当速度大于10的时候在-5提加速度.怕速度太快
                         rapidity -= 5; // 速度自动减10毫秒
                         jSlider1.setValue(rapidity); // 选择位置
@@ -143,28 +145,28 @@ public class RapidTyping extends JFrame implements Runnable {
                     t.start();
                 } else {
                     JOptionPane.showMessageDialog(null, "牛B...你通关了..");
-                    rush_count = 0;
+                    rushCount = 0;
                     count = 0;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "请再接再励");
-                rush_count = 0;
+                rushCount = 0;
                 count = 0;
             }
         } else {
-            rush_count = 0;
+            rushCount = 0;
             count = 0;
         }
     }
 
-    void jButton1_actionPerformed(ActionEvent e) {
+    void actionPerformed1(ActionEvent e) {
         Thread t = new Thread(this);
         t.start();
     }
 
-    void jButton2_actionPerformed(ActionEvent e) {
-        count = rush[rush_count] + 1;
-        paiduan = "flase";
+    void actionPerformed2(ActionEvent e) {
+        count = rush[rushCount] + 1;
+        paiduan = "false";
     }
 
     /**
@@ -174,11 +176,12 @@ public class RapidTyping extends JFrame implements Runnable {
         @Override
         public void run() {
             boolean fo = true;
-            int Y = 0, X = 0;
+            int y = 0, x;
             JLabel show = new JLabel();
             show.setFont(new java.awt.Font("宋体", Font.PLAIN, 33));
             jPanel1.add(show);
-            X = 10 + (int) (Math.random() * 400);
+            Random random = new Random();
+            x = 10 + (random.nextInt(400));
             String parameter = list[(int) (Math.random() * list.length)] + "";
             Bean bean = new Bean();
             bean.setParameter(parameter);
@@ -187,22 +190,21 @@ public class RapidTyping extends JFrame implements Runnable {
             show.setText(parameter);
             while (fo) {
                 // ---------------------字符下移--------------------
-                show.setBounds(new Rectangle(X, Y += 2, 33, 33));
+                show.setBounds(new Rectangle(x, y += 2, 33, 33));
                 try {
                     Thread.sleep(rapidity);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (Y >= 419) {
+                if (y >= 419) {
                     fo = false;
                     for (int i = number.size() - 1; i >= 0; i--) {
                         Bean bn = ((Bean) number.get(i));
                         if (parameter.equalsIgnoreCase(bn.getParameter())) {
                             cuowu += 1;
-                            jLabel2.setText("正确:" + zhengque + "个,错误:" + cuowu
-                                    + "个");
+                            jLabel2.setText("正确:" + zhengque + "个,错误:" + cuowu + "个");
                             number.removeElementAt(i);
-                            Music_shibai.play();
+                            musicFail.play();
                             break;
                         }
                     }
@@ -225,11 +227,11 @@ public class RapidTyping extends JFrame implements Runnable {
                     number.removeElementAt(i);
                     bean.getShow().setVisible(false);
                     jLabel2.setText("正确:" + zhengque + "个,错误:" + cuowu + "个");
-                    Music_chenggong.play();
+                    musicSuccess.play();
                     break;
                 }
             }
-            Musci_anjian.play();
+            musicClick.play();
         }
     }
 
@@ -257,30 +259,30 @@ public class RapidTyping extends JFrame implements Runnable {
 }
 
 
-class Frame1_jButton2_actionAdapter implements ActionListener {
+class ActionAdapter2 implements ActionListener {
     private RapidTyping adaptee;
 
-    Frame1_jButton2_actionAdapter(RapidTyping adaptee) {
+    ActionAdapter2(RapidTyping adaptee) {
         this.adaptee = adaptee;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton2_actionPerformed(e);
+        adaptee.actionPerformed2(e);
     }
 }
 
 
-class Frame1_jButton1_actionAdapter implements ActionListener {
+class ActionAdapter implements ActionListener {
     private RapidTyping adaptee;
 
-    Frame1_jButton1_actionAdapter(RapidTyping adaptee) {
+    ActionAdapter(RapidTyping adaptee) {
         this.adaptee = adaptee;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        adaptee.jButton1_actionPerformed(e);
+        adaptee.actionPerformed1(e);
     }
 }
 
@@ -288,23 +290,8 @@ class Frame1_jButton1_actionAdapter implements ActionListener {
 /**
  * 下落的字符类
  */
+@Data
 class Bean {
     private String parameter = null;
     private JLabel show = null;
-
-    public JLabel getShow() {
-        return show;
-    }
-
-    public void setShow(JLabel show) {
-        this.show = show;
-    }
-
-    public String getParameter() {
-        return parameter;
-    }
-
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
-    }
 }

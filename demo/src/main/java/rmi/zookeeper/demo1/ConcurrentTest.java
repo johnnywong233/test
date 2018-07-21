@@ -70,13 +70,13 @@ public class ConcurrentTest {
      */
     private void getExeTime() {
         int size = list.size();
-        List<Long> _list = new ArrayList<>(size);
-        _list.addAll(list);
-        Collections.sort(_list);
-        long min = _list.get(0);
-        long max = _list.get(size - 1);
+        List<Long> newList = new ArrayList<>(size);
+        newList.addAll(list);
+        Collections.sort(newList);
+        long min = newList.get(0);
+        long max = newList.get(size - 1);
         long sum = 0L;
-        for (Long t : _list) {
+        for (Long t : newList) {
             sum += t;
         }
         long avg = sum / size;

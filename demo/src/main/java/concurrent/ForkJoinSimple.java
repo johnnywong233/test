@@ -12,20 +12,18 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * https://www.ibm.com/developerworks/cn/java/j-lo-forkjoin/
+ */
 public class ForkJoinSimple {
-    /*
-     * https://www.ibm.com/developerworks/cn/java/j-lo-forkjoin/
-	 * ����
-	 */
-
-    private static final int NARRAY = 16; //For demo only
-    long[] array = new long[NARRAY];
-    Random rand = new Random();
+    private static final int NARRAY = 16;
+    private long[] array = new long[NARRAY];
+    private Random rand = new Random();
 
     @Before
     public void setUp() {
         for (int i = 0; i < array.length; i++) {
-            array[i] = rand.nextLong() % 100; //For demo only
+            array[i] = rand.nextLong() % 100;
         }
         System.out.println("Initial Array: " + Arrays.toString(array));
     }
@@ -34,16 +32,16 @@ public class ForkJoinSimple {
     @Test
     public void testSort() throws Exception {
         ForkJoinTask sort = new SortTask(array);
-        ForkJoinPool fjpool = new ForkJoinPool();
-        fjpool.submit(sort);
-        fjpool.shutdown();
+        ForkJoinPool pool = new ForkJoinPool();
+        pool.submit(sort);
+        pool.shutdown();
 
-        fjpool.awaitTermination(30, TimeUnit.SECONDS);
+        pool.awaitTermination(30, TimeUnit.SECONDS);
 
         assertTrue(checkSorted(array));
     }
 
-    boolean checkSorted(long[] a) {
+    private boolean checkSorted(long[] a) {
         for (int i = 0; i < a.length - 1; i++) {
             if (a[i] > (a[i + 1])) {
                 return false;
@@ -55,10 +53,9 @@ public class ForkJoinSimple {
 
 @SuppressWarnings("serial")
 class SortTask extends RecursiveAction {
-    final long[] array;
-    final int lo;
-    final int hi;
-    private int THRESHOLD = 0; //For demo only
+    private final long[] array;
+    private final int lo;
+    private final int hi;
 
     public SortTask(long[] array) {
         this.array = array;
@@ -74,7 +71,8 @@ class SortTask extends RecursiveAction {
 
     @Override
     protected void compute() {
-        if (hi - lo < THRESHOLD) {
+        int threshold = 0;
+        if (hi - lo < threshold) {
             sequentiallySort(array, lo, hi);
         } else {
             int pivot = partition(array, lo, hi);
