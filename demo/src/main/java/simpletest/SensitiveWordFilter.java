@@ -57,7 +57,8 @@ public class SensitiveWordFilter {
             int length = checkSensitiveWord(txt, i, matchType);
             if (length > 0) {
                 sensitiveWordList.add(txt.substring(i, i + length));
-                i = i + length - 1;//减1的原因，是因为for会自增
+                //减1的原因，是因为for会自增
+                i = i + length - 1;
             }
         }
         return sensitiveWordList;
@@ -95,8 +96,8 @@ public class SensitiveWordFilter {
 
     /**
      * 检查文字中是否包含敏感字符，检查规则如下：<br>
-     *
-     * @return，如果存在，则返回敏感词字符的长度，不存在返回0
+     * <p>
+     * return: 如果存在，则返回敏感词字符的长度，不存在返回0
      */
     private int checkSensitiveWord(String txt, int beginIndex, int matchType) {
         boolean flag = false;    //敏感词结束标识位：用于敏感词只有1位的情况
@@ -196,29 +197,33 @@ class SensitiveWordInit {
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
     private void addSensitiveWordToHashMap(Set<String> keyWordSet) {
-        sensitiveWordMap = new HashMap(keyWordSet.size());     //初始化敏感词容器，减少扩容操作
+        //初始化敏感词容器，减少扩容操作
+        sensitiveWordMap = new HashMap(keyWordSet.size());
         String key;
         Map nowMap;
         Map<String, String> newWorMap;
         //迭代keyWordSet
         for (String aKeyWordSet : keyWordSet) {
-            key = aKeyWordSet;    //关键字
+            key = aKeyWordSet;
             nowMap = sensitiveWordMap;
             for (int i = 0; i < key.length(); i++) {
-                char keyChar = key.charAt(i);       //转换成char型
-                Object wordMap = nowMap.get(keyChar);       //获取
+                char keyChar = key.charAt(i);
+                Object wordMap = nowMap.get(keyChar);
 
-                if (wordMap != null) {        //如果存在该key，直接赋值
+                if (wordMap != null) {
                     nowMap = (Map) wordMap;
-                } else {     //不存在则，则构建一个map，同时将isEnd设置为0，因为他不是最后一个
-                    newWorMap = new HashMap<>();
-                    newWorMap.put("isEnd", "0");     //不是最后一个
+                } else {
+                    //不存在则，则构建一个map，同时将isEnd设置为0，因为他不是最后一个
+                    newWorMap = new HashMap<>(1);
+                    //不是最后一个
+                    newWorMap.put("isEnd", "0");
                     nowMap.put(keyChar, newWorMap);
                     nowMap = newWorMap;
                 }
 
                 if (i == key.length() - 1) {
-                    nowMap.put("isEnd", "1");    //最后一个
+                    //最后一个
+                    nowMap.put("isEnd", "1");
                 }
             }
         }
@@ -237,7 +242,8 @@ class SensitiveWordInit {
                 set = new HashSet<>();
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String txt;
-                while ((txt = bufferedReader.readLine()) != null) {    //读取文件，将文件内容放入到set中
+                while ((txt = bufferedReader.readLine()) != null) {
+                    //读取文件，将文件内容放入到set中
                     set.add(txt);
                 }
             } else {         //不存在抛出异常信息

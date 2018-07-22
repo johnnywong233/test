@@ -2,8 +2,25 @@ package project.game.fiveChess;
 
 import lombok.Data;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.RadialGradientPaint;
+import java.awt.RenderingHints;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -144,7 +161,7 @@ class ChessBoard extends JPanel implements MouseListener {
 
     ChessBoard() {
         // setBackground(Color.blue);
-        img = Toolkit.getDefaultToolkit().getImage("board.jpg");//so where is this jpg?
+        img = Toolkit.getDefaultToolkit().getImage("board.jpg");
         addMouseListener(this);
         addMouseMotionListener(new MouseMotionListener() {
             @Override
@@ -180,17 +197,19 @@ class ChessBoard extends JPanel implements MouseListener {
 
         int imgWidth = img.getWidth(this);
         int imgHeight = img.getHeight(this);//获得图片的宽度与高度
-        int FWidth = getWidth();
-        int FHeight = getHeight();//获得窗口的宽度与高度
-        int x = (FWidth - imgWidth) / 2;
-        int y = (FHeight - imgHeight) / 2;
+        int width = getWidth();
+        int height = getHeight();//获得窗口的宽度与高度
+        int x = (width - imgWidth) / 2;
+        int y = (height - imgHeight) / 2;
         g.drawImage(img, x, y, null);
 
 
-        for (int i = 0; i <= ROWS; i++) {//画横线
+        //画横线
+        for (int i = 0; i <= ROWS; i++) {
             g.drawLine(MARGIN, MARGIN + i * GRID_SPAN, MARGIN + COLS * GRID_SPAN, MARGIN + i * GRID_SPAN);
         }
-        for (int i = 0; i <= COLS; i++) {//画竖线
+        //画竖线
+        for (int i = 0; i <= COLS; i++) {
             g.drawLine(MARGIN + i * GRID_SPAN, MARGIN, MARGIN + i * GRID_SPAN, MARGIN + ROWS * GRID_SPAN);
 
         }
@@ -200,7 +219,8 @@ class ChessBoard extends JPanel implements MouseListener {
             //网格交叉点x，y坐标
             int xPos = chessList[i].getX() * GRID_SPAN + MARGIN;
             int yPos = chessList[i].getY() * GRID_SPAN + MARGIN;
-            g.setColor(chessList[i].getColor());//设置颜色
+            //设置颜色
+            g.setColor(chessList[i].getColor());
             // g.fillOval(xPos-Point.DIAMETER/2, yPos-Point.DIAMETER/2,
             //Point.DIAMETER, Point.DIAMETER);
             //g.drawImage(shadows, xPos-Point.DIAMETER/2, yPos-Point.DIAMETER/2, Point.DIAMETER, Point.DIAMETER, null);

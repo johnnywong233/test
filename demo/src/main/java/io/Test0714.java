@@ -7,7 +7,7 @@ import java.net.URLConnection;
 
 public class Test0714 {
 
-    /*
+    /**
      * from 261 java problems PDF book, 7.14
      */
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class Test0714 {
             String file = url.getFile();
             String name = file.substring(file.lastIndexOf('/') + 1);
             System.out.println(name);
-            FileOutputStream fos = new FileOutputStream("C:\\Users\\wajian\\Documents\\Test\\" + name);
+            FileOutputStream fos = new FileOutputStream(name);
             byte[] buf = new byte[1024];
             int size;
             while ((size = is.read(buf)) != -1) {

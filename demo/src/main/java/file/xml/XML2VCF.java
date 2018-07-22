@@ -5,6 +5,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,8 +17,8 @@ public class XML2VCF {
         SAXReader reader = new SAXReader();
         Document document = null;
         try {
-            document = reader.read(new File("C:\\work\\test_git\\test\\demo\\src\\test\\resources\\Contact.xml"));
-        } catch (DocumentException e) {
+            document = reader.read(new ClassPathResource("Contact.xml").getFile());
+        } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
 
@@ -26,8 +27,6 @@ public class XML2VCF {
             root = document.getRootElement();
         }
 
-        //TODO
-        //不搞定多节点，还是不懂xml解析。
         // contact List
         List<?> contacts = root.elements("Contact");
 
@@ -50,7 +49,7 @@ public class XML2VCF {
 
         // StringBuilder write into vcf file
         try {
-            FileUtils.writeStringToFile(new File("C:\\work\\test_git\\test\\demo\\src\\test\\resources\\test.vcf"), sb.toString(), "utf-8");
+            FileUtils.writeStringToFile(new File("test.vcf"), sb.toString(), "utf-8");
         } catch (IOException e) {
             e.printStackTrace();
         }

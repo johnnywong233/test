@@ -13,10 +13,10 @@ import java.util.Map;
  * Created by wajian on 2016/8/19.
  */
 public class JacksonTest {
-	//http://www.jb51.net/article/77970.htm
-	//http://www.jb51.net/article/77966.htm
+    //http://www.jb51.net/article/77970.htm
+    //http://www.jb51.net/article/77966.htm
     @SuppressWarnings("unchecked")
-	public static void main(String args[]){
+    public static void main(String args[]) {
 //        JacksonTest tester = new JacksonTest();
         try {
             JsonFactory jasonFactory = new JsonFactory();
@@ -53,7 +53,7 @@ public class JacksonTest {
             //  "marks":[100,90,85]
             //}
             ObjectMapper mapper = new ObjectMapper();
-            Map<String,Object> dataMap = mapper.readValue(new File("student.json"), Map.class);
+            Map<String, Object> dataMap = mapper.readValue(new File("student.json"), Map.class);
 
             System.out.println(dataMap.get("name"));
             System.out.println(dataMap.get("age"));

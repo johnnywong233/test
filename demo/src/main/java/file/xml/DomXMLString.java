@@ -32,7 +32,7 @@ public class DomXMLString {
     //remote WebService interface URL
     private static String NETDATA_URL = "http://webservice.webxml.com.cn/WebServices/WeatherWS.asmx/getRegionProvince";
     //the absolute path to save XML data get from remote WebService
-    private static String LOCAL_PC_SAVEFILE_URL = "C:/work/test/src/main/resources/netDataToLocalFile.xml";
+    private static String LOCAL_PC_SAVEFILE_URL = "netDataToLocalFile.xml";
 
     private DomXMLString() {
     }
@@ -42,7 +42,9 @@ public class DomXMLString {
         helloOK(document, LOCAL_PC_SAVEFILE_URL);
     }
 
-    //return Document object
+    /**
+     * return Document object
+     */
     private static Document getProvinceCode(String netXMLDataURL) {
         Document document;
         DocumentBuilderFactory documentBF = DocumentBuilderFactory.newInstance();
@@ -60,7 +62,9 @@ public class DomXMLString {
         return document;
     }
 
-    //return the InputStream object
+    /**
+     * return the InputStream object
+     */
     private static InputStream getSoapInputStream(String url) {
         InputStream inputStream = null;
         try {
@@ -76,15 +80,17 @@ public class DomXMLString {
         return inputStream;
     }
 
-    //save the XML format string get from remote WebService as local file 
-    private static void helloOK(Document document, String savaFileURL) {
+    /**
+     * save the XML format string get from remote WebService as local file
+     */
+    private static void helloOK(Document document, String saveFileURL) {
         TransformerFactory transF = TransformerFactory.newInstance();
         try {
             Transformer transformer = transF.newTransformer();
             DOMSource source = new DOMSource(document);
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             transformer.setOutputProperty(OutputKeys.INDENT, "YES");
-            PrintWriter pw = new PrintWriter(new FileOutputStream(savaFileURL));
+            PrintWriter pw = new PrintWriter(new FileOutputStream(saveFileURL));
             StreamResult result = new StreamResult(pw);
             transformer.transform(source, result);
             System.out.println("generate xml file succeed!");
