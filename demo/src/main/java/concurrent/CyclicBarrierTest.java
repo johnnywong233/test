@@ -5,13 +5,12 @@ import java.util.concurrent.CyclicBarrier;
 
 public class CyclicBarrierTest {
     public static void main(String[] args) {
-        int N = 4;
-        CyclicBarrier barrier = new CyclicBarrier(N, () -> {
+        int num = 4;
+        CyclicBarrier barrier = new CyclicBarrier(num, () -> {
             System.out.println("current " + Thread.currentThread().getName());
-            //���ĸ��̶߳�����barrier״̬�󣬻���ĸ��߳���ѡ��һ���߳�ȥִ��Runnable��
         });
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < num; i++) {
             new Writer(barrier).start();
         }
     }
@@ -19,7 +18,7 @@ public class CyclicBarrierTest {
     static class Writer extends Thread {
         private CyclicBarrier cyclicBarrier;
 
-        public Writer(CyclicBarrier cyclicBarrier) {
+        Writer(CyclicBarrier cyclicBarrier) {
             this.cyclicBarrier = cyclicBarrier;
         }
 

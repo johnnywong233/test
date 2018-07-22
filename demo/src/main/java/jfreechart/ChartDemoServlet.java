@@ -121,7 +121,8 @@ public class ChartDemoServlet extends HttpServlet {
         chart.getLegend().setItemFont(new java.awt.Font("黑体", Font.BOLD, 15));
         //获得renderer
         LineAndShapeRenderer lineAndShapeRenderer = (LineAndShapeRenderer) catplot.getRenderer();
-        lineAndShapeRenderer.setShapesVisible(true); //series 点（即数据点）可见
+        //series 点（即数据点）可见
+        lineAndShapeRenderer.setBaseShapesVisible(true);
      /*
      lineAndShapeRenderer.setSeriesStroke(0, new BasicStroke(2.0F, 1, 1, 1.0F, new float[] {
        10F, 6F

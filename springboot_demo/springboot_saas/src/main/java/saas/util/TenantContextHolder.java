@@ -8,19 +8,18 @@ import org.springframework.util.Assert;
  * Time: 0:07
  */
 public class TenantContextHolder {
-    private static final ThreadLocal<String> contextHolder =
-            new ThreadLocal<>();
+    private static final ThreadLocal<String> CONTEXT_HOLDER = new ThreadLocal<>();
 
     public static void setBusinessName(String businessName) {
         Assert.notNull(businessName, "businessName cannot be null");
-        contextHolder.set(businessName);
+        CONTEXT_HOLDER.set(businessName);
     }
 
     public static String getBusinessName() {
-        return contextHolder.get();
+        return CONTEXT_HOLDER.get();
     }
 
     public static void clearBusinessName() {
-        contextHolder.remove();
+        CONTEXT_HOLDER.remove();
     }
 }

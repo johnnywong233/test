@@ -1,20 +1,21 @@
 package project.mvcDemo.util;
 
-import java.awt.*;
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public final class CommonUtil {
-    private static final List<String> patterns = new ArrayList<>();
-    private static final List<TypeConverter> converters = new ArrayList<>();
+    private static final List<String> PATTERN = new ArrayList<>();
+    private static final List<TypeConverter> CONVERTERS = new ArrayList<>();
 
     static {
-        patterns.add("yyyy-MM-dd");
-        patterns.add("yyyy-MM-dd HH:mm:ss");
+        PATTERN.add("yyyy-MM-dd");
+        PATTERN.add("yyyy-MM-dd HH:mm:ss");
     }
 
     private CommonUtil() {
@@ -40,9 +41,11 @@ public final class CommonUtil {
      * 生成随机颜色
      */
     public static Color getRandomColor() {
-        int r = (int) (Math.random() * 256);
-        int g = (int) (Math.random() * 256);
-        int b = (int) (Math.random() * 256);
+        Random random = new Random();
+
+        int r = random.nextInt(256);
+        int g = random.nextInt(256);
+        int b = random.nextInt(256);
         return new Color(r, g, b);
     }
 
@@ -52,7 +55,7 @@ public final class CommonUtil {
      * @param pattern 时间日期样式
      */
     public static void registerDateTimePattern(String pattern) {
-        patterns.add(pattern);
+        PATTERN.add(pattern);
     }
 
     /**
@@ -61,7 +64,7 @@ public final class CommonUtil {
      * @param pattern 时间日期样式
      */
     public static void unRegisterDateTimePattern(String pattern) {
-        patterns.remove(pattern);
+        PATTERN.remove(pattern);
     }
 
     /**
@@ -70,7 +73,7 @@ public final class CommonUtil {
      * @param converter 类型转换器对象
      */
     public static void registerTypeConverter(TypeConverter converter) {
-        converters.add(converter);
+        CONVERTERS.add(converter);
     }
 
     /**
@@ -79,7 +82,7 @@ public final class CommonUtil {
      * @param converter 类型转换器对象
      */
     public static void unRegisterTypeConverter(TypeConverter converter) {
-        converters.remove(converter);
+        CONVERTERS.remove(converter);
     }
 
     /**
@@ -87,9 +90,9 @@ public final class CommonUtil {
      *
      * @param str 时间日期字符串
      */
-    public static Date convertStringToDateTime(String str) {
+    private static Date convertStringToDateTime(String str) {
         if (str != null) {
-            for (String pattern : patterns) {
+            for (String pattern : PATTERN) {
                 Date date = tryConvertStringToDate(str, pattern);
 
                 if (date != null) {
@@ -113,7 +116,8 @@ public final class CommonUtil {
 
     private static Date tryConvertStringToDate(String str, String pattern) {
         DateFormat dateFormat = new SimpleDateFormat(pattern);
-        dateFormat.setLenient(false);    // 不允许将不符合样式的字符串转换成时间日期
+        // 不允许将不符合样式的字符串转换成时间日期
+        dateFormat.setLenient(false);
 
         try {
             return dateFormat.parse(str);
@@ -151,7 +155,7 @@ public final class CommonUtil {
         } else if (elemType == java.lang.String.class) {
             tempObj = value;
         } else {
-            for (TypeConverter converter : converters) {
+            for (TypeConverter converter : CONVERTERS) {
                 try {
                     tempObj = converter.convert(elemType, value);
                     if (tempObj != null) {

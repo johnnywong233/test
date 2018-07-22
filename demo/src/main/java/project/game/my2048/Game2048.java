@@ -365,6 +365,7 @@ public class Game2048 extends JPanel {
                     return new Color(0xedc53f);
                 case 2048:
                     return new Color(0xedc22e);
+                default:
             }
             return new Color(0xcdc1b4);
         }

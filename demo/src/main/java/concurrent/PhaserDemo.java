@@ -12,11 +12,11 @@ public class PhaserDemo {
     public static void main(String[] args) throws Exception {
 
         //9.   创建新的有3个参与者的 Phaser 对象，名为 phaser。
-        final Integer N = 3;
-        Phaser phaser = new Phaser(N);
+        final Integer num = 3;
+        Phaser phaser = new Phaser(num);
 
         //10. 创建并运行3个线程来执行3个task对象。
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < num; i++) {
             MyTask task = new MyTask(i + 1, phaser);
             Thread thread = new Thread(task);
             thread.start();
@@ -26,13 +26,11 @@ public class PhaserDemo {
         for (int i = 0; i < 10; i++) {
 
             //12. 写关于 registered parties 的信息，phaser的phase，到达的parties, 和未到达的parties 的信息。
-            System.out.printf("********************\n");
             System.out.printf("Main: Phaser Log\n");
             System.out.printf("Main: Phaser: Phase: %d\n", phaser.getPhase());
             System.out.printf("Main: Phaser: Registered Parties:%d\n", phaser.getRegisteredParties());
             System.out.printf("Main: Phaser: Arrived Parties:%d\n", phaser.getArrivedParties());
             System.out.printf("Main: Phaser: Unarrived Parties:%d\n", phaser.getUnarrivedParties());
-            System.out.printf("********************\n");
 
             //合上类的循环
             TimeUnit.SECONDS.sleep(1);

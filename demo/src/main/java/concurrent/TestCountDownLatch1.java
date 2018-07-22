@@ -5,29 +5,28 @@ import java.util.concurrent.CountDownLatch;
 public class TestCountDownLatch1 {
     private static final int N = 10;
 
-    /*
-     * http://janeky.iteye.com/blog/769965  �Ż�֮��Ĵ���
-     * ��������Ҫ��ӡ1-100������������Ok����1-100�Ĵ�ӡ˳��Ҫ��ͳһ��ֻ�豣֤��Ok�����������ּ��ɡ�
+    /**
+     * http://janeky.iteye.com/blog/769965
      */
     public static void main(String[] args) throws InterruptedException {
-        CountDownLatch Signal = new CountDownLatch(N);
+        CountDownLatch signal = new CountDownLatch(N);
         System.out.println("begin------------");
 
         for (int i = 1; i <= N; i++) {
-            new Thread(new Worker(i, Signal)).start();
+            new Thread(new Worker(i, signal)).start();
         }
 
-        Signal.await();
+        signal.await();
         System.out.println("-------------Ok");
     }
 
     static class Worker implements Runnable {
-        private final CountDownLatch Signal;
+        private final CountDownLatch signal;
         private int beginIndex;
 
-        Worker(int beginIndex, CountDownLatch Signal) {
+        Worker(int beginIndex, CountDownLatch signal) {
             this.beginIndex = beginIndex;
-            this.Signal = Signal;
+            this.signal = signal;
         }
 
         @Override
@@ -38,7 +37,7 @@ public class TestCountDownLatch1 {
                     System.out.println(i);
                 }
             } finally {
-                Signal.countDown();
+                signal.countDown();
             }
         }
     }

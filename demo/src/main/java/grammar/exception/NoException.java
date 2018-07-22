@@ -1,16 +1,15 @@
 package grammar.exception;
 
 public class NoException {
-	/*
+	/**
 	 * http://qing0991.blog.51cto.com/1640542/1387200
 	 */
 	public static void main(String[] args) {
         System.out.println("=============NoException==================");
-        System.out.println(NoException());
-        System.out.println("===============================");   
+        System.out.println(noException());
 	}
 	
-	public static int NoException(){
+	public static int noException(){
         int i=10;
         try{
           System.out.println("i in try block is��"+i);
@@ -27,7 +26,7 @@ public class NoException {
         }  
 	}
 
-	public static int NoException1(){
+	public static int noException1(){
         int i=10;
         try{
             System.out.println("i in try block is��"+i);
@@ -47,7 +46,7 @@ public class NoException {
 	}
 	
 	@SuppressWarnings("finally")
-	public static int WithException(){
+	public static int withException(){
         int i=10;
         try{
             System.out.println("i in try block is��"+i);
@@ -69,7 +68,7 @@ public class NoException {
 	}
 	
 	
-	public static int WithException1(){
+	public static int withException1(){
         int i=10;
         try{
             System.out.println("i in try block is��"+i);
@@ -88,7 +87,7 @@ public class NoException {
 	}
 	
 	@SuppressWarnings("finally")
-	public static int WithException2(){
+	public static int withException2(){
         int i=10;
         try{
             System.out.println("i in try block is��"+i);
@@ -110,7 +109,7 @@ public class NoException {
 	}
 	
 	
-	public static int WithException3(){
+	public static int withException3(){
         int i=10;
         try{
             System.out.println("i in try block is��"+i);

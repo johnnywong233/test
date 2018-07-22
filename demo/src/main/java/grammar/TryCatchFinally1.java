@@ -11,10 +11,10 @@ package grammar;
 
 public class TryCatchFinally1 {
     public static void main(String[] args) {
-        System.out.println(new TryCatchFinally1().test());
+        System.out.println(TryCatchFinally1.test());
     }
 
-    static int test() {
+    private static int test() {
         int x = 1;
         try {
             return x;

@@ -17,15 +17,15 @@ import java.util.Set;
 @Primary
 @Service("userService")
 public class UserServiceImpl implements UserService {
-    private final static Set<User> users = new HashSet<>();
+    private final static Set<User> USERS = new HashSet<>();
 
     static {
-        users.add(new User(1, "test-user1", "123451"));
+        USERS.add(new User(1, "test-user1", "123451"));
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> userWrapper = users.stream()
+        Optional<User> userWrapper = USERS.stream()
                 .filter((u) -> u.getName().equals(s))
                 .findFirst();
         if (!userWrapper.isPresent()) {

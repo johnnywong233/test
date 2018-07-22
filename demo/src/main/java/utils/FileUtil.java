@@ -110,9 +110,9 @@ public class FileUtil {
         //convert time to date, and format it
         Date d = new Date(time);
         DateFormat format = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
-        String str_time = format.format(d);
-        System.out.println(str_time);
-        return str_time;
+        String strTime = format.format(d);
+        System.out.println(strTime);
+        return strTime;
     }
 
     public static FilenameFilter fileSuffixNameFilter(String suffix) throws Exception {

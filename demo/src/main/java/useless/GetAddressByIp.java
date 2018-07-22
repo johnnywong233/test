@@ -18,11 +18,11 @@ public class GetAddressByIp {
         System.out.println(GetAddressByIp.getAddressByIp("60.214.183.158"));//60.214.183.158 //120.192.182.1
     }
 
-    private static String getAddressByIp(String IP) {
+    private static String getAddressByIp(String ip) {
         String result;
         try {
             //https not working!
-            String str = getJsonContent("http://ip.taobao.com/service/getIpInfo.php?ip=" + IP);
+            String str = getJsonContent("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
             System.out.println(str);
 
             JSONObject obj = JSONObject.fromObject(str);
@@ -40,7 +40,7 @@ public class GetAddressByIp {
         return result;
     }
 
-    public static String getJsonContent(String urlStr) {
+    private static String getJsonContent(String urlStr) {
         try {
             URL url = new URL(urlStr);
             HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -51,7 +51,7 @@ public class GetAddressByIp {
             //get the response code
             int respCode = httpConn.getResponseCode();
             if (respCode == 200) {
-                return ConvertStream2Json(httpConn.getInputStream());
+                return convertStream2Json(httpConn.getInputStream());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class GetAddressByIp {
         return "";
     }
 
-    private static String ConvertStream2Json(InputStream inputStream) {
+    private static String convertStream2Json(InputStream inputStream) {
         String jsonStr = "";
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

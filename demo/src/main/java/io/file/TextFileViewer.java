@@ -18,19 +18,19 @@ import java.io.IOException;
 public class TextFileViewer extends Frame implements ActionListener {
     private static final long serialVersionUID = -3542022951396686424L;
 
-    String directory;
+    private String directory;
 
-    TextArea textarea;
+    private TextArea textarea;
 
     public TextFileViewer() {
         this(null, null);
     }
 
-    public TextFileViewer(String filename) {
+    private TextFileViewer(String filename) {
         this(null, filename);
     }
 
-    public TextFileViewer(String directory, String filename) {
+    private TextFileViewer(String directory, String filename) {
         super();
         addWindowListener(new WindowAdapter() {
             @Override
@@ -70,7 +70,7 @@ public class TextFileViewer extends Frame implements ActionListener {
         setFile(directory, filename);
     }
 
-    public void setFile(String directory, String filename) {
+    private void setFile(String directory, String filename) {
         if ((filename == null) || (filename.length() == 0)) {
             return;
         }
@@ -103,13 +103,12 @@ public class TextFileViewer extends Frame implements ActionListener {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void actionPerformed(ActionEvent e) {
         String cmd = e.getActionCommand();
         if ("open".equals(cmd)) {
             FileDialog myFileDialog = new FileDialog(this, "Open File", FileDialog.LOAD);
             myFileDialog.setDirectory(directory);
-            myFileDialog.show();
+            myFileDialog.setVisible(true);
             directory = myFileDialog.getDirectory();
             setFile(directory, myFileDialog.getFile());
             myFileDialog.dispose();
@@ -118,7 +117,6 @@ public class TextFileViewer extends Frame implements ActionListener {
         }
     }
 
-    @SuppressWarnings("deprecation")
     static public void main(String[] args) throws IOException {
         Frame myFrame = new TextFileViewer((args.length == 1) ? args[0] : null);
         myFrame.addWindowListener(new WindowAdapter() {
@@ -127,6 +125,6 @@ public class TextFileViewer extends Frame implements ActionListener {
                 System.exit(0);
             }
         });
-        myFrame.show();
+        myFrame.setVisible(true);
     }
 }

@@ -35,28 +35,28 @@ public class GraphDemo {
     };
 
     // 图的深度遍历操作(递归)
-    private void DFSTraverse() {
+    private void dfsTraverse() {
         flag = new boolean[number];
         for (int i = 0; i < number; i++) {
             if (!flag[i]) {// 当前顶点没有被访问
-                DFS(i);
+                dfs(i);
             }
         }
     }
 
     // 图的深度优先递归算法
-    private void DFS(int i) {
+    private void dfs(int i) {
         flag[i] = true;// 第i个顶点被访问
         System.out.print(vertexs[i] + " ");
         for (int j = 0; j < number; j++) {
             if (!flag[j] && edges[i][j] == 1) {
-                DFS(j);
+                dfs(j);
             }
         }
     }
 
     // 图的广度遍历操作
-    private void BFSTraverse() {
+    private void bfsTraverse() {
         flag = new boolean[number];
         Queue<Integer> queue = new LinkedList<>();
         for (int i = 0; i < number; i++) {
@@ -82,9 +82,9 @@ public class GraphDemo {
     public static void main(String[] args) {
         GraphDemo graph = new GraphDemo();
         System.out.println("图的深度遍历操作(递归):");
-        graph.DFSTraverse();
+        graph.dfsTraverse();
         System.out.println("\n-------------");
         System.out.println("图的广度遍历操作:");
-        graph.BFSTraverse();
+        graph.bfsTraverse();
     }
 }

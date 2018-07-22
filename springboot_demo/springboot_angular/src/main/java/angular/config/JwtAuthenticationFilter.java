@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     private final String protectUrlPattern;
-    private static final PathMatcher pathMatcher = new AntPathMatcher();
+    private static final PathMatcher PATH_MATCHER = new AntPathMatcher();
 
     public JwtAuthenticationFilter(String protectUrlPattern) {
         this.protectUrlPattern = protectUrlPattern;
@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            if (pathMatcher.match(protectUrlPattern, request.getServletPath())) {
+            if (PATH_MATCHER.match(protectUrlPattern, request.getServletPath())) {
                 request = JwtUtil.validateTokenAndAddUserIdToHeader(request);
             }
         } catch (Exception e) {

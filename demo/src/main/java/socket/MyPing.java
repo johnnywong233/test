@@ -21,8 +21,6 @@ public class MyPing {
 
     }
 
-    private String IP = "";
-
     /**
      * 简单判断两台机器的可达性
      *
@@ -40,9 +38,9 @@ public class MyPing {
                 System.out.println(ip + " is unrecognized");
             }
             if (address.isReachable(5000)) {
-                System.out.println("SUCCESS - ping " + IP + " with no interface specified");
+                System.out.println("SUCCESS - ping " + ip + " with no interface specified");
             } else {
-                System.out.println("FAILURE - ping " + IP + " with no interface specified");
+                System.out.println("FAILURE - ping " + ip + " with no interface specified");
             }
             System.out.println("\n-------Trying different interfaces--------\n");
 
@@ -102,8 +100,8 @@ public class MyPing {
         }
     }
 
-    boolean isReachable(InetAddress localInetAddr, InetAddress remoteInetAddr,
-                        int port, int timeout) {
+    private boolean isReachable(InetAddress localInetAddr, InetAddress remoteInetAddr,
+                                int port, int timeout) {
         boolean isReachable = false;
         Socket socket = null;
         try {

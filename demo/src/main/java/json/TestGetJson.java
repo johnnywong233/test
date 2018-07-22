@@ -17,7 +17,6 @@ import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 
-@SuppressWarnings("deprecation")
 public class TestGetJson {
 
     public static void main(String[] args) {

@@ -55,7 +55,7 @@ public class PadFrame extends Frame {
         public void actionPerformed(ActionEvent e) {
             //Create the OpenFile Dialog
             FileDialog dlg = new FileDialog(frame, "Open Files", FileDialog.LOAD);
-            dlg.show();
+            dlg.setVisible(true);
 
             String strPath;
             if ((strPath = dlg.getDirectory()) != null) {
@@ -125,6 +125,6 @@ public class PadFrame extends Frame {
     //http://www.jb51.net/article/64257.htm
     public static void main(String[] args) {
         PadFrame f = new PadFrame("NotePad");
-        f.show();
+        f.setVisible(true);
     }
 }

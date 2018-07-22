@@ -42,10 +42,10 @@ class OneCity {
 }
 
 class TwoCity {
-    private static final String name = new String("Beijing");
+    private static final String NAME = new String("Beijing");
 
     //    private static final String name = "Beijing";
     public static String getName() {
-        return name;
+        return NAME;
     }
 }

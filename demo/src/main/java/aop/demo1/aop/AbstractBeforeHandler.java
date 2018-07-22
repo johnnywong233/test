@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * Time: 12:17
  * The Class BeforeHandler provides a template for the before execution
  */
-public abstract class BeforeHandler extends AbstractHandler {
+public abstract class AbstractBeforeHandler extends AbstractHandler {
     /**
      * Handles before execution of actual method.
      */

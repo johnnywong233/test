@@ -6,7 +6,10 @@ package sm;
  * Time: 0:53
  */
 public enum States {
-    UNPAID,                 // 待支付
-    WAITING_FOR_RECEIVE,    // 待收货
-    DONE                    // 结束
+    // 待支付
+    UNPAID,
+    // 待收货
+    WAITING_FOR_RECEIVE,
+    // 结束
+    DONE
 }

@@ -162,6 +162,7 @@ public class CheckExpressionValid {
             case '(':
             case '#':
                 return 0;
+            default:
         }
         throw new Exception("Illegal operator");
     }

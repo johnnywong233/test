@@ -1,5 +1,8 @@
 package file.xml.jaxb.demo1;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -18,6 +21,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorOrder(XmlAccessOrder.ALPHABETICAL)
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement
+@Data
+@AllArgsConstructor
 public class Address {
 
     @XmlAttribute
@@ -35,57 +40,7 @@ public class Address {
     @XmlElement
     private String zip;
 
-    private String getState() {
-        return state;
-    }
-
-    private void setState(String state) {
-        this.state = state;
-    }
-
-    private String getProvince() {
-        return province;
-    }
-
-    private void setProvince(String province) {
-        this.province = province;
-    }
-
-    private String getStreet() {
-        return street;
-    }
-
-    private void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZip() {
-        return zip;
-    }
-
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-
-    private String getCity() {
-        return city;
-    }
-
-    private void setCity(String city) {
-        this.city = city;
-    }
-
     public Address() {
         super();
-    }
-
-    public Address(String state, String province, String city, String street,
-                   String zip) {
-        super();
-        this.state = state;
-        this.province = province;
-        this.city = city;
-        this.street = street;
-        this.zip = zip;
     }
 }

@@ -44,7 +44,7 @@ public class Test_CacheByFuture {
             if (task == null) {
                 FutureTask<String> tempTask = new FutureTask<>(() -> {
                     Thread.sleep(3 * 1000);
-                    return "complete " + new Date().toLocaleString();
+                    return "complete " + new Date().toString();
                 });
                 /*
                  * putIfAbsent：

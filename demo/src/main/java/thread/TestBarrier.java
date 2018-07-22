@@ -6,9 +6,9 @@ import java.util.concurrent.CyclicBarrier;
 public class TestBarrier {
     //http://www.tianshouzhi.com/api/tutorials/mutithread/113
     public static void main(String[] args) {
-        int N = 4;
-        CyclicBarrier barrier = new CyclicBarrier(N);
-        for (int i = 0; i < N; i++) {
+        int n = 4;
+        CyclicBarrier barrier = new CyclicBarrier(n);
+        for (int i = 0; i < n; i++) {
             new Writer(barrier).start();
         }
     }

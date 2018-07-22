@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * Time: 12:16
  * The Class AfterHandler provides a template for After concern.
  */
-public abstract class  AfterHandler extends AbstractHandler {
+public abstract class AbstractAfterHandler extends AbstractHandler {
     /**
      * Handles after the execution of method.
      */

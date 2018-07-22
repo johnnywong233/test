@@ -1,5 +1,8 @@
 package file.xml.jaxb.demo1;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.xml.bind.annotation.XmlAccessOrder;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorOrder;
@@ -20,6 +23,8 @@ import java.util.Set;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "shop", propOrder = {"name", "number", "describer", "address", "orders"})
 @XmlRootElement(name = "CHMart")
+@Data
+@NoArgsConstructor
 public class Shop {
     @XmlAttribute
     private String name;
@@ -30,14 +35,6 @@ public class Shop {
     @XmlElement
     private String describer;
 
-    Set<Order> getOrders() {
-        return orders;
-    }
-
-    void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
-
     @XmlElementWrapper(name = "orders")
     @XmlElement(name = "order")
     private Set<Order> orders;
@@ -45,45 +42,10 @@ public class Shop {
     @XmlElement
     private Address address;
 
-    public Shop() {
-    }
-
     Shop(String name, String number, String describer, Address address) {
         this.name = name;
         this.number = number;
         this.describer = describer;
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getDescriber() {
-        return describer;
-    }
-
-    public void setDescriber(String describer) {
-        this.describer = describer;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
         this.address = address;
     }
 }

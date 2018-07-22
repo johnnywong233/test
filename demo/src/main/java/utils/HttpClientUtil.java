@@ -1,5 +1,6 @@
 package utils;
 
+import lombok.Data;
 import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
@@ -14,6 +15,9 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.AuthSchemes;
+import org.apache.http.client.config.CookieSpecs;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -21,17 +25,16 @@ import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
-import org.apache.http.conn.ssl.AllowAllHostnameVerifier;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.entity.BufferedHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
-import org.apache.http.params.BasicHttpParams;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
@@ -45,6 +48,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -52,6 +57,7 @@ import java.util.Map;
  * Date: 2016/10/26
  * Time: 23:10
  */
+@Data
 public class HttpClientUtil {
     protected static Log logger = LogFactory.getLog(HttpClientUtil.class);
 
@@ -62,7 +68,6 @@ public class HttpClientUtil {
     protected static int maxPerRoute = 20;
     protected static String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
 
-    //TODO: deprecated method/api replace
     static {
         if (httpClient == null) {
             // create httpClient
@@ -93,18 +98,17 @@ public class HttpClientUtil {
     @PostConstruct
     public void init() {
         try {
-            this.createClient();
+            HttpClientUtil.createClient();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static CloseableHttpClient createClient() throws Exception {
+    private static CloseableHttpClient createClient() throws Exception {
         if (closeableHttpClient == null) {
             try {
-                closeableHttpClient = HttpClients.custom().
-                        setHostnameVerifier(new AllowAllHostnameVerifier()).
-                        setSslcontext(new SSLContextBuilder().loadTrustMaterial(null, (arg0, arg1) -> true).build()).build();
+                closeableHttpClient = HttpClients.custom().setSSLHostnameVerifier
+                        (new DefaultHostnameVerifier()).setSSLContext(new SSLContextBuilder().loadTrustMaterial(null, (arg0, arg1) -> true).build()).build();
             } catch (Exception e) {
                 throw new RuntimeException("Can't build SSL ignored http client");
             }
@@ -120,7 +124,7 @@ public class HttpClientUtil {
     /**
      * 以@InputStream 形式下载URL资源
      */
-    public static InputStream downloadAsStream(String url) throws Exception {
+    static InputStream downloadAsStream(String url) throws Exception {
         return (InputStream) download(url, null, null, false);
     }
 
@@ -163,11 +167,12 @@ public class HttpClientUtil {
             entity = response.getEntity();
             entity = new BufferedHttpEntity(entity);
             // get result
-            if (saveToFile) {// save to disk
+            if (saveToFile) {
                 fos = new FileOutputStream(saveFile);
                 IOUtils.copy(entity.getContent(), fos);
                 result = saveFile;
-            } else { // warp to inpustream
+            } else {
+                // warp to inpustream
                 result = new BufferedInputStream(entity.getContent());
             }
         } catch (Exception e) {
@@ -183,17 +188,26 @@ public class HttpClientUtil {
         }
     }
 
-    protected static void addHeaderAndParams(final HttpRequestBase request, final Map<String, String> params) {
+    private static void addHeaderAndParams(final HttpRequestBase request, final Map<String, String> params) {
         // add default header
         request.addHeader("User-Agent", userAgent);
         // add params
         if (params != null) {
-            // map --> HttpParams
-            BasicHttpParams myParams = new BasicHttpParams();
-            for (String key : params.keySet()) {
-                myParams.setParameter(key, params.get(key));
-            }
-            request.setParams(myParams);
+
+            RequestConfig defaultRequestConfig = RequestConfig.custom()
+                    .setCookieSpec(CookieSpecs.DEFAULT)
+                    .setExpectContinueEnabled(true)
+                    .setRelativeRedirectsAllowed(true)
+                    .setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
+                    .setProxyPreferredAuthSchemes(Collections.singletonList(AuthSchemes.BASIC))
+                    .build();
+            RequestConfig config = RequestConfig.copy(defaultRequestConfig)
+                    .setConnectionRequestTimeout(0)
+                    .setConnectTimeout(0)
+                    .setSocketTimeout(0)
+                    .build();
+
+            request.setConfig(config);
         }
     }
 
@@ -214,7 +228,9 @@ public class HttpClientUtil {
         }
         int statusCode = client.executeMethod(method);
 
-        if (statusCode != HttpStatus.SC_OK) {// 打印服务器返回的状态
+        // 打印服务器返回的状态
+
+        if (statusCode != HttpStatus.SC_OK) {
             System.out.println("Method failed: " + method.getStatusLine());
         }
         // 返回响应消息
@@ -258,7 +274,8 @@ public class HttpClientUtil {
                 System.out.println(h.getName() + "------------ " + h.getValue());
             }
             // 读取 HTTP 响应内容，这里简单打印网页内容
-            byte[] responseBody = getMethod.getResponseBody();// 读取为字节数组
+            // 读取为字节数组
+            byte[] responseBody = getMethod.getResponseBody();
             response = new String(responseBody, charset);
             System.out.println("----------response:" + response);
             // 读取为 InputStream，在网页内容数据量大时候推荐使用
@@ -282,7 +299,7 @@ public class HttpClientUtil {
      * 执行一个HTTP POST请求，返回请求响应的HTML
      *
      * @param url     请求的URL地址
-     * @param params 请求的查询参数,可以为null
+     * @param params  请求的查询参数,可以为null
      * @param charset 字符集
      * @param pretty  是否美化
      * @return 返回请求响应的HTML
@@ -344,9 +361,9 @@ public class HttpClientUtil {
      * @param jsonParam      参数
      * @param noNeedResponse 不需要返回结果
      */
-    public static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) throws Exception {
+    private static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) throws Exception {
         //post请求返回结果
-        CloseableHttpClient  httpClient = createClient();
+        CloseableHttpClient httpClient = createClient();
         JSONObject jsonResult = null;
         HttpPost method = new HttpPost(url);
         try {
@@ -415,37 +432,5 @@ public class HttpClientUtil {
             e.printStackTrace();
         }
         return jsonResult;
-    }
-
-    public static HttpClient getHttpClient() {
-        return httpClient;
-    }
-
-    public static void setHttpClient(HttpClient httpClient) {
-        HttpClientUtil.httpClient = httpClient;
-    }
-
-    public static int getMaxTotal() {
-        return maxTotal;
-    }
-
-    public static void setMaxTotal(int maxTotal) {
-        HttpClientUtil.maxTotal = maxTotal;
-    }
-
-    public static int getMaxPerRoute() {
-        return maxPerRoute;
-    }
-
-    public static void setMaxPerRoute(int maxPerRoute) {
-        HttpClientUtil.maxPerRoute = maxPerRoute;
-    }
-
-    public static String getUserAgent() {
-        return userAgent;
-    }
-
-    public static void setUserAgent(String userAgent) {
-        HttpClientUtil.userAgent = userAgent;
     }
 }

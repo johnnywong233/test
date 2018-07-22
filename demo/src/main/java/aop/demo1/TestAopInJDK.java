@@ -1,8 +1,8 @@
 package aop.demo1;
 
+import aop.demo1.aop.AbstractAfterHandler;
+import aop.demo1.aop.AbstractBeforeHandler;
 import aop.demo1.aop.AbstractHandler;
-import aop.demo1.aop.AfterHandler;
-import aop.demo1.aop.BeforeHandler;
 import aop.demo1.aop.ProxyFactory;
 import aop.demo1.aop.impl.AfterHandlerImpl;
 import aop.demo1.aop.impl.BeforeHandlerImpl;
@@ -22,8 +22,8 @@ public class TestAopInJDK {
     //https://github.com/debjava/aopusingjdkdynamicproxy
     public static void main(String[] args) {
         CalculatorImpl calcImpl = new CalculatorImpl();
-        BeforeHandler before = new BeforeHandlerImpl();
-        AfterHandler after = new AfterHandlerImpl();
+        AbstractBeforeHandler before = new BeforeHandlerImpl();
+        AbstractAfterHandler after = new AfterHandlerImpl();
         List<AbstractHandler> handlers = new ArrayList<>();
         handlers.add(before);
         handlers.add(after);

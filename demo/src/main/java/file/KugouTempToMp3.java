@@ -13,7 +13,7 @@ public class KugouTempToMp3 {
     private static String KGTEMP = ".kgtemp";
     private static String KRC = "krc";
 
-    /*
+    /**
      * Change(string,string) 方法只是用来测试用的。调一下字符串之类的
      * 主要使用ChangeByDir方法，参数是临时文件的文件夹和歌词文件的文件夹
      */

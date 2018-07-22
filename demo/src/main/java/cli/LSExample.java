@@ -1,9 +1,9 @@
 package cli;
 
-import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.OptionBuilder;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
@@ -21,7 +21,7 @@ public class LSExample {
 
     @SuppressWarnings("static-access")
     private static void testOption(String[] args) {
-        CommandLineParser parser = new BasicParser();
+        CommandLineParser parser = new DefaultParser();
 
         // create the Options
         Options options = new Options();
@@ -29,11 +29,11 @@ public class LSExample {
         options.addOption("A", "almost-all", false, "do not list implied . and ..");
         options.addOption("b", "escape", false, "print octal escapes for nongraphic "
                 + "characters");
-        options.addOption(OptionBuilder.withLongOpt("block-size")
-                .withDescription("use SIZE-byte blocks")
+        options.addOption(Option.builder().longOpt("block-size")
+                .desc("use SIZE-byte blocks")
                 .hasArg()
-                .withArgName("SIZE")
-                .create());
+                .argName("SIZE")
+                .build());
         options.addOption("B", "ignore-backups", false, "do not list implied entried "
                 + "ending with ~");
         options.addOption("c", false, "with -lt: sort by, and show, ctime (time of last "

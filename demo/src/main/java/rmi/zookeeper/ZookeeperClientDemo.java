@@ -22,11 +22,11 @@ public class ZookeeperClientDemo implements Watcher {
 
     private static class PropertiesDynLoading {
 
-        static final String connectString = "localhost:9181";
-        static final int sessionTimeout = 3000;
-        static final String authScheme = "digest";
-        static final String accessKey = "cache:svcctlg";
-        static final boolean authentication = false;
+        static final String CONNECT_STRING = "localhost:9181";
+        static final int SESSION_TIMEOUT = 3000;
+        static final String AUTH_SCHEME = "digest";
+        static final String ACCESS_KEY = "cache:svcctlg";
+        static final boolean AUTHENTICATION = false;
     }
 
     private ZooKeeper zk;
@@ -36,26 +36,26 @@ public class ZookeeperClientDemo implements Watcher {
      */
     private boolean createZkClient() {
         try {
-            zk = new ZooKeeper(PropertiesDynLoading.connectString, PropertiesDynLoading.sessionTimeout, this);
+            zk = new ZooKeeper(PropertiesDynLoading.CONNECT_STRING, PropertiesDynLoading.SESSION_TIMEOUT, this);
         } catch (IOException e) {
             this.log("{}", e);
             e.printStackTrace();
             return false;
         }
-        if (PropertiesDynLoading.authentication) {
-            zk.addAuthInfo(PropertiesDynLoading.authScheme, PropertiesDynLoading.accessKey.getBytes());
+        if (PropertiesDynLoading.AUTHENTICATION) {
+            zk.addAuthInfo(PropertiesDynLoading.AUTH_SCHEME, PropertiesDynLoading.ACCESS_KEY.getBytes());
         }
         if (!isConnected()) {
             log(" ZooKeeper client state [{}]", zk.getState().toString());
         }
         try {
             if (zk.exists("/zookeeper", false) != null) {
-                log("create ZooKeeper Client Success! connectString", PropertiesDynLoading.connectString);
+                log("create ZooKeeper Client Success! connectString", PropertiesDynLoading.CONNECT_STRING);
                 log(" ZooKeeper client state [{}]", zk.getState());
                 return true;
             }
         } catch (Exception e) {
-            this.log("create ZooKeeper Client Fail! connectString", PropertiesDynLoading.connectString);
+            this.log("create ZooKeeper Client Fail! connectString", PropertiesDynLoading.CONNECT_STRING);
             e.printStackTrace();
         }
         return false;
@@ -70,7 +70,7 @@ public class ZookeeperClientDemo implements Watcher {
     private boolean createPersistentNode(String path, String data) {
         if (isConnected()) {
             try {
-                if (PropertiesDynLoading.authentication) {
+                if (PropertiesDynLoading.AUTHENTICATION) {
                     zk.create(path, data.getBytes(), getAdminAcls(), CreateMode.PERSISTENT);
                 } else {
                     zk.create(path, data.getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
@@ -95,7 +95,7 @@ public class ZookeeperClientDemo implements Watcher {
     private boolean createEphemeralNode(String path, String data) {
         if (isConnected()) {
             try {
-                if (PropertiesDynLoading.authentication) {
+                if (PropertiesDynLoading.AUTHENTICATION) {
                     zk.create(path, data.getBytes(), getAdminAcls(), CreateMode.PERSISTENT);
                 } else {
                     zk.create(path, data.getBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
@@ -236,8 +236,8 @@ public class ZookeeperClientDemo implements Watcher {
     public List<ACL> getCreateNodeAcls() {
         List<ACL> listAcls = new ArrayList<>(3);
         try {
-            Id id = new Id(PropertiesDynLoading.authScheme,
-                    DigestAuthenticationProvider.generateDigest(PropertiesDynLoading.accessKey));
+            Id id = new Id(PropertiesDynLoading.AUTH_SCHEME,
+                    DigestAuthenticationProvider.generateDigest(PropertiesDynLoading.ACCESS_KEY));
             ACL acl = new ACL(Perms.CREATE, id);
             listAcls.add(acl);
         } catch (NoSuchAlgorithmException e) {
@@ -250,8 +250,8 @@ public class ZookeeperClientDemo implements Watcher {
     private List<ACL> getAdminAcls() {
         List<ACL> listAcls = new ArrayList<>(3);
         try {
-            Id id = new Id(PropertiesDynLoading.authScheme,
-                    DigestAuthenticationProvider.generateDigest(PropertiesDynLoading.accessKey));
+            Id id = new Id(PropertiesDynLoading.AUTH_SCHEME,
+                    DigestAuthenticationProvider.generateDigest(PropertiesDynLoading.ACCESS_KEY));
             ACL acl = new ACL(Perms.ALL, id);
             listAcls.add(acl);
         } catch (NoSuchAlgorithmException e) {

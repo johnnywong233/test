@@ -68,7 +68,7 @@ public class HDFSUtil {
             inputStream = fs.open(new Path(filePath));
             outputStream = new ByteArrayOutputStream(inputStream.available());
             IOUtils.copyBytes(inputStream, outputStream, conf);
-            res = outputStream.toString();
+            res = outputStream.toString("UTF-8");
         } finally {
             if (inputStream != null) {
                 IOUtils.closeStream(inputStream);

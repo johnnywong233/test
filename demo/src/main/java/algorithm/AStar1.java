@@ -1,5 +1,7 @@
 package algorithm;
 
+import lombok.Data;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -32,11 +34,11 @@ public class AStar1 {
     private Queue<Point> closedQueue = null;
 
     // 起始节点到某个节点的距离
-    private int[][] FList = null;
+    private int[][] fList = null;
     // 某个节点到目的节点的距离
-    private int[][] GList = null;
+    private int[][] gList = null;
     // 起始节点经过某个节点到目的节点的距离
-    private int[][] HList = null;
+    private int[][] hList = null;
 
     /**
      * 打印行走路径
@@ -49,7 +51,7 @@ public class AStar1 {
      */
     private void printPath() {
         System.out.println("================ printPath ================");
-        Point father_point;
+        Point fatherPoint;
         char[][] result = new char[7][8];
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 8; j++) {
@@ -58,21 +60,21 @@ public class AStar1 {
         }
 
         int step = 0;
-        father_point = maze[goal.getX()][goal.getY()];
-        while (father_point != null) {
-            if (father_point.equals(start)) {
-                result[father_point.getX()][father_point.getY()] = 'r';
-            } else if (father_point.equals(goal)) {
-                result[father_point.getX()][father_point.getY()] = 'a';
+        fatherPoint = maze[goal.getX()][goal.getY()];
+        while (fatherPoint != null) {
+            if (fatherPoint.equals(start)) {
+                result[fatherPoint.getX()][fatherPoint.getY()] = 'r';
+            } else if (fatherPoint.equals(goal)) {
+                result[fatherPoint.getX()][fatherPoint.getY()] = 'a';
                 step++;
-            } else if (father_point.getValue() == 'x') {
-                result[father_point.getX()][father_point.getY()] = 'x';
+            } else if (fatherPoint.getValue() == 'x') {
+                result[fatherPoint.getX()][fatherPoint.getY()] = 'x';
                 step += 2;
             } else {
-                result[father_point.getX()][father_point.getY()] = '*';
+                result[fatherPoint.getX()][fatherPoint.getY()] = '*';
                 step++;
             }
-            father_point = father_point.getFather();
+            fatherPoint = fatherPoint.getFather();
         }
         // 打印行走步数
         System.out.println("step is : " + step);
@@ -99,41 +101,41 @@ public class AStar1 {
         openQueue = new LinkedList<>();
         closedQueue = new LinkedList<>();
 
-        FList = new int[maze.length][maze[0].length];
-        GList = new int[maze.length][maze[0].length];
-        HList = new int[maze.length][maze[0].length];
+        fList = new int[maze.length][maze[0].length];
+        gList = new int[maze.length][maze[0].length];
+        hList = new int[maze.length][maze[0].length];
 
         for (int i = 0; i < maze.length; i++) {
             for (int j = 0; j < maze[0].length; j++) {
-                FList[i][j] = Integer.MAX_VALUE;
-                GList[i][j] = Integer.MAX_VALUE;
-                HList[i][j] = Integer.MAX_VALUE;
+                fList[i][j] = Integer.MAX_VALUE;
+                gList[i][j] = Integer.MAX_VALUE;
+                hList[i][j] = Integer.MAX_VALUE;
             }
         }
         init();
     }
 
-    /*
+    /**
      * 初始化
-     *  将起始节点添加至开启列表，初始化：
-     *  1) 起始节点到当前节点（起始节点）的距离
-     *  2) 当前节点（起始节点）到目的节点的距离
-     *  3) 起始节点经过当前节点（起始节点）到目的节点的距离
+     * 将起始节点添加至开启列表，初始化：
+     * 1) 起始节点到当前节点（起始节点）的距离
+     * 2) 当前节点（起始节点）到目的节点的距离
+     * 3) 起始节点经过当前节点（起始节点）到目的节点的距离
      */
     private void init() {
         openQueue.offer(start);
-        int start_x = start.getX();
-        int start_y = start.getY();
-        int goal_x = goal.getX();
-        int goal_y = goal.getY();
+        int startX = start.getX();
+        int startY = start.getY();
+        int goalX = goal.getX();
+        int goalY = goal.getY();
 
         // 起始节点到当前节点的距离
-        GList[start_x][start_y] = 0;
+        gList[startX][startY] = 0;
         // 当前节点到目的节点的距离
-        HList[start_x][start_y] = getDistance(start_x, start_y, goal_x, goal_y);
+        hList[startX][startY] = getDistance(startX, startY, goalX, goalY);
         // f(x) = g(x) + h(x)
-        FList[start_x][start_y] = GList[start_x][start_y]
-                + HList[start_x][start_y];
+        fList[startX][startY] = gList[startX][startY]
+                + hList[startX][startY];
     }
 
     /**
@@ -185,12 +187,12 @@ public class AStar1 {
         astar.printPath();
     }
 
-    /*
+    /**
      * 检查位置是否有效
-     *   如果当前位置存在、不是墙，且不在关闭列表中，则返回"true"，表示为有效位置；
-     *   否则，返回"false"。
+     * 如果当前位置存在、不是墙，且不在关闭列表中，则返回"true"，表示为有效位置；
+     * 否则，返回"false"。
      * 输入： 待检查位置的横坐标值
-     *       待检查位置的纵坐标值
+     * 待检查位置的纵坐标值
      * 输出： 是否有效
      */
     private boolean checkPosValid(int x, int y) {
@@ -212,24 +214,24 @@ public class AStar1 {
         return false;
     }
 
-    /*
+    /**
      * 获取当前位置到目的位置的距离
-     *
-     *   距离衡量规则： 横向移动一格或纵向移动一格的距离为1.
-     *
+     * <p>
+     * 距离衡量规则： 横向移动一格或纵向移动一格的距离为1.
+     * <p>
      * 输入： 当前位置的横坐标值
-     *       当前位置的纵坐标值
-     *       目的位置的横坐标值
-     *       目的位置的纵坐标值
-     *
+     * 当前位置的纵坐标值
+     * 目的位置的横坐标值
+     * 目的位置的纵坐标值
+     * <p>
      * 输出： 当前位置到目的位置的距离
      */
-    private int getDistance(int current_x, int current_y, int goal_x, int goal_y) {
-        return Math.abs(current_x - goal.getX())
-                + Math.abs(current_y - goal.getY());
+    private int getDistance(int currentX, int currentY, int goalX, int goalY) {
+        return Math.abs(currentX - goal.getX())
+                + Math.abs(currentY - goal.getY());
     }
 
-    /*
+    /**
      * 找寻最短路径所经过的节点
      *
      *   从开启列表中找寻F值最小的节点，将其从开启列表中移除，并置入关闭列表。
@@ -243,9 +245,9 @@ public class AStar1 {
 
         for (Point anOpenQueue : openQueue) {
             currentPoint = anOpenQueue;
-            if (FList[currentPoint.getX()][currentPoint.getY()] <= shortestFValue) {
+            if (fList[currentPoint.getX()][currentPoint.getY()] <= shortestFValue) {
                 shortestFPoint = currentPoint;
-                shortestFValue = FList[currentPoint.getX()][currentPoint.getY()];
+                shortestFValue = fList[currentPoint.getX()][currentPoint.getY()];
             }
         }
 
@@ -257,7 +259,7 @@ public class AStar1 {
         return shortestFPoint;
     }
 
-    /*
+    /**
      * 更新邻居节点
      *
      *   依次判断上、下、左、右方向的邻居节点，如果邻居节点有效，则更新距离矢量表。
@@ -265,32 +267,32 @@ public class AStar1 {
      * 输入： 当前节点
      */
     private void updateNeighborPoints(Point currentPoint) {
-        int current_x = currentPoint.getX();
-        int current_y = currentPoint.getY();
+        int currentX = currentPoint.getX();
+        int currentY = currentPoint.getY();
 
         // 上
-        if (checkPosValid(current_x - 1, current_y)) {
-            updatePoint(maze[current_x][current_y],
-                    maze[current_x - 1][current_y]);
+        if (checkPosValid(currentX - 1, currentY)) {
+            updatePoint(maze[currentX][currentY],
+                    maze[currentX - 1][currentY]);
         }
         // 下
-        if (checkPosValid(current_x + 1, current_y)) {
-            updatePoint(maze[current_x][current_y],
-                    maze[current_x + 1][current_y]);
+        if (checkPosValid(currentX + 1, currentY)) {
+            updatePoint(maze[currentX][currentY],
+                    maze[currentX + 1][currentY]);
         }
         // 左
-        if (checkPosValid(current_x, current_y - 1)) {
-            updatePoint(maze[current_x][current_y],
-                    maze[current_x][current_y - 1]);
+        if (checkPosValid(currentX, currentY - 1)) {
+            updatePoint(maze[currentX][currentY],
+                    maze[currentX][currentY - 1]);
         }
         // 右
-        if (checkPosValid(current_x, current_y + 1)) {
-            updatePoint(maze[current_x][current_y],
-                    maze[current_x][current_y + 1]);
+        if (checkPosValid(currentX, currentY + 1)) {
+            updatePoint(maze[currentX][currentY],
+                    maze[currentX][currentY + 1]);
         }
     }
 
-    /*
+    /**
      * 更新节点
      *
      *   依次计算：1) 起始节点到当前节点的距离; 2) 当前节点到目的位置的距离; 3) 起始节点经过当前节点到目的位置的距离
@@ -302,21 +304,21 @@ public class AStar1 {
      *       当前节点
      */
     private void updatePoint(Point lastPoint, Point currentPoint) {
-        int last_x = lastPoint.getX();
-        int last_y = lastPoint.getY();
-        int current_x = currentPoint.getX();
-        int current_y = currentPoint.getY();
+        int lastX = lastPoint.getX();
+        int lastY = lastPoint.getY();
+        int currentX = currentPoint.getX();
+        int currentY = currentPoint.getY();
 
         // 起始节点到当前节点的距离
-        int temp_g = GList[last_x][last_y] + 1;
-        if (maze[current_x][current_y].getValue() == 'x') // 如果当前节点是看守
-        {
-            ++temp_g;
+        int temp = gList[lastX][lastY] + 1;
+        // 如果当前节点是看守
+        if (maze[currentX][currentY].getValue() == 'x') {
+            ++temp;
         }
         // 当前节点到目的位置的距离
-        int temp_h = getDistance(current_x, current_y, goal.getX(), goal.getY());
+        int tempH = getDistance(currentX, currentY, goal.getX(), goal.getY());
         // f(x) = g(x) + h(x)
-        int temp_f = temp_g + temp_h;
+        int tempF = temp + tempH;
 
         // 如果当前节点在开启列表中不存在，则：置入开启列表，并且“设置”
         // 1) 起始节点到当前节点距离
@@ -327,11 +329,11 @@ public class AStar1 {
             currentPoint.setFather(lastPoint);
 
             // 起始节点到当前节点的距离
-            GList[current_x][current_y] = temp_g;
+            gList[currentX][currentY] = temp;
             // 当前节点到目的节点的距离
-            HList[current_x][current_y] = temp_h;
+            hList[currentX][currentY] = tempH;
             // f(x) = g(x) + h(x)
-            FList[current_x][current_y] = temp_f;
+            fList[currentX][currentY] = tempF;
         } else {
 
             // 如果当前节点在开启列表中存在，并且，
@@ -340,13 +342,13 @@ public class AStar1 {
             // 1) 起始节点到当前节点距离
             // 2) 当前节点到目的节点的距离
             // 3) 起始节点到目的节点距离
-            if (temp_f < FList[current_x][current_y]) {
+            if (tempF < fList[currentX][currentY]) {
                 // 起始节点到当前节点的距离
-                GList[current_x][current_y] = temp_g;
+                gList[currentX][currentY] = temp;
                 // 当前节点到目的位置的距离
-                HList[current_x][current_y] = temp_h;
+                hList[currentX][currentY] = tempH;
                 // f(x) = g(x) + h(x)
-                FList[current_x][current_y] = temp_f;
+                fList[currentX][currentY] = tempF;
                 // 更新当前节点的父节点
                 currentPoint.setFather(lastPoint);
             }
@@ -354,6 +356,7 @@ public class AStar1 {
     }
 }
 
+@Data
 class Point {
     // 节点横坐标
     private int x;
@@ -387,25 +390,5 @@ class Point {
         this.x = x;
         this.y = y;
         this.value = value;
-    }
-
-    Point getFather() {
-        return father;
-    }
-
-    void setFather(Point father) {
-        this.father = father;
-    }
-
-    public char getValue() {
-        return value;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
     }
 }

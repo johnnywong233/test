@@ -96,10 +96,10 @@ public class FetchPubTime {
             }
         }
 
-        Pattern p_sep_ym = Pattern.compile(url_reg_sep_ym);
-        Matcher m_sep_ym = p_sep_ym.matcher(url);
-        if (m_sep_ym.find(0) && m_sep_ym.groupCount() > 0) {
-            String time = m_sep_ym.group(0);
+        Pattern pattern = Pattern.compile(url_reg_sep_ym);
+        Matcher matcher1 = pattern.matcher(url);
+        if (matcher1.find(0) && matcher1.groupCount() > 0) {
+            String time = matcher1.group(0);
             time = time.substring(1, time.length());
             Calendar theTime = Calendar.getInstance();
             String[] seg = time.split("[-|/|_]{1}");
@@ -127,18 +127,18 @@ public class FetchPubTime {
         try {
             List<String> matches;
             //Matcher matcher = p.matcher(dateStr);
-            Matcher matcher_detail = pDetail.matcher(dateStr);
+            Matcher matcher = pDetail.matcher(dateStr);
 
-            if (!(matcher_detail.find(0) && matcher_detail.groupCount() >= 1)) {
-                matcher_detail = p.matcher(dateStr);
+            if (!(matcher.find(0) && matcher.groupCount() >= 1)) {
+                matcher = p.matcher(dateStr);
                 containsHMS = true;
             } else {
-                matcher_detail = pDetail.matcher(dateStr);
+                matcher = pDetail.matcher(dateStr);
             }
-            if (matcher_detail.find() && matcher_detail.groupCount() >= 1) {
+            if (matcher.find() && matcher.groupCount() >= 1) {
                 matches = new ArrayList<>();
-                for (int i = 1; i <= matcher_detail.groupCount(); i++) {
-                    String temp = matcher_detail.group(i);
+                for (int i = 1; i <= matcher.groupCount(); i++) {
+                    String temp = matcher.group(i);
                     matches.add(temp);
                 }
             } else {

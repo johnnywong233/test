@@ -1,5 +1,8 @@
 package file.xml.jaxb.demo1;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,6 +18,8 @@ import java.util.Set;
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement
+@Data
+@NoArgsConstructor
 public class Customer {
     @XmlAttribute
     private String name;
@@ -26,49 +31,6 @@ public class Customer {
     private Address address;
 
     private Set<Order> orders;
-
-    public Customer() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
 
     public Customer(String name, String gender, String phoneNo, Address address) {
         this.name = name;

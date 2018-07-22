@@ -128,6 +128,7 @@ public class MyPanel extends JPanel {
                     case 27:// exit
                         System.exit(0);
                         break;
+                    default:
                 }
             }
         });

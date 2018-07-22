@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 public class AddTest implements Runnable {
     private ConcurrentLinkedDeque<String> list;
 
-    public void AddTask(ConcurrentLinkedDeque<String> list) {
+    public void addTask(ConcurrentLinkedDeque<String> list) {
         this.list = list;
     }
 

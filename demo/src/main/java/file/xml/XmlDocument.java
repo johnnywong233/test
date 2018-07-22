@@ -8,11 +8,11 @@ public interface XmlDocument {
 	/**  
 	 * create XML document
 	 * @param fileName   
-	 */   
-	public void createXml(String fileName);   
+	 */
+	void createXml(String fileName);
 	/** 
 	 * parse XML document  
 	 * @param fileName  
-	 */   
-	public void parserXml(String fileName);   
+	 */
+	void parserXml(String fileName);
 }

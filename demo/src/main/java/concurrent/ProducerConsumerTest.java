@@ -2,6 +2,7 @@ package concurrent;
 
 import edu.umd.cs.mtc.MultithreadedTestCase;
 import edu.umd.cs.mtc.TestFramework;
+import org.junit.Assert;
 
 import java.util.concurrent.LinkedTransferQueue;
 
@@ -58,11 +59,10 @@ class ProducerConsumer extends MultithreadedTestCase {
 
     //写信息到操控台表明测试结束执行。使用assertEquals() 方法检查2个事件已经被consumed（queue的大小为0）。
     @Override
-    @SuppressWarnings("deprecation")
     public void finish() {
         super.finish();
         System.out.printf("Test: End\n");
-        assertEquals(true, queue.size() == 0);
+        Assert.assertEquals(true, queue.size() == 0);
         System.out.printf("Test: Result: The queue is empty\n");
     }
 }

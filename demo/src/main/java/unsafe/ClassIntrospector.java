@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @SuppressWarnings("restriction")
 public class ClassIntrospector {
-    /*
+    /**
      * http://www.bianceng.cn/Programming/Java/201502/47854_2.htm
      */
     public static void main(String[] args) throws IllegalAccessException {
@@ -77,19 +77,19 @@ public class ClassIntrospector {
         }
     }
 
-    private static final Unsafe unsafe;
+    private static final Unsafe UNSAFE;
     /**
      * Size of any Object reference
      */
-    private static final int objectRefSize;
+    private static final int OBJECT_REF_SIZE;
 
     static {
         try {
             Field field = Unsafe.class.getDeclaredField("theUnsafe");
             field.setAccessible(true);
-            unsafe = (Unsafe) field.get(null);
+            UNSAFE = (Unsafe) field.get(null);
 
-            objectRefSize = unsafe.arrayIndexScale(Object[].class);
+            OBJECT_REF_SIZE = UNSAFE.arrayIndexScale(Object[].class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -98,17 +98,17 @@ public class ClassIntrospector {
     /**
      * Sizes of all primitive values
      */
-    private static final Map<Class<?>, Integer> primitiveSizes;
+    private static final Map<Class<?>, Integer> PRIMITIVE_SIZES;
 
     static {
-        primitiveSizes = new HashMap<>(10);
-        primitiveSizes.put(byte.class, 1);
-        primitiveSizes.put(char.class, 2);
-        primitiveSizes.put(int.class, 4);
-        primitiveSizes.put(long.class, 8);
-        primitiveSizes.put(float.class, 4);
-        primitiveSizes.put(double.class, 8);
-        primitiveSizes.put(boolean.class, 1);
+        PRIMITIVE_SIZES = new HashMap<>(10);
+        PRIMITIVE_SIZES.put(byte.class, 1);
+        PRIMITIVE_SIZES.put(char.class, 2);
+        PRIMITIVE_SIZES.put(int.class, 4);
+        PRIMITIVE_SIZES.put(long.class, 8);
+        PRIMITIVE_SIZES.put(float.class, 4);
+        PRIMITIVE_SIZES.put(double.class, 8);
+        PRIMITIVE_SIZES.put(boolean.class, 1);
     }
 
     /**
@@ -149,8 +149,8 @@ public class ClassIntrospector {
         int baseOffset = 0;
         int indexScale = 0;
         if (type.isArray() && obj != null) {
-            baseOffset = unsafe.arrayBaseOffset(type);
-            indexScale = unsafe.arrayIndexScale(type);
+            baseOffset = UNSAFE.arrayBaseOffset(type);
+            indexScale = UNSAFE.arrayIndexScale(type);
             arraySize = baseOffset + indexScale * Array.getLength(obj);
         }
 
@@ -159,7 +159,7 @@ public class ClassIntrospector {
             root = new ObjectInfo("", type.getCanonicalName(), getContents(obj, type), 0, getShallowSize(type),
                     arraySize, baseOffset, indexScale);
         } else {
-            final int offset = (int) unsafe.objectFieldOffset(fld);
+            final int offset = (int) UNSAFE.objectFieldOffset(fld);
             root = new ObjectInfo(fld.getName(), type.getCanonicalName(), getContents(obj, type), offset,
                     getShallowSize(type), arraySize, baseOffset, indexScale);
         }
@@ -242,10 +242,10 @@ public class ClassIntrospector {
     //obtain a shallow size of a field of given class (primitive or object reference size)    
     private static int getShallowSize(final Class<?> type) {
         if (type.isPrimitive()) {
-            final Integer res = primitiveSizes.get(type);
+            final Integer res = PRIMITIVE_SIZES.get(type);
             return res != null ? res : 0;
         } else {
-            return objectRefSize;
+            return OBJECT_REF_SIZE;
         }
     }
 

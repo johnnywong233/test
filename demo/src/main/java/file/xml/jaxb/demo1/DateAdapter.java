@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DateAdapter extends XmlAdapter<String, Date> {
     private String pattern = "yyyy-MM-dd HH:mm:ss";
-    SimpleDateFormat fmt = new SimpleDateFormat(pattern);
+    private SimpleDateFormat fmt = new SimpleDateFormat(pattern);
 
     @Override
     public Date unmarshal(String dateStr) throws Exception {

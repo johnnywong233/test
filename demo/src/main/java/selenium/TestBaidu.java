@@ -12,7 +12,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  * Demo of selenium
  */
 public class TestBaidu {
-    public static void main(String args[]){
+    public static void main(String[] args) {
         TestBaidu testBaidu = new TestBaidu();
         testBaidu.testChrome();
         testBaidu.testIE();
@@ -27,24 +27,24 @@ public class TestBaidu {
         dr.findElement(By.id("su")).click();
         try {
             Thread.sleep(30000);
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         dr.quit();
     }
 
     private void testIE() {
-        System.setProperty("webdriver.ie.driver","D:\\Java_ex\\test\\src\\test\\resources\\IEDriverServer.exe");
+        System.setProperty("webdriver.ie.driver", "D:\\Java_ex\\test\\src\\test\\resources\\IEDriverServer.exe");
         //IE explorer security setting problem
         DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
-        ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
+        ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
         WebDriver dr = new InternetExplorerDriver(ieCapabilities);
         dr.get("http://www.baidu.com");
         dr.findElement(By.id("kw")).sendKeys("Selenium");
         dr.findElement(By.id("su")).click();
-        try{
+        try {
             Thread.sleep(3000);
-        }catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         dr.quit();
@@ -55,9 +55,9 @@ public class TestBaidu {
         dr.get("http://www.baidu.com");
         dr.findElement(By.id("kw")).sendKeys("helloSelenium");
         dr.findElement(By.id("su")).click();
-        try{
+        try {
             Thread.sleep(3000);
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
         dr.quit();

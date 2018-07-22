@@ -2,8 +2,8 @@ package concurrent;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by wajian on 2016/8/16.
@@ -11,15 +11,15 @@ import java.util.concurrent.ExecutorService;
 public class BlockingQueueConditionDemo {
     //http://www.cnblogs.com/liuling/p/2013-8-20-01.html
     public static void main(String[] args) {
-        final Integer N = 5;
+        final Integer num = 5;
         ExecutorService service = Executors.newSingleThreadExecutor();
         final Business3 business = new Business3();
         service.execute(() -> {
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < num; i++) {
                 business.sub();
             }
         });
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < num; i++) {
             business.main();
         }
     }

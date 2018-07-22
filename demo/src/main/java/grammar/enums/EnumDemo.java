@@ -64,7 +64,7 @@ class Constant {
      * @param isForceCheck 是否强制校验枚举是否实现了EnumMessage接口
      */
     private static Map<Class<?>, Map<Integer, EnumMessage>> initialEnumMap(boolean isForceCheck) {
-        Map<Class<?>, Map<Integer, EnumMessage>> ENUM_MAP = new HashMap<>();
+        Map<Class<?>, Map<Integer, EnumMessage>> enumMap = new HashMap<>();
         try {
             for (String classname : ENUM_OBJECT_PATH) {
                 Class<?> cls;
@@ -82,14 +82,14 @@ class Constant {
                 if (flag == isForceCheck) {
                     SINGLE_ENUM_MAP = new HashMap<>();
                     initialSingleEnumMap(cls);
-                    ENUM_MAP.put(cls, SINGLE_ENUM_MAP);
+                    enumMap.put(cls, SINGLE_ENUM_MAP);
                 }
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ENUM_MAP;
+        return enumMap;
     }
 
     /**

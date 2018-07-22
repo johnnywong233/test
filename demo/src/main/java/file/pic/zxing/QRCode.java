@@ -48,7 +48,7 @@ public class QRCode {
         String filePath = "D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry.jpg";
         try {
             QRCode zp = new QRCode();
-            BufferedImage bim = zp.getQR_CODEBufferedImage(qrUrl, BarcodeFormat.QR_CODE, 400, 400, zp.getDecodeHintType());
+            BufferedImage bim = zp.getQrCodeBufferedImage(qrUrl, BarcodeFormat.QR_CODE, 400, 400, zp.getDecodeHintType());
             return zp.addLogo(bim, new File(filePath), new LogoConfig(), productName);
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,7 +174,7 @@ public class QRCode {
      * @param hints         设置参数
      * @return exception
      */
-    private BufferedImage getQR_CODEBufferedImage(String content, BarcodeFormat barcodeFormat, int width, int height, Map<EncodeHintType, ?> hints) {
+    private BufferedImage getQrCodeBufferedImage(String content, BarcodeFormat barcodeFormat, int width, int height, Map<EncodeHintType, ?> hints) {
         MultiFormatWriter multiFormatWriter;
         BitMatrix bm;
         BufferedImage image = null;

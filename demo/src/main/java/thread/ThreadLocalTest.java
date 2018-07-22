@@ -14,6 +14,7 @@ public class ThreadLocalTest {
                 e.printStackTrace();
             }
             System.out.println(threadLocal.get());
+            threadLocal.remove();
         }
     }
 

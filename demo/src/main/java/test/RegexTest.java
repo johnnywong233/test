@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class RegexTest {
     public static void main(String[] args) {
 
-        final String TEST_REGEX = "([=+]|[\\s]|[\\p{P}]|[A-Za-z0-9]|[\u4E00-\u9FA5])+";
+        final String regex = "([=+]|[\\s]|[\\p{P}]|[A-Za-z0-9]|[\u4E00-\u9FA5])+";
         StringBuilder line = new StringBuilder();
         System.out.println("++++++++++++++++++++++++++++++");
         for (int i = 0; i < 10; i++) {
@@ -26,14 +26,15 @@ public class RegexTest {
                     "http%3A%2F%2Fcq.ooxx.com%2Fjob%2F%3Fkey%3D%25E7%25BD%2591%25E4%25B8%258A%25E5%2585%25BC%25E8%2581%258C%26cmcskey%3D%25E7%25BD%2591%25E4%25B8%258A%25E5%2585%25BC%25E8%2581%258C%26final%3D1%26jump%3D2%26specialtype%3Dgls%26canclequery%3Disbiz%253D0%26sourcetype%3D4");
         }
         line.append(" \001 11111111111111111111111111");
-        Pattern p_a;
+        Pattern pattern;
         try {
-            p_a = Pattern.compile(TEST_REGEX);
-            Matcher m_a = p_a.matcher(line);
-            while (m_a.find()) {
-                System.out.println(m_a.group());
+            pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(line);
+            while (matcher.find()) {
+                System.out.println(matcher.group());
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
         System.out.println("line size: " + line.length());
     }
