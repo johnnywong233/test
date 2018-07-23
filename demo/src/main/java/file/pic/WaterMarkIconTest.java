@@ -1,8 +1,9 @@
 package file.pic;
 
+import org.springframework.core.io.ClassPathResource;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -10,23 +11,24 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
  * Created by johnny on 2016/9/15.
  * 生成图片水印
+ * http://www.phpxs.com/code/1001578/
  */
 public class WaterMarkIconTest {
 
-    //http://www.phpxs.com/code/1001578/
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         //D:\Java_ex\test\demo\src\test\resources\KatyPerry.jpg
-        File srcImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry.jpg");
-        File logoImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\logo.png");
+        File srcImageFile = new ClassPathResource("KatyPerry.jpg").getFile();
+        File logoImageFile = new ClassPathResource("logo.png").getFile();
 
-        File outputImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry_water_icon.jpg");
-        File outputRotateImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry_water_icon_rotate.jpg");
+        File outputImageFile = new File("KatyPerry_water_icon.jpg");
+        File outputRotateImageFile = new File("KatyPerry_water_icon_rotate.jpg");
 
         createWaterMarkByIcon(srcImageFile, logoImageFile, outputImageFile);
 
@@ -38,7 +40,9 @@ public class WaterMarkIconTest {
         createWaterMarkByIcon(srcImageFile, logoImageFile, outputImageFile, 0);
     }
 
-    //with parameter of degree, realize rotate
+    /**
+     * with parameter of degree, realize rotate
+     */
     private static void createWaterMarkByIcon(File srcImageFile, File logoImageFile,
                                               File outputImageFile, double degree) {
 
@@ -61,7 +65,8 @@ public class WaterMarkIconTest {
                         (double) buffImg.getWidth() / 2,
                         (double) buffImg.getWidth() / 2);
             }
-            float alpha = 0.3f; // 透明度
+            // 透明度
+            float alpha = 0.3f;
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha));
             //location of water mark
             g.drawImage(logoImg, buffImg.getWidth() / 15, buffImg.getHeight() / 15, null);

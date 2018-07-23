@@ -1,5 +1,6 @@
 package utils;
 
+import com.google.common.base.Strings;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -14,6 +15,7 @@ import org.apache.commons.io.filefilter.EmptyFileFilter;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.Test;
 
 import javax.servlet.http.HttpServletRequest;
@@ -174,6 +176,9 @@ public class FileUtil {
     }
 
     public static void main(String[] args) throws Exception {
+
+        System.out.println(unCompress(new ClassPathResource("1.zip").getFile().getName(), ""));
+
         /*
          * 创建一个(或多级目录)，其路径名由当前 File 对象指定，此方法可以将子目录的父目录一起创建，
          * 若test1不存在，这里会一并创建。如果创建成功返回true；失败返回false。
@@ -190,8 +195,7 @@ public class FileUtil {
 
 
         String dir = "D:\\Java_ex\\test\\src\\test\\resources\\";
-        String fileName = "D:\\Java_ex\\test\\src\\test\\resources\\1.png";
-        getLastModifiedTime(new File(fileName));
+        getLastModifiedTime(new ClassPathResource("1.png").getFile());
 
         String suffix = "png";
         FilenameFilter filter = fileSuffixNameFilter(suffix);
@@ -237,7 +241,6 @@ public class FileUtil {
      *
      * @param pathName name of directory
      * @param depth    depth of directory
-     * @throws IOException
      */
     public static void dirErgodic(String pathName, int depth) throws IOException {
         //获取pathName的File对象
@@ -281,7 +284,7 @@ public class FileUtil {
         }
     }
 
-    public static int BUFFER_SIZE = 2048;
+    private static int BUFFER_SIZE = 2048;
 
     private static List<String> unTar(InputStream inputStream, String destDir) throws Exception {
         List<String> fileNames = new ArrayList<>();
@@ -418,16 +421,13 @@ public class FileUtil {
         }
     }
 
-    public static List<String> unZip(File zipFile, String destDir) throws Exception {
-        if (StringUtils.isBlank(destDir)) {
-            destDir = zipFile.getParent();
-        }
+    public static List<String> unZip(String zipFile, String destDir) throws Exception {
         destDir = destDir.endsWith(File.separator) ? destDir : destDir + File.separator;
         ZipArchiveInputStream is = null;
         List<String> fileNames = new ArrayList<>();
 
         try {
-            is = new ZipArchiveInputStream(new BufferedInputStream(new FileInputStream(zipFile), BUFFER_SIZE));
+            is = new ZipArchiveInputStream(new BufferedInputStream(new FileInputStream(new ClassPathResource(zipFile).getFile()), BUFFER_SIZE));
             ZipArchiveEntry entry;
             while ((entry = is.getNextZipEntry()) != null) {
                 fileNames.add(entry.getName());
@@ -453,12 +453,13 @@ public class FileUtil {
         return fileNames;
     }
 
-    public static List<String> unZip(String zipfile, String destDir) throws Exception {
-        File zipFile = new File(zipfile);
-        return unZip(zipFile, destDir);
-    }
-
     public static List<String> unCompress(String compressFile, String destDir) throws Exception {
+        if (Strings.isNullOrEmpty(destDir)) {
+            // 输出到当前盘符根目录，不能使用 /
+            destDir = "\\";
+            // 输出到当前项目根目录
+            destDir = ".";
+        }
         String upperName = compressFile.toUpperCase();
         List<String> ret = null;
         if (upperName.endsWith(".ZIP")) {

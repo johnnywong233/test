@@ -47,14 +47,17 @@ public class ShopTest {
             marshal.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             marshal.marshal(shop, System.out);
 
-            writer = new FileWriter("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\shop.xml");
+            writer = new FileWriter("shop.xml");
             marshal.marshal(shop, writer);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         Unmarshaller unmarshal = context.createUnmarshaller();
-        FileReader reader = new FileReader("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\shop.xml");
+        // 从main/resources目录下面读取文件
+        // FileReader reader = new FileReader(new ClassPathResource("shop.xml").getFile().getName());
+        // 从项目根目录下面读取文件
+        FileReader reader = new FileReader("shop.xml");
         Shop shop1 = (Shop) unmarshal.unmarshal(reader);
 
         Set<Order> orders1 = shop1.getOrders();

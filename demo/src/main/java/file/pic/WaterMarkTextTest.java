@@ -1,7 +1,8 @@
 package file.pic;
 
-import javax.imageio.ImageIO;
+import org.springframework.core.io.ClassPathResource;
 
+import javax.imageio.ImageIO;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Font;
@@ -11,22 +12,23 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
  * Created by johnny on 2016/9/15.
  * 生成文字水印
+ * http://www.phpxs.com/code/1001578/
  */
 public class WaterMarkTextTest {
-    //http://www.phpxs.com/code/1001578/
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        File srcImgFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry.jpg");
+        File srcImgFile = new ClassPathResource("KatyPerry.jpg").getFile();
         String logoText = "[love Katy Perry so much]";
 
-        File outputImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry_water_text.jpg");
+        File outputImageFile = new File("KatyPerry_water_text.jpg");
 
-        File outputRotateImageFile = new File("D:\\Java_ex\\test\\src\\test\\resources\\KatyPerry_water_text_rotate.jpg");
+        File outputRotateImageFile = new File("KatyPerry_water_text_rotate.jpg");
 
         createWaterMarkByText(srcImgFile, logoText, outputImageFile);
 
@@ -72,7 +74,7 @@ public class WaterMarkTextTest {
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP,
                     alpha));
 
-            g.drawString(logoText, buffImg.getWidth()/20, buffImg.getHeight()/20);
+            g.drawString(logoText, buffImg.getWidth() / 20, buffImg.getHeight() / 20);
 
             g.dispose();
 
