@@ -18,3 +18,8 @@
 *.json   text
 *.html   text
 *.java   text
+
+# resolve repo detect error
+*.js linguist-language=java
+*.css linguist-language=java
+*.html linguist-language=java
