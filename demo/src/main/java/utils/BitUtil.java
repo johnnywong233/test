@@ -1,5 +1,4 @@
-package grammar;
-
+package utils;
 
 import org.testng.annotations.Test;
 
@@ -7,10 +6,58 @@ import java.util.BitSet;
 
 /**
  * Author: Johnny
+ * 7 个位运算符，分别是 ~(取反)、&(与)、｜(或)、^(异或)、>>(右移)、<<(左移)、>>>(无符号右移)
  * Date: 2017/2/19
  * Time: 17:38
  */
-public class BitDemo {
+public class BitUtil {
+
+    //计算n*2
+    int mulTwo(int n) {
+        return n << 1;
+    }
+
+    //除以2，负奇数的运算不可用
+    int divTwo(int n) {
+        return n >> 1;//除以2
+    }
+
+    //计算n*(2^m)，即乘以2的m次方
+    int mulTwoPower(int n, int m) {
+        return n << m;
+    }
+
+    //计算n/(2^m)，即除以2的m次方
+    int divTwoPower(int n, int m) {
+        return n >> m;
+    }
+
+    //判断数值的奇偶性
+    boolean isOddNumber(int n) {
+        return (n & 1) == 1;
+    }
+
+    /**
+     * 十进制转十六进制
+     */
+    public static String decimalToHex(int decimal) {
+        String hex = "";
+        while (decimal != 0) {
+            int hexValue = decimal % 16;
+            hex = toHexChar(hexValue) + hex;
+            decimal = decimal / 16;
+        }
+        return hex;
+    }
+
+    //将0~15的十进制数转换成0~F的十六进制数
+    private static char toHexChar(int hexValue) {
+        if (hexValue <= 9 && hexValue >= 0) {
+            return (char) (hexValue + '0');
+        } else {
+            return (char) (hexValue - 10 + 'A');
+        }
+    }
 
     @Test
     public void test1() {

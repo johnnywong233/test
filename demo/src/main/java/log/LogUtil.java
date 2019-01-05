@@ -107,7 +107,7 @@ public class LogUtil {
         }
     }
 
-    public void warn(String keyWord, String content) {
+    public static void warn(String keyWord, String content) {
         String message = keyWord + " " + content;
         logger.warn(message);
     }

@@ -1,8 +1,16 @@
 package utils;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.google.common.collect.Lists;
+import log.LogUtil;
+import org.apache.commons.collections.CollectionUtils;
+
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +21,15 @@ import java.util.Set;
  * http://blog.csdn.net/ycwol/article/details/39202753
  */
 public class JsonUtils {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    static {
+        objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
+        objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
+        objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
+    }
 
     public static String stringToJson(String s) {
         if (s == null) {
@@ -140,7 +157,7 @@ public class JsonUtils {
     public static String listToJson(List<?> list) {
         StringBuilder json = new StringBuilder();
         json.append("[");
-        if (list != null && list.size() > 0) {
+        if (!CollectionUtils.isEmpty(list)) {
             for (Object obj : list) {
                 json.append(objectToJson(obj));
                 json.append(",");
@@ -179,7 +196,7 @@ public class JsonUtils {
         StringBuilder json = new StringBuilder();
         json.append("{");
         if (map != null && map.size() > 0) {
-            for (Object key : map.keySet()) {
+            for (Object key : map.entrySet()) {
                 json.append(objectToJson(key));
                 json.append(":");
                 json.append(objectToJson(map.get(key)));
@@ -199,7 +216,7 @@ public class JsonUtils {
     public static String setToJson(Set<?> set) {
         StringBuilder json = new StringBuilder();
         json.append("[");
-        if (set != null && set.size() > 0) {
+        if (!CollectionUtils.isEmpty(set)) {
             for (Object obj : set) {
                 json.append(objectToJson(obj));
                 json.append(",");
@@ -209,5 +226,51 @@ public class JsonUtils {
             json.append("]");
         }
         return json.toString();
+    }
+
+    /**
+     * 把对像转换成json 字符串
+     */
+    public static <T extends Object> String toJson(T object) {
+        try {
+            return new ObjectMapper().writeValueAsString(object);
+        } catch (Exception e) {
+            LogUtil.error("JsonUtility.toJson转换异常", e);
+            return "";
+        }
+    }
+
+    /**
+     * 反序列化得到Pojo
+     */
+    public static <T> T toObject(String json, Class<T> type) {
+        try {
+            return objectMapper.readValue(json, type);
+        } catch (Exception e) {
+            LogUtil.error("反序列化对象失败", e);
+        }
+        return null;
+    }
+
+    /**
+     * 对象字段maping
+     */
+    public static <T> T mapObject(Class<T> clazz, Object o) {
+        String json = toJson(o);
+        Object res = toObject(json, clazz);
+        return (T) res;
+    }
+
+    /**
+     * 反序列化得到List<Pojo>
+     */
+    public static <T> List<T> toOjectList(String json, Class<T> type) {
+        try {
+            CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
+            return objectMapper.readValue(json, listType);
+        } catch (Exception e) {
+            LogUtil.error("反序列化对象列表失败", e);
+        }
+        return Lists.newArrayList();
     }
 }

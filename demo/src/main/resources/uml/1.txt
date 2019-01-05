@@ -1,0 +1,28 @@
+@startuml
+
+    ' 单引号开头，注释内容
+    /' 另一种形式的注释 '/
+    ' 实例展示类图访问权限控制：- # ~ + 分别表示 private、protected、package、public
+    ' 使用 skinparam classAttributeIconSize 0关掉icon的显示；
+    ' 使用{static}或者{abstract}来修饰字段或者方法，修饰符需要在行开头或者末尾；可以使用{classifier}代替{static}
+    ' 加粗：<></b> 换行：\n 该表字体 font 大小： <size:nn>
+    ' 使用 title 或者 title end title 表明标题
+    title some silly example\n showing <b>Plant UML</b> title
+
+    class SampleClass {
+       {static} - private field1
+       {abstract} # protected field2
+        ~ package method1()
+        + public method2() {classifier}
+    }
+
+    ' 在类名后面添加冒号可以添加方法和方法的参数
+    Object <|-- ArrayList
+    Object : equals()
+    ArrayList : Object[] elementData
+    ArrayList : size()
+
+    ' 可以改变箭头方向, 也可以在箭头上使用left, right, up or down关键字，关键字可以使用开头的几个字符简写，如使用-d-代替-down-。
+
+
+@enduml

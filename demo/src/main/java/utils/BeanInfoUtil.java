@@ -1,5 +1,7 @@
 package utils;
 
+import lombok.Data;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -76,6 +78,7 @@ public class BeanInfoUtil {
     }
 }
 
+@Data
 class UserInfo {
     private String userName;
 
@@ -84,36 +87,4 @@ class UserInfo {
     private int age;
 
     private String emailAddress;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
 }

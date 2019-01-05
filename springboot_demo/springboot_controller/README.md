@@ -56,4 +56,18 @@ org.springframework.ldap.odm.core.impl.MetaDataException: All Entry classes must
 
 - 报错2
 
-### 
+### spring boot with log4j2
+resources下面新增配置文件log4j2.xml；pom.xml新增dependency，并且exclude掉spring-boot-starter-logging：
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-log4j2</artifactId>
+</dependency>
+
+<exclusions>
+    <exclusion>
+        <artifactId>spring-boot-starter-logging</artifactId>
+        <groupId>org.springframework.boot</groupId>
+    </exclusion>
+</exclusions>
+```

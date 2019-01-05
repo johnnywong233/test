@@ -18,6 +18,7 @@ public class MessageSender {
         factory.setHost("localhost");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
+//        channel.exchangeDeclare("", "", true);
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
         String message = "Hello rabbit MQ!";
         channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
