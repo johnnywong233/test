@@ -25,6 +25,7 @@
         <module>instrument_case</module>
         <module>discovery</module>
         <module>hadoop_learn</module>
+        <module>jndi_demo</module>
     </modules>
 
 </project>
