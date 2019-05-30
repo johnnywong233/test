@@ -36,6 +36,31 @@
                     <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <!--内置4种规范：config/sun_checks.xml、config/maven_checks.xml、config/turbine_checks.xml、
+                    config/avalon_checks.xml、其中sun_checks.xml为默认值。修改默认配置-->
+                    <configLocation>config/google_checks.xml</configLocation>
+                    <!--启用自定义的规范文件-->
+                    <!--<configLocation>${basedir}/src/config/custom_checkstyle.xml</configLocation>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <failOnViolation>true</failOnViolation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
         <defaultGoal>compile</defaultGoal>
     </build>
@@ -56,6 +81,26 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.10.0</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.8</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <!--TODO: not working-->
     <repositories>

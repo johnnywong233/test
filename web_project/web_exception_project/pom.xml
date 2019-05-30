@@ -16,7 +16,7 @@
     <!--<url>https://repo.maven.apache.org/maven2</url>-->
     <properties>
         <!-- spring version -->
-        <spring.version>4.3.3.RELEASE</spring.version>
+        <spring.version>5.1.6.RELEASE</spring.version>
     </properties>
 
     <dependencies>
@@ -111,7 +111,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
         </dependency>
     </dependencies>
 </project>
