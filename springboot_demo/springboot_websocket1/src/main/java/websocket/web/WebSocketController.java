@@ -22,7 +22,7 @@ public class WebSocketController {
     @MessageMapping(value = "/getServerTime")
     //当服务端有消息时，会对订阅@SendTo中的路径的客户端发送消息
     @SendTo(value = "/topic/getResponse")
-    public SocketResponse serverTime(SocketMessage message) throws InterruptedException {
+    public SocketResponse serverTime(SocketMessage message) {
         return new SocketResponse(message.getMessage() + sf.format(new Date()));
     }
 }

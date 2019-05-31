@@ -16,7 +16,7 @@
     <!-- Allows running with com.johnny.validator.Application class and embedded Tomcat. -->
     <packaging>jar</packaging>
 
-    <name>Spring MVC Bean Validation</name>
+    <name>springboot_validator</name>
 
     <dependencies>
         <dependency>
@@ -88,18 +88,18 @@
             <version>1.1.0.Final</version>
         </dependency>
         <!-- hibernate validator-->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.2.4.Final</version>
-        </dependency>
+        <!-- <dependency>
+             <groupId>org.hibernate</groupId>
+             <artifactId>hibernate-validator</artifactId>
+             <version>5.2.4.Final</version>
+         </dependency>-->
     </dependencies>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>com.johnny.validator.Application</start-class>
         <java.version>1.8</java.version>
-        <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
+        <!--<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>-->
         <!--<tomcat.version>8.0.8</tomcat.version>-->
         <!--添加 spring-boot-starter-tomcat 依赖之后，spring boot 会自动解析这个 property-->
         <tomcat.version>8.5.3</tomcat.version>

@@ -3,7 +3,6 @@ package es;
 import es.model.Book;
 import es.service.BookService;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.common.settings.Settings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +19,7 @@ import java.util.Map;
  * Time: 17:17
  */
 @SpringBootApplication
-public class ESApplication implements CommandLineRunner {
+public class EsApplication implements CommandLineRunner {
 
     @Autowired
     private ElasticsearchOperations es;
@@ -29,7 +28,7 @@ public class ESApplication implements CommandLineRunner {
     private BookService bookService;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
         printElasticSearchInfo();
 
@@ -55,6 +54,6 @@ public class ESApplication implements CommandLineRunner {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(ESApplication.class, args);
+        SpringApplication.run(EsApplication.class, args);
     }
 }

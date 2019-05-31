@@ -45,7 +45,7 @@ public class UserController {
     private String urlroles;
 
     @RequestMapping("/index")
-    public String index(ModelMap model, Principal user) throws Exception {
+    public String index(ModelMap model, Principal user) {
         Authentication authentication = (Authentication) user;
         List<String> userroles = new ArrayList<>();
         for (GrantedAuthority ga : authentication.getAuthorities()) {
@@ -98,7 +98,10 @@ public class UserController {
 
     @RequestMapping(value = "/{id}")
     public String show(ModelMap model, @PathVariable Long id) {
-        User user = userRepository.findOne(id);
+        User user = new User();
+        if (userRepository.findById(id).isPresent()) {
+            user = userRepository.findById(id).get();
+        }
         model.addAttribute("user", user);
         return "user/show";
     }
@@ -107,7 +110,7 @@ public class UserController {
     @ResponseBody
     public Page<User> getList(UserQo userQo) {
         try {
-            Pageable pageable = new PageRequest(userQo.getPage(), userQo.getSize(), new Sort(Sort.Direction.ASC, "id"));
+            Pageable pageable = PageRequest.of(userQo.getPage(), userQo.getSize(), new Sort(Sort.Direction.ASC, "id"));
             return userRepository.findByName(userQo.getName() == null ? "%" : "%" + userQo.getName() + "%", pageable);
         } catch (Exception e) {
             e.printStackTrace();
@@ -128,7 +131,7 @@ public class UserController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public String save(User user) throws Exception {
+    public String save(User user) {
         user.setCreateDate(new Date());
         BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
         user.setPassword(bpe.encode(user.getPassword()));
@@ -139,8 +142,10 @@ public class UserController {
 
     @RequestMapping(value = "/edit/{id}")
     public String update(ModelMap model, @PathVariable Long id) {
-        User user = userRepository.findOne(id);
-
+        User user = new User();
+        if (userRepository.findById(id).isPresent()) {
+            user = userRepository.findById(id).get();
+        }
         List<Department> departments = departmentRepository.findAll();
         List<Role> roles = roleRepository.findAll();
 
@@ -158,7 +163,7 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
     @ResponseBody
-    public String update(User user) throws Exception {
+    public String update(User user) {
         userRepository.save(user);
         log.info("修改->ID=" + user.getId());
         return "1";
@@ -166,8 +171,8 @@ public class UserController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public String delete(@PathVariable Long id) throws Exception {
-        userRepository.delete(id);
+    public String delete(@PathVariable Long id) {
+        userRepository.deleteById(id);
         log.info("删除->ID=" + id);
         return "1";
     }

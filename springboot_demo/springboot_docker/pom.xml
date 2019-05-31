@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
+    <!--<parent>
         <groupId>com.johnny</groupId>
         <artifactId>springboot_demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-    </parent>
+    </parent>-->
 
     <!--for linux env run mvn clean install command-->
-    <!--<parent>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.4.RELEASE</version>
-    </parent>-->
+        <version>2.0.0.RELEASE</version>
+    </parent>
 
     <artifactId>springboot_docker</artifactId>
     <properties>
@@ -50,6 +50,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>9.0.10</version>
         </dependency>
     </dependencies>
 

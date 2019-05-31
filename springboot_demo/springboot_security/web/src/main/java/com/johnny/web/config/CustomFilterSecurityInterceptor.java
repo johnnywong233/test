@@ -7,21 +7,24 @@ import org.springframework.security.access.intercept.InterceptorStatusToken;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
-import javax.servlet.*;
-import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 @Slf4j
 public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {
     private FilterInvocationSecurityMetadataSource securityMetadataSource;
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
         FilterInvocation fi = new FilterInvocation(request, response, chain);
         log.debug("====" + fi.getRequestUrl());
         invoke(fi);
     }
 
-    private void invoke(FilterInvocation fi) throws IOException, ServletException {
+    private void invoke(FilterInvocation fi) {
         InterceptorStatusToken token = super.beforeInvocation(fi);
         try {
             fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
@@ -55,7 +58,7 @@ public class CustomFilterSecurityInterceptor extends AbstractSecurityInterceptor
     }
 
     @Override
-    public void init(FilterConfig arg0) throws ServletException {
+    public void init(FilterConfig arg0) {
     }
 
 }

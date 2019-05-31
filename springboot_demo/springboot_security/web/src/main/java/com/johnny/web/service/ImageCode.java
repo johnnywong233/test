@@ -1,21 +1,18 @@
 package com.johnny.web.service;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class ImageCode {
 
-    private static char mapTable[] = {
+    private static char[] mapTable = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '1',
             '2', '3', '4', '5', '6', '7', '8', '9'};
 
-    public static Map<String, Object> getImageCode(int width, int height, OutputStream os) {
+    public static Map<String, Object> getImageCode(int width, int height) {
         Map<String, Object> returnMap = new HashMap<>();
         if (width <= 0) {
             width = 60;

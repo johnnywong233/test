@@ -22,8 +22,12 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * deprecated @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+ * see https://stackoverflow.com/questions/45529743/ordersecurityproperties-access-override-order-vs-managementserverproperties-a
+ */
 @Configuration
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+@Order(SecurityProperties.BASIC_AUTH_ORDER)
 @EnableConfigurationProperties(SecuritySettings.class)
 @Slf4j
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {

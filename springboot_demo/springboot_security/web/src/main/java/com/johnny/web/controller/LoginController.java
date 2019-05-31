@@ -27,7 +27,7 @@ public class LoginController {
     @RequestMapping(value = "/images/imagecode")
     public String imageCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         OutputStream os = response.getOutputStream();
-        Map<String, Object> map = ImageCode.getImageCode(60, 20, os);
+        Map<String, Object> map = ImageCode.getImageCode(60, 20);
 
         String simpleCaptcha = "simpleCaptcha";
         request.getSession().setAttribute(simpleCaptcha, map.get("strEnsure").toString().toLowerCase());
@@ -43,7 +43,7 @@ public class LoginController {
 
     @RequestMapping(value = "/checkcode")
     @ResponseBody
-    public String checkCode(HttpServletRequest request, HttpSession session) throws Exception {
+    public String checkCode(HttpServletRequest request, HttpSession session) {
         String checkCode = request.getParameter("checkCode");
         Object cko = session.getAttribute("simpleCaptcha"); //验证码对象
         if (cko == null) {
@@ -54,7 +54,7 @@ public class LoginController {
         String captcha = cko.toString();
         Date now = new Date();
         Long codeTime = Long.valueOf(session.getAttribute("codeTime") + "");
-        if (StringUtils.isEmpty(checkCode) || captcha == null || !(checkCode.equalsIgnoreCase(captcha))) {
+        if (StringUtils.isEmpty(checkCode) || !(checkCode.equalsIgnoreCase(captcha))) {
             request.setAttribute("errorMsg", "验证码错误！");
             return "验证码错误！";
         } else if ((now.getTime() - codeTime) / 1000 / 60 > 5) {//验证码有效时长为5分钟

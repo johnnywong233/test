@@ -56,13 +56,15 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-starter-parent</artifactId>
-                <version>Edgware.RELEASE</version>
+                <version>Greenwich.RELEASE</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <!--Add	Spring repositories-->
+    <!--(you don't need this if you	are	using a .RELEASE version)-->
     <repositories>
         <repository>
             <id>spring-snapshots</id>
