@@ -20,9 +20,9 @@ public class DruidConfiguration {
      * 注册一个StatViewServlet
      */
     @Bean
-    public ServletRegistrationBean druidStatViewServle2() {
+    public ServletRegistrationBean druidStatViewServlet2() {
         //org.springframework.boot.context.embedded.ServletRegistrationBean提供类的进行注册.
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid2/*");
+        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean<>(new StatViewServlet(), "/druid2/*");
 
         //添加初始化参数：initParams
         //白名单：
@@ -44,7 +44,7 @@ public class DruidConfiguration {
      */
     @Bean
     public FilterRegistrationBean druidStatFilter2() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
+        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean<>(new WebStatFilter());
         //添加过滤规则.
         filterRegistrationBean.addUrlPatterns("/*");
 

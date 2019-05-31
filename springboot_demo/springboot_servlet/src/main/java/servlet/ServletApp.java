@@ -9,17 +9,16 @@ import servlet.servlet.MyServlet1;
 
 @SpringBootApplication
 @ServletComponentScan
-public class App {
-
+public class ServletApp {
     /**
      * 注册Servlet.不需要添加注解：@ServletComponentScan
      */
-	@Bean
+    @Bean
     public ServletRegistrationBean myServlet1() {
-        return new ServletRegistrationBean(new MyServlet1(), "/myServlet1/*");
+        return new ServletRegistrationBean<>(new MyServlet1(), "/myServlet1/*");
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(App.class, args);
+        SpringApplication.run(ServletApp.class, args);
     }
 }

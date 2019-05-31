@@ -1,7 +1,7 @@
-package drools.test;
+package com.johnny.drools.test;
 
-import drools.entity.Order;
-import drools.entity.User;
+import com.johnny.drools.entity.Order;
+import com.johnny.drools.entity.User;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;

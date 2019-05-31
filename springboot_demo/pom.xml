@@ -55,6 +55,7 @@
         <module>springboot_drools</module>
         <module>springboot_excel_kit</module>
         <module>springboot_mybatis_plus</module>
+        <module>springboot_paging</module>
     </modules>
 
     <parent>

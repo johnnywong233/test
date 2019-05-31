@@ -1,7 +1,7 @@
-package drools.test;
+package com.johnny.drools.test;
 
-import drools.entity.Order;
-import drools.entity.User;
+import com.johnny.drools.entity.Order;
+import com.johnny.drools.entity.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package drools.entity;
+package com.johnny.drools.entity;
 
 import lombok.Data;
 

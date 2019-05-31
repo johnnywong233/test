@@ -21,13 +21,16 @@ import java.util.Map;
 public class SearchCriteria {
     private final DateTime current = new DateTime();
 
-    private int count = 10;  //default num
+    /**
+     * default num
+     */
+    private int count = 10;
 
-    private int page = 1;    //default page
+    private int page = 1;
 
-    private String startDate = (new DateTime(current.getYear(), current.getMonthOfYear(), current.getDayOfMonth(), 0, 0, 0)).toString("yyy-MM-dd HH:mm:ss"); //default startDate
+    private String startDate = (new DateTime(current.getYear(), current.getMonthOfYear(), current.getDayOfMonth(), 0, 0, 0)).toString("yyy-MM-dd HH:mm:ss");
 
-    private String endDate = current.toString("yyy-MM-dd HH:mm:ss"); //default endDate
+    private String endDate = current.toString("yyy-MM-dd HH:mm:ss");
 
     private Map<String, String> sortFields;
 
@@ -53,21 +56,19 @@ public class SearchCriteria {
 
     /**
      * 处理searchCriteria,当searchFields()中包含dateType=(today, last_***_minutes), 或startDate, 或endDate字段时
-     *
-     * @return
      */
     public void parseSearchCriteria() {
 
         if (this.getSearchFields() != null) {
-            if (this.getSearchFields().containsKey("undefined")) {
-                this.getSearchFields().remove("undefined");
-            }
+            this.getSearchFields().remove("undefined");
 
             if (this.getSearchFields().containsKey("dateType")) {
                 String dateType = this.getSearchFields().get("dateType");
                 this.getSearchFields().remove("dateType");
 
-                if (null != dateType && (dateType.equals("custom") || (dateType.equals("all") || (dateType.split("_")[0].equals("last") && dateType.split("_")[2].equals("minutes"))))) {
+                boolean check = null != dateType && ("custom".equals(dateType) || ("all".equals(dateType) ||
+                        ("last".equals(dateType.split("_")[0]) && "minutes".equals(dateType.split("_")[2]))));
+                if (check) {
                     switch (dateType.split("_")[0]) {
                         case "custom":
                             if (this.getSearchFields().containsKey("startDate")) {
@@ -82,7 +83,7 @@ public class SearchCriteria {
                             this.setEndDate("9999-12-31 23:59:59");
                             break;
                         case "last":
-                            Integer lastMinutes = Integer.parseInt(dateType.split("_")[1]);
+                            int lastMinutes = Integer.parseInt(dateType.split("_")[1]);
                             this.setStartDate(current.minusMinutes(lastMinutes).toString("yyy-MM-dd HH:mm:ss"));
                             this.setEndDate(current.toString("yyy-MM-dd HH:mm:ss"));
                             break;
@@ -92,12 +93,8 @@ public class SearchCriteria {
                 }
 
                 //如果搜索字段中还有startDate或者endDate则直接移除，否则会被带入搜索条件
-                if (this.getSearchFields().containsKey("startDate")) {
-                    this.getSearchFields().remove("startDate");
-                }
-                if (this.getSearchFields().containsKey("endDate")) {
-                    this.getSearchFields().remove("endDate");
-                }
+                this.getSearchFields().remove("startDate");
+                this.getSearchFields().remove("endDate");
             }
         }
     }
@@ -105,8 +102,6 @@ public class SearchCriteria {
     /**
      * 只处理数据库表中的字段,remove在searchFields和sortFields中的其余字段
      * criteria.removeUnusedColumn(Article.class);
-     *
-     * @param c
      */
     @SuppressWarnings("rawtypes")
     public void removeUnusedColumn(Class c) {
@@ -119,7 +114,7 @@ public class SearchCriteria {
     }
 
     @SuppressWarnings("rawtypes")
-    public Map<String, String> removeColumn(Map<String, String> handleFields, Class c) {
+    private Map<String, String> removeColumn(Map<String, String> handleFields, Class c) {
         try {
             Field[] fields = c.getDeclaredFields();
             ArrayList<String> columnList = new ArrayList<>();

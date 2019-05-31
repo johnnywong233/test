@@ -1,4 +1,4 @@
-package drools.test;
+package com.johnny.drools.test;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

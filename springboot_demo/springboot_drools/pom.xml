@@ -12,17 +12,30 @@
 
     <artifactId>springboot_drools</artifactId>
 
+    <properties>
+        <drools.version>7.22.0.Final</drools.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-core</artifactId>
-            <version>6.5.0.Final</version>
+            <version>${drools.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-compiler</artifactId>
-            <version>6.5.0.Final</version>
+            <version>${drools.version}</version>
         </dependency>
 
         <dependency>
