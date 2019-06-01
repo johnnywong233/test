@@ -11,5 +11,6 @@ import upload.entity.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findById(long id);
 
-    Long deleteById(Long id);
+    @Override
+    void deleteById(Long id);
 }

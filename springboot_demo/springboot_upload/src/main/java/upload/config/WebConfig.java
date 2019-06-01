@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import upload.aop.FileFormatInterceptor;
 
 /**
@@ -15,7 +15,7 @@ import upload.aop.FileFormatInterceptor;
  */
 @Configuration
 //@ComponentScan(basePackages = {"upload.web"})
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private FileFormatInterceptor fileFormatInterceptor;
@@ -30,11 +30,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     /**
      * configuration for loading static resources
+     * https://my.oschina.net/junko2013/blog/1823475
+     * TODO
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/templates/**").addResourceLocations(ResourceUtils.CLASSPATH_URL_PREFIX + "/templates/");
-        super.addResourceHandlers(registry);
+//        super.addResourceHandlers(registry);
     }
 
 }
