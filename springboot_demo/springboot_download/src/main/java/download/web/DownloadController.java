@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Author: Johnny
@@ -34,7 +35,7 @@ public class DownloadController {
         String downloadFilePath = "C:";
         File file = new File(downloadFilePath + File.separator + filename);
         HttpHeaders headers = new HttpHeaders();
-        String downloadFileName = new String(filename.getBytes("UTF-8"), "iso-8859-1");
+        String downloadFileName = new String(filename.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
         headers.setContentDispositionFormData("attachment", downloadFileName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return new ResponseEntity<>(FileUtils.readFileToByteArray(file), headers, HttpStatus.CREATED);

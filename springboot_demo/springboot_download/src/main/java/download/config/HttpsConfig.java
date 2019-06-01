@@ -5,10 +5,9 @@ import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.Ssl;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.Ssl;
+import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -33,34 +32,33 @@ public class HttpsConfig {
 
     /**
      * below code for https enhancement
+     * https://stackoverflow.com/questions/49406779/embeddedservletcontainercustomizer-in-spring-boot-2-0
+     * EmbeddedServletContainerCustomizer -> ConfigurableServletWebServerFactory
      */
     @Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return container -> {
-            Ssl ssl = new Ssl();
-            ssl.setKeyStore(jksName);
-            ssl.setKeyStorePassword(pass);
-            container.setSsl(ssl);
-            container.setPort(redirectPort);
-        };
-    }
-
-    @Bean
-    public EmbeddedServletContainerFactory servletContainerFactory() {
-        TomcatEmbeddedServletContainerFactory factory =
-                new TomcatEmbeddedServletContainerFactory() {
+    public ConfigurableServletWebServerFactory containerCustomizer() {
+        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory() {
                     @Override
                     protected void postProcessContext(Context context) {
-                        //add SecurityConstraint for different redirect strategy from different URL
-                        SecurityConstraint securityConstraint = new SecurityConstraint();
-                        securityConstraint.setUserConstraint("CONFIDENTIAL");
+                        // add SecurityConstraint for different redirect strategy from different URL
                         SecurityCollection collection = new SecurityCollection();
                         collection.addPattern("/*");
-                        securityConstraint.addCollection(collection);
-                        context.addConstraint(securityConstraint);
+
+                        SecurityConstraint constraint = new SecurityConstraint();
+                        constraint.setUserConstraint("CONFIDENTIAL");
+                        constraint.addCollection(collection);
+                        context.addConstraint(constraint);
                     }
                 };
-        factory.addAdditionalTomcatConnectors(createHttpConnector());
+        factory.addAdditionalTomcatConnectors(this.createHttpConnector());
+
+        Ssl ssl = new Ssl();
+        ssl.setKeyStore(jksName);
+        ssl.setKeyStorePassword(pass);
+
+        factory.setSsl(ssl);
+        factory.setPort(redirectPort);
+
         return factory;
     }
 

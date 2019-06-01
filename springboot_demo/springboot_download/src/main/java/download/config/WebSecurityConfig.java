@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity webSecurity) throws Exception {
+    public void configure(WebSecurity webSecurity) {
         for(String path : AUTH_IGNORED_PATH_LIST){
             webSecurity.ignoring().antMatchers(path);
         }
