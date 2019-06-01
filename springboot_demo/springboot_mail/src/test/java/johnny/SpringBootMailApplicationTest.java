@@ -1,9 +1,10 @@
 package johnny;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -18,11 +19,12 @@ public class SpringBootMailApplicationTest {
 
     }
 
-    @Autowired
+    @Resource
     private JavaMailSender mailSender;
 
     @Test
-    public void sendSimpleMail() throws Exception {
+    // TODO
+    public void sendSimpleMail() {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("wangjianloveblue@163.com");
         message.setTo("wangjianloveblue@163.com");

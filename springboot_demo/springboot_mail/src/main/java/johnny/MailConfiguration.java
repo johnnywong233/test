@@ -1,5 +1,6 @@
 package johnny;
 
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  */
 @Configuration
 @ConfigurationProperties(prefix = "spring.mail")
+@Setter
 public class MailConfiguration {
     private String protocol;
     private String host;
@@ -30,25 +32,4 @@ public class MailConfiguration {
         mailSender.setPassword(password);
         return mailSender;
     }
-
-    public void setProtocol(String protocol) {
-        this.protocol = protocol;
-    }
-
-    public void setHost(String host) {
-        this.host = host;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }

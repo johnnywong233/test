@@ -1,12 +1,13 @@
 package johnny;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class MailController {
-    @Autowired
+    @Resource
     @Qualifier("javaMailSender")
-    JavaMailSender javaMailSender;
-    @Autowired
-    MailUtil mailUtil;
+    private JavaMailSender javaMailSender;
+    @Resource
+    private MailUtil mailUtil;
 
     @RequestMapping(value = "/mail", method = RequestMethod.POST)
     public void sendSimpleMail(User user) throws Exception {
@@ -28,9 +29,10 @@ public class MailController {
         message.setTo(user.getEmail());
         message.setSubject("user login prompt");
         message.setText("hi, johnny, this is a mail sent through java code to you");
-        mailUtil.sendSimpleMail(javaMailSender, message);//OK
-        mailUtil.sendAttachmentsMail(javaMailSender);//OK
-        mailUtil.sendInlineMail(javaMailSender);//OK
-        mailUtil.sendTemplateMail(javaMailSender, user.getEmail(), user.getUsername());//OK
+        // all ok
+        mailUtil.sendSimpleMail(javaMailSender, message);
+        mailUtil.sendAttachmentsMail(javaMailSender);
+        mailUtil.sendInlineMail(javaMailSender);
+        mailUtil.sendTemplateMail(javaMailSender, user.getEmail(), user.getUsername());
     }
 }

@@ -44,8 +44,8 @@ class MailUtil {
         helper.setTo(sendTo);
         helper.setSubject("title: with attachment");
         helper.setText("mail with attachment ");
-        FileSystemResource file = new FileSystemResource(new File("D:\\sb.md"));
-        FileSystemResource file1 = new FileSystemResource(new File("D:\\sb.md"));
+        FileSystemResource file = new FileSystemResource(new File("README.md"));
+        FileSystemResource file1 = new FileSystemResource(new File("README.md"));
         helper.addAttachment("attachment 1", file);
         helper.addAttachment("attachment 2", file1);
         javaMailSender.send(mimeMessage);
@@ -62,7 +62,8 @@ class MailUtil {
         helper.setSubject("title: embed static resources");
         helper.setText("<html><body><img src=\"cid:doubi\" ></body></html>", true);
         FileSystemResource file = new FileSystemResource(new File("D:\\S60728-200903.jpg"));
-        helper.addInline("static resources", file); // addInline函数中资源名称doubi需要与正文中cid:doubi对应起来
+        // addInline函数中资源名称doubi需要与正文中cid:doubi对应起来
+        helper.addInline("static resources", file);
         javaMailSender.send(mimeMessage);
     }
 
