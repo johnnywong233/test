@@ -1,10 +1,9 @@
 package quartz.service;
 
-import quartz.bean.ScheduleJob;
 import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
+import quartz.bean.ScheduleJob;
 
 /**
  * Author: Johnny
@@ -14,7 +13,7 @@ import org.quartz.JobExecutionException;
 @DisallowConcurrentExecution
 public class QuartzJobFactory implements Job {
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
         System.out.println("任务成功运行");
         ScheduleJob scheduleJob = (ScheduleJob) context.getMergedJobDataMap().get("scheduleJob");
         System.out.println("任务名称 = [" + scheduleJob.getJobName() + "]");
