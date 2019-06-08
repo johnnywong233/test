@@ -23,7 +23,7 @@ public class HelloControllerTest {
 
     //初始化执行
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
     }
 
