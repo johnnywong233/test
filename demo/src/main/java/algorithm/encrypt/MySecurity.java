@@ -3,24 +3,24 @@ package algorithm.encrypt;
 import utils.FileUtil;
 
 import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.security.Key;
-import java.security.Security;
 
 public class MySecurity {
 
     private MySecurity des = new MySecurity();
     private static String strDefaultKey = "johnny";
-    private Cipher encryptCipher = null;
-    private Cipher decryptCipher = null;
+    private Cipher encryptCipher;
+    private Cipher decryptCipher;
 
     //TODO
-    private Key getKey(byte[] arrBTmp) throws Exception {
+    private Key getKey(byte[] arrBTmp) {
         byte[] arrB = new byte[8];
         for (int i = 0; i < arrBTmp.length && i < arrB.length; i++) {
             arrB[i] = arrBTmp[i];
         }
-        return new javax.crypto.spec.SecretKeySpec(arrB, "DES");
+        return new SecretKeySpec(arrB, "DES");
     }
 
     private MySecurity() throws Exception {
@@ -28,8 +28,9 @@ public class MySecurity {
     }
 
     @SuppressWarnings("restriction")
-	private MySecurity(String strKey) throws Exception {
-        Security.addProvider(new com.sun.crypto.provider.SunJCE());
+    private MySecurity(String strKey) throws Exception {
+        // Error:(33, 57) java: 程序包com.sun.crypto.provider不存在
+//        Security.addProvider(new com.sun.crypto.provider.SunJCE());
         Key key = getKey(strKey.getBytes());
 
         encryptCipher = Cipher.getInstance("DES");
@@ -39,7 +40,7 @@ public class MySecurity {
         decryptCipher.init(Cipher.DECRYPT_MODE, key);
     }
 
-    private static String byteArr2HexStr(byte[] arrB) throws Exception {
+    private static String byteArr2HexStr(byte[] arrB) {
         int iLen = arrB.length;
         StringBuilder sb = new StringBuilder(iLen * 2);
         for (byte anArrB : arrB) {
@@ -63,7 +64,7 @@ public class MySecurity {
         return byteArr2HexStr(encrypt(strIn.getBytes()));
     }
 
-    private static byte[] hexStr2ByteArr(String strIn) throws Exception {
+    private static byte[] hexStr2ByteArr(String strIn) {
         byte[] arrB = strIn.getBytes();
         int iLen = arrB.length;
 
@@ -95,7 +96,7 @@ public class MySecurity {
         FileUtil.writeBytesToFile(des.decrypt(fileA), destFile);
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             MySecurity des = new MySecurity();
 

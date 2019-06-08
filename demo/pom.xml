@@ -76,7 +76,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-version>5.1.1.RELEASE</spring-version>
-        <spring-boot-version>2.0.6.RELEASE</spring-boot-version>
+        <spring-boot-version>2.1.5.RELEASE</spring-boot-version>
         <lucene-version>7.5.0</lucene-version>
     </properties>
 
@@ -205,7 +205,6 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib</artifactId>
-            <version>3.2.4</version>
         </dependency>
 
         <dependency>
@@ -1288,7 +1287,6 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>4.1.0</version>
         </dependency>
 
         <dependency>
@@ -1362,7 +1360,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>23.0</version>
         </dependency>
 
         <dependency>
@@ -1396,7 +1393,6 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.8</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch.client</groupId>

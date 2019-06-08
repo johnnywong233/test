@@ -41,13 +41,13 @@ public class BitUtil {
      * 十进制转十六进制
      */
     public static String decimalToHex(int decimal) {
-        String hex = "";
+        StringBuilder hex = new StringBuilder();
         while (decimal != 0) {
             int hexValue = decimal % 16;
-            hex = toHexChar(hexValue) + hex;
+            hex.insert(0, toHexChar(hexValue));
             decimal = decimal / 16;
         }
-        return hex;
+        return hex.toString();
     }
 
     //将0~15的十进制数转换成0~F的十六进制数
@@ -110,10 +110,6 @@ public class BitUtil {
 
         // 7. 除以2的m次方
         System.out.println(16 >> 2);
-
-        // 8. 判断奇偶
-        System.out.println((10 & 1) == 1);
-        System.out.println((9 & 1) == 1);
 
         // 9. 不用临时变量交换两个数
         int a = 23, b = 32;
@@ -219,7 +215,6 @@ public class BitUtil {
         return (source & 1) == 1;
     }
 
-    //http://www.codeweblog.com/java%E4%BD%8D%E6%93%8D%E4%BD%9C%E5%85%A8%E9%9D%A2%E6%80%BB%E7%BB%93/
     public static void main(String[] args) {
         // 取十进制 11 (0000 1011) 
         byte source = 11;
@@ -248,6 +243,9 @@ public class BitUtil {
 
 }
 
+/**
+ * 获取一个字符串中用到哪些字符
+ */
 class WhichChars {
 
     private BitSet used = new BitSet();
@@ -260,11 +258,11 @@ class WhichChars {
 
     @Override
     public String toString() {
-        String desc = "[";
+        StringBuilder desc = new StringBuilder("[");
         int size = used.size();
         for (int i = 0; i < size; i++) {
             if (used.get(i)) {
-                desc += (char) i;
+                desc.append((char) i);
             }
         }
         return desc + "]";

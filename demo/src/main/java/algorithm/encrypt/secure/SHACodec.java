@@ -15,7 +15,7 @@ public class SHACodec extends AbstractBasicCodec {
     }
 
     @Override
-    public byte[] decrypt(byte[] data) throws Exception {
+    public byte[] decrypt(byte[] data) {
         return null;
     }
 

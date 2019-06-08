@@ -6,12 +6,12 @@ package algorithm.encrypt.secure;
 public class NoSecureCodec extends AbstractBasicCodec {
 
     @Override
-    public byte[] encrypt(byte[] data) throws Exception {
+    public byte[] encrypt(byte[] data) {
         return data;
     }
 
     @Override
-    public byte[] decrypt(byte[] data) throws Exception {
+    public byte[] decrypt(byte[] data) {
         return data;
     }
 

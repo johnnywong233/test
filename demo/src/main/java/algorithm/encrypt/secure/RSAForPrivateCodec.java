@@ -9,6 +9,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
 /**
  * RSA 非对称加密，持有私钥的甲方
@@ -16,7 +17,9 @@ import java.security.spec.PKCS8EncodedKeySpec;
 public class RSAForPrivateCodec extends AbstractBasicCodec {
     private static final String ALGORITHM = "RSA";
 
-    //rsa，签名算法可以是 md5withrsa 、 sha1withrsa 、 sha256withrsa 、 sha384withrsa 、 sha512withrsa
+    /**
+     * rsa，签名算法可以是 md5withrsa 、 sha1withrsa 、 sha256withrsa 、 sha384withrsa 、 sha512withrsa
+     */
     private static final String SIGN_ALGORITHM = "MD5withRSA";
     private static final int KEY_SIZE = 1024;
 
@@ -60,12 +63,11 @@ public class RSAForPrivateCodec extends AbstractBasicCodec {
         return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
     }
 
-	/*private PublicKey getRSAPublicKey() throws Exception
-    {
-		X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(decoder(super.publicKey));
-		KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
-		return keyFactory.generatePublic(x509EncodedKeySpec);
-	}*/
+    private PublicKey getRSAPublicKey() throws Exception {
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(decoder(super.publicKey));
+        KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
+        return keyFactory.generatePublic(x509EncodedKeySpec);
+    }
 
     /**
      * 使用私钥 对数据进行签名

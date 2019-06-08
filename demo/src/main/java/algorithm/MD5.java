@@ -12,7 +12,7 @@ public class MD5 {
         return str.toString();
     }
 
-    /*
+    /**
      * Convert a string to a sequence of 16-word blocks, stored as an array.
      * Append padding bits and the length, as described in the MD5 standard.
      */

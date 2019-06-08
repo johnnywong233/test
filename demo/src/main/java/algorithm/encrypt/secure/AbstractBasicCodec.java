@@ -3,7 +3,6 @@ package algorithm.encrypt.secure;
 import lombok.Getter;
 import utils.Base64Utils;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 
 /**
@@ -52,7 +51,7 @@ public abstract class AbstractBasicCodec {
     /**
      * base64解码
      */
-    byte[] decoder(String data) throws IOException {
+    byte[] decoder(String data) {
         return base64Utils.decoder(data);
     }
 

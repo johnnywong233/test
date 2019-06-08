@@ -8,10 +8,9 @@ import algorithm.encrypt.secure.MD5Codec;
 import algorithm.encrypt.secure.RSAForPrivateCodec;
 import algorithm.encrypt.secure.RSAForPublicCodec;
 import algorithm.encrypt.secure.SHACodec;
-
 import org.junit.Test;
 
-/*
+/**
  * 加解密工具类，实现了常用的加解密类。包括单向加密：MD5、SHA；对称加密：DES、AES；非对称加密：RSA
  * https://git.oschina.net/bayern.com/SecureUtils
  */

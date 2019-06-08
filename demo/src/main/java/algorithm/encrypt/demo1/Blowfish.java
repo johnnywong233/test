@@ -20,7 +20,7 @@ public class Blowfish {
             cbcIv = lNewCBCIV;
         }
 
-        void setCBCIV(byte newCBCIV[]) {
+        void setCBCIV(byte[] newCBCIV) {
             cbcIv = Blowfish.byteArrayToLong(newCBCIV, 0);
         }
 
