@@ -3,10 +3,10 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 
 Contract.make {
-    description "return all customers"
+    description "return all singers"
 
     request {
-        url "/api/customers"
+        url "/api/singers"
         method GET()
     }
 

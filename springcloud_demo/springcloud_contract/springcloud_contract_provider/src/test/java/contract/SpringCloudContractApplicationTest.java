@@ -1,7 +1,8 @@
 package contract;
 
-import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class SpringCloudContractApplicationTest {
         Mockito.when(singerRepository.findAll()).thenReturn(
                 Arrays.asList(new Singer(1L, "sam"), new Singer(2L, "andy")));
         RestAssuredMockMvc.standaloneSetup(this.singerRepository);
+    }
+
+    @Test
+    public void test() {
+        singerRestController.getCustomers();
     }
 
 }

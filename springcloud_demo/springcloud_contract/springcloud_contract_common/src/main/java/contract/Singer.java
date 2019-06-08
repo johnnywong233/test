@@ -1,5 +1,6 @@
 package contract;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Data;
  * Time: 10:46
  */
 @Data
+@AllArgsConstructor
 public class Singer {
     private Long id;
     private String name;

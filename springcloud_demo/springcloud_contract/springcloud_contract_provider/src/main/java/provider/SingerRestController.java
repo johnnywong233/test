@@ -1,9 +1,10 @@
 package provider;
 
 import contract.Page;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class SingerRestController {
-    @Autowired
+    @Resource
     private SingerRepository singerRepository;
 
-    @RequestMapping(path = "/api/customers")
+    @RequestMapping(path = "/api/singers")
     public Page getCustomers() {
         Page page = new Page();
         page.setData(singerRepository.findAll());
