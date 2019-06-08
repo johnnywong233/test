@@ -1,2 +1,8 @@
 
-[here](http://blog.csdn.net/ffm83/article/details/42264057)
+Discovery组件被用以查找可插拔接口的实现实例，提供一种通用的实例化这些实现的方式，而且可以管理单例（工厂）的生命周期。本质上来讲，就是定位那些实现给定Java接口的类，并实例化。除此之外，Discovery还可以用以在给定的classpath中查找并加载资源文件。
+Discovery组件在查找所有的实现类的时候需要预先将允许被查找的实现类配置到默认的配置文件中，默认的配置文件为：
+/META-INF/services/， Discovery将依次加载该文件中配置的允许加载的实现类。
+
+因为RemoveAction没有被配置到service文件中，所以将不会被加载，配置文件中的定义顺序即加载顺序。除此之外，Discovery提供singleton模式加载唯一实现，并且该实现将被缓存在cache中，除非通过显示的调用release()方法释放缓存，否则所有之后的调用，都将返回初次调用加载的Action。
+
+如果定义默认的service文件，无论通过singleton模式加载的实现类有没有被配置在service文件中，都将默认加载配置中文中的第一个Action

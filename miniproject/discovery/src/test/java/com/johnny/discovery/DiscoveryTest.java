@@ -30,7 +30,6 @@ public class DiscoveryTest extends TestCase {
      * <p>
      * And the order is CreateAction > DeleteAction > AddAction
      */
-    @SuppressWarnings("unchecked")
     public void testGetAllProviders() {
         String[] expectedResults = new String[]{"Create Action", "Delete Action", "Add Action"};
 
@@ -38,8 +37,7 @@ public class DiscoveryTest extends TestCase {
         int count = 0;
         while (enu.hasMoreElements()) {
             Action action = enu.nextElement();
-            assertTrue("The action name should be \"" + expectedResults[count] + "\", but actually is \"" + action.getName() + "\"",
-                    action.getName().equals(expectedResults[count]));
+            assertEquals("The action name should be \"" + expectedResults[count] + "\", but actually is \"" + action.getName() + "\"", action.getName(), expectedResults[count]);
             count++;
         }
         assertEquals(count, expectedResults.length);
@@ -79,6 +77,7 @@ public class DiscoveryTest extends TestCase {
 
     /**
      * Use individual properties to load DeleteAction.
+     * 如果必须使用service文件，又想通过singleton模式加载某特定的实现类该怎么办呢？可以通过传递Properties到DiscoverSingleton中去改变它的行为
      */
     public void testFindDeleteActionWithProperty() {
         try {
@@ -169,9 +168,12 @@ public class DiscoveryTest extends TestCase {
                 new DefaultClassHolder(DeleteAction.class));
 
         //TODO
-        assertEquals("Remove Action", action.getName());
+        assertEquals("RemoveAction", action.getName());
     }
 
+    /**
+     * 除了加载类之外，很多情况下还想加载资源文件，比如通过Discovery去加载classpath下/conf/testResource资源文件
+     */
     public void testFindResources() {
         ClassLoaders loaders = new ClassLoaders();
         ClassLoader cl = getClass().getClassLoader();
