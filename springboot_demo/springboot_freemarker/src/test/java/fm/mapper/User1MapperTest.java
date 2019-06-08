@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class User1MapperTest {
-    @Autowired
+    @Resource
     private User1Mapper userMapper;
 
     @Autowired
@@ -35,7 +36,7 @@ public class User1MapperTest {
     }
 
     @Test
-    public void testInsert() throws Exception {
+    public void testInsert() {
         userMapper.insert(new User("Daniel", "root", UserSexEnum.MAN));
         userMapper.insert(new User("Craig", "1Qaz2wsx", UserSexEnum.WOMAN));
         userMapper.insert(new User("Johnny", "iso*help", UserSexEnum.WOMAN));
@@ -43,7 +44,7 @@ public class User1MapperTest {
     }
 
     @Test
-    public void testQuery() throws Exception {
+    public void testQuery() {
         List<User> users = userMapper.getAll();
         if (users == null || users.size() == 0) {
             System.out.println("is null");
@@ -53,12 +54,12 @@ public class User1MapperTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         userMapper.insert(new User("Johnny", "root", UserSexEnum.MAN));
         User user = userService.getByName("Johnny");
         System.out.println(user.toString());
         user.setNickName("johnny");
         userMapper.update(user);
-        Assert.assertTrue(("johnny".equals(userMapper.getOne(50L).getNickName())));
+        Assert.assertEquals("johnny", userMapper.getOne(50L).getNickName());
     }
 }

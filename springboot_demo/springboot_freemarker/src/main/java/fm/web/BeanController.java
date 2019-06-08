@@ -8,21 +8,25 @@ import fm.service.CityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Author: Johnny
+ * 针对FreeMarker的请求不能使用@RestController
+ *
+ * @author Johnny
  * Date: 2017/7/15
  * Time:30
  */
-//针对FreeMarker的请求不能使用@RestController
 @Controller
 @Api(tags = "城市及其用户")
 public class BeanController {
@@ -61,10 +65,10 @@ public class BeanController {
         return "Spring rest doc testing returning hello world";
     }
 
-    @Autowired
+    @Resource
     private User1Mapper user1Mapper;
 
-    @Autowired
+    @Resource
     private User2Mapper user2Mapper;
 
     @ApiOperation("所有用户")

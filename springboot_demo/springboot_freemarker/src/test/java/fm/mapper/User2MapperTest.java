@@ -6,10 +6,10 @@ import fm.mapper.ds2.User2Mapper;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,11 +20,11 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class User2MapperTest {
-    @Autowired
+    @Resource
     private User2Mapper userMapper;
 
     @Test
-    public void testInsert() throws Exception {
+    public void testInsert() {
         userMapper.insert(new User("aa", "a123456", UserSexEnum.MAN));
         userMapper.insert(new User("bb", "b123456", UserSexEnum.WOMAN));
         userMapper.insert(new User("cc", "b123456", UserSexEnum.WOMAN));
@@ -32,7 +32,7 @@ public class User2MapperTest {
     }
 
     @Test
-    public void testQuery() throws Exception {
+    public void testQuery() {
         List<User> users = userMapper.getAll();
         if (users == null || users.size() == 0) {
             System.out.println("is null");
@@ -42,11 +42,11 @@ public class User2MapperTest {
     }
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
         User user = userMapper.getOne(30L);
         System.out.println(user.toString());
         user.setNickName("neo");
         userMapper.update(user);
-        Assert.assertTrue(("neo".equals(userMapper.getOne(30L).getNickName())));
+        Assert.assertEquals("neo", userMapper.getOne(30L).getNickName());
     }
 }

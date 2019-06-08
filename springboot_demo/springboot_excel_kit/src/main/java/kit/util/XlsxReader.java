@@ -28,8 +28,14 @@ import java.util.List;
 public class XlsxReader extends DefaultHandler {
     private final DataFormatter mFormatter = new DataFormatter();
     private SharedStringsTable mSharedStringsTable;
-    private String mLastContents; // 上一次的内容
-    private boolean mNextIsString;// 字符串标识
+    /**
+     * 上一次的内容
+     */
+    private String mLastContents;
+    /**
+     * 字符串标识
+     */
+    private boolean mNextIsString;
     private int mSheetIndex = -1;
     private int mCurrentRowIndex = 0;
     private int mCurrentColumnIndex = 0;
@@ -41,18 +47,24 @@ public class XlsxReader extends DefaultHandler {
     private CellValueType mNextDataType = CellValueType.STRING;
     private List<String> mRowData = new ArrayList<>();
 
-    // 定义前一个元素和当前元素的位置，用来计算其中空的单元格数量，如A6和A8等
+    /**
+     * 定义前一个元素和当前元素的位置，用来计算其中空的单元格数量，如A6和A8等
+     */
     private String mPreviousRef = null, mCurrentRef = null;
-    // 定义该文档一行最大的单元格数，用来补全一行最后可能缺失的单元格
+    /**
+     * 定义该文档一行最大的单元格数，用来补全一行最后可能缺失的单元格
+     */
     private String mMaxRef = null;
-    // 空单元格的默认值
+    /**
+     * 空单元格的默认值
+     */
     private String mEmptyCellValue = null;
 
     XlsxReader(ReadHandler handler) {
         this.mReadHandler = handler;
     }
 
-    public XlsxReader setEmptyCellValue(String ecv) {
+    XlsxReader setEmptyCellValue(String ecv) {
         this.mEmptyCellValue = ecv;
         return this;
     }
@@ -63,7 +75,7 @@ public class XlsxReader extends DefaultHandler {
      * @param fileName excel文件
      * @throws Exception IOException, OpenXML4JException, SAXException
      */
-    public void process(String fileName) throws Exception {
+    void process(String fileName) throws Exception {
         POIUtils.checkExcelFile(fileName);
         processAll(OPCPackage.open(fileName));
     }
@@ -139,6 +151,7 @@ public class XlsxReader extends DefaultHandler {
     }
 
     private XMLReader fetchSheetParser(SharedStringsTable sst) throws SAXException {
+        // jdk9 之后 XMLReaderFactory 废弃
         XMLReader parser = XMLReaderFactory.createXMLReader("org.apache.xerces.parsers.SAXParser");
         this.mSharedStringsTable = sst;
         parser.setContentHandler(this);
@@ -246,7 +259,7 @@ public class XlsxReader extends DefaultHandler {
             mCurrentRef = attributes.getValue("r");
             // Figure out if the value is an index in the SST
             String cellType = attributes.getValue("t");
-            mNextIsString = (cellType != null && "s".equals(cellType));
+            mNextIsString = ("s".equals(cellType));
         }
         mIsTElement = "t".equals(name);
 

@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class TestExcel {
 
-    public void testExcelKit(HttpServletResponse response) {
+    void testExcelKit(HttpServletResponse response) {
         List<ExcelKitBo> excelKitBoList = new ArrayList<>();
 
         ExcelKitBo excelKitBo = new ExcelKitBo();

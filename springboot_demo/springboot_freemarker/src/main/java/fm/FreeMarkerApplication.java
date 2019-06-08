@@ -19,8 +19,8 @@ import org.springframework.web.client.RestTemplate;
 //@MapperScan("fm.mapper.**")
 //@MapperScan(basePackages = "fm.mapper") //也不对
 //傻啊，这个是用来配置扫描 mapper.xml 文件的，不是 mapper 接口。
-public class Application {
-    private static final Logger log = LoggerFactory.getLogger(Application.class);
+public class FreeMarkerApplication {
+    private static final Logger log = LoggerFactory.getLogger(FreeMarkerApplication.class);
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
@@ -28,7 +28,7 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+    public CommandLineRunner run(RestTemplate restTemplate) {
         return args -> {
             String quote = restTemplate.getForObject(
                     "http://gturnquist-quoters.cfapps.io/api/random", String.class);
@@ -41,6 +41,6 @@ public class Application {
         //set proxy in code to get rid of <strong>HPE</strong> clients should 'Use automatic configuration script' <strong>http://autocache.hpecorp.net/</strong>.
 //        System.setProperty("http.proxyHost", "web-proxy.atl.hpecorp.net");
 //        System.setProperty("http.proxyPort", "8080");
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(FreeMarkerApplication.class, args);
     }
 }

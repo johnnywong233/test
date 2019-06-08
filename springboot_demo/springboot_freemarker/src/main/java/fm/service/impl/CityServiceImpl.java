@@ -1,9 +1,8 @@
 package fm.service.impl;
 
-import fm.mapper.ds1.CityMapper;
 import fm.domain.City;
+import fm.mapper.ds1.CityMapper;
 import fm.service.CityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 @Service
 public class CityServiceImpl implements CityService {
-    @Autowired
+    @Resource
     private CityMapper cityMapper;
 
     @Override
