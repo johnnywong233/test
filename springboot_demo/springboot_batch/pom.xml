@@ -12,6 +12,9 @@
 
     <artifactId>springboot_batch</artifactId>
 
+    <properties>
+        <spring-boot-admin.version>2.1.5</spring-boot-admin.version>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -51,12 +54,12 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server</artifactId>
-            <version>1.5.7</version>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server-ui</artifactId>
-            <version>1.5.7</version>
+            <version>${spring-boot-admin.version}</version>
         </dependency>
     </dependencies>
 

@@ -26,8 +26,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <fastjson.version>1.2.39</fastjson.version>
-        <commons-lang3.version>3.7</commons-lang3.version>
-        <!--<guava.version>23.0</guava.version>-->
         <javax.mail.version>1.4.7</javax.mail.version>
         <log4j.version>1.2.17</log4j.version>
     </properties>
@@ -74,7 +72,6 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
         </dependency>
 
         <dependency>
@@ -104,7 +101,6 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.2</version>
         </dependency>
     </dependencies>
     <build>

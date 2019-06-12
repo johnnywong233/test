@@ -12,7 +12,6 @@
 
     <artifactId>springboot_upload</artifactId>
     <properties>
-        <swagger2.version>2.9.2</swagger2.version>
     </properties>
 
     <dependencies>
@@ -52,13 +51,11 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger2.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger2.version}</version>
         </dependency>
 
         <dependency>

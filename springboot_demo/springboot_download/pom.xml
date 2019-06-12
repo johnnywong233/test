@@ -13,7 +13,6 @@
     <artifactId>springboot_download</artifactId>
 
     <properties>
-        <Swagger2.version>2.9.2</Swagger2.version>
     </properties>
 
     <dependencies>
@@ -52,19 +51,16 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.4</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>${Swagger2.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>${Swagger2.version}</version>
         </dependency>
 
         <dependency>
