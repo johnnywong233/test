@@ -74,7 +74,6 @@
     </build>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-version>5.1.1.RELEASE</spring-version>
         <spring-boot-version>2.1.5.RELEASE</spring-boot-version>
         <lucene-version>7.5.0</lucene-version>
@@ -215,7 +214,6 @@
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
             <artifactId>zookeeper</artifactId>
-            <version>3.4.6</version>
             <!-- <type>pom</type> -->
             <exclusions>
                 <exclusion>
@@ -279,14 +277,12 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.19</version>
         </dependency>
 
         <!--all json here-->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.3.1</version>
         </dependency>
 
         <dependency>
@@ -299,7 +295,6 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20180130</version>
         </dependency>
 
         <!--JExcelApi is a java library which provides the ability to read, write, and modify Microsoft Excel spreadsheets.-->
@@ -404,6 +399,10 @@
                     <artifactId>core</artifactId>
                     <groupId>org.eclipse.jdt</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>commons-math</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
             </exclusions>
         </dependency>
 
@@ -436,7 +435,6 @@
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
-            <version>1.9.2</version>
         </dependency>
 
         <dependency>
@@ -552,13 +550,11 @@
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jool</artifactId>
-            <version>0.9.12</version>
         </dependency>
 
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
-            <version>3.10.5</version>
         </dependency>
 
         <!-- Lightweight connection pool -->
@@ -804,7 +800,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
         </dependency>
 
 
@@ -829,7 +824,6 @@
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
-            <version>1.0.19</version>
         </dependency>
 
         <dependency>
@@ -869,19 +863,16 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.17</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
-            <version>3.17</version>
         </dependency>
 
         <dependency>
@@ -893,13 +884,11 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <version>3.0.7</version>
         </dependency>
 
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>javax.mail-api</artifactId>
-            <version>1.6.1</version>
         </dependency>
 
         <dependency>
@@ -1053,7 +1042,6 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
-            <version>1.8.9</version>
         </dependency>
 
         <!-- Castor is an open source data binding framework for Java[tm].
@@ -1125,7 +1113,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.39</version>
         </dependency>
 
         <!-- Java API for handling configuration files in Windows .ini format. The library includes its own Map based API, Java Preferences API
@@ -1161,19 +1148,16 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.3</version>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.3</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-            <version>0.10.1.1</version>
         </dependency>
 
         <!--<dependency>
@@ -1197,7 +1181,6 @@
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
             <artifactId>json-path</artifactId>
-            <version>2.2.0</version>
         </dependency>
 
         <dependency>
@@ -1221,13 +1204,11 @@
         <dependency>
             <groupId>com.rabbitmq</groupId>
             <artifactId>amqp-client</artifactId>
-            <version>5.5.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>3.2.0</version>
         </dependency>
 
         <dependency>
@@ -1251,7 +1232,6 @@
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <version>2.4.12</version>
         </dependency>
 
         <dependency>
@@ -1269,7 +1249,6 @@
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.29</version>
             <exclusions>
                 <exclusion>
                     <artifactId>xalan</artifactId>
@@ -1371,7 +1350,6 @@
         <dependency>
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
-            <version>6.3.0</version>
             <exclusions>
                 <exclusion>
                     <artifactId>hppc</artifactId>
@@ -1391,7 +1369,6 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>6.3.2</version>
         </dependency>
 
         <dependency>
@@ -1400,6 +1377,10 @@
             <version>1.6.1.20180301</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+        </dependency>
     </dependencies>
 
     <!--    <distributionManagement>

@@ -16,10 +16,7 @@
 
     <properties>
         <mysql.version>5.1.44</mysql.version>
-        <!-- mybatis版本号 -->
-        <mybatis.version>3.2.7</mybatis.version>
         <!-- log4j日志文件管理包版本 -->
-        <slf4j.version>1.7.21</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
         <activiti.version>5.22.0</activiti.version>
         <sitemesh.version>3.0.0</sitemesh.version>
@@ -28,9 +25,8 @@
     <dependencies>
         <!-- Spring框架必要的两个架包 -->
         <dependency>
-            <groupId>aspectj</groupId>
+            <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.5.4</version>
         </dependency>
         <dependency>
             <groupId>aopalliance</groupId>
@@ -80,14 +76,12 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>${mybatis.version}</version>
         </dependency>
 
         <!-- mybatis/spring包 整合架包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.2.2</version>
         </dependency>
 
         <!-- c3p0数据库连接池 -->
@@ -134,12 +128,10 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
 
         <!--c3p0连接需要 servlet -->

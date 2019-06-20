@@ -19,16 +19,7 @@
         <module>mysql</module>
     </modules>
 
-    <!--<parent>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-starter-parent</artifactId>
-        <version>Edgware.RELEASE</version>
-        <relativePath/>
-    </parent>-->
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>

@@ -12,8 +12,6 @@
     <artifactId>spock_groovy_test</artifactId>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
@@ -27,8 +25,7 @@
         <!-- use a specific Groovy version rather than the one specified by spock-core -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.4.12</version>
+            <artifactId>groovy</artifactId>
         </dependency>
 
         <!-- enables mocking of classes (in addition to interfaces) -->
@@ -56,7 +53,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.196</version>
         </dependency>
     </dependencies>
 

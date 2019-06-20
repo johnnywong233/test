@@ -32,13 +32,11 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.1.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.4.0</version>
         </dependency>
 
         <dependency>
@@ -49,7 +47,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.1.5</version>
         </dependency>
 
         <dependency>
@@ -65,13 +62,11 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.4.1212</version>
         </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.44</version>
         </dependency>
 
         <dependency>
@@ -90,7 +85,6 @@
             <artifactId>spring-boot-test</artifactId>
             <!--can be removed, leave here to remember not use a 'RELEASE' reversion without certain number-->
             <!--<version>RELEASE</version>-->
-            <version>1.4.6.RELEASE</version>
         </dependency>
 
         <dependency>
@@ -112,18 +106,15 @@
                     <dependency>
                         <groupId>org.postgresql</groupId>
                         <artifactId>postgresql</artifactId>
-                        <version>9.4.1212</version>
                     </dependency>
                     <dependency>
                         <groupId>org.mybatis</groupId>
                         <artifactId>mybatis-spring</artifactId>
-                        <version>1.2.2</version>
                     </dependency>
 
                     <dependency>
                         <groupId>org.mybatis</groupId>
                         <artifactId>mybatis</artifactId>
-                        <version>3.4.1</version>
                     </dependency>
                 </dependencies>
 
@@ -144,14 +135,6 @@
                     <configurationFile>
                         src/main/resources/mybatis-generator.xml
                     </configurationFile>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
