@@ -13,8 +13,8 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 version = '1.0'
 
 task wrapper(type: Wrapper) {

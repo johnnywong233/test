@@ -34,8 +34,8 @@ task buildDocker(type: Docker, dependsOn: build) {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
 }
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11
+targetCompatibility = 11
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
