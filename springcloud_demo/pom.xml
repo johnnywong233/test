@@ -23,7 +23,6 @@
         <module>springcloud_sleuth_case</module>
         <module>springcloud_contract</module>
         <module>springcloud_feign_upload</module>
-        <module>springcloud_gateway</module>
     </modules>
 
     <parent>

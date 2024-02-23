@@ -1112,8 +1112,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
         </dependency>
 
         <!-- Java API for handling configuration files in Windows .ini format. The library includes its own Map based API, Java Preferences API
@@ -1210,9 +1210,8 @@
         </dependency>
 
         <dependency>
-            <groupId>postgresql</groupId>
+            <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.2-1002.jdbc4</version>
         </dependency>
 
         <dependency>
