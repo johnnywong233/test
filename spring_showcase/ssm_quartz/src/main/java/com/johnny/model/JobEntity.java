@@ -8,12 +8,10 @@ import java.util.Date;
 @Data
 public class JobEntity {
     private int jobId;
-
-    private String oldjobName;
-    private String oldjobGroupName;
-    private String oldtriggerName;
-    private String oldtriggerGroup;
-
+    private String oldJobName;
+    private String oldJobGroupName;
+    private String oldTriggerName;
+    private String oldTriggerGroup;
     private String clazz;
     private String jobType;
     private String jobGroupName;

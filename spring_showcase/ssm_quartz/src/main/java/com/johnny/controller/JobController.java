@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -252,8 +251,8 @@ public class JobController {
      */
     @RequestMapping("/editJob")
     public void editJob(JobEntity jobEntity, HttpServletResponse response) {
-        TriggerKey oldTriggerKey = TriggerKey.triggerKey(jobEntity.getOldtriggerName(), jobEntity.getOldtriggerGroup());
-        JobKey jobKey = JobKey.jobKey(jobEntity.getOldjobName(), jobEntity.getOldjobGroupName());
+        TriggerKey oldTriggerKey = TriggerKey.triggerKey(jobEntity.getOldTriggerName(), jobEntity.getOldTriggerGroup());
+        JobKey jobKey = JobKey.jobKey(jobEntity.getOldJobName(), jobEntity.getOldJobGroupName());
         response.setContentType("text/html;charset=UTF-8");
         try {
             PrintWriter out = response.getWriter();
@@ -269,7 +268,7 @@ public class JobController {
                 quartzService.addJob(jobEntity, response, new JobController());
                 out.print("<script>alert('修改成功！');location.href='toEditJob?jobName=" + jobEntity.getJobName() + "&jobGroupName=" + jobEntity.getJobGroupName() + "'</script>");
             } else {
-                out.print("<script>alert('修改失败！');location.href='toEditJob?jobName=" + jobEntity.getOldjobName() + "&jobGroupName=" + jobEntity.getOldjobGroupName() + "'</script>");
+                out.print("<script>alert('修改失败！');location.href='toEditJob?jobName=" + jobEntity.getOldJobName() + "&jobGroupName=" + jobEntity.getOldJobGroupName() + "'</script>");
             }
 
         } catch (SchedulerException | IOException e) {

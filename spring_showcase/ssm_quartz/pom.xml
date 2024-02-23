@@ -15,7 +15,6 @@
     <packaging>war</packaging>
 
     <properties>
-        <mysql.version>5.1.44</mysql.version>
         <!-- log4j日志文件管理包版本 -->
         <log4j.version>1.2.17</log4j.version>
         <activiti.version>5.22.0</activiti.version>
@@ -104,13 +103,10 @@
                     <version>9.0.2</version>
                 </dependency>-->
 
-        <!-- 连接MySQL数据库 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
         </dependency>
-
         <!-- junit测试包 -->
         <dependency>
             <groupId>junit</groupId>

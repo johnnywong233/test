@@ -3,13 +3,12 @@ package com.johnny.task;
 import com.johnny.controller.JobController;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.quartz.SchedulerException;
 
 public class AlertJob implements Job {
 
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext context) {
 
         String msg = context.getJobDetail().getJobDataMap().getString("message");
         System.out.println("msg--------third-------->" + msg + "--------->");

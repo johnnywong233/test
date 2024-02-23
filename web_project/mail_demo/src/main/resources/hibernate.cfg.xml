@@ -19,7 +19,7 @@
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="johnny.model.User"></mapping>
+        <mapping class="johnny.model.User"/>
 
     </session-factory>
 </hibernate-configuration>
