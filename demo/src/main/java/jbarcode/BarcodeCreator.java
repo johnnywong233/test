@@ -51,7 +51,7 @@ public class BarcodeCreator {
     /**
      * 用于生成条形码的对象
      **/
-    private JBarcode barcode = null;
+    private JBarcode barcode;
 
     /**
      * constructor

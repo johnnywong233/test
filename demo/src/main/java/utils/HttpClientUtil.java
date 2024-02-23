@@ -48,9 +48,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Author: Johnny
@@ -63,14 +65,13 @@ public class HttpClientUtil {
 
     private static CloseableHttpClient closeableHttpClient;
 
-    protected static HttpClient httpClient = null;
+    protected static HttpClient httpClient;
     protected static int maxTotal = 200;
     protected static int maxPerRoute = 20;
     protected static String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
 
     static {
-        if (httpClient == null) {
-            // create httpClient
+        // create httpClient
 //            SchemeRegistry reg = new SchemeRegistry();
 //            reg.register(new Scheme("http", 80, PlainSocketFactory.getSocketFactory()));
 //            reg.register(new Scheme("https", 443, SSLSocketFactory.getSocketFactory()));
@@ -79,20 +80,19 @@ public class HttpClientUtil {
 //            cm.setDefaultMaxPerRoute(maxPerRoute);
 //            httpClient = new DefaultHttpClient(cm);
 
-            HttpClientBuilder builder = HttpClientBuilder.create();
-            SSLContext context = null;
-            SSLConnectionSocketFactory sslConnectionFactory = new SSLConnectionSocketFactory(context, NoopHostnameVerifier.INSTANCE);
-            builder.setSSLSocketFactory(sslConnectionFactory);
+        HttpClientBuilder builder = HttpClientBuilder.create();
+        SSLContext context = null;
+        SSLConnectionSocketFactory sslConnectionFactory = new SSLConnectionSocketFactory(context, NoopHostnameVerifier.INSTANCE);
+        builder.setSSLSocketFactory(sslConnectionFactory);
 
-            Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
-                    .register("https", sslConnectionFactory).build();
+        Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
+                .register("https", sslConnectionFactory).build();
 
-            HttpClientConnectionManager ccm = new BasicHttpClientConnectionManager(registry);
+        HttpClientConnectionManager ccm = new BasicHttpClientConnectionManager(registry);
 
-            builder.setConnectionManager(ccm);
+        builder.setConnectionManager(ccm);
 
-            httpClient = builder.build();
-        }
+        httpClient = builder.build();
     }
 
     @PostConstruct
@@ -104,7 +104,7 @@ public class HttpClientUtil {
         }
     }
 
-    private static CloseableHttpClient createClient() throws Exception {
+    private static CloseableHttpClient createClient() {
         if (closeableHttpClient == null) {
             try {
                 closeableHttpClient = HttpClients.custom().setSSLHostnameVerifier
@@ -221,34 +221,33 @@ public class HttpClientUtil {
             throw new Exception("请求地址格式不对");
         }
         // 设置请求的编码方式
-        if (null != charset) {
-            method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=" + charset);
-        } else {
-            method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=" + "utf-8");
-        }
+        method.addRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=" + Objects.requireNonNullElse(charset, "utf-8"));
         int statusCode = client.executeMethod(method);
 
         // 打印服务器返回的状态
-
         if (statusCode != HttpStatus.SC_OK) {
             System.out.println("Method failed: " + method.getStatusLine());
         }
         // 返回响应消息
         byte[] responseBody = method.getResponseBodyAsString().getBytes(method.getResponseCharSet());
         // 在返回响应消息使用编码(utf-8或gb2312)
-        String response = new String(responseBody, "utf-8");
+        String response = new String(responseBody, StandardCharsets.UTF_8);
         System.out.println("------------------response:" + response);
         method.releaseConnection();
         return response;
     }
 
-    public static String doGet2(String url, String charset) throws Exception {
+    public static String doGet2(String url, String charset) {
         /*
-         * 使用 GetMethod 来访问一个 URL 对应的网页,实现步骤: 1:生成一个 HttpClinet 对象并设置相应的参数。
-         * 2:生成一个 GetMethod 对象并设置响应的参数。 3:用 HttpClinet 生成的对象来执行 GetMethod 生成的Get
-         * 方法。 4:处理响应状态码。 5:若响应正常，处理 HTTP 响应内容。 6:释放连接。
+         * 使用 GetMethod 来访问一个 URL 对应的网页,实现步骤:
+         * 1:生成一个 HttpClient 对象并设置相应的参数
+         * 2:生成一个 GetMethod 对象并设置响应的参数
+         * 3:用 HttpClient 生成的对象来执行 GetMethod 生成的Get 方法
+         * 4:处理响应状态码
+         * 5:若响应正常，处理 HTTP 响应内容
+         * 6:释放连接
          */
-        /* 1 生成 HttpClinet 对象并设置参数 */
+        /* 1 生成 HttpClient 对象并设置参数 */
         org.apache.commons.httpclient.HttpClient httpClient = new org.apache.commons.httpclient.HttpClient();
         // 设置 Http 连接超时为5秒
         httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(5000);
@@ -375,7 +374,7 @@ public class HttpClientUtil {
                 method.setEntity(entity);
             }
             HttpResponse result = httpClient.execute(method);
-            url = URLDecoder.decode(url, "UTF-8");
+            url = URLDecoder.decode(url, StandardCharsets.UTF_8);
             /*请求发送成功，并得到响应*/
             if (result.getStatusLine().getStatusCode() == 200) {
                 String str;
@@ -422,7 +421,7 @@ public class HttpClientUtil {
                 String strResult = EntityUtils.toString(response.getEntity());
                 /*把json字符串转换成json对象*/
                 jsonResult = JSONObject.fromObject(strResult);
-                url = URLDecoder.decode(url, "UTF-8");
+                url = URLDecoder.decode(url, StandardCharsets.UTF_8);
             } else {
                 logger.error("get请求提交失败:" + url);
             }

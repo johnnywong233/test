@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 @Configuration
 @ComponentScan("demo.el")
@@ -46,8 +47,8 @@ public class ELConfig {
             System.out.println(osArch);
             System.out.println(randomNumber);
             System.out.println(author);
-            System.out.println(IOUtils.toString(testFile.getInputStream(), "UTF-8"));
-            System.out.println(IOUtils.toString(testUrl.getInputStream(), "UTF-8"));
+            System.out.println(IOUtils.toString(testFile.getInputStream(), StandardCharsets.UTF_8));
+            System.out.println(IOUtils.toString(testUrl.getInputStream(), StandardCharsets.UTF_8));
             System.out.println("testUrl.getURL(): " + testUrl.getURL());
             System.out.println(su);
             System.out.println(sp);

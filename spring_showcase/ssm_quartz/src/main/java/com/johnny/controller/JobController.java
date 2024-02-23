@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -151,12 +152,12 @@ public class JobController {
         String method = request.getMethod();
         try {
             if ("GET".equals(method)) {
-                jobName = new String(jobName.getBytes("iso8859-1"), "UTF-8");
-                jobGroupName = new String(jobGroupName.getBytes("iso8859-1"), "UTF-8");
+                jobName = new String(jobName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                jobGroupName = new String(jobGroupName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             }
             JobKey jobKey = JobKey.jobKey(jobName, jobGroupName);
             scheduler.pauseJob(jobKey);
-        } catch (SchedulerException | UnsupportedEncodingException e) {
+        } catch (SchedulerException e) {
             e.printStackTrace();
         }
         return "forward:test1";
@@ -172,12 +173,12 @@ public class JobController {
 
         try {
             if ("GET".equals(method)) {
-                jobName = new String(jobName.getBytes("iso8859-1"), "UTF-8");
-                jobGroupName = new String(jobGroupName.getBytes("iso8859-1"), "UTF-8");
+                jobName = new String(jobName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                jobGroupName = new String(jobGroupName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             }
             JobKey jobKey = JobKey.jobKey(jobName, jobGroupName);
             scheduler.resumeJob(jobKey);
-        } catch (SchedulerException | UnsupportedEncodingException e) {
+        } catch (SchedulerException e) {
             e.printStackTrace();
         }
         return "forward:test1";
@@ -194,10 +195,10 @@ public class JobController {
         String method = request.getMethod();
         try {
             if ("GET".equals(method)) {
-                jobName = new String(jobName.getBytes("iso8859-1"), "UTF-8");
-                jobGroupName = new String(jobGroupName.getBytes("iso8859-1"), "UTF-8");
-                triggerName = new String(triggerName.getBytes("iso8859-1"), "UTF-8");
-                triggerGroupName = new String(triggerGroupName.getBytes("iso8859-1"), "UTF-8");
+                jobName = new String(jobName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                jobGroupName = new String(jobGroupName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                triggerName = new String(triggerName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                triggerGroupName = new String(triggerGroupName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             }
             JobKey jobKey = JobKey.jobKey(jobName, jobGroupName);
             TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, triggerGroupName);
@@ -207,7 +208,7 @@ public class JobController {
             scheduler.unscheduleJob(triggerKey);
             // 删除任务
             scheduler.deleteJob(jobKey);
-        } catch (SchedulerException | UnsupportedEncodingException e) {
+        } catch (SchedulerException e) {
             e.printStackTrace();
         }
         return "forward:test1";
@@ -224,8 +225,8 @@ public class JobController {
         JobEntity jobEntity = new JobEntity();
         try {
             if ("GET".equals(method)) {
-                jobName = new String(jobName.getBytes("ISO-8859-1"), "UTF-8");
-                jobGroupName = new String(jobGroupName.getBytes("ISO-8859-1"), "UTF-8");
+                jobName = new String(jobName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+                jobGroupName = new String(jobGroupName.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
             }
             JobKey jobKey = JobKey.jobKey(jobName, jobGroupName);
             JobDetail jobDetail = scheduler.getJobDetail(jobKey);
@@ -239,7 +240,7 @@ public class JobController {
             jobEntity.setTriggerGroupName(triggerKey.getGroup());
             jobEntity.setCronExpr(cron);
             jobEntity.setClazz(jobDetail.getJobClass().getCanonicalName());
-        } catch (SchedulerException | UnsupportedEncodingException e) {
+        } catch (SchedulerException e) {
             e.printStackTrace();
         }
         model.addAttribute("jobEntity", jobEntity);

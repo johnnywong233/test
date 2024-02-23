@@ -207,7 +207,7 @@ public class QRCode {
         // 设置QR二维码的纠错级别（H为最高级别）具体级别信息
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
         // 设置编码方式
-        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         hints.put(EncodeHintType.MARGIN, 0);
         hints.put(EncodeHintType.MAX_SIZE, 350);
         hints.put(EncodeHintType.MIN_SIZE, 100);

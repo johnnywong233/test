@@ -2288,7 +2288,7 @@ public class VCardEngine {
 
         BufferedInputStream bin = new BufferedInputStream(new FileInputStream(vcardFile));
         int p = (bin.read() << 8) + bin.read();
-        String code = null;
+        String code;
         switch (p) {
             case 0xefbb:
                 code = "UTF-8";

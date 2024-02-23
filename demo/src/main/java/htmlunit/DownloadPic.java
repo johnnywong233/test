@@ -12,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Johnny on 2018/3/18.
@@ -53,7 +54,7 @@ public class DownloadPic {
                 if (str.contains(".jpg")) {
                     int end = str.indexOf(".jpg") + 4;
                     str = str.substring(0, end);
-                    download(URLDecoder.decode(str,"UTF-8"), "pic");
+                    download(URLDecoder.decode(str, StandardCharsets.UTF_8), "pic");
                 }
                 System.out.println(i);
             }

@@ -1,6 +1,7 @@
 package johnny.util;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -14,9 +15,9 @@ public class MD5Util {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.reset();
-            md.update(source.getBytes("UTF-8"));
+            md.update(source.getBytes(StandardCharsets.UTF_8));
             result = md.digest();
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return result;

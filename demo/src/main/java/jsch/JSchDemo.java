@@ -10,7 +10,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Author: Johnny
@@ -18,9 +18,9 @@ import java.nio.charset.Charset;
  * Time: 23:59
  */
 public class JSchDemo {
-    private String user;
-    private String password;
-    private String host;
+    private final String user;
+    private final String password;
+    private final String host;
     private Session session;
 
     /**
@@ -32,6 +32,17 @@ public class JSchDemo {
         this.user = user;
         this.password = password;
         this.host = host;
+    }
+
+    //http://2java.net/doc/1704/code2014623.html
+    public static void main(String[] args) throws Exception {
+        String user = "root";
+        String password = "123456";
+        String host = "192.168.1.188";
+
+        JSchDemo demo = new JSchDemo(user, password, host);
+        demo.connect();
+        demo.execCmd();
     }
 
     /**
@@ -64,9 +75,7 @@ public class JSchDemo {
 
                 channel.connect();
                 InputStream in = channel.getInputStream();
-                String charset = "UTF-8";
-                reader = new BufferedReader(new InputStreamReader(in,
-                        Charset.forName(charset)));
+                reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
                 String buf;
                 while ((buf = reader.readLine()) != null) {
                     System.out.println(buf);
@@ -87,16 +96,5 @@ public class JSchDemo {
             }
             session.disconnect();
         }
-    }
-
-    //http://2java.net/doc/1704/code2014623.html
-    public static void main(String[] args) throws Exception {
-        String user = "root";
-        String password = "123456";
-        String host = "192.168.1.188";
-
-        JSchDemo demo = new JSchDemo(user, password, host);
-        demo.connect();
-        demo.execCmd();
     }
 }

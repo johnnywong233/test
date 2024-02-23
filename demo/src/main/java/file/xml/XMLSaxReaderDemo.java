@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +32,7 @@ public class XMLSaxReaderDemo {
         }
         XMLSaxReader reader = new XMLSaxReader();
         String xml = StringUtil.inputStream2String(new File("C:\\work\\test\\src\\main\\resources\\sample.xml"));
-        InputStream is = new ByteArrayInputStream(
-                xml.getBytes("UTF-8"));//xml就是刚得到的xml文件，类型String
+        InputStream is = new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8));//xml就是刚得到的xml文件，类型String
         if (sp != null) {
             sp.parse(is, reader);
         }

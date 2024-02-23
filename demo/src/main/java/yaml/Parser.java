@@ -1,5 +1,8 @@
 package yaml;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.testng.annotations.Test;
 import org.yaml.snakeyaml.Yaml;
 
@@ -11,6 +14,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Author: Johnny
@@ -53,7 +57,7 @@ public class Parser {
     @Test
     public void load() throws FileNotFoundException {
         Yaml yaml = new Yaml();
-        File f = new File(Parser.class.getClassLoader().getResource("test.yaml").getFile());
+        File f = new File(Objects.requireNonNull(Parser.class.getClassLoader().getResource("test.yaml")).getFile());
         Object result = yaml.load(new FileInputStream(f));
         System.out.println(result.getClass());
         System.out.println(result);
@@ -62,14 +66,14 @@ public class Parser {
     @Test
     public void loadPojo() throws FileNotFoundException {
         Yaml yaml = new Yaml();
-        File f = new File(Parser.class.getClassLoader().getResource("test.yaml").getFile());
+        File f = new File(Objects.requireNonNull(Parser.class.getClassLoader().getResource("test.yaml")).getFile());
         Map<String, String> result = yaml.load(new FileInputStream(f));
         System.out.println(result);
         System.out.println(result.get("animal"));
     }
 
     @Test
-    public void dump() throws FileNotFoundException {
+    public void dump() {
         Yaml yaml = new Yaml();
         Pojo p = new Pojo();
         p.name = "name";
@@ -79,15 +83,10 @@ public class Parser {
 
 }
 
+@NoArgsConstructor
+@AllArgsConstructor
 class Pojo {
     public String name;
-
-    public Pojo(String name) {
-        this.name = name;
-    }
-
-    Pojo() {
-    }
 
     @Override
     public String toString() {
@@ -95,64 +94,17 @@ class Pojo {
     }
 }
 
+@Data
+@AllArgsConstructor
 class Contact {
     private String name;
     private int age;
     private List<?> phoneNumbers;
-
-    public Contact(String name, int age, List<?> phoneNumbers) {
-        this.name = name;
-        this.age = age;
-        this.phoneNumbers = phoneNumbers;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public List<?> getPhoneNumbers() {
-        return phoneNumbers;
-    }
-
-    public void setPhoneNumbers(List<?> phoneNumbers) {
-        this.phoneNumbers = phoneNumbers;
-    }
 }
 
+@Data
+@AllArgsConstructor
 class Phone {
     private String name;
     private String number;
-
-    public Phone(String name, String number) {
-        this.name = name;
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
 }

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
@@ -46,7 +47,7 @@ public class WebUtils {
             String line;
             StringBuilder sb = new StringBuilder();
             BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(url.openStream(), "UTF-8"));
+                    new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
             }

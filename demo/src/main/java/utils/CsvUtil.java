@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -20,7 +21,7 @@ import java.util.*;
 @Slf4j
 public class CsvUtil {
     private BufferedReader br = null;
-    private List<String> list = new ArrayList<>();
+    private final List<String> list = new ArrayList<>();
 
     public CsvUtil(String fileName) throws Exception {
         br = new BufferedReader(new FileReader(fileName));
@@ -80,15 +81,15 @@ public class CsvUtil {
         if (this.getColNum() == 0) {
             return null;
         }
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int column = this.getColNum();
         if (column > 1) {
             for (String aList : list) {
-                sb = sb.append(aList.split(",")[index]).append(",");
+                sb.append(aList.split(",")[index]).append(",");
             }
         } else {
             for (String aList : list) {
-                sb = sb.append(aList).append(",");
+                sb.append(aList).append(",");
             }
         }
         String str = sb.toString();
@@ -137,8 +138,7 @@ public class CsvUtil {
             //定义文件名格式并创建
             csvFile = File.createTempFile(fileName, ".csv", new File(outPutPath));
             // UTF-8使正确读取分隔符","
-            csvFileOutputStream = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                    csvFile), "UTF-8"), 1024);
+            csvFileOutputStream = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(csvFile), StandardCharsets.UTF_8), 1024);
             // 写入文件头部
             for (Iterator<Map.Entry<String, String>> propertyIterator = map.entrySet().iterator(); propertyIterator.hasNext(); ) {
                 Map.Entry<String, String> propertyEntry = propertyIterator.next();
@@ -188,7 +188,7 @@ public class CsvUtil {
     public static void exportFile(HttpServletResponse response, String csvFilePath, String fileName)
             throws IOException {
         response.setContentType("application/csv; charset=UTF-8");
-        response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
+        response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, StandardCharsets.UTF_8));
 
         InputStream in = null;
         try {
@@ -271,7 +271,7 @@ public class CsvUtil {
                 FileUtils.forceMkdir(file);
             }
             String filePath = destFileFold + File.separator + destFileName;
-            out = new OutputStreamWriter(new FileOutputStream(new File(filePath)), "UTF-8");
+            out = new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8);
             writer = new CSVWriter(out);
             if (title.length != 0) {
                 writer.writeNext(title);
@@ -310,7 +310,7 @@ public class CsvUtil {
         CSVReader csvReader = null;
         try {
             File file = new File(srcFilePath);
-            isr = new InputStreamReader(new FileInputStream(file), "UTF-8");
+            isr = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
             csvReader = new CSVReader(isr);
             if (hasTitle) {
                 csvReader.readNext();

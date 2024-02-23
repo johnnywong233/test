@@ -6,7 +6,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.htmlparser.Attribute;
 import org.junit.Test;
 
-import javax.xml.soap.Detail;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +69,5 @@ class Book {
     private String name;
     private int price;
     private String author;
-    private Detail detail;
     private Attribute attribute;
 }

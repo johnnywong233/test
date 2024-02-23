@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class CrawlerUtil {
     public static JSONObject getReturnJson(String url) {
         try {
             URL httpUrl = new URL(url);
-            BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.openStream(), "UTF-8"));
+            BufferedReader in = new BufferedReader(new InputStreamReader(httpUrl.openStream(), StandardCharsets.UTF_8));
             String line;
             StringBuilder content = new StringBuilder();
             while ((line = in.readLine()) != null) {

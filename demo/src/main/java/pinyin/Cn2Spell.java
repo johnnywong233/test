@@ -1,8 +1,9 @@
 package pinyin;
 
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Set;
@@ -11,37 +12,29 @@ import java.util.Set;
  * Created by johnny on 2016/9/15.
  * transform Chinese character into pinyin
  */
+@Slf4j
 public class Cn2Spell {
 
-    //http://www.phpxs.com/code/1001554/
-    public static void main(String[] args) {
-        String str = null;
-        try {
-            str = new String("你好呀".getBytes(), "UTF-8");
-        } catch (UnsupportedEncodingException ex) {
-            ex.printStackTrace();
-        }
-        System.out.println("\"" + str + "\" with pinyin: " + Cn2Spell.getFullSpell(str));
-    }
-
-    private static Logger log = Logger.getLogger("UtilLog");
-    private static LinkedHashMap<String, Integer> spellMap = null;
-    private static LinkedHashMap<String, Integer> otherSpellMap = null;
-
-    private Cn2Spell() {
-    }
+    private static final LinkedHashMap<String, Integer> spellMap;
+    private static final LinkedHashMap<String, Integer> otherSpellMap;
 
     static {
-        if (spellMap == null) {
-            spellMap = new LinkedHashMap<>(400);
-        }
-        if (otherSpellMap == null) {
-            otherSpellMap = new LinkedHashMap<>(100);
-        }
+        spellMap = new LinkedHashMap<>(400);
+        otherSpellMap = new LinkedHashMap<>(100);
 
         initialize();
 
         log.info("Chinese transfer Spell Done.");
+    }
+
+    private Cn2Spell() {
+    }
+
+    //http://www.phpxs.com/code/1001554/
+    public static void main(String[] args) {
+        String str;
+        str = new String("你好呀".getBytes(), StandardCharsets.UTF_8);
+        System.out.println("\"" + str + "\" with pinyin: " + Cn2Spell.getFullSpell(str));
     }
 
     private static void spellPut(String spell, int ascii) {
@@ -483,15 +476,11 @@ public class Cn2Spell {
         }
 
         //Chinese char
-        if (bytes.length == 2) {
-            int highByte = 256 + bytes[0];
-            int lowByte = 256 + bytes[1];
-            int ascii = (256 * highByte + lowByte) - 256 * 256;
-            log.info("\"" + cn + "\" with ASCII: " + ascii);
-            return ascii;
-        }
-        log.info("error occur while transfer!");
-        return 0; //error
+        int highByte = 256 + bytes[0];
+        int lowByte = 256 + bytes[1];
+        int ascii = (256 * highByte + lowByte) - 256 * 256;
+        log.info("\"" + cn + "\" with ASCII: " + ascii);
+        return ascii;
     }
 
     /**
@@ -507,10 +496,10 @@ public class Cn2Spell {
         }
         if (ascii < -20319 || ascii > -10247) { // 其他的字符
             for (String otherSpell : otherSpellMap.keySet()) {
-                Object otherValObj = otherSpellMap.get(otherSpell);
+                Integer otherValObj = otherSpellMap.get(otherSpell);
 
                 if (otherValObj != null) {
-                    if (ascii == (Integer) otherValObj) {
+                    if (ascii == otherValObj) {
                         log.info("此时的拼音为：" + otherSpell);
                         return otherSpell.split("-")[0];
                     }
@@ -530,10 +519,10 @@ public class Cn2Spell {
 
         while (it.hasNext()) {
             spell = it.next();
-            Object valObj = spellMap.get(spell);
+            Integer valObj = spellMap.get(spell);
 
             if (valObj != null) {
-                asciiRang = (Integer) valObj;
+                asciiRang = valObj;
                 if (ascii >= asciiRang0 && ascii < asciiRang) { // 区间找到
                     log.info("此时的拼音为：" + spell + "/n其对应的区间起始数字为：" + asciiRang0
                             + "/n上一个拼音为：" + spell0 + "/n即字符对应拼音应为：" + spell0);

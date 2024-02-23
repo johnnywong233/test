@@ -1,5 +1,6 @@
 package pinyin;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -11,62 +12,56 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  * Created by wajian on 2016/8/30.
  * get pinyin by use of pinyin4j
  */
+@Slf4j
 public class GetPinyin {
     /**
      * 中文获取全拼功能代码
-     * @param src
-     * @return
      */
     public static String getPingYin(String src) {
-        char[] t1;
-        t1 = src.toCharArray();
+        char[] t1 = src.toCharArray();
         String[] t2;
         HanyuPinyinOutputFormat t3 = new HanyuPinyinOutputFormat();
         t3.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         t3.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         t3.setVCharType(HanyuPinyinVCharType.WITH_V);
-        String t4 = "";
+        StringBuilder t4 = new StringBuilder();
         try {
             for (char aT1 : t1) {
                 // 判断是否为汉字字符
-                if (Character.toString(aT1).matches(
-                        "[\\u4E00-\\u9FA5]+")) {
+                if (Character.toString(aT1).matches("[\\u4E00-\\u9FA5]+")) {
                     t2 = PinyinHelper.toHanyuPinyinStringArray(aT1, t3);
-                    t4 += t2[0];
+                    t4.append(t2[0]);
                 } else {
-                    t4 += Character.toString(aT1);
+                    t4.append(aT1);
                 }
             }
-            return t4;
+            return t4.toString();
         } catch (BadHanyuPinyinOutputFormatCombination e1) {
-            e1.printStackTrace();
+            log.error("getPingYin fail", e1);
         }
-        return t4;
+        return t4.toString();
     }
 
     /**
      * 得到中文首字母
-     * @param str
-     * @return
      */
     private static String getPinYinHeadChar(String str) {
-        String convert = "";
+        StringBuilder convert = new StringBuilder();
         for (int j = 0; j < str.length(); j++) {
             char word = str.charAt(j);
             String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(word);
             if (pinyinArray != null) {
-                convert += pinyinArray[0].charAt(0);
+                convert.append(pinyinArray[0].charAt(0));
             } else {
-                convert += word;
+                convert.append(word);
             }
         }
-        return convert;
+        return convert.toString();
     }
 
     /**
      * 将字符串转移为ASCII码
      * @param cnStr chinese string
-     * @return
      */
     public static String getCnASCII(String cnStr) {
         StringBuilder strBuf = new StringBuilder();

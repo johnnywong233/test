@@ -42,11 +42,11 @@ public class BatchConfig1 {
     public FlatFileItemReader<Student> csvItemReader() {
         FlatFileItemReader<Student> csvItemReader = new FlatFileItemReader<>();
         csvItemReader.setResource(new ClassPathResource("data/sample-data.csv"));
-        csvItemReader.setLineMapper(new DefaultLineMapper<Student>() {{
+        csvItemReader.setLineMapper(new DefaultLineMapper<>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[]{"name", "age"});
+                setNames("name", "age");
             }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<Student>() {{
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
                 setTargetType(Student.class);
             }});
         }});
@@ -57,11 +57,11 @@ public class BatchConfig1 {
     public FlatFileItemReader<Student> txtItemReader() {
         FlatFileItemReader<Student> txtItemReader = new FlatFileItemReader<>();
         txtItemReader.setResource(new ClassPathResource("data/sample-data.txt"));
-        txtItemReader.setLineMapper(new DefaultLineMapper<Student>() {{
+        txtItemReader.setLineMapper(new DefaultLineMapper<>() {{
             setLineTokenizer(new DelimitedLineTokenizer() {{
-                setNames(new String[]{"age", "name"});
+                setNames("age", "name");
             }});
-            setFieldSetMapper(new BeanWrapperFieldSetMapper<Student>() {{
+            setFieldSetMapper(new BeanWrapperFieldSetMapper<>() {{
                 setTargetType(Student.class);
             }});
         }});
@@ -74,9 +74,9 @@ public class BatchConfig1 {
         txtItemWriter.setAppendAllowed(true);
         txtItemWriter.setEncoding("UTF-8");
         txtItemWriter.setResource(new ClassPathResource("/data/sample-data.txt"));
-        txtItemWriter.setLineAggregator(new DelimitedLineAggregator<Student>() {{
+        txtItemWriter.setLineAggregator(new DelimitedLineAggregator<>() {{
             setDelimiter(",");
-            setFieldExtractor(new BeanWrapperFieldExtractor<Student>() {{
+            setFieldExtractor(new BeanWrapperFieldExtractor<>() {{
                 setNames(new String[]{"name", "age"});
             }});
         }});

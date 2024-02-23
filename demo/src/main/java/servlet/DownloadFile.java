@@ -1,29 +1,28 @@
 package servlet;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.mail.internet.MimeUtility;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /*
  * 文件下载类。为了防止客户端浏览器直接打开目标文件（例如在装了MS Office套件的Windows中
  * 的IE浏览器可能就会直接 * 在IE浏览器中打开你想下载的doc或者xls文件），在响应头里加入
  * 强制下载的MIME类型。
  */
+@Slf4j
 public class DownloadFile extends HttpServlet {
     //http://www.jb51.net/article/73191.htm
     //jsp page download file through servlet
-    //TODO
-    private static final long serialVersionUID = 8329640086276677328L;
-    private static final Log log = LogFactory.getLog(DownloadFile.class);
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
@@ -51,30 +50,28 @@ public class DownloadFile extends HttpServlet {
                 return;
             }
             // 读取文件流
-            fis = new java.io.FileInputStream(file);
+            fis = new FileInputStream(file);
             // 设置下载保存的文件名
             sos = response.getOutputStream();
             showName += filename.substring(filename.lastIndexOf("."));
-            String contentDisposition = "", browser = getBrowser(request);
+            String contentDisposition, browser = getBrowser(request);
             if ("IE".equals(browser)) {
-                contentDisposition = "attachment; filename=" + URLEncoder.encode(showName, "UTF-8").replace("+", "%20");
+                contentDisposition = "attachment; filename=" + URLEncoder.encode(showName, StandardCharsets.UTF_8).replace("+", "%20");
             } else if ("CH".equals(browser)) {
                 contentDisposition = "attachment; filename=" + MimeUtility.encodeText(showName, "UTF8", "B");
             } else if ("SF".equals(browser)) {
-                contentDisposition = "attachment; filename=" + new String(showName.getBytes("UTF-8"), "ISO8859-1");
+                contentDisposition = "attachment; filename=" + new String(showName.getBytes(StandardCharsets.UTF_8), "ISO8859-1");
             } else {
-                contentDisposition = "attachment; filename*=UTF-8''" + URLEncoder.encode(showName, "UTF-8").replace("+", "%20");
+                contentDisposition = "attachment; filename*=UTF-8''" + URLEncoder.encode(showName, StandardCharsets.UTF_8).replace("+", "%20");
             }
             response.setHeader("Content-Disposition", contentDisposition);
             int byteCount = 0;
-            if (fis != null) {
-                byte[] buff = new byte[1024];
-                int bytesRead;
-                while (-1 != (bytesRead = fis.read(buff, 0, buff.length))) {
-                    sos.write(buff, 0, bytesRead);
-                    sos.flush();
-                    byteCount += bytesRead;
-                }
+            byte[] buff = new byte[1024];
+            int bytesRead;
+            while (-1 != (bytesRead = fis.read(buff, 0, buff.length))) {
+                sos.write(buff, 0, bytesRead);
+                sos.flush();
+                byteCount += bytesRead;
             }
             sos.flush();
             if (log.isDebugEnabled()) {
@@ -123,18 +120,16 @@ public class DownloadFile extends HttpServlet {
 
     private String getBrowser(HttpServletRequest request) {
         String userAgent = request.getHeader("USER-AGENT").toLowerCase();
-        if (userAgent != null) {
-            if (userAgent.contains("msie")) {
-                return "IE";
-            } else if (userAgent.contains("mozilla")) {
-                return "FF";
-            } else if (userAgent.contains("applewebkit")) {
-                return "CH";
-            } else if (userAgent.contains("safari")) {
-                return "SF";
-            } else if (userAgent.contains("opera")) {
-                return "OP";
-            }
+        if (userAgent.contains("msie")) {
+            return "IE";
+        } else if (userAgent.contains("mozilla")) {
+            return "FF";
+        } else if (userAgent.contains("applewebkit")) {
+            return "CH";
+        } else if (userAgent.contains("safari")) {
+            return "SF";
+        } else if (userAgent.contains("opera")) {
+            return "OP";
         }
         return null;
     }

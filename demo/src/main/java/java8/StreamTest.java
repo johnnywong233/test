@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * test on java 8 stream
  */
 public class StreamTest {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         System.out.println("Using Java 7: ");
         // Count empty strings
         List<String> strings = Arrays.asList("abc", "", "bc", "efg", "abcd", "", "jkl");

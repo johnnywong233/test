@@ -55,7 +55,7 @@ public class MailUtil {
             // 这里是SMTP发送服务器的名字：163的如下："smtp.163.com"
             email.setHostName(mail.getHost());
             // 字符编码集的设置
-            email.setCharset(Mail.ENCODING);
+            email.setCharset("UTF-8");
             // 发送人的邮箱
             email.setFrom(mail.getSender(), mail.getName());
             // 如果需要认证信息的话，设置认证：用户名-密码。分别为发件人在邮件服务器上的注册名称和密码
@@ -142,8 +142,6 @@ public class MailUtil {
 @Data
 class Mail implements Serializable {
     private static final long serialVersionUID = -6390720891150157552L;
-    static final String ENCODING = "UTF-8";
-
     // 服务器地址
     private String host;
     // 发件人的邮箱

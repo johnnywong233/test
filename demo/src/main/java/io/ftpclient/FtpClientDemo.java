@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -42,14 +43,10 @@ public class FtpClientDemo {
     @Test
     //write test string into a txt file and upload to ftp server.
     public void testUpLoadFromString() {
-        try {
-        	String writeToTxt = "test ftp";
-            InputStream input = new ByteArrayInputStream(writeToTxt.getBytes("utf-8"));
-            boolean flag = uploadFile("16.155.193.1", 21, "Johnny", "Johnny", "/05_PersonalFiles/00_Teammembers/Johnny", "1.txt", input);
-            System.out.println(flag);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String writeToTxt = "test ftp";
+        InputStream input = new ByteArrayInputStream(writeToTxt.getBytes(StandardCharsets.UTF_8));
+        boolean flag = uploadFile("16.155.193.1", 21, "Johnny", "Johnny", "/05_PersonalFiles/00_Teammembers/Johnny", "1.txt", input);
+        System.out.println(flag);
     }
 
     /**

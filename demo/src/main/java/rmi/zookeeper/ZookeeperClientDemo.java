@@ -11,6 +11,7 @@ import org.apache.zookeeper.data.Id;
 import org.apache.zookeeper.server.auth.DigestAuthenticationProvider;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +21,33 @@ import java.util.List;
  */
 public class ZookeeperClientDemo implements Watcher {
 
-    private static class PropertiesDynLoading {
-
-        static final String CONNECT_STRING = "localhost:9181";
-        static final int SESSION_TIMEOUT = 3000;
-        static final String AUTH_SCHEME = "digest";
-        static final String ACCESS_KEY = "cache:svcctlg";
-        static final boolean AUTHENTICATION = false;
-    }
-
     private ZooKeeper zk;
+
+    //http://www.phpxs.com/code/1002103/
+    public static void main(String[] args) {
+        ZookeeperClientDemo zkc = new ZookeeperClientDemo();
+        zkc.createZkClient();
+        if (!zkc.exists("/windowcreate")) {
+            zkc.createPersistentNode("/windowcreate", "windowcreate");
+        }
+        if (!zkc.exists("/windowcreate/value")) {
+            System.out.println("not exists /windowcreate/value");
+            zkc.createPersistentNode("/windowcreate/value", "A0431P001");
+        }
+        if (!zkc.exists("/windowcreate/valuetmp")) {
+            System.out.println("not exists /windowcreate/valuetmp");
+            zkc.createEphemeralNode("/windowcreate/valuetmp", "A0431P002");
+        }
+        System.out.println(zkc.getNodeData("/zookeeper"));
+        System.out.println(zkc.getChildren("/windowcreate"));
+        System.out.println(zkc.getNodeData("/windowcreate/value"));
+        System.out.println(zkc.getNodeData("/windowcreate/valuetmp"));
+        zkc.setNodeData("/windowcreate/value", "A0431P003");
+        System.out.println(zkc.getNodeData("/windowcreate/value"));
+        zkc.deleteNode("/windowcreate/value");
+        System.out.println(zkc.exists("/windowcreate/value"));
+        zkc.closeZk();
+    }
 
     /**
      * 创建zookeeper客户端
@@ -162,7 +180,7 @@ public class ZookeeperClientDemo implements Watcher {
             String data;
             try {
                 byte[] byteData = zk.getData(path, true, null);
-                data = new String(byteData, "utf-8");
+                data = new String(byteData, StandardCharsets.UTF_8);
                 return data;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -265,36 +283,18 @@ public class ZookeeperClientDemo implements Watcher {
         int index = format.indexOf("{");
         StringBuilder sb = new StringBuilder(format);
         sb.insert(index + 1, "%s");
-        System.out.println(String.format(sb.toString(), args));
+        System.out.printf(sb + "%n", args);
     }
 
     @Override
     public void process(WatchedEvent event) {
     }
 
-    //http://www.phpxs.com/code/1002103/
-    public static void main(String[] args) {
-        ZookeeperClientDemo zkc = new ZookeeperClientDemo();
-        zkc.createZkClient();
-        if (!zkc.exists("/windowcreate")) {
-            zkc.createPersistentNode("/windowcreate", "windowcreate");
-        }
-        if (!zkc.exists("/windowcreate/value")) {
-            System.out.println("not exists /windowcreate/value");
-            zkc.createPersistentNode("/windowcreate/value", "A0431P001");
-        }
-        if (!zkc.exists("/windowcreate/valuetmp")) {
-            System.out.println("not exists /windowcreate/valuetmp");
-            zkc.createEphemeralNode("/windowcreate/valuetmp", "A0431P002");
-        }
-        System.out.println(zkc.getNodeData("/zookeeper"));
-        System.out.println(zkc.getChildren("/windowcreate"));
-        System.out.println(zkc.getNodeData("/windowcreate/value"));
-        System.out.println(zkc.getNodeData("/windowcreate/valuetmp"));
-        zkc.setNodeData("/windowcreate/value", "A0431P003");
-        System.out.println(zkc.getNodeData("/windowcreate/value"));
-        zkc.deleteNode("/windowcreate/value");
-        System.out.println(zkc.exists("/windowcreate/value"));
-        zkc.closeZk();
+    private static class PropertiesDynLoading {
+        static final String CONNECT_STRING = "localhost:9181";
+        static final int SESSION_TIMEOUT = 3000;
+        static final String AUTH_SCHEME = "digest";
+        static final String ACCESS_KEY = "cache:svcctlg";
+        static final boolean AUTHENTICATION = false;
     }
 }

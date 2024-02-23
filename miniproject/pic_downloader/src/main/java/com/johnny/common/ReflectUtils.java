@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -64,7 +65,7 @@ public class ReflectUtils {
 
     public static List<Class<?>> getClassWithPackage(String pkg) {
         try {
-            String jarPath = URLDecoder.decode(ReflectUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "utf-8");
+            String jarPath = URLDecoder.decode(ReflectUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath(), StandardCharsets.UTF_8);
             File file = new File(jarPath);
             if ((file.isFile()) && (file.getName().endsWith("jar"))) {
                 JarFile jar = new JarFile(jarPath);
@@ -96,7 +97,7 @@ public class ReflectUtils {
     private static List<Class<?>> getClassWithPackageFromDir(String pkg)
             throws UnsupportedEncodingException, ClassNotFoundException {
         List<Class<?>> list = new ArrayList<>();
-        String jarPath = URLDecoder.decode(ReflectUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "utf-8");
+        String jarPath = URLDecoder.decode(ReflectUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath(), StandardCharsets.UTF_8);
         File dir = new File(jarPath + "/" + pkg.replaceAll("\\.", "/"));
         File[] files = dir.listFiles((dir1, name) -> name.endsWith(".class"));
         if (files != null) {

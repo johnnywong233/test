@@ -1,6 +1,6 @@
 package file.xml;
 
-import com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl;
+import org.apache.xerces.jaxp.SAXParserFactoryImpl;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;

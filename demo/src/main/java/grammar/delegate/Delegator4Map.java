@@ -1,8 +1,5 @@
 package grammar.delegate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Hashtable;
@@ -13,21 +10,20 @@ import java.util.Map;
  */
 
 public class Delegator4Map extends Delegator {
-    private static Log log = LogFactory.getLog(Delegator4Map.class);
-    private Map orginClass = null; //原始对象
-    private Map proxyClass = null; //代理对象
+    private Map originClass; //原始对象
+    private Map proxyClass; //代理对象
 
-    public Map getOrgin() {
-        return orginClass;
+    public Map getOrigin() {
+        return originClass;
     }
 
     public Map getProxy() {
         return proxyClass;
     }
 
-    public Delegator4Map(Map orgin) {
-        super(orgin);
-        orginClass = orgin;
+    public Delegator4Map(Map origin) {
+        super(origin);
+        originClass = origin;
         proxyClass = (Map) super.objProxy;
     }
 
@@ -44,7 +40,7 @@ public class Delegator4Map extends Delegator {
     }
 
     public static void main(String[] args) throws IOException {
-        Delegator4Map rtm = new Delegator4Map(new Hashtable());
+        Delegator4Map rtm = new Delegator4Map(new Hashtable<>());
         Map m = rtm.getProxy();
         m.size();
     }

@@ -28,7 +28,7 @@ public class DouBanTest {
         System.setProperty("http.proxyPort", "8080");
 
         //assign URL and port
-        RestAssured.baseURI = "http://api.douban.com/v2/book";
+        RestAssured.baseURI = "https://api.douban.com/v2/book";
         RestAssured.port = 80;
     }
 

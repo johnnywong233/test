@@ -1,5 +1,6 @@
 package velocity;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -12,6 +13,7 @@ import java.io.StringWriter;
  * Created by johnny on 2016/10/3.
  * fucking simple demo of velocity
  */
+@Slf4j
 public class VelocityTest {
     //http://freesea.iteye.com/blog/652707
     public static void main(String[] args) {
@@ -28,10 +30,10 @@ public class VelocityTest {
             template.merge(context, writer);
 
             PrintWriter fileWriter = new PrintWriter(new FileOutputStream("D:\\Java_ex\\test\\src\\test\\resources\\a.html"), true);
-            fileWriter.println(writer.toString());
+            fileWriter.println(writer);
             fileWriter.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("fail", e);
         }
     }
 }

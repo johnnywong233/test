@@ -3,29 +3,24 @@ package algorithm.encrypt.secure;
 import lombok.Getter;
 import utils.Base64Utils;
 
-import java.nio.charset.Charset;
-
 /**
  * 编解码基类
  */
 @Getter
 public abstract class AbstractBasicCodec {
-    public static final Charset CHAR_SET = Charset.forName("UTF-8");
+    private final Base64Utils base64Utils;
     /**
      * 对称加密的密钥，经过base64编程的密钥字符串
      */
     String secretKey;
-
     /**
      * 非对称加密的公钥，经过base64编码的公钥字符串
      */
     String publicKey;
-
     /**
      * 非对称加密的私钥，经过base64编码的私钥字符串
      */
     String privateKey;
-    private Base64Utils base64Utils;
 
     AbstractBasicCodec() {
         base64Utils = Base64Utils.getInstance();

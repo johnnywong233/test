@@ -75,7 +75,7 @@ class CustomNamespaceContext implements NamespaceContext {
     }
 
     @Override
-    public Iterator<?> getPrefixes(String namespaceURI) {
+    public Iterator<String> getPrefixes(String namespaceURI) {
         return null;
     }
 }

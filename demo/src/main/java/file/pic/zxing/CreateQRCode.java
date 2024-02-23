@@ -25,7 +25,7 @@ public class CreateQRCode {
 
         Path file = new File("img.png").toPath();
         HashMap<EncodeHintType, Object> hints = new HashMap<>();
-        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
         //set level of fault tolerance
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
         hints.put(EncodeHintType.MARGIN, 2);//default value of margin is 5

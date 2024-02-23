@@ -112,7 +112,7 @@ public class TestDocument {
 
     private static void visitDom() throws Exception {
         File input = new File("d:/login.html");
-        Document doc = Jsoup.parse(input, "UTF-8", "http://www.baidu.com/");
+        Document doc = Jsoup.parse(input, "UTF-8", "https://www.baidu.com/");
 
         Element content = doc.getElementById("body");
         Elements links = content.getElementsByTag("a");
@@ -145,7 +145,7 @@ public class TestDocument {
 
     private static void parserFromFile() throws Exception {
         File input = new File("d:/login.html");
-        Document doc = Jsoup.parse(input, "UTF-8", "http://www.baidu.com/");
+        Document doc = Jsoup.parse(input, "UTF-8", "https://www.baidu.com/");
         System.err.println(doc);
     }
 

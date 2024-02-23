@@ -1,5 +1,6 @@
 package wink;
 
+import lombok.Data;
 import org.apache.wink.client.ClientResponse;
 import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;
@@ -55,24 +56,8 @@ public class RestClientDemo {
     }
 }
 
+@Data
 class Item {
-
     private String id;
     private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 }

@@ -1,16 +1,15 @@
 package com.johnny.common;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import java.awt.Desktop;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.Desktop.Action;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.TreeMap;
@@ -61,14 +60,10 @@ public class Common {
     public static Map<String, String> failFileMap = new TreeMap<>();
 
     static {
-        try {
-            String jarPath = URLDecoder.decode(Common.class.getProtectionDomain().getCodeSource().getLocation().getPath(), "utf-8");
+        String jarPath = URLDecoder.decode(Common.class.getProtectionDomain().getCodeSource().getLocation().getPath(), StandardCharsets.UTF_8);
 
-            PATH_DOWNLOAD = jarPath.substring(1, jarPath.lastIndexOf("/"));
-            PATH_APP = PATH_DOWNLOAD;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        PATH_DOWNLOAD = jarPath.substring(1, jarPath.lastIndexOf("/"));
+        PATH_APP = PATH_DOWNLOAD;
 
         StringBuilder sb = new StringBuilder();
         InputStream inputStream = Common.class.getResourceAsStream("/com.johnny/resources/html/Template.html");

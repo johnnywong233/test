@@ -116,7 +116,7 @@ public class PatchDemo {
         int sum = l.stream()
                 .map(Integer::new)
                 .distinct()
-                .reduce(0, (x, y) -> x + y); // equivalent to .sum()
+                .reduce(0, Integer::sum); // equivalent to .sum()
         System.out.println("distinctSum result is: " + sum);
     }
 
@@ -131,7 +131,7 @@ public class PatchDemo {
 
 class Person {
     private String name;
-    private int age;
+    private final int age;
 
     public Person(String name, int age) {
         this.name = name;

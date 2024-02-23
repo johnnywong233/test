@@ -1,8 +1,8 @@
 package utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+import java.nio.charset.StandardCharsets;
 import java.util.zip.Inflater;
 
 /**
@@ -10,8 +10,8 @@ import java.util.zip.Inflater;
  * Date: 2016/12/5
  * Time: 20:11
  */
+@Slf4j
 public class ZipUtils {
-    private static Logger logger = LoggerFactory.getLogger(ZipUtils.class);
 
     //zip
     private static String zlibInflate(byte[] bytes, int resultSizeLimit) throws Exception {
@@ -22,10 +22,10 @@ public class ZipUtils {
         int resultLength = deCompressor.inflate(result);
         deCompressor.end();
         if (resultLength == resultSizeLimit) {
-            logger.info("Access result limit, going to double result size and zlib inflate again.");
+            log.info("Access result limit, going to double result size and zlib inflate again.");
             return zlibInflate(bytes, 2 * resultSizeLimit);
         } else {
-            return new String(result, 0, resultLength, "UTF-8");
+            return new String(result, 0, resultLength, StandardCharsets.UTF_8);
         }
     }
 }

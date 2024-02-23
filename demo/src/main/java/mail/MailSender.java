@@ -21,7 +21,7 @@ public class MailSender {
 
     //http://www.jb51.net/article/92431.htm
     @Test
-    public void sender() throws Exception {
+    public void sender() {
         send("wangjianloveblue@163.com", "final test", "silly");
     }
 
@@ -31,7 +31,7 @@ public class MailSender {
     private static final String MAIL_SMTP_USER = "wangjianloveblue@163.com";
     private static final String MAIL_SMTP_PASSWORD = "w**5";
 
-    private static Properties props = new Properties();
+    private static final Properties props = new Properties();
 
     static {
         //http://bbs.csdn.net/topics/390680630

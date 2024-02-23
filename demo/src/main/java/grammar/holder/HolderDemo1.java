@@ -1,6 +1,6 @@
 package grammar.holder;
 
-import javax.xml.ws.Holder;
+import jakarta.xml.ws.Holder;
 
 /**
  * Author: Johnny

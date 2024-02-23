@@ -3,6 +3,7 @@ package utils;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Author: Johnny
@@ -52,7 +53,7 @@ public class PasswordUtil {
         SecretKeySpec secretKey = new SecretKeySpec(keyBytes, "AES");
 
         //SIXTEEN_CHAR_INIT_VECTOR
-        byte[] initParam = "".getBytes("utf-8");
+        byte[] initParam = "".getBytes(StandardCharsets.UTF_8);
         IvParameterSpec ivParameterSpec = new IvParameterSpec(initParam);
 
         Cipher cipher = Cipher.getInstance("AES");//CBC/PKCS5Padding

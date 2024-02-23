@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Author: Johnny
@@ -19,7 +20,7 @@ public class SocketOperate implements Runnable {
 
     public SocketOperate(Socket socket) throws IOException {
         this.socket = socket;
-        reader = new InputStreamReader(this.socket.getInputStream(), "utf-8");
+        reader = new InputStreamReader(this.socket.getInputStream(), StandardCharsets.UTF_8);
         br = new BufferedReader(reader);
     }
 
@@ -34,7 +35,7 @@ public class SocketOperate implements Runnable {
                     break;
                 }
                 OutputStream os = socket.getOutputStream();
-                os.write(("RES, OK,<1年2班,小明>, 123241,#" + "\n").getBytes("utf-8"));
+                os.write(("RES, OK,<1年2班,小明>, 123241,#" + "\n").getBytes(StandardCharsets.UTF_8));
                 os.flush();
             }
         } catch (IOException e) {

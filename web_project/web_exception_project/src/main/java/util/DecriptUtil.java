@@ -2,7 +2,7 @@ package util;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -21,11 +21,11 @@ public class DecriptUtil {
             byte[] enCodeFormat = secretKey.getEncoded();
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
             Cipher cipher = Cipher.getInstance("AES");
-            byte[] byteContent = str.getBytes("UTF-8");
+            byte[] byteContent = str.getBytes(StandardCharsets.UTF_8);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return cipher.doFinal(byteContent);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException
-                | UnsupportedEncodingException | IllegalBlockSizeException | BadPaddingException e) {
+                 | IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
         }
         return null;
@@ -45,9 +45,9 @@ public class DecriptUtil {
             SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
             Cipher cipher = Cipher.getInstance("AES");//create a instance
             cipher.init(Cipher.DECRYPT_MODE, key);//init
-            return new String(cipher.doFinal(strByteArray), "UTF-8"); //encrypt
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException | BadPaddingException
-                | IllegalBlockSizeException | InvalidKeyException | NoSuchPaddingException e) {
+            return new String(cipher.doFinal(strByteArray), StandardCharsets.UTF_8); //encrypt
+        } catch (NoSuchAlgorithmException | BadPaddingException
+                 | IllegalBlockSizeException | InvalidKeyException | NoSuchPaddingException e) {
             e.printStackTrace();
         }
         return null;
