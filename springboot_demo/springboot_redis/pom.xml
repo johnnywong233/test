@@ -39,7 +39,12 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
-
+        <!-- fix ClassNotFoundException: org.springframework.security.web.authentication.RememberMeServices
+        see: https://github.com/spring-projects/spring-boot/issues/16992 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
