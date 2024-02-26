@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**
  * 使用注解标注过滤器
- * @WebFilter 将一个实现javax.servlet.Filter接口的类定义为过滤器 属性filterName声明过滤器的名称, 可选
+ * WebFilter 将一个实现javax.servlet.Filter接口的类定义为过滤器 属性filterName声明过滤器的名称, 可选
  * 属性urlPatterns指定要过滤 的URL模式,也可使用属性value来声明.(指定要过滤的URL模式是必选属性)
  */
 @WebFilter(filterName = "myFilter", urlPatterns = "/*")

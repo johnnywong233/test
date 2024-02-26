@@ -1,12 +1,12 @@
 package ws;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.lang.NonNull;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -32,11 +32,10 @@ import static org.junit.Assert.fail;
  * Date: 2017/7/24
  * Time: 23:33
  */
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {WebSocketApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class WebSocketTest {
-    private final Logger logger = LoggerFactory.getLogger(WebSocketTest.class);
-
     private final WebSocketHttpHeaders headers = new WebSocketHttpHeaders();
 
     private final CountDownLatch latch = new CountDownLatch(1);
@@ -56,21 +55,22 @@ public class WebSocketTest {
         transports.add(new RestTemplateXhrTransport());
         this.sockJsClient = new SockJsClient(transports);
     }
+
     @Test
     public void getGreeting() throws Exception {
-        this.sockJsClient.doHandshake(new TestWebSocketHandler(failure),
-                "ws://localhost:"+String.valueOf(port)+"/sockjs/message?siteId=webtrn&userId=lucy");
+        this.sockJsClient.doHandshake(new TestWebSocketHandler(failure), "ws://localhost:" + port + "/sockjs/message?siteId=webtrn&userId=lucy");
         if (latch.await(60, TimeUnit.SECONDS)) {
             if (failure.get() != null) {
                 throw new AssertionError("", failure.get());
             }
-        }
-        else {
+        } else {
             fail("Greeting not received");
         }
     }
+
     private class TestWebSocketHandler implements WebSocketHandler {
         private final AtomicReference<?> failure;
+
         TestWebSocketHandler() {
             this.failure = null;
         }
@@ -81,14 +81,14 @@ public class WebSocketTest {
 
         @Override
         public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-            logger.info("client connection established");
+            log.info("client connection established");
             session.sendMessage(new TextMessage("hello websocket server!"));
         }
 
         @Override
-        public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+        public void handleMessage(@NonNull WebSocketSession session, WebSocketMessage<?> message) {
             String payload = (String) message.getPayload();
-            logger.info("client handle message: " + payload);
+            log.info("client handle message: " + payload);
             if (payload.equals("hello websocket client!")) {
                 latch.countDown();
             }
@@ -98,13 +98,13 @@ public class WebSocketTest {
         }
 
         @Override
-        public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-            logger.info("client transport error");
+        public void handleTransportError(@NonNull WebSocketSession session, @NonNull Throwable exception) {
+            log.info("client transport error");
         }
 
         @Override
-        public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-            logger.info("client connection closed");
+        public void afterConnectionClosed(@NonNull WebSocketSession session, @NonNull CloseStatus closeStatus) {
+            log.info("client connection closed");
         }
 
         @Override

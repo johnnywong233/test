@@ -1,9 +1,9 @@
 package ws.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
+import javax.annotation.Resource;
 import java.security.Principal;
 
 /**
@@ -12,7 +12,7 @@ import java.security.Principal;
  * Time: 22:49
  */
 public class WSController {
-    @Autowired
+    @Resource
     private SimpMessagingTemplate messagingTemplate;
 
     @MessageMapping("/chat")

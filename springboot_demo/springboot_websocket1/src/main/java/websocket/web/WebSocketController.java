@@ -16,13 +16,13 @@ import java.util.Date;
  */
 @Controller
 public class WebSocketController {
-    private SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat SF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //当浏览器向服务器端发送STOMP请求时，通过@MessageMapping注解来映射/getServerTime地址
     @MessageMapping(value = "/getServerTime")
     //当服务端有消息时，会对订阅@SendTo中的路径的客户端发送消息
     @SendTo(value = "/topic/getResponse")
     public SocketResponse serverTime(SocketMessage message) {
-        return new SocketResponse(message.getMessage() + sf.format(new Date()));
+        return new SocketResponse(message.getMessage() + SF.format(new Date()));
     }
 }
