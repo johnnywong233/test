@@ -22,9 +22,9 @@ public class HomeController {
         return "login";
     }
 
-    // 登录提交地址和applicationontext-shiro.xml配置的loginurl一致(配置文件方式的说法)
+    // 登录提交地址和applicationContext-shiro.xml配置的loginUrl一致(配置文件方式的说法)
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, Map<String, Object> map) throws Exception {
+    public String login(HttpServletRequest request, Map<String, Object> map) {
         System.out.println("HomeController.login()");
         // 登录失败从request中获取shiro处理的异常信息。
         // shiroLoginFailure:就是shiro异常类的全类名.

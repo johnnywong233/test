@@ -1,21 +1,24 @@
 package rabbit.fanout;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
  * Date: 2017/10/6
  * Time: 7:53
  */
+@Slf4j
 @Component
 public class FanoutSender1 {
-    @Autowired
+    @Resource
     private AmqpTemplate rabbitTemplate;
 
     public void send(Integer object) {
-        System.out.println("Sender : " + object);
+        log.info("Sender : " + object);
         this.rabbitTemplate.convertAndSend("fanoutExchange", "", object);
     }
 }

@@ -23,14 +23,14 @@ public class FanoutTest {
     private FanoutSender2 sender2;
 
     @Test
-    public void oneToMany() throws Exception {
+    public void oneToMany() {
         for (int i = 0; i < 10; i++) {
             sender1.send(i);
         }
     }
 
     @Test
-    public void manyToMany() throws Exception {
+    public void manyToMany() {
         for (int i = 0; i < 10; i++) {
             sender1.send(i);
             sender2.send(i);

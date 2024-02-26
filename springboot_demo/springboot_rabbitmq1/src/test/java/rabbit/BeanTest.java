@@ -20,7 +20,7 @@ public class BeanTest {
     private BeanSender sender;
 
     @Test
-    public void sendObject() throws Exception {
+    public void sendObject() {
         Person person = new Person();
         person.setName("johnny");
         person.setAge(111);

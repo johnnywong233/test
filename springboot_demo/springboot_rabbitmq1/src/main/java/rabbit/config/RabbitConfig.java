@@ -7,8 +7,8 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.ChannelAwareMessageListener;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.api.ChannelAwareMessageListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,9 +22,9 @@ public class RabbitConfig {
     //消息交换机的名字
     public static final String EXCHANGE = "my-mq-exchange";
     //队列key1
-    public static final String ROUTINGKEY1 = "queue_one_key1";
+    public static final String ROUTING_KEY1 = "queue_one_key1";
     //队列key2
-    public static final String ROUTINGKEY2 = "queue_one_key2";
+    public static final String ROUTING_KEY2 = "queue_one_key2";
 
     /**
      * 配置链接信息
@@ -32,9 +32,9 @@ public class RabbitConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory("127.0.0.1", 5672);
-//        connectionFactory.setUsername("springboot");
-//        connectionFactory.setPassword("password");
-//        connectionFactory.setVirtualHost("/");
+        connectionFactory.setUsername("springboot");
+        connectionFactory.setPassword("password");
+        connectionFactory.setVirtualHost("/");
         connectionFactory.setPublisherConfirms(true); // 必须要设置
         return connectionFactory;
     }
@@ -42,9 +42,9 @@ public class RabbitConfig {
     /**
      * 配置消息交换机
      * 针对消费者配置
-     * FanoutExchange: 将消息分发到所有的绑定队列，无routingkey的概念
+     * FanoutExchange: 将消息分发到所有的绑定队列，无routingKey的概念
      * HeadersExchange ：通过添加属性key-value匹配
-     * DirectExchange:按照routingkey分发到指定队列
+     * DirectExchange:按照routingKey分发到指定队列
      * TopicExchange:多关键字匹配
      */
     @Bean
@@ -67,7 +67,7 @@ public class RabbitConfig {
      */
     @Bean
     public Binding binding() {
-        return BindingBuilder.bind(queue()).to(defaultExchange()).with(RabbitConfig.ROUTINGKEY1);
+        return BindingBuilder.bind(queue()).to(defaultExchange()).with(RabbitConfig.ROUTING_KEY1);
     }
 
     /**
@@ -85,7 +85,7 @@ public class RabbitConfig {
      */
     @Bean
     public Binding binding1() {
-        return BindingBuilder.bind(queue1()).to(defaultExchange()).with(RabbitConfig.ROUTINGKEY2);
+        return BindingBuilder.bind(queue1()).to(defaultExchange()).with(RabbitConfig.ROUTING_KEY2);
     }
 
     /**
