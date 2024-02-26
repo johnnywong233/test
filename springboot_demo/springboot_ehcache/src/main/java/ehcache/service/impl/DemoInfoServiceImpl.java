@@ -1,7 +1,6 @@
 package ehcache.service.impl;
 
 import ehcache.bean.DemoInfo;
-import javassist.NotFoundException;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -38,14 +37,11 @@ public class DemoInfoServiceImpl implements DemoInfoService {
     @Override
     public DemoInfo findById(Long id) {
         System.err.println("没有走缓存！" + id);
-        return demoInfoRepository.findOne(id);
+        return demoInfoRepository.findById(id).orElseThrow();
     }
 
     /**
-     * http://www.mincoder.com/article/2096.shtml:
-     * <p>
      * 修改数据.
-     * <p>
      * 在支持Spring Cache的环境下，对于使用@Cacheable标注的方法，Spring在每次执行前都会检查Cache中是否存在相同key的缓存元素，
      * 如果存在就不再执行该方法，而是直接从缓存中获取结果进行返回，否则才会执行并将返回结果存入指定的缓存中。
      * @ CachePut也可以声明一个方法支持缓存功能。与@Cacheable不同的是使用@CachePut标注的方法在执行前不会去检查缓存中是否存在
@@ -55,11 +51,8 @@ public class DemoInfoServiceImpl implements DemoInfoService {
     @CachePut(value = DEMO_CACHE_NAME, key = "'demoInfo_'+#updated.getId()")
     //@CacheEvict(value = DEMO_CACHE_NAME,key = "'demoInfo_'+#updated.getId()")//这是清除缓存.
     @Override
-    public DemoInfo update(DemoInfo updated) throws NotFoundException {
-        DemoInfo demoInfo = demoInfoRepository.findOne(updated.getId());
-        if (demoInfo == null) {
-            throw new NotFoundException("No find");
-        }
+    public DemoInfo update(DemoInfo updated) {
+        DemoInfo demoInfo = demoInfoRepository.findById(updated.getId()).orElseThrow();
         demoInfo.setName(updated.getName());
         demoInfo.setPwd(updated.getPwd());
         return demoInfo;
@@ -68,6 +61,6 @@ public class DemoInfoServiceImpl implements DemoInfoService {
     @CacheEvict(value = DEMO_CACHE_NAME, key = "'demoInfo_'+#id")//这是清除缓存.
     @Override
     public void delete(Long id) {
-        demoInfoRepository.delete(id);
+        demoInfoRepository.deleteById(id);
     }
 }
