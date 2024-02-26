@@ -1,6 +1,6 @@
 package simpletest.serializable;
 
-import com.alibaba.fastjson.util.IOUtils;
+import com.alibaba.fastjson2.util.IOUtils;
 
 import java.io.File;
 import java.io.FileInputStream;

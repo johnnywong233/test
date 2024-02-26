@@ -1,6 +1,6 @@
 package util;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import entity.ReportFieldConfig;
 

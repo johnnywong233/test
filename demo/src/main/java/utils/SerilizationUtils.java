@@ -1,6 +1,6 @@
 package utils;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -123,8 +123,8 @@ public class SerilizationUtils {
 
             field.setAccessible(true);
             Class targetClazz;
+            Class fieldClazz = field.getType();
             if (field.isAnnotationPresent(KVSerilizable.class)) {
-                Class fieldClazz = field.getType();
                 if (fieldClazz.isAssignableFrom(List.class) || fieldClazz.isAssignableFrom(Map.class)) {
                     Type genericType = field.getGenericType();
 
@@ -141,7 +141,6 @@ public class SerilizationUtils {
                     field.set(obj, valueAfter);
                 }
             } else {
-                Class fieldClazz = field.getType();
                 Object valueAfter;
                 if (fieldClazz.isAssignableFrom(Date.class)) {
                     valueAfter = DateUtil.convert2Date((String) map.get(field.getName()), DateUtil.STANDARD_DATE_TIME_FORMAT);

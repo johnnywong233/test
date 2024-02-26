@@ -11,7 +11,7 @@ public class BuildTree {
 		if (nodes == null) {
 			return null;
 		}
-		List<Tree<T>> topNodes = new ArrayList<Tree<T>>();
+		List<Tree<T>> topNodes = new ArrayList<>();
 		for (Tree<T> children : nodes) {
 			String pid = children.getParentId();
 			if (pid == null || "".equals(pid)) {
@@ -25,12 +25,11 @@ public class BuildTree {
 					parent.getChildren().add(children);
 					children.setParent(true);
 					parent.setChildren(true);
-					continue;
 				}
 			}
 		}
 
-		Tree<T> root = new Tree<T>();
+		Tree<T> root = new Tree<>();
 		if (topNodes.size() == 1) {
 			root = topNodes.get(0);
 		} else {

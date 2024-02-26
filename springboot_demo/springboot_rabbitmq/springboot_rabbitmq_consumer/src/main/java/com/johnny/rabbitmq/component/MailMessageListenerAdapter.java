@@ -1,8 +1,9 @@
 package com.johnny.rabbitmq.component;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.johnny.rabbitmq.model.MailMessageModel;
 import com.rabbitmq.client.Channel;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 
+@Slf4j
 @Component("mailMessageListenerAdapter")
 public class MailMessageListenerAdapter extends MessageListenerAdapter {
 
@@ -23,17 +25,17 @@ public class MailMessageListenerAdapter extends MessageListenerAdapter {
     private String mailUsername;
 
     /**
-     1. 从 RabbitMQ 的消息队列中解析消息体。
-     2. 根据消息体的内容，发送邮件给目标的邮箱。
-     3. 手动应答 ACK，让消息队列删除该消息。
+     * 1. 从 RabbitMQ 的消息队列中解析消息体。
+     * 2. 根据消息体的内容，发送邮件给目标的邮箱。
+     * 3. 手动应答 ACK，让消息队列删除该消息。
      */
     @Override
-    public void onMessage(Message message, Channel channel) throws Exception {
+    public void onMessage(Message message, Channel channel) {
         System.out.println(message.getMessageProperties().getConsumerQueue());
         try {
             // 解析RabbitMQ消息体
             String messageBody = new String(message.getBody());
-            MailMessageModel mailMessageModel = JSONObject.toJavaObject(JSONObject.parseObject(messageBody), MailMessageModel.class);
+            MailMessageModel mailMessageModel = JSONObject.parseObject(messageBody, MailMessageModel.class);
             String to = mailMessageModel.getTo();
             String subject = mailMessageModel.getSubject();
             String text = mailMessageModel.getText();
@@ -41,7 +43,7 @@ public class MailMessageListenerAdapter extends MessageListenerAdapter {
             // 手动ACK
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("onMessage fail", e);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.johnny.rabbitmq.controller;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.johnny.rabbitmq.service.EmailService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

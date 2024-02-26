@@ -1,7 +1,7 @@
 package com.johnny;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.johnny.entity.BeautifulPictures;
 import com.johnny.entity.Picture;
 import com.johnny.service.BeautifulPicturesService;
@@ -41,18 +41,18 @@ public class CrawlerMain {
     PictureService pictureService;
 
     @Value("${crawler.img.local}")   //获取springboot容器中配置文件中的值
-            String local;
+    String local;
 
     @Test
     public void runCrawler() {
         //返回值
         int result = 1;
         //访问页码
-        Integer page = 1;
+        int page = 1;
         //启动爬虫
         System.out.println("爬虫开始工作！");
         while (result == 1) {
-            result = crawler(page.toString());
+            result = crawler(Integer.toString(page));
             page += 1;
             if (result == 0) {
                 System.out.println("爬虫运行结束！！");
@@ -64,9 +64,9 @@ public class CrawlerMain {
         // 初始化返回值
         int result = 1;
         // 网站首页地址
-        String homeUrl = "http://www.87g.com/";
+        String homeUrl = "https://www.87g.com/";
         //核心：接口地址
-        String url = "http://www.87g.com/index.php?m=content&c=content_ajax&a=picture_page&siteid=1&catid=35&page=" + page;
+        String url = "https://www.87g.com/index.php?m=content&c=content_ajax&a=picture_page&siteid=1&catid=35&page=" + page;
 //        String url = "http://www.mzitu.com/76632/" + page;
         System.out.println("当前爬取第" + page + "页数据");
         // 访问接口，

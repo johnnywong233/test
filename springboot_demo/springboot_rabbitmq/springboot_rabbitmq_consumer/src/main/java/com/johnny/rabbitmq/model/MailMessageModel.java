@@ -1,6 +1,6 @@
 package com.johnny.rabbitmq.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson2.annotation.JSONField;
 import lombok.Data;
 
 @Data
@@ -19,11 +19,9 @@ public class MailMessageModel {
 
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();
-        sb.append("Email{from:").append(this.from).append(", ");
-        sb.append("to:").append(this.to).append(", ");
-        sb.append("subject:").append(this.subject).append(", ");
-        sb.append("text:").append(this.text).append("}");
-        return sb.toString();
+        return "Email{from:" + this.from + ", " +
+                "to:" + this.to + ", " +
+                "subject:" + this.subject + ", " +
+                "text:" + this.text + "}";
     }
 }

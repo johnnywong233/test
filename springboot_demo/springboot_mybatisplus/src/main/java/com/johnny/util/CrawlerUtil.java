@@ -1,6 +1,7 @@
 package com.johnny.util;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -12,8 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -21,6 +20,7 @@ import java.util.UUID;
  * Date: 2017/9/16
  * Time: 14:18
  */
+@Slf4j
 public class CrawlerUtil {
     // 访问接口，返回json封装的数据格式
     public static JSONObject getReturnJson(String url) {
@@ -37,12 +37,10 @@ public class CrawlerUtil {
             if (a[0] == '[' && a[1] == ']') {
                 return null;
             } else {
-                System.out.println("获取接口数据成功！接口地址：" + httpUrl);
                 return JSONObject.parseObject(content.toString());
             }
         } catch (Exception e) {
-            System.err.println("接口访问失败:" + url);
-            e.printStackTrace();
+            log.error("接口访问失败:" + url);
         }
         return null;
     }
@@ -74,7 +72,7 @@ public class CrawlerUtil {
                     fileAddress += ".jpg";
                     break;
                 default:
-                    System.err.println("未知图片格式");
+                    log.error("未知图片格式");
                     return;
             }
             bis = new BufferedInputStream(httpUrl.getInputStream());
@@ -83,9 +81,8 @@ public class CrawlerUtil {
                 fos.write(buf, 0, size);
             }
             fos.flush();
-            System.out.println("图片保存成功！地址：" + fileAddress);
         } catch (IOException | ClassCastException e) {
-            e.printStackTrace();
+            log.error("saveToFile fail", e);
         } finally {
             try {
                 if (fos != null) {
@@ -98,7 +95,7 @@ public class CrawlerUtil {
                     httpUrl.disconnect();
                 }
             } catch (IOException | NullPointerException e) {
-                e.printStackTrace();
+                log.error("close fail", e);
             }
         }
     }
@@ -124,12 +121,6 @@ public class CrawlerUtil {
             connection.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // 建立实际的连接
             connection.connect();
-            // 获取所有响应头字段
-            Map<String, List<String>> map = connection.getHeaderFields();
-            // 遍历所有的响应头字段
-            for (String key : map.keySet()) {
-                System.out.println(key + "--->" + map.get(key));
-            }
             // 定义 BufferedReader输入流来读取URL的响应
             in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
@@ -137,8 +128,7 @@ public class CrawlerUtil {
                 result.append(line);
             }
         } catch (Exception e) {
-            System.out.println("发送GET请求出现异常！" + e);
-            e.printStackTrace();
+            log.error("发送GET请求出现异常！" + e);
         }
         // 使用finally块来关闭输入流
         finally {
@@ -147,7 +137,7 @@ public class CrawlerUtil {
                     in.close();
                 }
             } catch (Exception e2) {
-                e2.printStackTrace();
+                log.error("close fail", e2);
             }
         }
         return result.toString();
@@ -188,8 +178,7 @@ public class CrawlerUtil {
                 result.append(line);
             }
         } catch (Exception e) {
-            System.out.println("发送 POST 请求出现异常！" + e);
-            e.printStackTrace();
+            log.error("发送 POST 请求出现异常！" + e);
         }
         // 使用finally块来关闭输出流、输入流
         finally {
@@ -201,7 +190,7 @@ public class CrawlerUtil {
                     in.close();
                 }
             } catch (IOException ex) {
-                ex.printStackTrace();
+                log.error("close fail", ex);
             }
         }
         return result.toString();
