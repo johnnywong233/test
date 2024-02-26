@@ -5,8 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.unit.DataSize;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -18,12 +19,12 @@ public class Application extends SpringBootServletInitializer {
     @Bean
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize("5MB");
-        factory.setMaxRequestSize("5MB");
+        factory.setMaxFileSize(DataSize.ofMegabytes(5));
+        factory.setMaxRequestSize(DataSize.ofMegabytes(5));
         return factory.createMultipartConfig();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 

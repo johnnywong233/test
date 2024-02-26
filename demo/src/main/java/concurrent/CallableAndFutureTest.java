@@ -10,14 +10,14 @@ public class CallableAndFutureTest {
 	public static void main(String[] args) {
 		System.out.println("start time:" + new Date());
 		ExecutorService service = Executors.newSingleThreadExecutor();
-		//FutureÓëCallableÖĞµÄ·ºĞÍ£¬¾ÍÊÇ·µ»ØÖµµÄÀàĞÍ
 		Future<String> future = service.submit(() -> {
             Thread.sleep(2000);
             return "Hello";
         });
  
 		try {
-			String result = future.get();// ¸Ã·½·¨»á½øĞĞ×èÈû£¬µÈ´ıÖ´ĞĞÍê³É
+			// è¯¥æ–¹æ³•ä¼šè¿›è¡Œé˜»å¡ï¼Œç­‰å¾…æ‰§è¡Œå®Œæˆ
+			String result = future.get();
 			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();

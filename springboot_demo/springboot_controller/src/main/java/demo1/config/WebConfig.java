@@ -4,10 +4,8 @@ import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.Ssl;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.Ssl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,24 +17,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class WebConfig {
     @Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return container -> {
-            Ssl ssl = new Ssl();
-            //Server.jks中包含服务器私钥和证书
-            ssl.setKeyStore("test.jks");
-            ssl.setKeyStorePassword("123456");
-            container.setSsl(ssl);
-            container.setPort(8443);
-        };
-    }
-
-    @Bean
-    public EmbeddedServletContainerFactory servletContainerFactory() {
-        TomcatEmbeddedServletContainerFactory factory =
-                new TomcatEmbeddedServletContainerFactory() {
+    public TomcatServletWebServerFactory servletContainerFactory() {
+        TomcatServletWebServerFactory factory =
+                new TomcatServletWebServerFactory() {
                     @Override
                     protected void postProcessContext(Context context) {
-                        //SecurityConstraint必须存在，可以通过其为不同的URL设置不同的重定向策略。
+                        // SecurityConstraint必须存在，可以通过其为不同的URL设置不同的重定向策略。
                         SecurityConstraint securityConstraint = new SecurityConstraint();
                         securityConstraint.setUserConstraint("CONFIDENTIAL");
                         SecurityCollection collection = new SecurityCollection();
@@ -46,6 +32,12 @@ public class WebConfig {
                     }
                 };
         factory.addAdditionalTomcatConnectors(createHttpConnector());
+        Ssl ssl = new Ssl();
+        // Server.jks中包含服务器私钥和证书
+        ssl.setKeyStore("test.jks");
+        ssl.setKeyStorePassword("123456");
+        factory.setSsl(ssl);
+        factory.setPort(8443);
         return factory;
     }
 

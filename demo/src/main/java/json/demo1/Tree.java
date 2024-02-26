@@ -39,7 +39,7 @@ public class Tree<T> {
     /**
      * 是否有子节点
      */
-    private boolean isChildren = false;
+    private boolean hasChildren = false;
     /**
      * 父ID
      */

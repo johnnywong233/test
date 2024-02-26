@@ -24,7 +24,7 @@ public class BuildTree {
 				if (id != null && id.equals(pid)) {
 					parent.getChildren().add(children);
 					children.setParent(true);
-					parent.setChildren(true);
+					parent.setHasChildren(true);
 				}
 			}
 		}
@@ -36,7 +36,7 @@ public class BuildTree {
 			root.setId("-1");
 			root.setParentId("");
 			root.setParent(false);
-			root.setChildren(true);
+			root.setHasChildren(true);
 			root.setChecked(true);
 			root.setChildren(topNodes);
 			root.setText("顶级节点");
