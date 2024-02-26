@@ -1,20 +1,17 @@
 package com.johnny.rabbitmq.service.impl;
 
 import com.johnny.rabbitmq.service.EmailService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Service
 public class EmailServiceImpl implements EmailService {
-
-    private static Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
-
     @Resource(name = "rabbitTemplate")
     private RabbitTemplate rabbitTemplate;
 
@@ -25,11 +22,11 @@ public class EmailServiceImpl implements EmailService {
     private String routeKey;
 
     @Override
-    public void sendEmail(String message) throws Exception {
+    public void sendEmail(String message) {
         try {
             rabbitTemplate.convertAndSend(exchange, routeKey, message);
         } catch (Exception e) {
-            logger.error("EmailServiceImpl.sendEmail", ExceptionUtils.getMessage(e));
+            log.error("EmailServiceImpl.sendEmail:{}", ExceptionUtils.getMessage(e));
         }
     }
 }

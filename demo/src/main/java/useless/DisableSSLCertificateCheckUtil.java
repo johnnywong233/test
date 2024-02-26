@@ -1,7 +1,6 @@
 package useless;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -9,7 +8,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.net.URL;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
@@ -17,8 +15,8 @@ import java.security.cert.X509Certificate;
  * Date: 2017/4/29
  * Time: 14:26
  */
+@Slf4j
 public final class DisableSSLCertificateCheckUtil {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DisableSSLCertificateCheckUtil.class);
 
     /**
      * Prevent instantiation of utility class.
@@ -42,11 +40,11 @@ public final class DisableSSLCertificateCheckUtil {
             sslc = SSLContext.getInstance("TLS");
             TrustManager[] trustManagerArray = {new X509TrustManager() {
                 @Override
-                public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                public void checkClientTrusted(X509Certificate[] chain, String authType) {
                 }
 
                 @Override
-                public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+                public void checkServerTrusted(X509Certificate[] chain, String authType) {
                 }
 
                 @Override
@@ -58,7 +56,7 @@ public final class DisableSSLCertificateCheckUtil {
             HttpsURLConnection.setDefaultSSLSocketFactory(sslc.getSocketFactory());
             HttpsURLConnection.setDefaultHostnameVerifier((s, sslSession) -> true);
         } catch (Exception e) {
-            LOGGER.error("error msg:{}", e);
+            log.error("error msg:", e);
             throw new IllegalArgumentException("证书校验异常！");
         }
     }

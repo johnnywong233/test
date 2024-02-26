@@ -8,7 +8,6 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,46 +15,49 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
+import javax.annotation.Resource;
+import java.util.Objects;
+
 @Configuration
 @ComponentScan(basePackages = {"com.johnny.rabbitmq"})
 @PropertySource(value = {"classpath:application.properties"})
 public class RabbitMQConfig {
 
-    @Autowired
+    @Resource
     private Environment env;
 
     @Bean
-    public ConnectionFactory connectionFactory() throws Exception {
+    public ConnectionFactory connectionFactory() {
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost(env.getProperty("mq.host").trim());
-        connectionFactory.setPort(Integer.parseInt(env.getProperty("mq.port").trim()));
-        connectionFactory.setVirtualHost(env.getProperty("mq.vhost").trim());
-        connectionFactory.setUsername(env.getProperty("mq.username").trim());
-        connectionFactory.setPassword(env.getProperty("mq.password").trim());
+        connectionFactory.setHost(env.getProperty("mq.host"));
+        connectionFactory.setPort(Integer.parseInt(Objects.requireNonNull(env.getProperty("mq.port"))));
+        connectionFactory.setVirtualHost(env.getProperty("mq.vhost"));
+        connectionFactory.setUsername(env.getProperty("mq.username"));
+        connectionFactory.setPassword(env.getProperty("mq.password"));
         return connectionFactory;
     }
 
     @Bean
-    public CachingConnectionFactory cachingConnectionFactory() throws Exception {
+    public CachingConnectionFactory cachingConnectionFactory() {
         return new CachingConnectionFactory(connectionFactory());
     }
 
     @Bean
-    public RabbitTemplate rabbitTemplate() throws Exception {
+    public RabbitTemplate rabbitTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(cachingConnectionFactory());
         rabbitTemplate.setChannelTransacted(true);
         return rabbitTemplate;
     }
 
     @Bean
-    public AmqpAdmin amqpAdmin() throws Exception {
+    public AmqpAdmin amqpAdmin() {
         return new RabbitAdmin(cachingConnectionFactory());
     }
 
     @Bean
     public SimpleMessageListenerContainer listenerContainer(
-            @Qualifier("mailMessageListenerAdapter") MailMessageListenerAdapter mailMessageListenerAdapter) throws Exception {
-        String queueName = env.getProperty("mq.queue").trim();
+            @Qualifier("mailMessageListenerAdapter") MailMessageListenerAdapter mailMessageListenerAdapter) {
+        String queueName = env.getProperty("mq.queue");
 
         SimpleMessageListenerContainer simpleMessageListenerContainer =
                 new SimpleMessageListenerContainer(cachingConnectionFactory());

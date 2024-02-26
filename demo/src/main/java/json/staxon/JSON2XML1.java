@@ -26,11 +26,11 @@ import java.io.OutputStream;
  */
 public class JSON2XML1 {
     /**
-     * Copy/format JSON as XML using {@Transformer #transform( Source, Result)}.
+     * Copy/format JSON as XML using {Transformer#transform( Source, Result)}.
      *
      * @param args ignored
      */
-	//as it, JSON2XML2 will use XMLEventReader, XMLEventWriter
+    //as it, JSON2XML2 will use XMLEventReader, XMLEventWriter
     public static void main(String[] args) throws TransformerException, XMLStreamException, IOException {
         /*
          * If the <code>multiplePI</code> property is

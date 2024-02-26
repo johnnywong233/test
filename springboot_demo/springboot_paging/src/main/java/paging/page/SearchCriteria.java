@@ -10,7 +10,6 @@ import org.mybatis.pagination.dto.datatables.SortField;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -121,11 +120,9 @@ public class SearchCriteria {
             for (Field field : fields) {
                 columnList.add(field.getName());
             }
-            Iterator it = handleFields.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                if (!columnList.contains(pair.getKey())) {
-                    handleFields.remove(pair.getKey());
+            for (Map.Entry<String, String> entry : handleFields.entrySet()) {
+                if (!columnList.contains(((Map.Entry) entry).getKey())) {
+                    handleFields.remove(((Map.Entry) entry).getKey());
                 }
             }
         } catch (IllegalArgumentException e) {
