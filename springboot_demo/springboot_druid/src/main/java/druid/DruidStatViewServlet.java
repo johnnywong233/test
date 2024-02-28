@@ -20,5 +20,4 @@ import javax.servlet.annotation.WebServlet;
         })
 public class DruidStatViewServlet extends StatViewServlet {
 
-	private static final long serialVersionUID = 1523563813405743831L;
 }

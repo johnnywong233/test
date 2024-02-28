@@ -2,11 +2,12 @@ package oauth2.web;
 
 import oauth2.domain.MyUserDetails;
 import oauth2.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UserController {
-    @Autowired
+    @Resource
     private TokenStore tokenStore;
 
     @PostMapping("/house")

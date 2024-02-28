@@ -19,8 +19,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
     private long id;
     @Column(nullable = false)

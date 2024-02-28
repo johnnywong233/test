@@ -2,13 +2,11 @@ package angular.web;
 
 import angular.entity.AccountCredentials;
 import angular.util.JwtUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,15 +21,13 @@ import static angular.util.JwtUtil.USER_ID;
  * Date: 2017/10/4
  * Time: 13:01
  */
+@Slf4j
 @RestController
 public class LoginController {
-    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
-
     //Missing token
     @GetMapping("/api/protected")
-    @ResponseBody
     public Object hellWorld(@RequestHeader(value = USER_ID) String userId) {
-        logger.info("This is a protected api, your use id is " + userId);
+        log.info("This is a protected api, your use id is " + userId);
         return "Hello World! This is a protected api, your use id is " + userId;
     }
 
@@ -40,16 +36,16 @@ public class LoginController {
         //here we just have one hardcoded username=admin and password=admin
         //add user validation code here
         if (validCredentials(credentials)) {
-            String jwt = JwtUtil.generateToken(credentials.username);
+            String jwt = JwtUtil.generateToken(credentials.getUsername());
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + jwt);
         } else {
-            logger.warn("You have provided a invalid credentials! ");
+            log.warn("You have provided a invalid credentials! ");
         }
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong credentials");
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong credentials");
     }
 
     private boolean validCredentials(AccountCredentials credentials) {
         //hard code
-        return "admin".equals(credentials.username) && "admin".equals(credentials.password);
+        return "admin".equals(credentials.getUsername()) && "admin".equals(credentials.getPassword());
     }
 }

@@ -1,6 +1,5 @@
 package oauth2.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,19 +11,21 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
+import javax.annotation.Resource;
+
 /**
  * Created by Johnny on 2018/3/4.
  */
 @Configuration
 @EnableAuthorizationServer
 public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
-    @Autowired
+    @Resource
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+    @Resource
     private UserDetailsService userService;
 
-    @Autowired
+    @Resource
     private TokenStore tokenStore;
 
     @Override
@@ -39,7 +40,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints.tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userService); //配置userService 这样每次认证的时候会去检验用户是否锁定，有效等

@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userWrapper = USERS.stream()
                 .filter((u) -> u.getName().equals(s))
                 .findFirst();
-        if (!userWrapper.isPresent()) {
+        if (userWrapper.isEmpty()) {
             throw new UsernameNotFoundException("there's no user founded!");
         } else {
             return new MyUserDetails(userWrapper.get());

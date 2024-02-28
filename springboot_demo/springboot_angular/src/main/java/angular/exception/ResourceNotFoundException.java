@@ -6,8 +6,6 @@ package angular.exception;
  * Time: 22:15
  */
 public class ResourceNotFoundException extends Exception {
-    private static final long serialVersionUID = 4088649120307193208L;
-
     public ResourceNotFoundException() {
         super();
     }

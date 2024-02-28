@@ -1,34 +1,30 @@
 package download.web;
 
 import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Objects;
 
 import static download.util.FileUtil.convert2String;
-
 
 /**
  * Author: Johnny
  * Date: 2017/7/11
  * Time: 11:33
  */
-@Controller
+@Slf4j
+@RestController
 public class FileUploadController {
-    private final static Logger logger = LoggerFactory.getLogger(FileUploadController.class);
-
     @ApiOperation(value = "return static upload yaml html page", notes = "return static upload yaml html page")
     @RequestMapping(value = "/upload/yaml", method = RequestMethod.GET)
     public String upload() {
@@ -48,20 +44,17 @@ public class FileUploadController {
 
     @ApiOperation(value = "Upload yaml file", notes = "Upload yaml file")
     @RequestMapping(value = "/upload/yaml", method = RequestMethod.POST)
-    @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file) {
         return convert2String(file);
     }
 
     @ApiOperation(value = "Upload json file", notes = "Upload json file")
     @RequestMapping(value = "/upload/json", method = RequestMethod.POST)
-    @ResponseBody
     public String uploadJson(@RequestParam("file") MultipartFile file) {
         return convert2String(file);
     }
 
     @RequestMapping(value = "/upload/batch", method = RequestMethod.POST)
-    @ResponseBody
     public String batchUpload(HttpServletRequest request) {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
         MultipartFile file;
@@ -71,15 +64,15 @@ public class FileUploadController {
             if (!file.isEmpty()) {
                 try {
                     byte[] bytes = file.getBytes();
-                    stream = new BufferedOutputStream(new FileOutputStream(new File(file.getOriginalFilename())));
+                    stream = new BufferedOutputStream(new FileOutputStream(Objects.requireNonNull(file.getOriginalFilename())));
                     stream.write(bytes);
                     stream.close();
                 } catch (Exception e) {
-                    logger.error("Upload failure due to empty file [{}]", file.getOriginalFilename());
+                    log.error("Upload failure due to empty file [{}]", file.getOriginalFilename());
                     return "Failed to upload " + i + " => " + e.getMessage();
                 }
             } else {
-                logger.warn("Upload failure due to empty file [{}]", file.getOriginalFilename());
+                log.warn("Upload failure due to empty file [{}]", file.getOriginalFilename());
                 return "Failed to upload " + i + " because the file was empty.";
             }
         }

@@ -1,8 +1,7 @@
 package druid;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +15,9 @@ import java.sql.SQLException;
  * Date: 2017/4/12
  * Time: 20:21
  */
+@Slf4j
 @Configuration
 public class DruidDBConfig {
-    private Logger logger = LoggerFactory.getLogger(DruidDBConfig.class);
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
@@ -101,7 +100,7 @@ public class DruidDBConfig {
         try {
             datasource.setFilters(filters);
         } catch (SQLException e) {
-            logger.error("druid configuration initialization filter", e);
+            log.error("druid configuration initialization filter", e);
         }
         datasource.setConnectionProperties(connectionProperties);
 

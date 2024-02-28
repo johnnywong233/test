@@ -1,8 +1,8 @@
 package download.aop;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -23,17 +23,14 @@ import java.util.List;
  * Date: 2017/7/11
  * Time: 14:18
  */
+@Slf4j
 @Component("fileFormatInterceptor")
 @ConfigurationProperties(prefix = "file")
 public class FileFormatInterceptor extends HandlerInterceptorAdapter {
-
-    private final Logger logger = LoggerFactory.getLogger(FileFormatInterceptor.class);
-
     private List<String> allowFileTypeList;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-            throws Exception {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,@NonNull  Object handler) throws Exception {
         //if is MultipartHttpServletRequest
         if (request instanceof MultipartHttpServletRequest) {
             //allow all kinds file format
@@ -42,25 +39,23 @@ public class FileFormatInterceptor extends HandlerInterceptorAdapter {
             }
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             Iterator<String> it = multipartRequest.getFileNames();
-            if (it != null) {
-                while (it.hasNext()) {
-                    String fileParameter = it.next();
-                    List<MultipartFile> listFile = multipartRequest.getFiles(fileParameter);
-                    if (!CollectionUtils.isEmpty(listFile)) {
-                        MultipartFile multipartFile;
-                        String fileName;
-                        for (MultipartFile aListFile : listFile) {
-                            multipartFile = aListFile;
-                            fileName = multipartFile.getOriginalFilename();
-                            int flag;
-                            if ((flag = fileName.lastIndexOf(".")) > 0) {
-                                fileName = fileName.substring(flag + 1);
-                            }
-                            //file suffix not allowed
-                            if (!allowFileTypeList.contains(fileName)) {
-                                this.outputStream(request, response);
-                                return false;
-                            }
+            while (it.hasNext()) {
+                String fileParameter = it.next();
+                List<MultipartFile> listFile = multipartRequest.getFiles(fileParameter);
+                if (!CollectionUtils.isEmpty(listFile)) {
+                    MultipartFile multipartFile;
+                    for (MultipartFile aListFile : listFile) {
+                        multipartFile = aListFile;
+                        String fileName = multipartFile.getOriginalFilename();
+                        assert fileName != null;
+                        int flag;
+                        if ((flag = fileName.lastIndexOf(".")) > 0) {
+                            fileName = fileName.substring(flag + 1);
+                        }
+                        //file suffix not allowed
+                        if (!allowFileTypeList.contains(fileName)) {
+                            this.outputStream(request, response);
+                            return false;
                         }
                     }
                 }
@@ -76,15 +71,13 @@ public class FileFormatInterceptor extends HandlerInterceptorAdapter {
             output = response.getOutputStream();
             output.write(("file format not supported, only for type: " + Arrays.toString(allowFileTypeList.toArray())).getBytes(request.getCharacterEncoding()));
         } catch (IOException e) {
-            logger.error("Error occurred at getting output stream.");
-            e.printStackTrace();
-        }
-        finally {
+            log.error("Error occurred at getting output stream.");
+        } finally {
             if (output != null) {
                 try {
                     output.close();
                 } catch (IOException e) {
-                    logger.error("Closing ServletOutputStream failed ", e.getMessage());
+                    log.error("Closing ServletOutputStream failed ", e);
                 }
             }
         }

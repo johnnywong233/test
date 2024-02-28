@@ -2,8 +2,7 @@ package angular.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -18,13 +17,13 @@ import java.util.Map;
  * Date: 2017/10/4
  * Time: 0:53
  */
+@Slf4j
 public class JwtUtil {
-    private static final Logger logger = LoggerFactory.getLogger(JwtUtil.class);
-    private static final long EXPIRATION_TIME = 3600_000; // 1 hour
-    private static final String SECRET = "ThisIsASecret";
     public static final String TOKEN_PREFIX = "Bearer";
     public static final String HEADER_STRING = "Authorization";
     public static final String USER_ID = "userId";
+    private static final long EXPIRATION_TIME = 3600_000; // 1 hour
+    private static final String SECRET = "ThisIsASecret";
 
     public static String generateToken(String userId) {
         HashMap<String, Object> map = new HashMap<>();
@@ -32,7 +31,7 @@ public class JwtUtil {
         try {
             map.put(USER_ID, EncryptUtil.encrypt(userId));
         } catch (Exception e) {
-            logger.warn("Encryption failed. " + e.getMessage());
+            log.warn("Encryption failed. " + e.getMessage());
             throw new RuntimeException("Encryption failed");
         }
         return Jwts.builder()
@@ -54,17 +53,17 @@ public class JwtUtil {
                 String userId = (String) body.get(USER_ID);
                 return new CustomHttpServletRequest(request, EncryptUtil.decrypt(userId));
             } catch (Exception e) {
-                logger.info(e.getMessage());
+                log.info(e.getMessage());
                 throw new TokenValidationException(e.getMessage());
             }
         } else {
-            logger.info("Missing token");
+            log.info("Missing token");
             throw new TokenValidationException("Missing token");
         }
     }
 
     public static class CustomHttpServletRequest extends HttpServletRequestWrapper {
-        private String userId;
+        private final String userId;
 
         CustomHttpServletRequest(HttpServletRequest request, String userId) {
             super(request);

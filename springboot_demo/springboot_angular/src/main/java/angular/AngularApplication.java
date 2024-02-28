@@ -2,6 +2,7 @@ package angular;
 
 import angular.config.JwtAuthenticationFilter;
 import angular.config.PersistenceConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -17,15 +18,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * Date: 2017/9/20
  * Time: 22:06
  */
+@Slf4j
 @Import(PersistenceConfig.class)
 @SpringBootApplication
 public class AngularApplication implements WebMvcConfigurer {
-    private static final Logger logger = LoggerFactory.getLogger(AngularApplication.class);
 
     //https://github.com/ZhongjunTian/spring-boot-jwt-demo/tree/master/complete
     public static void main(String[] args) {
         SpringApplication.run(AngularApplication.class, args);
-        logger.info("Spring boot angular demo case started! ");
+        log.info("Spring boot angular demo case started! ");
     }
 
     @Bean
@@ -34,8 +35,8 @@ public class AngularApplication implements WebMvcConfigurer {
     }
 
     @Bean
-    public FilterRegistrationBean jwtFilter() {
-        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+    public FilterRegistrationBean<JwtAuthenticationFilter> jwtFilter() {
+        final FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
         JwtAuthenticationFilter filter = new JwtAuthenticationFilter("/api/**");
 
         //加了这个之后，不登录的情况下直接访问/

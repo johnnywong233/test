@@ -1,18 +1,19 @@
 package oauth2.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/4.
  */
 @Configuration
 public class WebSecurityConf extends GlobalAuthenticationConfigurerAdapter {
-    @Autowired
+    @Resource
     private UserDetailsService userDetailsService;
 
     @Override
