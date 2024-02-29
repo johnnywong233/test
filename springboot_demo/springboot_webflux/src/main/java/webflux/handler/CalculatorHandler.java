@@ -17,7 +17,7 @@ import java.util.function.BiFunction;
 @Component
 public class CalculatorHandler {
     public Mono<ServerResponse> add(final ServerRequest request) {
-        return calculate(request, (v1, v2) -> v1 + v2);
+        return calculate(request, Integer::sum);
     }
 
     public Mono<ServerResponse> subtract(final ServerRequest request) {

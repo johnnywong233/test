@@ -1,10 +1,9 @@
 $(function () {
     $(":text,:password").keyup(function (e) {
-        var keyCode = e.keyCode;
-        if (keyCode !== 13) {
+        if (e.keyCode !== 13) {
             return false;
         }
-        var thisName = this.name;
+        const thisName = this.name;
         if (thisName === "username") {
             $("[name='password']").focus();
         }
@@ -17,7 +16,7 @@ $(function () {
     });
 
     $('.check-box span').click(function () {
-        var checkVal = $('#remember-me'), val = checkVal.val(), $this = $(this);
+        const checkVal = $('#remember-me'), val = checkVal.val(), $this = $(this);
         if (val === 1) {
             if ($this.hasClass('is-check')) {
                 $this.removeClass('is-check');
@@ -48,8 +47,8 @@ $(function () {
 
 
 function verSubmit() {
-    var uname = $.trim($("#username").val());
-    var passwd = $.trim($("#password").val());
+    let uname = $.trim($("#username").val());
+    let passwd = $.trim($("#password").val());
     if (uname === "" || uname === null || uname === "您的用户名") {
         alert("用户名不能为空,请输入用户名!");
         document.getElementById("username").focus();
@@ -60,15 +59,14 @@ function verSubmit() {
         $("#password").focus();
         return false;
     }
-
-    var vilidcode = $.trim($("#checkCode").val());
-    if (vilidcode === "" || vilidcode === null || vilidcode === "验证码") {
+    let validCode = $.trim($("#checkCode").val());
+    if (validCode === "" || validCode === null || validCode === "验证码") {
         alert("验证码不能为空,请输入验证码!");
         $("#checkCode").focus();
         return false;
     }
 
-    checkcode(vilidcode);
+    checkCode(validCode);
 
 }
 
@@ -76,12 +74,12 @@ function reloadImg() {
     $("#validateImg").attr("src", $("#validateImg").attr("src").split("?")[0] + "?" + new Date().getTime())
 }
 
-function tologin() {
+function toLogin() {
     window.location.href = "/";
 }
 
-function checkcode(vilidcode) {
-    $.get("/checkcode?t=" + new Date().getTime(), {checkCode: vilidcode}, function (data) {
+function checkCode(validCode) {
+    $.get("/checkCode?t=" + new Date().getTime(), {checkCode: validCode}, function (data) {
         if (data !== 1) {
             alert(data);
         } else {

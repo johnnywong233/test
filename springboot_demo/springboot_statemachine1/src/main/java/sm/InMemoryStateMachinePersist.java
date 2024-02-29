@@ -13,15 +13,15 @@ import java.util.HashMap;
  */
 @Component
 public class InMemoryStateMachinePersist implements StateMachinePersist<States, Events, String> {
-    private static HashMap<String, StateMachineContext<States, Events>> map = new HashMap<>();
+    private static final HashMap<String, StateMachineContext<States, Events>> map = new HashMap<>();
 
     @Override
-    public void write(StateMachineContext<States, Events> context, String contextObj) throws Exception {
+    public void write(StateMachineContext<States, Events> context, String contextObj) {
         map.put(contextObj, context);
     }
 
     @Override
-    public StateMachineContext<States, Events> read(String contextObj) throws Exception {
+    public StateMachineContext<States, Events> read(String contextObj) {
         return map.get(contextObj);
     }
 }

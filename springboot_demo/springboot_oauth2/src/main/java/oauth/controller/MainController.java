@@ -23,7 +23,7 @@ public class MainController {
         if (principal == null) {
             return "index";
         }
-        System.out.println(principal.toString());
+        System.out.println(principal);
         model.addAttribute("principal", principal);
         return "index";
     }

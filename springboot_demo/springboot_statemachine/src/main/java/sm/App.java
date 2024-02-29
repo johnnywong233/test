@@ -1,10 +1,11 @@
 package sm;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.statemachine.StateMachine;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -13,7 +14,7 @@ import org.springframework.statemachine.StateMachine;
  */
 @SpringBootApplication
 public class App implements CommandLineRunner {
-    @Autowired
+    @Resource
     private StateMachine<States, Events> stateMachine;
 
     //http://blog.csdn.net/baochanghong/article/details/54286298
@@ -22,7 +23,7 @@ public class App implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         stateMachine.start();
         stateMachine.sendEvent(Events.PAY);
         stateMachine.sendEvent(Events.RECEIVE);

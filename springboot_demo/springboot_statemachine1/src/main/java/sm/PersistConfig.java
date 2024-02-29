@@ -1,10 +1,11 @@
 package sm;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.persist.DefaultStateMachinePersister;
 import org.springframework.statemachine.persist.StateMachinePersister;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -13,7 +14,7 @@ import org.springframework.statemachine.persist.StateMachinePersister;
  */
 @Configuration
 public class PersistConfig {
-    @Autowired
+    @Resource
     private InMemoryStateMachinePersist inMemoryStateMachinePersist;
 
     @Bean(name = "myPersister")

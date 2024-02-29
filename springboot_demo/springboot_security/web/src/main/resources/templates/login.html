@@ -43,7 +43,7 @@
                     <li class="">
                         <label class="validateLabel"></label>
                         <input id="checkCode" name="checkCode" class="checkCode" type="text" placeholder="验证码"/>
-                        <img onclick="reloadImg();" style="cursor: pointer" th:src="@{/images/imagecode}"
+                        <img onclick="reloadImg();" style="cursor: pointer" th:src="@{/images/imageCode}"
                              id="validateImg" alt="验证码" class="codePic" title="验证码。点击此处更新验证码。"/>
                         <a class="getOther" href="javascript:void(0);" onclick="reloadImg();"
                            title="点击此处可以更新验证码。">更新</a>
@@ -51,7 +51,7 @@
                 </ul>
                 <ul class="infList reloadBtn" style="display: none;">
                     <li>
-                        <a href="javascript:void(0);" onclick="tologin();">本页面已经失效。请点击此处重新登录。</a>
+                        <a href="javascript:void(0);" onclick="toLogin();">本页面已经失效。请点击此处重新登录。</a>
                     </li>
                 </ul>
                 <div class="loginBtnBox">

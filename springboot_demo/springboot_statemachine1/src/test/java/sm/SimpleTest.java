@@ -1,8 +1,12 @@
 package sm;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.persist.StateMachinePersister;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
@@ -11,7 +15,10 @@ import javax.annotation.Resource;
  * Date: 2017/7/13
  * Time: 21:33
  */
-public class SimpleTest extends StatemachinePersistApplicationTests {
+@Slf4j
+@SpringBootTest
+@RunWith(SpringRunner.class)
+public class SimpleTest {
 
     @Resource(name = "machine1")
     private StateMachine<States, Events> stateMachine1;
@@ -29,6 +36,6 @@ public class SimpleTest extends StatemachinePersistApplicationTests {
         stateMachine1.sendEvent(Events.A);
         persister.persist(stateMachine1, "mySM");
         persister.restore(stateMachine2, "mySM");
-        System.out.println(stateMachine2.getState().getId());
+        log.info("id:{}", stateMachine2.getState().getId());
     }
 }

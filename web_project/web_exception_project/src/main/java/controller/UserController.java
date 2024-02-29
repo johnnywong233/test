@@ -6,17 +6,16 @@ import exception.BusinessException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import util.DecriptUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 public class UserController {
 
     @RequestMapping("/index.jhtml")
@@ -30,13 +29,11 @@ public class UserController {
     }
 
     @RequestMapping(value = "/businessException.json", method = RequestMethod.POST)
-    @ResponseBody
     public String businessException() {
         throw new BusinessException(ErrorCode.NULL_OBJ);
     }
 
     @RequestMapping(value = "/otherException.json", method = RequestMethod.POST)
-    @ResponseBody
     public String otherException() throws Exception {
         throw new Exception();
     }
@@ -47,7 +44,7 @@ public class UserController {
         return new ModelAndView("login");
     }
 
-    //redirect to login success page
+    //redirect to log in success page
     @RequestMapping("/loginsuccess.jhtml")
     public ModelAndView loginsuccess() {
         return new ModelAndView("loginsuccess");
@@ -65,7 +62,6 @@ public class UserController {
 
     //check username/password
     @RequestMapping(value = "/checkLogin.json", method = RequestMethod.POST)
-    @ResponseBody
     public String checkLogin(String username, String password) {
         Map<String, Object> result = new HashMap<>();
         try {
@@ -85,7 +81,6 @@ public class UserController {
 
     //logout
     @RequestMapping(value = "/logout.json", method = RequestMethod.POST)
-    @ResponseBody
     public String logout() {
         Map<String, Object> result = new HashMap<>();
         result.put("success", true);

@@ -1,7 +1,5 @@
 package sm;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachine;
 import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter;
@@ -18,7 +16,6 @@ import java.util.EnumSet;
 @Configuration
 @EnableStateMachine
 public class SMConfig extends EnumStateMachineConfigurerAdapter<States, Events> {
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public void configure(StateMachineStateConfigurer<States, Events> states)

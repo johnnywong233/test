@@ -1,10 +1,9 @@
 package com.johnny.web.controller;
 
 import com.johnny.web.service.ImageCode;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import java.io.OutputStream;
 import java.util.Date;
 import java.util.Map;
 
-@Controller
+@RestController
 public class LoginController {
     @RequestMapping("/login")
     public String login() {
@@ -24,7 +23,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/images/imagecode")
+    @RequestMapping(value = "/images/imageCode")
     public String imageCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         OutputStream os = response.getOutputStream();
         Map<String, Object> map = ImageCode.getImageCode(60, 20);
@@ -41,8 +40,7 @@ public class LoginController {
         return null;
     }
 
-    @RequestMapping(value = "/checkcode")
-    @ResponseBody
+    @RequestMapping(value = "/checkCode")
     public String checkCode(HttpServletRequest request, HttpSession session) {
         String checkCode = request.getParameter("checkCode");
         Object cko = session.getAttribute("simpleCaptcha"); //验证码对象
@@ -53,7 +51,7 @@ public class LoginController {
 
         String captcha = cko.toString();
         Date now = new Date();
-        Long codeTime = Long.valueOf(session.getAttribute("codeTime") + "");
+        long codeTime = Long.parseLong(session.getAttribute("codeTime") + "");
         if (StringUtils.isEmpty(checkCode) || !(checkCode.equalsIgnoreCase(captcha))) {
             request.setAttribute("errorMsg", "验证码错误！");
             return "验证码错误！";

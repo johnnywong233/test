@@ -22,7 +22,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.security.Principal;
@@ -42,44 +41,44 @@ public class UserController {
     private RoleRepository roleRepository;
 
     @Value("${securityconfig.urlroles}")
-    private String urlroles;
+    private String urlRoles;
 
     @RequestMapping("/index")
     public String index(ModelMap model, Principal user) {
         Authentication authentication = (Authentication) user;
-        List<String> userroles = new ArrayList<>();
+        List<String> userRoles = new ArrayList<>();
         for (GrantedAuthority ga : authentication.getAuthorities()) {
-            userroles.add(ga.getAuthority());
+            userRoles.add(ga.getAuthority());
         }
 
         boolean newRole = false, editRole = false, deleteRole = false;
-        if (!StringUtils.isEmpty(urlroles)) {
-            String[] resources = urlroles.split(";");
+        if (!StringUtils.isEmpty(urlRoles)) {
+            String[] resources = urlRoles.split(";");
             for (String resource : resources) {
                 String[] urls = resource.split("=");
                 if (urls[0].indexOf("new") > 0) {
                     String[] newRoles = urls[1].split(",");
                     for (String str : newRoles) {
                         str = str.trim();
-                        if (userroles.contains(str)) {
+                        if (userRoles.contains(str)) {
                             newRole = true;
                             break;
                         }
                     }
                 } else if (urls[0].indexOf("edit") > 0) {
-                    String[] editoles = urls[1].split(",");
-                    for (String str : editoles) {
+                    String[] editRoles = urls[1].split(",");
+                    for (String str : editRoles) {
                         str = str.trim();
-                        if (userroles.contains(str)) {
+                        if (userRoles.contains(str)) {
                             editRole = true;
                             break;
                         }
                     }
                 } else if (urls[0].indexOf("delete") > 0) {
-                    String[] deleteroles = urls[1].split(",");
-                    for (String str : deleteroles) {
+                    String[] deleteRoles = urls[1].split(",");
+                    for (String str : deleteRoles) {
                         str = str.trim();
-                        if (userroles.contains(str)) {
+                        if (userRoles.contains(str)) {
                             deleteRole = true;
                             break;
                         }
@@ -107,13 +106,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/list")
-    @ResponseBody
     public Page<User> getList(UserQo userQo) {
         try {
             Pageable pageable = PageRequest.of(userQo.getPage(), userQo.getSize(), new Sort(Sort.Direction.ASC, "id"));
             return userRepository.findByName(userQo.getName() == null ? "%" : "%" + userQo.getName() + "%", pageable);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("getList fail", e);
         }
         return null;
     }
@@ -130,7 +128,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    @ResponseBody
     public String save(User user) {
         user.setCreateDate(new Date());
         BCryptPasswordEncoder bpe = new BCryptPasswordEncoder();
@@ -162,7 +159,6 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/update")
-    @ResponseBody
     public String update(User user) {
         userRepository.save(user);
         log.info("修改->ID=" + user.getId());
@@ -170,7 +166,6 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    @ResponseBody
     public String delete(@PathVariable Long id) {
         userRepository.deleteById(id);
         log.info("删除->ID=" + id);
