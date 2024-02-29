@@ -18,9 +18,9 @@ public enum ActionType {
 
     DELETE("删除", 3);
 
-    private String name;
+    private final String name;
 
-    private int index;
+    private final int index;
 
     public static String getName(int index) {
         for (ActionType actionType : ActionType.values()) {

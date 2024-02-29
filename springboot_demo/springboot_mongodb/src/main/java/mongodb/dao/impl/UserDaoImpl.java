@@ -2,12 +2,13 @@ package mongodb.dao.impl;
 
 import mongodb.bean.UserEntity;
 import mongodb.dao.UserDao;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserDaoImpl implements UserDao {
-    @Autowired
+    @Resource
     private MongoTemplate mongoTemplate;
 
     /**

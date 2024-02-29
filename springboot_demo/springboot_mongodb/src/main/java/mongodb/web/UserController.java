@@ -2,7 +2,6 @@ package mongodb.web;
 
 import mongodb.model.User;
 import mongodb.model.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,7 +25,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
+    @Resource
     private UserRepository repository;
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -36,28 +36,28 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(method = RequestMethod.POST)
-    User addUser(@RequestBody User addedUser) {
+    public User addUser(@RequestBody User addedUser) {
         return repository.insert(addedUser);
     }
 
     @PostAuthorize("returnObject.username == principal.username or hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public User getUser(@PathVariable String id) {
-        return repository.findOne(id);
+        return repository.findById(id).orElseThrow();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
+    public User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         updatedUser.setId(id);
         return repository.save(updatedUser);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    User removeUser(@PathVariable String id) {
-        User deletedUser = repository.findOne(id);
-        repository.delete(id);
+    public User removeUser(@PathVariable String id) {
+        User deletedUser = repository.findById(id).orElseThrow();
+        repository.deleteById(id);
         return deletedUser;
     }
 

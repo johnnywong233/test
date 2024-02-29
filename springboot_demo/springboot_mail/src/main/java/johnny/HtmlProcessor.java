@@ -5,7 +5,7 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 /**
- * https://www.boraji.com/spring-mvc-5-hello-world-example-with-thymeleaf-template
+ * <a href="https://www.boraji.com/spring-mvc-5-hello-world-example-with-thymeleaf-template">...</a>
  *
  * @author Johnny
  * Date: 2017/3/11

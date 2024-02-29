@@ -1,6 +1,7 @@
 package demo1.config;
 
 import demo1.util.JwtUtil;
+import org.springframework.lang.NonNull;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -19,15 +20,15 @@ import static demo1.util.JwtUtil.HEADER_STRING;
  * Time: 0:52
  */
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final String protectUrlPattern;
     private static final PathMatcher PATH_MATCHER = new AntPathMatcher();
+    private final String protectUrlPattern;
 
     public JwtAuthenticationFilter(String protectUrlPattern) {
         this.protectUrlPattern = protectUrlPattern;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         try {
             if (PATH_MATCHER.match(protectUrlPattern, request.getServletPath())) {
                 String token = request.getHeader(HEADER_STRING);

@@ -7,20 +7,21 @@ import neo4j.domain.Seen;
 import neo4j.repository.ActorRepository;
 import neo4j.repository.MovieRepository;
 import neo4j.repository.SeenRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/17.
  */
 @Service
 public class ActorService {
-    @Autowired
+    @Resource
     private ActorRepository actorRepository;
-    @Autowired
+    @Resource
     private MovieRepository movieRepository;
-    @Autowired
+    @Resource
     private SeenRepository seenRepository;
 
     @Transactional
@@ -52,9 +53,9 @@ public class ActorService {
         /*
           如果不加@Transactional，下面每个save都会单独开启事物
          */
-        actorRepository.save(Lists.newArrayList(actor1, actor2, actor3));
-        movieRepository.save(Lists.newArrayList(movie1, movie2, movie3));
-        seenRepository.save(Lists.newArrayList(hasSeen1, hasSeen2, hasSeen3, hasSeen4, hasSeen5));
+        actorRepository.saveAll(Lists.newArrayList(actor1, actor2, actor3));
+        movieRepository.saveAll(Lists.newArrayList(movie1, movie2, movie3));
+        seenRepository.saveAll(Lists.newArrayList(hasSeen1, hasSeen2, hasSeen3, hasSeen4, hasSeen5));
     }
 
     @Transactional

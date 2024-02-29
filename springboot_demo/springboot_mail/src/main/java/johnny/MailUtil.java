@@ -24,7 +24,7 @@ import java.util.Map;
 @Service
 class MailUtil {
     private static final Logger LOG = LoggerFactory.getLogger(MailUtil.class);
-    private static String[] sendTo = {"wangjianloveblue@163.com"};
+    private static final String[] sendTo = {"wangjianloveblue@163.com"};
 
     @Async
     void sendSimpleMail(JavaMailSender javaMailSender, SimpleMailMessage message) {

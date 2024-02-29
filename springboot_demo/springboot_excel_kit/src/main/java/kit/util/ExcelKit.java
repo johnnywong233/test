@@ -45,7 +45,7 @@ public class ExcelKit {
     /**
      * 缓存数据格式器实例,避免多次使用反射进行实例化
      */
-    private Map<String, ExportConvert> mConvertInstanceCache = new HashMap<>();
+    private final Map<String, ExportConvert> mConvertInstanceCache = new HashMap<>();
 
     private ExcelKit() {
     }

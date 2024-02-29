@@ -2,7 +2,8 @@ package neo4j.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.GeneratedValue;
+import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 import org.neo4j.ogm.annotation.Relationship;
@@ -16,12 +17,13 @@ import java.util.List;
 @NodeEntity(label = "Actor")
 @NoArgsConstructor
 public class Actor {
-    @GraphId
+    @Id
+    @GeneratedValue
     private Long nodeId;
     @Property(name = "name")
     private String name;
     //关系直接定义在节点中
-    @Relationship(type = "IS_FRIEND_OF", direction = Relationship.OUTGOING)
+    @Relationship(type = "IS_FRIEND_OF")
     private List<Actor> friends;
     //使用外部定义的关系
     @Relationship(type = "HAS_SEEN")

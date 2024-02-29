@@ -1,7 +1,6 @@
 package mongodb.config;
 
 import com.mongodb.MongoClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +10,8 @@ import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 
+import javax.annotation.Resource;
+
 /**
  * Author: Johnny
  * Date: 2017/9/15
@@ -18,7 +19,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
  */
 @Configuration
 public class MultipleMongoConfig {
-    @Autowired
+    @Resource
     private MultipleMongoProperties mongoProperties;
 
     //NOTICE: care for IDEA warning(Field injection is not recommended) like the above, remove it, and add below configuration to get avoid of
@@ -32,26 +33,24 @@ public class MultipleMongoConfig {
 
     @Primary
     @Bean(name = PrimaryMongoConfig.MONGO_TEMPLATE)
-    public MongoTemplate primaryMongoTemplate() throws Exception {
+    public MongoTemplate primaryMongoTemplate() {
         return new MongoTemplate(primaryFactory(this.mongoProperties.getPrimary()));
     }
 
     @Bean
     @Qualifier(SecondaryMongoConfig.MONGO_TEMPLATE)
-    public MongoTemplate secondaryMongoTemplate() throws Exception {
+    public MongoTemplate secondaryMongoTemplate() {
         return new MongoTemplate(secondaryFactory(this.mongoProperties.getSecondary()));
     }
 
     @Bean
     @Primary
-    public MongoDbFactory primaryFactory(MongoProperties mongo) throws Exception {
-        return new SimpleMongoDbFactory(new MongoClient(mongo.getHost(), mongo.getPort()),
-                mongo.getDatabase());
+    public MongoDbFactory primaryFactory(MongoProperties mongo) {
+        return new SimpleMongoDbFactory(new MongoClient(mongo.getHost(), mongo.getPort()), mongo.getDatabase());
     }
 
     @Bean
-    public MongoDbFactory secondaryFactory(MongoProperties mongo) throws Exception {
-        return new SimpleMongoDbFactory(new MongoClient(mongo.getHost(), mongo.getPort()),
-                mongo.getDatabase());
+    public MongoDbFactory secondaryFactory(MongoProperties mongo) {
+        return new SimpleMongoDbFactory(new MongoClient(mongo.getHost(), mongo.getPort()), mongo.getDatabase());
     }
 }

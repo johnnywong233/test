@@ -40,12 +40,12 @@ public class XlsxReader extends DefaultHandler {
     private int mCurrentRowIndex = 0;
     private int mCurrentColumnIndex = 0;
     private boolean mIsTElement;
-    private ReadHandler mReadHandler;
+    private final ReadHandler mReadHandler;
     private short mFormatIndex;
     private String mFormatString;
     private StylesTable mStylesTable;
     private CellValueType mNextDataType = CellValueType.STRING;
-    private List<String> mRowData = new ArrayList<>();
+    private final List<String> mRowData = new ArrayList<>();
 
     /**
      * 定义前一个元素和当前元素的位置，用来计算其中空的单元格数量，如A6和A8等

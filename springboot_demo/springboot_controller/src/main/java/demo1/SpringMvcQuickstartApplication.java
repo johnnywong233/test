@@ -22,10 +22,9 @@ public class SpringMvcQuickstartApplication {
     }
 
     @Bean
-    public FilterRegistrationBean jwtFilter() {
-        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(
-                "/api/**");
+    public FilterRegistrationBean<JwtAuthenticationFilter> jwtFilter() {
+        final FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter("/api/**");
         registrationBean.setFilter(filter);
         return registrationBean;
     }

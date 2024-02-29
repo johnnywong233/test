@@ -54,6 +54,10 @@
             <artifactId>tomcat-catalina</artifactId>
             <version>9.0.10</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>

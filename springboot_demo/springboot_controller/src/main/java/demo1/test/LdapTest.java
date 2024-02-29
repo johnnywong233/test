@@ -18,7 +18,7 @@ public class LdapTest {
     private PersonRepository personRepository;
 
     @Test
-    public void findAll() throws Exception {
+    public void findAll() {
         personRepository.findAll().forEach(System.out::println);
     }
 }
