@@ -22,18 +22,12 @@ public class UserService {
         dao.save(user);
 
         //send mail
-        StringBuilder sb = new StringBuilder("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-        sb.append("<a href=\"http://localhost:8080/JavaMailDemo/user?action=activate&email=")
-                .append(email)
-                .append("&validateCode=")
-                .append(user.getValidateCode())
-                .append("\">http://localhost:8080/JavaMailDemo/user?action=activate&email=")
-                .append(email)
-                .append("&validateCode=")
-                .append(user.getValidateCode())
-                .append("</a>");
-        MailUtil.send(email, sb.toString());
-
+        String sb = "点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>" +
+                "<a href=\"http://localhost:8080/JavaMailDemo/user?action=activate&email=" + email +
+                "&validateCode=" + user.getValidateCode() +
+                "\">http://localhost:8080/JavaMailDemo/user?action=activate&email=" + email +
+                "&validateCode=" + user.getValidateCode() + "</a>";
+        MailUtil.send(email, sb);
     }
 
     /**

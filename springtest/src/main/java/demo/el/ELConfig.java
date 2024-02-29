@@ -1,7 +1,6 @@
 package demo.el;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +28,7 @@ public class ELConfig {
     @Value("t.txt")
     private Resource testFile;
 
-    @Value("http://www.baidu.com")
+    @Value("https://www.baidu.com")
     private Resource testUrl;
     @Value("${johnny.username}")
     private String su;
@@ -37,7 +36,7 @@ public class ELConfig {
     private String sp;
     @Value("${johnny.nickname}")
     private String sn;
-    @Autowired
+    @javax.annotation.Resource
     private Environment environment;
 
     void output() {

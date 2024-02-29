@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Johnny on 2018/1/7.
  */
 public class AuthenticationExample {
-    private static AuthenticationManager am = new SampleAuthenticationManager();
+    private static final AuthenticationManager am = new SampleAuthenticationManager();
 
     public static void main(String[] args) throws Exception {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));

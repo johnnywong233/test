@@ -9,7 +9,7 @@ public class ValidationError {
 
     private final String errorMessage;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<String> errors = new ArrayList<>();
+    private final List<String> errors = new ArrayList<>();
 
     ValidationError(String errorMessage) {
         this.errorMessage = errorMessage;

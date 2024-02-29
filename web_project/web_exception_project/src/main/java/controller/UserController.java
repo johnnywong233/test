@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import util.DecriptUtil;
+import util.DecryptUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +65,7 @@ public class UserController {
     public String checkLogin(String username, String password) {
         Map<String, Object> result = new HashMap<>();
         try {
-            UsernamePasswordToken token = new UsernamePasswordToken(username, DecriptUtil.md5(password));
+            UsernamePasswordToken token = new UsernamePasswordToken(username, DecryptUtil.md5(password));
             Subject currentUser = SecurityUtils.getSubject();
             if (!currentUser.isAuthenticated()) {
                 //through shiro

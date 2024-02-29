@@ -14,7 +14,7 @@ import javax.validation.Valid;
 public class TaskController3 {
 
     @RequestMapping(value = "task3", method = RequestMethod.POST)
-    public ResponseEntity createTask(@Valid @RequestBody Task task, Errors errors) {
+    public ResponseEntity<Object> createTask(@Valid @RequestBody Task task, Errors errors) {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ValidationErrorBuilder.fromBindingErrors(errors));
         }

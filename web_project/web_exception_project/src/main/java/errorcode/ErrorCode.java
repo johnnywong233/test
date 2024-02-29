@@ -12,6 +12,6 @@ public enum ErrorCode {
     LOGIN_VERIFY_FAILURE("LUO003", "login authorization failed, please check username/password"),
     UNKNOWN_ERROR("LUO999", "system busy, please try again...");
 
-    private String value;
-    private String desc;
+    private final String value;
+    private final String desc;
 }

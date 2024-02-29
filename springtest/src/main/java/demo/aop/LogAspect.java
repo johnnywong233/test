@@ -31,7 +31,7 @@ public class LogAspect {
      * 第一个星号表示返回类型，×表示所有类型，注意第一个星号和包名之间有空格
      * 后面的星号表示任意字符
      * 两个点表示任意个参数
-     * http://www.cnblogs.com/yansum/p/5898412.html
+     * <a href="http://www.cnblogs.com/yansum/p/5898412.html">...</a>
      */
     @Before("execution(* demo.aop.MethodService.*(..))")
     public void before(JoinPoint joinPoint) {

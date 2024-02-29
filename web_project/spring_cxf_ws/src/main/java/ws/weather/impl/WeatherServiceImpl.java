@@ -1,8 +1,7 @@
 package ws.weather.impl;
 
+import jakarta.jws.WebService;
 import ws.weather.WeatherService;
-
-import javax.jws.WebService;
 
 /**
  * Author: Johnny

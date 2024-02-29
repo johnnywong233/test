@@ -1,4 +1,4 @@
-<%@ page language="java" import="org.jfree.chart.ChartFactory" pageEncoding="UTF-8" %>
+<%@ page import="org.jfree.chart.ChartFactory" pageEncoding="UTF-8" %>
 <%@page import="org.jfree.chart.JFreeChart" %>
 <%@page import="org.jfree.chart.servlet.ServletUtilities" %>
 <%@page import="org.jfree.chart.title.TextTitle" %>

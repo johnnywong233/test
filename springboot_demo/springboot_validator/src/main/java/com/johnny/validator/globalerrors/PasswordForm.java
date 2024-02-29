@@ -1,7 +1,8 @@
 package com.johnny.validator.globalerrors;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotBlank;
 
 @SamePasswords
 @Data

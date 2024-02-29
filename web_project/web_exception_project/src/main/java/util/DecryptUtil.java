@@ -8,7 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class DecriptUtil {
+public class DecryptUtil {
 
     /**
      * @param str：待加密字符串，secretKeyBase：用于生成密钥的基础字符串

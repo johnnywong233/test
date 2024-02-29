@@ -1,8 +1,8 @@
 package ws.demo;
 
-import javax.jws.WebMethod;
-import javax.jws.WebService;
-import javax.xml.ws.Endpoint;
+import jakarta.jws.WebMethod;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.Endpoint;
 
 /**
  * Author: Johnny

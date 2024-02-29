@@ -2,7 +2,7 @@
 Fig. 6.01_01: JSPStructure.jsp
 功能: JSP文件结构
 -->
-<%@ page language="java" contentType="text/html;charset=GB2312" %>
+<%@ page contentType="text/html;charset=GB2312" %>
 <HTML>
 <HEAD>
     <TITLE> JSP文件结构 </TITLE>

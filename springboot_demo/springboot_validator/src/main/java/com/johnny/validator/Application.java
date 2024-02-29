@@ -16,7 +16,7 @@ import java.io.File;
 @Configuration
 public class Application {
 
-    private static String UPLOAD_DIRECTORY = "upload-dir";
+    private static final String UPLOAD_DIRECTORY = "upload-dir";
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
@@ -28,7 +28,7 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner init() {
+    public CommandLineRunner init() {
         return (String[] args) -> new File(UPLOAD_DIRECTORY).mkdir();
     }
 

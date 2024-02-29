@@ -2,6 +2,7 @@ package exceptionresolver;
 
 import com.alibaba.druid.support.json.JSONUtils;
 import exception.BusinessException;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,12 +15,9 @@ import java.util.Map;
 
 public class MySimpleMappingExceptionResolver implements HandlerExceptionResolver {
     @Override
-    public ModelAndView resolveException(HttpServletRequest request,
-                                         HttpServletResponse response, Object object, Exception exception) {
+    public ModelAndView resolveException(HttpServletRequest request, @NonNull HttpServletResponse response, Object object, @NonNull Exception exception) {
         //assert it not a ajax request
-        if (!(request.getHeader("accept").contains("application/json") || (request
-                .getHeader("X-Requested-With") != null && request.getHeader(
-                "X-Requested-With").contains("XMLHttpRequest")))) {
+        if (!(request.getHeader("accept").contains("application/json") || (request.getHeader("X-Requested-With") != null && request.getHeader("X-Requested-With").contains("XMLHttpRequest")))) {
             //if not ajax request, then response in jsp format
             // 为安全起见，只有业务异常我们对前端可见，否则统一归为系统异常
             Map<String, Object> map = new HashMap<>();

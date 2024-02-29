@@ -9,7 +9,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import util.DecriptUtil;
+import util.DecryptUtil;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -37,7 +37,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         if (token.getUsername().equals(USER_NAME)) {
-            return new SimpleAuthenticationInfo(USER_NAME, DecriptUtil.md5(PASS), getName());
+            return new SimpleAuthenticationInfo(USER_NAME, DecryptUtil.md5(PASS), getName());
         } else {
             throw new AuthenticationException();
         }

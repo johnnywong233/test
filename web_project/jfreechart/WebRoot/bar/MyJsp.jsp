@@ -1,4 +1,4 @@
-<%@ page language="java" import="com.itextpdf.text.*" pageEncoding="UTF-8" %>
+<%@ page import="com.itextpdf.text.*" pageEncoding="UTF-8" %>
 <%@page import="com.itextpdf.text.pdf.BaseFont" %>
 <%@page import="com.itextpdf.text.pdf.PdfPCell" %>
 <%@page import="com.itextpdf.text.pdf.PdfPTable" %>

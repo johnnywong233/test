@@ -17,7 +17,11 @@
             <artifactId>cxf-rt-frontend-jaxws</artifactId>
             <version>3.1.12</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-ri</artifactId>
+            <version>4.0.2</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -27,7 +27,7 @@ public @interface ExistingCode {
 
 class ExistingCodeValidator implements ConstraintValidator<ExistingCode, Code> {
 
-    private TokenRetrievalService tokenRetrievalService;
+    private final TokenRetrievalService tokenRetrievalService;
 
     @Autowired
     public ExistingCodeValidator(TokenRetrievalService tokenRetrievalService) {

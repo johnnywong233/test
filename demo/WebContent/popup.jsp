@@ -1,6 +1,6 @@
 <%-- <%@LANGUAGE="JAVASCRIPT" CODEPAGE="936"%> the original --%>
 <!-- http://blog.sina.com.cn/s/blog_5a15b7d101015v6m.html -->
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
