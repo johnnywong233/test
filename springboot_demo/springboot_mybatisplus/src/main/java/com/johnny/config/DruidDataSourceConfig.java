@@ -4,20 +4,25 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.servlet.Filter;
+import javax.servlet.Servlet;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Author: Johnny
@@ -27,15 +32,18 @@ import java.util.Map;
  * 获取到系统环境变量和application配置文件中的变量。 还有一种方式是采用注解的方式获取 @value("${变量的key值}")
  * ：获取application配置文件中的变量。 这里采用第一种要方便些
  */
+@Slf4j
 @Configuration
 @EnableTransactionManagement
 public class DruidDataSourceConfig implements EnvironmentAware {
 
-    private RelaxedPropertyResolver propertyResolver;
+    private Properties propertyResolver;
 
     @Override
-    public void setEnvironment(Environment env) {
-        this.propertyResolver = new RelaxedPropertyResolver(env, "spring.datasource.");
+    public void setEnvironment(@NonNull Environment env) {
+        this.propertyResolver = Binder.get(env)
+                .bind("spring.datasource.", Properties.class)
+                .orElse(null);
     }
 
     @Bean
@@ -45,26 +53,25 @@ public class DruidDataSourceConfig implements EnvironmentAware {
         datasource.setDriverClassName(propertyResolver.getProperty("driver-class-name"));
         datasource.setUsername(propertyResolver.getProperty("username"));
         datasource.setPassword(propertyResolver.getProperty("password"));
-        datasource.setInitialSize(Integer.valueOf(propertyResolver.getProperty("initial-size")));
-        datasource.setMinIdle(Integer.valueOf(propertyResolver.getProperty("min-idle")));
-        datasource.setMaxWait(Long.valueOf(propertyResolver.getProperty("max-wait")));
-        datasource.setMaxActive(Integer.valueOf(propertyResolver.getProperty("max-active")));
-        datasource.setMinEvictableIdleTimeMillis(
-                Long.valueOf(propertyResolver.getProperty("min-evictable-idle-time-millis")));
+        datasource.setInitialSize(Integer.parseInt(propertyResolver.getProperty("initial-size")));
+        datasource.setMinIdle(Integer.parseInt(propertyResolver.getProperty("min-idle")));
+        datasource.setMaxWait(Long.parseLong(propertyResolver.getProperty("max-wait")));
+        datasource.setMaxActive(Integer.parseInt(propertyResolver.getProperty("max-active")));
+        datasource.setMinEvictableIdleTimeMillis(Long.parseLong(propertyResolver.getProperty("min-evictable-idle-time-millis")));
         try {
             datasource.setFilters("stat,wall");
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error("init dataSource fail", e);
         }
         return datasource;
     }
 
     @Bean
-    public ServletRegistrationBean druidServlet() {
-        ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();
+    public ServletRegistrationBean<Servlet> druidServlet() {
+        ServletRegistrationBean<Servlet> servletRegistrationBean = new ServletRegistrationBean<>();
         servletRegistrationBean.setServlet(new StatViewServlet());
         servletRegistrationBean.addUrlMappings("/druid/*");
-        Map<String, String> initParameters = new HashMap<String, String>();
+        Map<String, String> initParameters = new HashMap<>();
         // initParameters.put("loginUsername", "admin");// 用户名
         // initParameters.put("loginPassword", "admin");// 密码
         initParameters.put("resetEnable", "false");// 禁用HTML页面上的“Reset All”功能
@@ -76,8 +83,8 @@ public class DruidDataSourceConfig implements EnvironmentAware {
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+    public FilterRegistrationBean<Filter> filterRegistrationBean() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
         filterRegistrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*");

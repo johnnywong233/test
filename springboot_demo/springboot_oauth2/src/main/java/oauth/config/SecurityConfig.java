@@ -1,6 +1,5 @@
 package oauth.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -22,6 +21,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 
 /**
@@ -33,12 +33,12 @@ import javax.servlet.Filter;
 @EnableOAuth2Client
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 启用方法安全设置
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    OAuth2ClientContext oauth2ClientContext;
+    @Resource
+    private OAuth2ClientContext oauth2ClientContext;
 
     @Bean
     @Override
-    protected UserDetailsService userDetailsService(){
+    protected UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withUsername("user1").password("123456").authorities("ROLE_USER").build());
         manager.createUser(User.withUsername("user2").password("123456").authorities("ROLE_USER").build());
@@ -70,9 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public FilterRegistrationBean oauth2ClientFilterRegistration(
-            OAuth2ClientContextFilter filter) {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+    public FilterRegistrationBean<Filter> oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter) {
+        FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
         registration.setFilter(filter);
         registration.setOrder(-100);
         return registration;

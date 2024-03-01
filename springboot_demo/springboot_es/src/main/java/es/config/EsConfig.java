@@ -3,7 +3,7 @@ package es.config;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,17 +27,15 @@ public class EsConfig {
     @Value("${elasticsearch.port}")
     private int esPort;
 
-    @Value("${elasticsearch.clustername}")
+    @Value("${elasticsearch.clusterName}")
     private String esClusterName;
 
     @Bean
     public Client client() throws Exception {
-
-        Settings esSettings = Settings.settingsBuilder().put("cluster.name", esClusterName).build();
-
+        Settings esSettings = Settings.builder().put("cluster.name", esClusterName).build();
         //https://www.elastic.co/guide/en/elasticsearch/guide/current/_transport_client_versus_node_client.html
         return TransportClient.builder().settings(esSettings).build()
-                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(esHost), esPort));
+                .addTransportAddress(new TransportAddress(InetAddress.getByName(esHost), esPort));
     }
 
     @Bean

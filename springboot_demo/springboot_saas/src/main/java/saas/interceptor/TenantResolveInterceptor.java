@@ -1,6 +1,7 @@
 package saas.interceptor;
 
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -22,10 +23,10 @@ public class TenantResolveInterceptor extends HandlerInterceptorAdapter {
 
     static final String TENANT_BUSINESS_NAME_KEY = "businessName";
 
-    private UrlPathHelper urlPathHelper = new UrlPathHelper();
+    private final UrlPathHelper urlPathHelper = new UrlPathHelper();
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
         String businessName = resolve(urlPathHelper.getServletPath(request));
         request.setAttribute(TENANT_BUSINESS_NAME_KEY, businessName);
 

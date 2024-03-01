@@ -11,7 +11,6 @@ import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -19,6 +18,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -28,22 +28,17 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class MybatisPlusConfig {
-    @Autowired
+    @Resource
     private DataSource dataSource;
-
-    @Autowired
+    @Resource
     private MybatisProperties properties;
-
-    @Autowired
+    @Resource
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
-
-    @Autowired(required = false)
+    @Resource
     private Interceptor[] interceptors;
-
-    @Autowired(required = false)
+    @Resource
     private DatabaseIdProvider databaseIdProvider;
-
-    @Autowired
+    @Resource
     private MyMetaObjectHandler myMetaObjectHandler;
 
     /**

@@ -8,9 +8,9 @@
         <id column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="url" property="url"/>
-        <result column="pictureurls_num" property="pictureurlsNum"/>
-        <result column="zan" property="zan"/>
-        <result column="biaoqian" property="biaoqian"/>
+        <result column="picture_urls_num" property="pictureUrlsNum"/>
+        <result column="like" property="like"/>
+        <result column="tag" property="tag"/>
         <result column="keywords" property="keywords"/>
     </resultMap>
     <select id="selectAll" resultType="com.johnny.entity.BeautifulPictures">

@@ -12,7 +12,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
  * Time: 17:21
  */
 //注意index需要小写:Invalid index name [Book], must be lowercase
-@Document(indexName = "book", type = "books", shards = 2, replicas = 1, refreshInterval = "-1")
+@Document(indexName = "book", type = "books", shards = 2, refreshInterval = "-1")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

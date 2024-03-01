@@ -1,9 +1,8 @@
 package saas;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.autoconfigure.web.DispatcherServletAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,13 +10,15 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import saas.domain.Tenant;
 import saas.domain.TenantRepository;
 import saas.interceptor.RoutingDataSourceInterceptor;
 import saas.interceptor.TenantResolveInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.MultipartConfigElement;
+import javax.servlet.Servlet;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,31 +32,27 @@ import java.util.Map;
  */
 @EnableWebMvc
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired
+    @Resource
     private DataSource dataSource;
-
-    @Autowired
+    @Resource
     private DataSourceProperties properties;
-
-    @Autowired
+    @Resource
     private TenantRepository tenantRepository;
+    @Resource
+    private MultipartConfigElement multipartConfig;
 
     @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
     public DispatcherServlet dispatcherServlet() {
         return new DispatcherServlet();
     }
 
-    @Autowired(required = false)
-    private MultipartConfigElement multipartConfig;
-
     @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME)
-    public ServletRegistrationBean dispatcherServletRegistration() {
+    public ServletRegistrationBean<Servlet> dispatcherServletRegistration() {
         Iterable<Tenant> tenants = this.tenantRepository.findAll();
 
-        ServletRegistrationBean registration = new ServletRegistrationBean(
-                dispatcherServlet(), getServletMappings(tenants));
+        ServletRegistrationBean<Servlet> registration = new ServletRegistrationBean<>(dispatcherServlet(), getServletMappings(tenants));
         registration.setName(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME);
         if (this.multipartConfig != null) {
             registration.setMultipartConfig(this.multipartConfig);
@@ -68,7 +65,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         Map<Object, Object> targetDataSources = new HashMap<>();
         for (Tenant tenant : tenants) {
 
-            DataSourceBuilder factory = DataSourceBuilder
+            DataSourceBuilder<?> factory = DataSourceBuilder
                     .create(this.properties.getClassLoader())
                     .url(this.properties.getUrl())
                     .username(tenant.getDbu())
