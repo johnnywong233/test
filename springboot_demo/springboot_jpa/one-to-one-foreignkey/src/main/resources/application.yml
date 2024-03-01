@@ -3,6 +3,6 @@ spring:
     url: jdbc:mysql://localhost/jpa_onetoone_foreignkey
     username: root
     password: root
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true

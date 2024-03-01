@@ -7,7 +7,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <!--<property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>-->
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <!--<property name="connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=OnlineView</property>-->
         <property name="connection.url">jdbc:mysql://192.168.0.1:3306/mail</property>
         <property name="connection.username">root</property>

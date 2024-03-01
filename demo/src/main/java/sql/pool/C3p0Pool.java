@@ -14,22 +14,21 @@ import java.sql.SQLException;
 public class C3p0Pool {
 
     static ComboPooledDataSource dataSource = null;
-    private static Connection connection;
-    private static String url = "jdbc:mysql://localhost/test?useUnicode=true&characterEncoding=utf-8";
-    private static String user = "root";
-    private static String password = "root";
-    private static String driverClassName = "com.mysql.jdbc.Driver";
-    private static Object obj = new Object();
+    private static final String URL = "jdbc:mysql://localhost/test?useUnicode=true&characterEncoding=utf-8";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+    private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
+    private static final Object OBJ = new Object();
 
-    public static void initc3p0DataSource() {
-        synchronized (obj) {
+    public static void initC3p0DataSource() {
+        synchronized (OBJ) {
             if (dataSource == null) {
                 dataSource = new ComboPooledDataSource();
                 try {
-                    dataSource.setDriverClass(driverClassName);
-                    dataSource.setJdbcUrl(url);
-                    dataSource.setUser(user);
-                    dataSource.setPassword(password);
+                    dataSource.setDriverClass(DRIVER_CLASS_NAME);
+                    dataSource.setJdbcUrl(URL);
+                    dataSource.setUser(USER);
+                    dataSource.setPassword(PASSWORD);
                     dataSource.setMaxPoolSize(40);
                     dataSource.setMinPoolSize(2);
                     dataSource.setInitialPoolSize(10);
@@ -41,9 +40,9 @@ public class C3p0Pool {
         }
     }
 
-    public static Connection getConnectionFromc3p0() {
+    public static Connection getConnectionFromC3p0() {
         if (dataSource == null) {
-            initc3p0DataSource();
+            initC3p0DataSource();
         }
         if (dataSource != null) {
             try {

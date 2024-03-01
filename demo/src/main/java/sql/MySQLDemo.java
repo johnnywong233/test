@@ -3,19 +3,18 @@ package sql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
 public class MySQLDemo {
 
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         Connection conn = null;
         String url = "jdbc:mysql://localhost:3306/web1?" + "user=root&password=root&useUnicode=true&characterEncoding=UTF8";
 
         try {
-            // step 1: load driver for PostgreSQL
+            // step 1: load driver for PostgresSQL
             // three ways to load a driver.
-            Class.forName("com.mysql.jdbc.Driver");//
+            Class.forName("com.mysql.cj.jdbc.Driver");//
             // or:
 //	        	org.postgresql.Driver driver = new org.postgresql.Driver();
             // or
@@ -42,13 +41,9 @@ public class MySQLDemo {
                 while (rs.next()) {
                     System.out.println(rs.getString(1) + " " + rs.getString(2));
                 }
-
                 // add this beforeFirst, or output nothing
                 rs.beforeFirst();
             }
-        } catch (SQLException e) {
-            System.out.println("SQLException:" + e.getMessage());
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

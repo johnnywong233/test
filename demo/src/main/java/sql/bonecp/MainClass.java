@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 /**
  * Created by johnny on 2016/10/2.
- * test bonecp
+ * test boneCp
  */
 public class MainClass {
     //http://blog.csdn.net/u012540337/article/details/48178047
@@ -19,7 +19,7 @@ public class MainClass {
         Connection connection = null;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (Exception e) {
             e.printStackTrace();
             return;
@@ -32,10 +32,9 @@ public class MainClass {
             config.setPassword("root");
             config.setMinConnectionsPerPartition(5);
             config.setMaxConnectionsPerPartition(10);
-            //
             config.setPartitionCount(1);
             connectionPool = new BoneCP(config);
-            connection = connectionPool.getConnection(); // fetch a connection
+            connection = connectionPool.getConnection();
 
             if (connection != null) {
                 System.out.println("Connection successful!");

@@ -23,7 +23,7 @@
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <!-- 配置连接池属性 -->
         <!--<property name="driverClass" value="${jdbc.driver}"/>-->
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver"/>
         <property name="jdbcUrl"
                   value="jdbc:mysql://localhost:3306/quartz??useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="user" value="root"/>
@@ -73,11 +73,11 @@
 
     <!-- 配置Spring声明式事务处理 使用基于xml文件的声明式事务处理 -->
     <!-- 定义事务通知 -->
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:advice id="txAdvice">
         <!-- 事务的传播属性 -->
         <tx:attributes>
             <!-- propagation="REQUIRED"事务传播行为（必须）默认值 有就加入，没有就添加 isolation="DEFAULT"隔离级别（可选）数据库增删改查单独不受影响 -->
-            <tx:method name="add*" propagation="REQUIRED" isolation="DEFAULT" read-only="false"/>
+            <tx:method name="add*"/>
             <tx:method name="del*"/>
             <tx:method name="query*"/>
             <tx:method name="is*"/>
@@ -88,8 +88,7 @@
             <tx:method name="modify*"/>
             <tx:method name="edit*"/>
             <tx:method name="delete*"/>
-            <tx:method name="remove*" propagation="REQUIRED"/>
-
+            <tx:method name="remove*"/>
             <tx:method name="get*" propagation="SUPPORTS"/>
             <tx:method name="find*" propagation="SUPPORTS"/>
             <tx:method name="load*" propagation="SUPPORTS"/>

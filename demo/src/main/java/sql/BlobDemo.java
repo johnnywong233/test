@@ -1,20 +1,15 @@
 package sql;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.*;
 import java.sql.*;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  */
+@Slf4j
 public class BlobDemo {
-    private static String driver = "com.mysql.jdbc.driver";
-
-    private static String url = "jdbc:mysql://localhost:3306/use";
-    private static String user = "root";
-
-    private static String pass = "admin";
-
-    //假设这里建立的数据库位use,而建立的表位luser
     //http://www.phpxs.com/code/1001932/
     public static void main(String[] args) {
         Connection con = null;
@@ -24,9 +19,9 @@ public class BlobDemo {
             File file = new File("d:" + File.separator + "photo.jpg");
             int length = (int) file.length();
             InputStream input = new FileInputStream(file);
-            Class.forName(driver);
-            con = DriverManager.getConnection(url, user, pass);
-            sta = con.prepareStatement("insert into luser values(?,?,?);");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "root");
+            sta = con.prepareStatement("insert into user values(?,?,?);");
 
             sta.setInt(1, 110);
             sta.setString(2, "namefile");
@@ -35,13 +30,13 @@ public class BlobDemo {
             sta.clearParameters();
             input.close();
         } catch (SQLException | ClassNotFoundException | IOException e) {
-            e.printStackTrace();
+            log.error("test fail", e);
         } finally {
             if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    log.error("close fail", e);
                 }
             }
         }
@@ -59,20 +54,20 @@ public class BlobDemo {
             out.flush();
             out.close();
         } catch (SQLException | IOException e) {
-            e.printStackTrace();
+            log.error("test write", e);
         } finally {
             if (stat != null) {
                 try {
                     stat.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    log.error("close stat fail", e);
                 }
             }
             if (con != null) {
                 try {
                     con.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    log.error("close con fail", e);
                 }
             }
         }

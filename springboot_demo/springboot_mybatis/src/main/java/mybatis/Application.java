@@ -31,7 +31,7 @@ public class Application extends SpringBootServletInitializer {
 //	@Bean
 //	public DataSource dataSource() {
 //		DruidDataSource dataSource = new DruidDataSource();
-//		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 //		dataSource.setUrl("jdbc:mysql://192.168.157.131:3306/springboot");
 //		dataSource.setUsername("code");
 //		dataSource.setMaxActive(30);

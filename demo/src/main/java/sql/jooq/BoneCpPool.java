@@ -11,16 +11,15 @@ import java.sql.SQLException;
 
 /**
  * Created by johnny on 2016/10/2.
- * use third-party connection pool bonecp to manage database connection
+ * use third-party connection pool boneCp to manage database connection
  */
 public class BoneCpPool {
     private static BoneCP boneCp = null;
     private static BoneCPConfig boneCPConfig = null;
 
     static {
-        // load JDBC drver
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             boneCPConfig = new BoneCPConfig();
             String jdbcUrl = "jdbc:mysql://127.0.0.1:3306/jooq";
             boneCPConfig.setJdbcUrl(jdbcUrl);

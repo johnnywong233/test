@@ -35,7 +35,7 @@ public class MysqlConnection {
     public static void setConnection(String hostArg, int portArg, String userArg, String passwordArg) {
         try {
             if (conn == null || conn.isClosed()) {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
 
                 host = hostArg;
                 port = portArg;

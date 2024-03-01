@@ -12,8 +12,8 @@ import java.util.Properties;
 
 @Data
 public class DbResourceManager {
-    // 最好的做法是将配置保存到配置文件中(可以用properteis文件或XML文件)
-    private static final String JDBC_DRV = "com.mysql.jdbc.Driver";
+    // 最好的做法是将配置保存到配置文件中(可以用properties文件或XML文件)
+    private static final String JDBC_DRV = "com.mysql.cj.jdbc.Driver";
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/hw";
     private static final String JDBC_UID = "root";
     private static final String JDBC_PWD = "123456";
