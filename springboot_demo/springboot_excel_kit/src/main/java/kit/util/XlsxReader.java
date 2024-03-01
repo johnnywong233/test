@@ -14,8 +14,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -80,11 +82,10 @@ public class XlsxReader extends DefaultHandler {
         processAll(OPCPackage.open(fileName));
     }
 
-    private void processAll(OPCPackage pkg)
-            throws IOException, OpenXML4JException, SAXException {
+    private void processAll(OPCPackage pkg) throws IOException, OpenXML4JException, SAXException, ParserConfigurationException {
         XSSFReader xssfReader = new XSSFReader(pkg);
         mStylesTable = xssfReader.getStylesTable();
-        SharedStringsTable sst = xssfReader.getSharedStringsTable();
+        SharedStringsTable sst = (SharedStringsTable) xssfReader.getSharedStringsTable();
         XMLReader parser = this.fetchSheetParser(sst);
         Iterator<InputStream> sheets = xssfReader.getSheetsData();
         while (sheets.hasNext()) {
@@ -121,10 +122,9 @@ public class XlsxReader extends DefaultHandler {
         processBySheet(sheetIndex, OPCPackage.open(fileName));
     }
 
-    private void processBySheet(int sheetIndex, OPCPackage pkg)
-            throws IOException, OpenXML4JException, SAXException {
+    private void processBySheet(int sheetIndex, OPCPackage pkg) throws IOException, OpenXML4JException, SAXException, ParserConfigurationException {
         XSSFReader r = new XSSFReader(pkg);
-        SharedStringsTable sst = r.getSharedStringsTable();
+        SharedStringsTable sst = (SharedStringsTable) r.getSharedStringsTable();
 
         XMLReader parser = fetchSheetParser(sst);
 
@@ -150,12 +150,14 @@ public class XlsxReader extends DefaultHandler {
         processBySheet(sheetIndex, OPCPackage.open(is));
     }
 
-    private XMLReader fetchSheetParser(SharedStringsTable sst) throws SAXException {
+    private XMLReader fetchSheetParser(SharedStringsTable sst) throws SAXException, ParserConfigurationException {
         // jdk9 之后 XMLReaderFactory 废弃
-        XMLReader parser = XMLReaderFactory.createXMLReader("org.apache.xerces.parsers.SAXParser");
+        SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+        SAXParser parser = parserFactory.newSAXParser();
+        XMLReader reader = parser.getXMLReader();
         this.mSharedStringsTable = sst;
-        parser.setContentHandler(this);
-        return parser;
+        reader.setContentHandler(this);
+        return reader;
     }
 
     /**
@@ -272,7 +274,7 @@ public class XlsxReader extends DefaultHandler {
         // Do now, as characters() may be called more than once
         if (mNextIsString) {
             int idx = Integer.parseInt(mLastContents);
-            mLastContents = new XSSFRichTextString(mSharedStringsTable.getEntryAt(idx)).toString();
+            mLastContents = mSharedStringsTable.getItemAt(idx).getString();
             mNextIsString = false;
         }
 

@@ -26,11 +26,11 @@ public class WordTableBind {
     public static void main(String[] args) throws Exception {
         WordTableBind t = new WordTableBind();
         XWPFDocument document = new XWPFDocument();
-        t.megerTableCell(document);
-        t.saveDocument(document, "C:\\work\\test_git\\test\\demo\\src\\test\\resources\\" + System.currentTimeMillis() + ".docx");
+        t.mergeTableCell(document);
+        t.saveDocument(document, System.currentTimeMillis() + ".docx");
     }
 
-    private void megerTableCell(XWPFDocument document) {
+    private void mergeTableCell(XWPFDocument document) {
         XWPFTable table1 = document.createTable(6, 8);
         setTableWidth(table1, "8000");
         fillTable(table1);
@@ -57,7 +57,7 @@ public class WordTableBind {
     }
 
     /**
-     * @Description 跨列合并
+     * 跨列合并
      */
     private void mergeCellsHorizontal(XWPFTable table, int row, int fromCell, int toCell) {
         for (int cellIndex = fromCell; cellIndex <= toCell; cellIndex++) {
@@ -73,8 +73,9 @@ public class WordTableBind {
     }
 
     /**
-     * @Description 跨行合并
-     * @see "http://stackoverflow.com/questions/24907541/row-span-with-xwpftable"
+     * 跨行合并
+     *
+     * @see "https://stackoverflow.com/questions/24907541/row-span-with-xwpftable"
      */
     private void mergeCellsVertically(XWPFTable table, int col, int fromRow, int toRow) {
         for (int rowIndex = fromRow; rowIndex <= toRow; rowIndex++) {
@@ -93,14 +94,13 @@ public class WordTableBind {
         CTTbl ttbl = table.getCTTbl();
         CTTblPr tblPr = ttbl.getTblPr() == null ? ttbl.addNewTblPr() : ttbl.getTblPr();
         CTTblWidth tblWidth = tblPr.isSetTblW() ? tblPr.getTblW() : tblPr.addNewTblW();
-        CTJc cTJc = tblPr.addNewJc();
+        CTJc cTJc = CTJc.Factory.newInstance();
         cTJc.setVal(STJc.Enum.forString("center"));
         tblWidth.setW(new BigInteger(width));
         tblWidth.setType(STTblWidth.DXA);
     }
 
-    private void saveDocument(XWPFDocument document, String savePath)
-            throws Exception {
+    private void saveDocument(XWPFDocument document, String savePath) throws Exception {
         FileOutputStream fos = new FileOutputStream(savePath);
         document.write(fos);
         fos.close();

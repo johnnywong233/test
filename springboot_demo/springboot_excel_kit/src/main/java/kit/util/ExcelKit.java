@@ -4,9 +4,13 @@ import kit.annotation.ExportConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormat;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.xssf.streaming.SXSSFCell;
 import org.apache.poi.xssf.streaming.SXSSFRow;
 import org.apache.poi.xssf.streaming.SXSSFSheet;
@@ -116,7 +120,7 @@ public class ExcelKit {
      *
      * @param data      数据集合
      * @param sheetName 工作表名字
-     * @return true-操作成功,false-操作失败
+     *  true-操作成功,false-操作失败
      */
     public void toExcel(List<?> data, String sheetName) {
         requiredExportParams();
@@ -143,23 +147,23 @@ public class ExcelKit {
                 Font font = wb.createFont();
                 cellStyle.setFillForegroundColor((short) 12);
                 // 填充模式
-                cellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+                cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                 // 上边框为细边框
-                cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+                cellStyle.setBorderTop(BorderStyle.THIN);
                 // 右边框为细边框
-                cellStyle.setBorderRight(CellStyle.BORDER_THIN);
+                cellStyle.setBorderRight(BorderStyle.THIN);
                 // 下边框为细边框
-                cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+                cellStyle.setBorderBottom(BorderStyle.THIN);
                 // 左边框为细边框
-                cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+                cellStyle.setBorderLeft(BorderStyle.THIN);
                 // 对齐
-                cellStyle.setAlignment(CellStyle.ALIGN_LEFT);
-                cellStyle.setFillForegroundColor(HSSFColor.GREEN.index);
-                cellStyle.setFillBackgroundColor(HSSFColor.GREEN.index);
-                font.setBoldweight(Font.BOLDWEIGHT_NORMAL);
+                cellStyle.setAlignment(HorizontalAlignment.LEFT);
+                cellStyle.setFillForegroundColor(HSSFColor.HSSFColorPredefined.GREEN.getIndex());
+                cellStyle.setFillBackgroundColor(HSSFColor.HSSFColorPredefined.GREEN.getIndex());
+                font.setBold(true);
                 // 字体大小
                 //font.setFontHeightInPoints((short) 12);
-                font.setColor(HSSFColor.WHITE.index);
+                font.setColor(HSSFColor.HSSFColorPredefined.WHITE.getIndex());
                 // 应用标题字体到标题样式
                 cellStyle.setFont(font);
                 //设置单元格文本形式
@@ -209,8 +213,7 @@ public class ExcelKit {
         SXSSFWorkbook wb = POIUtils.newSXSSFWorkbook();
 
         // 取出一共有多少个sheet.
-        double sheetNo = Math.ceil(data.size() / mMaxSheetRecords);
-
+        double sheetNo = Math.ceil(data.size() / (float) mMaxSheetRecords);
         // =====多sheet生成填充数据=====
         for (int index = 0; index <= (sheetNo == 0.0 ? sheetNo : sheetNo - 1); index++) {
             SXSSFSheet sheet = POIUtils.newSXSSFSheet(wb, sheetName + (index == 0 ? "" : "_" + index));
@@ -271,7 +274,7 @@ public class ExcelKit {
                         DataFormat dataFormat = wb.createDataFormat();
                         style.setDataFormat(dataFormat.getFormat("@"));
                         cell.setCellStyle(style);
-                        cell.setCellType(SXSSFCell.CELL_TYPE_STRING);
+                        cell.setCellType(CellType.STRING);
                     }
                 }
             }
@@ -402,7 +405,7 @@ public class ExcelKit {
     }
 
     /**
-     * 填充下拉数据验证(maxcess)
+     * 填充下拉数据验证
      */
     private String[] rangeCellValues(String format) {
         try {
@@ -410,10 +413,7 @@ public class ExcelKit {
             if ("c".equalsIgnoreCase(protocol)) {
                 String clazz = format.split(":")[1];
                 ExportRange export = (ExportRange) Class.forName(clazz).newInstance();
-
-                if (export != null) {
-                    return export.handler();
-                }
+                return export.handler();
             }
         } catch (Exception e) {
             log.error("出现问题,可能是@ExportConfig.range()的值不规范导致。", e);

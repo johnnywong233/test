@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * Created by johnny on 2016/10/1.
- * demo of poi on excel
+ * demo of poi on Excel
  */
 public class Demo {
     //http://www.hollischuang.com/archives/31
@@ -20,15 +20,13 @@ public class Demo {
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("new sheet");
         HSSFRow row = sheet.createRow((short) 2);
-//        createCell(wb, row, (short) 0, HSSFCellStyle.ALIGN_CENTER);
-//        createCell(wb, row, (short) 1, HSSFCellStyle.ALIGN_CENTER_SELECTION);
-//        createCell(wb, row, (short) 2, HSSFCellStyle.ALIGN_FILL);
-//        createCell(wb, row, (short) 3, HSSFCellStyle.ALIGN_GENERAL);
-//        createCell(wb, row, (short) 4, HSSFCellStyle.ALIGN_JUSTIFY);
-//        createCell(wb, row, (short) 5, HSSFCellStyle.ALIGN_LEFT);
-//        createCell(wb, row, (short) 6, HSSFCellStyle.ALIGN_RIGHT);
-        // Write the output to a file
-
+        createCell(wb, row, (short) 0, HorizontalAlignment.CENTER);
+        createCell(wb, row, (short) 1, HorizontalAlignment.CENTER_SELECTION);
+        createCell(wb, row, (short) 2, HorizontalAlignment.FILL);
+        createCell(wb, row, (short) 3, HorizontalAlignment.GENERAL);
+        createCell(wb, row, (short) 4, HorizontalAlignment.JUSTIFY);
+        createCell(wb, row, (short) 5, HorizontalAlignment.LEFT);
+        createCell(wb, row, (short) 6, HorizontalAlignment.RIGHT);
         FileOutputStream fileOut = new FileOutputStream("D:\\Java_ex\\test\\src\\test\\resources\\workbook.xls");
         wb.write(fileOut);
         fileOut.close();
@@ -42,7 +40,6 @@ public class Demo {
      * @param column the column number to create the cell in
      * @param align  the alignment for the cell.
      */
-    @SuppressWarnings("deprecation")
     private static void createCell(HSSFWorkbook wb, HSSFRow row, short column, HorizontalAlignment align) {
         HSSFCell cell = row.createCell(column);
         cell.setCellValue("Align It");

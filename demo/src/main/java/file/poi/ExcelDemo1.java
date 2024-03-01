@@ -15,7 +15,7 @@ import java.io.FileInputStream;
  */
 public class ExcelDemo1 {
     //http://www.jb51.net/article/84694.htm
-    public static void main(String[] agrs) {
+    public static void main(String[] args) {
         try {
             FileInputStream fileInputStream = new FileInputStream(
                     "E:" + File.separator + "Java_ex" + File.separator

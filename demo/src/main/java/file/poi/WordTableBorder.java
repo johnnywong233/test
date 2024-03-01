@@ -42,11 +42,11 @@ public class WordTableBorder {
         t.createSimpleTableNormal(document);
         t.addNewPage(document, BreakType.TEXT_WRAPPING);
         t.createSimpleTableWithNotBd(document);
-        t.saveDocument(document, "D:\\Java_ex\\test\\src\\test\\resources\\" + System.currentTimeMillis() + ".docx");
+        t.saveDocument(document,  System.currentTimeMillis() + ".docx");
     }
 
     //self-defined border
-    private void createSimpleTableWithBdColor(XWPFDocument doc) throws Exception {
+    private void createSimpleTableWithBdColor(XWPFDocument doc) {
         List<String> columnList = new ArrayList<>();
         columnList.add("ID");
         columnList.add("姓名信息|姓甚|名谁");
@@ -80,7 +80,7 @@ public class WordTableBorder {
         CTTbl ttbl = table.getCTTbl();
         CTTblPr tblPr = ttbl.getTblPr() == null ? ttbl.addNewTblPr() : ttbl.getTblPr();
         CTTblWidth tblWidth = tblPr.isSetTblW() ? tblPr.getTblW() : tblPr.addNewTblW();
-        CTJc cTJc = tblPr.addNewJc();
+        CTJc cTJc = CTJc.Factory.newInstance();
         cTJc.setVal(STJc.Enum.forString("center"));
         tblWidth.setW(new BigInteger("8000"));
         tblWidth.setType(STTblWidth.DXA);
@@ -117,7 +117,7 @@ public class WordTableBorder {
 
 
     //normal border
-    public void createSimpleTableNormal(XWPFDocument doc) throws Exception {
+    public void createSimpleTableNormal(XWPFDocument doc) {
         List<String> columnList = new ArrayList<>();
         columnList.add("序号");
         columnList.add("姓名信息|姓甚|名谁");
@@ -126,7 +126,7 @@ public class WordTableBorder {
         CTTbl ttbl = table.getCTTbl();
         CTTblPr tblPr = ttbl.getTblPr() == null ? ttbl.addNewTblPr() : ttbl.getTblPr();
         CTTblWidth tblWidth = tblPr.isSetTblW() ? tblPr.getTblW() : tblPr.addNewTblW();
-        CTJc cTJc = tblPr.addNewJc();
+        CTJc cTJc = CTJc.Factory.newInstance();
         cTJc.setVal(STJc.Enum.forString("center"));
         tblWidth.setW(new BigInteger("8000"));
         tblWidth.setType(STTblWidth.DXA);
@@ -162,7 +162,7 @@ public class WordTableBorder {
     }
 
     //no border for table
-    public void createSimpleTableWithNotBd(XWPFDocument doc) throws Exception {
+    public void createSimpleTableWithNotBd(XWPFDocument doc) {
         List<String> columnList = new ArrayList<>();
         columnList.add("序号");
         columnList.add("姓名信息|姓甚|名谁");
@@ -196,7 +196,7 @@ public class WordTableBorder {
         CTTbl ttbl = table.getCTTbl();
         CTTblPr tblPr = ttbl.getTblPr() == null ? ttbl.addNewTblPr() : ttbl.getTblPr();
         CTTblWidth tblWidth = tblPr.isSetTblW() ? tblPr.getTblW() : tblPr.addNewTblW();
-        CTJc cTJc = tblPr.addNewJc();
+        CTJc cTJc = CTJc.Factory.newInstance();
         cTJc.setVal(STJc.Enum.forString("center"));
         tblWidth.setW(new BigInteger("8000"));
         tblWidth.setType(STTblWidth.DXA);
@@ -233,22 +233,22 @@ public class WordTableBorder {
 
 
 
-    public void createHSpanCell(XWPFTableCell cell, String value, String bgcolor, int width, STMerge.Enum stMerge) {
+    public void createHSpanCell(XWPFTableCell cell, String value, String bgColor, int width, STMerge.Enum stMerge) {
         CTTc cttc = cell.getCTTc();
         CTTcPr cellPr = cttc.addNewTcPr();
         cellPr.addNewTcW().setW(BigInteger.valueOf(width));
-        cell.setColor(bgcolor);
+        cell.setColor(bgColor);
         cellPr.addNewHMerge().setVal(stMerge);
         cellPr.addNewVAlign().setVal(STVerticalJc.CENTER);
         cttc.getPList().get(0).addNewPPr().addNewJc().setVal(STJc.CENTER);
         cttc.getPList().get(0).addNewR().addNewT().setStringValue(value);
     }
 
-    public void createVSpanCell(XWPFTableCell cell, String value, String bgcolor, int width, STMerge.Enum stMerge) {
+    public void createVSpanCell(XWPFTableCell cell, String value, String bgColor, int width, STMerge.Enum stMerge) {
         CTTc cttc = cell.getCTTc();
         CTTcPr cellPr = cttc.addNewTcPr();
         cellPr.addNewTcW().setW(BigInteger.valueOf(width));
-        cell.setColor(bgcolor);
+        cell.setColor(bgColor);
         cellPr.addNewVMerge().setVal(stMerge);
         cellPr.addNewVAlign().setVal(STVerticalJc.CENTER);
         cttc.getPList().get(0).addNewPPr().addNewJc().setVal(STJc.CENTER);

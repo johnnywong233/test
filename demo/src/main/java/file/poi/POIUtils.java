@@ -18,14 +18,14 @@ import java.math.BigInteger;
  */
 public class POIUtils {
 
-    static void setCellText(XWPFTableCell cell, String text, String bgcolor, int width) {
+    static void setCellText(XWPFTableCell cell, String text, String bgColor, int width) {
         CTTc cttc = cell.getCTTc();
         CTTcPr cellPr = cttc.addNewTcPr();
         cellPr.addNewTcW().setW(BigInteger.valueOf(width));
-        //cell.setColor(bgcolor);
+        cell.setColor(bgColor);
         CTTcPr ctPr = cttc.addNewTcPr();
         CTShd ctshd = ctPr.addNewShd();
-        ctshd.setFill(bgcolor);
+        ctshd.setFill(bgColor);
         ctPr.addNewVAlign().setVal(STVerticalJc.CENTER);
         cttc.getPList().get(0).addNewPPr().addNewJc().setVal(STJc.CENTER);
         cell.setText(text);

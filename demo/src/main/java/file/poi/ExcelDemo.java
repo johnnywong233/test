@@ -14,8 +14,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  */
 public class ExcelDemo {
     /**
-     * java create excel file then write into disk
-     * http://www.jb51.net/article/84694.htm
+     * java create Excel file then write into disk
+     * @see "http://www.jb51.net/article/84694.htm"
      */
     public static void main(String[] args) {
         //windows和Linux的斜杠不一样，而且java对于“/”需要转义处理，File.separator可以实现跨平台
@@ -25,10 +25,10 @@ public class ExcelDemo {
                 + "test" + File.separator + "resources" + File.separator + "user.xls");
         try {
             OutputStream outputStream = new FileOutputStream(file);
-            //create an excel file, HSSF works for lower than excel 2007
-            //for newer than excel 2007, use XSSF
+            //create an Excel file, HSSF works for lower than Excel 2007
+            //for newer than Excel 2007, use XSSF
             HSSFWorkbook workbook = new HSSFWorkbook();
-            //create an excel sheet
+            //create an Excel sheet
             HSSFSheet sheet = workbook.createSheet("user");
             HSSFRow row = sheet.createRow(0);
             row.createCell(0).setCellValue("name");
