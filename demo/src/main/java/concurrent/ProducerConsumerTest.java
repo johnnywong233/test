@@ -7,8 +7,8 @@ import org.junit.Assert;
 import java.util.concurrent.LinkedTransferQueue;
 
 /**
- * Created by wajian on 2016/8/18.
- * http://www.cs.umd.edu/projects/PL/multithreadedtc/overview.html
+ * Created by johnny on 2016/8/18.
+ * <a href="http://www.cs.umd.edu/projects/PL/multithreadedtc/overview.html">...</a>
  */
 
 public class ProducerConsumerTest extends MultithreadedTestCase {
@@ -17,9 +17,9 @@ public class ProducerConsumerTest extends MultithreadedTestCase {
 
         ProducerConsumer test = new ProducerConsumer();
         //do test with TestFramework.runOnce
-        System.out.printf("Main: Starting the test\n");
+        System.out.print("Main: Starting the test\n");
         TestFramework.runOnce(test);
-        System.out.printf("Main: The test has finished\n");
+        System.out.print("Main: The test has finished\n");
     }
 }
 
@@ -32,7 +32,7 @@ class ProducerConsumer extends MultithreadedTestCase {
     public void initialize() {
         super.initialize();
         queue = new LinkedTransferQueue<>();
-        System.out.printf("Test: The test has been initialized\n");
+        System.out.print("Test: The test has been initialized\n");
     }
 
     //实现的逻辑是第一个consumer。调用 queue 的 take() 方法，然后把返回值写入操控台。
@@ -54,15 +54,15 @@ class ProducerConsumer extends MultithreadedTestCase {
         waitForTick(2);
         queue.put("Event 1");
         queue.put("Event 2");
-        System.out.printf("Thread 3: Inserted two elements\n");
+        System.out.print("Thread 3: Inserted two elements\n");
     }
 
     //写信息到操控台表明测试结束执行。使用assertEquals() 方法检查2个事件已经被consumed（queue的大小为0）。
     @Override
     public void finish() {
         super.finish();
-        System.out.printf("Test: End\n");
-        Assert.assertEquals(true, queue.size() == 0);
-        System.out.printf("Test: Result: The queue is empty\n");
+        System.out.print("Test: End\n");
+        Assert.assertEquals(0, queue.size());
+        System.out.print("Test: Result: The queue is empty\n");
     }
 }

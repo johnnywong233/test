@@ -1,12 +1,15 @@
 package grammar;
 
+import lombok.Data;
+
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 
 /**
- * Created by wajian on 2016/9/13.
+ * Created by johnny on 2016/9/13.
  */
+@Data
 public class IntrospectorDemo {
     private String name;
 
@@ -23,11 +26,4 @@ public class IntrospectorDemo {
         }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

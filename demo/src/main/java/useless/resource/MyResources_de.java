@@ -1,11 +1,13 @@
 package useless.resource;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
- * Created by wajian on 2016/10/5.
+ * Created by johnny on 2016/10/5.
  */
 public class MyResources_de extends MyResources{
     @Override
-    public Object handleGetObject(String key) {
+    public Object handleGetObject(@NotNull String key) {
         if ("okKey".equals(key)) {
             return "Gut";
         }

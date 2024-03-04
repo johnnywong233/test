@@ -1,5 +1,8 @@
 package grammar.collection;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,12 +12,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * Created by wajian on 2016/8/13.
+ * Created by johnny on 2016/8/13.
  * demo of lambda and collection patch in java8
  */
 public class PatchDemo {
     //http://my.oschina.net/cloudcoder/blog/214680
-    private static List<Person> persons = Arrays.asList(new Person("Joe", 12),
+    private static final List<Person> persons = Arrays.asList(new Person("Joe", 12),
             new Person("Jim", 19), new Person("John", 21));
 
     public static void main(String[] args) throws Exception {
@@ -129,32 +132,11 @@ public class PatchDemo {
     }
 }
 
+@Data
+@AllArgsConstructor
 class Person {
     private String name;
     private final int age;
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        System.out.println(name);
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    @Override
-    public String toString() {
-        return "name:" + name + " age:" + age;
-    }
 }
 
 class Adult extends Person {

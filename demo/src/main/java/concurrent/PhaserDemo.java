@@ -1,10 +1,13 @@
 package concurrent;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.concurrent.Phaser;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by wajian on 2016/8/18.
+ * Created by johnny on 2016/8/18.
  */
 public class PhaserDemo {
 
@@ -12,7 +15,7 @@ public class PhaserDemo {
     public static void main(String[] args) throws Exception {
 
         //9.   创建新的有3个参与者的 Phaser 对象，名为 phaser。
-        final Integer num = 3;
+        final int num = 3;
         Phaser phaser = new Phaser(num);
 
         //10. 创建并运行3个线程来执行3个task对象。
@@ -26,7 +29,7 @@ public class PhaserDemo {
         for (int i = 0; i < 10; i++) {
 
             //12. 写关于 registered parties 的信息，phaser的phase，到达的parties, 和未到达的parties 的信息。
-            System.out.printf("Main: Phaser Log\n");
+            System.out.print("Main: Phaser Log\n");
             System.out.printf("Main: Phaser: Phase: %d\n", phaser.getPhase());
             System.out.printf("Main: Phaser: Registered Parties:%d\n", phaser.getRegisteredParties());
             System.out.printf("Main: Phaser: Arrived Parties:%d\n", phaser.getArrivedParties());
@@ -38,16 +41,11 @@ public class PhaserDemo {
     }
 }
 
+@Data
+@AllArgsConstructor
 class MyTask implements Runnable {
-
     private int time;
-
     private Phaser phaser;
-
-    public MyTask(int time, Phaser phaser) {
-        this.time = time;
-        this.phaser = phaser;
-    }
 
     @Override
     public void run() {

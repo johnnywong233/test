@@ -1,18 +1,21 @@
 package concurrent;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentNavigableMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 /**
- * Created by wajian on 2016/8/18.
+ * Created by johnny on 2016/8/18.
  */
 public class NavigableMap {
     //http://ifeve.com/concurrent-collections-6/
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         ConcurrentSkipListMap<String, Contact> map;
         map = new ConcurrentSkipListMap<>();
-        Thread threads[] = new Thread[25];
+        Thread[] threads = new Thread[25];
         int counter = 0;
         //for these 25 thread(task), assign a upper case letter ass ID
         for (char i = 'A'; i < 'Z'; i++) {
@@ -39,62 +42,33 @@ public class NavigableMap {
 
         element = map.lastEntry();
         contact = element.getValue();
-        System.out.printf("Main: Last Entry: %s: %s\n", contact.
-                getName(), contact.getPhone());
+        System.out.printf("Main: Last Entry: %s: %s\n", contact.getName(), contact.getPhone());
 
         //get submap
-        System.out.printf("Main: Submap from A1996 to B1002: \n");
-        ConcurrentNavigableMap<String, Contact> submap = map.
-                subMap("A1996", "B1002");
+        System.out.print("Main: Submap from A1996 to B1002: \n");
+        ConcurrentNavigableMap<String, Contact> submap = map.subMap("A1996", "B1002");
         do {
             element = submap.pollFirstEntry();
             if (element != null) {
                 contact = element.getValue();
-                System.out.printf("%s: %s\n", contact.getName(), contact.
-                        getPhone());
+                System.out.printf("%s: %s\n", contact.getName(), contact.getPhone());
             }
         } while (element != null);
     }
 
 }
 
+@Data
+@AllArgsConstructor
 class Contact {
     private String name;
-
     private String phone;
-
-    public Contact(String name, String phone) {
-        this.name = name;
-        this.phone = phone;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }
 
+@AllArgsConstructor
 class Task implements Runnable {
-    private ConcurrentSkipListMap<String, Contact> map;
-
-    private String id;
-
-    // constructor to store the attribute
-    public Task(ConcurrentSkipListMap<String, Contact> map, String id) {
-        this.id = id;
-        this.map = map;
-    }
+    private final ConcurrentSkipListMap<String, Contact> map;
+    private final String id;
 
     @Override
     public void run() {

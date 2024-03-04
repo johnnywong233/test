@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 /**
- * Created by wajian on 2016/10/8.
+ * Created by johnny on 2016/10/8.
  * print the call sequence of testng
  */
 public class Sequence {

@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
- * Created by wajian on 2016/8/28.
+ * Created by johnny on 2016/8/28.
  */
 public class PictureViewer implements ActionListener {
     private Frame frame;
@@ -193,14 +193,10 @@ class MyCanvas extends Canvas implements ComponentListener {
 }
 
 class MyFilter implements FilenameFilter {
-    private String[] extension;
+    private final String[] extension;
 
     MyFilter() {
         extension = new String[]{".jpg", ".JPG", ".gif", ".GIF", ".png", ".PNG", ".jpeg", ".JPEG"};
-    }
-
-    public MyFilter(String[] extension) {
-        this.extension = extension;
     }
 
     @Override

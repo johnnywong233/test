@@ -1,5 +1,7 @@
 package grammar;
 
+import lombok.Data;
+
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -7,7 +9,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Created by wajian on 2016/9/13.
+ * Created by johnny on 2016/9/13.
  */
 public class IntrospectorDemo1 {
 
@@ -74,23 +76,8 @@ public class IntrospectorDemo1 {
     }
 }
 
+@Data
 class PersonBean {
-    public String name;
+    private String name;
     private String[] childName;
-
-    String[] getChildName() {
-        return childName;
-    }
-
-    void setChildName(String[] childName) {
-        this.childName = childName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

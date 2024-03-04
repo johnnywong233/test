@@ -4,11 +4,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 
 /**
- * Created by wajian on 2016/8/22.
+ * Created by johnny on 2016/8/22.
  */
 public class ExecutorServiceDemo {
     //http://www.jb51.net/article/62912.htm
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
 //        for(int i = 0; i < 10; i++){
 //            Elem e = new Elem();
@@ -42,10 +42,6 @@ class Elem implements Runnable {
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    public int getPriority() {
-        return this.priority;
     }
 
     @Override

@@ -9,8 +9,8 @@ import java.util.Scanner;
  */
 public class RenMingBi {
     private boolean zero;
-    private String[] strHan = {"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
-    private String[] moneyCount = {"", "拾", "佰", "仟"};
+    private final String[] strHan = {"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
+    private final String[] moneyCount = {"", "拾", "佰", "仟"};
 
     private RenMingBi() {
         zero = false;
@@ -55,8 +55,7 @@ public class RenMingBi {
             return "零角零分";
         } else {
             String strResult;
-            char[] strRmb = new char[20];
-            strRmb = str.toCharArray();
+            char[] strRmb = str.toCharArray();
             if (strRmb[0] == '0' && strRmb[1] == '0') {
                 strResult = "";
             } else {
@@ -70,12 +69,11 @@ public class RenMingBi {
 
     // 用来转换整数部分
     private String transInt(String str) {
-        char[] firstFourBitRmb = new char[20];
-        firstFourBitRmb = str.toCharArray();
+        char[] firstFourBitRmb = str.toCharArray();
         int len = firstFourBitRmb.length;
-        String strResult = "";
+        StringBuilder strResult = new StringBuilder();
         for (int i = 0; i < len; i++) {
-            /**
+            /*
              * 这里开启之后会显示成通俗易懂的格式，例如1001，会转化为：壹仟零壹元，而不是：壹仟零佰零拾壹元， 但我希望得到的是后面这种，因为发票所需显示的就是后面这种
              **/
 
@@ -93,9 +91,9 @@ public class RenMingBi {
             // strResult += strHan[m] + moneyCount[len - i - 1];
             // }
             int m = firstFourBitRmb[i] - '0';
-            strResult += strHan[m] + moneyCount[len - i - 1];
+            strResult.append(strHan[m]).append(moneyCount[len - i - 1]);
         }
-        return strResult;
+        return strResult.toString();
     }
 
     private String transComb() {

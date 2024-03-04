@@ -8,7 +8,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 /**
- * Created by wajian on 2016/8/28.
+ * Created by johnny on 2016/8/28.
  * servlet listener
  */
 public class ContextLoaderListener extends ContextLoader implements ServletContextListener {

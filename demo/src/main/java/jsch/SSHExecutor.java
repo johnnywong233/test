@@ -9,7 +9,6 @@ import com.jcraft.jsch.UserInfo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.ws.rs.GET;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +16,13 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.util.concurrent.TimeUnit;
 
-import static java.lang.String.format;
-
 /**
  * Author: Johnny
  * Date: 2016/11/27
  * Time: 16:29
  */
 public class SSHExecutor {
-    private Session session = null;
+    private final Session session;
 
     //http://www.importnew.com/22322.html
     public static void main(String[] args) throws JSchException, IOException, InterruptedException {
@@ -103,12 +100,12 @@ public class SSHExecutor {
             }
             if (channelExec.isClosed()) {
                 res = channelExec.getExitStatus();
-                System.out.println(format("Exit-status: %d", res));
+                System.out.printf("Exit-status: %d%n", res);
                 break;
             }
             TimeUnit.MILLISECONDS.sleep(100);
         }
-        System.out.println(buf.toString());
+        System.out.println(buf);
         channelExec.disconnect();
         return res;
     }

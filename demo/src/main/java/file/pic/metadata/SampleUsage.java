@@ -5,6 +5,7 @@ import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+import lombok.Data;
 
 //Java library for extracting EXIF, IPTC, XMP, ICC and other metadata from image files.
 
@@ -20,7 +21,6 @@ public class SampleUsage {
      * 图片信息获取metadata元数据信息
      *
      * @param fileName 需要解析的文件
-     * @return
      */
     private ImgInfoBean parseImgInfo(String fileName) {
         File file = new File(fileName);
@@ -82,14 +82,13 @@ public class SampleUsage {
      * 经纬度转换  度分秒转换
      *
      * @param point 坐标点
-     * @return
      */
     private String pointToLatlong(String point) {
-        Double du = Double.parseDouble(point.substring(0, point.indexOf("°")).trim());
-        Double fen = Double.parseDouble(point.substring(point.indexOf("°") + 1, point.indexOf("'")).trim());
-        Double miao = Double.parseDouble(point.substring(point.indexOf("'") + 1, point.indexOf("\"")).trim());
-        Double duStr = du + fen / 60 + miao / 60 / 60;
-        return duStr.toString();
+        double du = Double.parseDouble(point.substring(0, point.indexOf("°")).trim());
+        double fen = Double.parseDouble(point.substring(point.indexOf("°") + 1, point.indexOf("'")).trim());
+        double miao = Double.parseDouble(point.substring(point.indexOf("'") + 1, point.indexOf("\"")).trim());
+        double duStr = du + fen / 60 + miao / 60 / 60;
+        return Double.toString(duStr);
     }
 
     //http://www.phpxs.com/code/1001549/
@@ -99,6 +98,7 @@ public class SampleUsage {
     }
 }
 
+@Data
 class ImgInfoBean {
     private String imgHeight;
     private String imgWidth;
@@ -108,74 +108,4 @@ class ImgInfoBean {
     private String longitude;
     private Long imgSize;
     private String imgName;
-
-    public Long getImgSize() {
-        return imgSize;
-    }
-
-    void setImgSize(Long imgSize) {
-        this.imgSize = imgSize;
-    }
-
-    public String getImgName() {
-        return imgName;
-    }
-
-    void setImgName(String imgName) {
-        this.imgName = imgName;
-    }
-
-    public String getImgHeight() {
-        return imgHeight;
-    }
-
-    void setImgHeight(String imgHeight) {
-        this.imgHeight = imgHeight;
-    }
-
-    public String getImgWidth() {
-        return imgWidth;
-    }
-
-    void setImgWidth(String imgWidth) {
-        this.imgWidth = imgWidth;
-    }
-
-    public String getDateTime() {
-        return dateTime;
-    }
-
-    void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public String getAltitude() {
-        return altitude;
-    }
-
-    void setAltitude(String altitude) {
-        this.altitude = altitude;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    @Override
-    public String toString() {
-        return "\n[pic info]\nfile name:" + this.imgName + "\nfile size:" + this.imgSize + "\nheight:" + this.imgHeight + "\nwidth:"
-                + this.imgWidth + "\nshot time:" + this.dateTime + "\naltitude:" + this.altitude + "\nlatitude:" + this.latitude + "\nlongitude:" + this.longitude;
-    }
 }

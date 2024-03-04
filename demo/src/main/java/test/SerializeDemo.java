@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 /**
- * Created by wajian on 2016/8/13.
+ * Created by johnny on 2016/8/13.
  */
 public class SerializeDemo {
     //http://www.runoob.com/java/java-serialization.html
@@ -21,7 +21,7 @@ public class SerializeDemo {
             out.writeObject(e);
             out.close();
             fileOut.close();
-            System.out.printf("Serialized data is saved in /employee.ser\n");
+            System.out.print("Serialized data is saved in /employee.ser\n");
         } catch (IOException i) {
             i.printStackTrace();
         }

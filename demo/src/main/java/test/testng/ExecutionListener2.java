@@ -3,7 +3,7 @@ package test.testng;
 import org.testng.IExecutionListener;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  */
 public class ExecutionListener2 implements IExecutionListener {
     @Override

@@ -5,7 +5,7 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  * demo of pipe
  */
 public class PipeDemo {

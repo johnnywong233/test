@@ -1,11 +1,11 @@
 package grammar.generic;
 
 /**
- * Created by wajian on 2016/8/22.
+ * Created by johnny on 2016/8/22.
  */
 public class SelfBounding {
     //http://blog.csdn.net/chjttony/article/details/6801406
-    public static void main(String[] args){
+    public static void main(String[] args) {
         A a = new A();
         a.set(new A());
         a.print();
@@ -18,43 +18,46 @@ public class SelfBounding {
 }
 
 //TODO
-class SelfBounded<T extends SelfBounded<T>>{
+class SelfBounded<T extends SelfBounded<T>> {
     T element;
-    SelfBounded<T> set(T arg){
+
+    SelfBounded<T> set(T arg) {
         element = arg;
         return this;
     }
-    T get(){
+
+    T get() {
         return element;
     }
-    public void print(){
-    	System.out.println("class SelfBounded");
+
+    public void print() {
+        System.out.println("class SelfBounded");
     }
-    
+
 }
 
-class A extends SelfBounded<A>{
+class A extends SelfBounded<A> {
     @Override
-    public void print(){
+    public void print() {
         System.out.println("class A");
     }
 }
 
-class B extends SelfBounded<A>{
+class B extends SelfBounded<A> {
     @Override
-    public void print(){
+    public void print() {
         System.out.println("class B");
     }
 }
 
-class C extends SelfBounded<C>{
-    C setAndGet(C arg){
+class C extends SelfBounded<C> {
+    C setAndGet(C arg) {
         set(arg);
         return get();
     }
 
     @Override
-    public void print(){
+    public void print() {
         System.out.println("class C");
     }
 }

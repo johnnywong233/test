@@ -12,7 +12,6 @@ import javax.mail.Store;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -25,7 +24,7 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
- * Created by wajian on 2016/8/19.
+ * Created by johnny on 2016/8/19.
  * demo of send mail by javax mail api
  */
 public class MailDemo1 {
@@ -67,9 +66,9 @@ public class MailDemo1 {
 }
 
 class ReciveMail {
-    private MimeMessage msg = null;
+    private MimeMessage msg;
     private String saveAttchPath = "";
-    private StringBuffer bodytext = new StringBuffer();
+    private final StringBuffer bodytext = new StringBuffer();
     private String dateFormate = "yy-MM-dd HH:mm";
 
     ReciveMail(MimeMessage msg) {
@@ -100,7 +99,7 @@ class ReciveMail {
      * 获取邮件收件人，抄送，密送的地址和信息。根据所传递的参数不同 "to"-->收件人,"cc"-->抄送人地址,"bcc"-->密送地址
      */
     public String getMailAddress(String type) throws MessagingException, UnsupportedEncodingException {
-        String mailaddr = "";
+        StringBuilder mailaddr = new StringBuilder();
         String addrType = type.toUpperCase();
         InternetAddress[] address = null;
 
@@ -129,14 +128,14 @@ class ReciveMail {
                         personal = MimeUtility.decodeText(personal);
                     }
                     String compositeto = personal + "<" + mail + ">";
-                    mailaddr += "," + compositeto;
+                    mailaddr.append(",").append(compositeto);
                 }
-                mailaddr = mailaddr.substring(1);
+                mailaddr = new StringBuilder(mailaddr.substring(1));
             }
         } else {
             throw new RuntimeException("Error email Type!");
         }
-        return mailaddr;
+        return mailaddr.toString();
     }
 
     /**
@@ -169,17 +168,12 @@ class ReciveMail {
      * 解析邮件 主要根据MimeType的不同执行不同的操作，一步一步的解析
      */
     private void getMailContent(Part part) throws MessagingException, IOException {
-
         String contentType = part.getContentType();
-        int nameindex = contentType.indexOf("name");
-        boolean conname = false;
-        if (nameindex != -1) {
-            conname = true;
-        }
-        System.out.println("CONTENTTYPE:" + contentType);
-        if (part.isMimeType("text/plain") && !conname) {
+        boolean contains = contentType.contains("name");
+        System.out.println("CONTENT-TYPE:" + contentType);
+        if (part.isMimeType("text/plain") && !contains) {
             bodytext.append((String) part.getContent());
-        } else if (part.isMimeType("text/html") && !conname) {
+        } else if (part.isMimeType("text/html") && !contains) {
             bodytext.append((String) part.getContent());
         } else if (part.isMimeType("multipart/*")) {
             Multipart multipart = (Multipart) part.getContent();
@@ -197,7 +191,7 @@ class ReciveMail {
      */
     private boolean getReplySign() throws MessagingException {
         boolean replySign = false;
-        String needreply[] = msg.getHeader("Disposition-Notification-TO");
+        String[] needreply = msg.getHeader("Disposition-Notification-TO");
         if (needreply != null) {
             replySign = true;
         }
@@ -317,7 +311,7 @@ class ReciveMail {
     /**
      * 保存文件内容
      */
-    private void saveFile(String filename, InputStream inputStream) throws IOException {
+    private void saveFile(String filename, InputStream inputStream) {
         String osName = System.getProperty("os.name");
         String storeDir = getSaveAttchPath();
         String sepatror;
@@ -335,8 +329,7 @@ class ReciveMail {
         }
 
         File storeFile = new File(storeDir + sepatror + filename);
-        System.out.println("store file's path:" + storeFile.toString());
-
+        System.out.println("store file's path:" + storeFile);
         try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(storeFile));
              BufferedInputStream bis = new BufferedInputStream(inputStream)) {
             int c;

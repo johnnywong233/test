@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.LineNumberReader;
 
 /**
- * Created by wajian on 2016/8/22.
+ * Created by johnny on 2016/8/22.
  */
 public class ReadFileLine {
     //http://blog.csdn.net/yaowenqian99/article/details/5403694
@@ -24,7 +24,7 @@ public class ReadFileLine {
 
 
     //read the desired line of file
-    static String readAppointedLineNumber(File sourceFile, int lineNumber)
+    private static void readAppointedLineNumber(File sourceFile, int lineNumber)
             throws IOException {
         FileReader in = new FileReader(sourceFile);
         LineNumberReader reader = new LineNumberReader(in);
@@ -44,7 +44,6 @@ public class ReadFileLine {
         }
         reader.close();
         in.close();
-        return s;
     }
 
     //get the total lines of file

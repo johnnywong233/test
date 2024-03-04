@@ -1,14 +1,16 @@
 package useless.resource;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 /**
- * Created by wajian on 2016/10/5.
+ * Created by johnny on 2016/10/5.
  */
-public class MyResources extends ResourceBundle{
+public class MyResources extends ResourceBundle {
     @Override
-    protected Object handleGetObject(String key) {
+    protected Object handleGetObject(@NotNull String key) {
         if ("okKey".equals(key)) {
             return "Ok";
         }

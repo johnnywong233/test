@@ -9,11 +9,11 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author Johnny
- * @date 2018/9/26-21:54
+ * @since 2018/9/26-21:54
  * 在ChannelHandler监测连接是否断掉，断掉的话也要重连
  */
 public class MyInboundHandler extends SimpleChannelInboundHandler {
-    private Client client;
+    private final Client client;
 
     MyInboundHandler(Client client) {
         this.client = client;
@@ -22,12 +22,12 @@ public class MyInboundHandler extends SimpleChannelInboundHandler {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         final EventLoop eventLoop = ctx.channel().eventLoop();
-        eventLoop.schedule((Runnable) () -> client.createBootstrap(new Bootstrap(), eventLoop), 1L, TimeUnit.SECONDS);
+        eventLoop.schedule(() -> client.createBootstrap(new Bootstrap(), eventLoop), 1L, TimeUnit.SECONDS);
         super.channelInactive(ctx);
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Object msg) {
 
     }
 }

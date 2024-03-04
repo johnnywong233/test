@@ -10,13 +10,13 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Created by wajian on 2016/8/19.
+ * Created by johnny on 2016/8/19.
  */
 public class JacksonTest {
     //http://www.jb51.net/article/77970.htm
     //http://www.jb51.net/article/77966.htm
     @SuppressWarnings("unchecked")
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 //        JacksonTest tester = new JacksonTest();
         try {
             JsonFactory jasonFactory = new JsonFactory();

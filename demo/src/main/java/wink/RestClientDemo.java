@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Created by wajian on 2016/9/13.
+ * Created by johnny on 2016/9/13.
  * usage of http client
  */
 public class RestClientDemo {
@@ -39,8 +39,7 @@ public class RestClientDemo {
 	@Test
     public static void delete() throws Throwable {
         RestClient client = new RestClient();
-        Resource resource = client
-                .resource("http://api.linkrmb.com/app/api/123");
+        Resource resource = client.resource("http://api.linkrmb.com/app/api/123");
         ClientResponse clientResponse = resource.delete();
         System.out.println(clientResponse.getStatusCode());
     }
@@ -48,8 +47,7 @@ public class RestClientDemo {
 	@Test
     public static void get() throws Throwable {
         RestClient client = new RestClient();
-        Resource resource = client
-                .resource("http://api.linkrmb.com/app/api/123");
+        Resource resource = client.resource("http://api.linkrmb.com/app/api/123");
         ClientResponse clientResponse = resource.get();
         System.out.println(clientResponse.getStatusCode());
         System.out.println(clientResponse.getEntity(String.class));

@@ -1,8 +1,8 @@
 package grammar.clone;
 
 /**
- * Created by wajian on 2016/8/17.
- * http://www.jb51.net/article/86376.htm
+ * Created by johnny on 2016/8/17.
+ * <a href="http://www.jb51.net/article/86376.htm">...</a>
  */
 public class DeepClone implements Cloneable {
     public String name;

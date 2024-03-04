@@ -16,11 +16,11 @@ import java.util.Arrays;
 public class PreventImgTamper {
     private static final String SALT = "asksdosod";//md5加盐
     /**
-     * https://github.com/jcalaz/tip/blob/master/src/main/java/me/jcala/tip/img/PreventImgTamper.java
+     * <a href="https://github.com/jcalaz/tip/blob/master/src/main/java/me/jcala/tip/img/PreventImgTamper.java">...</a>
      * 将图片字节生成字符串使用摘要算法加密，将加密生成的字节写到图片最后。验证时，首先读取末尾的加密字节，读取完成以后删除，
      * 再通过摘要算法加密，判断加密值与读取加密值是否相同，如果不同，则图片被篡改。我在这里使用加盐的md5算法。
      */
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         File file = new File("G:\\1.jpg");
 //        preventTamper(file,SALT);//add md5 after a pic
         boolean notTamper = notTamper(file, SALT);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  */
 public class LinkedReverse {
     /**

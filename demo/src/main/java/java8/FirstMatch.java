@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Stream;
 
 /**
- * Created by wajian on 2016/10/12.
+ * Created by johnny on 2016/10/12.
  */
 public class FirstMatch {
     //http://unmi.cc/java-8-return-the-first-match-element/
