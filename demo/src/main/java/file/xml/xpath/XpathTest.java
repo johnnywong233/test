@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.Iterator;
 
 /**
- * Created by wajian on 2016/9/7.
+ * Created by johnny on 2016/9/7.
  * demo usage of xml.xpath to parse xml file
  */
 public class XpathTest {

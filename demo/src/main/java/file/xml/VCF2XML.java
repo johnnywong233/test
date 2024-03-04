@@ -14,11 +14,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/8/6.
+ * Created by johnny on 2016/8/6.
  */
 public class VCF2XML {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         String filePath = "D:\\Java_ex\\test\\src\\test\\resources\\联系人.vcf";
         File file = new File(filePath);
@@ -44,13 +44,12 @@ public class VCF2XML {
                 System.out.println(fname + mname + gname);
 
                 //use list to store more than one contractor
-                List<TelType> teltype = vCard.getTels();
-
+                List<TelType> telType = vCard.getTels();
                 // only print those contractors with the phone number
-                if (teltype != null && teltype.size() != 0) {
-                    for (TelType telType2 : teltype) {
+                if (telType != null && telType.size() != 0) {
+                    for (TelType item : telType) {
                         // output the phone number of contractors
-                        System.out.println(telType2.getTelephone());
+                        System.out.println(item.getTelephone());
                     }
                 }
             }

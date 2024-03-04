@@ -1,12 +1,13 @@
 package upload.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import upload.aop.FileFormatInterceptor;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -17,7 +18,7 @@ import upload.aop.FileFormatInterceptor;
 //@ComponentScan(basePackages = {"upload.web"})
 public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired
+    @Resource
     private FileFormatInterceptor fileFormatInterceptor;
 
     /**
@@ -30,7 +31,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     /**
      * configuration for loading static resources
-     * https://my.oschina.net/junko2013/blog/1823475
+     * <a href="https://my.oschina.net/junko2013/blog/1823475">...</a>
      * TODO
      */
     @Override

@@ -1,13 +1,16 @@
 package solr;
 
+import lombok.Data;
 import org.apache.solr.client.solrj.beans.Field;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
- * Created by wajian on 2016/10/4.
+ * Created by johnny on 2016/10/4.
  * java bean to be converted to solr document
  */
+@Data
 public class User implements Serializable {
     private static final long serialVersionUID = 8606788203814942679L;
 
@@ -30,39 +33,14 @@ public class User implements Serializable {
     @Field
     private String remark;
 
-    public int getId() {
-        return id;
-    }
-
     //setter 方法上面也可以
     @Field
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
-        return this.id + "#" + this.name + "#" + this.age + "#" + this.like + "#" + this.address + "#" + this.sex + "#" + this.remark;
-    }
-
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setLike(String[] like) {
-        this.like = like;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+        return this.id + "#" + this.name + "#" + this.age + "#" + Arrays.toString(this.like) + "#" + this.address + "#" + this.sex + "#" + this.remark;
     }
 }

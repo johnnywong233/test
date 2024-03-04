@@ -3,7 +3,7 @@ package test.testng;
 import org.testng.annotations.Test;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  */
 public class TestAnnotationTransformerExample {
 	//add a xml file, or there would be no desired output

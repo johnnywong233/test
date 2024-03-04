@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * 服务提供方（接收文件）
  *
  * @author Johnny
- * @date 2019/6/1-17:35
+ * @since 2019/6/1-17:35
  */
 @SpringBootApplication
 @EnableFeignClients

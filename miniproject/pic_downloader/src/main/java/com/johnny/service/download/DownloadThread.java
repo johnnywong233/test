@@ -4,6 +4,7 @@ import com.johnny.common.Common;
 import com.johnny.common.Console;
 import com.johnny.common.utils.URLUtils;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.swing.JProgressBar;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class DownloadThread extends Thread {
     private List<String> imageURLList;
     private String path;

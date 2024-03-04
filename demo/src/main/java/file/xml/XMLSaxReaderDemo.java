@@ -1,5 +1,6 @@
 package file.xml;
 
+import lombok.Data;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/8/28.
+ * Created by johnny on 2016/8/28.
  * demo of sax parse xml
  */
 public class XMLSaxReaderDemo {
@@ -52,13 +53,12 @@ class XMLSaxReader extends DefaultHandler {
     private String tag = null;
 
     @Override
-    public void startDocument() throws SAXException {
+    public void startDocument() {
         videos = new ArrayList<>();
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName,
-                             Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if ("durl".equals(qName)) {
             video = new Video();
         }
@@ -66,8 +66,7 @@ class XMLSaxReader extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName)
-            throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if ("durl".equals(qName)) {
             videos.add(video);
             video = null;
@@ -76,18 +75,22 @@ class XMLSaxReader extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length)
-            throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         if (tag != null) {
             String data = new String(ch, start, length);
-            if ("timelength".equals(tag)) {
-                timeLength = Long.valueOf(data);
-            } else if ("order".equals(tag)) {
-                video.setOrder(Integer.valueOf(data));
-            } else if ("url".equals(tag)) {
-                video.setUrl(data);
-            } else if ("length".equals(tag)) {
-                video.setLength(Integer.valueOf(data));
+            switch (tag) {
+                case "timelength":
+                    timeLength = Long.valueOf(data);
+                    break;
+                case "order":
+                    video.setOrder(Integer.valueOf(data));
+                    break;
+                case "url":
+                    video.setUrl(data);
+                    break;
+                case "length":
+                    video.setLength(Integer.valueOf(data));
+                    break;
             }
         }
     }
@@ -101,33 +104,9 @@ class XMLSaxReader extends DefaultHandler {
     }
 }
 
-
+@Data
 class Video {
     private Integer order;
     private Integer length;
     private String url;
-
-    public void setLength(Integer length) {
-        this.length = length;
-    }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Integer getOrder() {
-        return order;
-    }
-
-    public void setOrder(Integer order) {
-        this.order = order;
-    }
 }

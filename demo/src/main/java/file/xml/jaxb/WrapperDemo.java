@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.io.File;
 
 /**
- * Created by wajian on 2016/8/28.
+ * Created by johnny on 2016/8/28.
  */
 public class WrapperDemo {
 

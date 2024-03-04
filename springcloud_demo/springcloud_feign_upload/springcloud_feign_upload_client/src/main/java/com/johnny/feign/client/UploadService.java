@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author Johnny
- * @date 2019/6/1-17:38
+ * @since 2019/6/1-17:38
  */
 @FeignClient(value = "eureka-feign-upload-server", configuration = UploadService.MultipartSupportConfig.class)
 public interface UploadService {

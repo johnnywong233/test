@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
 /**
- * Created by wajian on 2016/8/13.
+ * Created by johnny on 2016/8/13.
  */
 public class Test_CacheByFuture {
     //http://liushulin.iteye.com/blog/2066878
@@ -35,7 +35,7 @@ public class Test_CacheByFuture {
 
     }
 
-    private class CacheManager {
+    private static class CacheManager {
         ConcurrentHashMap<String, FutureTask<String>> concurrentHashMap = new ConcurrentHashMap<>();
 
         public String get(String key) {
@@ -44,7 +44,7 @@ public class Test_CacheByFuture {
             if (task == null) {
                 FutureTask<String> tempTask = new FutureTask<>(() -> {
                     Thread.sleep(3 * 1000);
-                    return "complete " + new Date().toString();
+                    return "complete " + new Date();
                 });
                 /*
                  * putIfAbsent：

@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
- * Created by wajian on 2016/10/5.
+ * Created by johnny on 2016/10/5.
  * main class
  */
 public class Sudoku {
@@ -118,7 +118,7 @@ public class Sudoku {
 }
 
 /**
- * Created by wajian on 2016/10/5.
+ * Created by johnny on 2016/10/5.
  * class to define a space in the sodoku
  */
 @Data

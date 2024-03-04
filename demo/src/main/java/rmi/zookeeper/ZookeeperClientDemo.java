@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  */
 public class ZookeeperClientDemo implements Watcher {
 
@@ -57,7 +57,6 @@ public class ZookeeperClientDemo implements Watcher {
             zk = new ZooKeeper(PropertiesDynLoading.CONNECT_STRING, PropertiesDynLoading.SESSION_TIMEOUT, this);
         } catch (IOException e) {
             this.log("{}", e);
-            e.printStackTrace();
             return false;
         }
         if (PropertiesDynLoading.AUTHENTICATION) {
@@ -74,7 +73,6 @@ public class ZookeeperClientDemo implements Watcher {
             }
         } catch (Exception e) {
             this.log("create ZooKeeper Client Fail! connectString", PropertiesDynLoading.CONNECT_STRING);
-            e.printStackTrace();
         }
         return false;
     }
@@ -95,7 +93,6 @@ public class ZookeeperClientDemo implements Watcher {
                 }
                 return true;
             } catch (Exception e) {
-                e.printStackTrace();
                 log("{}", e);
                 return false;
             }
@@ -120,7 +117,6 @@ public class ZookeeperClientDemo implements Watcher {
                 }
                 return true;
             } catch (Exception e) {
-                e.printStackTrace();
                 log("{}", e);
                 return false;
             }
@@ -141,7 +137,6 @@ public class ZookeeperClientDemo implements Watcher {
                 zk.setData(path, data.getBytes(), -1);
                 return true;
             } catch (Exception e) {
-                e.printStackTrace();
                 this.log("{}", e);
                 return false;
             }
@@ -161,7 +156,6 @@ public class ZookeeperClientDemo implements Watcher {
                 zk.delete(path, -1);
                 return true;
             } catch (Exception e) {
-                e.printStackTrace();
                 this.log("{}", e);
                 return false;
             }
@@ -183,7 +177,6 @@ public class ZookeeperClientDemo implements Watcher {
                 data = new String(byteData, StandardCharsets.UTF_8);
                 return data;
             } catch (Exception e) {
-                e.printStackTrace();
                 this.log("{}", e);
                 return null;
             }
@@ -202,7 +195,6 @@ public class ZookeeperClientDemo implements Watcher {
             try {
                 return zk.getChildren(path, false);
             } catch (Exception e) {
-                e.printStackTrace();
                 this.log("{}", e);
                 return null;
             }
@@ -244,7 +236,6 @@ public class ZookeeperClientDemo implements Watcher {
                 this.log("close zookeeper [{}]", "success");
             } catch (InterruptedException e) {
                 this.log("zookeeper state = [{}]", e);
-                e.printStackTrace();
             }
         } else {
             this.log("zookeeper state = [{}]", zk.getState());
@@ -259,7 +250,6 @@ public class ZookeeperClientDemo implements Watcher {
             ACL acl = new ACL(Perms.CREATE, id);
             listAcls.add(acl);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
             return Ids.OPEN_ACL_UNSAFE;
         }
         return listAcls;
@@ -273,7 +263,6 @@ public class ZookeeperClientDemo implements Watcher {
             ACL acl = new ACL(Perms.ALL, id);
             listAcls.add(acl);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
             return Ids.OPEN_ACL_UNSAFE;
         }
         return listAcls;

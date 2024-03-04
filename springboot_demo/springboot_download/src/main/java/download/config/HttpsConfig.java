@@ -32,7 +32,7 @@ public class HttpsConfig {
 
     /**
      * below code for https enhancement
-     * https://stackoverflow.com/questions/49406779/embeddedservletcontainercustomizer-in-spring-boot-2-0
+     * <a href="https://stackoverflow.com/questions/49406779/embeddedservletcontainercustomizer-in-spring-boot-2-0">...</a>
      * EmbeddedServletContainerCustomizer -> ConfigurableServletWebServerFactory
      */
     @Bean

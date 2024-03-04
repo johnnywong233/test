@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
 /**
- * Created by wajian on 2016/10/12.
+ * Created by johnny on 2016/10/12.
  */
 public class TestFinal {
     //http://unmi.cc/java-reflection-modify-final-field-value/

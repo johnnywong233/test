@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 /**
- * Created by wajian on 2016/8/18.
+ * Created by johnny on 2016/8/18.
  * 测试Logger对象的任务。
  */
 public class Task implements Runnable {

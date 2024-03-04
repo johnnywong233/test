@@ -15,8 +15,8 @@ public class DemoUploadFileApplication extends SpringBootServletInitializer {
 
     /**
      * test page:
-     * http://localhost:8080/upload
-     * http://localhost:8080/upload/batch
+     * <a href="http://localhost:8080/upload">...</a>
+     * <a href="http://localhost:8080/upload/batch">...</a>
      * see the uploaded files in the most parent pom.xml directory
      */
     public static void main(String[] args) {

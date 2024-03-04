@@ -18,7 +18,7 @@ import java.io.OutputStream;
 /**
  * Created by johnny on 2016/9/15.
  * 生成文字水印
- * http://www.phpxs.com/code/1001578/
+ * <a href="http://www.phpxs.com/code/1001578/">...</a>
  */
 public class WaterMarkTextTest {
     public static void main(String[] args) throws IOException {

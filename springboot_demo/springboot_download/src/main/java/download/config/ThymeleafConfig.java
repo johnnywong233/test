@@ -5,6 +5,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -16,7 +17,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import javax.annotation.Resource;
 
 /**
- * https://www.boraji.com/spring-mvc-5-hello-world-example-with-thymeleaf-template
+ * <a href="https://www.boraji.com/spring-mvc-5-hello-world-example-with-thymeleaf-template">...</a>
  *
  * @author Johnny
  * Date: 2017/7/14
@@ -30,7 +31,7 @@ public class ThymeleafConfig implements ApplicationContextAware, WebMvcConfigure
     private ApplicationContext applicationContext;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 

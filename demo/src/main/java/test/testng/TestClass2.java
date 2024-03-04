@@ -3,7 +3,7 @@ package test.testng;
 import org.testng.annotations.Test;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  */
 public class TestClass2 {
 	//both class1Method and TestClass1.class1Method error

@@ -6,7 +6,7 @@ public class TestCountDownLatch1 {
     private static final int N = 10;
 
     /**
-     * http://janeky.iteye.com/blog/769965
+     * <a href="http://janeky.iteye.com/blog/769965">...</a>
      */
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch signal = new CountDownLatch(N);
