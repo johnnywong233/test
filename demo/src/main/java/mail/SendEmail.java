@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  * simple sending
  */
 public class SendEmail {

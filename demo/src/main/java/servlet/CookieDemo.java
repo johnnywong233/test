@@ -10,13 +10,10 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Created by wajian on 2016/8/28.
+ * Created by johnny on 2016/8/28.
  */
 @WebServlet(name = "CookieDemo", urlPatterns = {"/CookieDemo"})
 public class CookieDemo extends HttpServlet {
-
-    private static final long serialVersionUID = 4386363500559003610L;
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String lastAccessTime = "lastAccessTime";

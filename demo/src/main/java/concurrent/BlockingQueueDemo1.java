@@ -2,20 +2,20 @@ package concurrent;
 
 import java.util.Random;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.ExecutorService;
 
 /**
- * Created by wajian on 2016/8/16.
+ * Created by johnny on 2016/8/16.
  */
 public class BlockingQueueDemo1 {
     //http://www.cnblogs.com/jackyuj/archive/2010/11/24/1886553.html
     public static void main(String[] args) throws InterruptedException {
         //size = 10
-        BlockingQueue<String> queue = new LinkedBlockingQueue<String>(10);
+        BlockingQueue<String> queue = new LinkedBlockingQueue<>(10);
 
         MyProducer producer1 = new MyProducer(queue);
         MyProducer producer2 = new MyProducer(queue);
@@ -42,6 +42,9 @@ public class BlockingQueueDemo1 {
 }
 
 class MyConsumer implements Runnable {
+
+    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
+    private final BlockingQueue<String> queue;
 
     public MyConsumer(BlockingQueue<String> queue) {
         this.queue = queue;
@@ -72,13 +75,14 @@ class MyConsumer implements Runnable {
             System.out.println("quit consumer thread!");
         }
     }
-
-    private BlockingQueue<String> queue;
-    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
 }
 
 @SuppressWarnings("rawtypes")
 class MyProducer implements Runnable {
+    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
+    private static final AtomicInteger count = new AtomicInteger();
+    private volatile boolean isRunning = true;
+    private final BlockingQueue queue;
     public MyProducer(BlockingQueue queue) {
         this.queue = queue;
     }
@@ -112,10 +116,5 @@ class MyProducer implements Runnable {
     public void stop() {
         isRunning = false;
     }
-
-    private volatile boolean isRunning = true;
-	private BlockingQueue queue;
-    private static AtomicInteger count = new AtomicInteger();
-    private static final int DEFAULT_RANGE_FOR_SLEEP = 1000;
 
 }

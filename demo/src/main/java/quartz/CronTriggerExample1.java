@@ -12,7 +12,7 @@ import org.quartz.impl.matchers.GroupMatcher;
 import org.quartz.impl.matchers.KeyMatcher;
 
 /**
- * Created by wajian on 2016/10/4.
+ * Created by johnny on 2016/10/4.
  * example of CronTrigger, but add jobListener
  */
 public class CronTriggerExample1 {

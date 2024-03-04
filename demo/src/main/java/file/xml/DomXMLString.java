@@ -1,5 +1,6 @@
 package file.xml;
 
+import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -22,24 +23,17 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- * Created by wajian on 2016/8/13.
+ * Created by johnny on 2016/8/13.
  */
+@Slf4j
 public class DomXMLString {
 
     //http://www.jb51.net/article/67460.htm
-
-    private static String SERVICES_HOST = "www.webxml.com.cn";
-    //remote WebService interface URL
-    private static String NETDATA_URL = "http://webservice.webxml.com.cn/WebServices/WeatherWS.asmx/getRegionProvince";
-    //the absolute path to save XML data get from remote WebService
-    private static String LOCAL_PC_SAVEFILE_URL = "netDataToLocalFile.xml";
-
-    private DomXMLString() {
-    }
-
     public static void main(String[] args) throws Exception {
-        Document document = getProvinceCode(NETDATA_URL);
-        helloOK(document, LOCAL_PC_SAVEFILE_URL);
+        // remote WebService interface URL
+        Document document = getProvinceCode("http://webservice.webxml.com.cn/WebServices/WeatherWS.asmx/getRegionProvince");
+        // the absolute path to save XML data get from remote WebService
+        helloOK(document, "netDataToLocalFile.xml");
     }
 
     /**
@@ -52,11 +46,10 @@ public class DomXMLString {
         try {
             DocumentBuilder documentB = documentBF.newDocumentBuilder();
             InputStream inputStream = getSoapInputStream(netXMLDataURL);
-            //webService
             document = documentB.parse(inputStream);
             inputStream.close();
         } catch (DOMException | IOException | ParserConfigurationException | SAXException e) {
-            e.printStackTrace();
+            log.error("getProvinceCode fail", e);
             return null;
         }
         return document;
@@ -70,12 +63,11 @@ public class DomXMLString {
         try {
             URL urlObj = new URL(url);
             URLConnection urlConn = urlObj.openConnection();
-            urlConn.setRequestProperty("Host", SERVICES_HOST);
-            //webService
+            urlConn.setRequestProperty("Host", "www.webxml.com.cn");
             urlConn.connect();
             inputStream = urlConn.getInputStream();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("getSoapInputStream fail", e);
         }
         return inputStream;
     }
@@ -93,9 +85,8 @@ public class DomXMLString {
             PrintWriter pw = new PrintWriter(new FileOutputStream(saveFileURL));
             StreamResult result = new StreamResult(pw);
             transformer.transform(source, result);
-            System.out.println("generate xml file succeed!");
         } catch (IllegalArgumentException | TransformerException | FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            log.error("helloOK fail", e);
         }
     }
 

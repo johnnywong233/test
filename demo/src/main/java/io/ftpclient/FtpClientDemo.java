@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -17,7 +16,7 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.junit.Test;
 
 /**
- * Created by wajian on 2016/8/26.
+ * Created by johnny on 2016/8/26.
  * demo of apache ftp
  */
 public class FtpClientDemo {
@@ -32,7 +31,7 @@ public class FtpClientDemo {
     @Test
     public void testUpLoadFromDisk() {
         try {
-            FileInputStream in = new FileInputStream(new File("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\0.png"));
+            FileInputStream in = new FileInputStream("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\0.png");
             boolean flag = uploadFile("16.155.193.1", 21, "Johnny", "Johnny", "/05_PersonalFiles/00_Teammembers/Johnny", "0.png", in);
             System.out.println(flag);
         } catch (FileNotFoundException e) {
@@ -59,7 +58,6 @@ public class FtpClientDemo {
      * @param remotePath relative path on FTP server
      * @param fileName   filename to download
      * @param localPath  local save path after download
-     * @return
      */
     public static boolean downFile(String url, int port, String username, String password, String remotePath, String fileName, String localPath) {
         boolean success = false;
@@ -71,7 +69,7 @@ public class FtpClientDemo {
             reply = ftp.getReplyCode();
             if (!FTPReply.isPositiveCompletion(reply)) {
                 ftp.disconnect();
-                return success;
+                return false;
             }
             ftp.changeWorkingDirectory(remotePath);//transfer to FTP server directory
             FTPFile[] fs = ftp.listFiles();
@@ -154,9 +152,8 @@ public class FtpClientDemo {
      * @param remotePath FTP服务器上的相对路径
      * @param fileName   要下载的文件名
      * @param localPath  下载后保存到本地的路径
-     * @return
      */
-    public static boolean downSertainFile(String url, int port, String username, String password, String remotePath, String fileName, String localPath) {
+    public static boolean downFile1(String url, int port, String username, String password, String remotePath, String fileName, String localPath) {
         boolean success = false;
         boolean bOKFileExist = false;
         FTPClient ftpClient = new FTPClient();
@@ -205,8 +202,6 @@ public class FtpClientDemo {
                     }
                 }
                 ftpClient.logout();
-            } else {
-                success = false;
             }
         } catch (IOException e) {
             e.printStackTrace();

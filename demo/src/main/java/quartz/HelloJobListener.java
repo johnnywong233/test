@@ -5,7 +5,7 @@ import org.quartz.JobExecutionException;
 import org.quartz.JobListener;
 
 /**
- * Created by wajian on 2016/10/4.
+ * Created by johnny on 2016/10/4.
  * JobListener
  */
 public class HelloJobListener implements JobListener {

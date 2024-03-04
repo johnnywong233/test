@@ -11,7 +11,7 @@ import java.io.IOException;
  * Date: 2017/2/19
  * Time: 18:58
  * convert ip address to infos down to latitude and longitude
- * http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+ * <a href="http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz">...</a>
  */
 public class GeoipDemo {
     public static void main(String[] args) {

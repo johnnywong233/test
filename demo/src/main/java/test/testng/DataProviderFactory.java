@@ -3,7 +3,7 @@ package test.testng;
 import org.testng.annotations.DataProvider;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  * Factory to produce all DataProvider
  */
 public class DataProviderFactory {

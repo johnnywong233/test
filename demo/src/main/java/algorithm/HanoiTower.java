@@ -5,16 +5,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  * java implement of HanoiTower algorithm
- * http://www.phpxs.com/code/1002217/
+ * <a href="http://www.phpxs.com/code/1002217/">...</a>
  */
 public class HanoiTower {
     public static void main(String[] args) {
         int n = 0;
-        BufferedReader buf;
-        buf = new BufferedReader(new InputStreamReader(System.in));
-
+        BufferedReader buf = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("please input the number of plate:");
         try {
             n = Integer.parseInt(buf.readLine());

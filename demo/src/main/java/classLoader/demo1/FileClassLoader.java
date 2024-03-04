@@ -1,7 +1,6 @@
 package classLoader.demo1;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -13,6 +12,16 @@ public class FileClassLoader extends ClassLoader {
     private static final String DRIVER = "D:\\Java_ex\\test\\target\\classes\\pic\\";
     private static final String FILE_TYPE = ".class";
 
+    //http://bbs.csdn.net/topics/210030578
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        FileClassLoader loader = new FileClassLoader();
+        Class<?> objClass = loader.loadClass("classLoader.demo1.Hello", true);
+        Object obj = objClass.newInstance();
+        System.out.println(objClass.getName());
+        System.out.println(objClass.getClassLoader().getClass().getName());
+        System.out.println(((Hello) obj).getInfo());
+    }
+
     @Override
     public Class<?> findClass(String name) {
         byte[] data = loadClassData(name);
@@ -23,7 +32,7 @@ public class FileClassLoader extends ClassLoader {
         FileInputStream fis;
         byte[] data = null;
         try {
-            fis = new FileInputStream(new File(DRIVER + name + FILE_TYPE));
+            fis = new FileInputStream(DRIVER + name + FILE_TYPE);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int ch;
             while ((ch = fis.read()) != -1) {
@@ -35,16 +44,6 @@ public class FileClassLoader extends ClassLoader {
             e.printStackTrace();
         }
         return data;
-    }
-
-    //http://bbs.csdn.net/topics/210030578
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        FileClassLoader loader = new FileClassLoader();
-        Class<?> objClass = loader.loadClass("classLoader.demo1.Hello", true);
-        Object obj = objClass.newInstance();
-        System.out.println(objClass.getName());
-        System.out.println(objClass.getClassLoader().getClass().getName());
-        System.out.println(((Hello) obj).getInfo());
     }
 
 }

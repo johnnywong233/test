@@ -9,12 +9,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by wajian on 2016/8/16.
- * //http://www.jb51.net/article/47998.htm
+ * Created by johnny on 2016/8/16.
+ * <a href="http://www.jb51.net/article/47998.htm">...</a>
  */
 public class GetAddressByIp {
     //get the belonging place(country, area, city and isp) with the given ip
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         System.out.println(GetAddressByIp.getAddressByIp("60.214.183.158"));//60.214.183.158 //120.192.182.1
     }
 
@@ -22,7 +22,7 @@ public class GetAddressByIp {
         String result;
         try {
             //https not working!
-            String str = getJsonContent("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
+            String str = getJsonContent("https://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
             System.out.println(str);
 
             JSONObject obj = JSONObject.fromObject(str);
@@ -68,7 +68,7 @@ public class GetAddressByIp {
             while ((len = inputStream.read(buffer, 0, buffer.length)) != -1) {
                 out.write(buffer, 0, len);
             }
-            jsonStr = new String(out.toByteArray());
+            jsonStr = out.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }

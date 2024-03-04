@@ -3,7 +3,7 @@ package algorithm;
 import java.util.Random;
 
 /**
- * Created by wajian on 2016/8/17.
+ * Created by johnny on 2016/8/17.
  *
  */
 public class GeneratePassword {
@@ -24,15 +24,13 @@ public class GeneratePassword {
                 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k',
                 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
                 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-        StringBuffer pwd = new StringBuffer("");
+        StringBuilder pwd = new StringBuilder();
         Random r = new Random();
         while (count < len) {
             //use abs to avoid negative number
             i = Math.abs(r.nextInt(maxNum));
-            if (i >= 0 && i < str.length) {
-                pwd.append(str[i]);
-                count++;
-            }
+            pwd.append(str[i]);
+            count++;
         }
         return pwd.toString();
     }

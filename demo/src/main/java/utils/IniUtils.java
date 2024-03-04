@@ -1,7 +1,6 @@
 package utils;
 
 import org.ini4j.Ini;
-import org.ini4j.Profile;
 import org.ini4j.Wini;
 
 import java.io.File;

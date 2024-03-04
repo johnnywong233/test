@@ -6,17 +6,17 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * Created by wajian on 2016/8/26.
+ * Created by johnny on 2016/8/26.
  * usage of junit
  */
 public class PasswordTest {
     @org.junit.Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
     }
 
     @org.junit.After
-    public void tearDown() throws Exception {
+    public void tearDown() {
 
     }
 

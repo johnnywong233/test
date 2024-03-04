@@ -15,7 +15,7 @@ import java.util.Map;
  * Date: 2016/10/31
  * Time: 22:16
  * sending mail through HtmlEmail
- * see http://www.jb51.net/article/85839.htm
+ * see <a href="http://www.jb51.net/article/85839.htm">...</a>
  */
 public class MailUtil {
 

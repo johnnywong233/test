@@ -5,7 +5,7 @@ import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 /**
- * Created by wajian on 2016/10/4.
+ * Created by johnny on 2016/10/4.
  * job B
  */
 public class JobB implements Job {

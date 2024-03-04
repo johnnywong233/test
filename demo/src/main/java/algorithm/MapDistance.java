@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  */
 public class MapDistance {
-    private static double EARTH_RADIUS = 6378.137;
+    private static final double EARTH_RADIUS = 6378.137;
 
     private static double rad(double d) {
         return d * Math.PI / 180.0;
@@ -20,13 +20,12 @@ public class MapDistance {
      * @param lng1Str 用户纬度
      * @param lat2Str 商家经度
      * @param lng2Str 商家纬度
-     * @return
      */
     public static String getDistance(String lat1Str, String lng1Str, String lat2Str, String lng2Str) {
-        Double lat1 = Double.parseDouble(lat1Str);
-        Double lng1 = Double.parseDouble(lng1Str);
-        Double lat2 = Double.parseDouble(lat2Str);
-        Double lng2 = Double.parseDouble(lng2Str);
+        double lat1 = Double.parseDouble(lat1Str);
+        double lng1 = Double.parseDouble(lng1Str);
+        double lat2 = Double.parseDouble(lat2Str);
+        double lng2 = Double.parseDouble(lng2Str);
 
         double radLat1 = rad(lat1);
         double radLat2 = rad(lat2);
@@ -36,10 +35,9 @@ public class MapDistance {
                 + Math.cos(radLat1) * Math.cos(radLat2)
                 * Math.pow(Math.sin(mdifference / 2), 2)));
         distance = distance * EARTH_RADIUS;
-        distance = Math.round(distance * 10000) / 10000;
+        distance = Math.round(distance * 10000) / 10000.0;
         String distanceStr = distance + "";
-        distanceStr = distanceStr.
-                substring(0, distanceStr.indexOf("."));
+        distanceStr = distanceStr.substring(0, distanceStr.indexOf("."));
 
         return distanceStr;
     }
@@ -58,18 +56,18 @@ public class MapDistance {
         Double latitude = Double.parseDouble(latStr);// 传值给经度
         Double longitude = Double.parseDouble(lngStr);// 传值给纬度
 
-        Double degree = (24901 * 1609) / 360.0; // 获取每度
+        double degree = (24901 * 1609) / 360.0; // 获取每度
         double radiusMile = Double.parseDouble(radius);
 
-        Double mpdLng = Double.parseDouble((degree * Math.cos(latitude * (Math.PI / 180)) + "").replace("-", ""));
-        Double dpmLng = 1 / mpdLng;
+        double mpdLng = Double.parseDouble((degree * Math.cos(latitude * (Math.PI / 180)) + "").replace("-", ""));
+        double dpmLng = 1 / mpdLng;
         Double radiusLng = dpmLng * radiusMile;
         //获取最小经度
         Double minLat = longitude - radiusLng;
         // 获取最大经度
         Double maxLat = longitude + radiusLng;
 
-        Double dpmLat = 1 / degree;
+        double dpmLat = 1 / degree;
         Double radiusLat = dpmLat * radiusMile;
         // 获取最小纬度
         Double minLng = latitude - radiusLat;

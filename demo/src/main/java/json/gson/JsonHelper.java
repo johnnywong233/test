@@ -1,27 +1,33 @@
 package json.gson;
 
-//import android.text.TextUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.util.TextUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  */
+@Slf4j
 public class JsonHelper {
+    private static JsonHelper util;
+
+    private JsonHelper() {
+        super();
+    }
+
     //http://www.phpxs.com/code/1002112/
     //parse json into a object or List[object]
     public static void main(String[] args) {
 
         Bean bean = new Bean();
-        bean.age="30";
-        bean.name="name";
+        bean.age = "30";
+        bean.name = "name";
         String result = JsonHelper.getInstance().createJsonString(bean);
         System.out.println(result);
         Bean bean2 = JsonHelper.getInstance().getObject(result, Bean.class);
@@ -32,23 +38,16 @@ public class JsonHelper {
         list.add(bean2);
         result = JsonHelper.getInstance().createJsonString(list);
         System.out.println(result);
-        List<ArrayList<Bean>> list2 = JsonHelper.getInstance().getList(result, new TypeToken<ArrayList<Bean>>(){});
+        List<ArrayList<Bean>> list2 = JsonHelper.getInstance().getList(result, new TypeToken<>() {
+        });
         System.out.println(list2.toString());
-
     }
 
-    private static JsonHelper util;
-
     public static JsonHelper getInstance() {
-
         if (util == null) {
             util = new JsonHelper();
         }
         return util;
-
-    }
-    private JsonHelper() {
-        super();
     }
 
     public String createJsonString(Object value) {
@@ -71,15 +70,14 @@ public class JsonHelper {
     }
 
     public <T> List<T> getList(String jsonString, TypeToken<T> tt) {
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         try {
             if (isGoodJson(jsonString)) {
                 Gson gson = new Gson();
-
                 list = gson.fromJson(jsonString, tt.getType());
             }
-
         } catch (Exception e) {
+            log.error("getList fail", e);
         }
         return list;
     }
@@ -94,7 +92,6 @@ public class JsonHelper {
         }
         try {
             new JsonParser().parse(json);
-
         } catch (JsonParseException e) {
             return false;
         }
@@ -103,12 +100,6 @@ public class JsonHelper {
 }
 
 class Bean {
-
-    String name="";
-    String age="";
-
-    @Override
-    public String toString() {
-        return "Bean [name=" + name + ", age=" + age + "]";
-    }
+    String name = "";
+    String age = "";
 }

@@ -8,7 +8,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 
 /**
- * Created by wajian on 2016/9/13.
+ * Created by johnny on 2016/9/13.
  * demo of bean introspector
  */
 public class BeanInfoUtil {

@@ -10,7 +10,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 /**
- * Created by wajian on 2016/10/4.
+ * Created by johnny on 2016/10/4.
  * example of CronTrigger, now got three job to execute
  */
 public class CronTriggerExample2 {

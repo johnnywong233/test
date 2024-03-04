@@ -9,7 +9,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 /**
- * Created by wajian on 2016/10/4.
+ * Created by johnny on 2016/10/4.
  * example of CronTrigger: allow UNIX cron expression to assign a date and time to run job
  */
 public class CronTriggerExample {

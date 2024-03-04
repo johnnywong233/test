@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * Created by wajian on 2016/8/23.
+ * Created by johnny on 2016/8/23.
  * 使用dbcp连接池技术管理数据库连接
  */
 public class DbcpPoolDemo {
@@ -57,9 +57,9 @@ public class DbcpPoolDemo {
         try {
             Connection conn = tl.get();
             if (conn != null) {
-            /*
-             * 通过连接池获取的Connection的close()方法实际上并没有将连接关闭，而是将该链接归还。
-             */
+                /*
+                 * 通过连接池获取的Connection的close()方法实际上并没有将连接关闭，而是将该链接归还。
+                 */
                 conn.close();
                 tl.remove();
             }
@@ -70,7 +70,7 @@ public class DbcpPoolDemo {
 
     /**
      * test connection success or not
-     * http://www.cnblogs.com/liuhongfeng/p/4171785.html
+     * <a href="http://www.cnblogs.com/liuhongfeng/p/4171785.html">...</a>
      */
     public static void main(String[] args) throws SQLException {
         System.out.println(getConnection());

@@ -1,7 +1,7 @@
 package thread;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  * 一个简单的死锁类
  * 当DeadLock类的对象flag==1时（td1），先锁定o1,睡眠500毫秒
  * 而td1在睡眠的时候另一个flag==0的对象（td2）线程启动，先锁定o2,睡眠500毫秒
@@ -12,7 +12,8 @@ package thread;
 public class DeadLockDemo implements Runnable {
     public int flag = 1;
     //静态对象是类的所有对象共享的
-    private static Object o1 = new Object(), o2 = new Object();
+    private static final Object o1 = new Object();
+    private static final Object o2 = new Object();
 
     @Override
     public void run() {
