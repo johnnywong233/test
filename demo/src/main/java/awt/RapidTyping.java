@@ -1,22 +1,12 @@
 package awt;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.UIManager;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import java.applet.Applet;
 import java.applet.AudioClip;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -26,50 +16,69 @@ import java.util.Random;
 import java.util.Vector;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  * Java版打字练习软件
  */
+@SuppressWarnings("deprecation")
 public class RapidTyping extends JFrame implements Runnable {
 
     private static final long serialVersionUID = -2831332650077025158L;
 
-    private JPanel jPanel1 = new JPanel();
-    private JButton jButton1 = new JButton();
-    private JSlider jSlider1 = new JSlider();
-    private JLabel jLabel1 = new JLabel();
-    private JButton jButton2 = new JButton();
-    private JLabel jLabel2 = new JLabel();
-    private int count = 1, rapidity = 5; // count 当前进行的个数, rapidity 游标的位置
-    private int zhengque = 0, cuowu = 0;
-    private int rush[] = {10, 20, 30}; // 游戏每关的个数 可以自由添加
-    private int rushCount = 0; // 记录关数
-    private char[] list = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
+    private final JPanel jPanel1 = new JPanel();
+    private final JButton jButton1 = new JButton();
+    private final JSlider jSlider1 = new JSlider();
+    private final JLabel jLabel1 = new JLabel();
+    private final JButton jButton2 = new JButton();
+    private final JLabel jLabel2 = new JLabel();
+    private final int[] rush = {10, 20, 30}; // 游戏每关的个数 可以自由添加
+    private final char[] list = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
             'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y',
             'Z', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; // 随机出现的数字
+    private int count = 1, rapidity = 5; // count 当前进行的个数, rapidity 游标的位置
+    private int correct = 0, wrong = 0;
+    private int rushCount = 0; // 记录关数
     // 可以自由添加
-    private Vector number = new Vector();
-    private String paiduan = "true";
+    private final Vector<Bean> number = new Vector<>();
+    private String flag = "true";
     private AudioClip musicClick, musicFail, musicSuccess;
 
     private RapidTyping() {
         try {
             setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-            musicClick = Applet.newAudioClip(new File("sounds//anjian.wav")
-                    .toURL());
-            musicFail = Applet.newAudioClip(new File("sounds//shibai.wav")
-                    .toURL());
-            musicSuccess = Applet.newAudioClip(new File(
-                    "sounds//chenggong.wav").toURL());
+            musicClick = Applet.newAudioClip(new File("sounds//anjian.wav").toURL());
+            musicFail = Applet.newAudioClip(new File("sounds//shibai.wav").toURL());
+            musicSuccess = Applet.newAudioClip(new File("sounds//chenggong.wav").toURL());
             jbInit();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
+    //http://www.phpxs.com/code/1002083/
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        RapidTyping frame = new RapidTyping();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension frameSize = frame.getSize();
+        if (frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+        if (frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+        frame.setTitle("java版打字练习软件");
+        frame.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
+        frame.setVisible(true);
+    }
+
     /**
      * 初始化
      */
-    private void jbInit() throws Exception {
+    private void jbInit() {
         JPanel contentPane = (JPanel) getContentPane();
         contentPane.setLayout(null);
         setSize(new Dimension(588, 530));
@@ -109,12 +118,12 @@ public class RapidTyping extends JFrame implements Runnable {
     @Override
     public void run() {
         number.clear();
-        zhengque = 0;
-        cuowu = 0;
-        paiduan = "true";
+        correct = 0;
+        wrong = 0;
+        flag = "true";
         while (count <= rush[rushCount]) {
             try {
-                Thread t = new Thread(new Tthread());
+                Thread t = new Thread(new MyThread());
                 t.start();
                 count += 1;
                 Thread.sleep(50 + (int) (Math.random() * 500)); // 生产下组停顿时间
@@ -128,12 +137,12 @@ public class RapidTyping extends JFrame implements Runnable {
                 break;
             }
         }
-        if (zhengque == 0) { // 为了以后相除..如果全部正确或者错误就会出现错误. 所以..
-            zhengque = 1;
+        if (correct == 0) { // 为了以后相除..如果全部正确或者错误就会出现错误. 所以..
+            correct = 1;
         }
 
-        if ("true".equals(paiduan)) { // 判断是否是自然结束
-            if (cuowu <= 2) { // 错误不超过2个的过关
+        if ("true".equals(flag)) { // 判断是否是自然结束
+            if (wrong <= 2) { // 错误不超过2个的过关
                 JOptionPane.showMessageDialog(null, "恭喜你过关了");
                 rushCount += 1; // 自动加1关
                 if (rushCount < rush.length) {
@@ -166,13 +175,13 @@ public class RapidTyping extends JFrame implements Runnable {
 
     void actionPerformed2(ActionEvent e) {
         count = rush[rushCount] + 1;
-        paiduan = "false";
+        flag = "false";
     }
 
     /**
      * 字符下移线程
      */
-    class Tthread implements Runnable {
+    class MyThread implements Runnable {
         @Override
         public void run() {
             boolean fo = true;
@@ -199,10 +208,10 @@ public class RapidTyping extends JFrame implements Runnable {
                 if (y >= 419) {
                     fo = false;
                     for (int i = number.size() - 1; i >= 0; i--) {
-                        Bean bn = ((Bean) number.get(i));
+                        Bean bn = number.get(i);
                         if (parameter.equalsIgnoreCase(bn.getParameter())) {
-                            cuowu += 1;
-                            jLabel2.setText("正确:" + zhengque + "个,错误:" + cuowu + "个");
+                            wrong += 1;
+                            jLabel2.setText("正确:" + correct + "个,错误:" + wrong + "个");
                             number.removeElementAt(i);
                             musicFail.play();
                             break;
@@ -221,12 +230,12 @@ public class RapidTyping extends JFrame implements Runnable {
         public void keyPressed(KeyEvent e) {
             String uu = e.getKeyChar() + "";
             for (int i = 0; i < number.size(); i++) {
-                Bean bean = ((Bean) number.get(i));
+                Bean bean = number.get(i);
                 if (uu.equalsIgnoreCase(bean.getParameter())) {
-                    zhengque += 1;
+                    correct += 1;
                     number.removeElementAt(i);
                     bean.getShow().setVisible(false);
-                    jLabel2.setText("正确:" + zhengque + "个,错误:" + cuowu + "个");
+                    jLabel2.setText("正确:" + correct + "个,错误:" + wrong + "个");
                     musicSuccess.play();
                     break;
                 }
@@ -234,37 +243,11 @@ public class RapidTyping extends JFrame implements Runnable {
             musicClick.play();
         }
     }
-
-    //http://www.phpxs.com/code/1002083/
-    public static void main(String[] args) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        RapidTyping frame = new RapidTyping();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Dimension frameSize = frame.getSize();
-        if (frameSize.height > screenSize.height) {
-            frameSize.height = screenSize.height;
-        }
-        if (frameSize.width > screenSize.width) {
-            frameSize.width = screenSize.width;
-        }
-        frame.setTitle("java版打字练习软件");
-        frame.setLocation((screenSize.width - frameSize.width) / 2,
-                (screenSize.height - frameSize.height) / 2);
-        frame.setVisible(true);
-    }
 }
 
-
+@AllArgsConstructor
 class ActionAdapter2 implements ActionListener {
-    private RapidTyping adaptee;
-
-    ActionAdapter2(RapidTyping adaptee) {
-        this.adaptee = adaptee;
-    }
+    private final RapidTyping adaptee;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -272,13 +255,9 @@ class ActionAdapter2 implements ActionListener {
     }
 }
 
-
+@AllArgsConstructor
 class ActionAdapter implements ActionListener {
     private RapidTyping adaptee;
-
-    ActionAdapter(RapidTyping adaptee) {
-        this.adaptee = adaptee;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

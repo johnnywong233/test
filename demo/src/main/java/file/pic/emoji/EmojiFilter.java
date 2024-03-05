@@ -9,7 +9,6 @@ public class EmojiFilter {
     /**
      * 检测是否有emoji字符
      *
-     * @param source
      * @return 一旦含有就抛出
      */
     public static boolean containsEmoji(String source) {
@@ -32,20 +31,11 @@ public class EmojiFilter {
     }
 
     private static boolean isEmojiCharacter(char codePoint) {
-        return (codePoint == 0x0) ||
-                (codePoint == 0x9) ||
-                (codePoint == 0xA) ||
-                (codePoint == 0xD) ||
-                ((codePoint >= 0x20) && (codePoint <= 0xD7FF)) ||
-                ((codePoint >= 0xE000) && (codePoint <= 0xFFFD)) ||
-                ((codePoint >= 0x10000) && (codePoint <= 0x10FFFF));
+        return codePoint == 0x0 || codePoint == 0x9 || codePoint == 0xA || codePoint == 0xD || codePoint >= 0x20 && codePoint <= 0xD7FF || codePoint >= 0xE000 && codePoint <= 0xFFFD;
     }
 
     /**
      * 过滤emoji 或者 其他非文字类型的字符
-     *
-     * @param source
-     * @return
      */
     public static String filterEmoji(String source) {
         source = source.replaceAll("[\\ud800\\udc00-\\udbff\\udfff\\ud800-\\udfff]", "*");
@@ -75,7 +65,6 @@ public class EmojiFilter {
             return source;//如果没有找到 emoji表情，则返回源字符串
         } else {
             if (buf.length() == len) {//这里的意义在于尽可能少的toString，因为会重新生成字符串
-                buf = null;
                 return source;
             } else {
                 return buf.toString();

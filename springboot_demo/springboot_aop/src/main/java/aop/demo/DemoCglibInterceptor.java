@@ -2,9 +2,9 @@ package aop.demo;
 
 import aop.pattern.RealSubject;
 import aop.pattern.Subject;
-import org.mockito.cglib.proxy.Enhancer;
-import org.mockito.cglib.proxy.MethodInterceptor;
-import org.mockito.cglib.proxy.MethodProxy;
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodInterceptor;
+import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
@@ -14,14 +14,6 @@ import java.lang.reflect.Method;
  * Time: 16:10
  */
 public class DemoCglibInterceptor implements MethodInterceptor {
-    @Override
-    public Object intercept(Object obj, Method method, Object[] args, MethodProxy methodProxy ) throws Throwable{
-        System.out.println("Before...");
-        Object result = methodProxy.invokeSuper(obj,args);
-        System.out.println("After...");
-        return result;
-    }
-
     public static void main(String[] args) {
         Subject subject = (Subject) getProxy(RealSubject.class, new DemoCglibInterceptor());
         subject.request();
@@ -35,5 +27,13 @@ public class DemoCglibInterceptor implements MethodInterceptor {
         enhancer.setCallback(interceptor);
         //创建这个子类对象
         return enhancer.create();
+    }
+
+    @Override
+    public Object intercept(Object obj, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+        System.out.println("Before...");
+        Object result = methodProxy.invokeSuper(obj, args);
+        System.out.println("After...");
+        return result;
     }
 }

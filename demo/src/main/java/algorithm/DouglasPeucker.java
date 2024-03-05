@@ -11,20 +11,20 @@ import java.util.ArrayList;
 
 /**
  * @author Johnny
- * @date 2018/9/18-14:06
- * https://www.cnblogs.com/xdlwd086/p/5100425.html
- * https://blog.csdn.net/qq_27717921/article/details/52316791
+ * @since 2018/9/18-14:06
+ * <a href="https://www.cnblogs.com/xdlwd086/p/5100425.html">...</a>
+ * <a href="https://blog.csdn.net/qq_27717921/article/details/52316791">...</a>
  */
 public class DouglasPeucker {
-    private String filePath;
-    private double threshold;
+    private final String filePath;
+    private final double threshold;
     private ArrayList<Point> pointList;
     private ArrayList<String[]> listTemp;//存放从文件中读入的数据
-    private ArrayList<Line> lineList = new ArrayList<>();
-    private ArrayList<Line> resultLine = new ArrayList<>();//存储一条曲线压缩完成后的结果
+    private final ArrayList<Line> lineList = new ArrayList<>();
+    private final ArrayList<Line> resultLine = new ArrayList<>();//存储一条曲线压缩完成后的结果
 
     //存储所有被压缩完成的线段;
-    private ArrayList<ArrayList<Line>> compressionCollection = new ArrayList<>();
+    private final ArrayList<ArrayList<Line>> compressionCollection = new ArrayList<>();
 
     public DouglasPeucker(String filePath, double threshold) {
         this.filePath = filePath;
@@ -112,6 +112,20 @@ public class DouglasPeucker {
         //打印出压缩结果
     }
 
+    @Data
+    private static class Point {
+        private double x;
+        private double y;
+
+        Point(String x, String y) {
+            this.x = Double.parseDouble(x);
+            this.y = Double.parseDouble(y);
+        }
+
+        void printPoint() {
+            System.out.print(MessageFormat.format("({0},{1})", this.x, this.y));
+        }
+    }
 
     @Data
     class Line {
@@ -171,21 +185,6 @@ public class DouglasPeucker {
                 point.printPoint();
             }
             System.out.print("-------");
-        }
-    }
-
-    @Data
-    class Point {
-        private double x;
-        private double y;
-
-        Point(String x, String y) {
-            this.x = Double.parseDouble(x);
-            this.y = Double.parseDouble(y);
-        }
-
-        void printPoint() {
-            System.out.print(MessageFormat.format("({0},{1})", this.x, this.y));
         }
     }
 }

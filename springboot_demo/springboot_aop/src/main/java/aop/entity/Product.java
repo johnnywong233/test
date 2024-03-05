@@ -1,6 +1,5 @@
 package aop.entity;
 
-import aop.annotation.DataLog;
 import aop.annotation.NeedSecured;
 import lombok.Data;
 
@@ -21,7 +20,6 @@ public class Product {
     @GeneratedValue
     private Long id;
 
-    @DataLog(name = "产品名称")
     private String name;
 
     private String category;

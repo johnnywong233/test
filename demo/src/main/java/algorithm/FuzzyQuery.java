@@ -14,11 +14,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by wajian on 2016/8/16.
+ * Created by johnny on 2016/8/16.
  */
 public class FuzzyQuery {
     //http://www.jb51.net/article/83264.htm
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         JFrame frame = new MediaFrame();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -27,16 +27,16 @@ public class FuzzyQuery {
 
 class MediaFrame extends JFrame implements ActionListener, ListSelectionListener {
 	private static final long serialVersionUID = 6336635759418719797L;
-	private JList list;
-    private DefaultListModel m;
-    private JButton btn;
-    private JButton btn1;
-    private JButton btn2;
-    private JButton btn3;
-    private JButton btn4;
-    private JFileChooser chooser;
-    private JTextField textField;
-    private Map<Integer, String> hashTable = new Hashtable<>();
+	private final JList list;
+    private final DefaultListModel m;
+    private final JButton btn;
+    private final JButton btn1;
+    private final JButton btn2;
+    private final JButton btn3;
+    private final JButton btn4;
+    private final JFileChooser chooser;
+    private final JTextField textField;
+    private final Map<Integer, String> hashTable = new Hashtable<>();
     private int i = 0;
     int s = 0;
 

@@ -26,7 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by wajian on 2016/8/28.
+ * Created by johnny on 2016/8/28.
  */
 public class ChartDemoServlet extends HttpServlet {
     //http://www.phpxs.com/code/1001530/
@@ -38,7 +38,6 @@ public class ChartDemoServlet extends HttpServlet {
 
 
     @Override
-    @SuppressWarnings("deprecation")
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
 
         response.setContentType("image/jpeg");
@@ -48,7 +47,7 @@ public class ChartDemoServlet extends HttpServlet {
 
         //JFreeChart chart = ChartFactory.createPieChart3D("水果产量图", data, true, false, false);
 
-        /**
+        /*
          JFreeChart chart = ChartFactory.createBarChart3D(
          "水果产量图", // 图表标题
          "水果", // 目录轴的显示标签

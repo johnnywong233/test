@@ -1,7 +1,7 @@
 package algorithm;
 
 /**
- * Created by wajian on 2016/8/28.
+ * Created by johnny on 2016/8/28.
  */
 public class SortDemo {
 
@@ -147,8 +147,7 @@ class Sort {
         }
     }
 
-    private static <AnyType extends Comparable<? super AnyType>> AnyType medium(AnyType[] arr, int left,
-                                                                                int right) {
+    private static <AnyType extends Comparable<? super AnyType>> AnyType medium(AnyType[] arr, int left, int right) {
         int center = (left + right) / 2;
         if (arr[center].compareTo(arr[left]) < 0) {
             swapReferences(arr, center, left);

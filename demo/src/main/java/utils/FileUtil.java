@@ -35,46 +35,11 @@ import java.util.List;
 public class FileUtil {
 
     private static final String NAME_SEPARATOR = File.separator;
-
-    /**
-     * 不创建临时文件的情况下如何删除文件前面指定行,要求不允许创建 tmp 文件
-     * 利用 RandomAccessFile，把后面内容依次读出来覆盖前面的内容，不用新建文件
-     * 应用场景：譬如想往一个文件记录一些信息，当文件大小大于指定阈值时就让文件缩小一半（即丢弃前面的记录，保留最近追加的）
-     */
-    public boolean removeFileHeaderLines(File file, int clearHeaderLines) {
-        RandomAccessFile accessFile = null;
-        try {
-            accessFile = new RandomAccessFile(file, "rw");
-            long writePosition = accessFile.getFilePointer();
-            for (int i = 0; i < clearHeaderLines; i++) {
-                String line = accessFile.readLine();
-                if (line == null) {
-                    break;
-                }
-            }
-            long readPosition = accessFile.getFilePointer();
-            byte[] buffer = new byte[1024];
-            int num;
-            while (-1 != (num = accessFile.read(buffer))) {
-                accessFile.seek(writePosition);
-                accessFile.write(buffer, 0, num);
-                readPosition += num;
-                writePosition += num;
-                accessFile.seek(readPosition);
-            }
-            accessFile.setLength(writePosition);
-            return true;
-        } catch (Throwable e) {
-            return false;
-        } finally {
-            IOUtils.closeQuietly(accessFile);
-        }
-    }
+    private static final int BUFFER_SIZE = 2048;
 
     public static void downFile(HttpServletRequest request,
                                 HttpServletResponse response, String fileName) throws FileNotFoundException {
-        String filePath = request.getSession().getServletContext().getRealPath("/")
-                + "template/" + fileName;
+        String filePath = request.getSession().getServletContext().getRealPath("/") + "template/" + fileName;
         InputStream inStream = new FileInputStream(filePath);
         response.reset();
         response.setContentType("bin");
@@ -92,7 +57,7 @@ public class FileUtil {
     }
 
     /**
-     * @description： 创建文件目录，若路径存在，就不生成
+     * 创建文件目录，若路径存在，就不生成
      **/
     public static void createDocDir(String dirName) {
         File file = new File(dirName);
@@ -102,7 +67,7 @@ public class FileUtil {
     }
 
     /**
-     * @description： 本地，在指定路径生成文件。若文件存在，则删除后重建。
+     * 本地，在指定路径生成文件。若文件存在，则删除后重建。
      **/
     public static void isExistsMkDir(String dirName) {
         File file = new File(dirName);
@@ -112,7 +77,7 @@ public class FileUtil {
     }
 
     /**
-     * @description： 创建新文件，若文件存在则删除再创建，若不存在则直接创建
+     * 创建新文件，若文件存在则删除再创建，若不存在则直接创建
      **/
     public static void creatFileByName(File file) {
         try {
@@ -127,7 +92,7 @@ public class FileUtil {
     }
 
     /**
-     * @description： Get the last modified time in format
+     * Get the last modified time in format
      **/
     public static String getLastModifiedTime(File file) {
         long time = file.lastModified();
@@ -289,6 +254,7 @@ public class FileUtil {
         System.out.println(dirFile.getName());
         //获取此目录下的所有文件名与目录名
         String[] fileList = dirFile.list();
+        assert fileList != null;
         int currentDepth = depth + 1;
         for (String string : fileList) {
             //遍历文件目录
@@ -307,8 +273,6 @@ public class FileUtil {
             }
         }
     }
-
-    private static int BUFFER_SIZE = 2048;
 
     private static List<String> unTar(InputStream inputStream, String destDir) throws Exception {
         List<String> fileNames = new ArrayList<>();
@@ -534,6 +498,41 @@ public class FileUtil {
             ins.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 不创建临时文件的情况下如何删除文件前面指定行,要求不允许创建 tmp 文件
+     * 利用 RandomAccessFile，把后面内容依次读出来覆盖前面的内容，不用新建文件
+     * 应用场景：譬如想往一个文件记录一些信息，当文件大小大于指定阈值时就让文件缩小一半（即丢弃前面的记录，保留最近追加的）
+     */
+    public boolean removeFileHeaderLines(File file, int clearHeaderLines) {
+        RandomAccessFile accessFile = null;
+        try {
+            accessFile = new RandomAccessFile(file, "rw");
+            long writePosition = accessFile.getFilePointer();
+            for (int i = 0; i < clearHeaderLines; i++) {
+                String line = accessFile.readLine();
+                if (line == null) {
+                    break;
+                }
+            }
+            long readPosition = accessFile.getFilePointer();
+            byte[] buffer = new byte[1024];
+            int num;
+            while (-1 != (num = accessFile.read(buffer))) {
+                accessFile.seek(writePosition);
+                accessFile.write(buffer, 0, num);
+                readPosition += num;
+                writePosition += num;
+                accessFile.seek(readPosition);
+            }
+            accessFile.setLength(writePosition);
+            return true;
+        } catch (Throwable e) {
+            return false;
+        } finally {
+            IOUtils.closeQuietly(accessFile);
         }
     }
 

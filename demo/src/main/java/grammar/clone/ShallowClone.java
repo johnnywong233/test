@@ -1,21 +1,15 @@
 package grammar.clone;
 
+import lombok.AllArgsConstructor;
+
 /**
- * Created by wajian on 2016/8/17.
+ * Created by johnny on 2016/8/17.
  */
+@AllArgsConstructor
 public class ShallowClone implements Cloneable{
     public String name;
     public int age;
     public Person person;
-
-    public ShallowClone() {
-    }
-
-    public ShallowClone(String name, int age, Person person) {
-        this.name = name;
-        this.age = age;
-        this.person = person;
-    }
 
     @Override
     public ShallowClone clone() {

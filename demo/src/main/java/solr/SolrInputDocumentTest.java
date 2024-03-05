@@ -8,7 +8,7 @@
 //import org.junit.Test;
 //
 ///**
-// * Created by wajian on 2016/10/4.
+// * Created by johnny on 2016/10/4.
 // * silly test on method of SolrInputDocument
 // */
 //public class SolrInputDocumentTest {

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/10/5.
+ * Created by johnny on 2016/10/5.
  * compare all kinds of sort algorithm
  */
 public class SortCompare {

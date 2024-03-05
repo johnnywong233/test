@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wajian on s2016/10/11.
+ * Created by johnny on s2016/10/11.
  */
 public class ReflectionUtil {
 
@@ -24,21 +24,21 @@ public class ReflectionUtil {
     }
 
     public Object getProperty(Object owner, String fieldName) throws Exception {
-        Class ownerClass = owner.getClass();
+        Class<?> ownerClass = owner.getClass();
         Field field = ownerClass.getField(fieldName);
         //通过对象得到该属性的实例，如果这个属性是非公有的，这里会报IllegalAccessException。
         return field.get(owner);
     }
 
     public Object getStaticProperty(String className, String fieldName) throws Exception {
-        Class ownerClass = Class.forName(className);
+        Class<?> ownerClass = Class.forName(className);
         Field field = ownerClass.getField(fieldName);
         return field.get(ownerClass);
     }
 
     public Object invokeMethod(Object owner, String methodName, Object[] args) throws Exception {
-        Class ownerClass = owner.getClass();
-        Class[] argsClass = new Class[args.length];
+        Class<?> ownerClass = owner.getClass();
+        Class<?>[] argsClass = new Class[args.length];
         for (int i = 0, j = args.length; i < j; i++) {
             argsClass[i] = args[i].getClass();
         }
@@ -48,8 +48,8 @@ public class ReflectionUtil {
     }
 
     public Object invokeStaticMethod(String className, String methodName, Object[] args) throws Exception {
-        Class ownerClass = Class.forName(className);
-        Class[] argsClass = new Class[args.length];
+        Class<?> ownerClass = Class.forName(className);
+        Class<?>[] argsClass = new Class[args.length];
         for (int i = 0, j = args.length; i < j; i++) {
             argsClass[i] = args[i].getClass();
         }
@@ -58,17 +58,17 @@ public class ReflectionUtil {
     }
 
     public Object newInstance(String className, Object[] args) throws Exception {
-        Class newoneClass = Class.forName(className);
-        Class[] argsClass = new Class[args.length];
+        Class<?> newoneClass = Class.forName(className);
+        Class<?>[] argsClass = new Class[args.length];
         for (int i = 0, j = args.length; i < j; i++) {
             argsClass[i] = args[i].getClass();
         }
-        Constructor cons = newoneClass.getConstructor(argsClass);
+        Constructor<?> cons = newoneClass.getConstructor(argsClass);
         return cons.newInstance(args);
     }
 
     //判断是否为某个类的实例
-    public boolean isInstance(Object obj, Class cls) {
+    public boolean isInstance(Object obj, Class<?> cls) {
         return cls.isInstance(obj);
     }
 
@@ -116,7 +116,7 @@ public class ReflectionUtil {
                 fieldNames.add(field.getName());
             }
         }
-        return fieldNames.toArray(new String[fieldNames.size()]);
+        return fieldNames.toArray(new String[0]);
     }
 
     /**

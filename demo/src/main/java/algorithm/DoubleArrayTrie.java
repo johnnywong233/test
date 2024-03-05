@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Created by wajian on 2016/10/5.
+ * Created by johnny on 2016/10/5.
  * 双数组Trie树
  * note: a word ends may be either of these two case:
  * 1. Base[curP] == pos  ( pos<0 and tail[-pos] == 'END_CHAR' )
@@ -28,12 +28,12 @@ public class DoubleArrayTrie {
     private final char END_CHAR = '\0';
     //base length, the size of array grow as double of it.
     private final int DEFAULT_LEN = 1024;
-    private int base[] = new int[DEFAULT_LEN];
-    private int check[] = new int[DEFAULT_LEN];
-    private char tail[] = new char[DEFAULT_LEN];
+    private int[] base = new int[DEFAULT_LEN];
+    private int[] check = new int[DEFAULT_LEN];
+    private char[] tail = new char[DEFAULT_LEN];
     private int pos = 1;
-    private Map<Character, Integer> charMap = new HashMap<>();
-    private ArrayList<Character> charList = new ArrayList<>();
+    private final Map<Character, Integer> charMap = new HashMap<>();
+    private final ArrayList<Character> charList = new ArrayList<>();
 
     //http://www.mincoder.com/article/3855.shtml
     public static void main(String[] args) throws Exception {
@@ -224,7 +224,7 @@ public class DoubleArrayTrie {
                             }
                             int originBase = base[toBeAdjust];
                             list.add(getCharCode(s.charAt(i)));
-                            int availBase = xCheck(list.toArray(new Integer[list.size()]));
+                            int availBase = xCheck(list.toArray(new Integer[0]));
                             list.remove(list.size() - 1);
                             base[toBeAdjust] = availBase;
                             for (Integer aList : list) {
@@ -347,9 +347,7 @@ public class DoubleArrayTrie {
         }
         if (base[p] > 0) {
             ArrayList<String> r = getAllChildWord(p);
-            for (int i = 0; i < r.size(); ++i) {
-                r.set(i, fs.prefix + r.get(i));
-            }
+            r.replaceAll(s -> fs.prefix + s);
             return r;
         }
         return result;
