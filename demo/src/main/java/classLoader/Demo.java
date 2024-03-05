@@ -8,13 +8,13 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 
 /**
- * Created by wajian on 2016/9/6.
+ * Created by johnny on 2016/9/6.
  */
 public class Demo {
     public static void main(String[] args) {
         ClassLoader loader = Demo.class.getClassLoader();
         while (loader != null) {
-            System.out.println(loader.toString());
+            System.out.println(loader);
             loader = loader.getParent();
         }
     }
@@ -45,7 +45,7 @@ public class Demo {
 //第一个类加载器用来加载存储在文件系统上的 Java 字节代码
 class FileSystemClassLoader extends ClassLoader {
 
-    private String rootDir;
+    private final String rootDir;
 
     public FileSystemClassLoader(String rootDir) {
         this.rootDir = rootDir;
@@ -68,7 +68,7 @@ class FileSystemClassLoader extends ClassLoader {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int bufferSize = 4096;
             byte[] buffer = new byte[bufferSize];
-            int bytesNumRead = 0;
+            int bytesNumRead;
             while ((bytesNumRead = ins.read(buffer)) != -1) {
                 baos.write(buffer, 0, bytesNumRead);
             }

@@ -9,7 +9,7 @@ import org.jbarcode.paint.WidthCodedPainter;
 import org.jbarcode.util.ImageUtil;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  * generate all kinds of bar code with jbarcode
  * support EAN13, EAN8, UPCA, UPCE, Code 3 of 9, Codabar, Code 11, Code 93, Code 128, MSI/Plessey, Interleaved 2 of PostNet
  */

@@ -7,6 +7,7 @@ import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
+import org.springframework.lang.NonNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,14 +24,14 @@ import java.util.concurrent.locks.Lock;
  * Time: 22:43
  */
 public class DistributedLock implements Lock, Watcher {
+    private final String root = "/locks";
+    private final String lockName;//竞争资源的标志
+    private final int sessionTimeout = 30000;
+    private final List<Exception> exception = new ArrayList<>();
     private ZooKeeper zk;
-    private String root = "/locks";
-    private String lockName;//竞争资源的标志
     private String waitNode;//等待前一个锁
     private String myZnode;//当前锁
     private CountDownLatch latch;//计数器
-    private int sessionTimeout = 30000;
-    private List<Exception> exception = new ArrayList<>();
 
     /**
      * 创建分布式锁,使用前请确认config配置的zookeeper服务可用
@@ -71,7 +72,6 @@ public class DistributedLock implements Lock, Watcher {
         try {
             if (this.tryLock()) {
                 System.out.println("Thread " + Thread.currentThread().getId() + " " + myZnode + " get lock true");
-                return;
             } else {
                 waitForLock(waitNode, sessionTimeout);//等待锁
             }
@@ -116,7 +116,7 @@ public class DistributedLock implements Lock, Watcher {
     }
 
     @Override
-    public boolean tryLock(long time, TimeUnit unit) {
+    public boolean tryLock(long time, @NonNull TimeUnit unit) {
         try {
             return this.tryLock() || waitForLock(waitNode, time);
         } catch (Exception e) {
@@ -150,7 +150,7 @@ public class DistributedLock implements Lock, Watcher {
     }
 
     @Override
-    public void lockInterruptibly() throws InterruptedException {
+    public void lockInterruptibly() {
         this.lock();
     }
 
@@ -159,7 +159,7 @@ public class DistributedLock implements Lock, Watcher {
         return null;
     }
 
-    public class LockException extends RuntimeException {
+    public static class LockException extends RuntimeException {
         private static final long serialVersionUID = 1L;
 
         LockException(String e) {

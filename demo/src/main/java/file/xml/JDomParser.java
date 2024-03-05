@@ -17,7 +17,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/9/5.
+ * Created by johnny on 2016/9/5.
  * demo of jdom2 to parse xml
  */
 public class JDomParser {
@@ -101,7 +101,7 @@ public class JDomParser {
     private void parseXmlAsList(String xmlPath) {
         try {
             SAXBuilder saxBuilder = new SAXBuilder(false);
-            InputStream inputStream = new FileInputStream(new File(xmlPath));
+            InputStream inputStream = new FileInputStream(xmlPath);
             Document document = saxBuilder.build(inputStream);
             Element rootElement = document.getRootElement();
 
@@ -129,7 +129,7 @@ public class JDomParser {
     public void operateXml01(String xmlPath) {
         try {
             SAXBuilder saxBuilder = new SAXBuilder(false);
-            InputStream inputStream = new FileInputStream(new File(xmlPath));
+            InputStream inputStream = new FileInputStream(xmlPath);
             InputSource inputSource = new InputSource(inputStream);
             Document document = saxBuilder.build(inputSource);
             Element rootElement = document.getRootElement();

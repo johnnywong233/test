@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by wajian on 2016/9/6.
+ * Created by johnny on 2016/9/6.
  * test of regex
  */
 public class RegexDemo {
@@ -70,17 +70,16 @@ public class RegexDemo {
      * convert string ip into long
      */
     public static Long ip2Long(String ip) {
-        Long num = 0L;
+        long num = 0L;
         if (ip == null) {
             return num;
         }
         try {
-            ip = ip.replaceAll("[^0-9\\.]", ""); //去除字符串前的空字符
+            ip = ip.replaceAll("[^0-9.]", ""); //去除字符串前的空字符
             String[] ips = ip.split("\\.");
             if (ips.length == 4) {
                 num = Long.parseLong(ips[0], 10) * 256L * 256L * 256L + Long.parseLong(ips[1], 10) * 256L * 256L + Long.parseLong(ips[2], 10) * 256L + Long.parseLong(ips[3], 10);
                 //j>>>i == j/(int)(Math.pow(2,i)), where i and j are int
-                num = num >>> 0;
             }
         } catch (NullPointerException ex) {
             System.out.println(ip);
@@ -88,7 +87,7 @@ public class RegexDemo {
         return num;
     }
 
-    //actually equals the ip2Long mathod
+    //actually equals the ip2Long method
     public long ipToLong(String ipAddress) {
         String[] ipAddressInArray = ipAddress.split("\\.");
         long result = 0;
@@ -121,7 +120,7 @@ public class RegexDemo {
     public static String longToIp2(long ip) {
         StringBuilder sb = new StringBuilder(15);
         for (int i = 0; i < 4; i++) {
-            sb.insert(0, Long.toString(ip & 0xff));
+            sb.insert(0, ip & 0xff);
             if (i < 3) {
                 sb.insert(0, '.');
             }
@@ -219,9 +218,9 @@ public class RegexDemo {
         StringBuffer stringBuffer = new StringBuffer();
         while (matcher2.find()) {
             matcher2.appendReplacement(stringBuffer, "Joe Blocks ");
-            System.out.println(stringBuffer.toString());
+            System.out.println(stringBuffer);
         }
         matcher2.appendTail(stringBuffer);
-        System.out.println(stringBuffer.toString());
+        System.out.println(stringBuffer);
     }
 }

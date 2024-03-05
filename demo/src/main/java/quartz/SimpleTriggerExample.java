@@ -9,7 +9,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
 /**
- * Created by wajian on 2016/10/4.
+ * Created by johnny on 2016/10/4.
  * SimpleTrigger example: allow to set start time, end time, and interval
  * notice: the API changed form 1.* to 2.*
  */

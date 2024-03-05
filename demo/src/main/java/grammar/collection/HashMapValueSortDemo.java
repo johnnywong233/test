@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by wajian on 2016/8/16.
+ * Created by johnny on 2016/8/16.
  */
 public class HashMapValueSortDemo {
     //http://blog.csdn.net/exceptional_derek/article/details/9852929
@@ -28,12 +28,11 @@ public class HashMapValueSortDemo {
         map.put("f", 7);
         map.put("e", 6);
         map.put("d", 8);
-        List<Map.Entry<String, Integer>> list = new ArrayList<>();
-        list.addAll(map.entrySet());
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(map.entrySet());
         HashMapValueSortDemo.ValueComparator vc = new ValueComparator();
-        Collections.sort(list, vc);
-        for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext(); ) {
-            System.out.println(it.next());
+        list.sort(vc);
+        for (Map.Entry<String, Integer> stringIntegerEntry : list) {
+            System.out.println(stringIntegerEntry);
         }
     }
 }

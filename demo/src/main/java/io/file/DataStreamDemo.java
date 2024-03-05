@@ -10,7 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by wajian on 2016/8/22.
+ * Created by johnny on 2016/8/22.
  * DataInputStream的好处在于在从文件读出数据时，不用费心地自行判断读入字符串时或读入int类型时何时将停止，
  * 使用对应的readUTF()和readInt()方法就可以正确地读入完整的类型数据。
  */

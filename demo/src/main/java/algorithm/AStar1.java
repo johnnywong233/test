@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  * A* algorithm
  * A*搜索算法，A星算法。
  * 这是一种在图形平面上，有多个节点的路径，求出最低通过成本的算法。
@@ -22,23 +22,82 @@ import java.util.Queue;
 public class AStar1 {
 
     // 迷宫图
-    private Point[][] maze;
+    private final Point[][] maze;
     // 起始节点
-    private Point start;
+    private final Point start;
     // 终止节点
-    private Point goal;
+    private final Point goal;
 
     // 开启队列，用于存放待处理的节点
-    private Queue<Point> openQueue = null;
+    private final Queue<Point> openQueue;
     // 关闭队列，用于存放已经处理过的节点
-    private Queue<Point> closedQueue = null;
+    private final Queue<Point> closedQueue;
 
     // 起始节点到某个节点的距离
-    private int[][] fList = null;
+    private final int[][] fList;
     // 某个节点到目的节点的距离
-    private int[][] gList = null;
+    private final int[][] gList;
     // 起始节点经过某个节点到目的节点的距离
-    private int[][] hList = null;
+    private final int[][] hList;
+
+    /**
+     * 构造函数
+     *
+     * @param maze  迷宫图
+     * @param start 起始节点
+     * @param goal  目的节点
+     */
+    private AStar1(Point[][] maze, Point start, Point goal) {
+        this.maze = maze;
+        this.start = start;
+        this.goal = goal;
+
+        openQueue = new LinkedList<>();
+        closedQueue = new LinkedList<>();
+
+        fList = new int[maze.length][maze[0].length];
+        gList = new int[maze.length][maze[0].length];
+        hList = new int[maze.length][maze[0].length];
+
+        for (int i = 0; i < maze.length; i++) {
+            for (int j = 0; j < maze[0].length; j++) {
+                fList[i][j] = Integer.MAX_VALUE;
+                gList[i][j] = Integer.MAX_VALUE;
+                hList[i][j] = Integer.MAX_VALUE;
+            }
+        }
+        init();
+    }
+
+    //http://joshuasabrina.iteye.com/blog/1811065
+    public static void main(String[] args) {
+        // 原始迷宫图
+        char[][] mazeRaw = {{'#', '.', '#', '#', '#', '#', '#', '.'},
+                {'#', '.', 'a', '#', '.', '.', 'r', '.'},
+                {'#', '.', '.', '#', 'x', '.', '.', '.'},
+                {'.', '.', '#', '.', '.', '#', '.', '#'},
+                {'#', '.', '.', '.', '#', '#', '.', '.'},
+                {'.', '#', '.', '.', '.', '.', '.', '.'},
+                {'.', '.', '.', '.', '.', '.', '.', '.'}};
+
+        // 节点迷宫图
+        Point[][] maze = new Point[mazeRaw.length][mazeRaw[0].length];
+        for (int i = 0; i < maze.length; i++) {
+            for (int j = 0; j < maze[0].length; j++) {
+                maze[i][j] = new Point(i, j, mazeRaw[i][j]);
+            }
+        }
+        // 起始节点
+        Point start = maze[1][6];
+        // 目的节点
+        Point goal = maze[1][2];
+
+        AStar1 astar = new AStar1(maze, start, goal);
+        // 启动搜索迷宫过程
+        astar.start();
+        // 打印行驶路径
+        astar.printPath();
+    }
 
     /**
      * 打印行走路径
@@ -87,35 +146,6 @@ public class AStar1 {
     }
 
     /**
-     * 构造函数
-     *
-     * @param maze  迷宫图
-     * @param start 起始节点
-     * @param goal  目的节点
-     */
-    private AStar1(Point[][] maze, Point start, Point goal) {
-        this.maze = maze;
-        this.start = start;
-        this.goal = goal;
-
-        openQueue = new LinkedList<>();
-        closedQueue = new LinkedList<>();
-
-        fList = new int[maze.length][maze[0].length];
-        gList = new int[maze.length][maze[0].length];
-        hList = new int[maze.length][maze[0].length];
-
-        for (int i = 0; i < maze.length; i++) {
-            for (int j = 0; j < maze[0].length; j++) {
-                fList[i][j] = Integer.MAX_VALUE;
-                gList[i][j] = Integer.MAX_VALUE;
-                hList[i][j] = Integer.MAX_VALUE;
-            }
-        }
-        init();
-    }
-
-    /**
      * 初始化
      * 将起始节点添加至开启列表，初始化：
      * 1) 起始节点到当前节点（起始节点）的距离
@@ -132,7 +162,7 @@ public class AStar1 {
         // 起始节点到当前节点的距离
         gList[startX][startY] = 0;
         // 当前节点到目的节点的距离
-        hList[startX][startY] = getDistance(startX, startY, goalX, goalY);
+        hList[startX][startY] = getDistance(startX, startY);
         // f(x) = g(x) + h(x)
         fList[startX][startY] = gList[startX][startY]
                 + hList[startX][startY];
@@ -155,36 +185,6 @@ public class AStar1 {
             }
             updateNeighborPoints(currentPoint);
         }
-    }
-
-    //http://joshuasabrina.iteye.com/blog/1811065
-    public static void main(String[] args) {
-        // 原始迷宫图
-        char[][] mazeRaw = {{'#', '.', '#', '#', '#', '#', '#', '.'},
-                {'#', '.', 'a', '#', '.', '.', 'r', '.'},
-                {'#', '.', '.', '#', 'x', '.', '.', '.'},
-                {'.', '.', '#', '.', '.', '#', '.', '#'},
-                {'#', '.', '.', '.', '#', '#', '.', '.'},
-                {'.', '#', '.', '.', '.', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', '.', '.', '.'}};
-
-        // 节点迷宫图
-        Point[][] maze = new Point[mazeRaw.length][mazeRaw[0].length];
-        for (int i = 0; i < maze.length; i++) {
-            for (int j = 0; j < maze[0].length; j++) {
-                maze[i][j] = new Point(i, j, mazeRaw[i][j]);
-            }
-        }
-        // 起始节点
-        Point start = maze[1][6];
-        // 目的节点
-        Point goal = maze[1][2];
-
-        AStar1 astar = new AStar1(maze, start, goal);
-        // 启动搜索迷宫过程
-        astar.start();
-        // 打印行驶路径
-        astar.printPath();
     }
 
     /**
@@ -216,26 +216,20 @@ public class AStar1 {
 
     /**
      * 获取当前位置到目的位置的距离
-     * <p>
      * 距离衡量规则： 横向移动一格或纵向移动一格的距离为1.
-     * <p>
      * 输入： 当前位置的横坐标值
      * 当前位置的纵坐标值
      * 目的位置的横坐标值
      * 目的位置的纵坐标值
-     * <p>
      * 输出： 当前位置到目的位置的距离
      */
-    private int getDistance(int currentX, int currentY, int goalX, int goalY) {
-        return Math.abs(currentX - goal.getX())
-                + Math.abs(currentY - goal.getY());
+    private int getDistance(int currentX, int currentY) {
+        return Math.abs(currentX - goal.getX()) + Math.abs(currentY - goal.getY());
     }
 
     /**
      * 找寻最短路径所经过的节点
-     *
-     *   从开启列表中找寻F值最小的节点，将其从开启列表中移除，并置入关闭列表。
-     *
+     * 从开启列表中找寻F值最小的节点，将其从开启列表中移除，并置入关闭列表。
      * 输出：最短路径所经过的节点
      */
     private Point findShortestFPoint() {
@@ -261,9 +255,9 @@ public class AStar1 {
 
     /**
      * 更新邻居节点
-     *
-     *   依次判断上、下、左、右方向的邻居节点，如果邻居节点有效，则更新距离矢量表。
-     *
+     * <p>
+     * 依次判断上、下、左、右方向的邻居节点，如果邻居节点有效，则更新距离矢量表。
+     * <p>
      * 输入： 当前节点
      */
     private void updateNeighborPoints(Point currentPoint) {
@@ -294,14 +288,14 @@ public class AStar1 {
 
     /**
      * 更新节点
-     *
-     *   依次计算：1) 起始节点到当前节点的距离; 2) 当前节点到目的位置的距离; 3) 起始节点经过当前节点到目的位置的距离
-     *   如果当前节点在开启列表中不存在，则：置入开启列表，并且“设置”1)/2)/3)值；
-     *   否则，判断 从起始节点、经过上一节点到当前节点、至目的地的距离 < 上一次记录的从起始节点、到当前节点、至目的地的距离，
-     *   如果有更短路径，则更新1)/2)/3)值
-     *
+     * <p>
+     * 依次计算：1) 起始节点到当前节点的距离; 2) 当前节点到目的位置的距离; 3) 起始节点经过当前节点到目的位置的距离
+     * 如果当前节点在开启列表中不存在，则：置入开启列表，并且“设置”1)/2)/3)值；
+     * 否则，判断 从起始节点、经过上一节点到当前节点、至目的地的距离 < 上一次记录的从起始节点、到当前节点、至目的地的距离，
+     * 如果有更短路径，则更新1)/2)/3)值
+     * <p>
      * 输入： 上一跳节点（又：父节点）
-     *       当前节点
+     * 当前节点
      */
     private void updatePoint(Point lastPoint, Point currentPoint) {
         int lastX = lastPoint.getX();
@@ -316,7 +310,7 @@ public class AStar1 {
             ++temp;
         }
         // 当前节点到目的位置的距离
-        int tempH = getDistance(currentX, currentY, goal.getX(), goal.getY());
+        int tempH = getDistance(currentX, currentY);
         // f(x) = g(x) + h(x)
         int tempF = temp + tempH;
 
@@ -362,22 +356,10 @@ class Point {
     private int x;
     // 节点纵坐标
     private int y;
-
     // 节点值
     private char value;
     // 父节点
     private Point father;
-
-    /**
-     * 构造函数
-     *
-     * @param x 节点横坐标
-     * @param y 节点纵坐标
-     */
-    public Point(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
 
     /**
      * 构造函数

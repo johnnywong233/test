@@ -6,12 +6,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by wajian on 2016/8/16.
+ * Created by johnny on 2016/8/16.
  */
 public class BlockingQueueConditionDemo {
     //http://www.cnblogs.com/liuling/p/2013-8-20-01.html
     public static void main(String[] args) {
-        final Integer num = 5;
+        final int num = 5;
         ExecutorService service = Executors.newSingleThreadExecutor();
         final Business3 business = new Business3();
         service.execute(() -> {

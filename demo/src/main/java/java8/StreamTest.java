@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  * test on java 8 stream
  */
 public class StreamTest {

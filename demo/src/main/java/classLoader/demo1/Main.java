@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by wajian on 2016/10/7.
+ * Created by johnny on 2016/10/7.
  * use ClassLoader to load a modified class, replace the old one
  * note: better use interface, and the classloader just load class not interface,
  * which make sure there is no error while type casting
@@ -28,7 +28,7 @@ public class Main {
     private static byte[] getBytes(String filename) throws IOException {
         File file = new File(filename);
         long len = file.length();
-        byte raw[] = new byte[(int) len];
+        byte[] raw = new byte[(int) len];
         FileInputStream fin = new FileInputStream(file);
         fin.read(raw);
         fin.close();

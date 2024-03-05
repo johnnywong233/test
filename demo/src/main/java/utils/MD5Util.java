@@ -10,7 +10,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by wajian on 2016/8/10.
+ * Created by johnny on 2016/8/10.
  */
 public class MD5Util {
     //http://blog.csdn.net/xiao__gui/article/details/8148203
@@ -28,7 +28,6 @@ public class MD5Util {
             digestInputStream = new DigestInputStream(fileInputStream, messageDigest);
             byte[] buffer = new byte[bufferSize];
             while (digestInputStream.read(buffer) > 0) {
-                ;
             }
             messageDigest = digestInputStream.getMessageDigest();
             byte[] resultByteArray = messageDigest.digest();
@@ -61,12 +60,8 @@ public class MD5Util {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         } finally {
-            if (ch != null) {
-                ch.close();
-            }
-            if (in != null) {
-                in.close();
-            }
+            ch.close();
+            in.close();
         }
         messagedigest.update(byteBuffer);
         return byteArrayToHex(messagedigest.digest());

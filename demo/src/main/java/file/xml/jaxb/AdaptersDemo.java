@@ -1,5 +1,7 @@
 package file.xml.jaxb;
 
+import lombok.Data;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -7,28 +9,15 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
 import java.io.File;
-import java.util.List;
 import java.time.LocalDate;
+import java.util.List;
 
 /**
- * Created by wajian on 2016/9/7.
+ * Created by johnny on 2016/9/7.
  * demo of jaxb
  */
 public class AdaptersDemo extends XmlAdapter<String, LocalDate> {
-
-    //unmarshal basic data type to complex data type
-    @Override
-    public LocalDate unmarshal(String date) throws Exception {
-        return LocalDate.parse(date);
-    }
-
-    //marshal basic data type to complex data type
-    @Override
-    public String marshal(LocalDate date) throws Exception {
-        return date.toString();
-    }
 
     public static void main(String[] args) {
         AdaptersDemo demo = new AdaptersDemo();
@@ -80,29 +69,30 @@ public class AdaptersDemo extends XmlAdapter<String, LocalDate> {
         }
     }
 
+    //unmarshal basic data type to complex data type
+    @Override
+    public LocalDate unmarshal(String date) {
+        return LocalDate.parse(date);
+    }
+
+    //marshal basic data type to complex data type
+    @Override
+    public String marshal(LocalDate date) {
+        return date.toString();
+    }
+
 
 }
 
+@Data
 @XmlRootElement(name = "Persons")
 class Person {
     private List<Person> person;
     private LocalDate birthday;
 
-    public List<Person> getPersons() {
-        return person;
-    }
-
-    public void setPersons(List<Person> person) {
-        this.person = person;
-    }
-
     @XmlJavaTypeAdapter(AdaptersDemo.class)
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
     }
 
     @Override

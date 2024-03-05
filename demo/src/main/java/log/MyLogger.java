@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by wajian on 2016/8/18.
+ * Created by johnny on 2016/8/18.
  */
 public class MyLogger {
     //3.   声明一个私有 static Handler 属性，名为 handler。
@@ -35,9 +35,7 @@ public class MyLogger {
             if (logger.getHandlers().length == 0) {
                 logger.addHandler(handler);
             }
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (SecurityException | IOException e) {
             e.printStackTrace();
         }
 

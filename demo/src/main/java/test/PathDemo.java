@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by wajian on 2016/9/14.
+ * Created by johnny on 2016/9/14.
  */
 public class PathDemo {
     //http://www.jb51.net/article/35668.htm
@@ -64,8 +64,7 @@ public class PathDemo {
             Document doc = builder.parse(serverXml);
             XPathFactory factory = XPathFactory.newInstance();
             XPath xpath = factory.newXPath();
-            XPathExpression expr = xpath.compile
-                    ("/Server/Service[@name='Catalina']/Connector[count(@scheme)=0]/@port[1]");
+            XPathExpression expr = xpath.compile("/Server/Service[@name='Catalina']/Connector[count(@scheme)=0]/@port[1]");
             String result = (String) expr.evaluate(doc, XPathConstants.STRING);
             port = result != null && result.length() > 0 ? Integer.valueOf(result) : null;
         } catch (Exception e) {

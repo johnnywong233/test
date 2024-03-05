@@ -7,9 +7,10 @@ import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  */
 public class LogUtil {
     // http://www.phpxs.com/code/1001617/
@@ -39,11 +40,7 @@ public class LogUtil {
      * @return Logger对象
      */
     public static LogUtil getLogger(Class<?> classObject) {
-        if (log != null) {
-            return log;
-        } else {
-            return new LogUtil(Logger.getLogger(classObject));
-        }
+        return Objects.requireNonNullElseGet(log, () -> new LogUtil(Logger.getLogger(classObject)));
     }
 
     /*

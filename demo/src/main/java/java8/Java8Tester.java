@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -43,7 +44,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  * test on java8
  */
 public class Java8Tester {
@@ -52,15 +53,11 @@ public class Java8Tester {
     static String wordstr = "How much wood would a wood chuck chuck chuck chuck chuck chuck chuck if a woodchuck could chuck wood? He would chuck, he"
             + "would, as much as he could, and chuck as much wood as a woodchuck would if a wooddchuck could chuck wood.";
 
-    private static ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<String, Integer>();
-
-    static BlockingQueue<String> queue = new LinkedBlockingQueue<String>(5);
-
-    private static ReentrantLock lock = new ReentrantLock(true);
+    private static ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
 
     private static CountDownLatch countDown = null;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         List<String> names2 = new ArrayList<>();
         names2.add("stream");
         names2.add("lambda");
@@ -78,7 +75,7 @@ public class Java8Tester {
 
         //with type declaration
         MathOperation addition = (int a, int b) -> a + b;
-        //with out type declaration
+        // without type declaration
         MathOperation subtraction = (a, b) -> a - b;
         //with return statement along with curly braces
         MathOperation multiplication = (int a, int b) -> {
@@ -124,12 +121,12 @@ public class Java8Tester {
         System.out.println(lowercaseNames);
 
         List<Integer> nums = Lists.newArrayList(1, 1, null, 2, 3, 4, null, 5, 6, 7, 8, 9, 10);
-        System.out.println("sum is:" + nums.stream().filter(num -> num != null).
+        System.out.println("sum is:" + nums.stream().filter(Objects::nonNull).
                 distinct().mapToInt(num -> num * 2).
                 peek(System.out::println).skip(2).limit(4).sum());
 
         List<Integer> num1 = Lists.newArrayList(1, 1, null, 2, 3, 4, null, 5, 6, 7, 8, 9, 10);
-        List<Integer> numWithoutNull = num1.stream().filter(num -> num != null).
+        List<Integer> numWithoutNull = num1.stream().filter(Objects::nonNull).
                 collect(ArrayList::new,
                         ArrayList::add,
                         ArrayList::addAll);

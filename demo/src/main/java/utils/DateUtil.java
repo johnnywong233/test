@@ -1,8 +1,6 @@
 package utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.testng.annotations.Test;
+import lombok.extern.slf4j.Slf4j;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -21,9 +19,8 @@ import java.util.TimeZone;
  * Date: 2016/11/17
  * Time: 21:20
  */
+@Slf4j
 public class DateUtil {
-
-    private static Logger logger = LoggerFactory.getLogger(DateUtil.class);
 
     public static final String STANDARD_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
@@ -81,24 +78,24 @@ public class DateUtil {
     }
 
     /**
-     * @description：获取现在时间
+     * 获取现在时间
      **/
     public static Date getNow() {
         return new Date();
     }
 
     /**
-     * @description： 获取现在日期时间
-     * @return： 返回字符串格式 yyyy-MM-dd HH:mm:ss
+     * 获取现在日期时间
      **/
     public static String getNowDateTimeStr() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat(STANDARD_DATE_TIME_FORMAT);
         return formatter.format(getNow());
     }
 
     /**
-     * @description： 获取现在时间 日期
-     * @return： 返回字符串格式yyyyMMdd HHmmss
+     * 获取现在时间 日期
+     *
+     * @return 返回字符串格式yyyyMMdd HHmmss
      **/
     public static String getNowDateTimeStrFormatTwo() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd HHmmss");
@@ -106,8 +103,9 @@ public class DateUtil {
     }
 
     /**
-     * @description： 获取现在时间 日期
-     * @return： 返回字符串格式 yyyy-MM-dd
+     * 获取现在时间 日期
+     *
+     * @return 返回字符串格式 yyyy-MM-dd
      **/
     public static String getNowDateStr() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -115,8 +113,9 @@ public class DateUtil {
     }
 
     /**
-     * @description： 获取现在时间
-     * @return： 返回字符串格式 HH:mm:ss
+     * 获取现在时间
+     *
+     * @return 返回字符串格式 HH:mm:ss
      **/
     public static String getTimeStr() {
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
@@ -124,18 +123,20 @@ public class DateUtil {
     }
 
     /**
-     * @description：日期时间字符串转日期时间格式
-     * @return： 返回日期时间格式
+     * 日期时间字符串转日期时间格式
+     *
+     * @return 返回日期时间格式
      **/
     public static Date strToDateTime(String strDateTime) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat(STANDARD_DATE_TIME_FORMAT);
         ParsePosition pos = new ParsePosition(0);
         return formatter.parse(strDateTime, pos);
     }
 
     /**
-     * @description：日期字符串转日期格式
-     * @return： 返回日期格式
+     * 日期字符串转日期格式
+     *
+     * @return 返回日期格式
      **/
     public static Date strToDate(String strDate) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -144,10 +145,11 @@ public class DateUtil {
     }
 
     /**
-     * @description：两个日期时间是否在跨度之内
-     * @parameter： gapType 跨度类型，如Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_YEAR
-     * @parameter： maxGap  最大跨度值
-     * @return： 返回日期格式
+     * 两个日期时间是否在跨度之内
+     *
+     * @param gapType 跨度类型，如Calendar.YEAR,Calendar.MONTH,Calendar.DAY_OF_YEAR
+     * @param maxGap  最大跨度值
+     * @return 返回日期格式
      **/
     public static boolean isWithInDateGap(String startDate, String endDate,
                                           int gapType, int maxGap) {
@@ -222,7 +224,7 @@ public class DateUtil {
         try {
             date = inFormat.parse(dateString);
         } catch (Exception e) {
-            logger.warn("Convert Time format for date [{}] failed : {}",
+            log.warn("Convert Time format for date [{}] failed : {}",
                     dateString, e.getMessage());
         }
         dateString = date == null ? dateString : outFormat.format(date);
@@ -239,7 +241,6 @@ public class DateUtil {
         return dateString;
     }
 
-    @Test
     public static void testDiscardMillsAndConvert() {
         System.out.println(discardMillsAndConvert("2016-04-15T08:29:34.1874452Z"));
         System.out.println(discardMillsAndConvert("2016-05-26T05:34:35.914Z"));
@@ -250,9 +251,10 @@ public class DateUtil {
 
 
     public static void main(String[] args) {
-
+        testDiscardMillsAndConvert();
+        System.out.println(parseTimeZone("2024-03-04 17:25:54"));
         Calendar date = Calendar.getInstance();
-        date.set(2017, 03, 04);
+        date.set(2017, Calendar.MARCH, 4);
         System.out.println("to" + Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_WEEK_IN_MONTH));//4
 
         //to get which day of the week is the current day:Day of week in month(1-5):一个月的第几个周几？
@@ -271,7 +273,6 @@ public class DateUtil {
         System.out.println(getTimeStr());
         System.out.println(strToDateTime(getNowDateTimeStr()));
         System.out.println(strToDate(getNowDateStr()));
-        System.out.println(isWithInDateGap(getNowDateTimeStr(), getNowDateTimeStr()
-                , Calendar.YEAR, 1));
+        System.out.println(isWithInDateGap(getNowDateTimeStr(), getNowDateTimeStr(), Calendar.YEAR, 1));
     }
 }

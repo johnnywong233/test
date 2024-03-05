@@ -1,5 +1,7 @@
 package algorithm;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  */
 public class AStarTest {
 
@@ -36,7 +38,7 @@ public class AStarTest {
                 if (i == col - 1 && j == row - 1) {
                     node.setWalkable(false);
                 }
-                b = node.getWalkable();
+                b = node.isWalkable();
                 if (b) {
                     System.out.print("○  ");
                 } else {
@@ -58,7 +60,7 @@ public class AStarTest {
         for (int i = 0; i < grid.getNumCols(); i++) {
             for (int j = 0; j < grid.getNumRows(); j++) {
                 Node node = grid.getNode(i, j);
-                boolean walkable = node.getWalkable();
+                boolean walkable = node.isWalkable();
                 if (path != null && path.contains(node)) {
                     System.out.print("●  ");
                 } else if (walkable) {
@@ -84,12 +86,12 @@ public class AStarTest {
         heap.push(13.899495f);
 
         float[] values = {13.899494f, 13.899495f, 13.899495f, 14.485281f};
-        for(float v : values) {
+        for (float v : values) {
             heap.push(v);
         }
 
         List<Float> stack = heap.toStack();
-        for(float value : stack) {
+        for (float value : stack) {
             System.out.print(value + "  ");
         }
         System.out.println("\n");
@@ -113,103 +115,32 @@ class MyComparator implements Comparator<Float> {
 }
 
 /*A星寻路算法，网格节点*/
+@Data
 class Node {
-
+    private final int x;
+    private final int y;
     //节点在二维网格中的索引
     private int index;
-    private final int x, y;
     private float f;
     private float g;
     private float h;
-
     private boolean walkable = true;
     private float costMultiplier = 1.0f;
-
     private Node parent;
 
     public Node(int x, int y) {
         this.x = x;
         this.y = y;
     }
-
-    protected void setIndex(int index) {
-        this.index = index;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    boolean isWalkable() {
-        return walkable;
-    }
-
-    void setWalkable(boolean walkable) {
-        this.walkable = walkable;
-    }
-
-    float getCostMultiplier() {
-        return costMultiplier;
-    }
-
-    void setCostMultiplier(float costMultiplier) {
-        this.costMultiplier = costMultiplier;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setParent(Node node) {
-        this.parent = node;
-    }
-
-    public Node getParent() {
-        return parent;
-    }
-
-    boolean getWalkable() {
-        return walkable;
-    }
-
-    public float getF() {
-        return f;
-    }
-
-    public void setF(float f) {
-        this.f = f;
-    }
-
-    public float getG() {
-        return g;
-    }
-
-    public void setG(float g) {
-        this.g = g;
-    }
-
-    public float getH() {
-        return h;
-    }
-
-    public void setH(float h) {
-        this.h = h;
-    }
 }
 
 /*网格类*/
 class Grid {
-
-    private Node start;
-    private Node end;
     private final Stack<Stack<Node>> nodes;
-
     private final int numCols;
     private final int numRows;
+    private Node start;
+    private Node end;
 
     /**
      * 构造方法，创建一个纯数据化的节点网格
@@ -497,11 +428,9 @@ class LineFunction {
     private final NewPoint point1;
     private final NewPoint point2;
     private final int type;
-
+    private final int funid;
     private float a;
     private float b;
-
-    private final int funid;
 
     LineFunction(NewPoint point1, NewPoint point2, int type) {
         this.point1 = point1;
@@ -598,14 +527,14 @@ class NewAStar {
     private Grid grid;
     private Node endNode;
     private Node startNode;
-    private float straightCost = 1.0f;
-    private float diagCost = (float) (Math.sqrt(2));
-    private boolean retractable = false;
-    private String heuristicName;
+    private final float straightCost = 1.0f;
+    private final float diagCost = (float) (Math.sqrt(2));
+    private final boolean retractable;
+    private final String heuristicName;
 
-    private Comparator<Node> comparator;
+    private final Comparator<Node> comparator;
 
-    private Lock lock = new ReentrantLock();
+    private final Lock lock = new ReentrantLock();
 
     /**
      * 构造方法
@@ -651,7 +580,7 @@ class NewAStar {
             case Heuristic.DIAGONAL:
                 return this.diagonal(node);
             case Heuristic.EUCLIDIAN:
-                return this.euclidian(node);
+                return this.euclidean(node);
             default:
                 return this.manhattan(node);
         }
@@ -703,14 +632,14 @@ class NewAStar {
                     Node vnode = grid.getNode(node.getX(), test.getY());
                     Node hnode = grid.getNode(test.getX(), node.getY());
                     if (retractable) {
-                        if (!test.getWalkable() || !isDiagonalWalkable(node, test)) {
+                        if (!test.isWalkable() || !isDiagonalWalkable(node, test)) {
                             //设其代价为超级大的一个值，比大便还大哦~
                             test.setCostMultiplier(1000);
                         } else {
                             test.setCostMultiplier(1);
                         }
                     } else {
-                        if (!test.getWalkable() || !vnode.getWalkable() || !hnode.getWalkable()) {
+                        if (!test.isWalkable() || !vnode.isWalkable() || !hnode.isWalkable()) {
                             continue;
                         }
                     }
@@ -760,7 +689,7 @@ class NewAStar {
     private boolean isDiagonalWalkable(Node node1, Node node2) {
         Node nearByNode1 = grid.getNode(node1.getX(), node2.getY());
         Node nearByNode2 = grid.getNode(node2.getX(), node1.getY());
-        return nearByNode1.getWalkable() && nearByNode2.getWalkable();
+        return nearByNode1.isWalkable() && nearByNode2.isWalkable();
     }
 
     /**
@@ -807,7 +736,7 @@ class NewAStar {
             //排除无法移动点
             int len = path.size();
             for (int i = 0; i < len; i++) {
-                if (!path.get(i).getWalkable()) {
+                if (!path.get(i).isWalkable()) {
                     //removeListElement(path, i, len - i);
                     removeStackElement(path, i);
                     break;
@@ -876,7 +805,7 @@ class NewAStar {
     /**
      * 欧几里得几何启发函数
      */
-    private float euclidian(Node node) {
+    private float euclidean(Node node) {
         float dx = node.getX() - endNode.getX();
         float dy = node.getY() - endNode.getY();
         return (float) (Math.sqrt(dx * dx + dy * dy) * straightCost);
@@ -1034,7 +963,7 @@ class BinaryHeap<T> {
      * @return 元素数组
      */
     @SuppressWarnings("unchecked")
-	public T[] toArray() {
+    public T[] toArray() {
         return (T[]) (heap.toArray());
     }
 }

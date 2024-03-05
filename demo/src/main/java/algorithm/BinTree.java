@@ -1,9 +1,12 @@
 package algorithm;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.Stack;
 
 /**
- * Created by wajian on 2016/8/30.
+ * Created by johnny on 2016/8/30.
  * 二叉树遍历
  */
 /*遍历是对树的一种最基本的运算，所谓遍历二叉树，就是按一定的规则和顺序走遍二叉树的所有结点，使每一个结点都被访问一次，
@@ -19,16 +22,9 @@ import java.util.Stack;
 　　（4）层次遍历
 　　即按照层次访问，通常用队列来做。访问根，访问子女，再访问子女的子女（越往后的层次越低）（两个子女的级别相同）
 */
+@AllArgsConstructor
 public class BinTree {
     protected BTNode root;
-
-    public BinTree(BTNode root) {
-        this.root = root;
-    }
-
-    public BTNode getRoot() {
-        return root;
-    }
 
     /**
      * 构造树
@@ -41,8 +37,7 @@ public class BinTree {
         BTNode e = new BTNode('E');
         BTNode f = new BTNode('F', e, null);
         BTNode g = new BTNode('G', null, f);
-        BTNode h = new BTNode('H', d, g);
-        return h;// root
+        return new BTNode('H', d, g);// root
     }
 
     /**
@@ -127,6 +122,7 @@ public class BinTree {
             }
 // 处理右子
             stack.push(p);
+            assert p != null;
             p = p.getRight();
         }
     }
@@ -180,44 +176,20 @@ public class BinTree {
         iterativePostorder(tree.getRoot());
         System.out.println();
     }
+
+    public BTNode getRoot() {
+        return root;
+    }
 }
 
 /*二叉树节点*/
+@Data
+@AllArgsConstructor
 class BTNode {
     private char key;
     private BTNode left, right;
 
     public BTNode(char key) {
         this(key, null, null);
-    }
-
-    public BTNode(char key, BTNode left, BTNode right) {
-        this.key = key;
-        this.left = left;
-        this.right = right;
-    }
-
-    public char getKey() {
-        return key;
-    }
-
-    public void setKey(char key) {
-        this.key = key;
-    }
-
-    public BTNode getLeft() {
-        return left;
-    }
-
-    public void setLeft(BTNode left) {
-        this.left = left;
-    }
-
-    public BTNode getRight() {
-        return right;
-    }
-
-    public void setRight(BTNode right) {
-        this.right = right;
     }
 }

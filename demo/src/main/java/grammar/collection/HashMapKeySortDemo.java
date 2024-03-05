@@ -3,12 +3,11 @@ package grammar.collection;
 import java.util.*;
 
 /**
- * Created by wajian on 2016/8/16.
+ * Created by johnny on 2016/8/16.
  */
 public class HashMapKeySortDemo {
     public static void main(String[] args) {
-        Map<String, String> map = new TreeMap<>(
-                Comparator.reverseOrder());
+        Map<String, String> map = new TreeMap<>(Comparator.reverseOrder());
         map.put("b", "ccccc");
         map.put("d", "aaaaa");
         map.put("c", "bbbbb");

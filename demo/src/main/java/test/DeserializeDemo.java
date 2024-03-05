@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 /**
- * Created by wajian on 2016/8/13.
+ * Created by johnny on 2016/8/13.
  */
 public class DeserializeDemo {
     //http://www.runoob.com/java/java-serialization.html

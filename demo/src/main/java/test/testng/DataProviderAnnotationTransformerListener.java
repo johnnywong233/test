@@ -10,7 +10,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * Created by wajian on 2016/10/9.
+ * Created by johnny on 2016/10/9.
  */
 public class DataProviderAnnotationTransformerListener implements IAnnotationTransformer2 {
     @Override
@@ -20,7 +20,7 @@ public class DataProviderAnnotationTransformerListener implements IAnnotationTra
     @Override
     public void transform(IDataProviderAnnotation annotation, Method method) {
         if ("largeDataSet".equals(annotation.getName())) {
-            System.out.println("Large data set, run parallely");
+            System.out.println("Large data set, run parallel");
             annotation.setParallel(true);
         }
     }

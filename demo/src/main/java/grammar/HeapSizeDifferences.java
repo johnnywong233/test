@@ -6,11 +6,11 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by wajian on 2016/10/7.
+ * Created by johnny on 2016/10/7.
  *
  */
 public class HeapSizeDifferences {
-    private static Collection<Object> objects = new ArrayList<>();
+    private static final Collection<Object> objects = new ArrayList<>();
     private static long lastMaxMemory = 0;
     //http://www.importnew.com/15934.html
     public static void main(String[] args) {

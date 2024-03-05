@@ -1,5 +1,6 @@
 package utils;
 
+import lombok.NoArgsConstructor;
 import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
 
 import java.io.FileInputStream;
@@ -15,12 +16,12 @@ import java.util.List;
  * Time: 21:18
  * Class copied from {@link org.jasypt.commons.CommonUtils}
  */
-
+@NoArgsConstructor
 public class CommonUtil {
     public static final String STRING_OUTPUT_TYPE_BASE64 = "base64";
     public static final String STRING_OUTPUT_TYPE_HEXADECIMAL = "hexadecimal";
-    private static final List STRING_OUTPUT_TYPE_HEXADECIMAL_NAMES = Arrays.asList("HEXADECIMAL", "HEXA", "0X", "HEX", "HEXADEC");
-    private static char[] hexDigits = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private static final List<String> STRING_OUTPUT_TYPE_HEXADECIMAL_NAMES = Arrays.asList("HEXADECIMAL", "HEXA", "0X", "HEX", "HEXADEC");
+    private static final char[] hexDigits = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
     public static Boolean getStandardBooleanValue(String valueStr) {
         if (valueStr == null) {
@@ -41,8 +42,8 @@ public class CommonUtil {
         } else {
             StringBuilder buffer = new StringBuilder();
 
-            for (int i = 0; i < message.length; ++i) {
-                int curByte = message[i] & 255;
+            for (byte b : message) {
+                int curByte = b & 255;
                 buffer.append(hexDigits[curByte >> 4]);
                 buffer.append(hexDigits[curByte & 15]);
             }
@@ -62,7 +63,7 @@ public class CommonUtil {
                 for (int i = 0; i < message.length(); i += 2) {
                     int first = Integer.parseInt("" + message.charAt(i), 16);
                     int second = Integer.parseInt("" + message.charAt(i + 1), 16);
-                    e[i / 2] = (byte) (0 + ((first & 255) << 4) + (second & 255));
+                    e[i / 2] = (byte) (((first & 255) << 4) + (second & 255));
                 }
                 return e;
             } catch (Exception var5) {
@@ -98,7 +99,7 @@ public class CommonUtil {
     }
 
     public static String[] split(String string) {
-        return split(string, (String) null);
+        return split(string, null);
     }
 
     public static String[] split(String string, String separators) {
@@ -109,7 +110,7 @@ public class CommonUtil {
             if (length == 0) {
                 return new String[0];
             } else {
-                ArrayList results = new ArrayList();
+                ArrayList<String> results = new ArrayList<>();
                 int i = 0;
                 int start = 0;
                 boolean tokenInProgress = false;
@@ -166,7 +167,7 @@ public class CommonUtil {
                     results.add(string.substring(start, i));
                 }
 
-                return (String[]) ((String[]) results.toArray(new String[results.size()]));
+                return results.toArray(new String[0]);
             }
         }
     }
@@ -206,9 +207,6 @@ public class CommonUtil {
         System.arraycopy(firstArray, 0, result, 0, firstArray.length);
         System.arraycopy(secondArray, 0, result, firstArray.length, secondArray.length);
         return result;
-    }
-
-    public CommonUtil() {
     }
 
     public static void closeStream(FileOutputStream in) {

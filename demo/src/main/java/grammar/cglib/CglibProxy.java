@@ -7,10 +7,10 @@ import net.sf.cglib.proxy.MethodProxy;
 import java.lang.reflect.Method;
 
 /**
- * Created by wajian on 2016/10/5.
- * https://my.oschina.net/u/1866821/blog/364773
- * http://blog.csdn.net/leon709/article/details/9529307
- * ​cglib实现动态代理构建带参数的代理实例
+ * Created by johnny on 2016/10/5.
+ * <a href="https://my.oschina.net/u/1866821/blog/364773">...</a>
+ * <a href="http://blog.csdn.net/leon709/article/details/9529307">...</a>
+ * cglib实现动态代理构建带参数的代理实例
  */
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class CglibProxy implements MethodInterceptor {
@@ -74,15 +74,13 @@ public class CglibProxy implements MethodInterceptor {
 }
 
 interface UserDao {
-    boolean login(String username, String password);
+    void login(String username, String password);
 }
 
 class UserDaoImpl implements UserDao {
     @Override
-    public boolean login(String username, String password) {
+    public void login(String username, String password) {
         String user = "(" + username + "," + password + ")";
-        System.out.println(this.getClass().getName() + "-> processing login:"
-                + user);
-        return true;
+        System.out.println(this.getClass().getName() + "-> processing login:" + user);
     }
 }
