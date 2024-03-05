@@ -7,17 +7,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-//import static org.mockito.ArgumentMatchers.anyInt;
-//import static org.mockito.hamcrest.MockitoHamcrest.argThat;//from mockito-core
-//import static org.mockito.ArgumentMatchers.argThat;//from mockito-core
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.argThat;//from mockito-all
-import static org.mockito.Matchers.eq;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.mock;
 import static org.testng.Assert.assertEquals;
 
 
@@ -62,8 +59,14 @@ public class ArgumentMatcherDemo1 {
  * self defined ArgumentMatcher
  */
 @SuppressWarnings("rawtypes")
-class IsListOfTwoElements extends ArgumentMatcher<List> {
-    public boolean matches(Object list) {
-        return ((List) list).size() == 2;
+class IsListOfTwoElements implements ArgumentMatcher<List> {
+    @Override
+    public boolean matches(List list) {
+        return list.size() == 2;
+    }
+
+    @Override
+    public Class<?> type() {
+        return ArgumentMatcher.super.type();
     }
 }

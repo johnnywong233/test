@@ -15,11 +15,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class Neo4jConfig {
     @Bean
     public org.neo4j.ogm.config.Configuration getConfiguration() {
-        org.neo4j.ogm.config.Configuration config = new org.neo4j.ogm.config.Configuration();
-        config.driverConfiguration()
-                .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
-                .setURI("http://neo4j:first_blood@localhost:7474");
-        return config;
+        // 无用配置,自动扫描读取 application.properties
+        return new org.neo4j.ogm.config.Configuration.Builder().uri("bolt://localhost:7687").build();
     }
 
 //    @Bean

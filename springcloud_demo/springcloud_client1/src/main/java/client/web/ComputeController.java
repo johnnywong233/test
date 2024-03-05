@@ -1,8 +1,6 @@
 package client.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -18,14 +17,13 @@ import java.util.List;
  * Date: 2017/7/13
  * Time: 22:57
  */
+@Slf4j
 @RestController
 public class ComputeController {
-    private final Logger logger = LoggerFactory.getLogger(ComputeController.class);
+    @Resource
+    private RestTemplate restTemplate;
 
-    @Autowired
-    RestTemplate restTemplate;
-
-    @Autowired
+    @Resource
     private DiscoveryClient client;
 
     //TODO
@@ -34,7 +32,7 @@ public class ComputeController {
         List<ServiceInstance> instances = client.getInstances("compute-service");
         Integer r = a + b;
         for (ServiceInstance instance : instances) {
-            logger.info("/add, host:" + instance.getHost() + ", service_id:" + instance.getServiceId() + ", result:" + r);
+            log.info("/add, host:" + instance.getHost() + ", service_id:" + instance.getServiceId() + ", result:" + r);
         }
         return r;
     }

@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -37,6 +38,13 @@ import java.util.UUID;
 @EnableBatchProcessing
 @EnableAutoConfiguration
 public class BatchConfig1 {
+    @Resource
+    private JobBuilderFactory jobBuilderFactory;
+    @Resource
+    private StepBuilderFactory stepBuilderFactory;
+    @Resource
+    private StudentItemProcessor processor;
+
     //执行流程： csv -> txt -> xml
     @Bean
     public FlatFileItemReader<Student> csvItemReader() {
@@ -99,9 +107,10 @@ public class BatchConfig1 {
     }
 
     @Bean
-    public Job flatFileJob(JobBuilderFactory jobBuilderFactory, Step stepCsv2Txt, Step stepTxt2Xml) {
+    public Job flatFileJob(Step stepCsv2Txt, Step stepTxt2Xml) {
         return jobBuilderFactory.get("flatFileJob")
                 .incrementer(parameters -> {
+                    assert parameters != null;
                     Map<String, JobParameter> parameterMap = parameters.getParameters();
                     parameterMap.put("key", new JobParameter(UUID.randomUUID().toString()));
                     return parameters;
@@ -112,9 +121,7 @@ public class BatchConfig1 {
     }
 
     @Bean
-    @SuppressWarnings("unchecked")
-    public Step stepCsv2Txt(StepBuilderFactory stepBuilderFactory, StudentItemProcessor processor,
-                            ItemReader csvItemReader, ItemWriter txtItemWriter) {
+    public Step stepCsv2Txt(ItemReader<Student> csvItemReader, ItemWriter<Student> txtItemWriter) {
         return stepBuilderFactory.get("stepCsv2Txt")
                 .<Student, Student>chunk(10)
                 .reader(csvItemReader)
@@ -124,9 +131,7 @@ public class BatchConfig1 {
     }
 
     @Bean
-    @SuppressWarnings("unchecked")
-    public Step stepTxt2Xml(StepBuilderFactory stepBuilderFactory, StudentItemProcessor processor,
-                            ItemReader txtItemReader, ItemWriter xmlItemWriter) {
+    public Step stepTxt2Xml(ItemReader<Student> txtItemReader, ItemWriter<Student> xmlItemWriter) {
         return stepBuilderFactory.get("stepTxt2Xml")
                 .<Student, Student>chunk(10)
                 .reader(txtItemReader)

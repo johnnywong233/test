@@ -12,7 +12,7 @@ public class UserDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
         try {
-            session.save(user);
+            session.persist(user);
             tx.commit();
         } catch (HibernateException e) {
             tx.rollback();
@@ -24,7 +24,7 @@ public class UserDao {
     public User findByEmail(String email) {
         Session session = HibernateUtil.getSession();
         session.beginTransaction();
-        User user = (User) session.createQuery("select u from User u where u.email=?")
+        User user = session.createQuery("select u from User u where u.email=?", User.class)
                 .setParameter(0, email)
                 .uniqueResult();
         session.getTransaction().commit();
@@ -36,7 +36,7 @@ public class UserDao {
         Session session = HibernateUtil.getSession();
         Transaction tx = session.beginTransaction();
         try {
-            session.createQuery("update User u set u.status=? where u.id=?")
+            session.createQuery("update User u set u.status=? where u.id=?", User.class)
                     .setParameter(0, status)
                     .setParameter(1, id)
                     .executeUpdate();

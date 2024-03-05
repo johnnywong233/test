@@ -29,7 +29,7 @@
                 <!--by default groupId is org.apache.maven.plugins-->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <version>3.12.1</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
@@ -193,7 +193,7 @@
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
-                <version>3.2.12</version>
+                <version>3.3.0</version>
             </dependency>
 
             <dependency>
