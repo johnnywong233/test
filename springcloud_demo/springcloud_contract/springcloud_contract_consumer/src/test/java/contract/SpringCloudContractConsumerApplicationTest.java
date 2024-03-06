@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Objects;
+
 /**
  * Author: Johnny
  * Date: 2017/11/21
@@ -27,11 +29,8 @@ public class SpringCloudContractConsumerApplicationTest {
 
     @Test
     public void testGetCustomers() {
-        ParameterizedTypeReference<Page> ptf =
-                new ParameterizedTypeReference<Page>() {
-                };
-        ResponseEntity<Page> responseEntity =
-                restTemplate.exchange("http://localhost:8080/api/customers", HttpMethod.GET, null, ptf);
-        Assert.assertEquals("size error!", 2, responseEntity.getBody().getData().size());
+        ParameterizedTypeReference<Page> ptf = new ParameterizedTypeReference<>() {};
+        ResponseEntity<Page> responseEntity = restTemplate.exchange("http://localhost:8080/api/customers", HttpMethod.GET, null, ptf);
+        Assert.assertEquals("size error!", 2, Objects.requireNonNull(responseEntity.getBody()).getData().size());
     }
 }

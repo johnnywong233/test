@@ -1,7 +1,7 @@
 package dashboard;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 
@@ -10,7 +10,7 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
  * Date: 2017/10/16
  * Time: 12:22
  */
-@SpringCloudApplication
+@SpringBootApplication
 @EnableHystrixDashboard
 @EnableCircuitBreaker
 public class HystrixDashboardApplication {

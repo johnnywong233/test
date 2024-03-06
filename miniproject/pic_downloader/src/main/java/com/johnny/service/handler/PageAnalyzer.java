@@ -31,8 +31,7 @@ public class PageAnalyzer {
             while (name.endsWith(".")) {
                 name = name.substring(0, name.length() - 1);
             }
-
-            return name.replaceAll("[\\\\ / : \\* \\? < > \\|]", " ");
+            return name.replaceAll("[\\\\ /:*?<>|]", " ");
         }
         return DEFAULT_ALBUM_NAME;
     }
@@ -66,7 +65,7 @@ public class PageAnalyzer {
                     num = Integer.parseInt(pageTagStr.substring(pageTagStr.lastIndexOf("=") + 1));
                 }
 
-                maxStartNum = num > maxStartNum ? num : maxStartNum;
+                maxStartNum = Math.max(num, maxStartNum);
             }
 
             int size = albumHandler.getPageSize();
@@ -85,7 +84,7 @@ public class PageAnalyzer {
         }
 
         for (int i = 0; i < pageURLList.size(); i++) {
-            Console.print("获取图片地址-页面(" + (i + 1) + "/" + pageURLList.size() + ")：" + (String) pageURLList.get(i));
+            Console.print("获取图片地址-页面(" + (i + 1) + "/" + pageURLList.size() + ")：" + pageURLList.get(i));
         }
         return pageURLList;
     }
@@ -94,7 +93,7 @@ public class PageAnalyzer {
         Map<String, BGImage> result = new HashMap<>();
         String source = URLUtils.readSource(pageURL);
 
-        String regex = "(http|https)://(\\w|\\s|\\.|-|_|/)+[\\.](gif|jpg|png)";
+        String regex = "(http|https)://(\\w|\\s|\\.|-|_|/)+[.](gif|jpg|png)";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(source);
         AlbumHandler albumHandler = album.getAlbumHandler();
@@ -105,7 +104,7 @@ public class PageAnalyzer {
             String imageName = imageURL.substring(imageURL.lastIndexOf("/") + 1);
 
             imageNameRegex = albumHandler.getImageNameRegex();
-            if ((imageNameRegex == null) || ((imageNameRegex != null) && (imageName.matches(imageNameRegex)))) {
+            if (imageNameRegex == null || imageName.matches(imageNameRegex)) {
                 albumHandler.createBGImage(source, pageURL, imageURL, result);
             }
 

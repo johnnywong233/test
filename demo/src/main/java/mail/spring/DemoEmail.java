@@ -1,7 +1,6 @@
 package mail.spring;
 
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -15,7 +14,7 @@ import java.util.Map;
  */
 @Component("demoEmail")
 public class DemoEmail {
-    @Autowired
+    @Resource
     private TemplateEmail templateEmail;
 
     @Resource(name = "templateEmail")

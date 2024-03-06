@@ -74,7 +74,7 @@ public class TestMobileCity {
             buffer.close();
             jsonString = sb.toString();
             //replace “__GetZoneResult_ = ” in order to convert into JSONArray
-            jsonString = jsonString.replaceAll("^[__]\\w{14}+[_ = ]+", "[");
+            jsonString = jsonString.replaceAll("^_\\w{14}+[_ =]+", "[");
             String jsonString2 = jsonString + "]";
             System.out.println(jsonString2);
             // convert string to json array
@@ -105,7 +105,7 @@ public class TestMobileCity {
 
     @SuppressWarnings("unused")
     private static String calcMobileCity1(String mobileNumber) throws IOException {
-        String url = "http://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=" + mobileNumber;
+        String url = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=" + mobileNumber;
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
         HttpResponse response = client.execute(request);
@@ -156,7 +156,7 @@ public class TestMobileCity {
         }
     }
 
-    public static void fixUntrustCertificate() throws KeyManagementException, NoSuchAlgorithmException {
+    public static void fixUnTrustCertificate() throws KeyManagementException, NoSuchAlgorithmException {
         TrustManager[] trustAllCerts = new TrustManager[]{
                 new X509TrustManager() {
                     @Override

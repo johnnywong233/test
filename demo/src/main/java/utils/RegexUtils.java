@@ -25,7 +25,7 @@ public class RegexUtils {
      * @return verify success return true, fail return false
      */
     public static boolean checkIdCard(String idCard) {
-        String regex = "[1-9]\\d{13,16}[a-zA-Z0-9]{1}";
+        String regex = "[1-9]\\d{13,16}[a-zA-Z\\d]";
         return Pattern.matches(regex, idCard);
     }
     /**

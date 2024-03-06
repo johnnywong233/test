@@ -19,21 +19,21 @@ public class CheckExpressionValid {
         CheckExpressionValid demo = new CheckExpressionValid();
         String exp = "(1+2)*(3/(5-4))";
         //方法一：使用 JS 引擎或者 nashorn 引擎
-//        System.out.println(jsCheck(exp));
+        System.out.println(jsCheck(exp));
         //方法二：正则表达式
         System.out.println(regexCheck(exp));
         //方法三：实际上也是面试想要考查的数据结构知识：
-//        System.out.println(demo.eval(exp));
+        System.out.println(demo.eval(exp));
 
     }
 
     private String eval(String exp) throws Exception {
-        List list = infixExpToPostExp(exp);// 转化成后缀表达式
+        List<String> list = infixExpToPostExp(exp);// 转化成后缀表达式
         return doEval(list);// 真正求值
     }
 
     // 遇到操作符压栈，遇到表达式从后缀表达式中弹出两个数，计算出结果，压入堆栈
-    private String doEval(List list) throws Exception {
+    private String doEval(List<String> list) throws Exception {
         Stack<String> stack = new Stack<>();
         String element;
         double n1, n2, result;
@@ -73,11 +73,11 @@ public class CheckExpressionValid {
                 || "/".equals(str);
     }
 
-    private List infixExpToPostExp(String exp) throws Exception {
+    private List<String> infixExpToPostExp(String exp) throws Exception {
         // 将中缀表达式转化成为后缀表达式
         exp = exp + "#";
         List<String> postExp = new ArrayList<>();// 存放转化的后缀表达式的链表
-        StringBuffer numBuffer = new StringBuffer();// 用来保存一个数的
+        StringBuilder numBuffer = new StringBuilder();// 用来保存一个数的
         Stack<String> opStack = new Stack<>();// 操作符栈
         char ch;
         String preChar;
@@ -138,7 +138,7 @@ public class CheckExpressionValid {
                                 ch = exp.charAt(++i);
                             }
                             postExp.add(numBuffer.toString());
-                            numBuffer = new StringBuffer();
+                            numBuffer = new StringBuilder();
                         } else {
                             throw new Exception("illegal operator");
                         }
@@ -171,7 +171,7 @@ public class CheckExpressionValid {
     private static boolean regexCheck(String exp) {
 //        String regex = "((([(]?[-]?[0-9]*[.]?[0-9]+)+([\\/\\+\\-\\*])+)+([0-9]*[.]?[0-9]+[)]?)+[\\+\\-\\*\\/]?([0-9]*)*)+";
 //        String regex = "((([(]?[-]?[0-9]*[.]?[0-9]+)+([/+\\-*])+)+([0-9]*[.]?[0-9]+[)]?)+[+\\-*/]?([0-9]*)*)+";
-        String regex = "^(?!.*[^\\d+\\-*/()])(?!.*\\)\\d)(?!.*[+\\-*/]([+\\-*/]|\\)))(?!.*\\([+*/])(?!.*(\\d|\\))\\()(?=\\d|-|\\()(?=.*(\\d|\\))$)[^\\(\\)]*(((?'open'\\()[^\\(\\)]*)+((?'-open'\\))[^\\(\\)]*)+)*(?(open)(?!))$";
+        String regex = "^(?!.*[^\\d+\\-*/()])(?!.*\\)\\d)(?!.*[+\\-*/]([+\\-*/]|\\)))(?!.*\\([+*/])(?!.*(\\d|\\))\\()(?=\\d|-|\\()(?=.*(\\d|\\))$)[^()]*(((?'open'\\()[^()]*)+((?'-open'\\))[^()]*)+)*(?(open)(?!))$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(exp);
 

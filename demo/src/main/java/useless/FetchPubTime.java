@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 
 public class FetchPubTime {
 
-    private static Pattern pDetail = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+    private static final Pattern pDetail = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
     //如果是仅仅抽取年月日，则按照上面的，如果是抽取年月日-时分秒，则按照下面的
-    private static Pattern p = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
+    private static final Pattern p = Pattern.compile("(20\\d{2}[-/]\\d{1,2}[-/]\\d{1,2})|(20\\d{2}年\\d{1,2}月\\d{1,2}日)", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE);
 
 
     /*http://www.phpxs.com/code/1009947/
@@ -27,20 +27,20 @@ public class FetchPubTime {
     /**
      * 表示url中连续的8位日期，例如http://www.baidu.com/20140311/2356.html
      */
-    private static String url_reg_whole = "([-|/|_]{1}20\\d{6})";
+    private static final String url_reg_whole = "([-|/_]20\\d{6})";
     /**
-     * 表示 用-或者/隔开的日期,有年月日的，例如 http://www.baidu.com/2014-3-11/2356.html
+     * 表示 用-或者/隔开的日期,有年月日的，例如 www.baidu.com/2014-3-11/2356.html
      */
-    private static String url_reg_sep_ymd = "([-|/|_]{1}20\\d{2}[-|/|_]{1}\\d{1,2}[-|/|_]{1}\\d{1,2})";
+    private static final String url_reg_sep_ymd = "([-|/_]20\\d{2}[-|/_]\\d{1,2}[-|/_]\\d{1,2})";
     /**
-     * 表示 用-或者/隔开的日期,只有年和月份的，例如 http://www.baidu.com/2014-3/2356.html
+     * 表示 用-或者/隔开的日期,只有年和月份的，例如 www.baidu.com/2014-3/2356.html
      */
-    private static String url_reg_sep_ym = "([-|/|_]{1}20\\d{2}[-|/|_]{1}\\d{1,2})";
-    private static Calendar current = Calendar.getInstance();
+    private static final String url_reg_sep_ym = "([-|/_]20\\d{2}[-|/_]\\d{1,2})";
+    private static final Calendar current = Calendar.getInstance();
     /**
      * 格式正确的时间正则表达式
      */
-    private static String rightTimeReg = "^((\\d{2}(([02468][048])|([13579][26]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-\\/\\s]?((((0?[13578])|(1[02]))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(3[01])))|(((0?[469])|(11))[\\-\\/\\s]?((0?[1-9])|([1-2][0-9])|(30)))|(0?2[\\-\\/\\s]?((0?[1-9])|(1[0-9])|(2[0-8]))))))(\\s(((0?[0-9])|([1-2][0-3]))\\:([0-5]?[0-9])((\\s)|(\\:([0-5]?[0-9])))))?$";
+    private static final String rightTimeReg = "^((\\d{2}(([02468][048])|([13579][26]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2]\\d)|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2]\\d)|(30)))|(0?2[\\-/\\s]?((0?[1-9])|([1-2]\\d)))))|(\\d{2}(([02468][1235679])|([13579][01345789]))[\\-/\\s]?((((0?[13578])|(1[02]))[\\-/\\s]?((0?[1-9])|([1-2]\\d)|(3[01])))|(((0?[469])|(11))[\\-/\\s]?((0?[1-9])|([1-2]\\d)|(30)))|(0?2[\\-/\\s]?((0?[1-9])|(1\\d)|(2[0-8]))))))(\\s(((0?\\d)|([1-2][0-3])):([0-5]?\\d)((\\s)|(:([0-5]?\\d)))))?$";
 
     /**
      * @param url url
@@ -72,7 +72,7 @@ public class FetchPubTime {
         Matcher matcher = whole.matcher(url);
         if (matcher.find(0) && matcher.groupCount() > 0) {
             String time = matcher.group(0);
-            time = time.substring(1, time.length());
+            time = time.substring(1);
             //每一步都不能够超出当前时间
             if (current.compareTo(TimeUtils.strToCalendar(time, "yyyyMMdd")) >= 0) {
 
@@ -85,8 +85,8 @@ public class FetchPubTime {
         Matcher mSep = pSep.matcher(url);
         if (mSep.find(0) && mSep.groupCount() > 0) {
             String time = mSep.group(0);
-            time = time.substring(1, time.length());
-            String[] seg = time.split("[-|/|_]{1}");
+            time = time.substring(1);
+            String[] seg = time.split("[-|/_]");
             Calendar theTime = Calendar.getInstance();
             theTime.set(Calendar.YEAR, Integer.parseInt(seg[0]));
             theTime.set(Calendar.MONTH, Integer.parseInt(seg[1]));
@@ -100,9 +100,9 @@ public class FetchPubTime {
         Matcher matcher1 = pattern.matcher(url);
         if (matcher1.find(0) && matcher1.groupCount() > 0) {
             String time = matcher1.group(0);
-            time = time.substring(1, time.length());
+            time = time.substring(1);
             Calendar theTime = Calendar.getInstance();
-            String[] seg = time.split("[-|/|_]{1}");
+            String[] seg = time.split("[-|/_]");
             theTime.set(Calendar.YEAR, Integer.parseInt(seg[0]));
             theTime.set(Calendar.MONTH, Integer.parseInt(seg[1]));
             theTime.set(Calendar.DAY_OF_MONTH, 1);

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class RegexTest {
     public static void main(String[] args) {
 
-        final String regex = "([=+]|[\\s]|[\\p{P}]|[A-Za-z0-9]|[\u4E00-\u9FA5])+";
+        final String regex = "([=+]|\\s|\\p{P}|[A-Za-z\\d]|[\u4E00-\u9FA5])+";
         StringBuilder line = new StringBuilder();
         System.out.println("++++++++++++++++++++++++++++++");
         for (int i = 0; i < 10; i++) {

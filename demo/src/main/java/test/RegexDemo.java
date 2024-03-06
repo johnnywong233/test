@@ -75,7 +75,7 @@ public class RegexDemo {
             return num;
         }
         try {
-            ip = ip.replaceAll("[^0-9.]", ""); //去除字符串前的空字符
+            ip = ip.replaceAll("[^\\d.]", ""); //去除字符串前的空字符
             String[] ips = ip.split("\\.");
             if (ips.length == 4) {
                 num = Long.parseLong(ips[0], 10) * 256L * 256L * 256L + Long.parseLong(ips[1], 10) * 256L * 256L + Long.parseLong(ips[2], 10) * 256L + Long.parseLong(ips[3], 10);

@@ -15,15 +15,15 @@ $.extend($.tool, {
     }
 });
 $.tool.inherit = function (overrides) {
-    var superClass = this;
-    var subClass = function (options) {
+    let superClass = this;
+    let subClass = function (options) {
         options = options || {};
         $.extend(this, subClass);
         this.initialize(options);
     };
     $.extend(subClass, superClass);
     $.extend(subClass, overrides);
-    var p = function () {
+    let p = function () {
     };
     p.prototype = superClass.prototype;
     subClass.prototype = new p();
@@ -84,8 +84,8 @@ $.validation.Validator = $.tool.inherit({
     validate: function (input, result) {
         //判断input的type是否在acceptTypes中，存在则调用验证方法
         //对于select之类的要判断tagName
-        if ($.inArray($(input).prop('type').toLowerCase(), this.acceptTypes) != -1 ||
-            $.inArray($(input).prop('tagName').toLowerCase(), this.acceptTypes) != -1) {
+        if ($.inArray($(input).prop('type').toLowerCase(), this.acceptTypes) !== -1 ||
+            $.inArray($(input).prop('tagName').toLowerCase(), this.acceptTypes) !== -1) {
             //验证
             this.doValidate(input, result);
         }
@@ -106,8 +106,7 @@ $.validation.Validator = $.tool.inherit({
 $.validation.validatorMgr.reg("validator", $.Validator);
 $.validation.FormValidator = function (form, options) {
     $.extend(this, {
-        validators: new Array(),
-
+        validators: [],
         addValidator: function (validator) {
             this.validators.push(validator);
         },
@@ -119,10 +118,9 @@ $.validation.FormValidator = function (form, options) {
         },
 
         validate: function () {
-            var errors = new Array();
-            var result = true;
-
-            var formValidator = $(this).data('validator');
+            let errors = [];
+            let result = true;
+            let formValidator = $(this).data('validator');
             //使用所有的validator进行检验
             $.each(formValidator.validators, function () {
                 if (!this.isValid()) {
@@ -166,9 +164,9 @@ $.validation.FormValidator = function (form, options) {
 //  可链式调用的jQuery对象
 $.fn.formValidator = function (options) {
     return this.each(function () {
-        var self = $(this);
-        if (self.prop('tagName').toLowerCase() == 'form') {
-            var validator = self.data('validator');
+        let self = $(this);
+        if (self.prop('tagName').toLowerCase() === 'form') {
+            let validator = self.data('validator');
             if (validator) {
                 $.extend(validator, options);
             }
@@ -180,9 +178,8 @@ $.fn.formValidator = function (options) {
 };
 $.fn.performValidation = function (group, onSuccess, onFailure) {
     this.doValidate = function (validators) {
-        var errors = new Array();
-        var result = true;
-
+        let errors = [];
+        let result = true;
         $.each(validators, function () {
             if (!this.isValid()) {
                 result = false;
@@ -203,15 +200,15 @@ $.fn.performValidation = function (group, onSuccess, onFailure) {
         return result;
     };
 
-    var self = $(this);
-    if (self.prop('tagName').toLowerCase() == 'form') {
-        var validators = self.data('validator').validators;
+    let self = $(this);
+    if (self.prop('tagName').toLowerCase() === 'form') {
+        let validators = self.data('validator').validators;
         if (validators && validators.length > 0) {
             if (group && typeof group == 'string' && group.length > 0) {
                 //对此组进行验证
                 //获取所有group中的validator
                 validators = $.grep(validators, function (validator) {
-                    return (validator.group == group);
+                    return (validator.group === group);
                 });
             }
             //一一验证
@@ -295,7 +292,7 @@ $.validation.InputValidator = $.tool.inherit({
     reset: function () {
         //重新初始化验证期结果
         this.result = new $.validation.ValidateResult();
-        var self = this;
+        let self = this;
         this.result.onModified = function (result) {
             //根据验证结果显示不同的内容
             if (result.result) {
@@ -322,7 +319,7 @@ $.validation.InputValidator = $.tool.inherit({
         }
 
         //保持this指针的引用
-        var self = this;
+        let self = this;
         //初始化ValidateResult
         this.result = new $.validation.ValidateResult();
         this.result.onModified = function (result) {
@@ -358,13 +355,13 @@ $.validation.InputValidator = $.tool.inherit({
 $.extend($.validation.InputValidator, {
     //显示消息
     showMsg: function (css, msg) {
-        var cssArray = [this.readyClass, this.errorClass, this.focusClass, this.validClass];
+        let cssArray = [this.readyClass, this.errorClass, this.focusClass, this.validClass];
         this.getTargetEl().removeClass(cssArray.join(" ")).addClass(css).html(msg);
     },
 
     //获取显示消息用的元素
     getTargetEl: function () {
-        if (!this.msgTarget || this.msgTarget == '') {
+        if (!this.msgTarget || this.msgTarget === '') {
             return $('#' + $(this.input).attr('id') + 'Tip');
         }
         else {
@@ -389,8 +386,8 @@ $.extend($.validation.InputValidator, {
 });
 $.fn.initValidator = $.fn.i = function (options, ex) {
     return this.each(function () {
-        var form = $(this.form);
-        var formValidator = form.data('validator');
+        let form = $(this.form);
+        let formValidator = form.data('validator');
 
         if (!formValidator) {
             //初始化一个空的FormValidator
@@ -400,7 +397,7 @@ $.fn.initValidator = $.fn.i = function (options, ex) {
 
         options['input'] = this;
         $.extend(options, ex || {});
-        var validator = new $.validation.InputValidator(options);
+        let validator = new $.validation.InputValidator(options);
         formValidator.addValidator(validator);
         $(this).data('validator', validator);
     });
@@ -408,7 +405,7 @@ $.fn.initValidator = $.fn.i = function (options, ex) {
 //重置 验证dom的验证状态，重置后状态变为ready状态
 $.fn.resetValidate = function () {
     return this.each(function () {
-        var validator = $(this).data("validator");
+        let validator = $(this).data("validator");
         if (validator) {
             validator.reset();
         }
@@ -416,7 +413,7 @@ $.fn.resetValidate = function () {
 };
 $.fn.addValidator = $.fn.a = function (rule, options) {
     return this.each(function () {
-        var validator = $(this).data('validator');
+        let validator = $(this).data('validator');
 
         if (validator) {
             validator.addValidator($.validation.validatorMgr.cte(rule, options));
@@ -427,7 +424,7 @@ $.fn.addValidator = $.fn.a = function (rule, options) {
 //Required
 $.validation.RequiredValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
+        let value = $(input).val();
         if (!value || !value.length > 0) {
             this.setError(result);
         }
@@ -448,7 +445,7 @@ $.validation.LengthValidator = $.validation.Validator.inherit({
     },
 
     doValidate: function (input, result) {
-        var value = $(input).val();
+        let value = $(input).val();
         if (!value || value.length < this.getMin() || value.length > this.getMax()) {
             this.setError(result);
         }
@@ -467,7 +464,7 @@ $.validation.RegexValidator = $.validation.Validator.inherit({
     },
 
     doValidate: function (input, result) {
-        var regex = this.getRegex();
+        let regex = this.getRegex();
         if (!regex.test($(input).val())) {
             this.setError(result);
         }
@@ -478,11 +475,11 @@ $.validation.validatorMgr.reg('regex', $.validation.RegexValidator);
 //phone
 $.validation.PhoneValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^(1[3,5,8,7]{1}[\d]{9})|(((400)-(\d{3})-(\d{4}))|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{3,7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)$/.test(value)) {
+        if (!/^(1[3,587]\d{9})|(((400)-(\d{3})-(\d{4}))|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{3,7,8})-(\d{4}|\d{3}|\d{2}|\d)|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d))$)$/.test(value)) {
             this.setError(result);
         }
     }
@@ -492,11 +489,11 @@ $.validation.validatorMgr.reg('phone', $.validation.PhoneValidator);
 //email
 $.validation.EmailValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(value)) {
+        if (!/^((([a-z]|\d|[!#$%&'*+\-\/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#$%&'*+\-\/=?^_`{|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)(((([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*((([\x20\x09])*(\x0d\x0a))?([\x20\x09])+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i.test(value)) {
             this.setError(result);
         }
     }
@@ -506,11 +503,11 @@ $.validation.validatorMgr.reg('email', $.validation.EmailValidator);
 //integer
 $.validation.IntegerValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^[\-\+]?\d+$/.test(value)) {
+        if (!/^[\-+]?\d+$/.test(value)) {
             this.setError(result);
         }
     }
@@ -520,11 +517,11 @@ $.validation.validatorMgr.reg('integer', $.validation.IntegerValidator);
 //number
 $.validation.NumberValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^[\-\+]?(([0-9]+)([\.,]([0-9]+))?|([\.,]([0-9]+))?)$/.test(value)) {
+        if (!/^[\-+]?((\d+)([.,](\d+))?|([.,](\d+))?)$/.test(value)) {
             this.setError(result);
         }
     }
@@ -534,11 +531,11 @@ $.validation.validatorMgr.reg('number', $.validation.NumberValidator);
 //date(yyyy-mm-dd)
 $.validation.DateValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/.test(value)) {
+        if (!/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12]\d|3[01])$/.test(value)) {
             this.setError(result);
         }
     }
@@ -548,11 +545,11 @@ $.validation.validatorMgr.reg('date', $.validation.DateValidator);
 //ipv4
 $.validation.IPV4Validator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^((([01]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))[.]){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))$/.test(value)) {
+        if (!/^((([01]?\d{1,2})|(2[0-4]\d)|(25[0-5]))[.]){3}(([0-1]?\d{1,2})|(2[0-4]\d)|(25[0-5]))$/.test(value)) {
             this.setError(result);
         }
     }
@@ -562,25 +559,25 @@ $.validation.validatorMgr.reg('ipv4', $.validation.IPV4Validator);
 //url
 $.validation.UrlValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value)) {
+        if (!/^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!$&'()*+,;=]|:|@)|\/|\?)*)?$/i.test(value)) {
             this.setError(result);
         }
     }
 });
 $.validation.validatorMgr.reg('url', $.validation.UrlValidator);
 
-//nospace
+//noSpace
 $.validation.NoSpaceValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^[^\s]*$/.test(value)) {
+        if (!/^\S*$/.test(value)) {
             this.setError(result);
         }
     }
@@ -590,8 +587,8 @@ $.validation.validatorMgr.reg('nospace', $.validation.NoSpaceValidator);
 //chinese
 $.validation.ChineseValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
         if (!/^[\u4E00-\u9FA5]+$/.test(value)) {
@@ -601,14 +598,14 @@ $.validation.ChineseValidator = $.validation.Validator.inherit({
 });
 $.validation.validatorMgr.reg('chinese', $.validation.ChineseValidator);
 
-//idcard
+//idCard
 $.validation.IDCardValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$)/.test(value)) {
+        if (!/(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|12]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|12]\d)|3[0-1])\d{4}$)/.test(value)) {
             this.setError(result);
         }
     }
@@ -618,11 +615,11 @@ $.validation.validatorMgr.reg('idcard', $.validation.IDCardValidator);
 //username
 $.validation.UsernameValidator = $.validation.Validator.inherit({
     doValidate: function (input, result) {
-        var value = $(input).val();
-        if (value == "") {
+        let value = $(input).val();
+        if (value === "") {
             return;
         }
-        if (!/^[a-zA-Z_][\w]{2,13}$/.test(value)) {
+        if (!/^[a-zA-Z_]\w{2,13}$/.test(value)) {
             this.setError(result);
         }
     }
@@ -636,23 +633,17 @@ $.validation.ValueValidator = $.validation.Validator.inherit({
     accept: null,
 
     doValidate: function (input, result) {
-        var val = $(input).val();
-        if (this.accept && typeof this.accept == 'string' &&
-            val != this.accept) {
+        let val = $(input).val();
+        if (this.accept && typeof this.accept == 'string' && val !== this.accept) {
             this.setError(result);
         }
-        else if (this.accept && typeof this.accept == 'object' &&
-            this.accept.length && this.accept.length > 0 &&
-            $.inArray(val, this.accept) == -1) {
+        else if (this.accept && typeof this.accept == 'object' && this.accept.length && this.accept.length > 0 && $.inArray(val, this.accept) === -1) {
             this.setError(result);
         }
-        else if (this.not && typeof this.not == 'string' &&
-            val == this.not) {
+        else if (this.not && typeof this.not == 'string' && val === this.not) {
             this.setError(result);
         }
-        else if (this.not && typeof this.not == 'object' &&
-            this.not.length && this.not.length > 0 &&
-            $.inArray(val, this.not) != -1) {
+        else if (this.not && typeof this.not == 'object' && this.not.length && this.not.length > 0 && $.inArray(val, this.not) !== -1) {
             this.setError(result);
         }
     }
@@ -663,7 +654,7 @@ $.validation.validatorMgr.reg('value', $.validation.ValueValidator);
 $.validation.EqualsValidator = $.validation.Validator.inherit({
     equalsTo: '',
     doValidate: function (input, result) {
-        if ($(input).val() != $(this.equalsTo).val()) {
+        if ($(input).val() !== $(this.equalsTo).val()) {
             this.setError(result);
         }
     }
