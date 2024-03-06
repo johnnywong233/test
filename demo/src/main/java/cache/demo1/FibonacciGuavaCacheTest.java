@@ -3,8 +3,8 @@ package cache.demo1;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.testng.annotations.Test;
 
 /**
@@ -13,14 +13,21 @@ import org.testng.annotations.Test;
  * Time: 16:52
  * test for fibonacci guava caching
  */
+@Slf4j
 public class FibonacciGuavaCacheTest {
-    private Logger logger = LoggerFactory.getLogger(FibonacciGuavaCacheTest.class);
 
-    private LoadingCache<Integer, Integer> fibonacciCache = CacheBuilder.newBuilder()
+    @Test
+    public void test() {
+        for (int i = 0; i < 10; i++) {
+            log.info("f(" + i + ") = " + fibonacciCache.getUnchecked(i));
+        }
+    }
+
+    private final LoadingCache<Integer, Integer> fibonacciCache = CacheBuilder.newBuilder()
             .maximumSize(2)
-            .build(new CacheLoader<Integer, Integer>() {
+            .build(new CacheLoader<>() {
                 @Override
-                public Integer load(Integer i) {
+                public Integer load(@NotNull Integer i) {
                     if (i == 0) {
                         return i;
                     }
@@ -32,10 +39,5 @@ public class FibonacciGuavaCacheTest {
                 }
             });
 
-    @Test
-    public void test() {
-        for (int i = 0; i < 10; i++) {
-            logger.info("f(" + i + ") = " + fibonacciCache.getUnchecked(i));
-        }
-    }
+
 }

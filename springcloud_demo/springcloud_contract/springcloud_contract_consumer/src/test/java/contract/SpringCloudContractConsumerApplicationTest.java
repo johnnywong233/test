@@ -29,7 +29,8 @@ public class SpringCloudContractConsumerApplicationTest {
 
     @Test
     public void testGetCustomers() {
-        ParameterizedTypeReference<Page> ptf = new ParameterizedTypeReference<>() {};
+        ParameterizedTypeReference<Page> ptf = new ParameterizedTypeReference<>() {
+        };
         ResponseEntity<Page> responseEntity = restTemplate.exchange("http://localhost:8080/api/customers", HttpMethod.GET, null, ptf);
         Assert.assertEquals("size error!", 2, Objects.requireNonNull(responseEntity.getBody()).getData().size());
     }

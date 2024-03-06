@@ -1,26 +1,23 @@
 package concurrent;
 
+import lombok.AllArgsConstructor;
+
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class CyclicBarrierTest {
     public static void main(String[] args) {
         int num = 4;
-        CyclicBarrier barrier = new CyclicBarrier(num, () -> {
-            System.out.println("current " + Thread.currentThread().getName());
-        });
+        CyclicBarrier barrier = new CyclicBarrier(num, () -> System.out.println("current " + Thread.currentThread().getName()));
 
         for (int i = 0; i < num; i++) {
             new Writer(barrier).start();
         }
     }
 
+    @AllArgsConstructor
     static class Writer extends Thread {
-        private CyclicBarrier cyclicBarrier;
-
-        Writer(CyclicBarrier cyclicBarrier) {
-            this.cyclicBarrier = cyclicBarrier;
-        }
+        private final CyclicBarrier cyclicBarrier;
 
         @Override
         public void run() {

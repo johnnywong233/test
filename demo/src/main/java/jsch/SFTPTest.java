@@ -63,7 +63,7 @@ public class SFTPTest {
         channel.closeChannel();
     }
 
-    private class SFTPChannel {
+    private static class SFTPChannel {
         private Session session = null;
         private Channel channel = null;
 
@@ -78,7 +78,7 @@ public class SFTPTest {
 
             int ftpPort = SFTPConstants.SFTP_DEFAULT_PORT;
             if (port != null && !"".equals(port)) {
-                ftpPort = Integer.valueOf(port);
+                ftpPort = Integer.parseInt(port);
             }
 
             JSch jsch = new JSch();
@@ -102,7 +102,7 @@ public class SFTPTest {
             return (ChannelSftp) channel;
         }
 
-        void closeChannel() throws Exception {
+        void closeChannel() {
             if (channel != null) {
                 channel.disconnect();
             }

@@ -11,7 +11,7 @@ import org.junit.Test;
 public class XomDemo {
 
     @Test
-    public static String generateXml() {
+    public String generateXml() {
         Element root = new Element("root");
         root.appendChild("Hello World!");
         //root.appendChild("\n  Hello World!\n");

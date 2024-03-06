@@ -89,7 +89,7 @@ public class LinkedReverse {
             return null;
         }
         // 定义一个集合 ，放在集合里面在单个反向指回
-        List<N> nList = new ArrayList<N>();
+        List<N> nList = new ArrayList<>();
         N p = n;
         while (p != null) {
             N node = new N();// 当前节点

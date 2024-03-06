@@ -1,5 +1,8 @@
 package mybatis;
 
+import mybatis.domain.Student;
+import mybatis.model.mapper.ClassMapper;
+import mybatis.model.mapper.StudentMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -27,12 +30,11 @@ public class CacheTest {
     }
 
     /**
-     *   <setting name="localCacheScope" value="SESSION"/>
-     *   <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testLocalCache() throws Exception {
+    public void testLocalCache() {
         SqlSession sqlSession = factory.openSession(true); // 自动提交事务
         StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
 
@@ -44,13 +46,12 @@ public class CacheTest {
     }
 
     /**
-     *  <setting name="localCacheScope" value="SESSION"/>
-     *  <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testLocalCacheClear() throws Exception {
-        SqlSession sqlSession = factory.openSession(true); // 自动提交事务
+    public void testLocalCacheClear() {
+        SqlSession sqlSession = factory.openSession(true);
         StudentMapper studentMapper = sqlSession.getMapper(StudentMapper.class);
 
         System.out.println(studentMapper.getStudentById(1));
@@ -61,43 +62,40 @@ public class CacheTest {
     }
 
     /**
-     *   <setting name="localCacheScope" value="SESSION"/>
-     *   <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testLocalCacheScope() throws Exception {
-        SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务
+    public void testLocalCacheScope() {
+        SqlSession sqlSession1 = factory.openSession(true);
+        SqlSession sqlSession2 = factory.openSession(true);
 
         StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);
         StudentMapper studentMapper2 = sqlSession2.getMapper(StudentMapper.class);
 
         System.out.println("studentMapper读取数据: " + studentMapper.getStudentById(1));
         System.out.println("studentMapper读取数据: " + studentMapper.getStudentById(1));
-        System.out.println("studentMapper2更新了" + studentMapper2.updateStudentName("小岑",1) + "个学生的数据");
+        System.out.println("studentMapper2更新了" + studentMapper2.updateStudentName("小岑", 1) + "个学生的数据");
         System.out.println("studentMapper读取数据: " + studentMapper.getStudentById(1));
         System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentById(1));
 
     }
 
-
-    private StudentEntity buildStudent(){
-        StudentEntity studentEntity = new StudentEntity();
-        studentEntity.setName("明明");
-        studentEntity.setAge(20);
-        return studentEntity;
+    private Student buildStudent() {
+        Student student = new Student();
+        student.setName("明明");
+        student.setAge(20);
+        return student;
     }
 
     /**
-     *  <setting name="localCacheScope" value="SESSION"/>
-     *  <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testCacheWithoutCommitOrClose() throws Exception {
-        SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务
+    public void testCacheWithoutCommitOrClose() {
+        SqlSession sqlSession1 = factory.openSession(true);
+        SqlSession sqlSession2 = factory.openSession(true);
 
         StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);
         StudentMapper studentMapper2 = sqlSession2.getMapper(StudentMapper.class);
@@ -108,14 +106,13 @@ public class CacheTest {
     }
 
     /**
-     *  <setting name="localCacheScope" value="SESSION"/>
-     *  <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testCacheWithCommitOrClose() throws Exception {
-        SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务
+    public void testCacheWithCommitOrClose() {
+        SqlSession sqlSession1 = factory.openSession(true);
+        SqlSession sqlSession2 = factory.openSession(true);
 
         StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);
         StudentMapper studentMapper2 = sqlSession2.getMapper(StudentMapper.class);
@@ -127,15 +124,14 @@ public class CacheTest {
     }
 
     /**
-     *  <setting name="localCacheScope" value="SESSION"/>
-     *  <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testCacheWithUpdate() throws Exception {
-        SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession3 = factory.openSession(true); // 自动提交事务
+    public void testCacheWithUpdate() {
+        SqlSession sqlSession1 = factory.openSession(true);
+        SqlSession sqlSession2 = factory.openSession(true);
+        SqlSession sqlSession3 = factory.openSession(true);
 
 
         StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);
@@ -147,21 +143,20 @@ public class CacheTest {
         sqlSession1.close();
         System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentById(1));
 
-        studentMapper3.updateStudentName("方方",1);
+        studentMapper3.updateStudentName("方方", 1);
         sqlSession3.commit();
         System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentById(1));
     }
 
     /**
-     *  <setting name="localCacheScope" value="SESSION"/>
-     *  <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testCacheWithDiffererntNamespace() throws Exception {
-        SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession3 = factory.openSession(true); // 自动提交事务
+    public void testCacheWithDiffererntNamespace() {
+        SqlSession sqlSession1 = factory.openSession(true);
+        SqlSession sqlSession2 = factory.openSession(true);
+        SqlSession sqlSession3 = factory.openSession(true);
 
 
         StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);
@@ -174,24 +169,21 @@ public class CacheTest {
 
         System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentByIdWithClassInfo(1));
 
-        classMapper.updateClassName("特色一班",1);
+        classMapper.updateClassName("特色一班", 1);
         sqlSession3.commit();
 
         System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentByIdWithClassInfo(1));
     }
 
     /**
-     *  <setting name="localCacheScope" value="SESSION"/>
-     *  <setting name="cacheEnabled" value="true"/>
-     * @throws Exception
+     * <setting name="localCacheScope" value="SESSION"/>
+     * <setting name="cacheEnabled" value="true"/>
      */
     @Test
-    public void testCacheWithDiffererntNamespaceWithCacheRef() throws Exception {
-        SqlSession sqlSession1 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession2 = factory.openSession(true); // 自动提交事务
-        SqlSession sqlSession3 = factory.openSession(true); // 自动提交事务
-
-
+    public void testCacheWithDifferentNamespaceWithCacheRef() {
+        SqlSession sqlSession1 = factory.openSession(true);
+        SqlSession sqlSession2 = factory.openSession(true);
+        SqlSession sqlSession3 = factory.openSession(true);
         StudentMapper studentMapper = sqlSession1.getMapper(StudentMapper.class);
         StudentMapper studentMapper2 = sqlSession2.getMapper(StudentMapper.class);
         ClassMapper classMapper = sqlSession3.getMapper(ClassMapper.class);
@@ -202,7 +194,7 @@ public class CacheTest {
 
         System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentByIdWithClassInfo(1));
 
-        classMapper.updateClassName("特色一班",1);
+        classMapper.updateClassName("特色一班", 1);
         sqlSession3.commit();
 
         System.out.println("studentMapper2读取数据: " + studentMapper2.getStudentByIdWithClassInfo(1));

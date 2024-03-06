@@ -15,7 +15,7 @@ import static org.mockito.Mockito.mock;
  * Time: 18:51
  */
 public class AnswerDemo implements Answer<String> {
-    public String answer(InvocationOnMock invocation) throws Throwable {
+    public String answer(InvocationOnMock invocation) {
         Object[] args = invocation.getArguments();
         Integer num = (Integer) args[0];
         if (num > 3) {
@@ -29,15 +29,13 @@ public class AnswerDemo implements Answer<String> {
 	@Test
     public void customAnswerTest() {
         List<String> mock = mock(List.class);
-        when(mock.get(4)).thenAnswer(new Answer<String>() {
-            public String answer(InvocationOnMock invocation) throws Throwable {
-                Object[] args = invocation.getArguments();
-                Integer num = (Integer) args[0];
-                if (num > 3) {
-                    return "yes";
-                } else {
-                    throw new RuntimeException();
-                }
+        when(mock.get(4)).thenAnswer((Answer<String>) invocation -> {
+            Object[] args = invocation.getArguments();
+            Integer num = (Integer) args[0];
+            if (num > 3) {
+                return "yes";
+            } else {
+                throw new RuntimeException();
             }
         });
         System.out.println(mock.get(4));

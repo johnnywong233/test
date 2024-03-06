@@ -29,25 +29,28 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
- *Class copied from @see net.sourceforge.cardme.engine.VCardEngine;
+ * Class copied from @see net.sourceforge.cardme.engine.VCardEngine;
  */
 public class VCardEngine {
 
     private static final Pattern VCF_BEGIN_PATTERN = Pattern.compile("\\p{Blank}*((BEGIN)|(begin))\\p{Blank}*:\\p{Blank}*((VCARD)|(vcard))\\p{Blank}*");
     private static final Pattern VCF_END_PATTERN = Pattern.compile("\\p{Blank}*((END)|(end))\\p{Blank}*:\\p{Blank}*((VCARD)|(vcard))\\p{Blank}*");
-    private static final Pattern VCF_GEO_PATTERN = Pattern.compile("-?\\d{1,3}\\.\\d{1,6}\\;-?\\d{1,3}\\.\\d{1,6}");
+    private static final Pattern VCF_GEO_PATTERN = Pattern.compile("-?\\d{1,3}\\.\\d{1,6};-?\\d{1,3}\\.\\d{1,6}");
     private static final QuotedPrintableCodec QP_CODEC = new QuotedPrintableCodec();
-
+    private static final Pattern emptyLinePattern = Pattern.compile("$");
+    private static final Pattern startQpLinePattern = Pattern.compile(".*;([ \\t]*ENCODING[ \\t]*=)?[ \\t]*QUOTED-PRINTABLE.*:.*=", Pattern.CASE_INSENSITIVE);
+    private static final Pattern middleQpLinePattern = Pattern.compile("\\s*.+=?");
+    private static final Pattern vcardTypePattern = Pattern.compile("^[ \\t]*\\p{ASCII}+:.*$");
     /**
      * <p>Selects from a list of application compatibility modes
      * to use when formatting the output of the vcard. Some applications
      * expect a certain type of formatting or non-standard types.</p>
      */
-    private CompatibilityMode compatMode = null;
-
+    private CompatibilityMode compatMode;
     /**
      * <p>If set, this charset will override any charset definition
      * when decoding strings from any type that defines "CHARSET".</p>
@@ -65,25 +68,9 @@ public class VCardEngine {
     /**
      * <p>Create a VCard parsing engine with a user
      * specified compatibility mode.</p>
-     *
-     * @param compatMode
      */
     public VCardEngine(CompatibilityMode compatMode) {
         this.compatMode = compatMode;
-    }
-
-    /**
-     * <p>Sets a specified compatibility mode.</p>
-     *
-     * @param compatMode
-     * @see CompatibilityMode
-     */
-    public void setCompatibilityMode(CompatibilityMode compatMode) {
-        if (compatMode == null) {
-            this.compatMode = CompatibilityMode.RFC2426;
-        } else {
-            this.compatMode = compatMode;
-        }
     }
 
     /**
@@ -97,23 +84,12 @@ public class VCardEngine {
     }
 
     /**
-     * <p>Sets the charset to always be used when the
-     * "CHARSET" parameter is encountered.</p>
+     * <p>Sets a specified compatibility mode.</p>
      *
-     * @param charset
+     * @see CompatibilityMode
      */
-    public void setForcedCharset(String charset) {
-        forceCharset = Charset.forName(charset);
-    }
-
-    /**
-     * <p>Sets the charset to always be used when the
-     * "CHARSET" parameter is encountered.</p>
-     *
-     * @param charset
-     */
-    public void setForcedCharset(Charset charset) {
-        forceCharset = charset;
+    public void setCompatibilityMode(CompatibilityMode compatMode) {
+        this.compatMode = Objects.requireNonNullElse(compatMode, CompatibilityMode.RFC2426);
     }
 
     /**
@@ -124,6 +100,22 @@ public class VCardEngine {
      */
     public Charset getForcedCharset() {
         return forceCharset;
+    }
+
+    /**
+     * <p>Sets the charset to always be used when the
+     * "CHARSET" parameter is encountered.</p>
+     */
+    public void setForcedCharset(String charset) {
+        forceCharset = Charset.forName(charset);
+    }
+
+    /**
+     * <p>Sets the charset to always be used when the
+     * "CHARSET" parameter is encountered.</p>
+     */
+    public void setForcedCharset(Charset charset) {
+        forceCharset = charset;
     }
 
     /**
@@ -141,10 +133,7 @@ public class VCardEngine {
      * This returns an array of VCard objects in the same order they were
      * parsed.</p>
      *
-     * @param vcardFiles
      * @return {@link VCard}[]
-     * @throws IOException
-     * @throws VCardParseException
      */
     public VCard[] parse(File[] vcardFiles) throws IOException, VCardParseException {
         VCard[] vcards = new VCard[vcardFiles.length];
@@ -160,10 +149,7 @@ public class VCardEngine {
      * of the file, unfolding it and then parsing it. The returned result
      * is a VCard java object.</p>
      *
-     * @param vcardFile
      * @return {@link VCard}
-     * @throws IOException
-     * @throws VCardParseException
      */
     public VCard parse(File vcardFile) throws IOException, VCardParseException {
         String vcardStr = getContentFromFile(vcardFile);
@@ -176,10 +162,7 @@ public class VCardEngine {
      * This returns an array of VCard objects in the same order they were
      * parsed.</p>
      *
-     * @param vcardStrings
      * @return {@link VCard}[]
-     * @throws IOException
-     * @throws VCardParseException
      */
     public VCard[] parse(String[] vcardStrings) throws IOException, VCardParseException {
         VCard[] vcards = new VCard[vcardStrings.length];
@@ -195,10 +178,7 @@ public class VCardEngine {
      * of the file, unfolding it and then parsing it. The returned result
      * is a VCard java object.</p>
      *
-     * @param vcardString
      * @return {@link VCard}
-     * @throws IOException
-     * @throws VCardParseException
      */
     public VCard parse(String vcardString) throws IOException, VCardParseException {
         String vcardStr = getContentFromString(vcardString);
@@ -210,10 +190,7 @@ public class VCardEngine {
      * <p>Returns an iterator of VCards given a path that can
      * contain an arbitrary number of vcards inside it.</p>
      *
-     * @param vcardPath
      * @return {@link List}&lt;VCard&gt;
-     * @throws IOException
-     * @throws VCardParseException
      */
     public List<VCard> parseMultiple(String vcardPath) throws IOException, VCardParseException {
         return parseMultiple(new File(vcardPath));
@@ -223,10 +200,7 @@ public class VCardEngine {
      * <p>Returns an iterator of VCards given a file that can
      * contain an arbitrary number of vcards inside it.</p>
      *
-     * @param vcardFile
      * @return {@link List}&lt;VCard&gt;
-     * @throws IOException
-     * @throws VCardParseException
      */
     public List<VCard> parseMultiple(File vcardFile) throws IOException, VCardParseException {
         String vcardStr = getContentFromFile(vcardFile);
@@ -247,9 +221,7 @@ public class VCardEngine {
      * </ol>
      * </p>
      *
-     * @param vcardStr
      * @return {@link VCard}
-     * @throws VCardParseException
      */
     private VCard parseVCard(String vcardStr) throws VCardParseException {
         VCardImpl vcard = new VCardImpl();
@@ -283,7 +255,7 @@ public class VCardEngine {
     }
 
     private List<VCard> parseManyInOneVCard(String vcardStr) throws VCardParseException {
-        List<VCard> vcards = new ArrayList<VCard>();
+        List<VCard> vcards = new ArrayList<>();
         List<String> enumCards = enumerateVCards(vcardStr);
 
         for (String card : enumCards) {
@@ -295,7 +267,7 @@ public class VCardEngine {
     }
 
     private List<String> enumerateVCards(String vcardString) {
-        List<String> vcardStrings = new ArrayList<String>();
+        List<String> vcardStrings = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
         String[] split = vcardString.split("\r?\n");
         boolean begin = false;
@@ -339,10 +311,6 @@ public class VCardEngine {
      * <li><b>vcard</b> The vcard object to append the type to once parsed.</li>
      * </ul>
      * </p>
-     *
-     * @param parsedLine
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseLine(VCardLine parsedLine, VCardImpl vcard) throws VCardParseException {
 
@@ -351,7 +319,7 @@ public class VCardEngine {
         String type = parsedLine.getTypeName().trim().toUpperCase();
         List<ParameterType> paramTypes = parseParamTypesLine(parsedLine.getParameters());
 
-        VCardTypeName vCardTypeName = null;
+        VCardTypeName vCardTypeName;
 
         //Extended Types are a bit special since they only start with X- and end with anything.
         if (type.startsWith("X-")) {
@@ -555,11 +523,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the BEGIN type.</p>
-     *
-     * @param group
-     * @param value
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseBeginType(String group, String value, VCardImpl vcard) throws VCardParseException {
         try {
@@ -580,11 +543,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the END type.</p>
-     *
-     * @param group
-     * @param value
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseEndType(String group, String value, VCardImpl vcard) throws VCardParseException {
         try {
@@ -605,11 +563,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the VERSION type.</p>
-     *
-     * @param group
-     * @param value
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseVersionType(String group, String value, VCardImpl vcard) throws VCardParseException {
         try {
@@ -636,12 +589,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the FN type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseFnType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -666,12 +613,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the N type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseNType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -682,16 +623,10 @@ public class VCardEngine {
                 value = decodeQuotedPrintableValue(nType, value);
             }
 
-            switch (compatMode) {
-                case MS_OUTLOOK: {
-                    parseNTypeOutlook(nType, value);
-                    break;
-                }
-
-                default: {
-                    parseNTypeRFC(nType, value);
-                    break;
-                }
+            if (compatMode == CompatibilityMode.MS_OUTLOOK) {
+                parseNTypeOutlook(nType, value);
+            } else {
+                parseNTypeRFC(nType, value);
             }
 
             if (group != null) {
@@ -704,7 +639,7 @@ public class VCardEngine {
         }
     }
 
-    private final void parseNTypeOutlook(NType nType, String value) {
+    private void parseNTypeOutlook(NType nType, String value) {
         String[] names = VCardUtils.parseStringWithEscappedDelimiter(value, ';');
 
         for (int i = 0; i < names.length; i++) {
@@ -723,8 +658,8 @@ public class VCardEngine {
 
                 case 2: {
                     String[] addNames = VCardUtils.parseStringWithEscappedDelimiter(names[2], ',');
-                    for (int j = 0; j < addNames.length; j++) {
-                        nType.addAdditionalName(VCardUtils.unescapeString(addNames[j]));
+                    for (String addName : addNames) {
+                        nType.addAdditionalName(VCardUtils.unescapeString(addName));
                     }
 
                     break;
@@ -732,8 +667,8 @@ public class VCardEngine {
 
                 case 3: {
                     String[] prefixes = VCardUtils.parseStringWithEscappedDelimiter(names[3], ',');
-                    for (int j = 0; j < prefixes.length; j++) {
-                        nType.addHonorificPrefix(VCardUtils.unescapeString(prefixes[j]));
+                    for (String prefix : prefixes) {
+                        nType.addHonorificPrefix(VCardUtils.unescapeString(prefix));
                     }
 
                     break;
@@ -741,8 +676,8 @@ public class VCardEngine {
 
                 case 4: {
                     String[] suffixes = VCardUtils.parseStringWithEscappedDelimiter(names[4], ',');
-                    for (int j = 0; j < suffixes.length; j++) {
-                        nType.addHonorificSuffix(VCardUtils.unescapeString(suffixes[j]));
+                    for (String suffix : suffixes) {
+                        nType.addHonorificSuffix(VCardUtils.unescapeString(suffix));
                     }
 
                     break;
@@ -751,7 +686,7 @@ public class VCardEngine {
         }
     }
 
-    private final void parseNTypeRFC(NType nType, String value) {
+    private void parseNTypeRFC(NType nType, String value) {
         String[] names = VCardUtils.parseStringWithEscappedDelimiter(value, ';');
 
         int cur = 0;
@@ -775,11 +710,11 @@ public class VCardEngine {
 
         if (names.length > cur && names[cur] != null) {
             String[] addNames = VCardUtils.parseStringWithEscappedDelimiter(names[cur], ',');
-            for (int i = 0; i < addNames.length; i++) {
-                if (VCardUtils.needsUnEscaping(addNames[i])) {
-                    nType.addAdditionalName(VCardUtils.unescapeString(addNames[i]));
+            for (String addName : addNames) {
+                if (VCardUtils.needsUnEscaping(addName)) {
+                    nType.addAdditionalName(VCardUtils.unescapeString(addName));
                 } else {
-                    nType.addAdditionalName(addNames[i]);
+                    nType.addAdditionalName(addName);
                 }
             }
         }
@@ -787,11 +722,11 @@ public class VCardEngine {
 
         if (names.length > cur && names[cur] != null) {
             String[] prefixes = VCardUtils.parseStringWithEscappedDelimiter(names[cur], ',');
-            for (int i = 0; i < prefixes.length; i++) {
-                if (VCardUtils.needsUnEscaping(prefixes[i])) {
-                    nType.addHonorificPrefix(VCardUtils.unescapeString(prefixes[i]));
+            for (String prefix : prefixes) {
+                if (VCardUtils.needsUnEscaping(prefix)) {
+                    nType.addHonorificPrefix(VCardUtils.unescapeString(prefix));
                 } else {
-                    nType.addHonorificPrefix(prefixes[i]);
+                    nType.addHonorificPrefix(prefix);
                 }
             }
         }
@@ -799,11 +734,11 @@ public class VCardEngine {
 
         if (names.length > cur && names[cur] != null) {
             String[] suffixes = VCardUtils.parseStringWithEscappedDelimiter(names[cur], ',');
-            for (int i = 0; i < suffixes.length; i++) {
-                if (VCardUtils.needsUnEscaping(suffixes[i])) {
-                    nType.addHonorificSuffix(VCardUtils.unescapeString(suffixes[i]));
+            for (String suffix : suffixes) {
+                if (VCardUtils.needsUnEscaping(suffix)) {
+                    nType.addHonorificSuffix(VCardUtils.unescapeString(suffix));
                 } else {
-                    nType.addHonorificSuffix(suffixes[i]);
+                    nType.addHonorificSuffix(suffix);
                 }
             }
         }
@@ -811,12 +746,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the Nickname type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseNicknameType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -828,11 +757,11 @@ public class VCardEngine {
             }
 
             String[] nicknames = VCardUtils.parseStringWithEscappedDelimiter(value, ',');
-            for (int i = 0; i < nicknames.length; i++) {
-                if (VCardUtils.needsUnEscaping(nicknames[i])) {
-                    nicknameType.addNickname(VCardUtils.unescapeString(nicknames[i]));
+            for (String nickname : nicknames) {
+                if (VCardUtils.needsUnEscaping(nickname)) {
+                    nicknameType.addNickname(VCardUtils.unescapeString(nickname));
                 } else {
-                    nicknameType.addNickname(nicknames[i]);
+                    nicknameType.addNickname(nickname);
                 }
             }
 
@@ -848,12 +777,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the PHOTO type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parsePhotoType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -881,12 +804,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the BDAY type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseBDayType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -908,12 +825,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the ADR type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseAdrType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -980,12 +891,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the LABEL type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseLabelType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1050,7 +955,7 @@ public class VCardEngine {
                         if (!adrType.hasLabel()) {
                             adrType.setLabel(labelType);
                         } else {
-                            vcard.addError("Label with duplicate parameter types was detected and ignored. Label -> " + labelType.toString(), ErrorSeverity.WARNING, new VCardParseException("Duplicate label"));
+                            vcard.addError("Label with duplicate parameter types was detected and ignored. Label -> " + labelType, ErrorSeverity.WARNING, new VCardParseException("Duplicate label"));
                         }
 
                         match = true;
@@ -1064,12 +969,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the TEL type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseTelType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1095,12 +994,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the EMAIL type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseEmailType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1135,12 +1028,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the MAILER type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseMailerType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1165,12 +1052,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the TZ type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseTzType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1180,7 +1061,7 @@ public class VCardEngine {
             if (tzType.isText()) {
                 //example) TZ;VALUE=text:-05:00; EST; Raleigh/North America
 
-                String split[] = VCardUtils.parseStringWithEscappedDelimiter(value, ';');
+                String[] split = VCardUtils.parseStringWithEscappedDelimiter(value, ';');
                 int cur = 0;
 
                 if (split.length > cur && split[cur].length() > 0) {
@@ -1212,12 +1093,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the GEO type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseGeoType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1246,12 +1121,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the TITLE type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseTitleType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1275,12 +1144,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the ROLE type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseRoleType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1304,12 +1167,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the LOGO type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseLogoType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1337,12 +1194,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the ORG type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseOrgType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1381,12 +1232,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the CATEGORIES type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseCategoriesType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1397,21 +1242,15 @@ public class VCardEngine {
                 value = decodeQuotedPrintableValue(categoriesType, value);
             }
 
-            String[] categories = null;
-            switch (compatMode) {
-                case KDE_ADDRESS_BOOK: {
-                    categories = VCardUtils.unescapeString(value).split(",");
-                    break;
-                }
-
-                default: {
-                    categories = VCardUtils.parseStringWithEscappedDelimiter(value, ',');
-                    break;
-                }
+            String[] categories;
+            if (compatMode == CompatibilityMode.KDE_ADDRESS_BOOK) {
+                categories = VCardUtils.unescapeString(value).split(",");
+            } else {
+                categories = VCardUtils.parseStringWithEscappedDelimiter(value, ',');
             }
 
-            for (int i = 0; i < categories.length; i++) {
-                categoriesType.addCategory(VCardUtils.unescapeString(categories[i]));
+            for (String category : categories) {
+                categoriesType.addCategory(VCardUtils.unescapeString(category));
             }
 
             if (group != null) {
@@ -1426,12 +1265,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the NOTE type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseNoteType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1455,12 +1288,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the PRODID type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseProdIdType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1484,12 +1311,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the REV type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseRevType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1511,12 +1332,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the SORT-STRING type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseSortStringType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1540,12 +1355,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the SOUND type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseSoundType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1573,12 +1382,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the UID type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseUidType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1602,12 +1405,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the URL type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseUrlType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1631,12 +1428,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the CLASS type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseClassType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1660,12 +1451,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the KEY type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseKeyType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1695,13 +1480,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the EXTENDED type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param typeName
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseXtendedType(String group, String value, String typeName, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1727,12 +1505,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the NAME type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseNameType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1756,12 +1528,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the PROFILE type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseProfileType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1785,12 +1551,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the SOURCE type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseSourceType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1814,12 +1574,6 @@ public class VCardEngine {
 
     /**
      * <p>Parses the IMPP type.</p>
-     *
-     * @param group
-     * @param value
-     * @param paramTypeList
-     * @param vcard
-     * @throws VCardParseException
      */
     private void parseImppType(String group, String value, List<ParameterType> paramTypeList, VCardImpl vcard) throws VCardParseException {
         try {
@@ -1845,13 +1599,6 @@ public class VCardEngine {
     /**
      * <p>Creates a VCardError object and sets the specified error information
      * in it and adds it to the VCard currently being parses.</p>
-     *
-     * @param vcard
-     * @param errorMessage
-     * @param exception
-     * @param severity
-     * @see VCardError
-     * @see ErrorSeverity
      */
     private void handleError(VCardImpl vcard, String errorMessage, Throwable exception, ErrorSeverity severity) {
         VCardError vError = new VCardError();
@@ -1869,11 +1616,10 @@ public class VCardEngine {
      * <p>Parses the raw parameter names and values and returns
      * a list of {@link ParameterType} objects.</p>
      *
-     * @param paramTypes
      * @return {@link List}&lt;ParameterType&gt;
      */
     private List<ParameterType> parseParamTypesLine(List<String[]> paramTypes) {
-        List<ParameterType> parameterTypes = new ArrayList<ParameterType>();
+        List<ParameterType> parameterTypes = new ArrayList<>();
         for (String[] param : paramTypes) {
             String paramName = param[0];
             String paramValue = param[1].toUpperCase().trim();
@@ -1906,11 +1652,11 @@ public class VCardEngine {
                     } catch (Exception ex) {
                         //It is not a charset
 
-						/*
+                        /*
                          * Type special notes: The type can include the type parameter "TYPE" to
-						 * specify the graphic image format type. The TYPE parameter values MUST
-						 * be one of the IANA registered image formats or a non-standard image format.
-						 */
+                         * specify the graphic image format type. The TYPE parameter values MUST
+                         * be one of the IANA registered image formats or a non-standard image format.
+                         */
 
                         parameterTypes.add(new ParameterType("TYPE", paramValue));
                     }
@@ -1921,7 +1667,7 @@ public class VCardEngine {
         return parameterTypes;
     }
 
-    private final void parseParamTypes(AbstractVCardType vcardType, List<ParameterType> paramTypeList, String value, VCardTypeName typeName) throws VCardParseException {
+    private void parseParamTypes(AbstractVCardType vcardType, List<ParameterType> paramTypeList, String value, VCardTypeName typeName) throws VCardParseException {
         for (ParameterType pt : paramTypeList) {
             String nam = pt.getName();
             String val = pt.getValue();
@@ -2104,43 +1850,27 @@ public class VCardEngine {
                 if ("URI".equalsIgnoreCase(val)) {
                     vcardType.setEncodingType(EncodingType.EIGHT_BIT);
                 } else if ("DATE".equalsIgnoreCase(val)) {
-                    switch (typeName) {
-                        case BDAY: {
-                            if (vcardType instanceof BDayFeature) {
-                                ((BDayFeature) vcardType).setParam(BDayParamType.DATE);
-                            }
-
-                            break;
+                    if (typeName == VCardTypeName.BDAY) {
+                        if (vcardType instanceof BDayFeature) {
+                            ((BDayFeature) vcardType).setParam(BDayParamType.DATE);
                         }
                     }
                 } else if ("DATE-TIME".equalsIgnoreCase(val)) {
-                    switch (typeName) {
-                        case BDAY: {
-                            if (vcardType instanceof BDayFeature) {
-                                ((BDayFeature) vcardType).setParam(BDayParamType.DATE_TIME);
-                            }
-
-                            break;
+                    if (typeName == VCardTypeName.BDAY) {
+                        if (vcardType instanceof BDayFeature) {
+                            ((BDayFeature) vcardType).setParam(BDayParamType.DATE_TIME);
                         }
                     }
                 } else if ("TEXT".equalsIgnoreCase(val)) {
-                    switch (typeName) {
-                        case TZ: {
-                            if (vcardType instanceof TzFeature) {
-                                ((TzType) vcardType).setParamType(TzParamType.TEXT);
-                            }
-
-                            break;
+                    if (typeName == VCardTypeName.TZ) {
+                        if (vcardType instanceof TzFeature) {
+                            ((TzType) vcardType).setParamType(TzParamType.TEXT);
                         }
                     }
                 } else if ("UTC-OFFSET".equalsIgnoreCase(val)) {
-                    switch (typeName) {
-                        case TZ: {
-                            if (vcardType instanceof TzFeature) {
-                                ((TzType) vcardType).setParamType(TzParamType.UTC_OFFSET);
-                            }
-
-                            break;
+                    if (typeName == VCardTypeName.TZ) {
+                        if (vcardType instanceof TzFeature) {
+                            ((TzType) vcardType).setParamType(TzParamType.UTC_OFFSET);
                         }
                     }
                 } else {
@@ -2152,8 +1882,8 @@ public class VCardEngine {
         }
     }
 
-    private final String decodeQuotedPrintableValue(AbstractVCardType vcardType, String value) throws DecoderException, UnsupportedEncodingException {
-        String decodedValue = null;
+    private String decodeQuotedPrintableValue(AbstractVCardType vcardType, String value) throws DecoderException, UnsupportedEncodingException {
+        String decodedValue;
         if (isCharsetForced()) {
             decodedValue = QP_CODEC.decode(value, forceCharset.name());
         } else {
@@ -2173,7 +1903,7 @@ public class VCardEngine {
             AdrParamType paramType = AdrParamType.valueOf(enumParamValue);
             adrType.addParam(paramType);
         } catch (IllegalArgumentException iae) {
-            ExtendedParamType xParamType = null;
+            ExtendedParamType xParamType;
             if (paramValue.indexOf('=') != -1) {
                 String[] pTmp = paramValue.split("=");
                 xParamType = new ExtendedParamType(pTmp[0], pTmp[1], VCardTypeName.ADR);
@@ -2191,7 +1921,7 @@ public class VCardEngine {
             LabelParamType paramType = LabelParamType.valueOf(enumParamValue);
             labelType.addParam(paramType);
         } catch (IllegalArgumentException iae) {
-            ExtendedParamType xParamType = null;
+            ExtendedParamType xParamType;
             if (paramValue.indexOf('=') != -1) {
                 String[] pTmp = paramValue.split("=");
                 xParamType = new ExtendedParamType(pTmp[0], pTmp[1], VCardTypeName.LABEL);
@@ -2209,7 +1939,7 @@ public class VCardEngine {
             TelParamType telParamType = TelParamType.valueOf(enumParamValue);
             telType.addParam(telParamType);
         } catch (IllegalArgumentException iae) {
-            ExtendedParamType xParamType = null;
+            ExtendedParamType xParamType;
             if (paramValue.indexOf('=') != -1) {
                 String[] pTmp = paramValue.split("=");
                 xParamType = new ExtendedParamType(pTmp[0], pTmp[1], VCardTypeName.TEL);
@@ -2227,7 +1957,7 @@ public class VCardEngine {
             EmailParamType emailParamType = EmailParamType.valueOf(enumParamValue);
             emailType.addParam(emailParamType);
         } catch (IllegalArgumentException iae) {
-            ExtendedParamType xParamType = null;
+            ExtendedParamType xParamType;
             if (paramValue.indexOf('=') != -1) {
                 String[] pTmp = paramValue.split("=");
                 xParamType = new ExtendedParamType(pTmp[0], pTmp[1], VCardTypeName.EMAIL);
@@ -2245,7 +1975,7 @@ public class VCardEngine {
             UrlParamType urlParamType = UrlParamType.valueOf(enumParamValue);
             urlType.addParam(urlParamType);
         } catch (IllegalArgumentException iae) {
-            ExtendedParamType xParamType = null;
+            ExtendedParamType xParamType;
             if (paramValue.indexOf('=') != -1) {
                 String[] pTmp = paramValue.split("=");
                 xParamType = new ExtendedParamType(pTmp[0], pTmp[1], VCardTypeName.URL);
@@ -2263,7 +1993,7 @@ public class VCardEngine {
             ImppParamType imppParamType = ImppParamType.valueOf(enumParamValue);
             imppType.addParam(imppParamType);
         } catch (IllegalArgumentException iae) {
-            ExtendedParamType xParamType = null;
+            ExtendedParamType xParamType;
             if (paramValue.indexOf('=') != -1) {
                 String[] pTmp = paramValue.split("=");
                 xParamType = new ExtendedParamType(pTmp[0], pTmp[1], VCardTypeName.IMPP);
@@ -2279,9 +2009,7 @@ public class VCardEngine {
      * <p>Returns the contents of the vcard file where each line is delimited with
      * the standard java EOL char '\n' This is still a folded vcard String.</p>
      *
-     * @param vcardFile
      * @return {@link String}
-     * @throws IOException
      */
     private String getContentFromFile(File vcardFile) throws IOException {
 //        return getContent(new InputStreamReader(new FileInputStream(vcardFile), Charset.forName("UTF-8")));
@@ -2310,18 +2038,11 @@ public class VCardEngine {
      * <p>Returns the contents of the vcard String where each line is delimited with
      * the standard java EOL char '\n' This is still a folded vcard String.</p>
      *
-     * @param vcardString
      * @return {@link String}
-     * @throws IOException
      */
     private String getContentFromString(String vcardString) throws IOException {
         return getContent(new StringReader(vcardString));
     }
-
-    private static final Pattern emptyLinePattern = Pattern.compile("$");
-    private static final Pattern startQpLinePattern = Pattern.compile(".*;([ \\t]*ENCODING[ \\t]*=)?[ \\t]*QUOTED-PRINTABLE.*:.*=", Pattern.CASE_INSENSITIVE);
-    private static final Pattern middleQpLinePattern = Pattern.compile("\\s*.+=?");
-    private static final Pattern vcardTypePattern = Pattern.compile("^[ \\t]*\\p{ASCII}+:.*$");
 
     /**
      * <p>Reads the content of a VCard from a reader interface. This method
@@ -2337,18 +2058,16 @@ public class VCardEngine {
      * encoded as quoted-printable can be done using <code>{@link VCardUtils}.unfoldVCard(String, CompatibilityMode)</code>
      * </p>
      *
-     * @param reader
      * @return {@link String}
-     * @throws IOException
      */
     private String getContent(Reader reader) throws IOException {
         BufferedReader br = null;
-        String vcardStr = null;
+        String vcardStr;
 
         try {
             br = new BufferedReader(reader);
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             boolean prevFolded = false;
             boolean isQuotedPrintable = false;
             boolean isQuotedPrintableEnd = false;

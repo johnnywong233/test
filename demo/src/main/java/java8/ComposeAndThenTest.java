@@ -59,7 +59,7 @@ public class ComposeAndThenTest {
     @Test
     //http://www.javabrahman.com/java-8/java-8-java-util-function-function-tutorial-with-examples/
     private void test3() {
-        Function<Employee, String> funcEmpToString = (Employee e) -> e.getName();
+        Function<Employee, String> funcEmpToString = Employee::getName;
         Function<Employee, Employee> funcEmpFirstName =
                 (Employee e) -> {
                     int index = e.getName().indexOf(" ");
@@ -75,12 +75,10 @@ public class ComposeAndThenTest {
                         new Employee("Harry Major", 25),
                         new Employee("Ethan Hardy", 65),
                         new Employee("Nancy Smith", 15),
-                        new Employee("Deborah Sprightly", 29), 
+                        new Employee("Deborah Sprightly", 29),
                         employee);
         List<String> empFirstNameList = convertEmpListToNamesList(employeeList, funcEmpToString.compose(funcEmpFirstName));
-        empFirstNameList.forEach(str -> {
-            System.out.print(" " + str);
-        });
+        empFirstNameList.forEach(str -> System.out.print(" " + str));
     }
 
     private static void raiseStudents(List<Student> employees, Consumer<Student> fx) {
@@ -96,7 +94,7 @@ public class ComposeAndThenTest {
     }
 
     @AllArgsConstructor
-    private class Student {
+    private static class Student {
         public int id;
         public double gpa;
         public String name;
@@ -105,7 +103,7 @@ public class ComposeAndThenTest {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
-    private class Employee {
+    private static class Employee {
         public String name;
         public int age;
     }

@@ -28,9 +28,9 @@ public interface ESRestService {
     /**
      * 根据kv获取
      */
-    HttpEntity matchByFileds(String index, String type, Map<String, String> kv, List<ESSorter> sorters, ESPager... pager) throws Exception;
+    HttpEntity matchByFields(String index, String type, Map<String, String> kv, List<ESSorter> sorters, ESPager... pager) throws Exception;
 
-    HttpEntity fiter(String index, String type, Map<String, String> kv, ESPager... pager) throws IOException;
+    HttpEntity filter(String index, String type, Map<String, String> kv, ESPager... pager) throws IOException;
 
     /**
      * 初始化索引字段类型及分词

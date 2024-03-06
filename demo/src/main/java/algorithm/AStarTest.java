@@ -596,7 +596,7 @@ class NewAStar {
         try {
             lock.lock();
             this.grid = grid;
-            this.open = new BinaryHeap<Node>(comparator);
+            this.open = new BinaryHeap<>(comparator);
             this.closed = new Stack<>();
             this.startNode = grid.getStart();
             this.endNode = grid.getEnd();

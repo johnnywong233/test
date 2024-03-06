@@ -25,9 +25,6 @@ import java.util.stream.Collectors;
  * Time: 16:09
  */
 public class ESRestServiceImpl implements ESRestService {
-
-    private static final String CFG_HOST = "host";
-    private static final String CFG_PORT = "port";
     private RestClient restClient;
 
     /**
@@ -102,39 +99,29 @@ public class ESRestServiceImpl implements ESRestService {
      * 根据字段获取
      */
     @Override
-    public HttpEntity matchByFileds(String index, String type, Map<String, String> kv, List<ESSorter> sorters,
+    public HttpEntity matchByFields(String index, String type, Map<String, String> kv, List<ESSorter> sorters,
                                     ESPager... pager) throws Exception {
-        String method = "POST";
-        String endpoint = String.format("/%s/%s/_search", index, type);
-        String match;
-        String sort;
-        String page = "";
-
-        match = ESQuery.getMatch(kv);
-
-        if (pager.length > 0) {
-            page = ESQuery.getPager(pager[0]);
-        }
-
-        sort = ESQuery.getSorter(sorters);
         StringBuilder query = new StringBuilder();
         query.append("{\n\"query\": {\n");
-        query.append(match);
+        query.append(ESQuery.getMatch(kv));
         query.append("}\n");
+        String sort = ESQuery.getSorter(sorters);
         if (!Strings.isNullOrEmpty(sort)) {
             query.append(",");
             query.append(sort);
         }
-
+        String page = "";
+        if (pager.length > 0) {
+            page = ESQuery.getPager(pager[0]);
+        }
         if (!Strings.isNullOrEmpty(page)) {
             query.append(",");
             query.append(page);
         }
         query.append("\n}");
-
-        System.out.println(query.toString());
+        System.out.println(query);
         HttpEntity entity = new NStringEntity(query.toString(), ContentType.APPLICATION_JSON);
-        Response response = restClient.performRequest(method, endpoint, Collections.singletonMap("pretty", "true"),
+        Response response = restClient.performRequest("POST", String.format("/%s/%s/_search", index, type), Collections.singletonMap("pretty", "true"),
                 entity);
 
         return response.getEntity();
@@ -194,21 +181,21 @@ public class ESRestServiceImpl implements ESRestService {
 
 
     @Override
-    public HttpEntity fiter(String index, String type, Map<String, String> kv, ESPager... pager) throws IOException {
+    public HttpEntity filter(String index, String type, Map<String, String> kv, ESPager... pager) throws IOException {
         String method = "POST";
         String endpoint = String.format("/%s/%s/_search", index, type);
         if (kv.isEmpty()) {
             return null;
         }
 
-        List<String> queryline = Lists.newArrayList();
+        List<String> queryLine = Lists.newArrayList();
         for (Map.Entry<String, String> item : kv.entrySet()) {
-            queryline.add("\"" + item.getKey() + "\":" + item.getValue());
+            queryLine.add("\"" + item.getKey() + "\":" + item.getValue());
         }
 
         String query = String.format("{\n" + "  \"bool\": {\n" + "  		\"query\": {\n"
                         + "    		\"must\": { \"match_all\": {} }\n" + "  		}\n" + "  	}\n" + "}",
-                String.join(",\n", queryline));
+                String.join(",\n", queryLine));
 
         System.out.println(query);
         HttpEntity entity = new NStringEntity(query, ContentType.APPLICATION_JSON);
@@ -226,13 +213,9 @@ public class ESRestServiceImpl implements ESRestService {
         if (indexTypes == null || indexTypes.isEmpty()) {
             return false;
         }
-
-        String properties = String
-                .join(",\n",
-                        indexTypes.stream()
-                                .map(k -> mapPropertyIndex(k))
-                                .collect(Collectors.toList()));
-
+        String properties = indexTypes.stream()
+                .map(this::mapPropertyIndex)
+                .collect(Collectors.joining(",\n"));
         Response indexResponse = null;
         try {
             String postStr = "{\"settings\":{\n" +
@@ -263,14 +246,14 @@ public class ESRestServiceImpl implements ESRestService {
     private String mapPropertyIndex(TwoTuple<String, IndexType> k) {
         StringBuilder result = new StringBuilder();
 
-        result.append("\"" + k.first + "\":{");
-        result.append("\"type\":\"" + k.second.getType() + "\"");
+        result.append("\"").append(k.first).append("\":{");
+        result.append("\"type\":\"").append(k.second.getType()).append("\"");
         if (k.second.getIndex() != null) {
             if ("not_analyzed".equalsIgnoreCase(k.second.getIndex())) {
                 result.append(",\"index\":\"not_analyzed\"");
             } else {
-                result.append(",\"analyzer\":\"" + k.second.getIndex() + "\"");
-                result.append(",\"search_analyzer\":\"" + k.second.getIndex() + "\"");
+                result.append(",\"analyzer\":\"").append(k.second.getIndex()).append("\"");
+                result.append(",\"search_analyzer\":\"").append(k.second.getIndex()).append("\"");
             }
         }
 
@@ -311,12 +294,9 @@ public class ESRestServiceImpl implements ESRestService {
     public boolean addIndexProperties(String index, String type, List<TwoTuple<String, IndexType>> indexTypes) {
         Response indexResponse = null;
         try {
-            String properties = String
-                    .join(",\n",
-                            indexTypes.stream()
-                                    .map(k -> mapPropertyIndex(k))
-                                    .collect(Collectors.toList()));
-
+            String properties = indexTypes.stream()
+                    .map(this::mapPropertyIndex)
+                    .collect(Collectors.joining(",\n"));
             String postStr = "{\"properties\":{" + properties + "}}";
             System.out.println(postStr);
             HttpEntity entity = new NStringEntity(postStr,

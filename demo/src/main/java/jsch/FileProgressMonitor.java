@@ -16,7 +16,7 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
 
     private long transfered;
 
-    private long fileSize;
+    private final long fileSize;
 
     private Timer timer;
 
@@ -68,8 +68,6 @@ public class FileProgressMonitor extends TimerTask implements SftpProgressMonito
 
     /**
      * 打印progress信息
-     *
-     * @param transfered
      */
     private void sendProgressMessage(long transfered) {
         if (fileSize != 0) {

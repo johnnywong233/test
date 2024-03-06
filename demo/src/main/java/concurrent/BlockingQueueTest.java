@@ -8,40 +8,34 @@ public class BlockingQueueTest {
     public static void main(String[] args) {
         final BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(3);
         for (int i = 0; i < 2; i++) {
-            new Thread() {
-                @Override
-                public void run() {
-                    while (true) {
-                        try {
-                            Thread.sleep((long) (Math.random() * 1000));
-                            System.out.println(Thread.currentThread().getName() + " is ready to store data!");
-                            queue.put(1);
-                            System.out.println(Thread.currentThread().getName() + "has got data, " +
-                                    "the queue now has " + queue.size() + " data");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }.start();
-        }
-
-        new Thread() {
-            @Override
-            public void run() {
+            new Thread(() -> {
                 while (true) {
                     try {
-                        //change the sleep time to see execute result
-                        Thread.sleep(1000);
-                        System.out.println(Thread.currentThread().getName() + "is ready to get data!");
-                        queue.take();
+                        Thread.sleep((long) (Math.random() * 1000));
+                        System.out.println(Thread.currentThread().getName() + " is ready to store data!");
+                        queue.put(1);
                         System.out.println(Thread.currentThread().getName() + "has got data, " +
-                                "the queue now has" + queue.size() + "data");
+                                "the queue now has " + queue.size() + " data");
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
+            }).start();
+        }
+
+        new Thread(() -> {
+            while (true) {
+                try {
+                    //change the sleep time to see execute result
+                    Thread.sleep(1000);
+                    System.out.println(Thread.currentThread().getName() + "is ready to get data!");
+                    queue.take();
+                    System.out.println(Thread.currentThread().getName() + "has got data, " +
+                            "the queue now has" + queue.size() + "data");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }.start();
+        }).start();
     }
 }

@@ -35,7 +35,7 @@ public class UserCriteria {
      * @mbg.generated
      */
     public UserCriteria() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     /**
@@ -158,7 +158,7 @@ public class UserCriteria {
 
         protected GeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<>();
         }
 
         public boolean isValid() {

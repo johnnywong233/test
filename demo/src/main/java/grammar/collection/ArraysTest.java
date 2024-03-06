@@ -78,7 +78,7 @@ public class ArraysTest {
         Arrays.stream(array).forEach(System.out::println);
 
         //有点像spark的reduceByKey，即根据传入的方法一次计算：
-        Arrays.parallelPrefix(ints, (x, y) -> (x + y));
+        Arrays.parallelPrefix(ints, Integer::sum);
         System.out.println(Arrays.deepToString(ints));//[5, 6, 10, 13, 15]
 
         //相当于stream.map会挨个元素遍历执行方法

@@ -25,13 +25,13 @@ public class BookRepositoryTest {
     private PublisherRepository publisherRepository;
 
     @Test
-    public void saveTest() throws Exception {
+    public void saveTest() {
 
         Publisher publisherA = new Publisher("Publisher One");
         Publisher publisherB = new Publisher("Publisher Two");
 
         Book bookA = new Book("Book One");
-        bookA.setPublishers(new HashSet<Publisher>() {{
+        bookA.setPublishers(new HashSet<>() {{
             add(publisherA);
             add(publisherB);
         }});
@@ -41,7 +41,7 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void saveTest1() throws Exception {
+    public void saveTest1() {
         Publisher publisher = publisherRepository.findOne(24);
         Book bookA = new Book("Book Two");
         bookA.getPublishers().add(publisher);
@@ -49,7 +49,7 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void saveTest2() throws Exception {
+    public void saveTest2() {
         Book two = bookRepository.findOne(18);
         Publisher publisher = publisherRepository.findOne(25);
         two.getPublishers().add(publisher);
@@ -57,7 +57,7 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void findPublisherTest() throws Exception {
+    public void findPublisherTest() {
         Publisher publisher = publisherRepository.findOne(24);
         Set<Book> books = publisher.getBooks();
         for (Book book : books) {
@@ -68,14 +68,14 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void findAllTest() throws Exception {
+    public void findAllTest() {
         for (Book book : bookRepository.findAll()) {
             log.info(book.toString());
         }
     }
 
     @Test
-    public void findBookTest() throws Exception {
+    public void findBookTest() {
         Book book = bookRepository.findOne(16);
         Set<Publisher> publishers = book.getPublishers();
         for (Publisher publisher : publishers) {

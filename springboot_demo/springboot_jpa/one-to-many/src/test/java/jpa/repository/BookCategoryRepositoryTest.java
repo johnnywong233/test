@@ -26,7 +26,7 @@ public class BookCategoryRepositoryTest {
     @Test
     public void saveCategoryTest() {
         BookCategory categoryOne = new BookCategory("Category One");
-        Set<Book> books = new HashSet<Book>() {{
+        Set<Book> books = new HashSet<>() {{
             add(new Book("Book One", categoryOne));
             add(new Book("Book Two", categoryOne));
             add(new Book("Book Three", categoryOne));
@@ -34,7 +34,7 @@ public class BookCategoryRepositoryTest {
         categoryOne.setBooks(books);
 
         BookCategory categoryTwo = new BookCategory("Category Two");
-        Set<Book> bookBs = new HashSet<Book>() {{
+        Set<Book> bookBs = new HashSet<>() {{
             add(new Book("Book Four", categoryTwo));
             add(new Book("Book Five", categoryTwo));
             add(new Book("Book Six", categoryTwo));

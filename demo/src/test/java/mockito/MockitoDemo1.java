@@ -218,7 +218,7 @@ public class MockitoDemo1 {
         // can't do this as we don't know how long the array is going to be
         // verify(mock).write(new byte[]{'a'},0,1);
 
-        BaseMatcher<byte[]> arrayStartingWithA = new BaseMatcher<byte[]>() {
+        BaseMatcher<byte[]> arrayStartingWithA = new BaseMatcher<>() {
             @Override
             public void describeTo(Description description) {
                 // nothing

@@ -15,12 +15,4 @@ public class User {
 
     @ApiModelProperty
     private String psw;
-
-    public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
-    }
-
-    public void setPsw(String psw) {
-        this.psw = psw == null ? null : psw.trim();
-    }
 }

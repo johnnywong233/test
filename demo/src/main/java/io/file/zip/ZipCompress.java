@@ -25,15 +25,15 @@ public class ZipCompress {
 			ZipOutputStream out = new ZipOutputStream(new BufferedOutputStream(csum));
 			out.setComment("A test of Java Zipping");
 			// Can't read the above comment, though
-			for(int i = 0; i < args.length; i++) {
-				System.out.println("Writing file " + args[i]);
-				BufferedReader in = new BufferedReader(new FileReader(args[i]));
-				out.putNextEntry(new ZipEntry(args[i]));
+			for (String arg : args) {
+				System.out.println("Writing file " + arg);
+				BufferedReader in = new BufferedReader(new FileReader(arg));
+				out.putNextEntry(new ZipEntry(arg));
 				int c;
-                while ((c = in.read()) != -1) {
-                    out.write(c);
-                }
-                in.close();
+				while ((c = in.read()) != -1) {
+					out.write(c);
+				}
+				in.close();
 			}
 			out.close();
 			// Checksum valid only after the file has been closed!
