@@ -59,8 +59,6 @@ public class ChineseName {
      * 位码就相当于列，根据行列就可以确定一个汉字，GB2312大致就是按照这种方式实现的，区码１～９即前９行放的是特殊字符，16～55区放的是一级汉字，
      * 56~87区放的是二级汉字，其余的暂时空余。为区别中文与西文字母，在中文字符首位以１开头区分以０开头的ASCII码，GB2312给每个中文字符加上0xA0，
      * 因此，区码从0xB0-0xF7 都是汉字，位码范围0xA0-0xFE 。
-     *
-     * @return
      */
     private static String getChinese() {
         String str = null;
@@ -73,8 +71,8 @@ public class ChineseName {
         lowPos = 161 + Math.abs(random.nextInt(94));
 
         byte[] bArr = new byte[2];
-        bArr[0] = (new Integer(highPos)).byteValue();
-        bArr[1] = (new Integer(lowPos)).byteValue();
+        bArr[0] = Integer.valueOf(highPos).byteValue();
+        bArr[1] = Integer.valueOf(lowPos).byteValue();
         try {
             //区位码组合成汉字
             str = new String(bArr, "GB2312");

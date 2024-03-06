@@ -1,8 +1,6 @@
 server:
   port: 8080
 security:
-  user:
-    password: user  # 直接登录时的密码
   ignored: /
   sessions: never   # session策略
 
@@ -17,3 +15,7 @@ security:
     resource:
       userInfoUri: https://api.github.com/user
       preferTokenInfo: false
+spring:
+  security:
+    user:
+      password: user

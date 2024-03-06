@@ -23,6 +23,7 @@
         <module>springcloud_sleuth_case</module>
         <module>springcloud_contract</module>
         <module>springcloud_feign_upload</module>
+        <module>springcloud_stream_rabbitmq_hello</module>
     </modules>
 
     <parent>

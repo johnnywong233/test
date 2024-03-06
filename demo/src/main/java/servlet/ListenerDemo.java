@@ -8,7 +8,6 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
-import java.util.logging.Logger;
 
 /**
  * Created by johnny on 2016/8/28.

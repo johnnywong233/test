@@ -1,6 +1,5 @@
 package stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +19,7 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 import stream.bean.Order;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -31,16 +31,16 @@ import java.util.Date;
 @EnableBinding({Processor.class, OrderProcessor.class, ProductProcessor.class})
 public class AnotherApp implements CommandLineRunner {
 
-    @Autowired
+    @Resource
     @Qualifier("output")
-    MessageChannel output;
+   private MessageChannel output;
 
-    @Autowired
+    @Resource
     @Qualifier("outputOrder")
-    MessageChannel outputOrder;
+    private MessageChannel outputOrder;
 
-    @Autowired
-    ProductProcessor productProcessor;
+    @Resource
+    private ProductProcessor productProcessor;
 
     public static void main(String[] args) {
         SpringApplication.run(AnotherApp.class);

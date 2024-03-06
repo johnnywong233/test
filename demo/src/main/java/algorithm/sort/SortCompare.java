@@ -300,11 +300,10 @@ public class SortCompare {
 
 
     /**
-     * @Description:<p>基数排序算法实现</p>
+     * 基数排序算法实现
      */
     public int[] radixSort(int[] list) {
-
-        if (list == null && list.length == 0) {
+        if (list == null || list.length == 0) {
             return null;
         }
 
@@ -379,7 +378,7 @@ public class SortCompare {
 
 
     public int[] bucketSort(int[] list) {
-        if (list == null && list.length == 0) {
+        if (list == null || list.length == 0) {
             return null;
         }
 
@@ -396,9 +395,9 @@ public class SortCompare {
         }
 
         //对每个桶进行排序
-        for (int i = 0; i < buckets.size(); i++) {
-            if (!buckets.get(i).isEmpty()) {
-                Collections.sort(buckets.get(i)); //对每个桶进行快排
+        for (List<Integer> bucket : buckets) {
+            if (!bucket.isEmpty()) {
+                Collections.sort(bucket); //对每个桶进行快排
             }
         }
 

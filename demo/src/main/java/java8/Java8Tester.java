@@ -6,7 +6,6 @@ import org.junit.Test;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -31,13 +30,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -50,10 +46,10 @@ import java.util.stream.Stream;
 public class Java8Tester {
     //https://www.tutorialspoint.com/java8/index.htm
 
-    static String wordstr = "How much wood would a wood chuck chuck chuck chuck chuck chuck chuck if a woodchuck could chuck wood? He would chuck, he"
+    private static final String word = "How much wood would a wood chuck chuck chuck chuck chuck chuck chuck if a woodchuck could chuck wood? He would chuck, he"
             + "would, as much as he could, and chuck as much wood as a woodchuck would if a wooddchuck could chuck wood.";
 
-    private static ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, Integer> map = new ConcurrentHashMap<>();
 
     private static CountDownLatch countDown = null;
 
@@ -192,6 +188,15 @@ public class Java8Tester {
 
     }
 
+    private static void eval(List<Integer> list, Predicate<Integer> predicate) {
+        list.stream().filter(predicate).forEach(n -> System.out.println(n + " "));
+    }
+
+    public static void search(ConcurrentHashMap<String, Integer> map) {
+        String key = map.search(1, (k, v) -> v == 3 ? k + "" + v : null);
+        System.out.println(key);
+    }
+
     private Integer sum(Optional<Integer> a, Optional<Integer> b) {
         //Optional.isPresent - checks the value is present or not
 
@@ -315,20 +320,8 @@ public class Java8Tester {
         System.out.println("Zoned date: " + zonedDateTime);
     }
 
-    private static void eval(List<Integer> list, Predicate<Integer> predicate) {
-        list.stream().filter(predicate).forEach(n -> System.out.println(n + " "));
-    }
-
     private void sortUsingJava8(List<String> names) {
         names.sort(String::compareTo);
-    }
-
-    interface MathOperation {
-        int operation(int a, int b);
-    }
-
-    interface GreetingService {
-        void sayMessage(String message);
     }
 
     private int operate(int a, int b, MathOperation mathOperation) {
@@ -441,7 +434,7 @@ public class Java8Tester {
 
     @Test
     public void testConcurrent() {
-        String[] lines = wordstr.split(" ");
+        String[] lines = word.split(" ");
         ExecutorService pool = Executors.newFixedThreadPool(5);
         //10
         countDown = new CountDownLatch(lines.length);
@@ -480,11 +473,6 @@ public class Java8Tester {
         map.forEachValue(1, System.out::println);
     }
 
-    public static void search(ConcurrentHashMap<String, Integer> map) {
-        String key = map.search(1, (k, v) -> v == 3 ? k + "" + v : null);
-        System.out.println(key);
-    }
-
     private void counter(String key) {
         map.compute(key, (x, y) -> (y == null) ? 1 : y + 1);
     }
@@ -498,6 +486,14 @@ public class Java8Tester {
         }
         map.put(key, newCount);
         System.out.println(Thread.currentThread().getName() + " end=" + map.get(key));
+    }
+
+    interface MathOperation {
+        int operation(int a, int b);
+    }
+
+    interface GreetingService {
+        void sayMessage(String message);
     }
 
 }

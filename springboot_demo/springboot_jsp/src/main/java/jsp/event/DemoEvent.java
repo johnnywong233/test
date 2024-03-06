@@ -1,6 +1,6 @@
 package jsp.event;
 
-import lombok.Data;
+import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -8,10 +8,9 @@ import org.springframework.context.ApplicationEvent;
  * Date: 2017/4/27
  * Time: 13:17
  */
-@Data
+@Getter
 public class DemoEvent extends ApplicationEvent {
-	private static final long serialVersionUID = -8050245124927369971L;
-	private String msg;
+	private final String msg;
 
     DemoEvent(Object source, String msg) {
         super(source);

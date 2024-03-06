@@ -1,8 +1,8 @@
 package io.ftpclient;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPClientConfig;
@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -25,9 +26,9 @@ import java.util.List;
  * Date: 2016/12/3
  * Time: 14:38
  */
+@Slf4j
+@Data
 public class FtpUtil {
-    private static Log logger = LogFactory.getLog(FtpUtil.class);
-
     private FTPClient ftp;
 
     private String ftpServer;
@@ -37,22 +38,6 @@ public class FtpUtil {
     private String userName;
 
     private String password;
-
-    public void setFtpServer(String ftpServer) {
-        this.ftpServer = ftpServer;
-    }
-
-    public void setFtpPort(String ftpPort) {
-        this.ftpPort = ftpPort;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public FtpUtil(String ftpServer, String ftpPort, String userName, String password) {
         this.ftpServer = ftpServer;
@@ -86,20 +71,20 @@ public class FtpUtil {
                 //验证通道连接是否建立成功(回传响应码)
                 if (!FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
                     ftp.disconnect();
-                    logger.error("FTP连接失败，ip:" + this.ftpServer);
+                    log.error("FTP连接失败，ip:" + this.ftpServer);
                     return "FTP连接失败，ip:" + this.ftpServer;
                 }
 
                 if (!ftp.login(this.userName, this.password)) {
-                    logger.error("FTP登录失败，ip:" + this.ftpServer + ";userName:" + userName + ";port:" + ftpPort);
+                    log.error("FTP登录失败，ip:" + this.ftpServer + ";userName:" + userName + ";port:" + ftpPort);
                     return "FTP登录失败，ip:" + this.ftpServer + ";userName:" + userName + ";port:" + ftpPort;
                 }
             } catch (Exception e) {
-                logger.error("FTP连接失败", e);
+                log.error("FTP连接失败", e);
                 return "FTP连接失败" + e;
             }
         }
-        logger.info("Ftp" + this.ftpServer + "登录成功!;port:" + ftpPort);
+        log.info("Ftp" + this.ftpServer + "登录成功!;port:" + ftpPort);
         return "SUCCESS";
     }
 
@@ -110,9 +95,9 @@ public class FtpUtil {
         if (null != ftp && ftp.isConnected()) {
             try {
                 ftp.disconnect();
-                logger.info("FTP" + this.ftpServer + "连接关闭");
+                log.info("FTP" + this.ftpServer + "连接关闭");
             } catch (Exception e) {
-                logger.error("FTP连接关闭异常", e);
+                log.error("FTP连接关闭异常", e);
             }
         }
     }
@@ -121,37 +106,34 @@ public class FtpUtil {
      * 上传文件到ftp <功能详细描述>
      *
      * @param remotePath    ftp路径
-     * @param remotePath    文件名
      * @param localFileName 要上传的本地文件
-     * @return SECCESS:上传成功 其他:上传失败信息
+     * @return SUCCESS:上传成功 其他:上传失败信息
      */
     public String uploadFile(String remotePath, String localFileName) {
         FileInputStream in = null;
         try {
-            // 存放在Ftp上的文件名称
-            String remoteFileName = "";
             ftp.setFileType(FTP.BINARY_FILE_TYPE);
             if (CommonUtil.isEmpty(localFileName) || CommonUtil.isEmpty(remotePath)) {
-                logger.error("文件上传Ftp失败目标路径或源路径错误");
+                log.error("文件上传Ftp失败目标路径或源路径错误");
                 return "文件上传Ftp失败目标路径或源路径错误";
             }
-            remoteFileName = localFileName.substring(localFileName.lastIndexOf("/") + 1, localFileName.length());
-
+            // 存放在Ftp上的文件名称
+            String remoteFileName = localFileName.substring(localFileName.lastIndexOf("/") + 1);
             // 确保文件路径存在
             ftp.makeDirectory(remotePath);
 
             if (!ftp.changeWorkingDirectory(remotePath)) {
-                logger.error("转至目录[" + remotePath + "]失败");
+                log.error("转至目录[" + remotePath + "]失败");
                 return "转至目录[" + remotePath + "]失败";
             }
 
             // 上传之前先删除原来文件,防止重复对账(文件不存不报异常)
             ftp.deleteFile(remoteFileName);
 
-            in = new FileInputStream(new File(localFileName));
-            ftp.storeFile(new String(remoteFileName.getBytes("GBK"), "iso-8859-1"), in);
+            in = new FileInputStream(localFileName);
+            ftp.storeFile(new String(remoteFileName.getBytes("GBK"), StandardCharsets.ISO_8859_1), in);
         } catch (Exception e) {
-            logger.error("文件上传Ftp失败:", e);
+            log.error("文件上传Ftp失败:", e);
             return "文件上传Ftp失败:" + e;
         } finally {
             CommonUtil.closeStream(in);
@@ -169,13 +151,13 @@ public class FtpUtil {
         try {
             if (ftp.changeWorkingDirectory(remotePath)) {
                 String[] str = ftp.listNames();
-                if (null == str || str.length < 0) {
+                if (null == str) {
                     return null;
                 }
                 return Arrays.asList(str);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("getFileList fail", e);
         }
         return null;
     }
@@ -193,18 +175,18 @@ public class FtpUtil {
         try {
             // 切换到指定目录下
             if (ftp.changeWorkingDirectory(remotePath)) {
-                oStream = new FileOutputStream(new File(localFileName));
+                oStream = new FileOutputStream(localFileName);
 
                 if (!ftp.retrieveFile(remoteFileName, oStream)) {
-                    logger.info("从Ftp上下载文件失败！" + remoteFileName);
+                    log.info("从Ftp上下载文件失败！" + remoteFileName);
                     return "从Ftp上下载文件失败！" + remoteFileName;
                 }
             } else {
-                logger.info("对账文件下载失败，不能正常切换至目录" + remotePath + ";目录不存在！");
+                log.info("对账文件下载失败，不能正常切换至目录" + remotePath + ";目录不存在！");
                 return "对账文件下载失败，不能正常切换至目录" + remotePath + ";目录不存在！";
             }
         } catch (Exception e) {
-            logger.info("Ftp上文件" + remoteFileName + "下载失败!", e);
+            log.error("Ftp上文件" + remoteFileName + "下载失败!", e);
             return "Ftp上文件" + remoteFileName + "下载失败!" + e;
         } finally {
             CommonUtil.closeStream(oStream);
@@ -218,13 +200,13 @@ public class FtpUtil {
      * @param pathName 文件夹路径
      * @return SUCCESS:成功 其他:失败
      */
-    public String removeDirectoryALLFile(String pathName) {
+    public String removeDirectoryAllFile(String pathName) {
         try {
             FTPFile[] files = ftp.listFiles(pathName);
             if (null != files && files.length > 0) {
                 for (FTPFile file : files) {
                     if (file.isDirectory()) {
-                        removeDirectoryALLFile(pathName + "/" + file.getName());
+                        removeDirectoryAllFile(pathName + "/" + file.getName());
 
                         // 切换到父目录，不然删不掉文件夹
                         ftp.changeWorkingDirectory(pathName.substring(0, pathName.lastIndexOf("/")));
@@ -240,8 +222,7 @@ public class FtpUtil {
             ftp.changeWorkingDirectory(pathName.substring(0, pathName.lastIndexOf("/")));
             ftp.removeDirectory(pathName);
         } catch (IOException e) {
-            logger.error("删除指定文件夹" + pathName + "失败：" + e);
-            e.printStackTrace();
+            log.error("删除指定文件夹" + pathName + "失败：" + e);
             return "删除指定文件夹" + pathName + "失败：" + e;
         }
         return "SUCCESS";
@@ -261,8 +242,7 @@ public class FtpUtil {
                 }
             }
         } catch (IOException e) {
-            logger.error("删除文件失败：", e);
-            e.printStackTrace();
+            log.error("删除文件失败：", e);
             return "删除文件" + filePath + "失败！" + e;
         }
         return "SUCCESS";
@@ -282,13 +262,14 @@ public class FtpUtil {
         FileOutputStream fileOutStream = null;
         try {
             inputStream = new FileInputStream(localPath + "/" + desFile);
-            byte allBytes[] = new byte[inputStream.available()];
+            byte[] allBytes = new byte[inputStream.available()];
             inputStream.read(allBytes);
 
             fileOutStream = new FileOutputStream(localPath + "/" + desFile);
             fileOutStream.write(mergeStr.getBytes());
             fileOutStream.write(allBytes);
         } catch (IOException e) {
+            log.error("mergeFile fail", e);
             return e.getMessage();
         } finally {
             CommonUtil.closeStream(fileOutStream);
@@ -310,15 +291,15 @@ public class FtpUtil {
             SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 
             // 当天时间
-            Calendar theday = Calendar.getInstance();
+            Calendar today = Calendar.getInstance();
 
             // 存放符合备份的日期时间 数组长度为备份的天数+1
-            String[] dates = new String[Integer.valueOf(dailyBakDate) + 1];
+            String[] dates = new String[Integer.parseInt(dailyBakDate) + 1];
             for (int i = 0; i < dates.length; i++) {
-                dates[i] = df.format(theday.getTime());
+                dates[i] = df.format(today.getTime());
 
                 // 获取上一天的时间
-                theday.add(Calendar.DATE, -1);
+                today.add(Calendar.DATE, -1);
             }
 
             File a = new File(dailyBakPath);
@@ -328,23 +309,23 @@ public class FtpUtil {
 
             // 获取目录下所有文件
             String[] fileArr = a.list();
-
+            assert fileArr != null;
             // 遍历文件名称，查看是否在保留日期dates内,不在则删除
-            for (int i = 0; i < fileArr.length; i++) {
-                boolean canDele = true;
-                for (int j = 0; j < dates.length; j++) {
+            for (String s : fileArr) {
+                boolean canDelete = true;
+                for (String date : dates) {
                     // 不删除dates内开头的文件 和 文件名包含error的文件
-                    if (fileArr[i].startsWith(dates[j]) || fileArr[i].contains("error")) {
-                        canDele = false;
+                    if (s.startsWith(date) || s.contains("error")) {
+                        canDelete = false;
                         break;
                     }
                 }
-                if (canDele) {
-                    deletefile(dailyBakPath + "/" + fileArr[i]);
+                if (canDelete) {
+                    deleteFile(dailyBakPath + "/" + s);
                 }
             }
         } catch (Exception e) {
-            logger.info("删除文件夹内容操作出错,请查看配置路径或保留时间是否正确！");
+            log.error("删除文件夹内容操作出错,请查看配置路径或保留时间是否正确！");
             return "删除文件夹内容操作出错,请查看配置路径或保留时间是否正确！";
         }
         return "SUCCESS";
@@ -353,21 +334,22 @@ public class FtpUtil {
     /**
      * 根据入参,删除文件夹(下文件及文件夹)或文件
      *
-     * @param delpath 文件夹路径或文件路径
+     * @param delPath 文件夹路径或文件路径
      * @return boolean true:成功 false:失败
      */
-    public static boolean deletefile(String delpath) {
+    public static boolean deleteFile(String delPath) {
         try {
-            File file = new File(delpath);
+            File file = new File(delPath);
             if (file.isDirectory()) {
                 String[] fileList = file.list();
+                assert fileList != null;
                 for (String fileName : fileList) {
-                    deletefile(delpath + "\\" + fileName);
+                    deleteFile(delPath + "\\" + fileName);
                 }
             }
             file.delete();
         } catch (Exception e) {
-            logger.error("deletefile() Exception:" + e.getMessage());
+            log.error("deleteFile Exception:" + e.getMessage());
         }
         return true;
     }
