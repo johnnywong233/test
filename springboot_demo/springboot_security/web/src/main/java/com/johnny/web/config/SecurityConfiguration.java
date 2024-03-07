@@ -81,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CustomFilterSecurityInterceptor customFilter() throws Exception {
+    public CustomFilterSecurityInterceptor customFilter() {
         CustomFilterSecurityInterceptor customFilter = new CustomFilterSecurityInterceptor();
         customFilter.setSecurityMetadataSource(securityMetadataSource());
         customFilter.setAccessDecisionManager(accessDecisionManager());

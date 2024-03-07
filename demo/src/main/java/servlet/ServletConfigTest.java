@@ -20,7 +20,7 @@ public class ServletConfigTest extends HttpServlet {
     @Override
     @SuppressWarnings("rawtypes")
     public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException {
 
         ServletConfig config = this.getServletConfig();
 

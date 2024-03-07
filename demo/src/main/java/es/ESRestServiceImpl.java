@@ -129,7 +129,7 @@ public class ESRestServiceImpl implements ESRestService {
 
     @Override
     public HttpEntity query(String index, String type, List<MapEsQuery.QueryDTO> querys, List<String> aggregations, List<ESSorter> sorters,
-                            ESPager... pager) throws IOException {
+                            ESPager... pager) {
 
 //		StringBuilder query = new StringBuilder();
 //		String sort =  ESQuery.getSorter(sorters);
@@ -165,7 +165,7 @@ public class ESRestServiceImpl implements ESRestService {
         MapEsQuery.getSortQuery(searchSourceBuilder, sorters);
         MapEsQuery.getPageQuery(searchSourceBuilder, pager[0]);
         MapEsQuery.getAggregationsQuery(searchSourceBuilder, aggregations);
-        System.out.println(searchSourceBuilder.toString());
+        System.out.println(searchSourceBuilder);
         LogUtil.info("ESRestService query", searchSourceBuilder.toString());
         HttpEntity entity = new NStringEntity(searchSourceBuilder.toString(), ContentType.APPLICATION_JSON);
 

@@ -10,8 +10,8 @@ import java.util.Date;
  * Time: 21:01
  */
 public class DateAdapter extends XmlAdapter<String, Date> {
-    private String pattern = "yyyy-MM-dd HH:mm:ss";
-    private SimpleDateFormat fmt = new SimpleDateFormat(pattern);
+    private final String pattern = "yyyy-MM-dd HH:mm:ss";
+    private final SimpleDateFormat fmt = new SimpleDateFormat(pattern);
 
     @Override
     public Date unmarshal(String dateStr) throws Exception {
@@ -19,7 +19,7 @@ public class DateAdapter extends XmlAdapter<String, Date> {
     }
 
     @Override
-    public String marshal(Date date) throws Exception {
+    public String marshal(Date date) {
         return fmt.format(date);
     }
 }

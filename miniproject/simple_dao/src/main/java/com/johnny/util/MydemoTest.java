@@ -10,11 +10,11 @@ import java.util.List;
 
 public class MydemoTest {
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test

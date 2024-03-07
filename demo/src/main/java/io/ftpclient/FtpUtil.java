@@ -8,7 +8,6 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPClientConfig;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
-
 import utils.CommonUtil;
 
 import java.io.File;
@@ -44,6 +43,127 @@ public class FtpUtil {
         this.ftpPort = ftpPort;
         this.userName = userName;
         this.password = password;
+    }
+
+    /**
+     * 向文件头添加合计信息
+     *
+     * @param localPath 目标文件所在文件夹路径
+     * @param desFile   目标文件名
+     * @param mergeStr  插入字符串信息
+     * @return SUCCESS:成功 其他:失败信息
+     */
+    public static String mergeFile(String localPath, String desFile, String mergeStr) {
+        // 向目标文件头中添加合计信息
+        FileInputStream inputStream = null;
+        FileOutputStream fileOutStream = null;
+        try {
+            inputStream = new FileInputStream(localPath + "/" + desFile);
+            byte[] allBytes = new byte[inputStream.available()];
+            inputStream.read(allBytes);
+
+            fileOutStream = new FileOutputStream(localPath + "/" + desFile);
+            fileOutStream.write(mergeStr.getBytes());
+            fileOutStream.write(allBytes);
+        } catch (IOException e) {
+            log.error("mergeFile fail", e);
+            return e.getMessage();
+        } finally {
+            CommonUtil.closeStream(fileOutStream);
+            CommonUtil.closeStream(inputStream);
+        }
+        return "SUCCESS";
+    }
+
+    /**
+     * 删除备份目录下不符合时间的文件 <功能详细描述>
+     *
+     * @param dailyBakPath 备份目录
+     * @param dailyBakDate 有效时间 1、5、9等
+     * @return SUCCESS:成功 其他:失败信息
+     */
+    public static String deleteFile(String dailyBakPath, String dailyBakDate) {
+        try {
+            // 获取符合规则的日期
+            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+
+            // 当天时间
+            Calendar today = Calendar.getInstance();
+
+            // 存放符合备份的日期时间 数组长度为备份的天数+1
+            String[] dates = new String[Integer.parseInt(dailyBakDate) + 1];
+            for (int i = 0; i < dates.length; i++) {
+                dates[i] = df.format(today.getTime());
+
+                // 获取上一天的时间
+                today.add(Calendar.DATE, -1);
+            }
+
+            File a = new File(dailyBakPath);
+            if (!a.exists()) {
+                return dailyBakPath + "目录不存在!";
+            }
+
+            // 获取目录下所有文件
+            String[] fileArr = a.list();
+            assert fileArr != null;
+            // 遍历文件名称，查看是否在保留日期dates内,不在则删除
+            for (String s : fileArr) {
+                boolean canDelete = true;
+                for (String date : dates) {
+                    // 不删除dates内开头的文件 和 文件名包含error的文件
+                    if (s.startsWith(date) || s.contains("error")) {
+                        canDelete = false;
+                        break;
+                    }
+                }
+                if (canDelete) {
+                    deleteFile(dailyBakPath + "/" + s);
+                }
+            }
+        } catch (Exception e) {
+            log.error("删除文件夹内容操作出错,请查看配置路径或保留时间是否正确！");
+            return "删除文件夹内容操作出错,请查看配置路径或保留时间是否正确！";
+        }
+        return "SUCCESS";
+    }
+
+    /**
+     * 根据入参,删除文件夹(下文件及文件夹)或文件
+     *
+     * @param delPath 文件夹路径或文件路径
+     * @return boolean true:成功 false:失败
+     */
+    public static boolean deleteFile(String delPath) {
+        try {
+            File file = new File(delPath);
+            if (file.isDirectory()) {
+                String[] fileList = file.list();
+                assert fileList != null;
+                for (String fileName : fileList) {
+                    deleteFile(delPath + "\\" + fileName);
+                }
+            }
+            file.delete();
+        } catch (Exception e) {
+            log.error("deleteFile Exception:" + e.getMessage());
+        }
+        return true;
+    }
+
+    //http://joudi.blog.51cto.com/4686277/1546891
+    public static void main(String[] args) {
+        //System.out.println(deletefile("G:/Q"));
+
+        FtpUtil ftpUtil = new FtpUtil("192.168.132.110", "21", "a", "a");
+        System.out.println(ftpUtil.loginToFtpServer());
+
+        // System.out.println(ftpUtil.removeDirectoryALLFile("/home/tbcs/zhangvb/epay/20140820"));
+
+        // FTPClient client=new FTPClient();
+        // client.connect("192.168.132.110");
+        // client.login("a","a");
+        // System.out.println(client.removeDirectory("/home/tbcs/zhangvb/epay/test"));
     }
 
     /**
@@ -246,126 +366,5 @@ public class FtpUtil {
             return "删除文件" + filePath + "失败！" + e;
         }
         return "SUCCESS";
-    }
-
-    /**
-     * 向文件头添加合计信息
-     *
-     * @param localPath 目标文件所在文件夹路径
-     * @param desFile   目标文件名
-     * @param mergeStr  插入字符串信息
-     * @return SUCCESS:成功 其他:失败信息
-     */
-    public static String mergeFile(String localPath, String desFile, String mergeStr) {
-        // 向目标文件头中添加合计信息
-        FileInputStream inputStream = null;
-        FileOutputStream fileOutStream = null;
-        try {
-            inputStream = new FileInputStream(localPath + "/" + desFile);
-            byte[] allBytes = new byte[inputStream.available()];
-            inputStream.read(allBytes);
-
-            fileOutStream = new FileOutputStream(localPath + "/" + desFile);
-            fileOutStream.write(mergeStr.getBytes());
-            fileOutStream.write(allBytes);
-        } catch (IOException e) {
-            log.error("mergeFile fail", e);
-            return e.getMessage();
-        } finally {
-            CommonUtil.closeStream(fileOutStream);
-            CommonUtil.closeStream(inputStream);
-        }
-        return "SUCCESS";
-    }
-
-    /**
-     * 删除备份目录下不符合时间的文件 <功能详细描述>
-     *
-     * @param dailyBakPath 备份目录
-     * @param dailyBakDate 有效时间 1、5、9等
-     * @return SUCCESS:成功 其他:失败信息
-     */
-    public static String deleteFile(String dailyBakPath, String dailyBakDate) {
-        try {
-            // 获取符合规则的日期
-            SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
-
-            // 当天时间
-            Calendar today = Calendar.getInstance();
-
-            // 存放符合备份的日期时间 数组长度为备份的天数+1
-            String[] dates = new String[Integer.parseInt(dailyBakDate) + 1];
-            for (int i = 0; i < dates.length; i++) {
-                dates[i] = df.format(today.getTime());
-
-                // 获取上一天的时间
-                today.add(Calendar.DATE, -1);
-            }
-
-            File a = new File(dailyBakPath);
-            if (!a.exists()) {
-                return dailyBakPath + "目录不存在!";
-            }
-
-            // 获取目录下所有文件
-            String[] fileArr = a.list();
-            assert fileArr != null;
-            // 遍历文件名称，查看是否在保留日期dates内,不在则删除
-            for (String s : fileArr) {
-                boolean canDelete = true;
-                for (String date : dates) {
-                    // 不删除dates内开头的文件 和 文件名包含error的文件
-                    if (s.startsWith(date) || s.contains("error")) {
-                        canDelete = false;
-                        break;
-                    }
-                }
-                if (canDelete) {
-                    deleteFile(dailyBakPath + "/" + s);
-                }
-            }
-        } catch (Exception e) {
-            log.error("删除文件夹内容操作出错,请查看配置路径或保留时间是否正确！");
-            return "删除文件夹内容操作出错,请查看配置路径或保留时间是否正确！";
-        }
-        return "SUCCESS";
-    }
-
-    /**
-     * 根据入参,删除文件夹(下文件及文件夹)或文件
-     *
-     * @param delPath 文件夹路径或文件路径
-     * @return boolean true:成功 false:失败
-     */
-    public static boolean deleteFile(String delPath) {
-        try {
-            File file = new File(delPath);
-            if (file.isDirectory()) {
-                String[] fileList = file.list();
-                assert fileList != null;
-                for (String fileName : fileList) {
-                    deleteFile(delPath + "\\" + fileName);
-                }
-            }
-            file.delete();
-        } catch (Exception e) {
-            log.error("deleteFile Exception:" + e.getMessage());
-        }
-        return true;
-    }
-
-    //http://joudi.blog.51cto.com/4686277/1546891
-    public static void main(String[] args) throws IOException {
-        //System.out.println(deletefile("G:/Q"));
-
-        FtpUtil ftpUtil = new FtpUtil("192.168.132.110", "21", "a", "a");
-        System.out.println(ftpUtil.loginToFtpServer());
-
-        // System.out.println(ftpUtil.removeDirectoryALLFile("/home/tbcs/zhangvb/epay/20140820"));
-
-        // FTPClient client=new FTPClient();
-        // client.connect("192.168.132.110");
-        // client.login("a","a");
-        // System.out.println(client.removeDirectory("/home/tbcs/zhangvb/epay/test"));
     }
 }

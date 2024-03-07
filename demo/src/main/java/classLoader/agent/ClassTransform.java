@@ -1,7 +1,6 @@
 package classLoader.agent;
 
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
 
@@ -9,7 +8,7 @@ import java.security.ProtectionDomain;
  * Created by johnny on 2016/10/2.
  */
 public class ClassTransform implements ClassFileTransformer {
-    private Instrumentation inst;
+    private final Instrumentation inst;
 
     protected ClassTransform(Instrumentation inst) {
         this.inst = inst;
@@ -22,7 +21,7 @@ public class ClassTransform implements ClassFileTransformer {
     @Override
     public byte[] transform(ClassLoader loader, String className,
                             Class<?> classBeingRedefined, ProtectionDomain protectionDomain,
-                            byte[] classfileBuffer) throws IllegalClassFormatException {
+                            byte[] classfileBuffer) {
         byte[] transformed = null;
         HotAgent.clsnames.add(className);
         return null;

@@ -52,7 +52,7 @@ public class BookCategoryRepositoryTest {
     }
 
     @Test
-    public void findAll() throws Exception {
+    public void findAll() {
 
         for (BookCategory bookCategory : repository.findAll()) {
             log.info(bookCategory.toString());

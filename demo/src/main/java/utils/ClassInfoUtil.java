@@ -134,7 +134,7 @@ public class ClassInfoUtil {
 
     //http://www.phpxs.com/code/1001557/
     @Test
-    public void testClassInfoUtil() throws Exception {
+    public void testClassInfoUtil() {
         printClassDefinition(List.class);
         printClassDefinition(Proxy.class);
         printClassDefinition(ArrayList.class);

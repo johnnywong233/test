@@ -1,7 +1,6 @@
 package file.xml.castor.demo2;
 
 import org.exolab.castor.mapping.FieldHandler;
-import org.exolab.castor.mapping.ValidityException;
 
 /**
  * Author: Johnny
@@ -34,7 +33,7 @@ public class AddressHandler implements FieldHandler {
     }
 
     @Override
-    public void checkValidity(Object object) throws ValidityException, IllegalStateException {
+    public void checkValidity(Object object) throws IllegalStateException {
     }
 
     @Override

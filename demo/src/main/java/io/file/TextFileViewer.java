@@ -1,12 +1,6 @@
 package io.file;
 
-import java.awt.Button;
-import java.awt.FileDialog;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Frame;
-import java.awt.Panel;
-import java.awt.TextArea;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -20,7 +14,7 @@ public class TextFileViewer extends Frame implements ActionListener {
 
     private String directory;
 
-    private TextArea textarea;
+    private final TextArea textarea;
 
     public TextFileViewer() {
         this(null, null);
@@ -70,6 +64,17 @@ public class TextFileViewer extends Frame implements ActionListener {
         setFile(directory, filename);
     }
 
+    static public void main(String[] args) {
+        Frame myFrame = new TextFileViewer((args.length == 1) ? args[0] : null);
+        myFrame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+        myFrame.setVisible(true);
+    }
+
     private void setFile(String directory, String filename) {
         if ((filename == null) || (filename.length() == 0)) {
             return;
@@ -115,16 +120,5 @@ public class TextFileViewer extends Frame implements ActionListener {
         } else if ("close".equals(cmd)) {
             this.dispose();
         }
-    }
-
-    static public void main(String[] args) throws IOException {
-        Frame myFrame = new TextFileViewer((args.length == 1) ? args[0] : null);
-        myFrame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                System.exit(0);
-            }
-        });
-        myFrame.setVisible(true);
     }
 }

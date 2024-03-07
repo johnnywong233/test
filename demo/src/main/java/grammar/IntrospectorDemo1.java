@@ -15,7 +15,7 @@ public class IntrospectorDemo1 {
 
     //TODO: NPE
     public static void main(String[] args) throws IllegalArgumentException,
-            IllegalAccessException, SecurityException, NoSuchMethodException,
+            IllegalAccessException, SecurityException,
             InvocationTargetException, IntrospectionException {
         //演示一下get方法的调用
         //初始化一个javabean对象

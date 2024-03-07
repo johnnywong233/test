@@ -1,5 +1,13 @@
 package mockito.mockvoid;
 
+interface Dish {
+    void eat();
+
+    void eat(String spicy);
+
+    String getSpice();
+}
+
 public class Customer {
     void eat(Dish dish) throws WrongDishException {
         try {
@@ -10,20 +18,9 @@ public class Customer {
                 dish.eat(dish.getSpice());
             }
             System.out.println("Ate the food");
-        } catch (WrongDishException e) {
-            System.out.println("Wrong dish!");
-            throw e;
         } catch (NotSoTastyException e) {
             System.out.println("Not very tasty");
             throw e;
         }
     }
-}
-
-interface Dish {
-    void eat() throws WrongDishException;
-
-    void eat(String spicy) throws WrongDishException;
-
-    String getSpice();
 }

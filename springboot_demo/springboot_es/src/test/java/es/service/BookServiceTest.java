@@ -40,7 +40,7 @@ public class BookServiceTest {
     private ElasticsearchTemplate esTemplate;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         esTemplate.deleteIndex(Book.class);
         esTemplate.createIndex(Book.class);
         esTemplate.putMapping(Book.class);
@@ -48,11 +48,11 @@ public class BookServiceTest {
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
     }
 
     @Test
-    public void testSave() throws Exception {
+    public void testSave() {
         Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
         Book testBook = bookService.save(book);
 
@@ -63,7 +63,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testDelete() throws Exception {
+    public void testDelete() {
         Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
         bookService.save(book);
         bookService.delete(book);
@@ -72,7 +72,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void testFindOne() throws Exception {
+    public void testFindOne() {
         Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
         bookService.save(book);
 
@@ -85,11 +85,11 @@ public class BookServiceTest {
     }
 
     @Test
-    public void findAll() throws Exception {
+    public void findAll() {
     }
 
     @Test
-    public void testFindByAuthor() throws Exception {
+    public void testFindByAuthor() {
         List<Book> bookList = new ArrayList<>();
 
         bookList.add(new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017"));
@@ -111,7 +111,7 @@ public class BookServiceTest {
     }
 
     @Test
-    public void findByTitle() throws Exception {
+    public void findByTitle() {
         Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
         bookService.save(book);
 

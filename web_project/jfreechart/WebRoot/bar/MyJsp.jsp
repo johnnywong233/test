@@ -1,4 +1,4 @@
-<%@ page import="com.itextpdf.text.*" pageEncoding="UTF-8" %>
+<%@page import="com.itextpdf.text.*" pageEncoding="UTF-8" %>
 <%@page import="com.itextpdf.text.pdf.BaseFont" %>
 <%@page import="com.itextpdf.text.pdf.PdfPCell" %>
 <%@page import="com.itextpdf.text.pdf.PdfPTable" %>
@@ -11,7 +11,6 @@
 <%@page import="org.jfree.data.time.TimeSeriesCollection" %>
 <%@page import="java.awt.image.BufferedImage" %>
 <%@page import="java.io.*" %>
-<%@page import="java.net.MalformedURLException" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
@@ -44,8 +43,12 @@
     //	"UniGB-UCS2-H", false);
     //Font f = new Font(bf, 12, Font.NORMAL, BaseColor.BLUE);
 
-    BaseFont bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H",
-            BaseFont.NOT_EMBEDDED);
+    BaseFont bfChinese;
+    try {
+        bfChinese = BaseFont.createFont("STSong-Light", "UniGB-UCS2-H", BaseFont.NOT_EMBEDDED);
+    } catch (DocumentException e) {
+        throw new RuntimeException(e);
+    }
     Font chineseFont = new Font(bfChinese, 12, Font.BOLD);
     //访问量统计时间线
     TimeSeries timeSeries2006 = new TimeSeries("2006年度", Month.class);
@@ -81,7 +84,7 @@
     lineDataset.addSeries(timeSeries2006);
     lineDataset.addSeries(timeSeries2007);
 
-    JFreeChart chart = ChartFactory.createTimeSeriesChart("访问量统计时间线", "month", "visitamount", lineDataset, true, true, true);
+    JFreeChart chart = ChartFactory.createTimeSeriesChart("访问量统计时间线", "month", "visitAmount", lineDataset, true, true, true);
     //设置子标题
     //TextTitle subtitle = new TextTitle("2006/2007年度访问量对比",new Font("黑体",Font.BOLD,12));
     TextTitle subtitle = new TextTitle("2006/2007年度访问量对比");
@@ -92,7 +95,7 @@
     chart.setAntiAlias(true);
     //String filename = ServletUtilities.saveChartAsPNG(chart,500,300,null,session);
     //String graphURL = request.getContextPath()+"/DisplayChart?filename="+filename;
-    BufferedImage bufferimage = chart.createBufferedImage(500, 300);
+    BufferedImage bufferImage = chart.createBufferedImage(500, 300);
 
 
     Document document = new Document(PageSize.A4);
@@ -102,7 +105,7 @@
         PdfWriter writer = PdfWriter.getInstance(document, buffer);
         document.open();
 
-        Image image = Image.getInstance(bufferimage, null, false);
+        Image image = Image.getInstance(bufferImage, null, false);
 
         float[] widths = {1f, 4f};
         //float[] widths = {100f};
@@ -125,35 +128,20 @@
         image.setAbsolutePosition(0, 0);
         table.addCell(image);
         document.add(table);
-
-
-    } catch (FileNotFoundException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    } catch (DocumentException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    } catch (MalformedURLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    } catch (IOException e) {
-        // TODO Auto-generated catch block
+    } catch (DocumentException | IOException e) {
         e.printStackTrace();
     } finally {
         document.close();
     }
     OutputStream o = null;
     try {
-        if (o == null) {
-            o = response.getOutputStream();
-            DataOutput output = new DataOutputStream(
-                    o == null ? (response.getOutputStream()) : o);
-            byte[] bytes = buffer.toByteArray();
-            response.setContentType("application/pdf");
-            response.setContentLength(bytes.length);
-            for (int i = 0; i < bytes.length; i++) {
-                output.writeByte(bytes[i]);
-            }
+        o = response.getOutputStream();
+        DataOutput output = new DataOutputStream(o == null ? (response.getOutputStream()) : o);
+        byte[] bytes = buffer.toByteArray();
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        for (byte aByte : bytes) {
+            output.writeByte(aByte);
         }
         o.flush();
     } catch (Exception e) {
@@ -163,7 +151,6 @@
             out.clear();
             out = pageContext.pushBody();
             o.close();
-
         }
     }
 %>

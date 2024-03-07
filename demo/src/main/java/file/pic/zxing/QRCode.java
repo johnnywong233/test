@@ -10,9 +10,7 @@ import lombok.Getter;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.imageio.ImageIO;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -29,7 +27,7 @@ public class QRCode {
     private static final int BG_WHITE = 0xFFFFFFFF;   //背景颜色
 
     //http://blog.csdn.net/u013142781/article/details/50310419
-    public static void main(String[] args) throws WriterException {
+    public static void main(String[] args) {
         try {
             getLogoQRCode("https://github.com/johnnywong233", "跳转到百度的二维码");
         } catch (Exception e) {
@@ -105,7 +103,7 @@ public class QRCode {
 //                  outg.drawString(productName, 0, image.getHeight() + (outImage.getHeight() - image.getHeight())/2 + 5 ); //画文字
                     //长度过长就换行
                     String productName1 = productName.substring(0, productName.length() / 2);
-                    String productName2 = productName.substring(productName.length() / 2, productName.length());
+                    String productName2 = productName.substring(productName.length() / 2);
                     int strWidth1 = outg.getFontMetrics().stringWidth(productName1);
                     int strWidth2 = outg.getFontMetrics().stringWidth(productName2);
                     outg.drawString(productName1, 200 - strWidth1 / 2, image.getHeight() + (outImage.getHeight() - image.getHeight()) / 2 + 12);

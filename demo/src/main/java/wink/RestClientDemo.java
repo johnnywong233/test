@@ -16,16 +16,16 @@ import javax.ws.rs.core.MediaType;
 public class RestClientDemo {
 
     //http://snv.iteye.com/blog/2118380
-	@Test
-    public static void post() throws Throwable {
+    @Test
+    public static void post() {
         RestClient client = new RestClient();
         Resource resource = client.resource("http://api.linkrmb.com/app/api");
         ClientResponse clientResponse = resource.post("id=123&name=456");
         System.out.println(clientResponse.getStatusCode());
     }
 
-	@Test
-    public static void put() throws Throwable {
+    @Test
+    public static void put() {
         RestClient client = new RestClient();
         Resource resource = client.resource("http://api.linkrmb.com/app/api");
         Item item = new Item();
@@ -36,16 +36,16 @@ public class RestClientDemo {
         System.out.println(clientResponse.getStatusCode());
     }
 
-	@Test
-    public static void delete() throws Throwable {
+    @Test
+    public static void delete() {
         RestClient client = new RestClient();
         Resource resource = client.resource("http://api.linkrmb.com/app/api/123");
         ClientResponse clientResponse = resource.delete();
         System.out.println(clientResponse.getStatusCode());
     }
 
-	@Test
-    public static void get() throws Throwable {
+    @Test
+    public static void get() {
         RestClient client = new RestClient();
         Resource resource = client.resource("http://api.linkrmb.com/app/api/123");
         ClientResponse clientResponse = resource.get();

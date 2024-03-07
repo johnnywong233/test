@@ -22,7 +22,7 @@ public class CalculatorTestWithJUnitParams1 {
 
     @Test
     @Parameters({"0, 0, 0", "1, 1, 2", "2, 1, 3"})
-    public void testAdd(int testOpt1, int testOpt2, int testResult) throws Exception {
+    public void testAdd(int testOpt1, int testOpt2, int testResult) {
         int actualResult = calculator.add(testOpt1, testOpt2);
         assertEquals(testResult, actualResult);
     }

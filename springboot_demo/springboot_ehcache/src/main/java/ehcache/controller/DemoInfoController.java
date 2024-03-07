@@ -1,11 +1,10 @@
 package ehcache.controller;
 
 import ehcache.bean.DemoInfo;
-import javassist.NotFoundException;
+import ehcache.service.DemoInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ehcache.service.DemoInfoService;
 
 import javax.annotation.Resource;
 
@@ -47,11 +46,7 @@ public class DemoInfoController {
         updated.setName("李四-updated");
         updated.setPwd("123456");
         updated.setId(demoInfo3.getId());
-        try {
-            System.out.println(demoInfoService.update(updated));
-        } catch (NotFoundException e) {
-            log.error("test fail", e);
-        }
+        System.out.println(demoInfoService.update(updated));
         // 不走缓存.
         System.out.println(demoInfoService.findById(updated.getId()));
         return "ok";

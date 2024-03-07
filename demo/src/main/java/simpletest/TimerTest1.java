@@ -10,16 +10,22 @@ import java.util.TimerTask;
  */
 public class TimerTest1 {
 
-    private Timer timer;
-
     public long start;
+    private final Timer timer;
 
-    private TimerTest1(){
+    private TimerTest1() {
         this.timer = new Timer();
         start = System.currentTimeMillis();
     }
 
-    private void timerOne(){
+    //http://www.cnblogs.com/chenssy/p/3788407.html
+    public static void main(String[] args) {
+        TimerTest1 test = new TimerTest1();
+        test.timerOne();
+        test.timerTwo();
+    }
+
+    private void timerOne() {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -34,20 +40,13 @@ public class TimerTest1 {
         }, 1000);
     }
 
-    private void timerTwo(){
+    private void timerTwo() {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 System.out.println("timerTwo invoked, the time:" + (System.currentTimeMillis() - start));
             }
         }, 3000);
-    }
-
-    //http://www.cnblogs.com/chenssy/p/3788407.html
-    public static void main(String[] args) throws Exception {
-        TimerTest1 test = new TimerTest1();
-        test.timerOne();
-        test.timerTwo();
     }
 
 }

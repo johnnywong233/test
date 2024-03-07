@@ -22,7 +22,7 @@ public class HtmlClean {
         test.cleanHtml("C:\\work\\test_git\\test\\demo\\src\\test\\resources\\www.twt.edu.cn.html", "C:\\work\\test_git\\test\\demo\\src\\main\\resources\\parserResponse.xml");
     }
 
-    public void cleanHtml(String htmlurl, String xmlurl) {
+    public void cleanHtml(String htmlUrl, String xmlUrl) {
         try {
             long start = System.currentTimeMillis();
             HtmlCleaner cleaner = new HtmlCleaner();
@@ -33,10 +33,8 @@ public class HtmlClean {
             props.setAdvancedXmlEscape(true);
             props.setTranslateSpecialEntities(true);
             props.setBooleanAttributeValues("empty");
-
-            TagNode node = cleaner.clean(new File(htmlurl));
-//            new PrettyXmlSerializer(props).writeXmlToFile(node, xmlurl);
-            new PrettyXmlSerializer(props).writeToFile(node, xmlurl);
+            TagNode node = cleaner.clean(new File(htmlUrl));
+            new PrettyXmlSerializer(props).writeToFile(node, xmlUrl);
             System.out.println("time consumed for:" + (System.currentTimeMillis() - start));
         } catch (IOException e) {
             e.printStackTrace();

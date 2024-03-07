@@ -1,7 +1,6 @@
 package ini4j;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyVetoException;
 import java.beans.VetoableChangeListener;
 import java.net.URI;
 
@@ -28,7 +27,7 @@ public interface Dwarf {
 
     double getHeight();
 
-    void setHeight(double height) throws PropertyVetoException;
+    void setHeight(double height);
 
     String getHomeDir();
 

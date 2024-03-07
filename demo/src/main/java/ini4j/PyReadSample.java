@@ -8,7 +8,7 @@ import org.ini4j.ConfigParser;
  * Time: 18:55
  */
 public class PyReadSample {
-    public static final String FILENAME = "dwarfs-py.ini";
+    private static final String FILENAME = "dwarfs-py.ini";
 
     public static void main(String[] args) throws Exception {
         String filename = (args.length > 0) ? args[0] : FILENAME;

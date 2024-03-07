@@ -34,6 +34,7 @@ public class HtmlCreator {
         }
 
         File[] imageFiles = albumDir.listFiles(f -> f.getName().substring(f.getName().lastIndexOf(".") + 1).matches("(gif|jpg|png)"));
+        assert imageFiles != null;
         if (imageFiles.length == 0) {
             return false;
         }
@@ -100,7 +101,7 @@ public class HtmlCreator {
 
         }
 
-        StringBuffer images = new StringBuffer("[");
+        StringBuilder images = new StringBuilder("[");
         for (BGImage image : photosList) {
             String desc = image.getDesc();
             if (desc.trim().length() == 0) {
@@ -108,15 +109,10 @@ public class HtmlCreator {
             } else if (desc.startsWith("※")) {
                 desc = "【相册封面】" + desc.replaceAll("※+", "");
             }
-
             images.append("{");
-
             images.append("'number':'").append(image.getNumber()).append("',");
-
             images.append("'name':'").append(HTMLUtils.textToJson(image.getName())).append("',");
-
             images.append("'desc':'").append(HTMLUtils.textToJson(desc)).append("',");
-
             if (image.getOwnerName() != null) {
                 images.append("'ownerName':'").append(HTMLUtils.textToJson(image.getOwnerName())).append("',");
                 images.append("'ownerURL':'").append(image.getOwnerURL()).append("',");

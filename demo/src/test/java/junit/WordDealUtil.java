@@ -15,7 +15,7 @@ public class WordDealUtil {
     public static String wordFormat4DB(String name) {
         Pattern p = Pattern.compile("[A-Z]");
         Matcher m = p.matcher(name);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while (m.find()) {
             m.appendReplacement(sb, "_" + m.group());
         }
@@ -36,7 +36,7 @@ public class WordDealUtil {
         }
         Pattern p = Pattern.compile("[A-Z]");
         Matcher m = p.matcher(name);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         while (m.find()) {
             if (m.start() != 0)
                 m.appendReplacement(sb, ("_" + m.group()).toLowerCase());

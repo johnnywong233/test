@@ -18,14 +18,8 @@ import java.util.Set;
 
 public class PropertiesTest {
 
-    @Test
-    public void test() throws Exception {
-        load();
-        loadFromXML();
-    }
-
     private static void load() {
-    /*中文会出现乱码 */
+        /*中文会出现乱码 */
         File file = new File("test.properties");
         FileInputStream in = null;
         try {
@@ -129,6 +123,23 @@ public class PropertiesTest {
         System.out.println("age: " + prop.get("age"));
     }
 
+    @Test
+    public static void test1() {
+        PropertiesTest t = new PropertiesTest();
+        try {
+            t.readProperties(new ClassPathResource("kaptcha.properties").getFile().getName());
+            t.writeProperty("info.properties", "sex", "\u00b6");
+            t.read("info.properties", "sex");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test() {
+        load();
+        loadFromXML();
+    }
 
     public String read(String fileName, String key) throws IOException {
         Properties props = new Properties();
@@ -159,18 +170,6 @@ public class PropertiesTest {
         OutputStream os = new FileOutputStream(path);
         props.setProperty(key, value);
         props.store(os, "updated2 key:" + key);
-    }
-
-    @Test
-    public static void test1() {
-        PropertiesTest t = new PropertiesTest();
-        try {
-            t.readProperties(new ClassPathResource("kaptcha.properties").getFile().getName());
-            t.writeProperty("info.properties", "sex", "\u00b6");
-            t.read("info.properties", "sex");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

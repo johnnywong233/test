@@ -67,7 +67,7 @@ public class URLUtils {
         return conn.getResponseCode() == 200;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         try {
             System.out.println(readSource("https://www.douban.com/photos/album/51681522/"));
             System.out.println(exists("https://img1.doubanio.com/view/photo/raw/public/p2321685527.jpg"));

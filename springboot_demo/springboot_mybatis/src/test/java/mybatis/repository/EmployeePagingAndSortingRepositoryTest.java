@@ -21,14 +21,14 @@ public class EmployeePagingAndSortingRepositoryTest {
     private EmployeePagingAndSortingRepository employeePagingAndSortingRepository = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         ctx = new ClassPathXmlApplicationContext("beans-new.xml");
         employeePagingAndSortingRepository = ctx.getBean(EmployeePagingAndSortingRepository.class);
         System.out.println("setup");
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ctx = null;
         System.out.println("teardown");
     }

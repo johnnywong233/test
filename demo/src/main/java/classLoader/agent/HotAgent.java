@@ -12,7 +12,7 @@ import java.util.TreeSet;
 public class HotAgent {
     protected static Set<String> clsnames = new TreeSet<>();
 
-    public static void premain(String agentArgs, Instrumentation inst) throws Exception {
+    public static void premain(String agentArgs, Instrumentation inst) {
         ClassFileTransformer transformer = new ClassTransform(inst);
         inst.addTransformer(transformer);
         System.out.println("是否支持类的重定义：" + inst.isRedefineClassesSupported());

@@ -1,10 +1,9 @@
 import ehcache.bean.DemoInfo;
-import javassist.NotFoundException;
+import ehcache.service.DemoInfoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import ehcache.service.DemoInfoService;
 
 import javax.annotation.Resource;
 
@@ -51,11 +50,7 @@ public class AppTest {
         updated.setName("李四-updated");
         updated.setPwd("123456");
         updated.setId(demoInfo3.getId());
-        try {
-            System.out.println(demoInfoService.update(updated));
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-        }
+        System.out.println(demoInfoService.update(updated));
 
         //不走缓存.
         System.out.println(demoInfoService.findById(updated.getId()));

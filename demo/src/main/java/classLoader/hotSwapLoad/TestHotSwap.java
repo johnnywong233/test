@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
  */
 public class TestHotSwap {
     //http://www.blogjava.net/heavensay/archive/2012/11/07/389685.html
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         //开启线程，如果class文件有修改，就热替换
         Thread t = new Thread(new MonitorHotSwap());
         t.start();

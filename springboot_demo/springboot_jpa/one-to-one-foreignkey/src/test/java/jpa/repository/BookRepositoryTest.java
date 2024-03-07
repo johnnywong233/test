@@ -22,7 +22,7 @@ public class BookRepositoryTest {
     private BookRepository bookRepository;
 
     @Test
-    public void saveTest() throws Exception {
+    public void saveTest() {
 
         List<Book> books = new ArrayList<>();
         books.add(new Book("Book one", new BookDetail(1)));
@@ -34,7 +34,7 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void findBooksTest() throws Exception {
+    public void findBooksTest() {
         List<Book> books = bookRepository.findAll();
         for (Book book : books) {
             log.info(book.toString());

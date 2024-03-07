@@ -29,14 +29,14 @@ public class PasswordChangeValidationTest {
     private MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
     public void failsWhenEmptyPasswordsGiven() throws Exception {
         this.mockMvc.perform(post("/globalerrors/password")
-                .param("password", "").param("confirmedPassword", ""))
+                        .param("password", "").param("confirmedPassword", ""))
                 .andExpect(model().attributeHasFieldErrors("passwordForm", "password", "confirmedPassword"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("globalerrors/password"));
@@ -45,7 +45,7 @@ public class PasswordChangeValidationTest {
     @Test
     public void failsWhenDifferentPasswordsGiven() throws Exception {
         this.mockMvc.perform(post("/globalerrors/password")
-                .param("password", "test").param("confirmedPassword", "other"))
+                        .param("password", "test").param("confirmedPassword", "other"))
                 .andExpect(model().hasErrors())
                 .andExpect(status().isOk())
                 .andExpect(view().name("globalerrors/password"));
@@ -54,7 +54,7 @@ public class PasswordChangeValidationTest {
     @Test
     public void failsWithGlobalErrorWhenDifferentPasswordsGiven() throws Exception {
         this.mockMvc.perform(post("/globalerrors/password")
-                .param("password", "test").param("confirmedPassword", "other"))
+                        .param("password", "test").param("confirmedPassword", "other"))
                 .andExpect(GlobalErrorsMatchers.globalErrors().hasGlobalError("passwordForm", "passwords do not match"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("globalerrors/password"));
@@ -63,7 +63,7 @@ public class PasswordChangeValidationTest {
     @Test
     public void passesWhenSamePasswordsGiven() throws Exception {
         this.mockMvc.perform(post("/globalerrors/password")
-                .param("password", "test").param("confirmedPassword", "test"))
+                        .param("password", "test").param("confirmedPassword", "test"))
                 .andExpect(model().hasNoErrors())
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:password"));

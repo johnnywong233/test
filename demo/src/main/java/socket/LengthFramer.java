@@ -12,9 +12,9 @@ public class LengthFramer implements Framer {
     public static final int SHORTMASK = 0xffff;
     public static final int BYTESHIFT = 8;
 
-    private DataInputStream in;
+    private final DataInputStream in;
 
-    public LengthFramer(InputStream in) throws IOException {
+    public LengthFramer(InputStream in) {
         this.in = new DataInputStream(in);    //数据来源
     }
 

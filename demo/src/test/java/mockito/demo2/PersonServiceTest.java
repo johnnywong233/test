@@ -25,8 +25,7 @@ public class PersonServiceTest {
     private PersonService personService;
 
     @Before
-    public void setUp()
-            throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         personService = new PersonService(personDAO);
     }

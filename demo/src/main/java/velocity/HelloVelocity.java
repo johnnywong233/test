@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class HelloVelocity {
     //http://www.ibm.com/developerworks/cn/java/j-lo-velocity1/
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         VelocityEngine ve = new VelocityEngine();
         //the below sentences set template resource to target/classes
@@ -41,6 +41,6 @@ public class HelloVelocity {
 
         t.merge(ctx, sw);
 
-        System.out.println(sw.toString());
+        System.out.println(sw);
     }
 }

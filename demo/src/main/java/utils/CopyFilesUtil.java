@@ -13,7 +13,7 @@ import java.nio.file.Files;
 
 public class CopyFilesUtil {
     //https://biezhi.me/article/java-copy-file.html
-    public static void main(String[] args) throws InterruptedException,
+    public static void main(String[] args) throws
             IOException {
 
         //C:\Users\wajian\Documents\Test
@@ -57,22 +57,11 @@ public class CopyFilesUtil {
     // method1
     public static void copyFileUsingFileStreams(File source, File dest)
             throws IOException {
-        InputStream input = null;
-        OutputStream output = null;
-        try {
-            input = new FileInputStream(source);
-            output = new FileOutputStream(dest);
+        try (InputStream input = new FileInputStream(source); OutputStream output = new FileOutputStream(dest)) {
             byte[] buf = new byte[1024];
             int bytesRead;
             while ((bytesRead = input.read(buf)) > 0) {
                 output.write(buf, 0, bytesRead);
-            }
-        } finally {
-            if (input != null) {
-                input.close();
-            }
-            if (output != null) {
-                output.close();
             }
         }
     }
@@ -81,23 +70,11 @@ public class CopyFilesUtil {
     @SuppressWarnings("resource")
     public static void copyFileUsingFileChannels(File source, File dest)
             throws IOException {
-        FileChannel inputChannel = null;
-        FileChannel outputChannel = null;
-        try {
-            inputChannel = new FileInputStream(source).getChannel();
-            outputChannel = new FileOutputStream(dest).getChannel();
+        try (FileChannel inputChannel = new FileInputStream(source).getChannel(); FileChannel outputChannel = new FileOutputStream(dest).getChannel()) {
             outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-        } finally {
-            if (inputChannel != null) {
-                inputChannel.close();
-            }
-            if (outputChannel != null) {
-                outputChannel.close();
-            }
         }
     }
 
-    // FileAlreadyExistsException: destfile3.txt
     // method4
     public static void copyFileUsingJdkFiles(File source, File dest)
             throws IOException {

@@ -28,12 +28,23 @@ public class DoubleArrayTrie {
     private final char END_CHAR = '\0';
     //base length, the size of array grow as double of it.
     private final int DEFAULT_LEN = 1024;
+    private final Map<Character, Integer> charMap = new HashMap<>();
+    private final ArrayList<Character> charList = new ArrayList<>();
     private int[] base = new int[DEFAULT_LEN];
     private int[] check = new int[DEFAULT_LEN];
     private char[] tail = new char[DEFAULT_LEN];
     private int pos = 1;
-    private final Map<Character, Integer> charMap = new HashMap<>();
-    private final ArrayList<Character> charList = new ArrayList<>();
+
+    private DoubleArrayTrie() {
+        base[1] = 1;
+        charMap.put(END_CHAR, 1);
+        charList.add(END_CHAR);
+        charList.add(END_CHAR);
+        for (int i = 0; i < 26; ++i) {
+            charMap.put((char) ('a' + i), charMap.size() + 1);
+            charList.add((char) ('a' + i));
+        }
+    }
 
     //http://www.mincoder.com/article/3855.shtml
     public static void main(String[] args) throws Exception {
@@ -62,17 +73,6 @@ public class DoubleArrayTrie {
         System.out.println(System.currentTimeMillis() - start);
         sc.close();
         reader.close();
-    }
-
-    private DoubleArrayTrie() {
-        base[1] = 1;
-        charMap.put(END_CHAR, 1);
-        charList.add(END_CHAR);
-        charList.add(END_CHAR);
-        for (int i = 0; i < 26; ++i) {
-            charMap.put((char) ('a' + i), charMap.size() + 1);
-            charList.add((char) ('a' + i));
-        }
     }
 
     private void extendArray() {
@@ -155,7 +155,7 @@ public class DoubleArrayTrie {
         return true;
     }
 
-    private void insert(String s) throws Exception {
+    private void insert(String s) {
         s += END_CHAR;
         int preP = 1;
         int curP;
@@ -273,12 +273,6 @@ public class DoubleArrayTrie {
         return check[base[curP] + getCharCode(END_CHAR)] == curP;
     }
 
-    //内部函数，返回匹配单词的最靠后的Base index，
-    private class FindStruct {
-        int p;
-        String prefix = "";
-    }
-
     private FindStruct find(String word) {
         int preP = 1;
         int curP = 0;
@@ -351,5 +345,11 @@ public class DoubleArrayTrie {
             return r;
         }
         return result;
+    }
+
+    //内部函数，返回匹配单词的最靠后的Base index，
+    private class FindStruct {
+        int p;
+        String prefix = "";
     }
 }

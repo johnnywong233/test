@@ -26,9 +26,9 @@ public class WeatherUpdateClient {
         for (updateNbr = 0; updateNbr < 100; updateNbr++) {
             String str = Arrays.toString(subscriber.recv(0)).trim();
             StringTokenizer tokenizer = new StringTokenizer(str, " ");
-            zipCode = Integer.valueOf(tokenizer.nextToken());
-            int temperature = Integer.valueOf(tokenizer.nextToken());
-            humidity = Integer.valueOf(tokenizer.nextToken());
+            zipCode = Integer.parseInt(tokenizer.nextToken());
+            int temperature = Integer.parseInt(tokenizer.nextToken());
+            humidity = Integer.parseInt(tokenizer.nextToken());
             total += temperature;
         }
         System.out.println("zipCode" + zipCode + "humidity" + humidity + "Average temperature for zipCode '" + filter + "' was " + total / updateNbr);

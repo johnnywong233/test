@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -22,13 +21,9 @@ import static org.junit.Assert.assertEquals;
  */
 public class JsonPathTreeBuilder {
 
-    private static Logger logger = LoggerFactory.getLogger(JsonPathTreeBuilder.class.getName());
-
     private static final String PATH_DELIMITER = "/";
-
     private static final String LINE_SEPARATOR = System.lineSeparator();
-
-
+    private static final Logger logger = LoggerFactory.getLogger(JsonPathTreeBuilder.class.getName());
     private static Map<String, String> columnMapping;
 
     @BeforeClass
@@ -42,19 +37,6 @@ public class JsonPathTreeBuilder {
         columnMapping.put("C", " / ");
         columnMapping.put("D", "");
         columnMapping.put("C", " / / ");
-    }
-
-    @Test
-    public void testPathTreeBuilder() throws IOException {
-        Node rootNode = JsonPathTreeBuilder.build(columnMapping);
-        assertEquals(getPic(), rootNode.getTreePicture());
-    }
-
-    private String getPic() {
-        return "└── ROOT" + LINE_SEPARATOR +
-                "    └── summary" + LINE_SEPARATOR +
-                "        ├── modified  [MODIFIED]" + LINE_SEPARATOR +
-                "        └── guid  [GUID]" + LINE_SEPARATOR;
     }
 
     public static Node build(Map<String, String> columnMapping) {
@@ -107,6 +89,19 @@ public class JsonPathTreeBuilder {
                 logger.debug("Column Name [{}] , Path [{}]", columnName, columnPath);
             }
         }
+    }
+
+    @Test
+    public void testPathTreeBuilder() {
+        Node rootNode = JsonPathTreeBuilder.build(columnMapping);
+        assertEquals(getPic(), rootNode.getTreePicture());
+    }
+
+    private String getPic() {
+        return "└── ROOT" + LINE_SEPARATOR +
+                "    └── summary" + LINE_SEPARATOR +
+                "        ├── modified  [MODIFIED]" + LINE_SEPARATOR +
+                "        └── guid  [GUID]" + LINE_SEPARATOR;
     }
 
 }

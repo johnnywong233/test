@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = {"*.do"}, loadOnStartup = 0,
@@ -32,7 +31,7 @@ public class FrontController extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+            throws ServletException {
         String contextPath = req.getContextPath() + "/";
         // 获得请求的小服务路径
         String servletPath = req.getServletPath();

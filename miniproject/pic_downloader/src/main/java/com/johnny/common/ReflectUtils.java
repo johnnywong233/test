@@ -2,7 +2,6 @@ package com.johnny.common;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
@@ -19,8 +18,8 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class ReflectUtils {
-    private static Integer PARA_TYPE_INCLUDE = 0;
-    private static Integer PARA_TYPE_EXCLUDE = 1;
+    private static final Integer PARA_TYPE_INCLUDE = 0;
+    private static final Integer PARA_TYPE_EXCLUDE = 1;
 
     public static Map<String, Object> getFieldValues(Object obj)
             throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
@@ -79,7 +78,7 @@ public class ReflectUtils {
     }
 
     private static List<Class<?>> getClassWithPackageFromJar(JarFile jar, String pkg)
-            throws IOException, ClassNotFoundException {
+            throws ClassNotFoundException {
         String packageName = pkg.replaceAll("\\.", "/");
         List<Class<?>> list = new ArrayList<>();
         ClassLoader loader = ReflectUtils.class.getClassLoader();
@@ -95,7 +94,7 @@ public class ReflectUtils {
     }
 
     private static List<Class<?>> getClassWithPackageFromDir(String pkg)
-            throws UnsupportedEncodingException, ClassNotFoundException {
+            throws ClassNotFoundException {
         List<Class<?>> list = new ArrayList<>();
         String jarPath = URLDecoder.decode(ReflectUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath(), StandardCharsets.UTF_8);
         File dir = new File(jarPath + "/" + pkg.replaceAll("\\.", "/"));

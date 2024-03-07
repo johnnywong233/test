@@ -13,8 +13,200 @@ import java.util.Random;
  */
 public class Blowfish {
     private static final Logger LOG = LoggerFactory.getLogger(Blowfish.class);
+    private static final Random random = new Random();
+    private static final char[] HEX = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    private final BlowfishCbc blowfishCbc;
+
+    Blowfish(String password) {
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA1");
+            digest.update(password.getBytes());
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        blowfishCbc = new BlowfishCbc(digest.digest(), 0L);
+        digest.reset();
+    }
+
+    private static long byteArrayToLong(byte[] buffer, int nStartIndex) {
+        return (long) buffer[nStartIndex] << 56 | (buffer[nStartIndex + 1] & 255L) << 48
+                | (buffer[nStartIndex + 2] & 255L) << 40
+                | (buffer[nStartIndex + 3] & 255L) << 32
+                | (buffer[nStartIndex + 4] & 255L) << 24
+                | (buffer[nStartIndex + 5] & 255L) << 16
+                | (buffer[nStartIndex + 6] & 255L) << 8 | buffer[nStartIndex + 7]
+                & 255L;
+    }
+
+    private static void longToByteArray(long lValue, byte[] buffer, int nStartIndex) {
+        buffer[nStartIndex] = (byte) (int) (lValue >>> 56);
+        buffer[nStartIndex + 1] = (byte) (int) (lValue >>> 48 & 255L);
+        buffer[nStartIndex + 2] = (byte) (int) (lValue >>> 40 & 255L);
+        buffer[nStartIndex + 3] = (byte) (int) (lValue >>> 32 & 255L);
+        buffer[nStartIndex + 4] = (byte) (int) (lValue >>> 24 & 255L);
+        buffer[nStartIndex + 5] = (byte) (int) (lValue >>> 16 & 255L);
+        buffer[nStartIndex + 6] = (byte) (int) (lValue >>> 8 & 255L);
+        buffer[nStartIndex + 7] = (byte) (int) lValue;
+    }
+
+    private static long makeLong(int nLo, int nHi) {
+        return (long) nHi << 32 | nLo & 0xffffffffL;
+    }
+
+    private static int longLo32(long lVal) {
+        return (int) lVal;
+    }
+
+    private static int longHi32(long lVal) {
+        return (int) (lVal >>> 32);
+    }
+
+    private static String bytesToBinHex(byte[] data, int nStartPos, int nNumOfBytes) {
+        StringBuilder sbuf = new StringBuilder();
+        sbuf.setLength(nNumOfBytes << 1);
+        int nPos = 0;
+        for (int nI = 0; nI < nNumOfBytes; nI++) {
+            sbuf.setCharAt(nPos++, HEX[data[nI + nStartPos] >> 4 & 0xf]);
+            sbuf.setCharAt(nPos++, HEX[data[nI + nStartPos] & 0xf]);
+        }
+        return sbuf.toString();
+    }
+
+    private static int binHexToBytes(String sBinHex, byte[] data, int nSrcPos, int nDstPos,
+                                     int nNumOfBytes) {
+        int nStrLen = sBinHex.length();
+        int nAvailBytes = nStrLen - nSrcPos >> 1;
+        if (nAvailBytes < nNumOfBytes) {
+            nNumOfBytes = nAvailBytes;
+        }
+        int nOutputCapacity = data.length - nDstPos;
+        if (nNumOfBytes > nOutputCapacity) {
+            nNumOfBytes = nOutputCapacity;
+        }
+        int nResult = 0;
+        for (int nI = 0; nI < nNumOfBytes; nI++) {
+            byte bActByte = 0;
+            boolean blConvertOK = true;
+            for (int nJ = 0; nJ < 2; nJ++) {
+                bActByte <<= 4;
+                char cActChar = sBinHex.charAt(nSrcPos++);
+                if (cActChar >= 'a' && cActChar <= 'f') {
+                    bActByte |= (byte) (cActChar - 97) + 10;
+                    continue;
+                }
+                if (cActChar >= '0' && cActChar <= '9') {
+                    bActByte |= (byte) (cActChar - 48);
+                } else {
+                    blConvertOK = false;
+                }
+            }
+
+            if (blConvertOK) {
+                data[nDstPos++] = bActByte;
+                nResult++;
+            }
+        }
+
+        return nResult;
+    }
+
+    private static String byteArrayToUNCString(byte[] data, int nStartPos, int nNumOfBytes) {
+        nNumOfBytes &= -2;
+        int nAvailCapacity = data.length - nStartPos;
+        if (nAvailCapacity < nNumOfBytes) {
+            nNumOfBytes = nAvailCapacity;
+        }
+        StringBuilder sbuf = new StringBuilder();
+        sbuf.setLength(nNumOfBytes >> 1);
+        int nSBufPos = 0;
+        for (; nNumOfBytes > 0; nNumOfBytes -= 2) {
+            sbuf.setCharAt(nSBufPos++, (char) (data[nStartPos] << 8 | data[nStartPos + 1] & 0xff));
+            nStartPos += 2;
+        }
+
+        return sbuf.toString();
+    }
+
+    String encryptString(String sPlainText) {
+        long lCBCIV;
+        synchronized (random) {
+            lCBCIV = random.nextLong();
+        }
+        return encStr(sPlainText, lCBCIV);
+    }
+
+    private String encStr(String sPlainText, long lNewCBCIV) {
+        int nStrLen = sPlainText.length();
+        byte[] buf = new byte[(nStrLen << 1 & -8) + 8];
+        int nPos = 0;
+        for (int nI = 0; nI < nStrLen; nI++) {
+            char cActChar = sPlainText.charAt(nI);
+            buf[nPos++] = (byte) (cActChar >> 8 & 0xff);
+            buf[nPos++] = (byte) (cActChar & 0xff);
+        }
+
+        byte bPadVal = (byte) (buf.length - (nStrLen << 1));
+        while (nPos < buf.length) {
+            buf[nPos++] = bPadVal;
+        }
+        blowfishCbc.setCBCIV(lNewCBCIV);
+        blowfishCbc.encrypt(buf);
+        byte[] newCBCIV = new byte[8];
+        longToByteArray(lNewCBCIV, newCBCIV, 0);
+        return bytesToBinHex(newCBCIV, 0, 8) + bytesToBinHex(buf, 0, buf.length);
+    }
+
+    String decryptString(String sCipherText) {
+        int nLen = sCipherText.length() >> 1 & -8;
+        if (nLen < 8) {
+            return null;
+        }
+        byte[] cbciv = new byte[8];
+        int nNumOfBytes = binHexToBytes(sCipherText, cbciv, 0, 0, 8);
+        if (nNumOfBytes < 8) {
+            return null;
+        }
+        blowfishCbc.setCBCIV(cbciv);
+        if ((nLen -= 8) == 0) {
+            return "";
+        }
+        byte[] buf = new byte[nLen];
+        nNumOfBytes = binHexToBytes(sCipherText, buf, 16, 0, nLen);
+        if (nNumOfBytes < nLen) {
+            return null;
+        }
+        blowfishCbc.decrypt(buf);
+        int nPadByte = buf[buf.length - 1] & 0xff;
+        if (nPadByte > 8) {
+            nPadByte = 0;
+        }
+        nNumOfBytes -= nPadByte;
+        return byteArrayToUNCString(buf, 0, nNumOfBytes);
+    }
+
+    public void destroy() {
+        blowfishCbc.cleanUp();
+    }
 
     private static class BlowfishCbc extends BlowfishEcb {
+
+        long cbcIv;
+
+        public BlowfishCbc(byte[] bfKey) {
+            super(bfKey);
+            setCBCIV(0L);
+        }
+
+        BlowfishCbc(byte[] bfKey, long lInitCBCIV) {
+            super(bfKey);
+            setCBCIV(lInitCBCIV);
+        }
+
+        public BlowfishCbc(byte[] bfKey, byte[] initCBCIV) {
+            super(bfKey);
+            setCBCIV(initCBCIV);
+        }
 
         void setCBCIV(long lNewCBCIV) {
             cbcIv = lNewCBCIV;
@@ -63,126 +255,9 @@ public class Blowfish {
             }
 
         }
-
-        long cbcIv;
-
-        public BlowfishCbc(byte[] bfKey) {
-            super(bfKey);
-            setCBCIV(0L);
-        }
-
-        BlowfishCbc(byte[] bfKey, long lInitCBCIV) {
-            super(bfKey);
-            setCBCIV(lInitCBCIV);
-        }
-
-        public BlowfishCbc(byte[] bfKey, byte[] initCBCIV) {
-            super(bfKey);
-            setCBCIV(initCBCIV);
-        }
     }
 
     private static class BlowfishEcb {
-
-        public void cleanUp() {
-            for (int nI = 0; nI < 18; nI++) {
-                pBox[nI] = 0;
-            }
-
-            for (int nI = 0; nI < 256; nI++) {
-                sBox1[nI] = sBox2[nI] = sBox3[nI] = sBox4[nI] = 0;
-            }
-
-        }
-
-        long encryptBlock(long lPlainBlock) {
-            int nHi = Blowfish.longHi32(lPlainBlock);
-            int nLo = Blowfish.longLo32(lPlainBlock);
-            int[] sbox1 = sBox1;
-            int[] sbox2 = sBox2;
-            int[] sbox3 = sBox3;
-            int[] sbox4 = sBox4;
-            int[] pbox = pBox;
-            nHi ^= pbox[0];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[1];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[2];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[3];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[4];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[5];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[6];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[7];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[8];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[9];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[10];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[11];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[12];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[13];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[14];
-            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
-                    + sbox4[nHi & 0xff] ^ pbox[15];
-            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
-                    + sbox4[nLo & 0xff] ^ pbox[16];
-            return Blowfish.makeLong(nHi, nLo ^ pbox[17]);
-        }
-
-        long decryptBlock(long lCipherBlock) {
-            int nHi = Blowfish.longHi32(lCipherBlock);
-            int nLo = Blowfish.longLo32(lCipherBlock);
-            nHi ^= pBox[17];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[16];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[15];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[14];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[13];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[12];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[11];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[10];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[9];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[8];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[7];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[6];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[5];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[4];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[3];
-            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
-                    + sBox4[nHi & 0xff] ^ pBox[2];
-            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
-                    + sBox4[nLo & 0xff] ^ pBox[1];
-            return Blowfish.makeLong(nHi, nLo ^ pBox[0]);
-        }
-
-        int[] pBox;
-        int[] sBox1;
-        int[] sBox2;
-        int[] sBox3;
-        int[] sBox4;
 
         static final int[] BOX_INIT = {0x243f6a88, 0x85a308d3, 0x13198a2e, 0x3707344, 0xa4093822,
                 0x299f31d0, 0x82efa98, 0xec4e6c89, 0x452821e6, 0x38d01377,
@@ -252,7 +327,7 @@ public class Blowfish {
                 0x571be91f, 0xf296ec6b, 0x2a0dd915, 0xb6636521,
                 0xe7b9f9b6, 0xff34052e, 0xc5855664, 0x53b02d5d,
                 0xa99f8fa1, 0x8ba4799, 0x6e85076a};
-        static final int SBOX_INIT2[] = {0x4b7a70e9, 0xb5b32944, 0xdb75092e, 0xc4192623,
+        static final int[] SBOX_INIT2 = {0x4b7a70e9, 0xb5b32944, 0xdb75092e, 0xc4192623,
                 0xad6ea6b0, 0x49a7df7d, 0x9cee60b8, 0x8fedb266,
                 0xecaa8c71, 0x699a17ff, 0x5664526c, 0xc2b19ee1,
                 0x193602a5, 0x75094c29, 0xa0591340, 0xe4183a3e,
@@ -444,6 +519,11 @@ public class Blowfish {
                 0x2fb8a8c, 0x1c36ae4, 0xd6ebe1f9, 0x90d4f869, 0xa65cdea0,
                 0x3f09252d, 0xc208e69f, 0xb74e6132, 0xce77e25b,
                 0x578fdfe3, 0x3ac372e6};
+        int[] pBox;
+        int[] sBox1;
+        int[] sBox2;
+        int[] sBox3;
+        int[] sBox4;
 
         BlowfishEcb(byte[] bfKey) {
             pBox = new int[BOX_INIT.length];
@@ -514,185 +594,99 @@ public class Blowfish {
             }
 
         }
-    }
 
-    Blowfish(String password) {
-        MessageDigest digest = null;
-        try {
-            digest = MessageDigest.getInstance("SHA1");
-            digest.update(password.getBytes());
-        } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
-        }
-        blowfishCbc = new BlowfishCbc(digest.digest(), 0L);
-        digest.reset();
-    }
-
-    String encryptString(String sPlainText) {
-        long lCBCIV;
-        synchronized (random) {
-            lCBCIV = random.nextLong();
-        }
-        return encStr(sPlainText, lCBCIV);
-    }
-
-    private String encStr(String sPlainText, long lNewCBCIV) {
-        int nStrLen = sPlainText.length();
-        byte buf[] = new byte[(nStrLen << 1 & -8) + 8];
-        int nPos = 0;
-        for (int nI = 0; nI < nStrLen; nI++) {
-            char cActChar = sPlainText.charAt(nI);
-            buf[nPos++] = (byte) (cActChar >> 8 & 0xff);
-            buf[nPos++] = (byte) (cActChar & 0xff);
-        }
-
-        byte bPadVal = (byte) (buf.length - (nStrLen << 1));
-        while (nPos < buf.length) {
-            buf[nPos++] = bPadVal;
-        }
-        blowfishCbc.setCBCIV(lNewCBCIV);
-        blowfishCbc.encrypt(buf);
-        byte newCBCIV[] = new byte[8];
-        longToByteArray(lNewCBCIV, newCBCIV, 0);
-        return bytesToBinHex(newCBCIV, 0, 8) + bytesToBinHex(buf, 0, buf.length);
-    }
-
-    String decryptString(String sCipherText) {
-        int nLen = sCipherText.length() >> 1 & -8;
-        if (nLen < 8) {
-            return null;
-        }
-        byte cbciv[] = new byte[8];
-        int nNumOfBytes = binHexToBytes(sCipherText, cbciv, 0, 0, 8);
-        if (nNumOfBytes < 8) {
-            return null;
-        }
-        blowfishCbc.setCBCIV(cbciv);
-        if ((nLen -= 8) == 0) {
-            return "";
-        }
-        byte buf[] = new byte[nLen];
-        nNumOfBytes = binHexToBytes(sCipherText, buf, 16, 0, nLen);
-        if (nNumOfBytes < nLen) {
-            return null;
-        }
-        blowfishCbc.decrypt(buf);
-        int nPadByte = buf[buf.length - 1] & 0xff;
-        if (nPadByte > 8 || nPadByte < 0) {
-            nPadByte = 0;
-        }
-        nNumOfBytes -= nPadByte;
-        if (nNumOfBytes < 0) {
-            return "";
-        } else {
-            return byteArrayToUNCString(buf, 0, nNumOfBytes);
-        }
-    }
-
-    public void destroy() {
-        blowfishCbc.cleanUp();
-    }
-
-    private static long byteArrayToLong(byte[] buffer, int nStartIndex) {
-        return (long) buffer[nStartIndex] << 56 | (buffer[nStartIndex + 1] & 255L) << 48
-                | (buffer[nStartIndex + 2] & 255L) << 40
-                | (buffer[nStartIndex + 3] & 255L) << 32
-                | (buffer[nStartIndex + 4] & 255L) << 24
-                | (buffer[nStartIndex + 5] & 255L) << 16
-                | (buffer[nStartIndex + 6] & 255L) << 8 | buffer[nStartIndex + 7]
-                & 255L;
-    }
-
-    private static void longToByteArray(long lValue, byte[] buffer, int nStartIndex) {
-        buffer[nStartIndex] = (byte) (int) (lValue >>> 56);
-        buffer[nStartIndex + 1] = (byte) (int) (lValue >>> 48 & 255L);
-        buffer[nStartIndex + 2] = (byte) (int) (lValue >>> 40 & 255L);
-        buffer[nStartIndex + 3] = (byte) (int) (lValue >>> 32 & 255L);
-        buffer[nStartIndex + 4] = (byte) (int) (lValue >>> 24 & 255L);
-        buffer[nStartIndex + 5] = (byte) (int) (lValue >>> 16 & 255L);
-        buffer[nStartIndex + 6] = (byte) (int) (lValue >>> 8 & 255L);
-        buffer[nStartIndex + 7] = (byte) (int) lValue;
-    }
-
-    private static long makeLong(int nLo, int nHi) {
-        return (long) nHi << 32 | nLo & 0xffffffffL;
-    }
-
-    private static int longLo32(long lVal) {
-        return (int) lVal;
-    }
-
-    private static int longHi32(long lVal) {
-        return (int) (lVal >>> 32);
-    }
-
-    private static String bytesToBinHex(byte[] data, int nStartPos, int nNumOfBytes) {
-        StringBuffer sbuf = new StringBuffer();
-        sbuf.setLength(nNumOfBytes << 1);
-        int nPos = 0;
-        for (int nI = 0; nI < nNumOfBytes; nI++) {
-            sbuf.setCharAt(nPos++, HEX[data[nI + nStartPos] >> 4 & 0xf]);
-            sbuf.setCharAt(nPos++, HEX[data[nI + nStartPos] & 0xf]);
-        }
-        return sbuf.toString();
-    }
-
-    private static int binHexToBytes(String sBinHex, byte[] data, int nSrcPos, int nDstPos,
-                                     int nNumOfBytes) {
-        int nStrLen = sBinHex.length();
-        int nAvailBytes = nStrLen - nSrcPos >> 1;
-        if (nAvailBytes < nNumOfBytes) {
-            nNumOfBytes = nAvailBytes;
-        }
-        int nOutputCapacity = data.length - nDstPos;
-        if (nNumOfBytes > nOutputCapacity) {
-            nNumOfBytes = nOutputCapacity;
-        }
-        int nResult = 0;
-        for (int nI = 0; nI < nNumOfBytes; nI++) {
-            byte bActByte = 0;
-            boolean blConvertOK = true;
-            for (int nJ = 0; nJ < 2; nJ++) {
-                bActByte <<= 4;
-                char cActChar = sBinHex.charAt(nSrcPos++);
-                if (cActChar >= 'a' && cActChar <= 'f') {
-                    bActByte |= (byte) (cActChar - 97) + 10;
-                    continue;
-                }
-                if (cActChar >= '0' && cActChar <= '9') {
-                    bActByte |= (byte) (cActChar - 48);
-                } else {
-                    blConvertOK = false;
-                }
+        public void cleanUp() {
+            for (int nI = 0; nI < 18; nI++) {
+                pBox[nI] = 0;
             }
 
-            if (blConvertOK) {
-                data[nDstPos++] = bActByte;
-                nResult++;
+            for (int nI = 0; nI < 256; nI++) {
+                sBox1[nI] = sBox2[nI] = sBox3[nI] = sBox4[nI] = 0;
             }
+
         }
 
-        return nResult;
+        long encryptBlock(long lPlainBlock) {
+            int nHi = Blowfish.longHi32(lPlainBlock);
+            int nLo = Blowfish.longLo32(lPlainBlock);
+            int[] sbox1 = sBox1;
+            int[] sbox2 = sBox2;
+            int[] sbox3 = sBox3;
+            int[] sbox4 = sBox4;
+            int[] pbox = pBox;
+            nHi ^= pbox[0];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[1];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[2];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[3];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[4];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[5];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[6];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[7];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[8];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[9];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[10];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[11];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[12];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[13];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[14];
+            nLo ^= (sbox1[nHi >>> 24] + sbox2[nHi >>> 16 & 0xff] ^ sbox3[nHi >>> 8 & 0xff])
+                    + sbox4[nHi & 0xff] ^ pbox[15];
+            nHi ^= (sbox1[nLo >>> 24] + sbox2[nLo >>> 16 & 0xff] ^ sbox3[nLo >>> 8 & 0xff])
+                    + sbox4[nLo & 0xff] ^ pbox[16];
+            return Blowfish.makeLong(nHi, nLo ^ pbox[17]);
+        }
+
+        long decryptBlock(long lCipherBlock) {
+            int nHi = Blowfish.longHi32(lCipherBlock);
+            int nLo = Blowfish.longLo32(lCipherBlock);
+            nHi ^= pBox[17];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[16];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[15];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[14];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[13];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[12];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[11];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[10];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[9];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[8];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[7];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[6];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[5];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[4];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[3];
+            nLo ^= (sBox1[nHi >>> 24] + sBox2[nHi >>> 16 & 0xff] ^ sBox3[nHi >>> 8 & 0xff])
+                    + sBox4[nHi & 0xff] ^ pBox[2];
+            nHi ^= (sBox1[nLo >>> 24] + sBox2[nLo >>> 16 & 0xff] ^ sBox3[nLo >>> 8 & 0xff])
+                    + sBox4[nLo & 0xff] ^ pBox[1];
+            return Blowfish.makeLong(nHi, nLo ^ pBox[0]);
+        }
     }
-
-    private static String byteArrayToUNCString(byte[] data, int nStartPos, int nNumOfBytes) {
-        nNumOfBytes &= -2;
-        int nAvailCapacity = data.length - nStartPos;
-        if (nAvailCapacity < nNumOfBytes) {
-            nNumOfBytes = nAvailCapacity;
-        }
-        StringBuffer sbuf = new StringBuffer();
-        sbuf.setLength(nNumOfBytes >> 1);
-        int nSBufPos = 0;
-        for (; nNumOfBytes > 0; nNumOfBytes -= 2) {
-            sbuf.setCharAt(nSBufPos++, (char) (data[nStartPos] << 8 | data[nStartPos + 1] & 0xff));
-            nStartPos += 2;
-        }
-
-        return sbuf.toString();
-    }
-
-    private BlowfishCbc blowfishCbc;
-    private static Random random = new Random();
-    private static final char[] HEX = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 }

@@ -12,7 +12,6 @@ import project.httpclient.dto.UserDTO;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -45,8 +44,6 @@ public class HelloController {
             map.put("userName", userName);
 
             log.trace("运行结果:" + map);
-        } catch (UnsupportedEncodingException e) {
-            log.error("HelloController greeting方法发生UnsupportedEncodingException异常:" + e);
         } catch (Exception e) {
             log.error("HelloController greeting方法发生Exception异常:" + e);
         }
@@ -100,8 +97,6 @@ public class HelloController {
             map = new HashMap<>();
             map.put("userName", userName);
             log.trace("运行结果:" + map);
-        } catch (UnsupportedEncodingException e) {
-            log.error("HelloController greet方法发生UnsupportedEncodingException异常:" + e);
         } catch (Exception e) {
             log.error("HelloController greet方法发生Exception异常:" + e);
         }

@@ -1,6 +1,5 @@
 package grammar.delegate;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Hashtable;
 import java.util.Map;
@@ -10,8 +9,20 @@ import java.util.Map;
  */
 
 public class Delegator4Map extends Delegator {
-    private Map originClass; //原始对象
-    private Map proxyClass; //代理对象
+    private final Map originClass; //原始对象
+    private final Map proxyClass; //代理对象
+
+    public Delegator4Map(Map origin) {
+        super(origin);
+        originClass = origin;
+        proxyClass = (Map) super.objProxy;
+    }
+
+    public static void main(String[] args) {
+        Delegator4Map rtm = new Delegator4Map(new Hashtable<>());
+        Map m = rtm.getProxy();
+        m.size();
+    }
 
     public Map getOrigin() {
         return originClass;
@@ -19,12 +30,6 @@ public class Delegator4Map extends Delegator {
 
     public Map getProxy() {
         return proxyClass;
-    }
-
-    public Delegator4Map(Map origin) {
-        super(origin);
-        originClass = origin;
-        proxyClass = (Map) super.objProxy;
     }
 
     @Override
@@ -37,11 +42,5 @@ public class Delegator4Map extends Delegator {
             System.out.println("调用原始的方法");
             return super.invoke(obj, method, args);
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        Delegator4Map rtm = new Delegator4Map(new Hashtable<>());
-        Map m = rtm.getProxy();
-        m.size();
     }
 }

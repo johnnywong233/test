@@ -1,12 +1,14 @@
 package instrument;
 
-import javassist.*;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 
 import java.io.ByteArrayInputStream;
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
 
 /**
@@ -19,7 +21,7 @@ public class AopAgentTransformer implements ClassFileTransformer {
     @Override
     public byte[] transform(ClassLoader loader, String className,
                             Class<?> classBeingRedefined, ProtectionDomain protectionDomain,
-                            byte[] classfileBuffer) throws IllegalClassFormatException {
+                            byte[] classfileBuffer) {
         byte[] transformed = null;
         System.out.println("Transforming " + className);
         ClassPool pool;
@@ -53,7 +55,7 @@ public class AopAgentTransformer implements ClassFileTransformer {
         return transformed;
     }
 
-    private void aopInsertMethod(CtMethod method) throws NotFoundException, CannotCompileException {
+    private void aopInsertMethod(CtMethod method) throws CannotCompileException {
         //situation 1:添加监控时间
         method.instrument(new ExprEditor() {
             @Override

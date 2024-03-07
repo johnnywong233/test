@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RoutingDataSourceInterceptor extends HandlerInterceptorAdapter {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String businessName = (String) request.getAttribute(TenantResolveInterceptor.TENANT_BUSINESS_NAME_KEY);
         TenantContextHolder.setBusinessName(businessName);
         return true;

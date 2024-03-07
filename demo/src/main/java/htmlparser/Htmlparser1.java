@@ -15,13 +15,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Htmlparser1 {
-    private static Pattern pattern = Pattern.compile("[\\s\\wa-z\\-]+\\{'songItem':\\{'sid':'([\\d]+)','sname':'([\\s\\S]*)','author':'([\\s\\S]*)'\\}\\}");
+    private static final Pattern pattern = Pattern.compile("[\\s\\wa-z\\-]+\\{'songItem':\\{'sid':'(\\d+)','sname':'([\\s\\S]*)','author':'([\\s\\S]*)'}}");
 
     //http://www.jb51.net/article/46762.htm
     public static void main(String[] args) {
         List<Mp3> mp3List = new ArrayList<>();
         //TODO replace with a meaningful url
-        String url = "http://www.jb51.net";
+        String url = "https://www.jb51.net";
         String htmlStr = utils.ParserUtil.getContentFromUrl(url);
         try {
             Parser parser = new Parser(htmlStr);

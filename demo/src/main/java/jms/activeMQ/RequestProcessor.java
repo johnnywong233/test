@@ -1,8 +1,7 @@
 package jms.activeMQ;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.activemq.ActiveMQConnection;
+import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -10,21 +9,14 @@ import javax.jms.Destination;
 import javax.jms.MessageConsumer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
-
-import org.apache.activemq.ActiveMQConnection;
-import org.apache.activemq.ActiveMQConnectionFactory;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RequestProcessor {
     /*
-	 * http://blog.csdn.net/u013256816/article/details/51161548
-	 */
-
-    public void requestHandler(HashMap<Serializable, Serializable> requestParam) throws Exception {
-        System.out.println("requestHandler....." + requestParam.toString());
-        for (Map.Entry<Serializable, Serializable> entry : requestParam.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue());
-        }
-    }
+     * http://blog.csdn.net/u013256816/article/details/51161548
+     */
 
     @SuppressWarnings("unchecked")
     public static void main(String[] args) throws Exception {
@@ -49,6 +41,13 @@ public class RequestProcessor {
             } else {
                 break;
             }
+        }
+    }
+
+    public void requestHandler(HashMap<Serializable, Serializable> requestParam) {
+        System.out.println("requestHandler....." + requestParam.toString());
+        for (Map.Entry<Serializable, Serializable> entry : requestParam.entrySet()) {
+            System.out.println(entry.getKey() + ":" + entry.getValue());
         }
     }
 

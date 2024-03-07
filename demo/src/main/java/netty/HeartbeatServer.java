@@ -66,7 +66,7 @@ class HeartbeatHandlerInitializer extends ChannelInitializer<Channel> {
     private static final int ALL_IDLE_TIME_OUT = 7; //all timeout
 
     @Override
-    protected void initChannel(Channel ch) throws Exception {
+    protected void initChannel(Channel ch) {
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(new IdleStateHandler(READ_IDLE_TIME_OUT,
                 WRITE_IDLE_TIME_OUT, ALL_IDLE_TIME_OUT, TimeUnit.SECONDS)); // 1

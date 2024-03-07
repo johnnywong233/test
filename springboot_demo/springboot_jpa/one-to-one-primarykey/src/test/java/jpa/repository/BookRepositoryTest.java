@@ -21,7 +21,7 @@ public class BookRepositoryTest {
     private BookRepository bookRepository;
 
     @Test
-    public void saveTestPrimaryKey() throws Exception {
+    public void saveTestPrimaryKey() {
         List<Book> books = new ArrayList<>();
         books.add(new Book("Book one", new BookDetail(1)));
         books.add(new Book("Book two", new BookDetail(2)));
@@ -30,7 +30,7 @@ public class BookRepositoryTest {
     }
 
     @Test
-    public void findBooksTestPrimaryKey() throws Exception {
+    public void findBooksTestPrimaryKey() {
         List<Book> books = bookRepository.findAll();
         for (Book book : books) {
             log.info(book.toString());

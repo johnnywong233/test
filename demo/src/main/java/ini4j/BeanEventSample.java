@@ -10,10 +10,9 @@ import java.io.FileInputStream;
  * Time: 18:53
  */
 public class BeanEventSample {
-    public static final String FILENAME = "dwarfs.ini";
 
     public static void main(String[] args) throws Exception {
-        String filename = (args.length > 0) ? args[0] : FILENAME;
+        String filename = (args.length > 0) ? args[0] : BeanSample.FILENAME;
         Ini ini = new Ini(new FileInputStream(filename));
         Dwarf sneezy = ini.get("sneezy").as(Dwarf.class);
 

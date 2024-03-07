@@ -26,7 +26,7 @@ public class BookRepositoryTest {
 
     @Test
     @Transactional
-    public void manyToManyExtraColumnsTest() throws Exception {
+    public void manyToManyExtraColumnsTest() {
         Book bookA = new Book("Book One");
 
         Publisher publisherA = new Publisher("Publisher One");

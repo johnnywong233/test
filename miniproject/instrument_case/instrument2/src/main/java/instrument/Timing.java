@@ -4,12 +4,19 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.bcel.classfile.Method;
-import org.apache.bcel.generic.*;
+import org.apache.bcel.generic.ClassGen;
+import org.apache.bcel.generic.ConstantPoolGen;
+import org.apache.bcel.generic.InstructionConstants;
+import org.apache.bcel.generic.InstructionFactory;
+import org.apache.bcel.generic.InstructionList;
+import org.apache.bcel.generic.MethodGen;
+import org.apache.bcel.generic.ObjectType;
+import org.apache.bcel.generic.PUSH;
+import org.apache.bcel.generic.Type;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
 import java.lang.instrument.Instrumentation;
 
 /**
@@ -17,44 +24,10 @@ import java.lang.instrument.Instrumentation;
  */
 public class Timing implements ClassFileTransformer {
 
-    private String methodName;
+    private final String methodName;
 
     private Timing(String methodName) {
         this.methodName = methodName;
-    }
-
-    @Override
-    public byte[] transform(ClassLoader loader, String className, Class cBR,
-                            java.security.ProtectionDomain pD, byte[] classfileBuffer)
-            throws IllegalClassFormatException {
-        if (!"test/RunEntry".equalsIgnoreCase(className)) {
-            return null;
-        }
-        try {
-            ClassParser cp = new ClassParser(new java.io.ByteArrayInputStream(classfileBuffer), className + ".java");
-            JavaClass jclas = cp.parse();
-            ClassGen cgen = new ClassGen(jclas);
-            Method[] methods = jclas.getMethods();
-            int index;
-            for (index = 0; index < methods.length; index++) {
-                if (methods[index].getName().equals(methodName)) {
-                    break;
-                }
-            }
-            if (index < methods.length) {
-                addTimer(cgen, methods[index]);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                cgen.getJavaClass().dump(bos);
-                return bos.toByteArray();
-            }
-            System.err.println("Method " + methodName + " not found in " + className);
-            System.exit(0);
-
-        } catch (IOException e) {
-            System.err.println(e);
-            System.exit(0);
-        }
-        return null; // No transformation required
     }
 
     private static void addTimer(ClassGen cgen, Method method) {
@@ -145,5 +118,38 @@ public class Timing implements ClassFileTransformer {
             System.out.println("Usage: java -javaagent:Timing.jar=\"class:method\"");
             System.exit(0);
         }
+    }
+
+    @Override
+    public byte[] transform(ClassLoader loader, String className, Class cBR,
+                            java.security.ProtectionDomain pD, byte[] classfileBuffer) {
+        if (!"test/RunEntry".equalsIgnoreCase(className)) {
+            return null;
+        }
+        try {
+            ClassParser cp = new ClassParser(new java.io.ByteArrayInputStream(classfileBuffer), className + ".java");
+            JavaClass jclas = cp.parse();
+            ClassGen cgen = new ClassGen(jclas);
+            Method[] methods = jclas.getMethods();
+            int index;
+            for (index = 0; index < methods.length; index++) {
+                if (methods[index].getName().equals(methodName)) {
+                    break;
+                }
+            }
+            if (index < methods.length) {
+                addTimer(cgen, methods[index]);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                cgen.getJavaClass().dump(bos);
+                return bos.toByteArray();
+            }
+            System.err.println("Method " + methodName + " not found in " + className);
+            System.exit(0);
+
+        } catch (IOException e) {
+            System.err.println(e);
+            System.exit(0);
+        }
+        return null; // No transformation required
     }
 }

@@ -7,7 +7,7 @@ import org.htmlparser.tags.LinkTag;
 import org.htmlparser.util.NodeList;
 
 /*
- * 用于JAVA中的HTTP请求，HttpRequester用于发送HTTP请求并返回文档对象<br>可以结合htmlparse组件完成对HTML文档的解析
+ * 用于JAVA中的HTTP请求，HttpRequester用于发送HTTP请求并返回文档对象<br>可以结合htmlParse组件完成对HTML文档的解析
  */
 
 public class HtmlParserDemo {
@@ -17,7 +17,7 @@ public class HtmlParserDemo {
 */
 //            Map<String, String> map = new HashMap<String, String>();
             HttpRequester request = new HttpRequester();
-            HttpResponse hr = request.sendGet("http://www.baidu.com");
+            HttpResponse hr = request.sendGet("https://www.baidu.com");
 
             Parser parser = Parser.createParser(hr.getContent(), hr.getContentEncoding());
             try {

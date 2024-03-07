@@ -6,7 +6,7 @@ package retry.spring;
  * Time: 22:16
  */
 public interface UserService {
-    void add() throws Exception;
+    void add();
 
-    void query() throws Exception;
+    void query();
 }

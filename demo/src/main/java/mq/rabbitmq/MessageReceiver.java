@@ -8,7 +8,6 @@ import com.rabbitmq.client.Consumer;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -30,7 +29,7 @@ public class MessageReceiver {
 
         Consumer consumer = new DefaultConsumer(channel) {
             @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
+            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) {
                 String message = new String(body, StandardCharsets.UTF_8);
                 System.out.println(" [x] Received '" + message + "'");
             }

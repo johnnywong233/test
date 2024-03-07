@@ -2,15 +2,13 @@ package mq.zmq.pp;
 
 import org.zeromq.ZMQ;
 
-import java.io.IOException;
-
 /**
  * Author: Johnny
  * Date: 2017/10/3
  * Time: 11:02
  */
 public class TaskWorker {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         ZMQ.Context context = ZMQ.context(1);
         //socket to receive message on
         ZMQ.Socket receiver = context.socket(ZMQ.PULL);

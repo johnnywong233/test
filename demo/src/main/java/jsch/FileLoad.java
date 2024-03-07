@@ -31,7 +31,7 @@ public class FileLoad {
     private static final Logger logger = Logger.getLogger(FileLoad.class);
 
     public static void main(String[] args) throws Exception {
-    	//all work
+        //all work
         sshSftp("15.119.82.22", "hpba", "openview", 22, null, null);
         download("c://temp//a.txt", "/home/hpba/demo/a.txt", "15.119.82.22", 22, "hpba", "openview");
         downloadDirectoryFiles("demo", "c:" + System.getProperty("file.separator") + "temp", "15.119.82.22", "hpba", "openview", 22);
@@ -117,7 +117,7 @@ public class FileLoad {
             //put to dest file, can not be "", must specify a file name
             OutputStream os = sftp.put("a.txt");
 
-            byte b[] = new byte[1024];
+            byte[] b = new byte[1024];
             int n;
             while ((n = is.read(b)) != -1) {
                 os.write(b, 0, n);
@@ -141,7 +141,7 @@ public class FileLoad {
      * @param localFile  本地文件
      * @param remoteFile 远程文件
      */
-    public static void download(String localFile, final String remoteFile, String host, int port, String user, String password) throws IOException {
+    public static void download(String localFile, final String remoteFile, String host, int port, String user, String password) {
 
         JSch jsch = new JSch();
         File file = new File(localFile);

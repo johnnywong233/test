@@ -1,5 +1,7 @@
 package htmlparser;
 
+import lombok.Data;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +17,7 @@ import java.util.Vector;
  * Date: 2016/12/1
  * Time: 0:14
  */
+@Data
 public class HttpRequester {
     private String defaultContentEncoding;
 
@@ -53,7 +56,7 @@ public class HttpRequester {
     private HttpResponse send(String urlString, String method,
                               Map<String, String> parameters, Map<String, String> propertys)
             throws IOException {
-        HttpURLConnection urlConnection = null;
+        HttpURLConnection urlConnection;
 
         if ("GET".equalsIgnoreCase(method) && parameters != null) {
             StringBuffer param = new StringBuffer();
@@ -103,11 +106,11 @@ public class HttpRequester {
             InputStream in = urlConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(in));
-            httpResponser.contentCollection = new Vector<>();
+            httpResponser.setContentCollection(new Vector<>());
             StringBuilder temp = new StringBuilder();
             String line = bufferedReader.readLine();
             while (line != null) {
-                httpResponser.contentCollection.add(line);
+                httpResponser.getContentCollection().add(line);
                 temp.append(line).append("\r\n");
                 line = bufferedReader.readLine();
             }
@@ -117,27 +120,25 @@ public class HttpRequester {
             if (ecod == null) {
                 ecod = this.defaultContentEncoding;
             }
+            httpResponser.setUrlString(urlString);
+            httpResponser.setDefaultPort(urlConnection.getURL().getDefaultPort());
+            httpResponser.setFile(urlConnection.getURL().getFile());
+            httpResponser.setHost(urlConnection.getURL().getHost());
+            httpResponser.setPath(urlConnection.getURL().getPath());
+            httpResponser.setPort(urlConnection.getURL().getPort());
+            httpResponser.setProtocol(urlConnection.getURL().getProtocol());
+            httpResponser.setQuery(urlConnection.getURL().getQuery());
+            httpResponser.setRef(urlConnection.getURL().getRef());
+            httpResponser.setUserInfo(urlConnection.getURL().getUserInfo());
 
-            httpResponser.urlString = urlString;
-
-            httpResponser.defaultPort = urlConnection.getURL().getDefaultPort();
-            httpResponser.file = urlConnection.getURL().getFile();
-            httpResponser.host = urlConnection.getURL().getHost();
-            httpResponser.path = urlConnection.getURL().getPath();
-            httpResponser.port = urlConnection.getURL().getPort();
-            httpResponser.protocol = urlConnection.getURL().getProtocol();
-            httpResponser.query = urlConnection.getURL().getQuery();
-            httpResponser.ref = urlConnection.getURL().getRef();
-            httpResponser.userInfo = urlConnection.getURL().getUserInfo();
-
-            httpResponser.content = new String(temp.toString().getBytes(), ecod);
-            httpResponser.contentEncoding = ecod;
-            httpResponser.code = urlConnection.getResponseCode();
-            httpResponser.message = urlConnection.getResponseMessage();
-            httpResponser.contentType = urlConnection.getContentType();
-            httpResponser.method = urlConnection.getRequestMethod();
-            httpResponser.connectTimeout = urlConnection.getConnectTimeout();
-            httpResponser.readTimeout = urlConnection.getReadTimeout();
+            httpResponser.setContent(new String(temp.toString().getBytes(), ecod));
+            httpResponser.setContentEncoding(ecod);
+            httpResponser.setCode(urlConnection.getResponseCode());
+            httpResponser.setMessage(urlConnection.getResponseMessage());
+            httpResponser.setContentType(urlConnection.getContentType());
+            httpResponser.setMethod(urlConnection.getRequestMethod());
+            httpResponser.setConnectTimeout(urlConnection.getConnectTimeout());
+            httpResponser.setReadTimeout(urlConnection.getReadTimeout());
 
             return httpResponser;
         } catch (IOException e) {
@@ -148,14 +149,6 @@ public class HttpRequester {
                 urlConnection.disconnect();
             }
         }
-    }
-
-    public String getDefaultContentEncoding() {
-        return this.defaultContentEncoding;
-    }
-
-    public void setDefaultContentEncoding(String defaultContentEncoding) {
-        this.defaultContentEncoding = defaultContentEncoding;
     }
 
 }

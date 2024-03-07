@@ -29,7 +29,7 @@ public class ConstellationBuilder {
     }
 
     @Test
-    public void getAstro() throws Exception {
+    public void getAstro() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(1988, Calendar.OCTOBER, 16);
         LocalDateTime localDateTime = LocalDateTime.fromDateFields(calendar.getTime());

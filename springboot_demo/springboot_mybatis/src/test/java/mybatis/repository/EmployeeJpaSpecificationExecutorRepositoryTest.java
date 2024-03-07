@@ -26,14 +26,14 @@ public class EmployeeJpaSpecificationExecutorRepositoryTest {
     private EmployeeJpaSpecificationExecutorRepository employeeJpaSpecificationExecutorRepository = null;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         ctx = new ClassPathXmlApplicationContext("beans-new.xml");
         employeeJpaSpecificationExecutorRepository = ctx.getBean(EmployeeJpaSpecificationExecutorRepository.class);
         System.out.println("setup");
     }
 
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         ctx = null;
         System.out.println("tearDown");
     }

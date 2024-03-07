@@ -1,7 +1,6 @@
 package concurrent;
 
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
@@ -12,7 +11,7 @@ import java.util.concurrent.RecursiveAction;
  */
 public class ForkJoinMergeSort {
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
+    public static void main(String[] args) {
         int length = 200000000;
         int[] array = new int[length];
 
@@ -47,8 +46,8 @@ class MergeSort extends RecursiveAction {
     private static final long serialVersionUID = 1L;
     private final int[] array;
     private final int[] tmp;
-    private int first;
-    private int last;
+    private final int first;
+    private final int last;
 
     MergeSort(int[] array, int[] tmp, int first, int last) {
         this.array = array;

@@ -38,7 +38,7 @@ public interface ESRestService {
     boolean createIndex(String index, String type, List<TwoTuple<String, IndexType>> indexTypes);
 
     HttpEntity query(String index, String type, List<MapEsQuery.QueryDTO> querys, List<String> aggregations, List<ESSorter> sorters,
-                     ESPager... pager) throws IOException;
+                     ESPager... pager);
 
     /**
      * 设置逗号

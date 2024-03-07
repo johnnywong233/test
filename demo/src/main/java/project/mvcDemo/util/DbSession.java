@@ -36,16 +36,12 @@ public class DbSession {
      * 关闭数据库会话
      */
     public void close() throws DbSessionException {
-        try {
-            DbResourceManager.close(rs);
-            rs = null;
-            DbResourceManager.close(stmt);
-            stmt = null;
-            DbResourceManager.close(con);
-            con = null;
-        } catch (SQLException e) {
-            throw new DbSessionException("关闭会话失败", e);
-        }
+        DbResourceManager.close(rs);
+        rs = null;
+        DbResourceManager.close(stmt);
+        stmt = null;
+        DbResourceManager.close(con);
+        con = null;
     }
 
     /**

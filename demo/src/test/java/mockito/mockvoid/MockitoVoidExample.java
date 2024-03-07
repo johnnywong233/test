@@ -1,12 +1,12 @@
 package mockito.mockvoid;
 
-import static org.mockito.Mockito.*;
-
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.mockito.Mockito.*;
 
 //https://examples.javacodegeeks.com/core-java/mockito/mockito-void-method-example/
 public class MockitoVoidExample {
@@ -21,7 +21,7 @@ public class MockitoVoidExample {
     }
 
     @SuppressWarnings("deprecation")
-	@Test
+    @Test
     public void testEatUsingStubVoid() throws WrongDishException {
         System.out.println("Train dish to not throw WrongDishException using stubVoid");
         stubVoid(dish).toReturn().on().eat();
@@ -58,17 +58,6 @@ public class MockitoVoidExample {
         customer.eat(dish);
     }
 
-    private class SpiceAnswer implements Answer<String> {
-        @Override
-        public String answer(InvocationOnMock invocation) throws Throwable {
-            String arg = (String) invocation.getArguments()[0];
-            if ("too spicy".equals(arg)) {
-                throw new RuntimeException("Spicy dish!");
-            }
-            return arg;
-        }
-    }
-
     @Test
     public void eatMultipleDishes() throws WrongDishException {
         System.out.println("Train dish to not throw NotSuchATastyException when called first time and return in subsequent calls");
@@ -84,12 +73,23 @@ public class MockitoVoidExample {
         customer.eat(dish);
         System.out.println("Finished the dish, no exception thrown");
     }
+
+    private class SpiceAnswer implements Answer<String> {
+        @Override
+        public String answer(InvocationOnMock invocation) {
+            String arg = (String) invocation.getArguments()[0];
+            if ("too spicy".equals(arg)) {
+                throw new RuntimeException("Spicy dish!");
+            }
+            return arg;
+        }
+    }
 }
 
 class NotSoTastyException extends RuntimeException {
-	private static final long serialVersionUID = -6953366425606477466L;
+    private static final long serialVersionUID = -6953366425606477466L;
 }
 
 class WrongDishException extends Exception {
-	private static final long serialVersionUID = -1571668995613060461L;
+    private static final long serialVersionUID = -1571668995613060461L;
 }

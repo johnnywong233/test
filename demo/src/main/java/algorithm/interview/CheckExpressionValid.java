@@ -27,6 +27,33 @@ public class CheckExpressionValid {
 
     }
 
+    //https://zhidao.baidu.com/question/390927694476683085.html
+    private static boolean regexCheck(String exp) {
+//        String regex = "((([(]?[-]?[0-9]*[.]?[0-9]+)+([\\/\\+\\-\\*])+)+([0-9]*[.]?[0-9]+[)]?)+[\\+\\-\\*\\/]?([0-9]*)*)+";
+//        String regex = "((([(]?[-]?[0-9]*[.]?[0-9]+)+([/+\\-*])+)+([0-9]*[.]?[0-9]+[)]?)+[+\\-*/]?([0-9]*)*)+";
+        String regex = "^(?!.*[^\\d+\\-*/()])(?!.*\\)\\d)(?!.*[+\\-*/]([+\\-*/]|\\)))(?!.*\\([+*/])(?!.*(\\d|\\))\\()(?=\\d|-|\\()(?=.*(\\d|\\))$)[^()]*(((?'open'\\()[^()]*)+((?'-open'\\))[^()]*)+)*(?(open)(?!))$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(exp);
+
+
+        return Pattern.matches(regex, exp);
+
+    }
+
+    private static boolean jsCheck(String exp) {
+        boolean result = false;
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("javascript");//此处可以选择想要的引擎
+        try {
+            Object obj = engine.eval(exp);
+            System.out.println(obj.toString());
+            result = true;
+        } catch (ScriptException e) {
+            //对错误堆栈不感兴趣
+        }
+        return result;
+    }
+
     private String eval(String exp) throws Exception {
         List<String> list = infixExpToPostExp(exp);// 转化成后缀表达式
         return doEval(list);// 真正求值
@@ -165,32 +192,5 @@ public class CheckExpressionValid {
             default:
         }
         throw new Exception("Illegal operator");
-    }
-
-    //https://zhidao.baidu.com/question/390927694476683085.html
-    private static boolean regexCheck(String exp) {
-//        String regex = "((([(]?[-]?[0-9]*[.]?[0-9]+)+([\\/\\+\\-\\*])+)+([0-9]*[.]?[0-9]+[)]?)+[\\+\\-\\*\\/]?([0-9]*)*)+";
-//        String regex = "((([(]?[-]?[0-9]*[.]?[0-9]+)+([/+\\-*])+)+([0-9]*[.]?[0-9]+[)]?)+[+\\-*/]?([0-9]*)*)+";
-        String regex = "^(?!.*[^\\d+\\-*/()])(?!.*\\)\\d)(?!.*[+\\-*/]([+\\-*/]|\\)))(?!.*\\([+*/])(?!.*(\\d|\\))\\()(?=\\d|-|\\()(?=.*(\\d|\\))$)[^()]*(((?'open'\\()[^()]*)+((?'-open'\\))[^()]*)+)*(?(open)(?!))$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(exp);
-
-
-        return Pattern.matches(regex, exp);
-
-    }
-
-    private static boolean jsCheck(String exp) {
-        boolean result = false;
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("javascript");//此处可以选择想要的引擎
-        try {
-            Object obj = engine.eval(exp);
-            System.out.println(obj.toString());
-            result = true;
-        } catch (ScriptException e) {
-            //对错误堆栈不感兴趣
-        }
-        return result;
     }
 }

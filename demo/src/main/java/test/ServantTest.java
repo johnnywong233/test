@@ -28,7 +28,7 @@ public class ServantTest {
     interface IPersonalServant {
         // Process a file of commands to the servant
         void process(java.io.File f)
-                throws java.io.IOException;
+        ;
 
         boolean can(String command);
     }

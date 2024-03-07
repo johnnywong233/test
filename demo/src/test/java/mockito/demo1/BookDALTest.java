@@ -40,7 +40,7 @@ public class BookDALTest {
     }
 
     @Test
-    public void testGetAllBooks() throws Exception {
+    public void testGetAllBooks() {
 
         List<Book> allBooks = mockedBookDAL.getAllBooks();
         assertEquals(2, allBooks.size());

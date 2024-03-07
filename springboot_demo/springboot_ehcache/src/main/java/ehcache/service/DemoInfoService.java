@@ -1,7 +1,6 @@
 package ehcache.service;
 
 import ehcache.bean.DemoInfo;
-import javassist.NotFoundException;
 
 /**
  * Author: Johnny
@@ -12,7 +11,7 @@ public interface DemoInfoService {
 
     void delete(Long id);
 
-    DemoInfo update(DemoInfo updated) throws NotFoundException;
+    DemoInfo update(DemoInfo updated);
 
     DemoInfo findById(Long id);
 

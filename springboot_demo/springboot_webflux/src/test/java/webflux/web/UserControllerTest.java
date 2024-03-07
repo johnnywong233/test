@@ -14,7 +14,7 @@ public class UserControllerTest {
 
     //需要 main 方法启动
     @Test
-    public void testCreateUser() throws Exception {
+    public void testCreateUser() {
         final User user = new User();
         user.setName("Test");
         user.setEmail("test@example.org");

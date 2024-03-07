@@ -9,7 +9,7 @@ import java.util.List;
 public class ExecuteShell {
     //java execute shell script
     //too many try-catch blocks here, changed with passive throws
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void main(String[] args) {
         //call system exe
 //        Runtime.getRuntime().exec(System.getenv("windir") + File.separator + "system32" + File.separator + "shutdown.exe -s -f");
 

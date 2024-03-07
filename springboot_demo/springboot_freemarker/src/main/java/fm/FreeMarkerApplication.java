@@ -22,6 +22,14 @@ import org.springframework.web.client.RestTemplate;
 public class FreeMarkerApplication {
     private static final Logger log = LoggerFactory.getLogger(FreeMarkerApplication.class);
 
+    public static void main(String[] args) {
+
+        //set proxy in code to get rid of <strong>HPE</strong> clients should 'Use automatic configuration script' <strong>http://autocache.hpecorp.net/</strong>.
+//        System.setProperty("http.proxyHost", "web-proxy.atl.hpecorp.net");
+//        System.setProperty("http.proxyPort", "8080");
+        SpringApplication.run(FreeMarkerApplication.class, args);
+    }
+
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
@@ -34,13 +42,5 @@ public class FreeMarkerApplication {
                     "http://gturnquist-quoters.cfapps.io/api/random", String.class);
             log.info(quote);
         };
-    }
-
-    public static void main(String[] args) throws Exception {
-
-        //set proxy in code to get rid of <strong>HPE</strong> clients should 'Use automatic configuration script' <strong>http://autocache.hpecorp.net/</strong>.
-//        System.setProperty("http.proxyHost", "web-proxy.atl.hpecorp.net");
-//        System.setProperty("http.proxyPort", "8080");
-        SpringApplication.run(FreeMarkerApplication.class, args);
     }
 }

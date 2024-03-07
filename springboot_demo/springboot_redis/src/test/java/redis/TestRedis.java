@@ -28,7 +28,7 @@ public class TestRedis {
     private RedisTemplate redisTemplate;
 
     @Test
-    public void test() throws Exception {
+    public void test() {
         stringRedisTemplate.opsForValue().set("aaa", "111");
         Assert.assertEquals("111", stringRedisTemplate.opsForValue().get("aaa"));
     }
@@ -47,6 +47,6 @@ public class TestRedis {
         } else {
             System.out.println("exists is false");
         }
-         Assert.assertEquals("aa", operations.get("com.neo.f").getUserName());
+        Assert.assertEquals("aa", operations.get("com.neo.f").getUserName());
     }
 }

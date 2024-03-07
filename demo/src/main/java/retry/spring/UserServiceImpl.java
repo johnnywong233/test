@@ -7,7 +7,7 @@ package retry.spring;
  */
 public class UserServiceImpl implements UserService {
     @Override
-    public void add() throws Exception {
+    public void add() {
         System.out.println("添加用户。。。");
         throw new RuntimeException();
     }

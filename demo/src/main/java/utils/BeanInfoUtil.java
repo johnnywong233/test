@@ -16,7 +16,7 @@ public class BeanInfoUtil {
     //http://blog.csdn.net/luckyzhoustar/article/details/47274447
     //http://www.cnblogs.com/peida/archive/2013/06/03/3090842.html
     //thinking in java?
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         String userName = "johnny";
         UserInfo userInfo = new UserInfo();
         userInfo.setUserName(userName);

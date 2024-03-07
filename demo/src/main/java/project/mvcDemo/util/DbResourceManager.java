@@ -21,10 +21,6 @@ public class DbResourceManager {
     private static Driver driver = null;
     private static Properties info = new Properties();
 
-    private DbResourceManager() {
-        throw new AssertionError();
-    }
-
     static {
         try {
             loadDriver();
@@ -33,6 +29,10 @@ public class DbResourceManager {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private DbResourceManager() {
+        throw new AssertionError();
     }
 
     private static void loadDriver() throws Exception {
@@ -63,7 +63,7 @@ public class DbResourceManager {
         }
     }
 
-    public static void close(Statement stmt) throws SQLException {
+    public static void close(Statement stmt) {
         try {
             if (stmt != null && !stmt.isClosed()) {
                 stmt.close();

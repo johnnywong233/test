@@ -42,7 +42,7 @@ public class CalculatorTestWithJUnitParams {
 
     @Test
     @Parameters(method = "addTestData")
-    public void testAdd(int testOpt1, int testOpt2, int testResult) throws Exception {
+    public void testAdd(int testOpt1, int testOpt2, int testResult) {
         int actualResult = calculator.add(testOpt1, testOpt2);
         assertEquals(testResult, actualResult);
     }

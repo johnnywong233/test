@@ -29,7 +29,7 @@ import java.net.URLConnection;
 public class DomXMLString {
 
     //http://www.jb51.net/article/67460.htm
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         // remote WebService interface URL
         Document document = getProvinceCode("http://webservice.webxml.com.cn/WebServices/WeatherWS.asmx/getRegionProvince");
         // the absolute path to save XML data get from remote WebService

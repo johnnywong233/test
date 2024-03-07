@@ -16,13 +16,12 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Created by Johnny on 2018/3/18.
- * http://www.zuidaima.com/share/3782898097867776.htm
  */
 public class DownloadPic {
-    private static final String BASE_URL = "http://pic.sogou.com";
+    private static final String BASE_URL = "https://pic.sogou.com";
     private static final String KEY_WORD = "张学友";
 
-    @SuppressWarnings("resource")
+    // http://www.zuidaima.com/share/3782898097867776.htm
     public static void main(String[] args) {
         WebClient webClient = new WebClient(BrowserVersion.FIREFOX_52);
         webClient.getOptions().setCssEnabled(Boolean.TRUE);
@@ -102,8 +101,12 @@ public class DownloadPic {
             e.printStackTrace();
         } finally {
             try {
-                fos.close();
-                in.close();
+                if (fos != null) {
+                    fos.close();
+                }
+                if (in != null) {
+                    in.close();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

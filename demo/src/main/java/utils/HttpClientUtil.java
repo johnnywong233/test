@@ -62,13 +62,11 @@ import java.util.Objects;
 @Data
 public class HttpClientUtil {
     protected static Log logger = LogFactory.getLog(HttpClientUtil.class);
-
-    private static CloseableHttpClient closeableHttpClient;
-
     protected static HttpClient httpClient;
     protected static int maxTotal = 200;
     protected static int maxPerRoute = 20;
     protected static String userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.7 (KHTML, like Gecko) Chrome/16.0.912.77 Safari/535.7";
+    private static CloseableHttpClient closeableHttpClient;
 
     static {
         // create httpClient
@@ -95,15 +93,6 @@ public class HttpClientUtil {
         httpClient = builder.build();
     }
 
-    @PostConstruct
-    public void init() {
-        try {
-            HttpClientUtil.createClient();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private static CloseableHttpClient createClient() {
         if (closeableHttpClient == null) {
             try {
@@ -114,11 +103,6 @@ public class HttpClientUtil {
             }
         }
         return closeableHttpClient;
-    }
-
-    @Test
-    public void test1() throws Exception {
-        downloadAsStream("");
     }
 
     /**
@@ -210,7 +194,6 @@ public class HttpClientUtil {
             request.setConfig(config);
         }
     }
-
 
     public static String doGet(String url, String charset) throws Exception {
 
@@ -349,7 +332,7 @@ public class HttpClientUtil {
         } finally {
             method.releaseConnection();
         }
-        System.out.println("--------------------" + response.toString());
+        System.out.println("--------------------" + response);
         return response.toString();
     }
 
@@ -360,7 +343,7 @@ public class HttpClientUtil {
      * @param jsonParam      参数
      * @param noNeedResponse 不需要返回结果
      */
-    private static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) throws Exception {
+    private static JSONObject httpPost(String url, JSONObject jsonParam, boolean noNeedResponse) {
         //post请求返回结果
         CloseableHttpClient httpClient = createClient();
         JSONObject jsonResult = null;
@@ -431,5 +414,19 @@ public class HttpClientUtil {
             e.printStackTrace();
         }
         return jsonResult;
+    }
+
+    @PostConstruct
+    public void init() {
+        try {
+            HttpClientUtil.createClient();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test1() throws Exception {
+        downloadAsStream("");
     }
 }

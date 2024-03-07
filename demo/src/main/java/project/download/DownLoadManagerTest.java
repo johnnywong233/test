@@ -36,29 +36,29 @@ public class DownLoadManagerTest extends AbstractTransactionalJUnit4SpringContex
     private static final Logger LOGGER = LoggerFactory.getLogger(DownLoadManagerTest.class);
     @Autowired
     private TaskExecutor taskExecutor;
-    private CloseableHttpClient httpClient;
+    private final CloseableHttpClient httpClient;
     private Long startTimes;
-
-    @Before
-    public void setUp() throws Exception {
-        startTimes = System.currentTimeMillis();
-        System.out.println("start testing....");
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        Long endTimes = System.currentTimeMillis();
-        System.out.println("testing finish!");
-        System.out.println("********************");
-        System.out.println("total time consumed for downloading:" + (endTimes - startTimes) / 1000 + "s");
-        System.out.println("********************");
-    }
 
     public DownLoadManagerTest() {
         System.out.println("initial test class....");
         PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
         cm.setMaxTotal(100);
         httpClient = HttpClients.custom().setConnectionManager(cm).build();
+    }
+
+    @Before
+    public void setUp() {
+        startTimes = System.currentTimeMillis();
+        System.out.println("start testing....");
+    }
+
+    @After
+    public void tearDown() {
+        Long endTimes = System.currentTimeMillis();
+        System.out.println("testing finish!");
+        System.out.println("********************");
+        System.out.println("total time consumed for downloading:" + (endTimes - startTimes) / 1000 + "s");
+        System.out.println("********************");
     }
 
     /**
@@ -70,7 +70,7 @@ public class DownLoadManagerTest extends AbstractTransactionalJUnit4SpringContex
         String localPath = "D:\\Java_ex\\test\\src\\test\\resources";
         String fileName = new URL(remoteFileUrl).getFile();
         System.out.println("remote file name:" + fileName);
-        fileName = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.length()).replace("%20", " ");
+        fileName = fileName.substring(fileName.lastIndexOf("/") + 1).replace("%20", " ");
         System.out.println("local file name:" + fileName);
         long fileSize = this.getRemoteFileSize(remoteFileUrl);
         this.createFile(localPath + System.currentTimeMillis() + fileName, fileSize);

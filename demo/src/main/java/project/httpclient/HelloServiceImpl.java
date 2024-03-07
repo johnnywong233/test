@@ -13,10 +13,10 @@ import project.httpclient.dto.UserDTO;
 @Service("helloService")
 public class HelloServiceImpl implements HelloService {
 
-    private static Logger logger = LoggerFactory.getLogger(HelloServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(HelloServiceImpl.class);
 
     @Override
-    public String processService(String name) throws Exception {
+    public String processService(String name) {
         logger.info("HelloService processService name:" + name);
         return "Hello " + name;
     }

@@ -21,15 +21,15 @@ public class JschUtil {
 
     private static JschUtil instance;
 
+    private JschUtil() {
+
+    }
+
     public static JschUtil getInstance() {
         if (instance == null) {
             instance = new JschUtil();
         }
         return instance;
-    }
-
-    private JschUtil() {
-
     }
 
     private static Session getSession(String host, int port, String userName)
@@ -79,12 +79,12 @@ public class JschUtil {
     /**
      * SCP to remote machine
      *
-     * @param lfile local file/directory
-     * @param rfile remote path
-     * @param host  remote host
-     * @param port  port of remote host
-     * @param user  user of remote user
-     * @param password  password of the user
+     * @param lfile    local file/directory
+     * @param rfile    remote path
+     * @param host     remote host
+     * @param port     port of remote host
+     * @param user     user of remote user
+     * @param password password of the user
      */
     public static void scpTo(String lfile, String rfile, String host, int port, String user, String password) {
         FileInputStream fis = null;
@@ -109,7 +109,7 @@ public class JschUtil {
             if (!lf.exists()) {
                 throw new RuntimeException("File does not exist!");
             }
-            if ( lf.isDirectory() ) {
+            if (lf.isDirectory()) {
                 lfs = lf.listFiles();
             } else {
                 lfs[0] = lf;
@@ -117,8 +117,8 @@ public class JschUtil {
 
             assert lfs != null;
             for (File lf1 : lfs) {
-                String filePath=lf1.getPath();
-                String fileName=lf1.getName();
+                String filePath = lf1.getPath();
+                String fileName = lf1.getName();
 
                 // send "C0644 fileSize filename", where filename should not include '/'
                 long fileSize = (new File(filePath)).length();
@@ -154,11 +154,9 @@ public class JschUtil {
 
             channel.disconnect();
             session.disconnect();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
-        }
-        finally {
+        } finally {
             try {
                 if (fis != null) {
                     fis.close();
@@ -168,7 +166,7 @@ public class JschUtil {
             }
         }
     }
-   
+
     private static int checkAck(InputStream in) throws IOException {
         int b = in.read();
         // b may be 0 for success,
@@ -183,7 +181,7 @@ public class JschUtil {
         }
 
         if (b == 1 || b == 2) {
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             int c;
             do {
                 c = in.read();
@@ -191,10 +189,10 @@ public class JschUtil {
             }
             while (c != '\n');
             if (b == 1) { // error
-                System.out.print(sb.toString());
+                System.out.print(sb);
             }
             if (b == 2) { // fatal error
-                System.out.print(sb.toString());
+                System.out.print(sb);
             }
         }
         return b;

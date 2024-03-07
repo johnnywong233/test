@@ -41,8 +41,7 @@ public class TestGetJson {
     /**
      * httpClient
      */
-    public static String doGet(String url, String charset)
-            throws Exception {
+    public static String doGet(String url, String charset) {
         HttpClient httpClient = new HttpClient();
         httpClient.getHttpConnectionManager().getParams().setConnectionTimeout(2000);
         GetMethod getMethod = new GetMethod(url);
@@ -73,8 +72,8 @@ public class TestGetJson {
     /**
      * post
      */
-    @SuppressWarnings({ "resource" })
-	public static JSONObject doPost(String url, JSONObject json) {
+    @SuppressWarnings({"resource"})
+    public static JSONObject doPost(String url, JSONObject json) {
         DefaultHttpClient client = new DefaultHttpClient();
         HttpPost post = new HttpPost(url);
         JSONObject response = null;

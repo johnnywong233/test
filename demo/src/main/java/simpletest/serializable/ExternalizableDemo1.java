@@ -18,7 +18,7 @@ import java.io.ObjectOutputStream;
 public class ExternalizableDemo1 {
     //忽略关闭流操作及删除文件操作。真正编码时千万不要忘记IOException直接抛出
     @SuppressWarnings("resource")
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         //Write Obj to file
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("tempFile"));
         User user = new User();
@@ -53,11 +53,11 @@ public class ExternalizableDemo1 {
         }
 
         @Override
-        public void writeExternal(ObjectOutput out) throws IOException {
+        public void writeExternal(ObjectOutput out) {
         }
 
         @Override
-        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        public void readExternal(ObjectInput in) {
         }
 
         @Override

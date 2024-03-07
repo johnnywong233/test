@@ -8,7 +8,7 @@ import project.httpclient.dto.UserDTO;
  * Time: 0:56
  */
 public interface HelloService {
-    String processService(String name) throws Exception;
+    String processService(String name);
 
     UserDTO processService(UserDTO userDTO);
 }

@@ -1,5 +1,6 @@
 package htmlparser;
 
+import lombok.extern.slf4j.Slf4j;
 import org.htmlparser.Node;
 import org.htmlparser.NodeFilter;
 import org.htmlparser.Parser;
@@ -13,24 +14,23 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@Slf4j
 public class Htmlparser {
     //http://www.jb51.net/article/48988.htm
     public static void testHtml() {
         try {
-            String sCurrentLine;
-            String sTotalString;
-            sTotalString = "";
-            InputStream urlStream;
-            URL url = new URL("http://www.ideagrace.com/html/doc/2006/07/04/00929.html");
+            StringBuilder sTotalString = new StringBuilder();
+            URL url = new URL("https://baidu.com");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.connect();
-            urlStream = connection.getInputStream();
+            InputStream urlStream = connection.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(urlStream));
+            String sCurrentLine;
             while ((sCurrentLine = reader.readLine()) != null) {
-                sTotalString += sCurrentLine + "/r/n";
+                sTotalString.append(sCurrentLine).append("/r/n");
                 //  System.out.println(sTotalString);
             }
-            String testText = extractText(sTotalString);
+            String testText = extractText(sTotalString.toString());
             System.out.println(testText);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +46,7 @@ public class Htmlparser {
         for (int i = 0; i < nodes.size(); i++) {
             Node nodet = nodes.elementAt(i);
             //System.out.println(nodet.getText());
-            text.append(new String(nodet.toPlainTextString().getBytes("GBK")) + "/r/n");
+            text.append(new String(nodet.toPlainTextString().getBytes("GBK"))).append("/r/n");
         }
         return text.toString();
     }
@@ -57,11 +57,12 @@ public class Htmlparser {
         String filterStr = "table";
         NodeFilter filter = new TagNameFilter(filterStr);
         NodeList nodeList = myParser.extractAllNodesThatMatch(filter);
-        TableTag tabletag = (TableTag) nodeList.elementAt(11);
+        TableTag tableTag = (TableTag) nodeList.elementAt(0);
+        log.info("tableTag:{}", tableTag);
     }
 
     public static void main(String[] args) throws Exception {
-        test5("http://www.google.com");
+        test5("https://www.google.com");
         testHtml();
     }
 }
