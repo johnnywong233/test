@@ -1,5 +1,7 @@
 package instrument;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.bcel.Constants;
 import org.apache.bcel.classfile.ClassParser;
 import org.apache.bcel.classfile.JavaClass;
@@ -22,13 +24,11 @@ import java.lang.instrument.Instrumentation;
 /**
  * 使用 Apache 的 bcel 字节码类库实现计算方法执行耗时。
  */
+@Slf4j
+@AllArgsConstructor
 public class Timing implements ClassFileTransformer {
 
     private final String methodName;
-
-    private Timing(String methodName) {
-        this.methodName = methodName;
-    }
 
     private static void addTimer(ClassGen cgen, Method method) {
         // set up the construction tools
@@ -147,7 +147,6 @@ public class Timing implements ClassFileTransformer {
             System.exit(0);
 
         } catch (IOException e) {
-            System.err.println(e);
             System.exit(0);
         }
         return null; // No transformation required

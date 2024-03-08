@@ -1,6 +1,7 @@
 package grammar.reflection.reflectasm;
 
 import com.esotericsoftware.reflectasm.MethodAccess;
+import lombok.Data;
 
 import java.lang.reflect.Method;
 
@@ -71,18 +72,11 @@ public class ReflectasmClient {
     }
 }
 
+@Data
 class SomeClass {
     private String name;
 
     public void foo(String name) {
         this.setName(name);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }

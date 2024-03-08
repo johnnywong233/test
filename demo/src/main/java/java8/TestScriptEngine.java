@@ -4,11 +4,11 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -26,8 +26,8 @@ public class TestScriptEngine {
         System.out.println(result);
 
         ClassLoader classLoader = TestScriptEngine.class.getClassLoader();
-        //load js file to get function or object
-        ScriptObjectMirror fun = (ScriptObjectMirror) engine.eval(new FileReader(new File(classLoader.getResource("script/generator.js").getFile())));
+        // load js file to get function or object
+        ScriptObjectMirror fun = (ScriptObjectMirror) engine.eval(new FileReader(Objects.requireNonNull(classLoader.getResource("script/generator.js")).getFile()));
 
         Object obj = engine.eval("var obj={username:'root'};obj;");
         // 调用函数，参数表示函数的执行对象 call apply
@@ -41,7 +41,7 @@ public class TestScriptEngine {
         engine.put("s", stu);
 
         // 加载一个json对象
-        ScriptObjectMirror re = (ScriptObjectMirror) engine.eval(new FileReader(new File(classLoader.getResource("script/config.js").getFile())));
+        ScriptObjectMirror re = (ScriptObjectMirror) engine.eval(new FileReader(Objects.requireNonNull(classLoader.getResource("script/config.js")).getFile()));
 
         //key in var object: username, pwd, sh
         ScriptObjectMirror scriptObjectMirror = ((ScriptObjectMirror) re.get("sh"));
@@ -55,7 +55,7 @@ public class TestScriptEngine {
 
         // 通过js创建java对象
 
-        Student stu1 = (Student) engine.eval(new FileReader(new File(classLoader.getResource("script/newobject.js").getFile())));
+        Student stu1 = (Student) engine.eval(new FileReader(Objects.requireNonNull(classLoader.getResource("script/newObject.js")).getFile()));
         stu1.sayHello();
 
         engine.put("x", 100);
@@ -65,7 +65,7 @@ public class TestScriptEngine {
 
         Stream<String> s = null;
         try {
-             s = Files.lines(Paths.get("C:\\work\\test_git\\test\\demo\\src\\main\\resources\\script\\newobject.js"));
+            s = Files.lines(Paths.get("script/newObject.js"));
             s.forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();

@@ -1222,7 +1222,6 @@
         <dependency>
             <groupId>com.esotericsoftware.yamlbeans</groupId>
             <artifactId>yamlbeans</artifactId>
-            <version>1.09</version>
         </dependency>
 
         <dependency>

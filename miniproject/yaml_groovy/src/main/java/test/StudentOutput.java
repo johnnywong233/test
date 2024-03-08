@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  * Created by Johnny on 2018/3/3.
  */
 public class StudentOutput {
-    private static List<String> fields = Arrays.asList("studentId", "studentName", "studentAble");
+    private static final List<String> fields = Arrays.asList("studentId", "studentName", "studentAble");
 
     public static void main(String[] args) {
         List<Person> students = getPersons();

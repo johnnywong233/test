@@ -3,6 +3,7 @@ package mahout;
 import java.io.File;
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.mahout.cf.taste.impl.model.file.FileDataModel;
 import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood;
 import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender;
@@ -13,6 +14,7 @@ import org.apache.mahout.cf.taste.recommender.RecommendedItem;
 import org.apache.mahout.cf.taste.recommender.Recommender;
 import org.apache.mahout.cf.taste.similarity.UserSimilarity;
 
+@Slf4j
 public class Demo {
 	public static void main(String[] args) {
 	    try {
@@ -27,7 +29,7 @@ public class Demo {
 	        List<RecommendedItem> recommendations = recommender.recommend(1, 2);
 			recommendations.forEach(System.out::println);
 	    } catch (Exception e) {
-	        System.out.println(e);
+			log.error("", e);
 	    }
 	}
 }

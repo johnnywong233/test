@@ -8,8 +8,8 @@ import com.johnny.vo.Myemp;
 import java.util.List;
 
 public class MyempDAOProxy implements IMyempDAO {
-    private DatabaseConnection dbc = null;
-    private IMyempDAO dao = null;
+    private final DatabaseConnection dbc;
+    private final IMyempDAO dao;
 
     public MyempDAOProxy() throws Exception {//构造方法中实例化连接与实例化DAO对象
         this.dbc = new DatabaseConnection();

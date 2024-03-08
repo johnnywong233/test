@@ -6,6 +6,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.jcraft.jsch.UIKeyboardInteractive;
 import com.jcraft.jsch.UserInfo;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +21,7 @@ import java.io.OutputStream;
  * Date: 2016/12/3
  * Time: 16:49
  */
+@Slf4j
 public class ScpFrom {
     public static void main(String[] arg) {
         if (arg.length != 2) {
@@ -88,7 +90,7 @@ public class ScpFrom {
                     filesize = filesize * 10L + (long) (buf[0] - '0');
                 }
 
-                String file = null;
+                String file;
                 for (int i = 0; ; i++) {
                     in.read(buf, i, 1);
                     if (buf[i] == (byte) 0x0a) {
@@ -141,12 +143,13 @@ public class ScpFrom {
 
             System.exit(0);
         } catch (Exception e) {
-            System.out.println(e);
+            log.error("", e);
             try {
                 if (fos != null) {
                     fos.close();
                 }
             } catch (Exception ee) {
+                log.error("", ee);
             }
         }
     }
@@ -173,10 +176,10 @@ public class ScpFrom {
             }
             while (c != '\n');
             if (b == 1) { // error
-                System.out.print(sb.toString());
+                System.out.print(sb);
             }
             if (b == 2) { // fatal error
-                System.out.print(sb.toString());
+                System.out.print(sb);
             }
         }
         return b;
@@ -201,7 +204,7 @@ public class ScpFrom {
         }
 
         String passwd;
-        JTextField passwordField = (JTextField) new JPasswordField(20);
+        JTextField passwordField = new JPasswordField(20);
 
         @Override
         public String getPassphrase() {
@@ -237,7 +240,6 @@ public class ScpFrom {
                         GridBagConstraints.NORTHWEST,
                         GridBagConstraints.NONE,
                         new Insets(0, 0, 0, 0), 0, 0);
-        private Container panel;
 
         @Override
         public String[] promptKeyboardInteractive(String destination,
@@ -245,7 +247,7 @@ public class ScpFrom {
                                                   String instruction,
                                                   String[] prompt,
                                                   boolean[] echo) {
-            panel = new JPanel();
+            Container panel = new JPanel();
             panel.setLayout(new GridBagLayout());
 
             gbc.weightx = 1.0;
