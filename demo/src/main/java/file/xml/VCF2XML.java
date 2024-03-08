@@ -19,9 +19,7 @@ import java.util.List;
 public class VCF2XML {
 
     public static void main(String[] args) {
-
-        String filePath = "D:\\Java_ex\\test\\src\\test\\resources\\联系人.vcf";
-        File file = new File(filePath);
+        File file = new File("联系人.vcf");
         VCardEngine vce = new VCardEngine();
         try {
             //to parse more than one contractor, use parseMultiple(filename)

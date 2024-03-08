@@ -15,8 +15,8 @@ import java.util.Set;
  * sensitive word filter
  */
 public class SensitiveWordFilter {
-    private Map sensitiveWordMap = null;
-    private static int minMatchTYpe = 1;      //最小匹配规则
+    private final Map sensitiveWordMap;
+    private static final int minMatchTYpe = 1;      //最小匹配规则
     public static int maxMatchType = 2;      //最大匹配规则
 
     /**
@@ -33,7 +33,7 @@ public class SensitiveWordFilter {
      * @param matchType 匹配规则&nbsp;1：最小匹配规则，2：最大匹配规则
      * @return 若包含返回true，否则返回false
      */
-    public boolean isContaintSensitiveWord(String txt, int matchType) {
+    public boolean isContainsSensitiveWord(String txt, int matchType) {
         boolean flag = false;
         for (int i = 0; i < txt.length(); i++) {
             int matchFlag = this.checkSensitiveWord(txt, i, matchType);
@@ -87,11 +87,7 @@ public class SensitiveWordFilter {
      * 获取替换字符串
      */
     private String getReplaceChars(String replaceChar, int length) {
-        String resultReplace = replaceChar;
-        for (int i = 1; i < length; i++) {
-            resultReplace += replaceChar;
-        }
-        return resultReplace;
+        return replaceChar + replaceChar.repeat(Math.max(0, length - 1));
     }
 
     /**

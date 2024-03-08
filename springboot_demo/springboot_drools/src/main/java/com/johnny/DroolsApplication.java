@@ -13,12 +13,16 @@ import java.util.Arrays;
 
 /**
  * @author Johnny
- * @date 2019/5/31-20:57
+ * @since 2019/5/31-20:57
  */
 @SpringBootApplication
 public class DroolsApplication {
     @Resource
     private JdbcTemplate jdbcTemplate;
+
+    public static void main(String[] args) {
+        SpringApplication.run(DroolsApplication.class, args);
+    }
 
     /**
      * 定义一个配置initMethod 和destroyMethod参数的方法将在Spring启动和关闭H2内存数据库时被调用。
@@ -32,8 +36,7 @@ public class DroolsApplication {
 
     @PostConstruct
     private void initDb() {
-        System.out.println(String.format("****** Creating table: %s, and Inserting test data ******", "person"));
-
+        System.out.printf("****** Creating table: %s, and Inserting test data ******%n", "person");
         String[] sqlStatements = {
                 "drop table person if exists",
                 "create table person(id serial,first_name varchar(255),last_name varchar(255))",
@@ -43,18 +46,14 @@ public class DroolsApplication {
         Arrays.asList(sqlStatements).forEach(sql -> jdbcTemplate.execute(sql));
 
         // Query test data and print results
-        System.out.println(String.format("****** Fetching from table: %s ******", "person"));
+        System.out.printf("****** Fetching from table: %s ******%n", "person");
         jdbcTemplate.query("select id,first_name,last_name from person",
                 (rs, i) -> {
-                    System.out.println(String.format("id:%s, first_name:%s,last_name:%s",
+                    System.out.printf("id:%s, first_name:%s,last_name:%s%n",
                             rs.getString("id"),
                             rs.getString("first_name"),
-                            rs.getString("last_name")));
+                            rs.getString("last_name"));
                     return null;
                 });
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(DroolsApplication.class, args);
     }
 }

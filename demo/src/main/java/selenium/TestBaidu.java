@@ -22,7 +22,7 @@ public class TestBaidu {
     private void testChrome() {
         System.setProperty("webdriver.chrome.driver", "D:\\Java_ex\\test\\src\\test\\resources\\chromedriver.exe");
         WebDriver dr = new ChromeDriver();
-        dr.get("http://www.baidu.com");
+        dr.get("https://www.baidu.com");
         dr.findElement(By.id("kw")).sendKeys("Selenium");
         dr.findElement(By.id("su")).click();
         try {
@@ -39,7 +39,7 @@ public class TestBaidu {
         DesiredCapabilities ieCapabilities = DesiredCapabilities.internetExplorer();
         ieCapabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
         WebDriver dr = new InternetExplorerDriver(ieCapabilities);
-        dr.get("http://www.baidu.com");
+        dr.get("https://www.baidu.com");
         dr.findElement(By.id("kw")).sendKeys("Selenium");
         dr.findElement(By.id("su")).click();
         try {
@@ -52,7 +52,7 @@ public class TestBaidu {
 
     private void testFirefox() {
         WebDriver dr = new FirefoxDriver();
-        dr.get("http://www.baidu.com");
+        dr.get("https://www.baidu.com");
         dr.findElement(By.id("kw")).sendKeys("helloSelenium");
         dr.findElement(By.id("su")).click();
         try {

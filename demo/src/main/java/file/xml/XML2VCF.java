@@ -12,21 +12,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class XML2VCF {
-    public static void main(String args[]) {
+    public static void main(String[] args) throws IOException, DocumentException {
         // use dom4j to read Contact.xml
         SAXReader reader = new SAXReader();
-        Document document = null;
-        try {
-            document = reader.read(new ClassPathResource("Contact.xml").getFile());
-        } catch (DocumentException | IOException e) {
-            e.printStackTrace();
-        }
-
-        Element root = null;
-        if (document != null) {
-            root = document.getRootElement();
-        }
-
+        Document document = reader.read(new ClassPathResource("Contact.xml").getFile());
+        Element root = document.getRootElement();
         // contact List
         List<?> contacts = root.elements("Contact");
 

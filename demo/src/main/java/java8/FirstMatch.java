@@ -8,7 +8,6 @@ import java.util.stream.Stream;
  * Created by johnny on 2016/10/12.
  */
 public class FirstMatch {
-    //http://unmi.cc/java-8-return-the-first-match-element/
     public static void main(String[] args) {
         FirstMatch demo = new FirstMatch();
         System.out.println(demo.findFirstMatchJava7());

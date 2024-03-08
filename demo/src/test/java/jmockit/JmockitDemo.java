@@ -9,7 +9,6 @@ import static org.testng.Assert.assertEquals;
  * Author: Johnny
  * Date: 2017/3/28
  * Time: 18:22
- * http://unmi.cc/jmockit-partial-mock/
  */
 public class JmockitDemo {
     @Test

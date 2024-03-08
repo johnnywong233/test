@@ -8,9 +8,6 @@ import org.dom4j.Node;
  * Time: 21:39
  */
 public class XMLUtil {
-
-
-    //http://unmi.cc/java-dom4j-get-innerxml/
     //inner xml do not contain nodes(left and right)
     public static String getInnerXML(Node node) {
         String nodeName = node.getName(); //get node name

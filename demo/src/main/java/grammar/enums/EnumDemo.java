@@ -54,10 +54,6 @@ class Constant {
      */
     static final Map<Class<?>, Map<Integer, EnumMessage>> ENUM_MAP = initialEnumMap(true);
 
-    static {
-
-    }
-
     /**
      * 加载所有枚举对象数据
      *
@@ -97,7 +93,7 @@ class Constant {
      */
     private static void initialSingleEnumMap(Class<?> cls) throws Exception {
         Method method = cls.getMethod("values");
-        EnumMessage inter[] = (EnumMessage[]) method.invoke(null, null);
+        EnumMessage[] inter = (EnumMessage[]) method.invoke(null, null);
         for (EnumMessage enumMessage : inter) {
             SINGLE_ENUM_MAP.put(enumMessage.getValue(), enumMessage);
         }

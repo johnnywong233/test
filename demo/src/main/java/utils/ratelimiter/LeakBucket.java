@@ -1,5 +1,7 @@
 package utils.ratelimiter;
 
+import lombok.Setter;
+
 import java.util.ArrayDeque;
 import java.util.Queue;
 
@@ -9,6 +11,7 @@ import java.util.Queue;
  * Date: 2018/8/9
  * Time: 10:52
  */
+@Setter
 public class LeakBucket<T> {
     private volatile String key;
 
@@ -16,8 +19,8 @@ public class LeakBucket<T> {
 
     private volatile Queue<T> queue = new ArrayDeque<>(this.limit);
 
-    boolean flow(T request) {
-        return queue.add(request);
+    void flow(T request) {
+        queue.add(request);
     }
 
     T leak() {

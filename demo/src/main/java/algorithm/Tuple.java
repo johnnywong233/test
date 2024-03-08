@@ -9,7 +9,7 @@ public class Tuple<T> {
         return new Tuple(args);
     }
 
-    private T[] items;
+    private final T[] items;
 
     private Tuple(T[] items) {
         this.items = items;
@@ -22,10 +22,9 @@ public class Tuple<T> {
         return items[index];
     }
 
-    // http://unmi.cc/simple-java-tuple-datatype/
     // http://sethjust.com/2012/11/17/java-tuples/
     public static void main(String[] args) {
-        Tuple<String> t = Tuple.make("Unmi", "fantasia@sina.come", "demo");
+        Tuple<String> t = Tuple.make("johnny", "1224017485@qq.come", "demo");
         System.out.println(t.index(2));
     }
 

@@ -93,6 +93,7 @@
         <mybatis-spring.version>3.0.0</mybatis-spring.version>
         <rest-assured.version>4.0.0</rest-assured.version>
         <curator.version>4.2.0</curator.version>
+        <drool.version>9.44.0.Final</drool.version>
         <poi.version>5.2.5</poi.version>
         <poi-ooxml.version>4.1.2</poi-ooxml.version>
     </properties>
@@ -425,7 +426,16 @@
                 <artifactId>druid</artifactId>
                 <version>1.2.21</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-core</artifactId>
+                <version>${drool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.drools</groupId>
+                <artifactId>drools-compiler</artifactId>
+                <version>${drool.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>

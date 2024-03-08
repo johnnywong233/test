@@ -13,7 +13,6 @@ import org.xml.sax.InputSource;
  * Time: 11:36
  */
 public class CastorDemo {
-	//http://unmi.cc/castor-xml-to-javabean-1/
     public static void main(String[] args) throws MarshalException, ValidationException {
         InputStream xmlInputStream = ClassLoader.getSystemResourceAsStream("person.xml");
         Unmarshaller unmarshaller = new Unmarshaller(Person.class);

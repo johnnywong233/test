@@ -13,7 +13,6 @@ import java.net.URL;
  * Time: 20:46
  */
 public class CastorDemo {
-    //http://unmi.cc/castor-xml-to-javabean-2/
     public static void main(String[] args) throws Exception {
         Mapping mapping = new Mapping();
         URL urlMapping = ClassLoader.getSystemResource("mapping.xml");

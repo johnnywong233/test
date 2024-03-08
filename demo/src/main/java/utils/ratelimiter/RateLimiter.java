@@ -13,7 +13,7 @@ public class RateLimiter {
     /**
      * 支持多个请求
      */
-    private ConcurrentHashMap<String, Bucket> buckets = new ConcurrentHashMap<>(300);
+    private final ConcurrentHashMap<String, Bucket> buckets = new ConcurrentHashMap<>(300);
 
     public boolean getKey(String key) {
         Bucket bucket = buckets.get(key);

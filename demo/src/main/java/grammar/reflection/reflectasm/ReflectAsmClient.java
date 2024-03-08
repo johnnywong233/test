@@ -10,8 +10,8 @@ import java.lang.reflect.Method;
  * Date: 2016/12/18
  * Time: 21:54
  */
-public class ReflectasmClient {
-    //http://unmi.cc/java-reflectasm-bytecode-usage/
+public class ReflectAsmClient {
+    private static final int SIZE = 100000000;
     public static void main(String[] args) throws Exception {
         testJdkReflect();
         testReflectAsm();
@@ -23,9 +23,9 @@ public class ReflectasmClient {
         SomeClass someObject = new SomeClass();
         for (int i = 0; i < 5; i++) {
             long begin = System.currentTimeMillis();
-            for (int j = 0; j < 100000000; j++) {
+            for (int j = 0; j < SIZE; j++) {
                 Method method = SomeClass.class.getMethod("foo", String.class);
-                method.invoke(someObject, "Unmi");
+                method.invoke(someObject, "johnny");
             }
             System.out.print(System.currentTimeMillis() - begin + " ");
         }
@@ -36,9 +36,9 @@ public class ReflectasmClient {
         SomeClass someObject = new SomeClass();
         for (int i = 0; i < 5; i++) {
             long begin = System.currentTimeMillis();
-            for (int j = 0; j < 100000000; j++) {
+            for (int j = 0; j < SIZE; j++) {
                 MethodAccess access = MethodAccess.get(SomeClass.class);
-                access.invoke(someObject, "foo", "Unmi");
+                access.invoke(someObject, "foo", "johnny");
             }
             System.out.print(System.currentTimeMillis() - begin + " ");
         }
@@ -50,8 +50,8 @@ public class ReflectasmClient {
         Method method = SomeClass.class.getMethod("foo", String.class);
         for (int i = 0; i < 5; i++) {
             long begin = System.currentTimeMillis();
-            for (int j = 0; j < 100000000; j++) {
-                method.invoke(someObject, "Unmi");
+            for (int j = 0; j < SIZE; j++) {
+                method.invoke(someObject, "johnny");
             }
             System.out.print(System.currentTimeMillis() - begin + " ");
         }
@@ -63,8 +63,8 @@ public class ReflectasmClient {
         MethodAccess access = MethodAccess.get(SomeClass.class);
         for (int i = 0; i < 5; i++) {
             long begin = System.currentTimeMillis();
-            for (int j = 0; j < 100000000; j++) {
-                access.invoke(someObject, "foo", "Unmi");
+            for (int j = 0; j < SIZE; j++) {
+                access.invoke(someObject, "foo", "johnny");
             }
             System.out.print(System.currentTimeMillis() - begin + " ");
         }

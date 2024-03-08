@@ -7,7 +7,6 @@ import java.lang.reflect.Modifier;
  * Created by johnny on 2016/10/12.
  */
 public class TestFinal {
-    //http://unmi.cc/java-reflection-modify-final-field-value/
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
         //reflect the private field
 //        Field nameField = OneCity.class.getDeclaredField("name");

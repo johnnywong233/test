@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class CronUtils {
     /**
-     * 判断 <code>date</code> 是否在 <code>crons</code> 所指定的范围内
+     * 判断 date 是否在 cron 所指定的范围内
      */
-    public static boolean isDuarationSatisfied(List<String> crons, Date date) throws ParseException {
+    public static boolean isDurationSatisfied(List<String> crons, Date date) throws ParseException {
         boolean isDurationSatisfied = false;
         if (crons != null && crons.size() > 0) {
             for (String cron : crons) {
