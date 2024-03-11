@@ -1,8 +1,10 @@
 package demo1.util;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,34 +15,34 @@ import java.util.Map;
  * Time: 0:53
  */
 public class JwtUtil {
-    private static final long EXPIRATION_TIME = 3600_000; // 1 hour
+    private static final Long EXPIRATION_TIME = 3600000L; // 1 hour
     private static final String SECRET = "ThisIsASecret";
-    public static final String TOKEN_PREFIX = "Bearer";
+    public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
 
     public static String generateToken(String username) {
         HashMap<String, Object> map = new HashMap<>();
-        //you can put any data in the map
+        // you can put any data in the map
         map.put("username", username);
+        SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
         return Jwts.builder()
-                .setClaims(map)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .claims(map)
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(secret)
                 .compact();
     }
 
-    public static String validateToken(String token) {
+    public static void validateToken(String token) {
         if (token != null) {
-            // parse the token.
+            SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
             Map<String, Object> body = Jwts.parser()
-                    .setSigningKey(SECRET)
-                    .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                    .getBody();
+                    .verifyWith(secret)
+                    .build()
+                    .parseSignedClaims(token.replace(TOKEN_PREFIX, ""))
+                    .getPayload();
             String username = (String) (body.get("username"));
             if (username == null || username.isEmpty()) {
                 throw new TokenValidationException("Wrong token without username");
-            } else {
-                return username;
             }
         } else {
             throw new TokenValidationException("Missing token");

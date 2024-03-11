@@ -45,7 +45,7 @@ public class IndexController {
         //here we just have one hardcoded username=admin and password=admin
         //add user validation code here
         if (validCredentials(credentials)) {
-            String jwt = JwtUtil.generateToken(credentials.username);
+            String jwt = JwtUtil.generateToken(credentials.getUsername());
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + jwt);
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong credentials");
@@ -53,8 +53,7 @@ public class IndexController {
     }
 
     private boolean validCredentials(AccountCredentials credentials) {
-        //hard code
-        return "admin".equals(credentials.username) && "admin".equals(credentials.password);
+        return "admin".equals(credentials.getUsername()) && "admin".equals(credentials.getPassword());
     }
 
 }
