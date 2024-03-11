@@ -32,16 +32,19 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public void login(HttpServletResponse response, @RequestBody final AccountCredentials credentials) throws IOException {
+    public String login(HttpServletResponse response, @RequestBody final AccountCredentials credentials) throws IOException {
         //here we just have one hardcoded username=admin and password=admin
         //add user validation code here
         if (validCredentials(credentials)) {
             String jwt = JwtUtil.generateToken(credentials.getUsername());
+            log.info("jwt:{}", jwt);
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + " " + jwt);
+            return jwt;
         } else {
             log.warn("You have provided a invalid credentials! ");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong credentials");
+            return "";
         }
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Wrong credentials");
     }
 
     private boolean validCredentials(AccountCredentials credentials) {

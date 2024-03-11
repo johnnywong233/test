@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 request = JwtUtil.validateTokenAndAddUserIdToHeader(request);
             }
         } catch (Exception e) {
-            logger.error("unauthorized" + e.getMessage());
+            logger.error("unauthorized " + e.getMessage());
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, e.getMessage());
             return;
         }

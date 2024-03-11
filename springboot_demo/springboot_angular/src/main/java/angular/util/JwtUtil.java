@@ -1,9 +1,11 @@
 package angular.util;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.Collections;
@@ -19,11 +21,11 @@ import java.util.Map;
  */
 @Slf4j
 public class JwtUtil {
-    public static final String TOKEN_PREFIX = "Bearer";
+    public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final String USER_ID = "userId";
-    private static final long EXPIRATION_TIME = 3600_000; // 1 hour
-    private static final String SECRET = "ThisIsASecret";
+    private static final Long EXPIRATION_TIME = 3600000L; // 1 hour
+    private static final String SECRET = "ThisIsASecretThisIsASecretThisIsASecretThisIsASecret";
 
     public static String generateToken(String userId) {
         HashMap<String, Object> map = new HashMap<>();
@@ -31,13 +33,14 @@ public class JwtUtil {
         try {
             map.put(USER_ID, EncryptUtil.encrypt(userId));
         } catch (Exception e) {
-            log.warn("Encryption failed. " + e.getMessage());
+            log.warn("Encryption failed.", e);
             throw new RuntimeException("Encryption failed");
         }
+        SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
         return Jwts.builder()
-                .setClaims(map)
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SignatureAlgorithm.HS512, SECRET)
+                .claims(map)
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .signWith(secret)
                 .compact();
     }
 
@@ -46,10 +49,12 @@ public class JwtUtil {
         if (token != null) {
             // parse the token.
             try {
+                SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
                 Map<String, Object> body = Jwts.parser()
-                        .setSigningKey(SECRET)
-                        .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
-                        .getBody();
+                        .verifyWith(secret)
+                        .build()
+                        .parseSignedClaims(token.replace(TOKEN_PREFIX, ""))
+                        .getPayload();
                 String userId = (String) body.get(USER_ID);
                 return new CustomHttpServletRequest(request, EncryptUtil.decrypt(userId));
             } catch (Exception e) {
