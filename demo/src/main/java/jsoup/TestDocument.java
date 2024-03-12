@@ -3,7 +3,7 @@ package jsoup;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.jsoup.select.Elements;
 
 import java.io.File;
@@ -94,7 +94,7 @@ public class TestDocument {
 
     private static void cleaner() {
         String unsafe = "<p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>";
-        String safe = Jsoup.clean(unsafe, Whitelist.basic());
+        String safe = Jsoup.clean(unsafe, Safelist.basic());
         System.out.println(safe);
         // now: <p><a href="http://example.com/" rel="nofollow">Link</a></p>f
     }

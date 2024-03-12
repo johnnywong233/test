@@ -33,8 +33,7 @@ public class DroolsScoreExample {
     }
 
     private static void execute(KieContainer kc) throws Exception {
-        // From the container, a session is created based on
-        // its definition and configuration in the META-INF/kmodule.xml file
+        // From the container, a session is created based on its definition and configuration in the META-INF/kmodule.xml file
         KieSession ksession = kc.newKieSession("point-rulesKS");
 
         List<Order> orderList = getInitData();
