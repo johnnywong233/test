@@ -29,6 +29,8 @@ spring:
   jackson:
     serialization:
       INDENT_OUTPUT: true
+  main:
+    allow-bean-definition-overriding: true
 
 logging.level.org.springframework:
   data: DEBUG

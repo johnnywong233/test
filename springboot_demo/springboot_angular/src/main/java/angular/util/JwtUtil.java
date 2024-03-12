@@ -1,6 +1,7 @@
 package angular.util;
 
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
@@ -36,14 +37,17 @@ public class JwtUtil {
             log.warn("Encryption failed.", e);
             throw new RuntimeException("Encryption failed");
         }
-        SecretKey secret = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET));
+        return generateToken(map);
+    }
+
+    public static String generateToken(Map<String, Object> claims) {
+        SecretKey secret = Jwts.SIG.HS512.key().build();
         return Jwts.builder()
-                .claims(map)
+                .claims(claims)
                 .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(secret)
                 .compact();
     }
-
     public static HttpServletRequest validateTokenAndAddUserIdToHeader(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
