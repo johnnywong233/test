@@ -1,5 +1,7 @@
 package file.xml.castor.demo1;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -7,22 +9,8 @@ import java.util.Date;
  * Date: 2016/11/20
  * Time: 11:48
  */
+@Data
 public class Person {
 	private String name;
     private Date birthDay;
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Date getBirthDay() {
-        return birthDay;
-    }
-    public void setBirthDay(Date birthDay) {
-        this.birthDay = birthDay;
-    }
-
-
 }

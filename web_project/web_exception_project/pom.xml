@@ -12,8 +12,6 @@
     <packaging>war</packaging>
     <modelVersion>4.0.0</modelVersion>
     <name>web_exception_project</name>
-    <url>http://maven.apache.org</url>
-    <!--<url>https://repo.maven.apache.org/maven2</url>-->
 
     <dependencies>
         <dependency>
@@ -55,15 +53,13 @@
 
         <!-- javaee-api related package, care for corresponding JDK version -->
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <version>8.0.1</version>
             <scope>provided</scope>
         </dependency>
 

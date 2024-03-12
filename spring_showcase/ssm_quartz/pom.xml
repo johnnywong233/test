@@ -18,7 +18,7 @@
         <!-- log4j日志文件管理包版本 -->
         <log4j.version>1.2.17</log4j.version>
         <activiti.version>5.22.0</activiti.version>
-        <sitemesh.version>3.0.0</sitemesh.version>
+        <sitemesh.version>3.2.0</sitemesh.version>
     </properties>
 
     <dependencies>
@@ -149,9 +149,10 @@
         </dependency>
 
         <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
+            <scope>runtime</scope>
         </dependency>
         <!-- json数据 -->
         <dependency>

@@ -1,6 +1,7 @@
 package file.xml.xom;
 
-import nu.xom.*;
+import nu.xom.Document;
+import nu.xom.Element;
 import org.junit.Test;
 
 /**
@@ -11,11 +12,11 @@ import org.junit.Test;
 public class XomDemo {
 
     @Test
-    public String generateXml() {
+    public void generateXml() {
         Element root = new Element("root");
         root.appendChild("Hello World!");
         //root.appendChild("\n  Hello World!\n");
         Document doc = new Document(root);
-        return doc.toXML();
+        doc.toXML();
     }
 }

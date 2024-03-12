@@ -1,5 +1,7 @@
 package grammar;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -8,20 +10,13 @@ import java.util.Objects;
  * Date: 2017/2/19
  * Time: 12:45
  */
+@Getter
 public final class FinalClassExample {
     private final int id;
 
     private final String name;
 
     private final HashMap testMap;
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     /**
      * 可变对象的访问方法

@@ -3,11 +3,11 @@ package com.johnny.service.impl;
 import com.johnny.controller.JobController;
 import com.johnny.model.JobEntity;
 import com.johnny.service.QuartzService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 
 @Service
 public class QuartzServiceImpl implements QuartzService {

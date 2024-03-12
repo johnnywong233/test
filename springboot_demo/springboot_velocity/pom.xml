@@ -72,8 +72,8 @@
 
         <!--如果项目使用 jdk11，需要显式引入依赖-->
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
 
         <!-- IDEA 2018.3.6版本右侧maven面板显示org.ow2.asm:asm:unknown, 但是点击artifactId可以定位到 test parent module 依赖管理的版本号, 并且项目启动没有任何错误？-->

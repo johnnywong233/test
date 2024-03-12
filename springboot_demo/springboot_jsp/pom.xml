@@ -29,14 +29,6 @@
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
         </dependency>
 
-        <!-- tomcat-->
-<!--        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            &lt;!&ndash;NOTED: remove scope to avoid java.lang.ClassNotFoundException: javax.servlet.Filter&ndash;&gt;
-            &lt;!&ndash;<scope>provided</scope>&ndash;&gt;
-        </dependency>-->
-
         <!-- embed tomcat-->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>

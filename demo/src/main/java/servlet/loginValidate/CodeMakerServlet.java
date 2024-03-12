@@ -19,7 +19,7 @@ import java.io.IOException;
 public class CodeMakerServlet extends HttpServlet {
     private static final long serialVersionUID = 4612235776159128501L;
 
-    private Font[] codeFont =
+    private final Font[] codeFont =
             {
                     new Font("Algerian", Font.BOLD, 65),
                     new Font("Vivaldi", Font.BOLD, 85),
@@ -27,14 +27,15 @@ public class CodeMakerServlet extends HttpServlet {
                     new Font("Forte", Font.BOLD, 75)
             };
 
-    private Color[] color =
+    private final Color[] color =
             {
                     Color.BLACK, Color.RED, Color.DARK_GRAY, Color.BLUE
             };
 
     private String codeNumbers = "";
 
-    private int width = 250, height = 70;
+    private final int width = 250;
+    private final int height = 70;
 
     // 处理 HTTP get 请求
     @Override
