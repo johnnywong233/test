@@ -388,7 +388,7 @@ public class ExcelKit {
                 ExportConvert export = mConvertInstanceCache.get(clazz);
 
                 if (export == null) {
-                    export = (ExportConvert) Class.forName(clazz).newInstance();
+                    export = (ExportConvert) Class.forName(clazz).getDeclaredConstructor().newInstance();
                     mConvertInstanceCache.put(clazz, export);
                 }
 
@@ -412,7 +412,7 @@ public class ExcelKit {
             String protocol = format.split(":")[0];
             if ("c".equalsIgnoreCase(protocol)) {
                 String clazz = format.split(":")[1];
-                ExportRange export = (ExportRange) Class.forName(clazz).newInstance();
+                ExportRange export = (ExportRange) Class.forName(clazz).getDeclaredConstructor().newInstance();
                 return export.handler();
             }
         } catch (Exception e) {

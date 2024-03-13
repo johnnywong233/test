@@ -42,7 +42,7 @@ public class FrontController extends HttpServlet {
         String actionClassName = DEFAULT_PACKAGE_NAME + actionName.substring(0, 1).toUpperCase() + actionName.substring(1);
         try {
             // 通过反射来创建Action对象并调用
-            Action action = (Action) Class.forName(actionClassName).newInstance();
+            Action action = (Action) Class.forName(actionClassName).getDeclaredConstructor().newInstance();
             // 执行多态方法execute得到ActionResult
             ActionResult result = action.execute(req, resp);
             ResultType resultType = result.getResultType();// 结果类型

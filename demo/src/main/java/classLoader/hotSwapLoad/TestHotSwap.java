@@ -15,14 +15,14 @@ public class TestHotSwap {
 }
 
 class MonitorHotSwap implements Runnable {
-    private Class hotClazz = null;
+    private Class<?> hotClazz = null;
 
     @Override
     public void run() {
         try {
             while (true) {
                 initLoad();
-                Object hot = hotClazz.newInstance();
+                Object hot = hotClazz.getDeclaredConstructor().newInstance();
                 Method m = hotClazz.getMethod("hot");
                 m.invoke(hot, null); //打印出相关信息
                 // 每隔秒重新加载一次

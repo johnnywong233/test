@@ -8,8 +8,8 @@ public class TestClassUnLoad {
     public static void main(String[] args) throws Exception {
         SimpleURLClassLoader loader = new SimpleURLClassLoader();
         // 用自定义的加载器加载A
-        Class clazzA = loader.load("classLoader.unload.Unload");
-        Object a = clazzA.newInstance();
+        Class<?> clazzA = loader.load("classLoader.unload.Unload");
+        Object a = clazzA.getDeclaredConstructor().newInstance();
         // 清除相关引用
         a = null;
         clazzA = null;

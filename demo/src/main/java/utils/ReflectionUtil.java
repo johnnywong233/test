@@ -91,7 +91,7 @@ public class ReflectionUtil {
         try {
             for (int i = 0; i < fs.length - 1; i++) {
                 Field f = clazz.getDeclaredField(fs[i]);
-                target = f.getType().newInstance();
+                target = f.getType().getDeclaredConstructor().newInstance();
                 clazz = target.getClass();
             }
             return clazz.getDeclaredField(fs[fs.length - 1]).getType();

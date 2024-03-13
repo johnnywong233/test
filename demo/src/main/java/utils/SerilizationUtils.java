@@ -58,8 +58,7 @@ public class SerilizationUtils {
                     }
 
                     // 生成目标类
-                    T target = targetClz.newInstance();
-
+                    T target = targetClz.getDeclaredConstructor().newInstance();
                     // 目前key和value均为String类型，以后可扩展支持更多类型
                     Method setKeyMethod = target.getClass().getMethod("setKey", String.class);
                     Method setValueMethod = targetClz.getDeclaredMethod("setValue", String.class);
@@ -106,13 +105,11 @@ public class SerilizationUtils {
     /**
      * 从key&value表读取到Bo层对象
      */
-    @SuppressWarnings("unchecked")
-    private static <T> T parseKVMapToObject(Map<String, Object> map, Class<T> beanClass)
-            throws InstantiationException, IllegalAccessException {
+    private static <T> T parseKVMapToObject(Map<String, Object> map, Class<T> beanClass) throws Exception {
         if (map == null) {
             return null;
         }
-        T obj = beanClass.newInstance();
+        T obj = beanClass.getDeclaredConstructor().newInstance();
 
         Field[] fields = obj.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -122,8 +119,8 @@ public class SerilizationUtils {
             }
 
             field.setAccessible(true);
-            Class targetClazz;
-            Class fieldClazz = field.getType();
+            Class<?> targetClazz;
+            Class<?> fieldClazz = field.getType();
             if (field.isAnnotationPresent(KVSerilizable.class)) {
                 if (fieldClazz.isAssignableFrom(List.class) || fieldClazz.isAssignableFrom(Map.class)) {
                     Type genericType = field.getGenericType();

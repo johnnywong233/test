@@ -23,7 +23,7 @@ public class ServiceFactory {
             try {
                 Object serviceObj = Class.forName(
                         type.getPackage().getName() + "." + DEFAULT_IMPL_PACKAGE_NAME + "."
-                                + type.getSimpleName() + CommonUtil.capitalize(DEFAULT_IMPL_PACKAGE_NAME)).newInstance();
+                                + type.getSimpleName() + CommonUtil.capitalize(DEFAULT_IMPL_PACKAGE_NAME)).getDeclaredConstructor().newInstance();
                 map.put(type, ServiceProxy.getProxyInstance(serviceObj));
                 return serviceObj;
             } catch (Exception e) {

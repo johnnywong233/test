@@ -19,7 +19,7 @@ public class Main {
         String path = "C:\\work\\test\\target\\classes\\classLoader\\demo1\\TargetImpl.class";
         byte[] b = getBytes(path);
         Class<?> c = new DynamicClassLoader().findClass(b);
-        obj = (Target) c.newInstance();
+        obj = (Target) c.getDeclaredConstructor().newInstance();
         System.err.println(obj.name());
         TimeUnit.SECONDS.sleep(2);
     }

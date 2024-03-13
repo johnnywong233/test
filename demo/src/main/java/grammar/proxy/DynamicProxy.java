@@ -88,8 +88,8 @@ class AOPFactory implements InvocationHandler {
 public class DynamicProxy {
 
     private static Object getBean(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        Object obj = Class.forName(className).newInstance();
+            ClassNotFoundException, NoSuchMethodException, InvocationTargetException {
+        Object obj = Class.forName(className).getDeclaredConstructor().newInstance();
         InvocationHandler handler = new AOPFactory(obj);
         return Proxy.newProxyInstance(obj.getClass().getClassLoader(), obj
                 .getClass().getInterfaces(), handler);

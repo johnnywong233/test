@@ -13,30 +13,30 @@ import java.util.Map.Entry;
 
 public class AlbumHandlerFactory {
     private static final String PACKAGE_FINDER = "com.johnny.service.handler.finder.impl";
-    private static final String PACKAGE_HANDER = "com.johnny.service.handler.handler";
-    private static Map<String, IAlbumURLFinder> albumURLFinderMap = new HashMap<>();
-    private static Map<String, Class<?>> albumHandlerClassMap = new HashMap<>();
+    private static final String PACKAGE_HANDLER = "com.johnny.service.handler.handler";
+    private static final Map<String, IAlbumURLFinder> albumURLFinderMap = new HashMap<>();
+    private static final Map<String, Class<?>> albumHandlerClassMap = new HashMap<>();
 
     static {
         List<Class<?>> finderClassList = ReflectUtils.getClassWithPackage(PACKAGE_FINDER);
         if (finderClassList != null) {
             for (Class<?> finderClass : finderClassList) {
                 try {
-                    IAlbumURLFinder obj = (IAlbumURLFinder) finderClass.newInstance();
+                    IAlbumURLFinder obj = (IAlbumURLFinder) finderClass.getDeclaredConstructor().newInstance();
                     albumURLFinderMap.put(obj.getURLRegex(), obj);
-                } catch (InstantiationException | IllegalAccessException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        List<Class<?>> handlerClassList = ReflectUtils.getClassWithPackage(PACKAGE_HANDER);
+        List<Class<?>> handlerClassList = ReflectUtils.getClassWithPackage(PACKAGE_HANDLER);
         assert handlerClassList != null;
         for (Class<?> handlerClass : handlerClassList) {
             try {
-                AlbumHandler obj = (AlbumHandler) handlerClass.newInstance();
+                AlbumHandler obj = (AlbumHandler) handlerClass.getDeclaredConstructor().newInstance();
                 albumHandlerClassMap.put(obj.getURLRegex(), handlerClass);
-            } catch (InstantiationException | IllegalAccessException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -79,14 +79,14 @@ public class AlbumHandlerFactory {
                 if ((element.getKey() != null) && (albumURL.matches(element.getKey()))) {
                     Class<?> clazz = element.getValue();
                     try {
-                        AlbumHandler handler = (AlbumHandler) clazz.newInstance();
+                        AlbumHandler handler = (AlbumHandler) clazz.getDeclaredConstructor().newInstance();
                         handler.setAlbumURL(albumURL);
                         handlerList.add(handler);
                         if (isPrintLog) {
                             Console.print("创建相册处理器：" + clazz.getSimpleName() + " - " + albumURL);
                         }
                         hasHandler = true;
-                    } catch (IllegalArgumentException | SecurityException | IllegalAccessException | InstantiationException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -106,25 +106,25 @@ public class AlbumHandlerFactory {
 
     public static void main(String[] args) {
         System.out.println("-------------相册列表--------------");
-        getHandler("http://www.douban.com/people/blackgray/photos/");
+        getHandler("https://www.douban.com/people/blackgray/photos/");
         System.out.println("-------------相册--------------");
-        getHandler("http://www.douban.com/photos/album/67952443/");
+        getHandler("https://www.douban.com/photos/album/67952443/");
 
         System.out.println("-------------小站--------------");
-        getHandler("http://site.douban.com/108128/widget/photos/7528342/");
-        getHandler("http://site.douban.com/zheng/widget/photos/17304118/");
+        getHandler("https://site.douban.com/108128/widget/photos/7528342/");
+        getHandler("https://site.douban.com/zheng/widget/photos/17304118/");
 
         System.out.println("-------------影人首页--------------");
-        getHandler("http://movie.douban.com/celebrity/1048027/");
+        getHandler("https://movie.douban.com/celebrity/1048027/");
         System.out.println("-------------影人--------------");
-        getHandler("http://movie.douban.com/celebrity/1048027/photos/");
+        getHandler("https://movie.douban.com/celebrity/1048027/photos/");
 
         System.out.println("-------------活动首页--------------");
-        getHandler("http://www.douban.com/online/11127307/");
+        getHandler("https://www.douban.com/online/11127307/");
         System.out.println("-------------活动--------------");
-        getHandler("http://www.douban.com/online/11127307/album/72416214/");
+        getHandler("https://www.douban.com/online/11127307/album/72416214/");
 
         System.out.println("-------------其他--------------");
-        getHandler("http://www.baidu.com/");
+        getHandler("https://www.baidu.com/");
     }
 }

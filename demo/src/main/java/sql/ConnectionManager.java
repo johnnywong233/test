@@ -20,7 +20,7 @@ public class ConnectionManager {
         DBOptions option = new DBOptions();
         String driverClassName = option.getDriverClassName();
         try {
-            Class.forName(driverClassName).newInstance();
+            Class.forName(driverClassName).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             System.out.println("fatal ERROR:   ConnectionManager: Unable to load driver = "
                     + driverClassName);

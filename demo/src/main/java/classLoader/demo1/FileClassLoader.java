@@ -3,6 +3,7 @@ package classLoader.demo1;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by johnny on 2016/10/2.
@@ -13,10 +14,10 @@ public class FileClassLoader extends ClassLoader {
     private static final String FILE_TYPE = ".class";
 
     //http://bbs.csdn.net/topics/210030578
-    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         FileClassLoader loader = new FileClassLoader();
         Class<?> objClass = loader.loadClass("classLoader.demo1.Hello", true);
-        Object obj = objClass.newInstance();
+        Object obj = objClass.getDeclaredConstructor().newInstance();
         System.out.println(objClass.getName());
         System.out.println(objClass.getClassLoader().getClass().getName());
         System.out.println(((Hello) obj).getInfo());

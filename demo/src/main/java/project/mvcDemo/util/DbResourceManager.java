@@ -36,7 +36,7 @@ public class DbResourceManager {
     }
 
     private static void loadDriver() throws Exception {
-        driver = (Driver) Class.forName(JDBC_DRV).newInstance();
+        driver = (Driver) Class.forName(JDBC_DRV).getDeclaredConstructor().newInstance();
         DriverManager.registerDriver(driver);
     }
 

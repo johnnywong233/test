@@ -29,9 +29,9 @@ public class Demo {
         String className = "com.example.Sample";
         try {
             Class<?> class1 = fscl1.loadClass(className);
-            Object obj1 = class1.newInstance();
+            Object obj1 = class1.getDeclaredConstructor().newInstance();
             Class<?> class2 = fscl2.loadClass(className);
-            Object obj2 = class2.newInstance();
+            Object obj2 = class2.getDeclaredConstructor().newInstance();
             Method setSampleMethod = class1.getMethod("setSample", java.lang.Object.class);
             setSampleMethod.invoke(obj1, obj2);
         } catch (Exception e) {

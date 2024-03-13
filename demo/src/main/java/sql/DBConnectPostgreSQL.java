@@ -19,7 +19,7 @@ public class DBConnectPostgreSQL extends HttpServlet {
     @Override
     public void init() throws ServletException {
         try {
-            Class.forName("org.postgresql.Driver").newInstance();
+            Class.forName("org.postgresql.Driver").getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
