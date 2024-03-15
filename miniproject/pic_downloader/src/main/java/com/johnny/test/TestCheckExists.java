@@ -6,7 +6,7 @@ import java.net.URL;
 
 public class TestCheckExists {
     public static void main(String[] args) {
-    	Integer retryTimes = 3;
+    	int retryTimes = 3;
         for (int i = 0; i < retryTimes; i++) {
             try {
                 URL url = new URL("https://www.douban.com/photos/photo/2494907038/#image");

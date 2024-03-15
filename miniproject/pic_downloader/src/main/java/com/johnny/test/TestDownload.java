@@ -2,7 +2,6 @@ package com.johnny.test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -25,7 +24,7 @@ public class TestDownload {
 
             BufferedInputStream inputStream = new BufferedInputStream(in);
             //保存的实际上是 html 文件
-            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(new File("TEST")));
+            BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream("TEST"));
             byte[] data = new byte[1024];
             int n;
             while ((n = inputStream.read(data)) != -1) {

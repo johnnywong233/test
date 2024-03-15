@@ -12,7 +12,7 @@ public class MovieAlbumHandler extends AlbumHandler {
     private static final int PAGE_SIZE_IMAGES_MOVIE = 40;
     private static final String PAGE_TAG = "start";
     private static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
-    private static final String ALBUM_URL_REGEX = "(http|https)://movie.douban.com/subject/\\d+/photos\\?(\\w+=\\w+&*)+";
+    private static final String ALBUM_URL_REGEX = "https://movie.douban.com/subject/\\d+/photos\\?(\\w+=\\w+&*)+";
 
     private Pattern p = Pattern.compile("type=\\w+");
 

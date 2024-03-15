@@ -28,7 +28,7 @@ public class TetsInputStream {
             System.out.println("xxxxxxxxx" + in.getClass());
             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file));
             byte[] data = new byte[1024];
-            int n = 0;
+            int n;
             int total = 0;
             while ((n = inputStream.read(data)) != -1) {
                 outputStream.write(data, 0, n);

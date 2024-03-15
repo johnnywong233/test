@@ -22,7 +22,7 @@ public class OnlineAlbumHandler extends AlbumHandler {
     public static final int PAGE_SIZE_IMAGES_ONLINE = 90;
     public static final String PAGE_TAG = "start";
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
-    public static final String ALBUM_URL_REGEX = "(http|https)://www.douban.com/online/\\d+/album/\\d+/";
+    public static final String ALBUM_URL_REGEX = "https://www.douban.com/online/\\d+/album/\\d+/";
 
     @Override
     public String getURLRegex() {

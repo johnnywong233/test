@@ -22,9 +22,9 @@ import java.util.Set;
 
 @NoArgsConstructor
 public class DownloadProcessing {
-    private static MainFrame mainFrame = MainFrame.getInstance();
-    private static JProgressBar processUnitProgressBar;
-    private static JLabel processUnitCountLabel;
+    private static final MainFrame mainFrame = MainFrame.getInstance();
+    private static final JProgressBar processUnitProgressBar;
+    private static final JLabel processUnitCountLabel;
 
     static {
         processUnitProgressBar = mainFrame.processUnitProgressBar;
@@ -36,7 +36,7 @@ public class DownloadProcessing {
         int updateCount = 0;
         Map<String, BGImage> imageMap = new HashMap<>();
         DirUtils.createDir(album);
-        int processUnitMax = (new Double(Math.ceil((double) album.getPageURLLsit().size() / 50.0D))).intValue();
+        int processUnitMax = (Double.valueOf(Math.ceil((double) album.getPageURLLsit().size() / 50.0D))).intValue();
         int processUnitNumber = 0;
         processUnitProgressBar.setMaximum(processUnitMax);
         processUnitProgressBar.setValue(0);
@@ -97,7 +97,7 @@ public class DownloadProcessing {
     }
 
     private static int processUnit(Album album, Map<String, BGImage> imageMap, List<String> pageURLList) {
-        Integer update;
+        int update;
         Console.print("处理单元：启动信息获取");
         Set<String> imageURLSet = infoProcess(album, imageMap, pageURLList);
         Console.print("处理单元：开始下载：" + album.getName() + "(" + imageURLSet.size() + "张)");

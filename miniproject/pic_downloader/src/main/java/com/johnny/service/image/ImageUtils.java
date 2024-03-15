@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Objects;
 
 public class ImageUtils {
     public static ImageInfo getImageSize(String path) {
@@ -44,13 +45,13 @@ public class ImageUtils {
         File dir = new File(path);
 
         long begin = System.currentTimeMillis();
-        for (File picture : dir.listFiles()) {
+        for (File picture : Objects.requireNonNull(dir.listFiles())) {
             getImageSize(picture.getPath());
         }
         System.out.println("【getImageSize】" + (System.currentTimeMillis() - begin));
 
         begin = System.currentTimeMillis();
-        for (File picture : dir.listFiles()) {
+        for (File picture : Objects.requireNonNull(dir.listFiles())) {
             getImageSizeByBufferedImage(picture.getPath());
         }
         System.out.println("【getImageSizeByBufferedImage】" + (System.currentTimeMillis() - begin));

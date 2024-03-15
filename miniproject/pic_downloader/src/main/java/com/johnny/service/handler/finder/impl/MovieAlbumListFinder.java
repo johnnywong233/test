@@ -8,7 +8,7 @@ import java.util.List;
 public class MovieAlbumListFinder implements IAlbumURLFinder {
     public static void main(String[] args) {
         MovieAlbumListFinder finder = new MovieAlbumListFinder();
-        String url = "(http|https)://movie.douban.com/subject/3652297/all_photos/";
+        String url = "https://movie.douban.com/subject/3652297/all_photos/";
         System.out.println(url.matches(finder.getURLRegex()));
         System.out.println(finder.findAlbumURL(url));
     }
@@ -25,6 +25,6 @@ public class MovieAlbumListFinder implements IAlbumURLFinder {
 
     @Override
     public String getURLRegex() {
-        return "(http|https)://movie.douban.com/subject/\\d+/all_photos(/)*";
+        return "https://movie.douban.com/subject/\\d+/all_photos(/)*";
     }
 }

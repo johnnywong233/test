@@ -17,12 +17,12 @@ import java.io.IOException;
 public class JPopupTextArea extends JTextArea
         implements MouseListener, ActionListener {
     private static final long serialVersionUID = -406608462064697359L;
-    private JPopupMenu popupMenu = null;
-    private JMenuItem cutMenu = null;
-    private JMenuItem copyMenu = null;
-    private JMenuItem pasteMenu = null;
-    private JMenuItem selectAllMenu = null;
-    private JMenuItem formatMenu = null;
+    private final JPopupMenu popupMenu;
+    private final JMenuItem cutMenu;
+    private final JMenuItem copyMenu;
+    private final JMenuItem pasteMenu;
+    private final JMenuItem selectAllMenu;
+    private final JMenuItem formatMenu;
 
     JPopupTextArea() {
         this.popupMenu = new JPopupMenu();

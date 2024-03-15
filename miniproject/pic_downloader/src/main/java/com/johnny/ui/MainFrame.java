@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainFrame extends JFrame {
     private static final long serialVersionUID = 1L;
@@ -28,7 +29,6 @@ public class MainFrame extends JFrame {
     public JProgressBar processUnitProgressBar;
     public JProgressBar progressBar;
     private JTextArea albumTextArea;
-    private JButton changePathBtn;
     private JTextArea infoTextArea;
     private JCheckBox isDownloadRawCheckBox;
     private JTextField pathTextField;
@@ -106,7 +106,7 @@ public class MainFrame extends JFrame {
         this.albumTextArea = new DropTextArea();
         JPanel pathPanel = new JPanel();
         this.pathTextField = new JTextField();
-        this.changePathBtn = new JButton();
+        JButton changePathBtn = new JButton();
         JLabel pathLabel = new JLabel();
         JLabel isDownloadRawLabel = new JLabel();
         this.isDownloadRawCheckBox = new JCheckBox();
@@ -125,7 +125,7 @@ public class MainFrame extends JFrame {
         JMenu jMenu4 = new JMenu();
         JMenuItem jMenuItem5 = new JMenuItem();
 
-        setDefaultCloseOperation(3);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.infoTextArea.setColumns(20);
         this.infoTextArea.setRows(5);
@@ -141,8 +141,8 @@ public class MainFrame extends JFrame {
 
         tabbedPane.addTab("相册地址", albumScrollPane);
 
-        this.changePathBtn.setText("修改");
-        this.changePathBtn.addActionListener(MainFrame.this::changePathBtnActionPerformed);
+        changePathBtn.setText("修改");
+        changePathBtn.addActionListener(MainFrame.this::changePathBtnActionPerformed);
         pathLabel.setText("保存路径：");
 
         isDownloadRawLabel.setText("保存大图：");
@@ -180,7 +180,7 @@ public class MainFrame extends JFrame {
                                                                         .addPreferredGap(
                                                                                 LayoutStyle.ComponentPlacement.RELATED)
                                                                         .addComponent(
-                                                                                this.changePathBtn))
+                                                                                changePathBtn))
                                                         .addGroup(
                                                                 pathPanelLayout
                                                                         .createSequentialGroup()
@@ -204,7 +204,7 @@ public class MainFrame extends JFrame {
                                                         .createParallelGroup(
                                                                 Alignment.BASELINE)
                                                         .addComponent(
-                                                                this.changePathBtn)
+                                                                changePathBtn)
                                                         .addComponent(pathLabel)
                                                         .addComponent(
                                                                 this.pathTextField,
@@ -225,10 +225,7 @@ public class MainFrame extends JFrame {
 
         tabbedPane.addTab("设置", pathPanel);
 
-        jButton1.setIcon(new ImageIcon(
-                getClass()
-                        .getResource(
-                                "/com.johnny/resources/images/ui/icon-dir.gif")));
+        jButton1.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/com.johnny/resources/images/ui/icon-dir.gif"))));
         jButton1.addActionListener(MainFrame.this::jButton1ActionPerformed);
         this.albumListCountLabel.setText("[0/0] ");
 
@@ -262,11 +259,7 @@ public class MainFrame extends JFrame {
 
         jMenu4.setText("帮助帖");
 
-        jMenuItem5
-                .setIcon(new ImageIcon(
-                        getClass()
-                                .getResource(
-                                        "/com.johnny/resources/images/ui/face.jpg")));
+        jMenuItem5.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/com.johnny/resources/images/ui/face.jpg"))));
         jMenuItem5.setText("猛击这里~");
         jMenuItem5.addActionListener(MainFrame.this::jMenuItem5ActionPerformed);
         jMenu4.add(jMenuItem5);
@@ -424,7 +417,7 @@ public class MainFrame extends JFrame {
     }
 
     private void jMenuItem5ActionPerformed(ActionEvent evt) {
-        Common.openURLWithBrowse("http://www.douban.com/note/206320326/", this);
+        Common.openURLWithBrowse("https://www.douban.com/note/206320326/", this);
     }
 
     private void jMenuItem4ActionPerformed(ActionEvent evt) {
@@ -446,7 +439,6 @@ public class MainFrame extends JFrame {
                 } catch (IOException e) {
                     Console.print("生成错误");
                     Console.print(e.getMessage());
-                    e.printStackTrace();
                 }
             }
         }).start();

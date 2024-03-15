@@ -4,6 +4,7 @@ import com.johnny.model.Album;
 import com.johnny.model.BGImage;
 import com.johnny.service.handler.AlbumHandler;
 import com.johnny.service.handler.AlbumHandlerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -54,16 +55,16 @@ public class AlbumFactory {
                 if (strArray.length == 3) {
                     charset = strArray[0];
                     url = strArray[1];
-                    downloadTime = new Date(Long.valueOf(strArray[2]));
+                    downloadTime = new Date(Long.parseLong(strArray[2]));
                 }
                 if (strArray.length == 4) {
                     charset = strArray[0];
                     url = strArray[1];
-                    downloadTime = new Date(Long.valueOf(strArray[2]));
+                    downloadTime = new Date(Long.parseLong(strArray[2]));
                     albumDesc = strArray[3];
                 }
                 List<AlbumHandler> handlerList = AlbumHandlerFactory.getHandler(url, false);
-                if ((handlerList != null) && (handlerList.size() != 0)) {
+                if (handlerList.size() != 0) {
                     album.setAlbumHandler(handlerList.get(0));
                 }
             }
@@ -75,7 +76,7 @@ public class AlbumFactory {
             }
             reader.close();
         }
-
+        System.out.println("size:{}" + imageNameList.size());
         File dir = new File(path);
         File[] images = dir.listFiles(file -> {
             if (!AlbumFactory.class.getName().contains(file.getName())) {

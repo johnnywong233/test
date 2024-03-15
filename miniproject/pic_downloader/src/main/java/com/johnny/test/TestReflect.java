@@ -26,12 +26,12 @@ public class TestReflect {
                 if (!entry.getName().contains("META-INF")) {
                     String sName = entry.getName();
                     String[] subStr = sName.split("/");
-                    String pName = "";
+                    StringBuilder pName = new StringBuilder();
                     for (int i = 0; i < subStr.length - 1; i++) {
                         if (i > 0) {
-                            pName = pName + "/" + subStr[i];
+                            pName.append("/").append(subStr[i]);
                         } else {
-                            pName = subStr[i];
+                            pName = new StringBuilder(subStr[i]);
                         }
                     }
                     if (!sName.contains(".class")) {
@@ -53,7 +53,7 @@ public class TestReflect {
                         }
                         myClassLoader.close();
                     }
-                    String[] b = {sName, pName};
+                    String[] b = {sName, pName.toString()};
                     list.add(b);
                 }
             }

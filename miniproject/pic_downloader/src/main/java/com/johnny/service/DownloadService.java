@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DownloadService {
-    private static MainFrame mainFrame = MainFrame.getInstance();
-    private static JProgressBar albumListProgressBar = mainFrame.albumListProgressBar;
-    private static JLabel albumListCountLabel = mainFrame.albumListCountLabel;
+    private static final MainFrame mainFrame = MainFrame.getInstance();
+    private static final JProgressBar albumListProgressBar = mainFrame.albumListProgressBar;
+    private static final JLabel albumListCountLabel = mainFrame.albumListCountLabel;
 
     public static void download(List<String> urlList) {
         List<Album> albums = new ArrayList<>();

@@ -31,7 +31,7 @@ public class AlbumListFinder implements IAlbumURLFinder {
         while (m.find()) {
             String url = m.group();
             int num = Integer.parseInt(url.substring(url.lastIndexOf("=") + 1));
-            maxStartNum = num > maxStartNum ? num : maxStartNum;
+            maxStartNum = Math.max(num, maxStartNum);
         }
 
         for (int i = 0; i <= maxStartNum; i += PAGE_SIZE_ALBUM) {
@@ -43,7 +43,7 @@ public class AlbumListFinder implements IAlbumURLFinder {
         Set<String> albumURLSet = new TreeSet<>();
         for (String aPageURLList : pageURLList) {
             source = URLUtils.readSource(aPageURLList);
-            String albumRegex = "(http|https)://www.douban.com/photos/album/\\d+";
+            String albumRegex = "https://www.douban.com/photos/album/\\d+";
             Pattern pattern = Pattern.compile(albumRegex);
             Matcher matcher = pattern.matcher(source);
             while (matcher.find()) {
@@ -59,6 +59,6 @@ public class AlbumListFinder implements IAlbumURLFinder {
 
     @Override
     public String getURLRegex() {
-        return "(http|https)://www.douban.com/people/\\w+/photos/";
+        return "https://www.douban.com/people/\\w+/photos/";
     }
 }

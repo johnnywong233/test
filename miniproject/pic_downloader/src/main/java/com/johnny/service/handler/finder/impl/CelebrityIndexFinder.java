@@ -15,6 +15,6 @@ public class CelebrityIndexFinder implements IAlbumURLFinder {
 
     @Override
     public String getURLRegex() {
-        return "(http|https)://movie.douban.com/celebrity/\\d+/";
+        return "https://movie.douban.com/celebrity/\\d+/";
     }
 }

@@ -93,7 +93,7 @@ public class PageAnalyzer {
         Map<String, BGImage> result = new HashMap<>();
         String source = URLUtils.readSource(pageURL);
 
-        String regex = "(http|https)://(\\w|\\s|\\.|-|_|/)+[.](gif|jpg|png)";
+        String regex = "https://(\\w|\\s|\\.|-|_|/)+[.](gif|jpg|png)";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(source);
         AlbumHandler albumHandler = album.getAlbumHandler();

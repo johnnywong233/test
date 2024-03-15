@@ -11,8 +11,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AlbumDouListFinder
-        implements IAlbumURLFinder {
+public class AlbumDouListFinder implements IAlbumURLFinder {
     private static final int PAGE_SIZE_ALBUM = 25;
 
     @Override
@@ -32,7 +31,7 @@ public class AlbumDouListFinder
         while (m.find()) {
             String u = m.group();
             int num = Integer.parseInt(u.substring(u.lastIndexOf("=") + 1));
-            maxStartNum = num > maxStartNum ? num : maxStartNum;
+            maxStartNum = Math.max(num, maxStartNum);
         }
 
         for (int i = 0; i <= maxStartNum; i += PAGE_SIZE_ALBUM) {
@@ -42,9 +41,9 @@ public class AlbumDouListFinder
         }
 
         Set<String> albumURLSet = new TreeSet<>();
-        for (Object aPageURLList : pageURLList) {
-            source = URLUtils.readSource((String) aPageURLList);
-            String albumRegex = "(http|https)://www.douban.com/photos/album/\\d+";
+        for (String aPageURLList : pageURLList) {
+            source = URLUtils.readSource(aPageURLList);
+            String albumRegex = "https://www.douban.com/photos/album/\\d+";
             Pattern pattern = Pattern.compile(albumRegex);
             Matcher matcher = pattern.matcher(source);
             while (matcher.find()) {
@@ -60,6 +59,6 @@ public class AlbumDouListFinder
 
     @Override
     public String getURLRegex() {
-        return "(http|https)://www.douban.com/doulist/\\d+/";
+        return "https://www.douban.com/doulist/\\d+/";
     }
 }

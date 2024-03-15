@@ -29,6 +29,6 @@ public class OnlineIndexFinder implements IAlbumURLFinder {
 
     @Override
     public String getURLRegex() {
-        return "(http|https)://www.douban.com/online/\\d+/";
+        return "https://www.douban.com/online/\\d+/";
     }
 }

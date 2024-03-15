@@ -22,11 +22,11 @@ public class SitePublicAlbumHandler extends AlbumHandler {
     public static final int PAGE_SIZE_IMAGES_SITE = 30;
     public static final String PAGE_TAG = "start";
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
-    public static final String ALBUM_URL_REGEX = "(http|https)://site.douban.com/\\d+/widget/public_album/\\d+/";
+    public static final String ALBUM_URL_REGEX = "https://site.douban.com/\\d+/widget/public_album/\\d+/";
 
     @Override
     public String getURLRegex() {
-        return "(http|https)://site.douban.com/\\d+/widget/public_album/\\d+/";
+        return "https://site.douban.com/\\d+/widget/public_album/\\d+/";
     }
 
     @Override

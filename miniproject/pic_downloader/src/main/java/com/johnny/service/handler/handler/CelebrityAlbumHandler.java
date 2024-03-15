@@ -10,7 +10,7 @@ public class CelebrityAlbumHandler extends AlbumHandler {
     public static final int PAGE_SIZE_IMAGES_CELEBRITY = 40;
     public static final String PAGE_TAG = "start";
     public static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
-    public static final String ALBUM_URL_REGEX = "(http|https)://movie.douban.com/celebrity/\\d+/photos/";
+    public static final String ALBUM_URL_REGEX = "https://movie.douban.com/celebrity/\\d+/photos/";
 
     @Override
     public String getURLRegex() {
@@ -19,7 +19,7 @@ public class CelebrityAlbumHandler extends AlbumHandler {
 
     @Override
     public String albumNameProcess(String name) {
-        return name = "影人-" + super.albumNameProcess(name);
+        return "影人-" + super.albumNameProcess(name);
     }
 
     @Override

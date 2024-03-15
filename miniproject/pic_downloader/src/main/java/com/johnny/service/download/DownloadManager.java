@@ -28,7 +28,7 @@ public class DownloadManager {
             if (i < 10) {
                 threadName = threadName + i;
             } else {
-                threadName = "线程" + String.valueOf(i);
+                threadName = "线程" + i;
             }
             downloadThread = new DownloadThread(threadName, imageURLList, imageSize, path, MAIN_PROGRESS_BAR);
             downloadThread.start();
@@ -122,7 +122,7 @@ public class DownloadManager {
 
     public static void main(String[] args) throws IOException {
         System.out.println("START");
-        new DownloadThread().downloadImage("http://img3.douban.com/view/photo/photo/public/p1105635956.jpg", "D:\\", true);
+        new DownloadThread().downloadImage("https://img3.douban.com/view/photo/photo/public/p1105635956.jpg", "D:\\", true);
         System.out.println("FINISH");
     }
 }
