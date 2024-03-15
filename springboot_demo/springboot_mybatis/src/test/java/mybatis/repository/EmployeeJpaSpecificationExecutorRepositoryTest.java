@@ -44,9 +44,8 @@ public class EmployeeJpaSpecificationExecutorRepositoryTest {
     @Test
     public void query() {
         Sort.Order order = new Sort.Order(Sort.Direction.DESC, "id");
-        Sort sort = new Sort(order);
-
-        Pageable pageable = new PageRequest(0, 5, sort);
+        Sort sort = Sort.by(order);
+        Pageable pageable = PageRequest.of(0, 5, sort);
 
         /*
          * root就是要查询的类型（Employee）

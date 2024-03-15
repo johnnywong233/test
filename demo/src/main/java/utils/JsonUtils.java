@@ -18,7 +18,6 @@ import java.util.Set;
 /**
  * Created by johnny on 2016/10/6.
  * convert all kinds of java objects into JSON
- * http://blog.csdn.net/ycwol/article/details/39202753
  */
 public class JsonUtils {
 
@@ -31,6 +30,7 @@ public class JsonUtils {
         objectMapper.configure(JsonParser.Feature.ALLOW_UNQUOTED_CONTROL_CHARS, true);
     }
 
+    // http://blog.csdn.net/ycwol/article/details/39202753
     public static String stringToJson(String s) {
         if (s == null) {
             return nullToJson();
@@ -67,9 +67,7 @@ public class JsonUtils {
                     if (ch <= '\u001F') {
                         String ss = Integer.toHexString(ch);
                         sb.append("\\u");
-                        for (int k = 0; k < 4 - ss.length(); k++) {
-                            sb.append('0');
-                        }
+                        sb.append("0".repeat(4 - ss.length()));
                         sb.append(ss.toUpperCase());
                     } else {
                         sb.append(ch);
@@ -231,7 +229,7 @@ public class JsonUtils {
     /**
      * 把对像转换成json 字符串
      */
-    public static <T extends Object> String toJson(T object) {
+    public static <T> String toJson(T object) {
         try {
             return new ObjectMapper().writeValueAsString(object);
         } catch (Exception e) {
@@ -253,7 +251,7 @@ public class JsonUtils {
     }
 
     /**
-     * 对象字段maping
+     * 对象字段mapping
      */
     public static <T> T mapObject(Class<T> clazz, Object o) {
         String json = toJson(o);
@@ -264,7 +262,7 @@ public class JsonUtils {
     /**
      * 反序列化得到List<Pojo>
      */
-    public static <T> List<T> toOjectList(String json, Class<T> type) {
+    public static <T> List<T> toObjectList(String json, Class<T> type) {
         try {
             CollectionType listType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
             return objectMapper.readValue(json, listType);

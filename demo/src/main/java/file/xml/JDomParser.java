@@ -1,5 +1,6 @@
 package file.xml;
 
+import lombok.extern.slf4j.Slf4j;
 import org.jdom2.DocType;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -8,7 +9,6 @@ import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.XMLOutputter;
 import org.xml.sax.InputSource;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +20,7 @@ import java.util.List;
  * Created by johnny on 2016/9/5.
  * demo of jdom2 to parse xml
  */
+@Slf4j
 public class JDomParser {
 
     //TODO
@@ -68,7 +69,7 @@ public class JDomParser {
             //2、使用类的相对路径查找xml路径
             //InputStream inputStream = this.getClass().getResourceAsStream(xmlName);
             //3、也可以指定路径完成InputStream输入流的实例化操作
-            InputStream inputStream = new FileInputStream(new File(xmlPath));
+            InputStream inputStream = new FileInputStream(xmlPath);
             //4、使用InputSource输入源作为参数也可以转换xml
             InputSource inputSource = new InputSource(inputStream);
             //解析xml文档，返回document文档对象
@@ -90,9 +91,7 @@ public class JDomParser {
             }
             //但是有些情况xml比较复杂，规范不统一，某个节点不存在直接java.lang.NullPointerException，所以获取到element对象之后要先判断一下是否为空
             List<Element> list = rootElement.getChildren("Element");//返回的是List集合
-            for (Element ele : list) {
-
-            }
+            log.info("list:{}", list);
         } catch (JDOMException | IOException e) {
             e.printStackTrace();
         }
@@ -175,9 +174,9 @@ public class JDomParser {
                 if (valueElement != null) {
                     System.out.println("   " + valueElement.getName() + "：" + valueElement.getTextTrim());
                 }
-                Element descriptElement = element.getChild("new_descript");
-                if (descriptElement != null) {
-                    System.out.println("   " + descriptElement.getName() + "：" + descriptElement.getTextTrim());
+                Element descElement = element.getChild("new_descript");
+                if (descElement != null) {
+                    System.out.println("   " + descElement.getName() + "：" + descElement.getTextTrim());
                 }
             }
         } catch (JDOMException | IOException e) {

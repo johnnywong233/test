@@ -17,7 +17,7 @@ public class SizeOf {
     private static Instrumentation inst;
 
     public static void main(String []args) {
-        System.out.println(SizeOf.sizeOf(new Integer(1)));
+        System.out.println(SizeOf.sizeOf(Integer.valueOf(1)));
         System.out.println(SizeOf.sizeOf(new String("a")));
         System.out.println(SizeOf.fullSizeOf(new String("a")));
         System.out.println(SizeOf.sizeOf(new char[1]));

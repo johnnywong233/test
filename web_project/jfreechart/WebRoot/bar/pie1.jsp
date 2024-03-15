@@ -31,10 +31,10 @@
 <%
     //默认的饼图数据集类，用来存储饼图显示的相关数据信息
     DefaultPieDataset dataset = new DefaultPieDataset();
-    dataset.setValue("品德", new Double(0.2D));
-    dataset.setValue("体育", new Double(0.2D));
-    dataset.setValue("音乐", new Double(0.2D));
-    dataset.setValue("其余成绩", new Double(0.4D));
+    dataset.setValue("品德", Double.valueOf(0.2D));
+    dataset.setValue("体育", Double.valueOf(0.2D));
+    dataset.setValue("音乐", Double.valueOf(0.2D));
+    dataset.setValue("其余成绩", Double.valueOf(0.4D));
     //可利用该制图工厂类createPieChart来创建一个饼图的JFreeChart对象
     JFreeChart jfreeChart = ChartFactory.createPieChart("饼图示例", dataset, true, true, false);
     //饼图绘制类，可以用来设置饼图的相关属性

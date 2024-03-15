@@ -24,7 +24,7 @@
 <body>
 <%
     //访问量统计时间线
-    TimeSeries timeSeries = new TimeSeries("阿蜜果blog访问量统计", Month.class);
+    TimeSeries timeSeries = new TimeSeries("阿蜜果blog访问量统计");
     //时间曲线数据集合
     TimeSeriesCollection lineDataset = new TimeSeriesCollection();
     //构造数据集合

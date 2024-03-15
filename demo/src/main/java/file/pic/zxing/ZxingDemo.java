@@ -38,7 +38,7 @@ public class ZxingDemo {
     private static final int FRAME_WIDTH = 2;
 
     // 二维码写码器
-    private static MultiFormatWriter multiWriter = new MultiFormatWriter();
+    private static final MultiFormatWriter multiWriter = new MultiFormatWriter();
 
     //http://www.jb51.net/article/95876.htm
     public static void main(String[] args) {
@@ -149,14 +149,11 @@ public class ZxingDemo {
         // 计算比例
         if ((srcImage.getHeight() > height) || (srcImage.getWidth() > width)) {
             if (srcImage.getHeight() > srcImage.getWidth()) {
-                ratio = (new Integer(height)).doubleValue()
-                        / srcImage.getHeight();
+                ratio = (Integer.valueOf(height)).doubleValue() / srcImage.getHeight();
             } else {
-                ratio = (new Integer(width)).doubleValue()
-                        / srcImage.getWidth();
+                ratio = (Integer.valueOf(width)).doubleValue() / srcImage.getWidth();
             }
-            AffineTransformOp op = new AffineTransformOp(
-                    AffineTransform.getScaleInstance(ratio, ratio), null);
+            AffineTransformOp op = new AffineTransformOp(AffineTransform.getScaleInstance(ratio, ratio), null);
             destImage = op.filter(srcImage, null);
         }
         if (hasFiller) {// 补白
@@ -171,7 +168,7 @@ public class ZxingDemo {
                         (height - destImage.getHeight(null)) / 2,
                         destImage.getWidth(null), destImage.getHeight(null),
                         Color.white, null);
-                Shape shape = new RoundRectangle2D.Float(0, (height - destImage.getHeight(null)) / 2, width, width, 20, 20);
+                Shape shape = new RoundRectangle2D.Float(0, (float) (height - destImage.getHeight(null)) / 2, width, width, 20, 20);
                 graphic.setStroke(new BasicStroke(5f));
                 graphic.draw(shape);
             } else {
@@ -179,7 +176,7 @@ public class ZxingDemo {
                         (width - destImage.getWidth(null)) / 2, 0,
                         destImage.getWidth(null), destImage.getHeight(null),
                         Color.white, null);
-                Shape shape = new RoundRectangle2D.Float((width - destImage.getWidth(null)) / 2, 0, width, width, 20, 20);
+                Shape shape = new RoundRectangle2D.Float((float) (width - destImage.getWidth(null)) / 2, 0, width, width, 20, 20);
                 graphic.setStroke(new BasicStroke(5f));
                 graphic.draw(shape);
             }

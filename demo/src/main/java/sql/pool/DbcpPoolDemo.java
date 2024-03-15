@@ -1,12 +1,11 @@
 package sql.pool;
 
-//import org.apache.commons.dbcp2.BasicDataSource;
-
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.Properties;
 
 /**
@@ -35,10 +34,9 @@ public class DbcpPoolDemo {
             dbcp.setUsername(prop.getProperty("jdbc.user"));
             dbcp.setPassword(prop.getProperty("jdbc.password"));
             dbcp.setInitialSize(Integer.parseInt(prop.getProperty("initsize")));
-            //以下两项设置只有dbcp才有！dbcp2弃用？
-            //连接池允许的最大连接数
-            dbcp.setMaxActive(Integer.parseInt(prop.getProperty("maxactive")));
-            dbcp.setMaxWait(Integer.parseInt(prop.getProperty("maxwait")));
+            // 连接池允许的最大连接数
+            dbcp.setMaxTotal(Integer.parseInt(prop.getProperty("maxactive")));
+            dbcp.setMaxWait(Duration.ofMillis(Long.parseLong(prop.getProperty("maxwait"))));
             dbcp.setMinIdle(Integer.parseInt(prop.getProperty("minidle")));
             dbcp.setMaxIdle(Integer.parseInt(prop.getProperty("maxidle")));
             tl = new ThreadLocal<>();

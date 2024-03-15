@@ -1,6 +1,6 @@
 package es.service;
 
-import es.ESApplication;
+import es.EsApplication;
 import es.model.Book;
 import org.junit.After;
 import org.junit.Before;
@@ -22,15 +22,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-//care for static import
-
 /**
  * Author: Johnny
  * Date: 2017/9/24
  * Time: 17:32
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ESApplication.class)
+@SpringBootTest(classes = EsApplication.class)
 public class BookServiceTest {
 
     @Autowired
@@ -53,7 +51,7 @@ public class BookServiceTest {
 
     @Test
     public void testSave() {
-        Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
+        Book book = new Book("1001", "Elasticsearch Basics", "wong", "23-FEB-2017");
         Book testBook = bookService.save(book);
 
         assertNotNull(testBook.getId());
@@ -64,7 +62,7 @@ public class BookServiceTest {
 
     @Test
     public void testDelete() {
-        Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
+        Book book = new Book("1001", "Elasticsearch Basics", "wong", "23-FEB-2017");
         bookService.save(book);
         bookService.delete(book);
         Book testBook = bookService.findOne(book.getId());
@@ -73,7 +71,7 @@ public class BookServiceTest {
 
     @Test
     public void testFindOne() {
-        Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
+        Book book = new Book("1001", "Elasticsearch Basics", "wong", "23-FEB-2017");
         bookService.save(book);
 
         Book testBook = bookService.findOne(book.getId());
@@ -92,27 +90,27 @@ public class BookServiceTest {
     public void testFindByAuthor() {
         List<Book> bookList = new ArrayList<>();
 
-        bookList.add(new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017"));
-        bookList.add(new Book("1002", "Apache Lucene Basics", "Rambabu Posa", "13-MAR-2017"));
-        bookList.add(new Book("1003", "Apache Solr Basics", "Rambabu Posa", "21-MAR-2017"));
-        bookList.add(new Book("1007", "Spring Data + ElasticSearch", "Rambabu Posa", "01-APR-2017"));
-        bookList.add(new Book("1008", "Spring Boot + MongoDB", "Mkyong", "25-FEB-2017"));
+        bookList.add(new Book("1001", "Elasticsearch Basics", "johnny", "23-FEB-2017"));
+        bookList.add(new Book("1002", "Apache Lucene Basics", "wong", "13-MAR-2017"));
+        bookList.add(new Book("1003", "Apache Solr Basics", "wong", "21-MAR-2017"));
+        bookList.add(new Book("1007", "Spring Data + ElasticSearch", "wong", "01-APR-2017"));
+        bookList.add(new Book("1008", "Spring Boot + MongoDB", "johnny", "25-FEB-2017"));
 
         for (Book book : bookList) {
             bookService.save(book);
         }
 
-        Page<Book> byAuthor = bookService.findByAuthor("Rambabu Posa", new PageRequest(0, 10));
+        Page<Book> byAuthor = bookService.findByAuthor("wong", PageRequest.of(0, 10));
         assertThat(byAuthor.getTotalElements(), is(4L));
 
-        Page<Book> byAuthor2 = bookService.findByAuthor("Mkyong", new PageRequest(0, 10));
+        Page<Book> byAuthor2 = bookService.findByAuthor("johnny", PageRequest.of(0, 10));
         assertThat(byAuthor2.getTotalElements(), is(1L));
 
     }
 
     @Test
     public void findByTitle() {
-        Book book = new Book("1001", "Elasticsearch Basics", "Rambabu Posa", "23-FEB-2017");
+        Book book = new Book("1001", "Elasticsearch Basics", "wong", "23-FEB-2017");
         bookService.save(book);
 
         List<Book> byTitle = bookService.findByTitle(book.getTitle());

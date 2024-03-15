@@ -1,6 +1,6 @@
 package sql.pool;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,7 +31,7 @@ public class DbcpPool {
                     bds.setUsername(USER);
                     bds.setPassword(PASSWORD);
                     bds.setInitialSize(10);
-                    bds.setMaxActive(20);
+                    bds.setMaxTotal(20);
                     bds.setMinIdle(2);
                 }
             }

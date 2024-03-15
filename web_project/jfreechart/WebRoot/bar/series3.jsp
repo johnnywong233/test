@@ -32,8 +32,8 @@
 <body>
 <%
     //访问量统计时间线
-    TimeSeries timeSeries2006 = new TimeSeries("2006年度", Month.class);
-    TimeSeries timeSeries2007 = new TimeSeries("2007年度", Month.class);
+    TimeSeries timeSeries2006 = new TimeSeries("2006年度");
+    TimeSeries timeSeries2007 = new TimeSeries("2007年度");
 
     //时间曲线数据集合
     TimeSeriesCollection lineDataset = new TimeSeriesCollection();

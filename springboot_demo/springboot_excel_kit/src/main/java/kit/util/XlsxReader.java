@@ -353,19 +353,15 @@ public class XlsxReader extends DefaultHandler {
     private String fillChar(String str, int len, char let, boolean isPre) {
         int strLen = str.length();
         if (strLen < len) {
+            StringBuilder strBuilder = new StringBuilder(str);
             if (isPre) {
-                StringBuilder strBuilder = new StringBuilder(str);
                 for (int i = 0; i < (len - strLen); i++) {
                     strBuilder.insert(0, let);
                 }
-                str = strBuilder.toString();
             } else {
-                StringBuilder strBuilder = new StringBuilder(str);
-                for (int i = 0; i < (len - strLen); i++) {
-                    strBuilder.append(let);
-                }
-                str = strBuilder.toString();
+                strBuilder.append(String.valueOf(let).repeat((len - strLen)));
             }
+            str = strBuilder.toString();
         }
         return str;
     }

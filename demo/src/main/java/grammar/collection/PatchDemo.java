@@ -80,12 +80,12 @@ public class PatchDemo {
     private static void testStreamPerformance() {
         // 初始化一个范围100万整数流,求能被2整除的数字，toArray（）是终点方法
         long start1 = System.nanoTime();
-        int a[] = IntStream.range(0, 1_000_000).filter(p -> p % 2 == 0)
+        int[] a = IntStream.range(0, 1_000_000).filter(p -> p % 2 == 0)
                 .toArray();
         System.out.printf("测试顺序流的性能: %.2fs",
                 (System.nanoTime() - start1) * 1e-9);
         long start2 = System.nanoTime();
-        int b[] = IntStream.range(0, 1_000_000).parallel()
+        int[] b = IntStream.range(0, 1_000_000).parallel()
                 .filter(p -> p % 2 == 0).toArray();
         System.out.printf(" 测试并行流的性能: %.2fs",
                 (System.nanoTime() - start2) * 1e-9);

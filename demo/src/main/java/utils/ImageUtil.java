@@ -138,9 +138,9 @@ public class ImageUtil {
             // 计算比例
             if ((bi.getHeight() > height) || (bi.getWidth() > width)) {
                 if (bi.getHeight() > bi.getWidth()) {
-                    ratio = (new Integer(height)).doubleValue() / bi.getHeight();
+                    ratio = (Integer.valueOf(height)).doubleValue() / bi.getHeight();
                 } else {
-                    ratio = (new Integer(width)).doubleValue() / bi.getWidth();
+                    ratio = (Integer.valueOf(width)).doubleValue() / bi.getWidth();
                 }
                 AffineTransformOp op = new AffineTransformOp(
                         AffineTransform.getScaleInstance(ratio, ratio), null);
@@ -219,7 +219,7 @@ public class ImageUtil {
         double widthRatio = screenWidth / (double) imWidth;
         double heightRatio = screenHeight / (double) imHeight;
 
-        double scale = (widthRatio > heightRatio) ? widthRatio : heightRatio;
+        double scale = Math.max(widthRatio, heightRatio);
         // scale is the largest screen-dimension/image-dimension
 
         // calculate new image dimensions which fit the screen (or makes the image bigger)

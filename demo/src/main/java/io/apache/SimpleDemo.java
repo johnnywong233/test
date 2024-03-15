@@ -1,7 +1,6 @@
 package io.apache;
 
 import org.apache.commons.io.FileDeleteStrategy;
-import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOCase;
@@ -28,7 +27,11 @@ import org.apache.commons.io.output.TeeOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * version 2.1: apache.commons.io contains ByteArrayOutputStream, but not ByteArrayInputStream, WTF Created by johnny on 2016/10/6. Simple usage of apache common io
@@ -74,8 +77,9 @@ public class SimpleDemo {
         System.out.println("Ends with string (case sensitive): " + IOCase.SENSITIVE.checkEndsWith(str1, "string."));
         System.out.println("Ends with string (case insensitive): " + IOCase.INSENSITIVE.checkEndsWith(str1, "string."));
         System.out.println("String equality: " + IOCase.SENSITIVE.checkEquals(str1, str2));
-        System.out.println("Free disk space (in KB): " + FileSystemUtils.freeSpaceKb("C:"));
-        System.out.println("Free disk space (in MB): " + FileSystemUtils.freeSpaceKb("C:") / 1024);
+        Path of = Path.of("C:");
+        System.out.println("Free disk space (in KB): " + Files.getFileStore(of).getUsableSpace());
+        System.out.println("Free disk space (in MB): " + Files.getFileStore(of).getUsableSpace() / 1024);
     }
 
     private void fileMonitor() {
@@ -128,22 +132,23 @@ public class SimpleDemo {
         System.out.println("File Filter example...");/* Get all the files in the specified directory that are named "example".*/
         File dir = FileUtils.getFile(PARENT_DIR);
         String[] acceptedNames = {"example", "exampleTxt.txt"};
-        for (String file : dir.list(new NameFileFilter(acceptedNames, IOCase.INSENSITIVE))) {
+        for (String file : Objects.requireNonNull(dir.list(new NameFileFilter(acceptedNames, IOCase.INSENSITIVE)))) {
             System.out.println("File found, named: " + file);/* We can use wildcards in order to get less specific results ? used for 1 missing char * used for multiple missing chars*/
         }
-        for (String file : dir.list(new WildcardFileFilter("*ample*"))) {
+        WildcardFileFilter filter = WildcardFileFilter.builder().setWildcards("*ample*").get();
+        for (String file : Objects.requireNonNull(dir.list(filter))) {
             System.out.println("Wildcard file found, named: " + file);/*use the equivalent of startsWith for filtering files.*/
         }
-        for (String file : dir.list(new PrefixFileFilter("example"))) {
+        for (String file : Objects.requireNonNull(dir.list(new PrefixFileFilter("example")))) {
             System.out.println("Prefix file found, named: " + file);/*use the equivalent of endsWith for filtering files.*/
         }
-        for (String file : dir.list(new SuffixFileFilter(".txt"))) {
+        for (String file : Objects.requireNonNull(dir.list(new SuffixFileFilter(".txt")))) {
             System.out.println("Suffix file found, named: " + file);/* We can use some filters of filters. in this case, we use a filter to apply a logical or between our filters.*/
         }
-        for (String file : dir.list(new OrFileFilter(new WildcardFileFilter("*ample*"), new SuffixFileFilter(".txt")))) {
+        for (String file : Objects.requireNonNull(dir.list(new OrFileFilter(filter, new SuffixFileFilter(".txt"))))) {
             System.out.println("Or file found, named: " + file);/* And this can become very detailed. Eg, get all the files that have "ample" in their name but they are not text files (so they have no ".txt" extension.*/
         }
-        for (String file : dir.list(new AndFileFilter( /* we will match 2 filters...*/ new WildcardFileFilter("*ample*"), /* ...the 1st is a wildcard...*/ new NotFileFilter(new SuffixFileFilter(".txt"))))) { /* ...and the 2nd is NOT .txt.*/
+        for (String file : Objects.requireNonNull(dir.list(new AndFileFilter( /* we will match 2 filters...*/ filter, /* ...the 1st is a wildcard...*/ new NotFileFilter(new SuffixFileFilter(".txt")))))) { /* ...and the 2nd is NOT .txt.*/
             System.out.println("And/Not file found, named: " + file);
         }
     }
@@ -179,18 +184,16 @@ public class SimpleDemo {
     }
 
     private void input() {
-        System.out.println("Input example...");
         XmlStreamReader xmlReader = null;
         TeeInputStream tee = null;
-        try {/* XmlStreamReader We can read an xml file and get its encoding.*/
+        try {
             File xml = FileUtils.getFile(XML_PATH);
             xmlReader = new XmlStreamReader(xml);
             System.out.println("XML encoding: " + xmlReader.getEncoding());/* TeeInputStream This very useful class copies an input stream to an output stream and closes both using only one close() method (by defining the 3rd constructor parameter as true).*/
-            ByteArrayInputStream in = new ByteArrayInputStream(INPUT.getBytes("US-ASCII"));
+            ByteArrayInputStream in = new ByteArrayInputStream(INPUT.getBytes(StandardCharsets.US_ASCII));
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             tee = new TeeInputStream(in, out, true);
             tee.read(new byte[INPUT.length()]);
-            System.out.println("Output stream: " + out.toString());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -215,15 +218,15 @@ public class SimpleDemo {
         System.out.println("Output example...");
         TeeInputStream teeIn = null;
         TeeOutputStream teeOut;
-        try {/* TeeOutputStream*/
-            ByteArrayInputStream in = new ByteArrayInputStream(INPUT.getBytes("US-ASCII"));
+        try {
+            ByteArrayInputStream in = new ByteArrayInputStream(INPUT.getBytes(StandardCharsets.US_ASCII));
             ByteArrayOutputStream out1 = new ByteArrayOutputStream();
             ByteArrayOutputStream out2 = new ByteArrayOutputStream();
             teeOut = new TeeOutputStream(out1, out2);
             teeIn = new TeeInputStream(in, teeOut, true);
             teeIn.read(new byte[INPUT.length()]);
-            System.out.println("Output stream 1: " + out1.toString());
-            System.out.println("Output stream 2: " + out2.toString());
+            System.out.println("Output stream 1: " + out1);
+            System.out.println("Output stream 2: " + out2);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {/* No need to close teeOut. When teeIn closes, it will also close its Output stream (which is teeOut), which will in turn close the 2 branches (out1, out2).*/

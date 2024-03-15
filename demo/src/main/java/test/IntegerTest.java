@@ -8,18 +8,18 @@ public class IntegerTest {
         Scanner input = new Scanner(System.in);
         while (input.hasNextInt()) {
             int ii = input.nextInt();
-            System.out.println("\n === " + ii + "������ж� =====");
+            System.out.println("\n === " + ii + "=====");
             Integer i = new Integer(ii);
             Integer j = new Integer(ii);
-            System.out.println("new �����Ķ���" + (i == j));
+            System.out.println("new: " + (i == j));
 
             i = ii;
             j = ii;
-            System.out.println("��������ת���Ķ���" + (i == j));
+            System.out.println("直接赋值" + (i == j));
 
             i = Integer.valueOf(ii);
             j = Integer.valueOf(ii);
-            System.out.println("valueof �����Ķ���" + (i == j));
+            System.out.println("valueOf: " + (i == j));
         }
         input.close();
     }

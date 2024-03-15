@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static junit.framework.TestCase.assertEquals;
-import static junitparams.JUnitParamsRunner.$;
 
 /**
  * Created by Johnny on 2018/4/13.
@@ -30,14 +29,6 @@ public class CalculatorTestWithJUnitParams {
                 new Object[]{1, 1, 2},
                 new Object[]{2, 1, 3}
         };
-    }
-
-    private Object addTestData1() {
-        return $(
-                $(0, 0, 0),
-                $(1, 1, 2),
-                $(2, 1, 3)
-        );
     }
 
     @Test
