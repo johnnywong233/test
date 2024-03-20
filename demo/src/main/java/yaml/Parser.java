@@ -87,11 +87,6 @@ public class Parser {
 @AllArgsConstructor
 class Pojo {
     public String name;
-
-    @Override
-    public String toString() {
-        return "name->" + name;
-    }
 }
 
 @Data

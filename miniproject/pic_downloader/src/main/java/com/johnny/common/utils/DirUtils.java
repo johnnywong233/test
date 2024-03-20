@@ -38,7 +38,6 @@ public class DirUtils {
             dir = new File(path);
             if (!dir.exists()) {
                 dir.mkdirs();
-                Console.print("新建目录：" + path);
             }
         }
         album.setPath(dir.getAbsolutePath());

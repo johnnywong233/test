@@ -39,7 +39,7 @@ public class CopyObjectUtil extends BeanUtils {
                         Object value = srcValue;
                         //转换Double 与 BigDecimal
                         if (sourcePd.getPropertyType().isAssignableFrom(Double.class) && targetPd.getPropertyType().isAssignableFrom(BigDecimal.class)) {
-                            value = new BigDecimal((Double) srcValue);
+                            value = BigDecimal.valueOf((Double) srcValue);
                         }
                         if (sourcePd.getPropertyType().isAssignableFrom(BigDecimal.class) && targetPd.getPropertyType().isAssignableFrom(Double.class)) {
                             value = ((BigDecimal) srcValue).doubleValue();
@@ -54,7 +54,7 @@ public class CopyObjectUtil extends BeanUtils {
                         //转换String为数字的 与 BigDecimal
                         if (sourcePd.getPropertyType().isAssignableFrom(String.class) && targetPd.getPropertyType().isAssignableFrom(BigDecimal.class)) {
                             String srcValueStr = (String) srcValue;
-                            if (srcValueStr.matches("^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){2})$")) {
+                            if (srcValueStr.matches("^(([1-9]\\d*)|(0))(\\.(\\d){2})$")) {
                                 value = new BigDecimal((String) srcValue);
                             }
                         }

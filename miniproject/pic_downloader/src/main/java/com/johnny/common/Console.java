@@ -8,17 +8,14 @@ import java.util.logging.Logger;
 public class Console {
     public static JTextArea consoleArea;
     public static Long count = 0L;
-    private static Integer MAX_LINE = 1000;
-    private static SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-    private static boolean isDebug = true;
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
 
     public static void print(String text) {
-        if (isDebug) {
-            System.out.println(text);
-        }
+        System.out.println(text);
         if (consoleArea != null) {
             synchronized (consoleArea) {
                 int lineCount = consoleArea.getLineCount();
+                int MAX_LINE = 1000;
                 if (lineCount >= MAX_LINE) {
                     int end = 0;
                     try {

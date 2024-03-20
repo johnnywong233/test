@@ -1,5 +1,7 @@
 package cache.demo1;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -10,30 +12,14 @@ import java.util.Arrays;
  * Date: 2017/9/3
  * Time: 16:49
  */
+@Getter
+@AllArgsConstructor
 public class InvocationContext {
     private static final String TEMPLATE = "%s.%s(%s)";
 
-    private final Class targetClass;
+    private final Class<?> targetClass;
     private final String targetMethod;
     private final Object[] args;
-
-    InvocationContext(Class targetClass, String targetMethod, Object[] args) {
-        this.targetClass = targetClass;
-        this.targetMethod = targetMethod;
-        this.args = args;
-    }
-
-    public Class getTargetClass() {
-        return targetClass;
-    }
-
-    public String getTargetMethod() {
-        return targetMethod;
-    }
-
-    public Object[] getArgs() {
-        return args;
-    }
 
     @Override
     public boolean equals(Object that) {

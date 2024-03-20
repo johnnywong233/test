@@ -3,7 +3,6 @@ package com.johnny.web.config;
 import com.johnny.web.service.CustomUserDetailsService;
 import com.johnny.web.service.LoginSuccessHandler;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -18,32 +17,32 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * deprecated @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
- * see https://stackoverflow.com/questions/45529743/ordersecurityproperties-access-override-order-vs-managementserverproperties-a
  */
 @Configuration
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 @EnableConfigurationProperties(SecuritySettings.class)
 @Slf4j
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
+    @Resource
     private AuthenticationManager authenticationManager;
-    @Autowired
+    @Resource
     private SecuritySettings settings;
-    @Autowired
+    @Resource
     private CustomUserDetailsService customUserDetailsService;
-    @Autowired
+    @Resource
     @Qualifier("dataSource")
     private DataSource dataSource;
 
+    // https://stackoverflow.com/questions/45529743/ordersecurityproperties-access-override-order-vs-managementserverproperties-a
     @Override
-    protected void configure(AuthenticationManagerBuilder auth)
-            throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
         //remember me
         auth.eraseCredentials(false);
@@ -54,12 +53,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/login").permitAll().successHandler(loginSuccessHandler())
                 .and().authorizeRequests()
                 .antMatchers("/images/**", "/checkcode", "/scripts/**", "/styles/**").permitAll()
-                .antMatchers(settings.getPermitall().split(",")).permitAll()
+                .antMatchers(settings.getPermitAll().split(",")).permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().requireCsrfProtectionMatcher(csrfSecurityRequestMatcher())
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.NEVER)
-                .and().logout().logoutSuccessUrl(settings.getLogoutsuccssurl())
-                .and().exceptionHandling().accessDeniedPage(settings.getDeniedpage())
+                .and().logout().logoutSuccessUrl(settings.getLogoutSuccessUrl())
+                .and().exceptionHandling().accessDeniedPage(settings.getDeniedPage())
                 .and().rememberMe().tokenValiditySeconds(86400).tokenRepository(tokenRepository());
     }
 
@@ -96,7 +95,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public CustomSecurityMetadataSource securityMetadataSource() {
-        return new CustomSecurityMetadataSource(settings.getUrlroles());
+        return new CustomSecurityMetadataSource(settings.getUrlRoles());
     }
 
     private CsrfSecurityRequestMatcher csrfSecurityRequestMatcher() {

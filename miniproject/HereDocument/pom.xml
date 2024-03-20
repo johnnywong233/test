@@ -13,15 +13,14 @@
     <packaging>jar</packaging>
 
     <name>HereDocument</name>
-    <url>http://maven.apache.org</url>
 
     <properties>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
         </dependency>
     </dependencies>
 

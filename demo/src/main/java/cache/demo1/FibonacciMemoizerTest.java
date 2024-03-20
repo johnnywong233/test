@@ -1,7 +1,8 @@
 package cache.demo1;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
+
+import javax.annotation.Resource;
 
 import static org.testng.Assert.assertEquals;
 
@@ -12,7 +13,7 @@ import static org.testng.Assert.assertEquals;
  */
 public class FibonacciMemoizerTest {
 
-    @Autowired
+    @Resource
     private FibonacciService fibonacciService;
 
     @Test

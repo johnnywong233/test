@@ -1,5 +1,6 @@
 package quartz;
 
+import lombok.extern.slf4j.Slf4j;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
 import org.quartz.Job;
@@ -28,6 +29,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
  * 排除特定日期，比如节假日的CronTrigger实例
  * 注意static method的使用
  */
+@Slf4j
 public class CalendarExample {
     public void run() throws SchedulerException {
 
@@ -39,11 +41,11 @@ public class CalendarExample {
         AnnualCalendar holidays = new AnnualCalendar();
 
         // 劳动节 5月1日
-        Calendar firstOfMay = new GregorianCalendar(2016, 4, 1);
+        Calendar firstOfMay = new GregorianCalendar(2016, Calendar.MAY, 1);
         holidays.setDayExcluded(firstOfMay, true);
 
         // 国庆节 10月1日
-        Calendar nationalDay = new GregorianCalendar(2016, 9, 1);
+        Calendar nationalDay = new GregorianCalendar(2016, Calendar.OCTOBER, 1);
         holidays.setDayExcluded(nationalDay, true);
 
         // tell the schedule about our holiday calendar
@@ -59,7 +61,7 @@ public class CalendarExample {
 
         // schedule the job and print the first run date
         Date firstRunTime = scheduler.scheduleJob(job, trigger);
-
+        log.info("firstRunTime:{}", firstRunTime);
         // print out the first execution date.
         scheduler.scheduleJob(job, trigger);
 

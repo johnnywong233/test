@@ -19,12 +19,10 @@ public class RequestScopeCache {
 
     private final Map<InvocationContext, Object> cache = new HashMap<>();
 
-    @SuppressWarnings("unchecked")
     public Object get(InvocationContext invocationContext) {
         return cache.getOrDefault(invocationContext, NONE);
     }
 
-    @SuppressWarnings("unchecked")
     public void put(InvocationContext methodInvocation, Object result) {
         cache.put(methodInvocation, result);
     }

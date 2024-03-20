@@ -22,7 +22,7 @@ import java.awt.event.MouseListener;
  * Time: 22:14
  */
 public class MoveExample {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         new Hua_Rong_Road();
     }
 }
@@ -30,7 +30,7 @@ public class MoveExample {
 class Person extends JButton implements FocusListener {
     private static final long serialVersionUID = 5558165565531610960L;
     int number;
-    private Color c;
+    private final Color c;
 
     Person(int number, String s) {
         super(s);
@@ -53,9 +53,9 @@ class Person extends JButton implements FocusListener {
 
 class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, ActionListener {
     private static final long serialVersionUID = 6961895641557715088L;
-    private Person person[] = new Person[10];
+    private final Person[] person = new Person[10];
     private JButton left, right, above, below;
-    private JButton restart = new JButton("restart..");
+    private final JButton restart = new JButton("restart..");
     private Container con;
 
     Hua_Rong_Road() {
@@ -72,7 +72,7 @@ class Hua_Rong_Road extends JFrame implements KeyListener, MouseListener, Action
         con.add(restart);
         restart.setBounds(100, 5, 120, 25);
         restart.addActionListener(this);
-        String name[] = {"曹操", "关羽", "张", "刘", "马", "许", "兵", "兵", "兵", "兵"};
+        String[] name = {"曹操", "关羽", "张", "刘", "马", "许", "兵", "兵", "兵", "兵"};
         for (int i = 0; i < name.length; i++) {
             person[i] = new Person(i, name[i]);
             person[i].addKeyListener(this);

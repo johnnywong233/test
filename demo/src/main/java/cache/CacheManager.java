@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 /**
  * Created by johnny on 2016/10/6.
  * 可扩展的功能：当cache到内存溢出时必须清除掉最早期的一些缓存对象，这就要求对每个缓存对象保存创建时间
  */
 public class CacheManager {
-    private static HashMap<String, Object> cacheMap = new HashMap<>();
+    private static final HashMap<String, Object> cacheMap = new HashMap<>();
 
     //单实例构造方法
     private CacheManager() {
@@ -27,7 +26,7 @@ public class CacheManager {
         }
     }
 
-    public static long getServerStartdt(String key) {
+    public static long getServerStart(String key) {
         try {
             return (Long) cacheMap.get(key);
         } catch (Exception ex) {
@@ -169,16 +168,15 @@ public class CacheManager {
     public static ArrayList<String> getCacheAllKey() {
         ArrayList<String> a = new ArrayList<>();
         try {
-            a.addAll(cacheMap.entrySet().stream().map(Entry::getKey).collect(Collectors.toList()));
+            a.addAll(new ArrayList<>(cacheMap.keySet()));
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            return a;
         }
+        return a;
     }
 
     //获取缓存对象中指定类型 的键值名称
-    public static ArrayList<String> getCacheListkey(String type) {
+    public static ArrayList<String> getCacheListKey(String type) {
         ArrayList<String> a = new ArrayList<>();
         String key;
         try {
@@ -190,9 +188,8 @@ public class CacheManager {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-        } finally {
-            return a;
         }
+        return a;
     }
 
     //测试类，

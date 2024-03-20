@@ -22,14 +22,11 @@ public class Common {
     public static final int IMAGE_DOWNLOAD_STATUS_EXISTS = 0;
     public static final int IMAGE_DOWNLOAD_STATUS_FINISH = 1;
     public static final int IMAGE_DOWNLOAD_STATUS_URL_NOT_EXISTS = 2;
-    public static final String URL_HELP = "http://www.douban.com/note/206320326/";
-    public static final String URL_DOUPIC = "http://www.douban.com/group/doupic/";
+    public static final String URL_HELP = "https://www.douban.com/note/206320326/";
+    public static final String URL_PIC = "https://www.douban.com/group/doupic/";
     public static final long TIME_PROCESS_MIN = 60000L;
     public static final long TIME_PROCESS_SLEEP = 60L;
     public static final int PROCESS_UNIT_SIZE = 50;
-    public static final String CHARTSET_UTF8 = "utf-8";
-    public static final String CHARTSET_GBK = "gbk";
-    public static final String CHARTSET_GB2312 = "gb2312";
     public static final int DOWNLOAD_THREAD = 15;
     public static final String IMAGE_TYPE = "gif|jpg|png";
     public static final Integer AUTO_DOWNLOAD_FAIL_FILE = 5;
@@ -94,11 +91,11 @@ public class Common {
             } catch (IOException e) {
                 e.printStackTrace();
                 String msg = "无法获取系统默认浏览器，地址：" + url;
-                JOptionPane.showMessageDialog(frame, msg, "555~", 0);
+                JOptionPane.showMessageDialog(frame, msg, "555~", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             String msg = "当前JDK版本过低，无法执行打开操作，地址：" + url;
-            JOptionPane.showMessageDialog(frame, msg, "555~", 0);
+            JOptionPane.showMessageDialog(frame, msg, "555~", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

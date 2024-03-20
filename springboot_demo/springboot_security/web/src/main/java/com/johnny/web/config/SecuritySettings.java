@@ -3,11 +3,11 @@ package com.johnny.web.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "securityconfig")
+@ConfigurationProperties(prefix = "security.config")
 @Data
 public class SecuritySettings {
-    private String logoutsuccssurl = "/logout";
-    private String permitall = "/api";
-    private String deniedpage = "/deny";
-    private String urlroles;
+    private String logoutSuccessUrl = "/logout";
+    private String permitAll = "/api";
+    private String deniedPage = "/deny";
+    private String urlRoles;
 }

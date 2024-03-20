@@ -5,7 +5,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
@@ -17,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class MemoizerAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(MemoizerAspect.class);
 
-    @Autowired
+    @Resource
     private RequestScopeCache requestScopeCache;
 
     /**

@@ -1,32 +1,32 @@
 package com.johnny.mysql.test;
 
-import com.johnny.mysql.entity.Role;
-import com.johnny.mysql.repository.DepartmentRepository;
 import com.johnny.mysql.entity.Department;
+import com.johnny.mysql.entity.Role;
 import com.johnny.mysql.entity.User;
+import com.johnny.mysql.repository.DepartmentRepository;
 import com.johnny.mysql.repository.RoleRepository;
 import com.johnny.mysql.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JpaConfiguration.class})
 public class MysqlTest {
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    DepartmentRepository departmentRepository;
-    @Autowired
-    RoleRepository roleRepository;
+    @Resource
+    private UserRepository userRepository;
+    @Resource
+    private DepartmentRepository departmentRepository;
+    @Resource
+    private RoleRepository roleRepository;
 
     @Before
     public void initData() {

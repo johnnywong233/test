@@ -81,7 +81,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.17.0</jackson.version>
         <shiro.version>1.13.0</shiro.version>
         <spring.version>5.1.7.RELEASE</spring.version>
         <swagger2.version>2.9.2</swagger2.version>
@@ -93,7 +93,7 @@
         <mybatis.version>3.5.15</mybatis.version>
         <mybatis-spring.version>3.0.0</mybatis-spring.version>
         <rest-assured.version>4.0.0</rest-assured.version>
-        <curator.version>4.2.0</curator.version>
+        <curator.version>5.6.0</curator.version>
         <drool.version>9.44.0.Final</drool.version>
         <poi.version>5.2.5</poi.version>
         <poi-ooxml.version>4.1.2</poi-ooxml.version>
@@ -126,9 +126,10 @@
             </dependency>
 
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>5.10.2</version>
+                <scope>test</scope>
             </dependency>
 
             <dependency>
@@ -217,7 +218,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>27.1-jre</version>
+                <version>33.1.0-jre</version>
             </dependency>
 
             <dependency>
@@ -276,6 +277,12 @@
                 <groupId>jakarta.servlet.jsp.jstl</groupId>
                 <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
                 <version>3.0.0</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.servlet.jsp</groupId>
+                <artifactId>jakarta.servlet.jsp-api</artifactId>
+                <version>3.1.1</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>jakarta.transaction</groupId>
@@ -552,13 +559,13 @@
             <dependency>
                 <groupId>com.fasterxml</groupId>
                 <artifactId>classmate</artifactId>
-                <version>1.5.0</version>
+                <version>1.7.0</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro</artifactId>
-                <version>1.9.0</version>
+                <version>1.11.3</version>
             </dependency>
 
             <dependency>
@@ -586,7 +593,7 @@
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
-                <version>1.4.11.1</version>
+                <version>1.4.20</version>
             </dependency>
 
             <dependency>

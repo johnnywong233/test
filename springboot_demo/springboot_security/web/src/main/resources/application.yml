@@ -16,10 +16,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-securityconfig:
-  logoutsuccssurl: /
-  permitall: /rest/**,/bbs**
-  deniedpage: /deny
-  urlroles: /**/new/** = admin;
-            /**/edit/** = admin,editor;
+security:
+  config:
+    logoutSuccessUrl: /
+    permitAll: /rest/**,/bbs**
+    deniedPage: /deny
+    urlRoles: /**/new/** = admin;
+              /**/edit/** = admin,editor;
             /**/delete/** = admin

@@ -1,17 +1,15 @@
-spring:
-  profiles:
-    active: test
-
 server:
   port: 8081
 spring:
+  profiles:
+    active: test
   application:
-    name: admin-managee
+    name: admin-manager
   datasource:
     url: jdbc:postgresql://localhost:5432/springboot?useUnicode=true&amp;characterEncoding=UTF-8
     username: wangjian
     password:
-    driver_class_namel: org.postgresql.Driver
+    driver_class_name: org.postgresql.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     
     max-active: 20

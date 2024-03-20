@@ -1,23 +1,21 @@
 package cache.demo1;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 /**
  * Author: Johnny
  * Date: 2017/9/3
  * Time: 16:55
  */
+@Slf4j
 @Component
 public class FibonacciServiceImpl {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FibonacciServiceImpl.class);
-
-    @Autowired
+    @Resource
     private ApplicationContext applicationContext;
 
     private FibonacciService fibonacciService;
@@ -29,7 +27,7 @@ public class FibonacciServiceImpl {
 
     @Memoize
     public int compute(int i) {
-        LOGGER.info("Calculate fibonacci for number {}", i);
+        log.info("Calculate fibonacci for number {}", i);
         if (i == 0 || i == 1) {
             return i;
         }
