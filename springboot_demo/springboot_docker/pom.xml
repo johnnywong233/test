@@ -78,7 +78,7 @@
                 <demo.docker.registry.prefix>hpeswitom</demo.docker.registry.prefix>
                 <hpe.docker.hub.repository.org>shared</hpe.docker.hub.repository.org>
                 <demo.image.tag>1.0</demo.image.tag>
-                <http.proxy>http://web-proxy.sgp.hpecorp.net:8088</http.proxy>
+                <http.proxy>https://web-proxy.sgp.hpecorp.net:8088</http.proxy>
                 <https.proxy>https://web-proxy.sgp.hpecorp.net:8088</https.proxy>
             </properties>
         </profile>

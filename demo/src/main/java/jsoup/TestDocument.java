@@ -70,7 +70,7 @@ public class TestDocument {
     }
 
     private static void setContent() {
-        String html = "<p>An <a href='http://example.com/'><b>example</b><div>test</div></a><span>字体</span> <li><li>link.</p>";
+        String html = "<p>An <a href='https://example.com/'><b>example</b><div>test</div></a><span>字体</span> <li><li>link.</p>";
         Document doc = Jsoup.parse(html);
         Element div = doc.select("div").first(); // <div></div>
         div.html("<p>lorem ipsum</p>"); // <div><p>lorem ipsum</p></div>
@@ -79,7 +79,7 @@ public class TestDocument {
         // 添完后的结果: <div><p>First</p><p>lorem ipsum</p><p>Last</p></div>
 
         Element span = doc.select("span").first(); // <span>One</span>
-        span.wrap("<li><a href='http://example.com/'></a></li>");
+        span.wrap("<li><a href='https://example.com/'></a></li>");
         // 添完后的结果: <li><a href="http://example.com"><span>One</span></a></li>
 
         Element div2 = doc.select("li").first(); // <div></div>
@@ -93,14 +93,14 @@ public class TestDocument {
     }
 
     private static void cleaner() {
-        String unsafe = "<p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>";
+        String unsafe = "<p><a href='https://example.com/' onclick='stealCookies()'>Link</a></p>";
         String safe = Jsoup.clean(unsafe, Safelist.basic());
         System.out.println(safe);
         // now: <p><a href="http://example.com/" rel="nofollow">Link</a></p>f
     }
 
     private static void parserURL() throws Exception {
-        Document doc = Jsoup.connect("http://www.open-open.com/").get();
+        Document doc = Jsoup.connect("https://www.open-open.com/").get();
 
         Element link = doc.select("a").first();
         String relHref = link.attr("href"); // == "/"
@@ -125,7 +125,7 @@ public class TestDocument {
     }
 
     private static void parseLink() {
-        String html = "<p>An <a href='http://example.com/'><b>example</b></a> link.</p>";
+        String html = "<p>An <a href='https://example.com/'><b>example</b></a> link.</p>";
         Document doc = Jsoup.parse(html);//解析HTML字符串返回一个Document实现
         Element link = doc.select("a").first();//查找第一个a元素
 

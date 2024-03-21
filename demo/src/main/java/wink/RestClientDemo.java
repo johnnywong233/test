@@ -19,7 +19,7 @@ public class RestClientDemo {
     @Test
     public static void post() {
         RestClient client = new RestClient();
-        Resource resource = client.resource("http://api.linkrmb.com/app/api");
+        Resource resource = client.resource("https://api.linkrmb.com/app/api");
         ClientResponse clientResponse = resource.post("id=123&name=456");
         System.out.println(clientResponse.getStatusCode());
     }
@@ -27,7 +27,7 @@ public class RestClientDemo {
     @Test
     public static void put() {
         RestClient client = new RestClient();
-        Resource resource = client.resource("http://api.linkrmb.com/app/api");
+        Resource resource = client.resource("https://api.linkrmb.com/app/api");
         Item item = new Item();
         item.setId("id");
         item.setName("name");
@@ -39,7 +39,7 @@ public class RestClientDemo {
     @Test
     public static void delete() {
         RestClient client = new RestClient();
-        Resource resource = client.resource("http://api.linkrmb.com/app/api/123");
+        Resource resource = client.resource("https://api.linkrmb.com/app/api/123");
         ClientResponse clientResponse = resource.delete();
         System.out.println(clientResponse.getStatusCode());
     }
@@ -47,7 +47,7 @@ public class RestClientDemo {
     @Test
     public static void get() {
         RestClient client = new RestClient();
-        Resource resource = client.resource("http://api.linkrmb.com/app/api/123");
+        Resource resource = client.resource("https://api.linkrmb.com/app/api/123");
         ClientResponse clientResponse = resource.get();
         System.out.println(clientResponse.getStatusCode());
         System.out.println(clientResponse.getEntity(String.class));

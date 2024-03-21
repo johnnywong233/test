@@ -12,7 +12,7 @@ public class Test0714 {
      */
     public static void main(String[] args) {
         try {
-            URL url = new URL("http://www.baidu.com/img/baidu_sylogo1.gif");
+            URL url = new URL("https://www.baidu.com/img/baidu_sylogo1.gif");
             URLConnection conn = url.openConnection();
 
             System.out.println(conn.getDoInput());

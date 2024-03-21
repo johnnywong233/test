@@ -12,7 +12,7 @@ import static utils.FileUtil.readFile;
 public class ParseWrongXml {
     public static void main(String[] args) throws DocumentException, IOException {
         String xml = "ï»¿<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\n" +
-                "<error xmlns=\"http://schemas.microsoft.com/ado/2007/08/dataservices/metadata\">\n" +
+                "<error xmlns=\"https://schemas.microsoft.com/ado/2007/08/dataservices/metadata\">\n" +
                 "  <code>AccountIsDisabled</code>\n" +
                 "  <message xml:lang=\"en-US\">The specified account is disabled.\n" +
                 "RequestId:eea42317-0002-001b-23d5-6ff5e7000000\n" +

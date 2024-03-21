@@ -8,16 +8,16 @@
 		<meta name="description" content="天津大学天外天网站是集网上思想教育、新闻咨询、资源下载、娱乐互动及网上办公为一体的综合性校园门户网站，拥有学生党建、网上社区、新闻中心、理论考试、素质教育、国防教育等栏目。" />
 		<meta name="keywords" content="天外天,twt,天津大学,青春活力天外天,tju,大学,同学,实名,校园" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="http://rainbow.twtstudio.com/latest/rainbow.min.css" />
-		<link rel="stylesheet" href="http://rainbow.twtstudio.com/font/material-icons.css" />
-		<link rel="stylesheet" href="http://www.twt.edu.cn/static/style.min.css" />
+		<link rel="stylesheet" href="https://rainbow.twtstudio.com/latest/rainbow.min.css" />
+		<link rel="stylesheet" href="https://rainbow.twtstudio.com/font/material-icons.css" />
+		<link rel="stylesheet" href="https://www.twt.edu.cn/static/style.min.css" />
 	</head>
 	
 <body>
 		<div class="twt-header">
 			<div class="twt-container">
 				<a class="twt-header-sidebar-toggler twt-hidden-lg-up">
-					<i class="twt-icon twt-icon-menu"></i>
+					<i class="twt-icon twt-icon-menu"/>
 				</a>
 				<h2 class="twt-header-logo">
 					<a href="//www.twt.edu.cn">
@@ -31,22 +31,22 @@
 							<div class="twt-header-nav-menu">
 								<ul class="twt-list">
 									<li>
-										<a href="http://news.twt.edu.cn/" target="_blank">首页</a>
+										<a href="https://news.twt.edu.cn/" target="_blank">首页</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=2" target="_blank">校园公告</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=2" target="_blank">校园公告</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=1" target="_blank">天大新闻</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=1" target="_blank">天大新闻</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=5" target="_blank">视点观察</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=5" target="_blank">视点观察</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=4" target="_blank">院系动态</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=4" target="_blank">院系动态</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=3" target="_blank">社团风采</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=3" target="_blank">社团风采</a>
 									</li>
 								</ul>
 							</div>
@@ -56,19 +56,19 @@
 							<div class="twt-header-nav-menu">
 								<ul class="twt-list">
 									<li>
-										<a href="http://www.twt.edu.cn/party/" target="_blank">学生党建</a>
+										<a href="https://www.twt.edu.cn/party/" target="_blank">学生党建</a>
 									</li>
 									<li>
-										<a href="http://psych.tju.edu.cn/" target="_blank">心理中心</a>
+										<a href="https://psych.tju.edu.cn/" target="_blank">心理中心</a>
 									</li>
 									<li>
-										<a href="http://www.twt.edu.cn/abroad.html" target="_blank">出国留学</a>
+										<a href="https://www.twt.edu.cn/abroad.html" target="_blank">出国留学</a>
 									</li>
 									<li>
-										<a href="http://job.tju.edu.cn/" target="_blank">就业中心</a>
+										<a href="https://job.tju.edu.cn/" target="_blank">就业中心</a>
 									</li>
 									<li>
-										<a href="http://theory.twtstudio.com/" target="_blank">理论答题</a>
+										<a href="https://theory.twtstudio.com/" target="_blank">理论答题</a>
 									</li>
 								</ul>
 							</div>
@@ -78,19 +78,19 @@
 							<div class="twt-header-nav-menu">
 								<ul class="twt-list">
 									<li>
-										<a href="http://mobile.twt.edu.cn/" target="_blank">微北洋APP</a>
+										<a href="https://mobile.twt.edu.cn/" target="_blank">微北洋APP</a>
 									</li>
 									<li>
-										<a href="http://letter.twtstudio.com/" target="_blank">网络收发</a>
+										<a href="https://letter.twtstudio.com/" target="_blank">网络收发</a>
 									</li>
 									<li>
-										<a href="http://www.twt.edu.cn/shijian/" target="_blank">社会实践</a>
+										<a href="https://www.twt.edu.cn/shijian/" target="_blank">社会实践</a>
 									</li>
 									<li>
-										<a href="http://2014vote.twtstudio.com/" target="_blank">投票系统</a>
+										<a href="https://2014vote.twtstudio.com/" target="_blank">投票系统</a>
 									</li>
 									<li>
-										<a href="http://survey.twtstudio.com/" target="_blank">问卷系统</a>
+										<a href="https://survey.twtstudio.com/" target="_blank">问卷系统</a>
 									</li>
 								</ul>
 							</div>
@@ -100,44 +100,44 @@
 							<div class="twt-header-nav-menu">
 								<ul class="twt-list">
 									<li>
-										<a href="http://wenjin.in/" target="_blank">问津社区</a>
+										<a href="https://wenjin.in/" target="_blank">问津社区</a>
 									</li>
 									<li>
-										<a href="http://service.twt.edu.cn/fellow/" target="_blank">老乡查询</a>
+										<a href="https://service.twt.edu.cn/fellow/" target="_blank">老乡查询</a>
 									</li>
 									<li>
-										<a href="http://service.twtstudio.com/study_room/" target="_blank">自习室查询</a>
+										<a href="https://service.twtstudio.com/study_room/" target="_blank">自习室查询</a>
 									</li>
 									<li>
-										<a href="http://mall.twt.edu.cn/" target="_blank">天外天商城</a>
+										<a href="https://mall.twt.edu.cn/" target="_blank">天外天商城</a>
 									</li>
 									<li>
-										<a href="http://service.twt.edu.cn/lof" target="_blank">失物招领</a>
+										<a href="https://service.twt.edu.cn/lof" target="_blank">失物招领</a>
 									</li>
 									<li>
-										<a href="http://www.twt.edu.cn/suguan/" target="_blank">宿舍服务</a>
+										<a href="https://www.twt.edu.cn/suguan/" target="_blank">宿舍服务</a>
 									</li>
 								</ul>
 							</div>
 						</li>
 					</ul>
 					<div class="twt-header-tool">
-						<form class="twt-s-pull-l twt-header-search" id="searchBox" action="http://news.twt.edu.cn" method="get">
+						<form class="twt-s-pull-l twt-header-search" id="searchBox" action="https://news.twt.edu.cn" method="get">
 							<input type="hidden" name="c" value="default" />
 							<input type="hidden" name="a" value="newssearch" />
 							<input type="text" name="key" />
 							<a href="javascript:void(0)">
-								<i class="twt-icon twt-icon-search"></i>
+								<i class="twt-icon twt-icon-search"/>
 							</a>
 						</form>
 						<div class="twt-header-user twt-s-pull-l">
 							<a class="twt-s-pull-l" href="javascript:void(0)">
 								<img class="twt-header-user-avatar" src="" />
-								<span class="twt-header-user-info"></span>
+								<span class="twt-header-user-info"/>
 							</a>
 							<div class="twt-header-user-guest twt-s-pull-l">
-								<a href="http://login.twtstudio.com/login">登录</a>
-								<a href="http://login.twtstudio.com/register">注册</a>
+								<a href="https://login.twtstudio.com/login">登录</a>
+								<a href="https://login.twtstudio.com/register">注册</a>
 							</div>
 						</div>
 					</div>
@@ -145,20 +145,20 @@
 			</div>
 		</div>
 		<div class="twt--bg-1">
-			<div class="twt-header-height"></div>
+			<div class="twt-header-height"/>
 			<div class="twt--slider twt-container">
 				<div class="twt-slider" data-t="6000" data-a="fade" data-m="progress" data-h="420" data-w="1200">
 					<div class="twt-slider-container">
 						<a href="javascript:void(0)">
-							<img src="http://www.twt.edu.cn/upload/banners/BKkxLUllcjHmrDv8w80A.png" />
+							<img src="https://www.twt.edu.cn/upload/banners/BKkxLUllcjHmrDv8w80A.png" />
 							<h3 class="twt--slider-title">中秋话团圆</h3>
 						</a>
 						<a href="javascript:void(0)">
-							<img src="http://www.twt.edu.cn/upload/banners/8ThVGEHSD6B09MGOo0KE.jpeg" />
+							<img src="https://www.twt.edu.cn/upload/banners/8ThVGEHSD6B09MGOo0KE.jpeg" />
 							<h3 class="twt--slider-title">TWT STUDIO</h3>
 						</a>
 						<a href="javascript:void(0)">
-							<img src="http://www.twt.edu.cn/upload/banners/EAM5cfBl8BbZkVKyKGdJ.jpeg" />
+							<img src="https://www.twt.edu.cn/upload/banners/EAM5cfBl8BbZkVKyKGdJ.jpeg" />
 							<h3 class="twt--slider-title">今天 你运动了吗</h3>
 						</a>
 					</div>
@@ -170,14 +170,14 @@
 						<div class="twt-col-md-6">
 							<div class="twt-card">
 								<div class="twt-card-image">
-									<a href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52344" target="_blank">
-										<img src="http://www.twt.edu.cn/upload/news/BUDfPsjH9wxQoC2fgpjN.jpeg" />
+									<a href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52344" target="_blank">
+										<img src="https://www.twt.edu.cn/upload/news/BUDfPsjH9wxQoC2fgpjN.jpeg" />
 									</a>
 								</div>
 								<div class="twt-card-block">
 									<div class="twt--focus-detail">
 										<h4>
-											<a class="twt-s-dark" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52344" target="_blank">【2016迎新】百团大战战百团 新生初见见新生</a>
+											<a class="twt-s-dark" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52344" target="_blank">【2016迎新】百团大战战百团 新生初见见新生</a>
 										</h4>
 										<p>9月10日，一年一度北洋园校区的“百团大战”在郑东图书馆西侧的太雷广场正式打响，众多社团借此时机火热招新。社团是大学中当 ...</p>
 									</div>
@@ -191,14 +191,14 @@
 						<div class="twt-col-md-6">
 							<div class="twt-card">
 								<div class="twt-card-image">
-									<a href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52345" target="_blank">
-										<img src="http://www.twt.edu.cn/upload/news/rLQ6jOY248K8m5IseMiz.jpeg" />
+									<a href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52345" target="_blank">
+										<img src="https://www.twt.edu.cn/upload/news/rLQ6jOY248K8m5IseMiz.jpeg" />
 									</a>
 								</div>
 								<div class="twt-card-block">
 									<div class="twt--focus-detail">
 										<h4>
-											<a class="twt-s-dark" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52345" target="_blank">【2016迎新】青春正好 “要疯”聚会精彩无限</a>
+											<a class="twt-s-dark" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52345" target="_blank">【2016迎新】青春正好 “要疯”聚会精彩无限</a>
 										</h4>
 										<p>今夜喜相逢，青春就要疯。9月9日晚7时，由天津大学学生社团团委主办的“要疯”Freshman Party在卫津路校区学一 ...</p>
 									</div>
@@ -212,14 +212,14 @@
 						<div class="twt-col-md-6">
 							<div class="twt-card">
 								<div class="twt-card-image">
-									<a href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52337" target="_blank">
-										<img src="http://www.twt.edu.cn/upload/news/uJXvKj44e2Z23f6rDR0R.jpeg" />
+									<a href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52337" target="_blank">
+										<img src="https://www.twt.edu.cn/upload/news/uJXvKj44e2Z23f6rDR0R.jpeg" />
 									</a>
 								</div>
 								<div class="twt-card-block">
 									<div class="twt--focus-detail">
 										<h4>
-											<a class="twt-s-dark" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52337" target="_blank">【2016军训】军装英姿 硕果今显：记军训汇演</a>
+											<a class="twt-s-dark" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52337" target="_blank">【2016军训】军装英姿 硕果今显：记军训汇演</a>
 										</h4>
 										<p>9月9日上午10时，天津大学2016年度学生集中军训汇报表演大会在北洋园校区的体育场上拉开序幕。经过为期三周的艰苦练习， ...</p>
 									</div>
@@ -233,14 +233,14 @@
 						<div class="twt-col-md-6">
 							<div class="twt-card">
 								<div class="twt-card-image">
-									<a href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52331" target="_blank">
-										<img src="http://www.twt.edu.cn/upload/news/e5cHiTwsIUQtizmqivrm.jpeg" />
+									<a href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52331" target="_blank">
+										<img src="https://www.twt.edu.cn/upload/news/e5cHiTwsIUQtizmqivrm.jpeg" />
 									</a>
 								</div>
 								<div class="twt-card-block">
 									<div class="twt--focus-detail">
 										<h4>
-											<a class="twt-s-dark" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52331" target="_blank">【2016军训】加紧训练 只为最后一战</a>
+											<a class="twt-s-dark" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52331" target="_blank">【2016军训】加紧训练 只为最后一战</a>
 										</h4>
 										<p>军训生活业已接近尾声，各方阵依旧以高标准严格要求自己，为汇演做好充分准备。</p>
 									</div>
@@ -261,27 +261,27 @@
 									<h3 class="twt-card-title twt-m-b-3">校园公告</h3>
 									<ul class="twt-list twt-list-padding">
 										<li class="clearfix">
-											<a class="twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52355" target="_blank">天津市人民政府关于试鸣防空防灾警报的公告</a>
+											<a class="twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52355" target="_blank">天津市人民政府关于试鸣防空防灾警报的公告</a>
 											<span class="twt-s-accent-dark twt-s-pull-r twt-m-l-2">09/14 16:09</span>
 										</li>
 										<li class="clearfix">
-											<a class="twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52314" target="_blank">天津大学青年政治领袖培训“含英班”四期学员选拔公告</a>
+											<a class="twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52314" target="_blank">天津大学青年政治领袖培训“含英班”四期学员选拔公告</a>
 											<span class="twt-s-accent-dark twt-s-pull-r twt-m-l-2">09/06 19:47</span>
 										</li>
 										<li class="clearfix">
-											<a class="twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52356" target="_blank">关于兼职辅导员选聘笔试面试时间的通知</a>
+											<a class="twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52356" target="_blank">关于兼职辅导员选聘笔试面试时间的通知</a>
 											<span class="twt-s-accent-dark twt-s-pull-r twt-m-l-2">09/14 20:25</span>
 										</li>
 										<li class="clearfix">
-											<a class="twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52354" target="_blank">天津大学第十一期太雷班学员选拔公告</a>
+											<a class="twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52354" target="_blank">天津大学第十一期太雷班学员选拔公告</a>
 											<span class="twt-s-accent-dark twt-s-pull-r twt-m-l-2">09/13 23:24</span>
 										</li>
 										<li class="clearfix">
-											<a class="twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52350" target="_blank">16171学期心理咨询及治疗服务已正式启动</a>
+											<a class="twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52350" target="_blank">16171学期心理咨询及治疗服务已正式启动</a>
 											<span class="twt-s-accent-dark twt-s-pull-r twt-m-l-2">09/13 17:22</span>
 										</li>
 										<li class="clearfix">
-											<a class="twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52348" target="_blank">【北洋园校区讲座预告】烧伤超人阿宝做客青年文化论坛</a>
+											<a class="twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52348" target="_blank">【北洋园校区讲座预告】烧伤超人阿宝做客青年文化论坛</a>
 											<span class="twt-s-accent-dark twt-s-pull-r twt-m-l-2">09/13 17:07</span>
 										</li>
 									</ul>
@@ -294,22 +294,22 @@
 									<h3 class="twt-card-title twt-m-b-3">近日焦点</h3>
 									<ul class="twt-list twt-list-order">
 										<li class="clearfix twt-list-order-1">
-											<a class="twt-s-dark twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52353" target="_blank">【青年文化论坛】谈古今中外 颂现代医学</a>
+											<a class="twt-s-dark twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52353" target="_blank">【青年文化论坛】谈古今中外 颂现代医学</a>
 										</li>
 										<li class="clearfix twt-list-order-2">
-											<a class="twt-s-dark twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52347" target="_blank">软件学院军训歌会：青春志 • 家国情</a>
+											<a class="twt-s-dark twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52347" target="_blank">软件学院军训歌会：青春志 • 家国情</a>
 										</li>
 										<li class="clearfix twt-list-order-3">
-											<a class="twt-s-dark twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52351" target="_blank">天津大学成功举办第八次CCF CSP软件能力认证</a>
+											<a class="twt-s-dark twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52351" target="_blank">天津大学成功举办第八次CCF CSP软件能力认证</a>
 										</li>
 										<li class="clearfix twt-list-order-4">
-											<a class="twt-s-dark twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52352" target="_blank">信息学院2017届硕士毕业生就业动员会召开</a>
+											<a class="twt-s-dark twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52352" target="_blank">信息学院2017届硕士毕业生就业动员会召开</a>
 										</li>
 										<li class="clearfix twt-list-order-5">
-											<a class="twt-s-dark twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52349" target="_blank">【纳新公告】天津大学研究生学术文化促进会2016秋季纳新</a>
+											<a class="twt-s-dark twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52349" target="_blank">【纳新公告】天津大学研究生学术文化促进会2016秋季纳新</a>
 										</li>
 										<li class="clearfix twt-list-order-6">
-											<a class="twt-s-dark twt-card-text" href="http://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52346" target="_blank">百团大战 各社团彰显风采</a>
+											<a class="twt-s-dark twt-card-text" href="https://news.twt.edu.cn/?c=default&amp;a=pernews&amp;id=52346" target="_blank">百团大战 各社团彰显风采</a>
 										</li>
 									</ul>
 								</div>
@@ -328,14 +328,14 @@
 						</div>
 						<div class="twt--event-cover">
 							<a href="javascript:void(0)" onclick="twt.windowCreate({type: &apos;video&apos;, content: &apos;//www.twt.edu.cn/static/video/2016091601.mp4&apos;, width: 640, height: 360})">
-								<i class="twt-icon twt-icon-play"></i>
+								<i class="twt-icon twt-icon-play"/>
 							</a>
 						</div>
 						<img class="twt-w-100" src="//www.twt.edu.cn/static/video/2016091601.png" />
 					</div>
 				</div>
 				<div class="twt-col-md-4">
-					<a href="http://mobile.twt.edu.cn" target="_blank">
+					<a href="https://mobile.twt.edu.cn" target="_blank">
 						<img class="twt-w-100" src="//www.twt.edu.cn/static/event-top-3.png" />
 					</a>
 				</div>
@@ -349,7 +349,7 @@
 			<div class="twt-container twt-row twt--album twt-p-t-2">
 				<div class="twt-col-md-4">
 					<a href="/galleries/25" target="_blank">
-						<img class="twt-w-100" src="http://www.twt.edu.cn/upload/galleries/U8wQLj1Wep5K9CP3LFMI.jpeg" />
+						<img class="twt-w-100" src="https://www.twt.edu.cn/upload/galleries/U8wQLj1Wep5K9CP3LFMI.jpeg" />
 						<h6>野乘</h6>
 					</a>
 					<p class="twt-s-accent-dark">
@@ -362,7 +362,7 @@
 				</div>
 				<div class="twt-col-md-4">
 					<a href="/galleries/24" target="_blank">
-						<img class="twt-w-100" src="http://www.twt.edu.cn/upload/galleries/1jkC3r2D6enR7zUrWbcy.jpeg" />
+						<img class="twt-w-100" src="https://www.twt.edu.cn/upload/galleries/1jkC3r2D6enR7zUrWbcy.jpeg" />
 						<h6>征程</h6>
 					</a>
 					<p class="twt-s-accent-dark">
@@ -375,7 +375,7 @@
 				</div>
 				<div class="twt-col-md-4">
 					<a href="/galleries/23" target="_blank">
-						<img class="twt-w-100" src="http://www.twt.edu.cn/upload/galleries/snhuj2QUDORbhONNdh4m.jpeg" />
+						<img class="twt-w-100" src="https://www.twt.edu.cn/upload/galleries/snhuj2QUDORbhONNdh4m.jpeg" />
 						<h6>新章</h6>
 					</a>
 					<p class="twt-s-accent-dark">
@@ -388,7 +388,7 @@
 				</div>
 				<div class="twt-col-md-4">
 					<a href="/galleries/21" target="_blank">
-						<img class="twt-w-100" src="http://www.twt.edu.cn/upload/galleries/f8rSk4NNXZAjPAGbSjoa.jpeg" />
+						<img class="twt-w-100" src="https://www.twt.edu.cn/upload/galleries/f8rSk4NNXZAjPAGbSjoa.jpeg" />
 						<h6>戎·记</h6>
 					</a>
 					<p class="twt-s-accent-dark">
@@ -401,7 +401,7 @@
 				</div>
 				<div class="twt-col-md-4">
 					<a href="/galleries/17" target="_blank">
-						<img class="twt-w-100" src="http://twt.dev.twtapps.net/upload/galleries/UFcTbBgXcGEYPyceoTug.jpeg" />
+						<img class="twt-w-100" src="https://twt.dev.twtapps.net/upload/galleries/UFcTbBgXcGEYPyceoTug.jpeg" />
 						<h6>光·影</h6>
 					</a>
 					<p class="twt-s-accent-dark">
@@ -414,7 +414,7 @@
 				</div>
 				<div class="twt-col-md-4">
 					<a href="/galleries/16" target="_blank">
-						<img class="twt-w-100" src="http://twt.dev.twtapps.net/upload/galleries/VoXPUlDfDT2nthBUC0zG.jpeg" />
+						<img class="twt-w-100" src="https://twt.dev.twtapps.net/upload/galleries/VoXPUlDfDT2nthBUC0zG.jpeg" />
 						<h6>重重</h6>
 					</a>
 					<p class="twt-s-accent-dark">
@@ -435,7 +435,7 @@
 			<div class="twt-container">
 				<div class="twt-row twt--service">
 					<div class="twt-col-md-3 twt-col-xs-6">
-						<a class="twt--service-1 twt--service-theory" href="http://theory.twtstudio.com" target="_blank">
+						<a class="twt--service-1 twt--service-theory" href="https://theory.twtstudio.com" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-theory.png" />
 							<div class="twt--service-line-2">
 								理论
@@ -445,7 +445,7 @@
 						</a>
 					</div>
 					<div class="twt-col-md-3 twt-col-xs-6">
-						<a class="twt--service-1 twt--service-mate" href="http://service.twt.edu.cn/fellow/" target="_blank">
+						<a class="twt--service-1 twt--service-mate" href="https://service.twt.edu.cn/fellow/" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-mate.png" />
 							<div class="twt--service-line-2">
 								老乡
@@ -455,13 +455,13 @@
 						</a>
 					</div>
 					<div class="twt-col-md-3 twt-col-xs-6">
-						<a class="twt--service-1 twt--service-party" href="http://www.twt.edu.cn/party" target="_blank">
+						<a class="twt--service-1 twt--service-party" href="https://www.twt.edu.cn/party" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-party.png" />
 							<div class="twt--service-line-1">党建</div>
 						</a>
 					</div>
 					<div class="twt-col-md-3 twt-col-xs-6">
-						<a class="twt--service-1 twt--service-social" href="http://www.twt.edu.cn/shijian" target="_blank">
+						<a class="twt--service-1 twt--service-social" href="https://www.twt.edu.cn/shijian" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-social.png" />
 							<div class="twt--service-line-2">
 								社会
@@ -471,13 +471,13 @@
 						</a>
 					</div>
 					<div class="twt-col-md-2 twt-col-xs-4">
-						<a class="twt--service-2 twt--service-mall" href="http://mall.twt.edu.cn" target="_blank">
+						<a class="twt--service-2 twt--service-mall" href="https://mall.twt.edu.cn" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-mall.png" />
 							<div class="twt--service-line-1">商城</div>
 						</a>
 					</div>
 					<div class="twt-col-md-2 twt-col-xs-4">
-						<a class="twt--service-2 twt--service-lost" href="http://service.twt.edu.cn/lof/" target="_blank">
+						<a class="twt--service-2 twt--service-lost" href="https://service.twt.edu.cn/lof/" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-lost.png" />
 							<div class="twt--service-line-2">
 								失物
@@ -487,19 +487,19 @@
 						</a>
 					</div>
 					<div class="twt-col-md-2 twt-col-xs-4">
-						<a class="twt--service-2 twt--service-job" href="http://job.tju.edu.cn" target="_blank">
+						<a class="twt--service-2 twt--service-job" href="https://job.tju.edu.cn" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-job.png" />
 							<div class="twt--service-line-1">就业</div>
 						</a>
 					</div>
 					<div class="twt-col-md-2 twt-col-xs-4">
-						<a class="twt--service-2 twt--service-psych" href="http://psych.tju.edu.cn" target="_blank">
+						<a class="twt--service-2 twt--service-psych" href="https://psych.tju.edu.cn" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-psych.png" />
 							<div class="twt--service-line-1">心理</div>
 						</a>
 					</div>
 					<div class="twt-col-md-2 twt-col-xs-4">
-						<a class="twt--service-2 twt--service-dorm" href="http://www.twt.edu.cn/suguan" target="_blank">
+						<a class="twt--service-2 twt--service-dorm" href="https://www.twt.edu.cn/suguan" target="_blank">
 							<img src="//www.twt.edu.cn/static/service-dorm.png" />
 							<div class="twt--service-line-2">
 								宿舍
@@ -522,14 +522,14 @@
 			</div>
 			<div class="twt-s-text-c">
 				<h2 class="twt-s-accent">
-					<a href="http://wenjin.in" target="_blank">问津社区</a>
+					<a href="https://wenjin.in" target="_blank">问津社区</a>
 				</h2>
 				<p class="twt-s-lighter">天大校内问答社区</p>
 			</div>
 			<div class="twt--bg-wenjin">
 				<div class="twt-container twt--wenjin">
-					<div class="twt--wenjin-avatar"></div>
-					<div class="twt--wenjin-detail twt-card twt--p-30"></div>
+					<div class="twt--wenjin-avatar"/>
+					<div class="twt--wenjin-detail twt-card twt--p-30"/>
 				</div>
 			</div>
 			<div class="twt-s-text-c twt--m-t-60">
@@ -539,41 +539,41 @@
 				<div class="twt-col-md-3 twt-col-sm-6">
 					<ul class="twt-list">
 						<li>
-							<a href="http://www.tju.edu.cn/" target="_blank">天津大学 &gt;</a>
+							<a href="https://www.tju.edu.cn/" target="_blank">天津大学 &gt;</a>
 						</li>
 						<li>
-							<a href="http://e.tju.edu.cn/Main/init.do" target="_blank">天津大学办公网 &gt;</a>
+							<a href="https://e.tju.edu.cn/Main/init.do" target="_blank">天津大学办公网 &gt;</a>
 						</li>
 						<li>
-							<a href="http://www.lib.tju.edu.cn/" target="_blank">天津大学图书馆 &gt;</a>
+							<a href="https://www.lib.tju.edu.cn/" target="_blank">天津大学图书馆 &gt;</a>
 						</li>
 					</ul>
 				</div>
 				<div class="twt-col-md-3 twt-col-sm-6">
 					<ul class="twt-list">
 						<li>
-							<a href="http://coder.twtstudio.com/hr/" target="_blank">天外天纳新系统 &gt;</a>
+							<a href="https://coder.twtstudio.com/hr/" target="_blank">天外天纳新系统 &gt;</a>
 						</li>
 						<li>
-							<a href="http://gs.tju.edu.cn/" target="_blank">天津大学研究生院 &gt;</a>
+							<a href="https://gs.tju.edu.cn/" target="_blank">天津大学研究生院 &gt;</a>
 						</li>
 						<li>
-							<a href="http://zhianwang.twtstudio.com/" target="_blank">天津大学治安网 &gt;</a>
+							<a href="https://zhianwang.twtstudio.com/" target="_blank">天津大学治安网 &gt;</a>
 						</li>
 					</ul>
 				</div>
 				<div class="twt-col-md-2 twt-col-xs-4 twt--link-image">
-					<a href="http://www.twt.edu.cn/party">
+					<a href="https://www.twt.edu.cn/party">
 						<img src="//www.twt.edu.cn/static/event-bottom-1.png" />
 					</a>
 				</div>
 				<div class="twt-col-md-2 twt-col-xs-4 twt--link-image">
-					<a href="http://mall.twt.edu.cn/">
+					<a href="https://mall.twt.edu.cn/">
 						<img src="//www.twt.edu.cn/static/event-bottom-2.png" />
 					</a>
 				</div>
 				<div class="twt-col-md-2 twt-col-xs-4 twt--link-image">
-					<a href="http://wenjin.in/">
+					<a href="https://wenjin.in/">
 						<img src="//www.twt.edu.cn/static/event-bottom-3.png" />
 					</a>
 				</div>
@@ -588,19 +588,19 @@
 								<h4>新闻</h4>
 								<ul class="twt-list">
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=2" target="_blank">校内公告</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=2" target="_blank">校内公告</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=5" target="_blank">视点观察</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=5" target="_blank">视点观察</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=3" target="_blank">社团风采</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=3" target="_blank">社团风采</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=4" target="_blank">院系动态</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=4" target="_blank">院系动态</a>
 									</li>
 									<li>
-										<a href="http://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=1" target="_blank">天大要闻</a>
+										<a href="https://news.twt.edu.cn/?c=default&amp;a=secondpage&amp;type=1" target="_blank">天大要闻</a>
 									</li>
 								</ul>
 							</div>
@@ -608,19 +608,19 @@
 								<h4>教育</h4>
 								<ul class="twt-list">
 									<li>
-										<a href="http://www.twt.edu.cn/party/" target="_blank">学生党建</a>
+										<a href="https://www.twt.edu.cn/party/" target="_blank">学生党建</a>
 									</li>
 									<li>
-										<a href="http://psych.tju.edu.cn/" target="_blank">心理中心</a>
+										<a href="https://psych.tju.edu.cn/" target="_blank">心理中心</a>
 									</li>
 									<li>
-										<a href="http://theory.twtstudio.com/" target="_blank">理论答题</a>
+										<a href="https://theory.twtstudio.com/" target="_blank">理论答题</a>
 									</li>
 									<li>
-										<a href="http://www.twt.edu.cn/abroad.html" target="_blank">出国留学</a>
+										<a href="https://www.twt.edu.cn/abroad.html" target="_blank">出国留学</a>
 									</li>
 									<li>
-										<a href="http://job.tju.edu.cn/" target="_blank">就业中心</a>
+										<a href="https://job.tju.edu.cn/" target="_blank">就业中心</a>
 									</li>
 								</ul>
 							</div>
@@ -632,19 +632,19 @@
 								<h4>服务</h4>
 								<ul class="twt-list">
 									<li>
-										<a href="http://mobile.twt.edu.cn/" target="_blank">微北洋APP</a>
+										<a href="https://mobile.twt.edu.cn/" target="_blank">微北洋APP</a>
 									</li>
 									<li>
-										<a href="http://www.twt.edu.cn/shijian/" target="_blank">社会实践</a>
+										<a href="https://www.twt.edu.cn/shijian/" target="_blank">社会实践</a>
 									</li>
 									<li>
-										<a href="http://2014vote.twtstudio.com/" target="_blank">投票系统</a>
+										<a href="https://2014vote.twtstudio.com/" target="_blank">投票系统</a>
 									</li>
 									<li>
-										<a href="http://survey.twtstudio.com/" target="_blank">问卷系统</a>
+										<a href="https://survey.twtstudio.com/" target="_blank">问卷系统</a>
 									</li>
 									<li>
-										<a href="http://letter.twtstudio.com/" target="_blank">网络收发</a>
+										<a href="https://letter.twtstudio.com/" target="_blank">网络收发</a>
 									</li>
 								</ul>
 							</div>
@@ -652,22 +652,22 @@
 								<h4>生活</h4>
 								<ul class="twt-list">
 									<li>
-										<a href="http://service.twtstudio.com/study_room/" target="_blank">自习室查询</a>
+										<a href="https://service.twtstudio.com/study_room/" target="_blank">自习室查询</a>
 									</li>
 									<li>
-										<a href="http://mall.twt.edu.cn/" target="_blank">天外天商城</a>
+										<a href="https://mall.twt.edu.cn/" target="_blank">天外天商城</a>
 									</li>
 									<li>
-										<a href="http://service.twt.edu.cn/lof" target="_blank">失物招领</a>
+										<a href="https://service.twt.edu.cn/lof" target="_blank">失物招领</a>
 									</li>
 									<li>
-										<a href="http://www.twt.edu.cn/suguan/" target="_blank">宿舍服务</a>
+										<a href="https://www.twt.edu.cn/suguan/" target="_blank">宿舍服务</a>
 									</li>
 									<li>
-										<a href="http://wenjin.in/" target="_blank">问津社区</a>
+										<a href="https://wenjin.in/" target="_blank">问津社区</a>
 									</li>
 									<li>
-										<a href="http://service.twt.edu.cn/fellow/" target="_blank">老乡查询</a>
+										<a href="https://service.twt.edu.cn/fellow/" target="_blank">老乡查询</a>
 									</li>
 								</ul>
 							</div>
@@ -676,18 +676,18 @@
 				</div>
 				<div class="twt-footer-copy">
 					天外天工作室 / © 2000-2016 / 
-					<a href="http://www.miibeian.gov.cn/">津ICP备05004358号-12</a>
+					<a href="https://www.miibeian.gov.cn/">津ICP备05004358号-12</a>
 					 / 津教备0767号
 					<br />
-					<a href="http://coder.twtstudio.com">关于我们</a>
+					<a href="https://coder.twtstudio.com">关于我们</a>
 					 / 
-					<a href="http://coder.twtstudio.com/hr">加入我们</a>
+					<a href="https://coder.twtstudio.com/hr">加入我们</a>
 				</div>
 			</div>
 		</div>
-		<script src="http://www.twt.edu.cn/static/jquery-2.2.3.min.js">/*<![CDATA[*//*]]>*/</script>
-		<script src="http://www.twt.edu.cn/static/twt.min.js">/*<![CDATA[*//*]]>*/</script>
-		<script src="http://www.twt.edu.cn/static/main.min.js" async="">/*<![CDATA[*//*]]>*/</script>
+		<script src="https://www.twt.edu.cn/static/jquery-2.2.3.min.js">/*<![CDATA[*//*]]>*/</script>
+		<script src="https://www.twt.edu.cn/static/twt.min.js">/*<![CDATA[*//*]]>*/</script>
+		<script src="https://www.twt.edu.cn/static/main.min.js" async="">/*<![CDATA[*//*]]>*/</script>
 		<script>/*<![CDATA[*/
 
 			var _paq = _paq || [];

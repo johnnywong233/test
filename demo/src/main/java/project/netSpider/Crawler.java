@@ -14,7 +14,7 @@ public class Crawler {
     /* 爬取方法*/
     private void crawling(String[] seeds) {
         //提取以 http://www.twt.edu.cn 开头的链接
-        LinkFilter filter = url -> url.startsWith("http://www.twt.edu.cn");
+        LinkFilter filter = url -> url.startsWith("https://www.twt.edu.cn");
         //初始化 URL 队列
         initCrawlerWithSeeds(seeds);
         //循环条件：待抓取的链接不空且抓取的网页不多于 1000
@@ -40,16 +40,16 @@ public class Crawler {
     // http://www.jb51.net/article/76224.htm
     public static void main(String[] args) {
         Crawler crawler = new Crawler();
-        crawler.crawling(new String[]{"http://www.twt.edu.cn"});
+        crawler.crawling(new String[]{"https://www.twt.edu.cn"});
     }
 }
 
 //用来保存已经访问过 Url 和待访问的 Url 的类
 class LinkDb {
     //已访问的 url 集合
-    private static Set<String> visitedUrl = new HashSet<>();
+    private static final Set<String> visitedUrl = new HashSet<>();
     //待访问的 url 集合
-    private static Queue<String> unVisitedUrl = new Queue<>();
+    private static final Queue<String> unVisitedUrl = new Queue<>();
 
     public static Queue<String> getUnVisitedUrl() {
         return unVisitedUrl;

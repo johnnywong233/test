@@ -194,7 +194,7 @@ public class RegexDemo {
 
 
     private static void sillyTest() {
-        String text = "This is the text to be searched " + "for occurrences of the http:// pattern.";
+        String text = "This is the text to be searched " + "for occurrences of the https:// pattern.";
         String patStr = ".*http://.*";//匹配 http://
         boolean matches = Pattern.matches(patStr, text);
         System.out.println("matches = " + matches);

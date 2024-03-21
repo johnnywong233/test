@@ -34,7 +34,7 @@ public class ParserDemo {
     private void parseUrl() {
         try {
             Document doc = Jsoup.connect("https://www.sina.com.cn/").get();
-            String html = "<p>An <a href='http://example.com/'><b>example</b></a> link.</p>";
+            String html = "<p>An <a href='https://example.com/'><b>example</b></a> link.</p>";
             //can also read html file
             Document doc1 = Jsoup.parse(html);//解析HTML字符串返回一个Document
             Elements hrefs = doc1.select("a[href]");

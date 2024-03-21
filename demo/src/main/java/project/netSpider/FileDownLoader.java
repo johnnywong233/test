@@ -86,6 +86,6 @@ public class FileDownLoader {
 
     public static void main(String[] args) {
         FileDownLoader downLoader = new FileDownLoader();
-        downLoader.downloadFile("http://www.twt.edu.cn");
+        downLoader.downloadFile("https://www.twt.edu.cn");
     }
 }

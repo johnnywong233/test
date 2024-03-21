@@ -12,11 +12,11 @@
 <head>
     <title></title>
     <script type="text/javascript" language="javascript"
-            src="http://www.codefans.net/ajaxjs/jquery-1.4.2.min.js"></script>
+            src="https://www.codefans.net/ajaxjs/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" language="javascript">
         $(function () {
             $("#right").click(function () {
-                var roll = $("&lt;div>&lt;/div>", {
+                const roll = $("&lt;div>&lt;/div>", {
                     css: {
                         position: "absolute",
                         border: "solid 1px #999",
@@ -43,7 +43,7 @@
 <body style="padding:5px;margin:0;">
 <div id="book" style="width:797px;height:494px;background:#ccc;border:solid 6px #ccc;">
     <div id="left"
-         style="width:398px;height:494px;float:left;background:url(http://www.codefans.net/jscss/demoimg/201011/PLh.png) no-repeat top left;cursor:pointer;"></div>
+         style="width:398px;height:494px;float:left;background:url(https:///) no-repeat top left;cursor:pointer;"></div>
     <div id="right"
          style="width:398px;height:494px;float:left;background:#fff;cursor:pointer;margin-left:1px;text-align:right;"><p
             style="margin-top:470px;font-size:12px;color:#999;">点这翻页</p></div>

@@ -19,7 +19,7 @@ public class TranslateUtil {
         System.out.println(translate("朱茵", "en"));
     }
 
-    protected static final String URL_TEMPLATE = "http://translate.google.com/?langpair={0}&text={1}";
+    protected static final String URL_TEMPLATE = "https://translate.google.com/?langpair={0}&text={1}";
     protected static final String ID_RESULTBOX = "result_box";
     protected static final String ENCODING = "UTF-8";
     protected static final String AUTO = "auto"; //google can judge the source language

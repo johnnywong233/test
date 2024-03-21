@@ -21,7 +21,7 @@ import java.net.URL;
  */
 public class Demo {
     //cannot change another url
-    private static final String URL = "http://www.dbmeinv.com/?p=";
+    private static final String URL = "https://www.dbmeinv.com/?p=";
     private static final String PIC_PATH = "d:/picTest";
 
     //http://www.phpxs.com/code/1001569/
@@ -46,7 +46,7 @@ public class Demo {
 
     private static void getImage(String src) {
         int indexName = src.lastIndexOf("/");
-        String name = src.substring(indexName, src.length());
+        String name = src.substring(indexName);
         //System.out.println(name);
         InputStream in = null;
         OutputStream out = null;

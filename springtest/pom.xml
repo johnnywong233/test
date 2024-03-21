@@ -9,7 +9,6 @@
     <packaging>jar</packaging>
 
     <name>springtest</name>
-    <url>http://maven.apache.org</url>
 
     <parent>
         <artifactId>test</artifactId>
@@ -79,7 +78,7 @@
         <dependency>
             <groupId>org.springframework.integration</groupId>
             <artifactId>spring-integration-mail</artifactId>
-            <version>4.3.5.RELEASE</version>
+            <version>6.2.3</version>
         </dependency>
 
         <dependency>

@@ -4,4 +4,4 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka.didispace.com/eureka/
+      defaultZone: https://eureka.didispace.com/eureka/

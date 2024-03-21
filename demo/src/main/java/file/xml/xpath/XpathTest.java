@@ -58,11 +58,11 @@ class CustomNamespaceContext implements NamespaceContext {
     public String getNamespaceURI(String prefix) {
         switch (prefix) {
             case "ns":
-                return "http://www.tibco.com/cdc/liugang/ns";
+                return "https://www.tibco.com/cdc/liugang/ns";
             case "tg":
-                return "http://www.tibco.com/cdc/liugang/tg";
+                return "https://www.tibco.com/cdc/liugang/tg";
             case "df":
-                return "http://www.tibco.com/cdc/liugang";
+                return "https://www.tibco.com/cdc/liugang";
             default:
         }
         //eclipse IDE error can be ignored

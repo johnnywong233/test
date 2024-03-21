@@ -31,7 +31,7 @@ public class ZxingTest {
         //generate QR code
         try {
             //realise link redirect
-            String content = "http://blog.csdn.net/lonelymanontheway";
+            String content = "https://blog.csdn.net/lonelymanontheway";
             String path = "F:\\";
 
             MultiFormatWriter multiFormatWriter = new MultiFormatWriter();

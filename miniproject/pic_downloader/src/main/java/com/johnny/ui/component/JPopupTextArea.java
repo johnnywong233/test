@@ -71,7 +71,7 @@ public class JPopupTextArea extends JTextArea
             selectAll();
         }
         if (e.getSource() == this.formatMenu) {
-            setText(getText().replaceAll("[^\r\n]http://", "/\r\nhttp://").trim());
+            setText(getText().replaceAll("[^\r\n]http://", "/\r\nhttps://").trim());
             setText(getText().replaceAll("[^\r\n]https://", "/\r\nhttps://").trim());
         }
     }

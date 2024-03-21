@@ -28,7 +28,7 @@ public class GetPageContent {
 
     //http://www.jb51.net/article/47438.htm
     public static void main(String[] args) throws IOException {
-        String url = "http://www.jb51.net";
+        String url = "https://www.jb51.net";
         String proxy = "http://192.168.22.81";
         int port = 80;
         String username = "";

@@ -34,7 +34,7 @@ public class OpenNonHtml extends HttpServlet {
 
         //create an input stream from fileURL
 //		String fileURL = "http://localhost:8080/test/src/main/resources/testPDF.pdf";
-        String fileURL = "http://cmshelpcenter.saas.hp.com/CMS/10.22/ucmdb-docs/docs/eng/pdfs/UCMDBAdministration.pdf";
+        String fileURL = "https://cmshelpcenter.saas.hp.com/CMS/10.22/ucmdb-docs/docs/eng/pdfs/UCMDBAdministration.pdf";
         //http://cmshelpcenter.saas.hp.com/CMS/10.22/ucmdb-docs/docs/eng/pdfs/UCMDBAdministration.pdf
 
         //Content-disposition header - don't open in browser and

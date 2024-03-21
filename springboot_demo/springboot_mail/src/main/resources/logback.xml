@@ -17,7 +17,7 @@
 
     <appender name="Sentry" class="com.getsentry.raven.logback.SentryAppender">
         <!--每个项目生成不同的key-->
-        <dsn>http://d73b23c481654b9ca0e4e8a9db310169:daaf5dc2edef462690791ef324316738@sentry.boluome.com/7</dsn>
+        <dsn>https://d73b23c481654b9ca0e4e8a9db310169:daaf5dc2edef462690791ef324316738@sentry.boluome.com/7</dsn>
         <!-- 设置拦截的最低级别为warn 警告-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>WARN</level>

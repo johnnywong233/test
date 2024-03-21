@@ -31,10 +31,10 @@
             float: left;
         }
     </style>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=1.4"></script>
     <script type="text/javascript"
-            src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
-    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css"/>
+            src="https://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="https://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css"/>
 </head>
 
 <body>

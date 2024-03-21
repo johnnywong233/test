@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ListLinks {
     public static void main(String[] args) throws IOException {
 //        Validate.isTrue(args.length == 1, "usage: supply url to fetch");
-        String url = "http://www.mzitu.com/100462";
+        String url = "https://www.mzitu.com/100462";
         print("Fetching %s...", url);
 
         Document doc = Jsoup.connect(url).get();
@@ -46,7 +46,7 @@ public class ListLinks {
     }
 
     private static void print(String msg, Object... args) {
-        System.out.println(String.format(msg, args));
+        System.out.printf(msg + "%n", args);
     }
 
     private static String trim(String s, int width) {

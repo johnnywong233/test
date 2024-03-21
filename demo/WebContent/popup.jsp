@@ -1,5 +1,5 @@
 <%-- <%@LANGUAGE="JAVASCRIPT" CODEPAGE="936"%> the original --%>
-<!-- http://blog.sina.com.cn/s/blog_5a15b7d101015v6m.html -->
+<!-- https://blog.sina.com.cn/s/blog_5a15b7d101015v6m.html -->
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -14,9 +14,8 @@
 
         function firm() {//use the vlaue returned from dialog box(ture or false)
             if (confirm("are you sure redirect to somewhere else?")) {//if true
-                location.href = "http://thcjp.cnblogs.com";
-            }
-            else {//if false
+                location.href = "https://thcjp.cnblogs.com";
+            } else {//if false
                 alert("you canceled, then return false");
             }
         }

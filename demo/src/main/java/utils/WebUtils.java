@@ -165,7 +165,7 @@ public class WebUtils {
 
             //Setup indenting to "pretty print"
             xformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            xformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            xformer.setOutputProperty("{https://xml.apache.org/xslt}indent-amount", "2");
 
             // Write document to the file
             log.error("Saving document in " + fnm);
@@ -184,7 +184,7 @@ public class WebUtils {
 
             //Setup indenting to "pretty print"
             xformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            xformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            xformer.setOutputProperty("{https://xml.apache.org/xslt}indent-amount", "2");
 
             // Write document to stdout
             xformer.transform(new DOMSource(doc), new StreamResult(System.out));

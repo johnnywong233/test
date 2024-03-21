@@ -39,7 +39,7 @@ public class FreeMarkerApplication {
     public CommandLineRunner run(RestTemplate restTemplate) {
         return args -> {
             String quote = restTemplate.getForObject(
-                    "http://gturnquist-quoters.cfapps.io/api/random", String.class);
+                    "https://gturnquist-quoters.cfapps.io/api/random", String.class);
             log.info(quote);
         };
     }

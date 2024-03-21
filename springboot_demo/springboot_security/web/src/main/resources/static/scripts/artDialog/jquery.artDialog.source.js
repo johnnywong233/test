@@ -773,7 +773,7 @@
 
         // 自动切换定位类型
         _autoPositionType: function () {
-            this[this.config.fixed ? '_setFixed' : '_setAbsolute']();/////////////
+            this[this.config.fixed ? '_setFixed' : '_setAbsolute']();
         },
 
 

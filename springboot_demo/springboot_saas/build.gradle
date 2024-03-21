@@ -1,8 +1,8 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "http://repo.spring.io/snapshot" }
-        maven { url "http://repo.spring.io/milestone" }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.7.RELEASE")
@@ -19,13 +19,13 @@ version = '1.0'
 
 task wrapper(type: Wrapper) {
   gradleVersion = '4.2.1'
-  distributionUrl = 'http://services.gradle.org/distributions/gradle-4.2.1-all.zip'
+  distributionUrl = 'https://services.gradle.org/distributions/gradle-4.2.1-all.zip'
 }
 
 repositories {
     mavenCentral()
-    maven { url "http://repo.spring.io/snapshot" }
-    maven { url "http://repo.spring.io/milestone" }
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 dependencies {

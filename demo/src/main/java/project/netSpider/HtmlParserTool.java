@@ -66,7 +66,7 @@ public class HtmlParserTool {
 
     public static void main(String[] args) {
         //to extract url start with http://www.twt.edu.cn
-        String url2Extract = "http://www.twt.edu.cn";
+        String url2Extract = "https://www.twt.edu.cn";
         Set<String> links = HtmlParserTool.extractLinks(
                 url2Extract, url -> url.startsWith(url2Extract));
         links.forEach(System.out::println);
