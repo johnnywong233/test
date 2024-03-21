@@ -93,7 +93,7 @@ public class UserAlbumHandler extends AlbumHandler {
 
     @Override
     public String getCommentURL(Album album, BGImage image) {
-        return "http://www.douban.com/photos/photo/" + image.getId();
+        return "https://www.douban.com/photos/photo/" + image.getId();
     }
 
     @Override

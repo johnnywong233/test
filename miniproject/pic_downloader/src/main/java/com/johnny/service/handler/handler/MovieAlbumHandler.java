@@ -119,7 +119,7 @@ public class MovieAlbumHandler extends AlbumHandler {
 
     @Override
     public String getCommentURL(Album album, BGImage image) {
-        return "http://movie.douban.com/photos/photo/" + image.getId();
+        return "https://movie.douban.com/photos/photo/" + image.getId();
     }
 
     @Override
