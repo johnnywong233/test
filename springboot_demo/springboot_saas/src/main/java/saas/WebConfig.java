@@ -1,5 +1,8 @@
 package saas;
 
+import jakarta.annotation.Resource;
+import jakarta.servlet.MultipartConfigElement;
+import jakarta.servlet.Servlet;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -16,9 +19,6 @@ import saas.domain.TenantRepository;
 import saas.interceptor.RoutingDataSourceInterceptor;
 import saas.interceptor.TenantResolveInterceptor;
 
-import javax.annotation.Resource;
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.Servlet;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.HashMap;

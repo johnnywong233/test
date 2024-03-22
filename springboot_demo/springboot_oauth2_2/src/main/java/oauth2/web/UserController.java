@@ -1,13 +1,12 @@
 package oauth2.web;
 
+import jakarta.annotation.Resource;
 import oauth2.domain.MyUserDetails;
 import oauth2.domain.User;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

@@ -2,12 +2,11 @@ package download.service;
 
 import download.domain.SysUserRepository;
 import download.domain.entity.SysUser;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import javax.annotation.Resource;
 
 /**
  * 不能添加类注解 Configuration

@@ -3,6 +3,7 @@ package com.johnny.web.controller;
 import com.johnny.mysql.entity.Department;
 import com.johnny.mysql.model.DepartmentQo;
 import com.johnny.mysql.repository.DepartmentRepository;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.security.Principal;
 
 @Slf4j
@@ -43,7 +43,7 @@ public class DepartmentController {
     @RequestMapping(value = "/list")
     public Page<Department> getList(DepartmentQo departmentQo) {
         try {
-            Pageable pageable = PageRequest.of(departmentQo.getPage(), departmentQo.getSize(), new Sort(Sort.Direction.ASC, "id"));
+            Pageable pageable = PageRequest.of(departmentQo.getPage(), departmentQo.getSize(), Sort.by(Sort.Direction.ASC, "id"));
             return departmentRepository.findByName(departmentQo.getName() == null ? "%" : "%" + departmentQo.getName() + "%", pageable);
         } catch (Exception e) {
             log.error("getList fail", e);

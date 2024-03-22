@@ -6,19 +6,16 @@ import com.johnny.mysql.entity.User;
 import com.johnny.mysql.repository.DepartmentRepository;
 import com.johnny.mysql.repository.RoleRepository;
 import com.johnny.mysql.repository.UserRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JpaConfiguration.class})
 public class MysqlTest {
     @Resource
@@ -28,7 +25,7 @@ public class MysqlTest {
     @Resource
     private RoleRepository roleRepository;
 
-    @Before
+    @BeforeEach
     public void initData() {
         userRepository.deleteAll();
         roleRepository.deleteAll();

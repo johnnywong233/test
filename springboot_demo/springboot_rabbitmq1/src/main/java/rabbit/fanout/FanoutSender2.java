@@ -1,10 +1,9 @@
 package rabbit.fanout;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

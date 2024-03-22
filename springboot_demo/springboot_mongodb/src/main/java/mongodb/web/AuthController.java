@@ -1,5 +1,7 @@
 package mongodb.web;
 
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import mongodb.bean.JwtAuthenticationRequest;
 import mongodb.bean.JwtAuthenticationResponse;
 import mongodb.model.User;
@@ -11,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Author: Johnny

@@ -13,10 +13,10 @@ import java.nio.charset.StandardCharsets;
  * Time: 20:01
  */
 public class SocketOperate implements Runnable {
-    private Socket socket;
+    private final Socket socket;
     //该线程所处理的Socket所对应的输入流
-    private BufferedReader br = null;
-    private InputStreamReader reader = null;
+    private final BufferedReader br;
+    private final InputStreamReader reader;
 
     public SocketOperate(Socket socket) throws IOException {
         this.socket = socket;

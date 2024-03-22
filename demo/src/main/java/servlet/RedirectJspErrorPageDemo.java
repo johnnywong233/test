@@ -1,10 +1,11 @@
 package servlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 /**
@@ -12,10 +13,6 @@ import java.io.IOException;
  */
 @WebServlet(name = "RedirectJspErrorPageDemo", urlPatterns = "/servlet/RedirectJspErrorPageDemo")
 public class RedirectJspErrorPageDemo extends HttpServlet {
-
-    //TODO:DEBUG
-    private static final long serialVersionUID = -4007800837325728749L;
-
     protected void sendErrorRedirect(HttpServletRequest request,
                                      HttpServletResponse response, String errorPageURL,
                                      Throwable e)

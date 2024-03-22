@@ -1,5 +1,6 @@
 package download.config;
 
+import jakarta.annotation.Resource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,6 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
-
-import javax.annotation.Resource;
 
 /**
  * <a href="https://www.boraji.com/spring-mvc-5-hello-world-example-with-thymeleaf-template">...</a>

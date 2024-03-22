@@ -1,18 +1,14 @@
 import ehcache.bean.DemoInfo;
 import ehcache.service.DemoInfoService;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Test;
 import org.springframework.test.context.web.WebAppConfiguration;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny
  * Date: 2017/4/18
  * Time: 0:11
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 //指定SpringBoot工程的Application启动类
 //@SpringApplicationConfiguration(classes = App.class)
 //由于是Web项目，Junit需要模拟ServletContext，因此需要给测试类加上@WebAppConfiguration。

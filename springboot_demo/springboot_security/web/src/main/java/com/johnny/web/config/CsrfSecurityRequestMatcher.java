@@ -1,11 +1,11 @@
 package com.johnny.web.config;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.regex.Pattern;
 

@@ -1,13 +1,12 @@
 package servlet;
 
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletRequestEvent;
+import jakarta.servlet.ServletRequestListener;
+import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletRequestEvent;
-import javax.servlet.ServletRequestListener;
-import javax.servlet.annotation.WebListener;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by johnny on 2016/8/28.

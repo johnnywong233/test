@@ -4,15 +4,13 @@ import fm.domain.User;
 import fm.domain.UserSexEnum;
 import fm.mapper.ds1.User1Mapper;
 import fm.service.UserService;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -20,7 +18,6 @@ import java.util.List;
  * Date: 2017/10/17
  * Time: 1:04
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class User1MapperTest {
     @Resource
@@ -29,7 +26,7 @@ public class User1MapperTest {
     @Autowired
     private UserService userService;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         // 准备，清空user表
         userService.deleteAllUsers();
@@ -60,6 +57,6 @@ public class User1MapperTest {
         System.out.println(user.toString());
         user.setNickName("johnny");
         userMapper.update(user);
-        Assert.assertEquals("johnny", userMapper.getOne(50L).getNickName());
+        Assertions.assertEquals("johnny", userMapper.getOne(50L).getNickName());
     }
 }

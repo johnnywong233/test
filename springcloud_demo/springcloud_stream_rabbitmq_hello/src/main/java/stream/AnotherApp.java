@@ -1,5 +1,6 @@
 package stream;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,8 +20,29 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 import stream.bean.Order;
 
-import javax.annotation.Resource;
 import java.util.Date;
+
+interface OrderProcessor {
+    String INPUT_ORDER = "inputOrder";
+    String OUTPUT_ORDER = "outputOrder";
+
+    @Input(INPUT_ORDER)
+    SubscribableChannel inputOrder();
+
+    @Output(OUTPUT_ORDER)
+    MessageChannel outputOrder();
+}
+
+interface ProductProcessor {
+    String INPUT_PRODUCT_ADD = "inputProductAdd";
+    String OUTPUT_PRODUCT_ADD = "outputProductAdd";
+
+    @Input(INPUT_PRODUCT_ADD)
+    SubscribableChannel inputProductAdd();
+
+    @Output(OUTPUT_PRODUCT_ADD)
+    MessageChannel outputProductAdd();
+}
 
 /**
  * Author: Johnny
@@ -33,7 +55,7 @@ public class AnotherApp implements CommandLineRunner {
 
     @Resource
     @Qualifier("output")
-   private MessageChannel output;
+    private MessageChannel output;
 
     @Resource
     @Qualifier("outputOrder")
@@ -94,26 +116,4 @@ public class AnotherApp implements CommandLineRunner {
     public MessageSource<String> timerMessageSource() {
         return () -> MessageBuilder.withPayload("short msg -" + new Date()).build();
     }
-}
-
-interface OrderProcessor {
-    String INPUT_ORDER = "inputOrder";
-    String OUTPUT_ORDER = "outputOrder";
-
-    @Input(INPUT_ORDER)
-    SubscribableChannel inputOrder();
-
-    @Output(OUTPUT_ORDER)
-    MessageChannel outputOrder();
-}
-
-interface ProductProcessor {
-    String INPUT_PRODUCT_ADD = "inputProductAdd";
-    String OUTPUT_PRODUCT_ADD = "outputProductAdd";
-
-    @Input(INPUT_PRODUCT_ADD)
-    SubscribableChannel inputProductAdd();
-
-    @Output(OUTPUT_PRODUCT_ADD)
-    MessageChannel outputProductAdd();
 }

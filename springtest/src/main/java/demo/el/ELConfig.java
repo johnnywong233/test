@@ -36,7 +36,7 @@ public class ELConfig {
     private String sp;
     @Value("${johnny.nickname}")
     private String sn;
-    @javax.annotation.Resource
+    @jakarta.annotation.Resource
     private Environment environment;
 
     void output() {

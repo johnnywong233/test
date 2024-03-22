@@ -1,7 +1,7 @@
 package johnny;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.mail.internet.MimeMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,7 +10,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
-import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
@@ -21,9 +20,9 @@ import java.util.Map;
  * Date: 2017/3/11
  * Time: 15:46
  */
+@Slf4j
 @Service
 class MailUtil {
-    private static final Logger LOG = LoggerFactory.getLogger(MailUtil.class);
     private static final String[] sendTo = {"wangjianloveblue@163.com"};
 
     @Async
@@ -31,9 +30,9 @@ class MailUtil {
         if (javaMailSender != null) {
             message.setFrom("wangjianloveblue@163.com");
             javaMailSender.send(message);
-            LOG.info("send success");
+            log.info("send success");
         } else {
-            LOG.info("javaMailSender is null");
+            log.info("javaMailSender is null");
         }
     }
 
@@ -80,7 +79,7 @@ class MailUtil {
             String html = HtmlProcessor.getHtml("mail.html", new Context(Locale.CHINA, model));
             helper.setText(html, true);
         } catch (Exception e) {
-            LOG.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
         javaMailSender.send(mimeMessage);
     }

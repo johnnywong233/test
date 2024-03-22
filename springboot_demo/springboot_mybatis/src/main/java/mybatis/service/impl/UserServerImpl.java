@@ -1,11 +1,11 @@
 package mybatis.service.impl;
 
+import jakarta.annotation.Resource;
 import mybatis.model.User;
 import mybatis.model.mapper.UserMapper;
 import mybatis.service.UserService;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Repository

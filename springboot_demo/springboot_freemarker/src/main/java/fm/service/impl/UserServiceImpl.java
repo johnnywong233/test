@@ -3,12 +3,11 @@ package fm.service.impl;
 import fm.domain.User;
 import fm.domain.UserSexEnum;
 import fm.service.UserService;
+import jakarta.annotation.Resource;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/4.

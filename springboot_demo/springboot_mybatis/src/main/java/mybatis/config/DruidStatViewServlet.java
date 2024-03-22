@@ -1,7 +1,7 @@
 package mybatis.config;
 
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.annotation.WebServlet;
 
 import com.alibaba.druid.support.http.StatViewServlet;
 

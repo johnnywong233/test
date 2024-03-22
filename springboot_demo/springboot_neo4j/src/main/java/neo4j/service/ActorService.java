@@ -1,6 +1,7 @@
 package neo4j.service;
 
 import com.google.common.collect.Lists;
+import jakarta.annotation.Resource;
 import neo4j.domain.Actor;
 import neo4j.domain.Movie;
 import neo4j.domain.Seen;
@@ -9,8 +10,6 @@ import neo4j.repository.MovieRepository;
 import neo4j.repository.SeenRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/17.

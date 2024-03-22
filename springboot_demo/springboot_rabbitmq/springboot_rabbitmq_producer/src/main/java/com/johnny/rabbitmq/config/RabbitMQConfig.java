@@ -1,6 +1,7 @@
 package com.johnny.rabbitmq.config;
 
 import com.rabbitmq.client.ConnectionFactory;
+import jakarta.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
@@ -16,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
-import javax.annotation.Resource;
 import java.util.Objects;
 
 @Configuration

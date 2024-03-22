@@ -1,12 +1,13 @@
 package servlet;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.mail.internet.MimeUtility;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.mail.internet.MimeUtility;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class DownloadFile extends HttpServlet {
         response.setContentType("application/x-download charset=UTF-8");
         java.io.FileInputStream fis = null;
         String filepath = request.getContextPath();
-        javax.servlet.ServletOutputStream sos = null;
+        ServletOutputStream sos = null;
         // System.out.println("DownloadFile filename:" + filename);
         try {
             if (request.getParameter("filename") == null

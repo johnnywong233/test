@@ -2,12 +2,11 @@ package com.johnny.rabbitmq.controller;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.johnny.rabbitmq.service.EmailService;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 @RestController()
 @RequestMapping(value = "/v1/emails")

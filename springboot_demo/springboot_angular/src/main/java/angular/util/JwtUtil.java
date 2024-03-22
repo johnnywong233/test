@@ -3,11 +3,11 @@ package angular.util;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.crypto.SecretKey;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;

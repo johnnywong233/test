@@ -1,8 +1,8 @@
 package servlet.listener;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebListener;
 
 /**
  * 使用@WebListener注解，实现ServletContextListener接口

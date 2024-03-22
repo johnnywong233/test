@@ -1,13 +1,12 @@
 package com.johnny.rabbitmq.service.impl;
 
 import com.johnny.rabbitmq.service.EmailService;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 @Slf4j
 @Service

@@ -8,8 +8,6 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.persist.StateMachinePersister;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
-
 /**
  * Author: Johnny
  * Date: 2017/7/13

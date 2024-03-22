@@ -3,6 +3,8 @@ package com.johnny.rabbitmq.component;
 import com.alibaba.fastjson2.JSONObject;
 import com.johnny.rabbitmq.model.MailMessageModel;
 import com.rabbitmq.client.Channel;
+import jakarta.annotation.Resource;
+import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
@@ -10,9 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import javax.mail.internet.MimeMessage;
 
 @Slf4j
 @Component("mailMessageListenerAdapter")

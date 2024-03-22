@@ -1,5 +1,8 @@
 package download.aop;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.lang.NonNull;
@@ -8,11 +11,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -26,16 +26,16 @@ import java.util.List;
 @Slf4j
 @Component("fileFormatInterceptor")
 @ConfigurationProperties(prefix = "file")
-public class FileFormatInterceptor extends HandlerInterceptorAdapter {
+public class FileFormatInterceptor implements HandlerInterceptor {
     private List<String> allowFileTypeList;
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response,@NonNull  Object handler) throws Exception {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull  Object handler) throws Exception {
         //if is MultipartHttpServletRequest
         if (request instanceof MultipartHttpServletRequest) {
             //allow all kinds file format
             if (allowFileTypeList == null) {
-                return super.preHandle(request, response, handler);
+                return HandlerInterceptor.super.preHandle(request, response, handler);
             }
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             Iterator<String> it = multipartRequest.getFileNames();
@@ -61,7 +61,7 @@ public class FileFormatInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         }
-        return super.preHandle(request, response, handler);
+        return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
     private void outputStream(HttpServletRequest request, HttpServletResponse response) {

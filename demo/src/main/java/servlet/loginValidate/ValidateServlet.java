@@ -1,10 +1,11 @@
 package servlet.loginValidate;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -12,7 +13,6 @@ import java.io.PrintWriter;
  * 校验认证码的Servlet
  */
 public class ValidateServlet extends HttpServlet {
-    private static final long serialVersionUID = 3391706760785590707L;
 
     //处理客户端提交数据的 "Post" 请求
     @Override

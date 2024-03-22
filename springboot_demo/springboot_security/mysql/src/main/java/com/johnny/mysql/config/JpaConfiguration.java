@@ -1,7 +1,5 @@
 package com.johnny.mysql.config;
 
-//import org.springframework.boot.orm.jpa.EntityScan;
-
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,7 @@
 package mongodb.config;
 
 import com.mongodb.MongoClient;
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.mongo.MongoProperties;
 import org.springframework.context.annotation.Bean;
@@ -9,8 +10,6 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

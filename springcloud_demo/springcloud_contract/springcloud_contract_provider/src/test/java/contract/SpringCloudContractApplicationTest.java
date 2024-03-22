@@ -1,17 +1,15 @@
 package contract;
 
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
 import provider.SingerRepository;
 import provider.SingerRestController;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
@@ -19,7 +17,6 @@ import java.util.Arrays;
  * Date: 2017/11/21
  * Time: 11:36
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpringCloudContractApplicationTest {
 
@@ -28,7 +25,7 @@ public class SpringCloudContractApplicationTest {
     @MockBean
     private SingerRepository singerRepository;
 
-    @Before
+    @BeforeEach
     public void before() {
         Mockito.when(singerRepository.findAll()).thenReturn(
                 Arrays.asList(new Singer(1L, "sam"), new Singer(2L, "andy")));

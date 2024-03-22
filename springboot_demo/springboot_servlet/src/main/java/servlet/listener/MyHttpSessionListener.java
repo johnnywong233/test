@@ -1,8 +1,8 @@
 package servlet.listener;
 
-import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import jakarta.servlet.annotation.WebListener;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 
 /**
  * 监听Session的创建与销毁

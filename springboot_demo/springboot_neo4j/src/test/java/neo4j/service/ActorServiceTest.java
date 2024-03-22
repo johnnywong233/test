@@ -1,20 +1,16 @@
 package neo4j.service;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import neo4j.domain.Actor;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/17.
  */
 @Slf4j
 @SpringBootTest
-@RunWith(SpringJUnit4ClassRunner.class)
 public class ActorServiceTest {
     @Resource
     private ActorService actorService;

@@ -1,14 +1,13 @@
 package ehcache.service.impl;
 
 import ehcache.bean.DemoInfo;
+import jakarta.annotation.Resource;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ehcache.repository.DemoInfoRepository;
 import ehcache.service.DemoInfoService;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

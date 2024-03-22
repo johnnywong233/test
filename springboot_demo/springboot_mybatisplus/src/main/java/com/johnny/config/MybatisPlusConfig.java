@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.enums.DBType;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean;
 import com.johnny.util.MyMetaObjectHandler;
+import jakarta.annotation.Resource;
 import org.apache.ibatis.mapping.DatabaseIdProvider;
 import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
@@ -18,7 +19,6 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**

@@ -2,11 +2,10 @@ package es.web;
 
 import es.model.Book;
 import es.service.BookService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

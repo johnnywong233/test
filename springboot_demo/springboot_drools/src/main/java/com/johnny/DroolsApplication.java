@@ -1,13 +1,13 @@
 package com.johnny;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import org.h2.tools.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.sql.SQLException;
 import java.util.Arrays;
 

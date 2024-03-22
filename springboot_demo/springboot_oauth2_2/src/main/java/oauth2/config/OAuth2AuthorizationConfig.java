@@ -1,5 +1,6 @@
 package oauth2.config;
 
+import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,8 +11,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-
-import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/4.

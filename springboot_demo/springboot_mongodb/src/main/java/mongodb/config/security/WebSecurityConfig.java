@@ -16,8 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.annotation.Resource;
-
 /**
  * Author: Johnny
  * Date: 2017/10/8

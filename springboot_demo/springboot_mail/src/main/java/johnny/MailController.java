@@ -1,13 +1,12 @@
 package johnny;
 
+import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

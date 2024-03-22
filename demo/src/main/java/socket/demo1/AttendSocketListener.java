@@ -1,14 +1,14 @@
 package socket.demo1;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 
 /**
  * Author: Johnny
  * Date: 2016/11/27
  * Time: 19:58
  */
-public class AttendSocetListener implements ServletContextListener {
+public class AttendSocketListener implements ServletContextListener {
     private SocketThread socketThread;
 
     @Override

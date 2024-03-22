@@ -1,9 +1,8 @@
 package neo4j.config;
 
+import jakarta.annotation.Resource;
 import org.neo4j.ogm.session.Session;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/17.

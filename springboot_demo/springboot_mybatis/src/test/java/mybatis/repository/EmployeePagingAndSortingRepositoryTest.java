@@ -1,9 +1,9 @@
 package mybatis.repository;
 
 import mybatis.domain.Employee;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.domain.Page;
@@ -20,14 +20,14 @@ public class EmployeePagingAndSortingRepositoryTest {
     private ApplicationContext ctx = null;
     private EmployeePagingAndSortingRepository employeePagingAndSortingRepository = null;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ctx = new ClassPathXmlApplicationContext("beans-new.xml");
         employeePagingAndSortingRepository = ctx.getBean(EmployeePagingAndSortingRepository.class);
         System.out.println("setup");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         ctx = null;
         System.out.println("teardown");
@@ -36,9 +36,9 @@ public class EmployeePagingAndSortingRepositoryTest {
     @Test
     public void testPageAndSort() {
         Sort.Order order = new Sort.Order(Sort.Direction.DESC, "id");
-        Sort sort = new Sort(order);
+        Sort sort = Sort.by(order);
 
-        Pageable pageable = new PageRequest(0, 5, sort);
+        Pageable pageable = PageRequest.of(0, 5, sort);
         Page<Employee> page = employeePagingAndSortingRepository.findAll(pageable);
 
         System.out.println("查询的总页数：" + page.getTotalPages());

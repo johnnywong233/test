@@ -1,12 +1,12 @@
 package upload.web;
 
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import upload.entity.User;
 import upload.service.UserService;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

@@ -1,12 +1,11 @@
 package cache.demo1;
 
+import jakarta.annotation.Resource;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

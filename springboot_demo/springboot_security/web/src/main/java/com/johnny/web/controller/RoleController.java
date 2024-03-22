@@ -3,6 +3,7 @@ package com.johnny.web.controller;
 import com.johnny.mysql.entity.Role;
 import com.johnny.mysql.model.RoleQo;
 import com.johnny.mysql.repository.RoleRepository;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.security.Principal;
 
 @Slf4j
@@ -43,7 +43,7 @@ public class RoleController {
     @RequestMapping(value = "/list")
     public Page<Role> getList(RoleQo roleQo) {
         try {
-            Pageable pageable = PageRequest.of(roleQo.getPage(), roleQo.getSize(), new Sort(Sort.Direction.ASC, "id"));
+            Pageable pageable = PageRequest.of(roleQo.getPage(), roleQo.getSize(), Sort.by(Sort.Direction.ASC, "id"));
             return roleRepository.findByName(roleQo.getName() == null ? "%" : "%" + roleQo.getName() + "%", pageable);
         } catch (Exception e) {
             log.error("getList fail", e);

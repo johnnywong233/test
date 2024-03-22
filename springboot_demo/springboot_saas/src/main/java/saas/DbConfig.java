@@ -1,12 +1,12 @@
 package saas;
 
+import jakarta.annotation.Resource;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import saas.db.TenantRoutingDataSource;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.HashMap;
 

@@ -1,8 +1,7 @@
 package demo.demo2;
 
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Controller;
-
-import javax.annotation.Resource;
 
 //@Service//效果等同于如下几种
 //    @Component

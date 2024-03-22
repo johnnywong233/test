@@ -1,5 +1,6 @@
 package mongodb.web;
 
+import jakarta.annotation.Resource;
 import mongodb.model.User;
 import mongodb.model.repository.UserRepository;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

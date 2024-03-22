@@ -2,6 +2,7 @@ package batch.config;
 
 import batch.StudentItemProcessor;
 import batch.entity.Student;
+import jakarta.annotation.Resource;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.Step;
@@ -24,7 +25,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.oxm.xstream.XStreamMarshaller;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;

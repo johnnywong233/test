@@ -1,5 +1,6 @@
 package mongodb.dao.impl;
 
+import jakarta.annotation.Resource;
 import mongodb.bean.UserEntity;
 import mongodb.dao.UserDao;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -7,8 +8,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

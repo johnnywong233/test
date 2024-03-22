@@ -3,13 +3,11 @@ package fm.mapper;
 import fm.domain.User;
 import fm.domain.UserSexEnum;
 import fm.mapper.ds2.User2Mapper;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -17,7 +15,6 @@ import java.util.List;
  * Date: 2017/10/17
  * Time: 1:04
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class User2MapperTest {
     @Resource
@@ -47,6 +44,6 @@ public class User2MapperTest {
         System.out.println(user.toString());
         user.setNickName("neo");
         userMapper.update(user);
-        Assert.assertEquals("neo", userMapper.getOne(30L).getNickName());
+        Assertions.assertEquals("neo", userMapper.getOne(30L).getNickName());
     }
 }

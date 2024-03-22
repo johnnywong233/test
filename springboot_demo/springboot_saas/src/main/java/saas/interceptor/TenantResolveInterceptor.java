@@ -1,25 +1,23 @@
 package saas.interceptor;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.util.UrlPathHelper;
 import saas.annotation.RootResource;
 import saas.annotation.TenantResource;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 
 /**
  * Author: Johnny
  * Date: 2017/8/17
  * Time: 0:14
  */
-public class TenantResolveInterceptor extends HandlerInterceptorAdapter {
+public class TenantResolveInterceptor implements HandlerInterceptor {
 
     static final String TENANT_BUSINESS_NAME_KEY = "businessName";
 
@@ -57,7 +55,7 @@ public class TenantResolveInterceptor extends HandlerInterceptorAdapter {
         if ((rootResource != null || isRootResource) && !StringUtils.isEmpty(businessName)) {
             throw new NoHandlerFoundException(request.getMethod(), request.getRequestURI(), null);
         }
-        return super.preHandle(request, response, handler);
+        return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 
     /**

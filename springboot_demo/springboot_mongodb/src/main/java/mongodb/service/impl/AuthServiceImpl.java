@@ -1,5 +1,6 @@
 package mongodb.service.impl;
 
+import jakarta.annotation.Resource;
 import mongodb.bean.JwtUser;
 import mongodb.model.User;
 import mongodb.model.repository.UserRepository;
@@ -15,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Date;
 

@@ -1,5 +1,6 @@
 package batch.config;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -10,8 +11,6 @@ import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

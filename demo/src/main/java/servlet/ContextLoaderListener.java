@@ -1,11 +1,10 @@
 package servlet;
 
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 import org.springframework.web.context.ContextCleanupListener;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
-
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 
 /**
  * Created by johnny on 2016/8/28.

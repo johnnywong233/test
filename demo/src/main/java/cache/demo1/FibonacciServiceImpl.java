@@ -1,11 +1,10 @@
 package cache.demo1;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

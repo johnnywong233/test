@@ -1,10 +1,9 @@
 package johnny;
 
-import org.junit.Test;
+import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Test;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

@@ -1,11 +1,10 @@
 package sm;
 
+import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.persist.DefaultStateMachinePersister;
 import org.springframework.statemachine.persist.StateMachinePersister;
-
-import javax.annotation.Resource;
 
 /**
  * Author: Johnny

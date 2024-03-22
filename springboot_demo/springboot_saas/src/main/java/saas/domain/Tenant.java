@@ -1,15 +1,17 @@
 package saas.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.Data;
 
 /**
  * Author: Johnny
  * Date: 2017/8/17
  * Time: 0:07
  */
+@Data
 @Entity
 public class Tenant {
 
@@ -24,36 +26,4 @@ public class Tenant {
     private String edbpwd;
 
     private String businessName;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDbu() {
-        return dbu;
-    }
-
-    public void setDbu(String dbu) {
-        this.dbu = dbu;
-    }
-
-    public String getEdbpwd() {
-        return edbpwd;
-    }
-
-    public void setEdbpwd(String edbpwd) {
-        this.edbpwd = edbpwd;
-    }
-
-    public String getBusinessName() {
-        return businessName;
-    }
-
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
-    }
 }

@@ -1,5 +1,7 @@
 package project.httpclient;
 
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import project.httpclient.dto.UserDTO;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;

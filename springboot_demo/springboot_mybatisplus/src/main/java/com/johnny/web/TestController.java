@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
-
 /**
  * Author: Johnny
  * Date: 2017/9/16

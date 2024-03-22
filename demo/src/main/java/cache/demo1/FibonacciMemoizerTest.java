@@ -1,8 +1,7 @@
 package cache.demo1;
 
+import jakarta.annotation.Resource;
 import org.testng.annotations.Test;
-
-import javax.annotation.Resource;
 
 import static org.testng.Assert.assertEquals;
 

@@ -2,6 +2,7 @@ package com.johnny.web.config;
 
 import com.johnny.web.service.CustomUserDetailsService;
 import com.johnny.web.service.LoginSuccessHandler;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -17,7 +18,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;

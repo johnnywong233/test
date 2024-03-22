@@ -1,10 +1,9 @@
 package mybatis.service;
 
+import jakarta.annotation.Resource;
+import jakarta.transaction.Transactional;
 import mybatis.repository.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
 
 /**
  * Author: Johnny
@@ -14,7 +13,7 @@ import javax.transaction.Transactional;
  */
 @Service
 public class EmployeeService {
-    @Autowired
+    @Resource
     private EmployeeRepository employeeRepository;
 
     @Transactional

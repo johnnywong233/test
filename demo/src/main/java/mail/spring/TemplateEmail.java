@@ -1,6 +1,9 @@
 package mail.spring;
 
 import freemarker.template.Template;
+import jakarta.annotation.Resource;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,9 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.util.Map;
 
 /**
@@ -62,7 +62,7 @@ public class TemplateEmail {
     public void sendTemplateMail(Map<String, Object> root, String toEmail, String subject, String templateName) {
         try {
             MimeMessage msg = sender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(msg, false, "utf-8");//由于是html邮件，不是mulitpart类型
+            MimeMessageHelper helper = new MimeMessageHelper(msg, false, "utf-8");//由于是html邮件，不是multipart类型
             helper.setFrom("wangjianloveblue@163.com");
             helper.setTo(toEmail);
             helper.setSubject(subject);

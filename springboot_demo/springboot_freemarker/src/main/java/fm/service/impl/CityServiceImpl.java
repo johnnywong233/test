@@ -3,9 +3,9 @@ package fm.service.impl;
 import fm.domain.City;
 import fm.mapper.ds1.CityMapper;
 import fm.service.CityService;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

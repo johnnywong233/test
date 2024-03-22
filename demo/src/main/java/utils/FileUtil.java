@@ -1,6 +1,8 @@
 package utils;
 
 import com.google.common.base.Strings;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
@@ -18,8 +20,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.Test;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.DateFormat;
 import java.util.ArrayList;

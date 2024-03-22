@@ -1,9 +1,9 @@
 package mail.spring;
 
+import jakarta.annotation.Resource;
 import org.junit.Test;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 

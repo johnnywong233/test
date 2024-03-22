@@ -1,5 +1,6 @@
 package kafka.web;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -7,8 +8,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.Resource;
 
 /**
  * Created by Johnny on 2018/3/16.

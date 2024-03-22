@@ -1,11 +1,10 @@
 package shrio.core.service.impl;
 
+import jakarta.annotation.Resource;
 import shrio.core.bean.UserInfo;
 import shrio.core.repository.UserInfoRepository;
 import shrio.core.service.UserInfoService;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {

@@ -1,6 +1,6 @@
 package saas.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import saas.annotation.RootResource;
@@ -20,7 +20,7 @@ import java.io.StringWriter;
 @RequestMapping("/root_inventories")
 @RootResource
 public class RootInventoryController {
-    @Autowired
+    @Resource
     private InventoryRepository inventoryRepository;
 
     @RequestMapping("/")

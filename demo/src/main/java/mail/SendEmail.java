@@ -1,12 +1,13 @@
 package mail;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.Authenticator;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 import java.util.Properties;
 
 /**
@@ -30,7 +31,7 @@ public class SendEmail {
 
         // Get the Session object.
         Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
+                new Authenticator() {
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(username, password);

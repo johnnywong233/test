@@ -7,6 +7,7 @@ import com.johnny.mysql.model.UserQo;
 import com.johnny.mysql.repository.DepartmentRepository;
 import com.johnny.mysql.repository.RoleRepository;
 import com.johnny.mysql.repository.UserRepository;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -108,7 +108,7 @@ public class UserController {
     @RequestMapping(value = "/list")
     public Page<User> getList(UserQo userQo) {
         try {
-            Pageable pageable = PageRequest.of(userQo.getPage(), userQo.getSize(), new Sort(Sort.Direction.ASC, "id"));
+            Pageable pageable = PageRequest.of(userQo.getPage(), userQo.getSize(), Sort.by(Sort.Direction.ASC, "id"));
             return userRepository.findByName(userQo.getName() == null ? "%" : "%" + userQo.getName() + "%", pageable);
         } catch (Exception e) {
             log.error("getList fail", e);
