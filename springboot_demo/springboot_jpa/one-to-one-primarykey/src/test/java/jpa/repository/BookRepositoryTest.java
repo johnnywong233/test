@@ -26,7 +26,7 @@ public class BookRepositoryTest {
         books.add(new Book("Book one", new BookDetail(1)));
         books.add(new Book("Book two", new BookDetail(2)));
         books.add(new Book("Book three", new BookDetail(3)));
-        bookRepository.save(books);
+        bookRepository.saveAll(books);
     }
 
     @Test

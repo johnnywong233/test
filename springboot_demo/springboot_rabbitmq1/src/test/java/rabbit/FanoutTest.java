@@ -1,10 +1,8 @@
 package rabbit;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import rabbit.fanout.FanoutSender1;
 import rabbit.fanout.FanoutSender2;
 
@@ -13,7 +11,6 @@ import rabbit.fanout.FanoutSender2;
  * Date: 2017/10/6
  * Time: 8:01
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class FanoutTest {
     @Autowired

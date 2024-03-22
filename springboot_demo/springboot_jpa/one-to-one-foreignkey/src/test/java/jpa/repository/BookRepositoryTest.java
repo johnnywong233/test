@@ -28,7 +28,7 @@ public class BookRepositoryTest {
         books.add(new Book("Book one", new BookDetail(1)));
         books.add(new Book("Book two", new BookDetail(2)));
         books.add(new Book("Book three", new BookDetail(3)));
-        List<Book> bookList = bookRepository.save(books);
+        List<Book> bookList = bookRepository.saveAll(books);
         Assert.assertNotNull(bookList);
         Assert.assertEquals(3, bookList.size());
     }

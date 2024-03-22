@@ -1,15 +1,12 @@
 package com.johnny.validator.groupsequence;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ExistingCodeValidatorTest {
 
     @Mock
@@ -17,7 +14,7 @@ public class ExistingCodeValidatorTest {
 
     private ExistingCodeValidator validator;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         validator = new ExistingCodeValidator(tokenRetrievalService);
     }

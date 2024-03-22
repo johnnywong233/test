@@ -1,11 +1,9 @@
 package com.johnny.validator.groupsequence;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -21,10 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-//import org.springframework.boot.test.SpringApplicationConfiguration;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = Application.class)
 @SpringBootTest
 @WebAppConfiguration
 public class CodeValidationControllerTest {
@@ -33,7 +27,7 @@ public class CodeValidationControllerTest {
     private WebApplicationContext wac;
     private MockMvc mockMvc;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
@@ -49,7 +43,7 @@ public class CodeValidationControllerTest {
     @Test
     public void postsValidCode() throws Exception {
         this.mockMvc.perform(post("/groupsequence/code")
-                .param("code", "1"))
+                        .param("code", "1"))
                 .andExpect(model().hasNoErrors())
                 .andExpect(content().string(not(containsString("Form contains errors."))));
     }
@@ -57,7 +51,7 @@ public class CodeValidationControllerTest {
     @Test
     public void postsInvalidValidCode() throws Exception {
         this.mockMvc.perform(post("/groupsequence/code")
-                .param("code", "42"))
+                        .param("code", "42"))
                 .andExpect(model().hasErrors())
                 .andExpect(model().attributeHasErrors("code"))
                 .andExpect(model().attributeHasFieldErrorCode("code", "code", "ExistingCode")) // Spring 4.1
@@ -68,7 +62,7 @@ public class CodeValidationControllerTest {
     @Test
     public void validationFailsOnEmptyCode() throws Exception {
         this.mockMvc.perform(post("/groupsequence/code")
-                .param("code", ""))
+                        .param("code", ""))
                 .andExpect(model().hasErrors())
                 .andExpect(model().attributeHasErrors("code"))
                 .andExpect(content().string(containsString("Form contains errors. Please try again.")))

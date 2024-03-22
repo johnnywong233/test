@@ -1,13 +1,11 @@
 package ws;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.lang.NonNull;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
@@ -25,7 +23,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Author: Johnny
@@ -33,7 +31,6 @@ import static org.junit.Assert.fail;
  * Time: 23:33
  */
 @Slf4j
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {WebSocketApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class WebSocketTest {
     private final WebSocketHttpHeaders headers = new WebSocketHttpHeaders();
@@ -47,7 +44,7 @@ public class WebSocketTest {
 
     private SockJsClient sockJsClient;
 
-    @Before
+    @BeforeEach
     @SuppressWarnings({"unchecked", "rawtypes"})
     public void setup() {
         List transports = new ArrayList<>();
@@ -58,7 +55,7 @@ public class WebSocketTest {
 
     @Test
     public void getGreeting() throws Exception {
-        this.sockJsClient.doHandshake(new TestWebSocketHandler(failure), "ws://localhost:" + port + "/sockjs/message?siteId=webtrn&userId=lucy");
+        this.sockJsClient.execute(new TestWebSocketHandler(failure), "ws://localhost:" + port + "/sockjs/message?siteId=webtrn&userId=lucy");
         if (latch.await(60, TimeUnit.SECONDS)) {
             if (failure.get() != null) {
                 throw new AssertionError("", failure.get());

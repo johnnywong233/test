@@ -3,17 +3,14 @@ package mongodb;
 import jakarta.annotation.Resource;
 import mongodb.bean.UserEntity;
 import mongodb.dao.UserDao;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Author: Johnny
  * Date: 2017/9/15
  * Time: 18:44
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class UserDaoTest {
     @Resource

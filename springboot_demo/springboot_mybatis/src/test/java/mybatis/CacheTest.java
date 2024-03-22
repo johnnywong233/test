@@ -7,8 +7,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Johnny on 2018/4/5.
@@ -17,7 +17,7 @@ public class CacheTest {
 
     private SqlSessionFactory factory;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         factory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config.xml"));
 

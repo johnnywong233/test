@@ -1,9 +1,8 @@
 package druid;
 
 import com.alibaba.druid.support.http.StatViewServlet;
-
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.WebInitParam;
+import jakarta.servlet.annotation.WebServlet;
 
 /**
  * Author: Johnny

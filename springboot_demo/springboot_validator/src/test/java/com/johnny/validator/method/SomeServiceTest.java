@@ -1,20 +1,16 @@
 package com.johnny.validator.method;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.validation.ConstraintViolationException;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
-
-import javax.validation.ConstraintViolationException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 
 @ContextConfiguration(classes = {SomeServiceTest.Config.class})
-@RunWith(SpringJUnit4ClassRunner.class)
 public class SomeServiceTest {
 
     @Autowired

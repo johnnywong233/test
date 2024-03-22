@@ -12,12 +12,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +29,6 @@ import java.util.Map;
  * Date: 2017/9/16
  * Time: 14:15
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = MybatisPlusApplication.class)
 public class CrawlerMain {
     @Autowired

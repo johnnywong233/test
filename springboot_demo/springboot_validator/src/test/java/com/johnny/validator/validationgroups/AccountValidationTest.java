@@ -1,17 +1,18 @@
 package com.johnny.validator.validationgroups;
 
-import org.junit.Test;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import org.junit.jupiter.api.Test;
+
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountValidationTest {
 
-    private Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+    private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     public void has4ViolationsWhileValidatingBothGroups() {

@@ -2,7 +2,9 @@ package demo1.test;
 
 import demo1.entity.PersonRepository;
 import jakarta.annotation.Resource;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
 /**
  * Created by Johnny on 2018/2/3.
  */

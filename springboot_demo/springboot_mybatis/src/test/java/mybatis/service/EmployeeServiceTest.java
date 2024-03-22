@@ -1,8 +1,8 @@
 package mybatis.service;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.TestPropertySource;
@@ -18,14 +18,14 @@ public class EmployeeServiceTest {
     private ApplicationContext ctx = null;
     private EmployeeService employeeService = null;
 
-    @Before
+    @BeforeEach
     public void setup() {
         ctx = new ClassPathXmlApplicationContext("beans-new.xml");
         employeeService = ctx.getBean(EmployeeService.class);
         System.out.println("setup");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         ctx = null;
         System.out.println("tearDown");

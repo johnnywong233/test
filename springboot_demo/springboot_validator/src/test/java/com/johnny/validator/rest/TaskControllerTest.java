@@ -1,12 +1,10 @@
 package com.johnny.validator.rest;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -17,10 +15,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//import org.springframework.boot.test.SpringApplicationConfiguration;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = Application.class)
 @SpringBootTest
 @WebAppConfiguration
 public class TaskControllerTest {
@@ -29,7 +23,7 @@ public class TaskControllerTest {
     private WebApplicationContext wac;
     private MockMvc mockMvc;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
@@ -45,8 +39,8 @@ public class TaskControllerTest {
         String jsonTask = "{\"name\": \"Task 1\",\"description\": \"Description\"}";
 
         this.mockMvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonTask))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonTask))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(jsonTask)); // Spring 4.1. Requires org.skyscreamer.jsonassert.JSONAssert
@@ -63,8 +57,8 @@ public class TaskControllerTest {
         String jsonTaskWithBlankName = "{\"name\": \"\",\"description\": \"Description\"}";
 
         this.mockMvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonTaskWithBlankName))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonTaskWithBlankName))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(content().json("{\"errors\":[\"Task name must not be blank!\"],\"errorMessage\":\"Validation failed. 1 error(s)\"}"));

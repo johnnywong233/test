@@ -1,9 +1,11 @@
 package mybatis.repository;
 
 import mybatis.domain.Employee;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.TestPropertySource;
@@ -23,14 +25,14 @@ public class EmployeeRepositoryTest {
 
     private EmployeeRepository employeeRepository = null;
 
-    @Before
+    @BeforeEach
     public void setup() {
         ctx = new ClassPathXmlApplicationContext("beans-new.xml");
         employeeRepository = ctx.getBean(EmployeeRepository.class);
         System.out.println("setup");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         ctx = null;
         System.out.println("tearDown");

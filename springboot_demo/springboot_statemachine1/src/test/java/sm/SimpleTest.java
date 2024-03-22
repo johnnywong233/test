@@ -1,12 +1,11 @@
 package sm;
 
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.persist.StateMachinePersister;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
  * Author: Johnny
@@ -15,7 +14,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @Slf4j
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class SimpleTest {
 
     @Resource(name = "machine1")

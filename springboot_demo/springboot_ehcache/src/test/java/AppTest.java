@@ -10,7 +10,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
  * Time: 0:11
  */
 //指定SpringBoot工程的Application启动类
-//@SpringApplicationConfiguration(classes = App.class)
 //由于是Web项目，Junit需要模拟ServletContext，因此需要给测试类加上@WebAppConfiguration。
 @WebAppConfiguration
 public class AppTest {

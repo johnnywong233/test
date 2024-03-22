@@ -1,11 +1,9 @@
 package com.johnny.validator.bettermessages;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -22,10 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-//import org.springframework.boot.test.SpringApplicationConfiguration;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-//@SpringApplicationConfiguration(classes = Application.class)
 @SpringBootTest
 @WebAppConfiguration
 public class CodeValidationControllerTest {
@@ -33,7 +27,7 @@ public class CodeValidationControllerTest {
     private WebApplicationContext wac;
     private MockMvc mockMvc;
 
-    @Before
+    @BeforeEach
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
@@ -49,9 +43,9 @@ public class CodeValidationControllerTest {
     @Test
     public void postsAValidBid() throws Exception {
         this.mockMvc.perform(post("/bettermessages/bid")
-                .param("bidder", "John Smith")
-                .param("expiresAt", "2020-01-01")
-                .param("price", "11.88"))
+                        .param("bidder", "John Smith")
+                        .param("expiresAt", "2020-01-01")
+                        .param("price", "11.88"))
                 .andExpect(content().string(
                         not(containsString("Form contains errors. Please try again."))));
     }

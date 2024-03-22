@@ -1,9 +1,10 @@
 package mybatis.repository;
 
+import jakarta.persistence.criteria.Path;
 import mybatis.domain.Employee;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.domain.Page;
@@ -11,8 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-
-import javax.persistence.criteria.Path;
 
 /**
  * Author: Johnny
@@ -25,14 +24,14 @@ public class EmployeeJpaSpecificationExecutorRepositoryTest {
 
     private EmployeeJpaSpecificationExecutorRepository employeeJpaSpecificationExecutorRepository = null;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         ctx = new ClassPathXmlApplicationContext("beans-new.xml");
         employeeJpaSpecificationExecutorRepository = ctx.getBean(EmployeeJpaSpecificationExecutorRepository.class);
         System.out.println("setup");
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         ctx = null;
         System.out.println("tearDown");
@@ -53,7 +52,7 @@ public class EmployeeJpaSpecificationExecutorRepositoryTest {
          * criteriaBuilder，构建Predicate
          */
         Specification<Employee> specification = (root, criteriaQuery, criteriaBuilder) -> {
-            Path path = root.get("age");
+            Path<Integer> path = root.get("age");
             return criteriaBuilder.gt(path, 60);
         };
         Page<Employee> page = employeeJpaSpecificationExecutorRepository.findAll(specification, pageable);
