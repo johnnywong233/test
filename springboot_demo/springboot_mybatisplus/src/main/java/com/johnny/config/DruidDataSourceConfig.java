@@ -1,9 +1,12 @@
 package com.johnny.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
+
+import com.alibaba.druid.support.jakarta.WebStatFilter;
+import com.alibaba.druid.support.jakarta.StatViewServlet;
 import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
+import jakarta.servlet.Filter;
+import jakarta.servlet.Servlet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -16,8 +19,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.lang.NonNull;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.servlet.Filter;
-import javax.servlet.Servlet;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.HashMap;

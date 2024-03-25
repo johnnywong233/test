@@ -2,16 +2,16 @@ package neo4j.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Property;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Node;
+import org.springframework.data.neo4j.core.schema.Property;
 
 /**
  * Created by Johnny on 2018/3/17.
  */
 @Data
-@NodeEntity(label = "MOVIES")
+@Node(value = "MOVIES")
 @NoArgsConstructor
 public class Movie {
     @Id

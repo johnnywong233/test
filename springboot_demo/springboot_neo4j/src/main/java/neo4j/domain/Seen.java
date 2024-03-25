@@ -1,27 +1,26 @@
 package neo4j.domain;
 
 import lombok.Data;
-import org.neo4j.ogm.annotation.EndNode;
-import org.neo4j.ogm.annotation.GeneratedValue;
-import org.neo4j.ogm.annotation.Id;
-import org.neo4j.ogm.annotation.Property;
-import org.neo4j.ogm.annotation.RelationshipEntity;
-import org.neo4j.ogm.annotation.StartNode;
+import org.springframework.data.neo4j.core.schema.GeneratedValue;
+import org.springframework.data.neo4j.core.schema.Id;
+import org.springframework.data.neo4j.core.schema.Property;
+import org.springframework.data.neo4j.core.schema.RelationshipProperties;
+import org.springframework.data.neo4j.core.schema.TargetNode;
 
 /**
  * Created by Johnny on 2018/3/17.
  */
 @Data
-@RelationshipEntity(type = "HAS_SEEN")
+@RelationshipProperties
 public class Seen {
     @Id
     @GeneratedValue
     private Long id;
     @Property
     private Integer stars;
-    @StartNode
+    @TargetNode
     private Actor startNode;
-    @EndNode
+    @TargetNode
     private Movie endNode;
 
     public Seen(Integer stars, Actor startNode, Movie endNode) {

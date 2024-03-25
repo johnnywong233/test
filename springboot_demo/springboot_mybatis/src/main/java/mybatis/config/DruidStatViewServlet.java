@@ -3,7 +3,7 @@ package mybatis.config;
 import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 
-import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.jakarta.StatViewServlet;
 
 /**
  * Druid Servlet
@@ -16,5 +16,4 @@ import com.alibaba.druid.support.http.StatViewServlet;
                 @WebInitParam(name = "resetEnable", value = "false")// 禁用HTML页面上的“Reset All”功能
         })
 public class DruidStatViewServlet extends StatViewServlet {
-	private static final long serialVersionUID = 4722760686499349568L;
 }

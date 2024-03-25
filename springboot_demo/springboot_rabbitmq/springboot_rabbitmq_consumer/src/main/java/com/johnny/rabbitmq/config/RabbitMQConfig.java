@@ -2,6 +2,7 @@ package com.johnny.rabbitmq.config;
 
 import com.johnny.rabbitmq.component.MailMessageListenerAdapter;
 import com.rabbitmq.client.ConnectionFactory;
+import jakarta.annotation.Resource;
 import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;

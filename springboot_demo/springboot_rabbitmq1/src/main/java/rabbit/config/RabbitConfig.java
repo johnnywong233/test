@@ -12,6 +12,8 @@ import org.springframework.amqp.rabbit.listener.api.ChannelAwareMessageListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Objects;
+
 /**
  * Author: Johnny
  * Date: 2017/10/6
@@ -35,7 +37,7 @@ public class RabbitConfig {
         connectionFactory.setUsername("springboot");
         connectionFactory.setPassword("password");
         connectionFactory.setVirtualHost("/");
-        connectionFactory.setPublisherConfirms(true); // 必须要设置
+        connectionFactory.setPublisherReturns(true); // 必须要设置
         return connectionFactory;
     }
 
@@ -103,7 +105,7 @@ public class RabbitConfig {
         container.setMessageListener((ChannelAwareMessageListener) (message, channel) -> {
             byte[] body = message.getBody();
             System.out.println("收到消息 : " + new String(body));
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false); //确认消息成功消费
+            Objects.requireNonNull(channel).basicAck(message.getMessageProperties().getDeliveryTag(), false); //确认消息成功消费
         });
         return container;
     }
@@ -123,7 +125,7 @@ public class RabbitConfig {
         container.setMessageListener((ChannelAwareMessageListener) (message, channel) -> {
             byte[] body = message.getBody();
             System.out.println("queue1 收到消息 : " + new String(body));
-            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false); //确认消息成功消费
+            Objects.requireNonNull(channel).basicAck(message.getMessageProperties().getDeliveryTag(), false); //确认消息成功消费
         });
         return container;
     }

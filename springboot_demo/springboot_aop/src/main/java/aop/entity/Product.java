@@ -3,8 +3,8 @@ package aop.entity;
 import aop.annotation.NeedSecured;
 import lombok.Data;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 

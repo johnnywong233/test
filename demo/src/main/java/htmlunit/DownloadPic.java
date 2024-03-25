@@ -23,7 +23,7 @@ public class DownloadPic {
 
     // http://www.zuidaima.com/share/3782898097867776.htm
     public static void main(String[] args) {
-        WebClient webClient = new WebClient(BrowserVersion.FIREFOX_52);
+        WebClient webClient = new WebClient(BrowserVersion.FIREFOX_ESR);
         webClient.getOptions().setCssEnabled(Boolean.TRUE);
         webClient.getOptions().setJavaScriptEnabled(Boolean.TRUE);
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(Boolean.FALSE);

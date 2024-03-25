@@ -5,12 +5,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -74,7 +74,7 @@ public class SysUser implements UserDetails {
 
     @Entity
     @Data
-    private class SysRole {
+    private static class SysRole {
         @Id
         @GeneratedValue
         private Long id;

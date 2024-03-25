@@ -1,5 +1,6 @@
 package session.web;
 
+import jakarta.annotation.Resource;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 import org.springframework.stereotype.Controller;

@@ -1,5 +1,6 @@
 package shrio.config.shiro;
 
+import jakarta.annotation.Resource;
 import shrio.core.bean.SysPermission;
 import shrio.core.bean.SysRole;
 import shrio.core.bean.UserInfo;

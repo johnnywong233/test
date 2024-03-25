@@ -1,7 +1,7 @@
 package neo4j.config;
 
 import jakarta.annotation.Resource;
-import org.neo4j.ogm.session.Session;
+import org.neo4j.driver.Session;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,6 +13,6 @@ public class Neo4jDBCleaner {
     private Session session;
 
     public void cleanDb() {
-        session.purgeDatabase();
+        session.close();
     }
 }

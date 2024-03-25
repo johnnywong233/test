@@ -1,9 +1,8 @@
 package druid;
 
-import com.alibaba.druid.support.http.WebStatFilter;
-
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
+import com.alibaba.druid.support.jakarta.WebStatFilter;
+import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.annotation.WebInitParam;
 
 /**
  * Author: Johnny

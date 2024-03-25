@@ -1,8 +1,8 @@
 package johnny;
 
 import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 
 /**
  * <a href="https://www.boraji.com/spring-mvc-5-hello-world-example-with-thymeleaf-template">...</a>

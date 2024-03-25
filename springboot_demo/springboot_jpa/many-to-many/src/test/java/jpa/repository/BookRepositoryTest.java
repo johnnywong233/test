@@ -42,7 +42,7 @@ public class BookRepositoryTest {
 
     @Test
     public void saveTest1() {
-        Publisher publisher = publisherRepository.findOne(24);
+        Publisher publisher = publisherRepository.findById(24).orElseThrow();
         Book bookA = new Book("Book Two");
         bookA.getPublishers().add(publisher);
         bookRepository.save(bookA);
@@ -50,15 +50,15 @@ public class BookRepositoryTest {
 
     @Test
     public void saveTest2() {
-        Book two = bookRepository.findOne(18);
-        Publisher publisher = publisherRepository.findOne(25);
+        Book two = bookRepository.findById(18).orElseThrow();
+        Publisher publisher = publisherRepository.findById(25).orElseThrow();
         two.getPublishers().add(publisher);
         bookRepository.save(two);
     }
 
     @Test
     public void findPublisherTest() {
-        Publisher publisher = publisherRepository.findOne(24);
+        Publisher publisher = publisherRepository.findById(24).orElseThrow();
         Set<Book> books = publisher.getBooks();
         for (Book book : books) {
             log.info(book.getName() + "..." + book.getId());
@@ -76,7 +76,7 @@ public class BookRepositoryTest {
 
     @Test
     public void findBookTest() {
-        Book book = bookRepository.findOne(16);
+        Book book = bookRepository.findById(16).orElseThrow();
         Set<Publisher> publishers = book.getPublishers();
         for (Publisher publisher : publishers) {
             log.info(publisher.getName() + "..." + publisher.getId());
