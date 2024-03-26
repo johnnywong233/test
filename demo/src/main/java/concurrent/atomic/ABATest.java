@@ -8,8 +8,8 @@ public class ABATest {
     /*
      * http://www.cnblogs.com/549294286/p/3766717.html
      */
-    private static AtomicInteger atomicInt = new AtomicInteger(100);
-    private static AtomicStampedReference<Integer> atomicStampedRef =
+    private static final AtomicInteger atomicInt = new AtomicInteger(100);
+    private static final AtomicStampedReference<Integer> atomicStampedRef =
             new AtomicStampedReference<>(100, 0);
 
     public static void main(String[] args) throws InterruptedException {

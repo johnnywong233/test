@@ -13,10 +13,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Time: 22:45
  */
 public class ConcurrentTest {
-    private CountDownLatch startSignal = new CountDownLatch(1);
+    private final CountDownLatch startSignal = new CountDownLatch(1);
     private CountDownLatch doneSignal = null;
-    private CopyOnWriteArrayList<Long> list = new CopyOnWriteArrayList<>();
-    private AtomicInteger err = new AtomicInteger();//atomic increase
+    private final CopyOnWriteArrayList<Long> list = new CopyOnWriteArrayList<>();
+    private final AtomicInteger err = new AtomicInteger();//atomic increase
     private ConcurrentTask[] task = null;
 
     public ConcurrentTest(ConcurrentTask... task) {

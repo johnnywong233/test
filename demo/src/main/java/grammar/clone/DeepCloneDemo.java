@@ -57,7 +57,7 @@ class DeepSubject {
 
 class DeepStudent implements Cloneable {
     // 对象引用
-    private DeepSubject subj;
+    private final DeepSubject subj;
 
     private String name;
 

@@ -9,7 +9,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 
 public class Demo {
     //http://blog.csdn.net/xiao__gui/article/details/8558620
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         //只能获取单个汉字的拼音，但是不能获取一个包含多音字的词的拼音。
         HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();

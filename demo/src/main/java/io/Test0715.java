@@ -9,7 +9,7 @@ public class Test0715 {
     /*
      * set proxy to access Internet url resources
      */
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         String sURL = "http://java.sun.com/index.html";
         Properties prop = System.getProperties();
         prop.put("http.proxyHost", "web-proxy.atl.hp.com");

@@ -8,7 +8,7 @@ public class MainFrame extends JFrame {
     private static final long serialVersionUID = 5398934425180961778L;
 
     //TODO: 不能撞墙，不能撞自己
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
                 MainFrame frame = new MainFrame();

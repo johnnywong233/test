@@ -4,7 +4,7 @@ package pattern.adapter.case1;
  * Created by Johnny on 2018/3/18.
  */
 public class Adapter1 implements TargetInterface {
-    private Source source;
+    private final Source source;
 
     public Adapter1(Source source) {
         super();

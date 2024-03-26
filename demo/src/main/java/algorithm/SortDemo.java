@@ -126,10 +126,8 @@ class Sort {
             int i = left, j = right;
             while (true) {
                 while (arr[++i].compareTo(pivot) < 0) {
-                    ;
                 }
                 while (arr[--j].compareTo(pivot) > 0) {
-                    ;
                 }
 
                 if (i < j) {

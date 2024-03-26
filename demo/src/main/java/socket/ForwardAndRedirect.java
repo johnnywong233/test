@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ForwardAndRedirect {
-    public static void main(String args[]) throws Exception{
+    public static void main(String[] args) throws Exception{
         // this is the client side, request port 8080
 		try (Socket socket = new Socket("localhost", 8080)) {
 			// request

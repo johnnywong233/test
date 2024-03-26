@@ -7,7 +7,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class ClientTcpSend {
-	private static String CLIENT_IP = "127.0.0.1";
+	private static final String CLIENT_IP = "127.0.0.1";
     public static int port = 33456;
  
     public static void main(String[] args) {

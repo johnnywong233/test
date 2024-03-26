@@ -3,7 +3,7 @@ package project.netSpider;
 import java.util.LinkedList;
 
 public class Queue<T> {
-    private LinkedList<T> queue = new LinkedList<>();
+    private final LinkedList<T> queue = new LinkedList<>();
 
     void enQueue(T t) {
         queue.addLast(t);

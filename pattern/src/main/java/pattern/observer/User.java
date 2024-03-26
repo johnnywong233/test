@@ -4,7 +4,7 @@ package pattern.observer;
  * Created by Johnny on 2018/3/18.
  */
 public class User implements Observer {
-    private String name;
+    private final String name;
     private String message;
 
     public User(String name) {

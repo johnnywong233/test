@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class HTMLUtils {
-    private static Map<String, String> htmlSignMap = new HashMap<>();
-    private static Map<String, String> htmlSignMapReversed = new HashMap<>();
+    private static final Map<String, String> htmlSignMap = new HashMap<>();
+    private static final Map<String, String> htmlSignMapReversed = new HashMap<>();
 
     static {
         htmlSignMap.put("&Alpha;", "Α");

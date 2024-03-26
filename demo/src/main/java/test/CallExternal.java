@@ -5,7 +5,7 @@ import java.io.IOException;
 public class CallExternal {
     //java call external exe program
     //http://gundumw100.iteye.com/blog/438696
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         call1();
         call2();
         call3();

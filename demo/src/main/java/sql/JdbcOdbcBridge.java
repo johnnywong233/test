@@ -33,7 +33,7 @@ import java.util.Properties;
  */
 public class JdbcOdbcBridge {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rst = null;

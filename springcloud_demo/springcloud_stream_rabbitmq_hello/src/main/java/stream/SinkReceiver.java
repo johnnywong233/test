@@ -13,7 +13,7 @@ import org.springframework.cloud.stream.messaging.Sink;
  */
 @EnableBinding(Sink.class)
 public class SinkReceiver {
-    private static Logger logger = LoggerFactory.getLogger(StreamHelloApplication.class);
+    private static final Logger logger = LoggerFactory.getLogger(StreamHelloApplication.class);
     @StreamListener(Sink.INPUT)
     public void receive(Object playLoad) {
         logger.info("Received:"+playLoad);

@@ -16,7 +16,7 @@ public enum BlowfishManager {
         this.blowfish = new Blowfish(secret);
     }
 
-    private Blowfish blowfish;
+    private final Blowfish blowfish;
 
     public String decryptString(String sCipherText) {
         return this.getBlowfish().decryptString(sCipherText);

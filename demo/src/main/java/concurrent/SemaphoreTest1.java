@@ -7,9 +7,9 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreTest1 {
     private static final int THREAD_COUNT = 15;
 
-    private static ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
+    private static final ExecutorService threadPool = Executors.newFixedThreadPool(THREAD_COUNT);
 
-    private static Semaphore s = new Semaphore(10);
+    private static final Semaphore s = new Semaphore(10);
 
     public static void main(String[] args) {
         for (int i = 0; i < THREAD_COUNT; i++) {

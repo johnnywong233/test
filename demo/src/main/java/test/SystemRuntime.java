@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class SystemRuntime {
-    public static void main(String ars[]) throws Exception {
+    public static void main(String[] ars) throws Exception {
         identityHashCode();
         sysTime();
         sysProp();

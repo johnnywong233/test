@@ -14,7 +14,7 @@ public class MyDistributedLockByZK {
     private static ExecutorService executorService = null;
     private static final int THREAD_NUM = 5;
     private static int threadNo = 0;
-    private static CountDownLatch threadCompleteLatch = new CountDownLatch(THREAD_NUM);
+    private static final CountDownLatch threadCompleteLatch = new CountDownLatch(THREAD_NUM);
 
     /**
      * ZK的相关配置常量

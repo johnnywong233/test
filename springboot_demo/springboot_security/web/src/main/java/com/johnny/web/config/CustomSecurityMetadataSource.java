@@ -16,9 +16,9 @@ import java.util.Map;
 @Slf4j
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
     private Map<String, Collection<ConfigAttribute>> resourceMap;
-    private PathMatcher pathMatcher = new AntPathMatcher();
+    private final PathMatcher pathMatcher = new AntPathMatcher();
 
-    private String urlRoles;
+    private final String urlRoles;
 
     public CustomSecurityMetadataSource(String urlRoles) {
         super();

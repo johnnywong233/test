@@ -8,7 +8,7 @@ public class Queen8 {
     //棋盘格子的范围，以及皇后数量，应该分开定义
     private final Integer NUM = 8;
     //二维数组棋盘
-    private int chessBoard[][] = new int[NUM][NUM];
+    private final int[][] chessBoard = new int[NUM][NUM];
 
     public static void main(String[] args) {
         Queen8 queen8 = new Queen8();

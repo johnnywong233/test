@@ -6,7 +6,7 @@ public class Static {
      * this demo show that the static block will be initialized only once
      */
     @SuppressWarnings("unused")
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         T a = new T();
         T a1 = new T();
     }

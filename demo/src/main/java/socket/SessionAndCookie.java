@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class SessionAndCookie {
     //run CookieTest.jsp first, then this application.
-    public static void main(String args[]) throws Exception {
+    public static void main(String[] args) throws Exception {
         try (Socket socket = new Socket("localhost", 8080)) {
             OutputStream out = socket.getOutputStream();
             PrintWriter pw = new PrintWriter(out);

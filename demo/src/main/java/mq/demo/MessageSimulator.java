@@ -13,7 +13,7 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class MessageSimulator {
     //消息队列
-    private static ArrayBlockingQueue<Message> messageQueue = new ArrayBlockingQueue<>(100);
+    private static final ArrayBlockingQueue<Message> messageQueue = new ArrayBlockingQueue<>(100);
 
     //http://blog.csdn.net/luoweifu/article/details/45568411
     public static void main(String[] args) {
@@ -56,7 +56,7 @@ interface MessageProcess {
  * 窗口模拟类
  */
 class WindowSimulator implements MessageProcess {
-    private ArrayBlockingQueue<Message> msgQueue;
+    private final ArrayBlockingQueue<Message> msgQueue;
 
     WindowSimulator(ArrayBlockingQueue<Message> msgQueue) {
         this.msgQueue = msgQueue;

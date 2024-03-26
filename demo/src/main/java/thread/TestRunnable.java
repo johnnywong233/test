@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestRunnable implements Runnable {
-    private String threadName;
+    private final String threadName;
 
     public TestRunnable(String threadName) {
         this.threadName = threadName;

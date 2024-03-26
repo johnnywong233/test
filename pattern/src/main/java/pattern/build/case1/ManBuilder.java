@@ -6,7 +6,7 @@ package pattern.build.case1;
  * Time: 0:18
  */
 public class ManBuilder implements PersonBuilder {
-    private Person person;
+    private final Person person;
 
     public ManBuilder() {
         person = new Man();

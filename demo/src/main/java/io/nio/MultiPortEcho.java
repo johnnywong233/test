@@ -17,8 +17,8 @@ import java.util.Set;
  * Time: 20:16
  */
 public class MultiPortEcho {
-    private int[] ports;
-    private ByteBuffer echoBuffer = ByteBuffer.allocate(1024);
+    private final int[] ports;
+    private final ByteBuffer echoBuffer = ByteBuffer.allocate(1024);
 
     private MultiPortEcho(int[] ports) throws IOException {
         this.ports = ports;

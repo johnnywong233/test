@@ -30,8 +30,8 @@ public class ThreadSafeTest1 {
 }
 
 class MyThread1 implements Runnable {
-    private Counter counter;
-    private CountDownLatch countDownLatch;
+    private final Counter counter;
+    private final CountDownLatch countDownLatch;
 
     public MyThread1(Counter counter, CountDownLatch countDownLatch) {
         this.counter = counter;

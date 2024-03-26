@@ -8,7 +8,7 @@ import java.util.Map;
 public class ServiceFactory {
     private static final String DEFAULT_IMPL_PACKAGE_NAME = "impl";
 
-    private static Map<Class<?>, Object> map = new HashMap<>();
+    private static final Map<Class<?>, Object> map = new HashMap<>();
 
     /**
      * 工厂方法

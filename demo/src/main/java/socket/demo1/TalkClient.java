@@ -14,7 +14,7 @@ import java.net.Socket;
  */
 public class TalkClient {
     //http://www.osblog.net/blog/676.html
-    public static void main(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException {
         Socket socket = new Socket("192.168.3.104", 8877);
         PrintWriter os = new PrintWriter(socket.getOutputStream());
         BufferedReader is = new BufferedReader(new InputStreamReader(socket.getInputStream()));

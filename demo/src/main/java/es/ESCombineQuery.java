@@ -7,7 +7,7 @@ package es;
  * es组合查询
  */
 public class ESCombineQuery {
-    private StringBuilder querys;
+    private final StringBuilder querys;
     private int querycount = 0;
     private boolean addEndTag = false;
 

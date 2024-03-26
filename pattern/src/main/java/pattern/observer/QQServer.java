@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class QQServer implements Observable {
     //注意到这个List集合的泛型参数为Observer接口，设计原则：面向接口编程而不是面向实现编程
-    private List<Observer> list;
+    private final List<Observer> list;
     private String message;
 
     public QQServer() {

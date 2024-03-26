@@ -58,7 +58,7 @@ public class FileDemo {
                 while ((c = xmlInputStream.read()) != -1) {
                     bos.write(c);
                 }
-                System.out.println(bos.toString());
+                System.out.println(bos);
             }
             rs.close();
             stmt.close();

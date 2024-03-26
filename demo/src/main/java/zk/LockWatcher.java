@@ -21,7 +21,7 @@ public class LockWatcher implements Watcher {
     // 当前业务线程竞争锁的时候创建节点的前置节点路径
     private String waitPath = null;
     // 确保连接zk成功；只有当收到Watcher的监听事件之后，才执行后续的操作，否则请求阻塞在createConnection()创建ZK连接的方法中
-    private CountDownLatch connectSuccessLatch = new CountDownLatch(1);
+    private final CountDownLatch connectSuccessLatch = new CountDownLatch(1);
     // 标识线程是否执行完任务
     private CountDownLatch threadCompleteLatch = null;
 

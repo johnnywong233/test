@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
  * Time: 17:17
  */
 public class JdkProxySubject implements InvocationHandler {
-    private RealSubject realSubject;
+    private final RealSubject realSubject;
 
     JdkProxySubject(RealSubject realSubject) {
         this.realSubject = realSubject;

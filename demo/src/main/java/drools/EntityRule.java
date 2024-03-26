@@ -36,6 +36,6 @@ public class EntityRule {
      */
     public void getSerialNumber(String username, double currentMoney) {
         System.out.println("Account：" + username + " Balance：￥" + currentMoney);
-        System.out.println("Serial Number：" + UUID.randomUUID().toString());
+        System.out.println("Serial Number：" + UUID.randomUUID());
     }
 }

@@ -23,7 +23,7 @@ import java.awt.event.KeyListener;
  */
 public class GameMain {
     //http://www.phpxs.com/code/1001579/
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         GameLayout ers = new GameLayout();
         ers.isEnabled();
         ers.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -35,7 +35,7 @@ public class GameMain {
  * 方块类
  */
 class Box {
-    private static int[][] pattern = {
+    private static final int[][] pattern = {
             {0x0f00, 0x4444, 0x0f00, 0x4444},// 长条形
             {0x04e0, 0x0464, 0x00e4, 0x04c4},//T型
             {0x4620, 0x6c00, 0x4620, 0x6c00},//右Z型
@@ -49,7 +49,7 @@ class Box {
     private int blockState; // 块的下落状态
     private int row;//行
     private int col;//列
-    private GameDraw scr; //声明类型
+    private final GameDraw scr; //声明类型
 
 
     // 块类的构造方法
@@ -239,13 +239,13 @@ class GameLayout extends JFrame {
  */
 class GameDraw extends Canvas implements KeyListener {
     private static final long serialVersionUID = 5699414920465296745L;
-    private int rowNum; // 正方格的行数
-    private int columnNum; // 正方格的列数
-    private int maxAllowRowNum; // 允许有多少行未削
-    private int blockInitRow; // 新出现块的起始行坐标
-    private int blockInitCol; // 新出现块的起始列坐标
-    private int[][] scrArr; // 屏幕数组
-    private Box b = new Box(this); // 对方快的引用
+    private final int rowNum; // 正方格的行数
+    private final int columnNum; // 正方格的列数
+    private final int maxAllowRowNum; // 允许有多少行未削
+    private final int blockInitRow; // 新出现块的起始行坐标
+    private final int blockInitCol; // 新出现块的起始列坐标
+    private final int[][] scrArr; // 屏幕数组
+    private final Box b = new Box(this); // 对方快的引用
 
     // 画布类的构造方法
     GameDraw() {
@@ -432,7 +432,7 @@ class MyPanel extends Panel {
  * Timer control
  */
 class GameMyTimer extends Thread {
-    private GameDraw scr;
+    private final GameDraw scr;
 
 
     GameMyTimer(GameDraw scr) {
@@ -473,8 +473,8 @@ class Command implements ActionListener {
     static int buttonPause = 5;
     static boolean pauseResume = true;
     // 当前按钮
-    private int curButton;
-    private GameDraw scr;
+    private final int curButton;
+    private final GameDraw scr;
 
     Command(int button, GameDraw scr) {
         curButton = button;

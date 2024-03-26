@@ -21,8 +21,8 @@ import java.util.Objects;
  */
 public class PadFrame extends Frame {
 	private static final long serialVersionUID = -5456121244317864770L;
-	private MenuItem[] miFile;
-    private TextArea ta;
+	private final MenuItem[] miFile;
+    private final TextArea ta;
     final private Frame frame = this;
 
     /**

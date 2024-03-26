@@ -25,7 +25,7 @@ public class DirectoryList {
 }
 
 class DirectoryFilter implements FilenameFilter {
-    private String myString;
+    private final String myString;
 
     DirectoryFilter(String myString) {
         this.myString = myString;

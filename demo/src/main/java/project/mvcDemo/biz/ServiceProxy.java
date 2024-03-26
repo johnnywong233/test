@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class ServiceProxy implements InvocationHandler {
-    private Object target;
+    private final Object target;
 
     public ServiceProxy(Object target) {
         this.target = target;

@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DelimFramer implements Framer {
-    private InputStream in;        // 数据来源  
+    private final InputStream in;        // 数据来源
     private static final byte DELIMITER = '\n'; // 定界符  
 
     public DelimFramer(InputStream in) {

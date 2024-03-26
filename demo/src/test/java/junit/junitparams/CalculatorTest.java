@@ -22,9 +22,9 @@ public class CalculatorTest {
         return Arrays.asList(new Object[][]{{0, 0, 0}, {1, 1, 2}, {2, 1, 3}});
     }
 
-    private int testOpt1;
-    private int testOpt2;
-    private int testResult;
+    private final int testOpt1;
+    private final int testOpt2;
+    private final int testResult;
     private Calculator calculator;
 
     public CalculatorTest(int testOpt1, int testOpt2, int testResult) {

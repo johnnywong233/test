@@ -17,8 +17,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class ForkJoinSimple {
     private static final int NARRAY = 16;
-    private long[] array = new long[NARRAY];
-    private Random rand = new Random();
+    private final long[] array = new long[NARRAY];
+    private final Random rand = new Random();
 
     @Before
     public void setUp() {

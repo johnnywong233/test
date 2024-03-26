@@ -9,13 +9,13 @@ import java.util.List;
  * Model class for the book details.
  */
 public class Book {
-    private String isbn;
-    private String title;
-    private List<String> authors;
-    private String publication;
-    private Integer yearOfPublication;
-    private Integer numberOfPages;
-    private String image;
+    private final String isbn;
+    private final String title;
+    private final List<String> authors;
+    private final String publication;
+    private final Integer yearOfPublication;
+    private final Integer numberOfPages;
+    private final String image;
 
     Book(String isbn,
          String title,

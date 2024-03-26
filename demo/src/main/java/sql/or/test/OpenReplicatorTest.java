@@ -20,10 +20,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class OpenReplicatorTest {
     private static final Logger logger = LoggerFactory.getLogger(OpenReplicatorTest.class);
-    private static String host = "localhost";
-    private static int port = 3306;
-    private static String user = "root";
-    private static String password = "root";
+    private static final String host = "localhost";
+    private static final int port = 3306;
+    private static final String user = "root";
+    private static final String password = "root";
 
     //http://blog.csdn.net/u013256816/article/details/53072560
     public static void main(String[] args) {

@@ -14,7 +14,7 @@ import java.util.Set;
  * Time: 19:56
  */
 public class TestLoadBalance {
-    private static Map<String, Integer> serverWeightMap = new HashMap<>();
+    private static final Map<String, Integer> serverWeightMap = new HashMap<>();
 
     static {
         serverWeightMap.put("192.168.1.12", 1);

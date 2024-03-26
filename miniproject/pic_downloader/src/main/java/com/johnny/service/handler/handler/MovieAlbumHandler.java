@@ -14,7 +14,7 @@ public class MovieAlbumHandler extends AlbumHandler {
     private static final String IMAGE_NAME_REGEX = "p\\d+.(gif|jpg|png)";
     private static final String ALBUM_URL_REGEX = "https://movie.douban.com/subject/\\d+/photos\\?(\\w+=\\w+&*)+";
 
-    private Pattern p = Pattern.compile("type=\\w+");
+    private final Pattern p = Pattern.compile("type=\\w+");
 
     @Override
     public String getURLRegex() {

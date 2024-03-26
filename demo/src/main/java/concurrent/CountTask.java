@@ -8,8 +8,8 @@ import java.util.concurrent.RecursiveTask;
 @SuppressWarnings("serial")
 public class CountTask extends RecursiveTask<Integer> {
     private static final int THRESHOLD = 2;
-    private int start;
-    private int end;
+    private final int start;
+    private final int end;
 
     public CountTask(int start, int end) {
         this.start = start;

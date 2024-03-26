@@ -23,7 +23,7 @@ public class ReadQRCode {
 }
 
 class MyQRCodeImage implements QRCodeImage {
-    private BufferedImage bufferedImage;
+    private final BufferedImage bufferedImage;
 
     MyQRCodeImage(BufferedImage bufferedImage) {
         this.bufferedImage = bufferedImage;

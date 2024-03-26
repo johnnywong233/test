@@ -37,9 +37,9 @@ public class DownloadThreadTest extends Thread {
      * 分配给本线程的下载字节数
      */
     private long length = 0;
-    private CountDownLatch end;
-    private CloseableHttpClient httpClient;
-    private HttpContext context;
+    private final CountDownLatch end;
+    private final CloseableHttpClient httpClient;
+    private final HttpContext context;
 
     /**
      * @param url    下载文件地址

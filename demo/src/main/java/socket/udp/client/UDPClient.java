@@ -10,7 +10,7 @@ public class UDPClient {
     private static final int TIMEOUT = 5000;  //设置接收数据的超时时间
     private static final int MAXNUM = 5;      //设置重发数据的最多次数  
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException {
         String send = "Hello UDPserver";
         byte[] buf = new byte[1024];
         //客户端在9000端口监听接收到的数据  

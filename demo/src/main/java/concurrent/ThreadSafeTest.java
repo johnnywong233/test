@@ -37,8 +37,8 @@ public class ThreadSafeTest {
 }
 
 class MyThread implements Runnable {
-    private List<Object> list;
-    private CountDownLatch countDownLatch;
+    private final List<Object> list;
+    private final CountDownLatch countDownLatch;
 
     public MyThread(List<Object> list, CountDownLatch countDownLatch) {
         this.list = list;

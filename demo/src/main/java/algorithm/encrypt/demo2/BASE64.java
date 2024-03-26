@@ -9,8 +9,8 @@ import java.util.Base64;
  * 编码格式，而非加密算法
  */
 public class BASE64 {
-    private static Base64.Decoder decoder = Base64.getDecoder();
-    private static Base64.Encoder encoder = Base64.getEncoder();
+    private static final Base64.Decoder decoder = Base64.getDecoder();
+    private static final Base64.Encoder encoder = Base64.getEncoder();
 
     /**
      * BASE64解密

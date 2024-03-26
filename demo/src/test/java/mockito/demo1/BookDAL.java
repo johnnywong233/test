@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class BookDAL {
 
-    private static BookDAL bookDAL = new BookDAL();
+    private static final BookDAL bookDAL = new BookDAL();
 
     List<Book> getAllBooks() {
         return Collections.emptyList();

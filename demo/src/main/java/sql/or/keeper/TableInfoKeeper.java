@@ -20,7 +20,7 @@ public class TableInfoKeeper {
 
     private static final Logger logger = LoggerFactory.getLogger(TableInfoKeeper.class);
 
-    private static Map<Long, TableInfo> tabledIdMap = new ConcurrentHashMap<>();
+    private static final Map<Long, TableInfo> tabledIdMap = new ConcurrentHashMap<>();
     private static Map<String, List<ColumnInfo>> columnsMap = new ConcurrentHashMap<>();
 
     static {

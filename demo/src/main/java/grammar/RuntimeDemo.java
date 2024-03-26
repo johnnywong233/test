@@ -9,7 +9,7 @@ public class RuntimeDemo {
     /*
      * from 261 java problems PDF book 8.23, 8.24
      */
-    public static void main(String args[]) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
         System.out.println(Thread.currentThread().getContextClassLoader().getResource(""));
         System.out.println(RuntimeDemo.class.getClassLoader().getResource(""));

@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class FilterChain implements Filter {
     //用List集合来存储过滤规则
-    private List<Filter> filters = new ArrayList<>();
+    private final List<Filter> filters = new ArrayList<>();
     //用于标记规则的引用顺序
     private int index = 0;
 

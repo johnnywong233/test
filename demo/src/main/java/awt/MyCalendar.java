@@ -31,7 +31,7 @@ public class MyCalendar extends JApplet {
     private static final Color SELECTED_BACKGROUND = Color.blue;
     private static final Color SELECTED_FOREGROUND = Color.white;
 
-    private JPanel cPane;
+    private final JPanel cPane;
     private JSpinner yearsSpinner;
     private JComboBox<Integer> monthsComboBox;
     private JTable daysTable;
@@ -182,7 +182,7 @@ public class MyCalendar extends JApplet {
     public static class CalendarTable extends JTable {
 
         private static final long serialVersionUID = 1L;
-        private Calendar calendar;
+        private final Calendar calendar;
 
         CalendarTable(TableModel model, Calendar calendar) {
             super(model);

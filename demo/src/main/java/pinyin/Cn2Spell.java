@@ -591,7 +591,7 @@ public class Cn2Spell {
         // } else {
         // resultBuf.append(retuBuf.toString());
         // }
-        resultBuf.append(retuBuf.toString());
+        resultBuf.append(retuBuf);
         return resultBuf.toString();
     }
 

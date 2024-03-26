@@ -19,7 +19,7 @@ import java.security.KeyStore;
  * Time: 23:55
  */
 public class SSLServer extends Thread {
-    private Socket socket;
+    private final Socket socket;
 
     public SSLServer(Socket socket) {
         this.socket = socket;
@@ -40,8 +40,8 @@ public class SSLServer extends Thread {
         }
     }
 
-    private static String SERVER_KEY_STORE = "/Users/liweinan/projs/ssl/src/main/resources/META-INF/server_ks";
-    private static String SERVER_KEY_STORE_PASSWORD = "123123";
+    private static final String SERVER_KEY_STORE = "/Users/liweinan/projs/ssl/src/main/resources/META-INF/server_ks";
+    private static final String SERVER_KEY_STORE_PASSWORD = "123123";
 
     public static void main(String[] args) throws Exception {
         System.setProperty("javax.net.ssl.trustStore", SERVER_KEY_STORE);

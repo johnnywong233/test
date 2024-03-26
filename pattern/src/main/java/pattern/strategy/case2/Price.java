@@ -6,7 +6,7 @@ package pattern.strategy.case2;
  */
 public class Price {
     //持有一个具体的策略对象
-    private MemberStrategy strategy;
+    private final MemberStrategy strategy;
 
     /**
      * 构造函数，传入一个具体的策略对象

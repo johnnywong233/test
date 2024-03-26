@@ -18,7 +18,7 @@ public class AtomicTest {
     }
 
     //http://blog.csdn.net/sunnydogzhou/article/details/6564396
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         long start = System.currentTimeMillis();
         AtomicTest test = new AtomicTest(0);
         for (int i = 0; i < 1000000; i++) {

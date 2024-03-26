@@ -61,7 +61,7 @@ class Subject {
 
 class Student implements Cloneable {
     // 对象引用
-    private Subject subj;
+    private final Subject subj;
 
     private String name;
 

@@ -33,7 +33,7 @@ public class TestFinal {
 
 
 class OneCity {
-    private static String name = "Beijing";
+    private static final String name = "Beijing";
 
     public static String getName() {
         return name;

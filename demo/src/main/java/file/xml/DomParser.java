@@ -24,7 +24,7 @@ public class DomParser implements XmlDocument {
     private Document document;
     private String fileName;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 //		createXml("");
     }
 

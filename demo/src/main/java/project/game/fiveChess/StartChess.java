@@ -35,10 +35,14 @@ import java.awt.geom.Ellipse2D;
  */
 public class StartChess extends JFrame {
     private static final long serialVersionUID = 4452245453242087401L;
-    private ChessBoard chessBoard;
-    private JButton startButton, backButton, exitButton;
+    private final ChessBoard chessBoard;
+    private final JButton startButton;
+    private final JButton backButton;
+    private final JButton exitButton;
 
-    private JMenuItem startMenuItem, exitMenuItem, backMenuItem;
+    private final JMenuItem startMenuItem;
+    private final JMenuItem exitMenuItem;
+    private final JMenuItem backMenuItem;
 
     //重新开始，退出，和悔棋菜单项
     private StartChess() {
@@ -151,13 +155,13 @@ class ChessBoard extends JPanel implements MouseListener {
     private static final int ROWS = 15;//棋盘行数
     private static final int COLS = 15;//棋盘列数
 
-    private Point[] chessList = new Point[(ROWS + 1) * (COLS + 1)];//初始每个数组元素为null
+    private final Point[] chessList = new Point[(ROWS + 1) * (COLS + 1)];//初始每个数组元素为null
     private boolean isBlack = true;//默认开始是黑棋先
     private boolean gameOver = false;//游戏是否结束
     private int chessCount;//当前棋盘棋子的个数
     private int xIndex, yIndex;//当前刚下棋子的索引
 
-    private Image img;
+    private final Image img;
 
     ChessBoard() {
         // setBackground(Color.blue);

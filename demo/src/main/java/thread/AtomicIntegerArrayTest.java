@@ -14,8 +14,8 @@ public class AtomicIntegerArrayTest {
         Incrementer incrementer = new Incrementer(vector);
         Decrementer decrementer = new Decrementer(vector);
 
-        Thread threadIncrementer[] = new Thread[threads];
-        Thread threadDecrementer[] = new Thread[threads];
+        Thread[] threadIncrementer = new Thread[threads];
+        Thread[] threadDecrementer = new Thread[threads];
 
         for (int i = 0; i < threads; i++) {
             threadIncrementer[i] = new Thread(incrementer);
@@ -45,7 +45,7 @@ public class AtomicIntegerArrayTest {
 
 
 class Incrementer implements Runnable {
-    private AtomicIntegerArray vector;
+    private final AtomicIntegerArray vector;
 
     public Incrementer(AtomicIntegerArray vector) {
         this.vector = vector;
@@ -61,7 +61,7 @@ class Incrementer implements Runnable {
 
 class Decrementer implements Runnable {
 
-    private AtomicIntegerArray vector;
+    private final AtomicIntegerArray vector;
 
     public Decrementer(AtomicIntegerArray vector) {
         this.vector = vector;

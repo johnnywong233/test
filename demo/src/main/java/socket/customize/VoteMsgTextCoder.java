@@ -25,9 +25,9 @@ public class VoteMsgTextCoder implements VoteMsgCoder {
     public byte[] toWire(VoteMsg msg) throws IOException {
         String msgString = MAGIC + DELIMSTR + (msg.isInquiry() ? INQSTR : VOTESTR)
                 + DELIMSTR + (msg.isResponse() ? RESPONSESTR + DELIMSTR : "")
-                + Integer.toString(msg.getCandidateID()) + DELIMSTR
-                + Long.toString(msg.getVoteCount());
-        byte data[] = msgString.getBytes(CHARSETNAME);
+                + msg.getCandidateID() + DELIMSTR
+                + msg.getVoteCount();
+        byte[] data = msgString.getBytes(CHARSETNAME);
         return data;
     }
 

@@ -4,7 +4,7 @@ package pattern.chain.case2;
  * Created by Johnny on 2018/3/18.
  */
 public class Test {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         //设定过滤规则，对msg字符串进行过滤处理
         String msg = ":):,<script>,敏感,被就业,网络授课";
         //过滤请求

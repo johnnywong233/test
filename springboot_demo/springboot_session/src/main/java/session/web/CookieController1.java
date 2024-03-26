@@ -22,7 +22,7 @@ public class CookieController1 {
             System.out.println("session does not exist, set browser=" + browser);
             session.setAttribute("browser", browser);
         } else {
-            System.out.println("session does exist, browser=" + sessionBrowser.toString());
+            System.out.println("session does exist, browser=" + sessionBrowser);
         }
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {

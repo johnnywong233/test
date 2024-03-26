@@ -12,7 +12,7 @@ import utils.HttpClientUtil;
  * Time: 0:34
  */
 public class HttpRequestTest {
-    private static Logger logger = LoggerFactory.getLogger(HttpRequestTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpRequestTest.class);
 
     public static void main(String[] args) throws Exception {
         getRequestTest();

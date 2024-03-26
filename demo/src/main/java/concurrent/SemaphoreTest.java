@@ -15,8 +15,8 @@ public class SemaphoreTest {
     }
 
     static class Worker extends Thread {
-        private int num;
-        private Semaphore semaphore;
+        private final int num;
+        private final Semaphore semaphore;
 
         public Worker(int num, Semaphore semaphore) {
             this.num = num;

@@ -21,8 +21,10 @@ import java.util.Stack;
 public class Maze extends JPanel {
     private static final long serialVersionUID = -8300339045454852626L;
     // width 每个格子的宽度和高度
-    private int num, width, padding;
-    private Lattice[][] maze;
+    private final int num;
+    private final int width;
+    private final int padding;
+    private final Lattice[][] maze;
     private int ballX, ballY;
     private boolean drawPath = false;
 
@@ -156,7 +158,7 @@ public class Maze extends JPanel {
         int ry = Math.abs(random.nextInt()) % num;
         Stack<Lattice> s = new Stack<>();
         Lattice p = maze[rx][ry];
-        Lattice neis[];
+        Lattice[] neis;
         s.push(p);
         while (!s.isEmpty()) {
             p = s.pop();

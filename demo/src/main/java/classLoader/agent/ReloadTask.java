@@ -9,7 +9,7 @@ import java.util.TimerTask;
  * Created by johnny on 2016/10/2.
  */
 public class ReloadTask extends TimerTask {
-    private Instrumentation inst;
+    private final Instrumentation inst;
 
     ReloadTask(Instrumentation inst) {
         this.inst = inst;

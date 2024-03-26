@@ -15,8 +15,8 @@ import java.util.Map;
 public class HotSwapURLClassLoader extends URLClassLoader {
 
     //缓存加载class文件的最后最新修改时间
-    private static Map<String, Long> cacheLastModifyTimeMap = new HashMap<>();
-    private static String projectClassPath = "D:\\Java_ex\\test\\target\\classes\\";
+    private static final Map<String, Long> cacheLastModifyTimeMap = new HashMap<>();
+    private static final String projectClassPath = "D:\\Java_ex\\test\\target\\classes\\";
     private static HotSwapURLClassLoader hcl = new HotSwapURLClassLoader();
 
     private HotSwapURLClassLoader() {

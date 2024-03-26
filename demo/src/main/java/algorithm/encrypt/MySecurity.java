@@ -9,10 +9,10 @@ import java.security.Key;
 
 public class MySecurity {
 
-    private MySecurity des = new MySecurity();
-    private static String strDefaultKey = "johnny";
-    private Cipher encryptCipher;
-    private Cipher decryptCipher;
+    private final MySecurity des = new MySecurity();
+    private static final String strDefaultKey = "johnny";
+    private final Cipher encryptCipher;
+    private final Cipher decryptCipher;
 
     //TODO
     private Key getKey(byte[] arrBTmp) {

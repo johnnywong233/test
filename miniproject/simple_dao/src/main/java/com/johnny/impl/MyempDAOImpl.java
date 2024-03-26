@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyempDAOImpl implements IMyempDAO {
-    private Connection conn;
+    private final Connection conn;
     private PreparedStatement pstmt = null;
 
     public MyempDAOImpl(Connection conn) {//构造方法取得与数据库连接

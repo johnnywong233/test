@@ -18,7 +18,7 @@ public class TopK {
 
 
     public static void main(String[] args) {
-        int a[] = {2, 20, 3, 7, 9, 1, 17, 18, 0, 4, 34, 9, 23, 98, 23, 29,
+        int[] a = {2, 20, 3, 7, 9, 1, 17, 18, 0, 4, 34, 9, 23, 98, 23, 29,
                 1111, 54, 333, 76, 98, 72, 12, 26, 99};
         int k = 6;
         //guava API Ints.asList 的使用
@@ -38,7 +38,7 @@ public class TopK {
 
         System.out.println("\n------");
         //方法二：求最大值使用最小堆
-        int result[] = new TopK().getTopKByHeap(a, k);
+        int[] result = new TopK().getTopKByHeap(a, k);
         for (int temp : result) {
             System.out.print(temp + " ");
         }
@@ -66,7 +66,7 @@ public class TopK {
         qSort(list, pivotPos + 1, right);
     }
 
-    private static int partition(int a[], int first, int end) {
+    private static int partition(int[] a, int first, int end) {
         int i = first;
         int main = a[end];
         for (int j = first; j < end; j++) {
@@ -83,7 +83,7 @@ public class TopK {
     }
 
     //快速排序的过程来求Top k.平均时间复杂度为(O(n)).适用于无序单个数组
-    private void getTopKMinBySort(int a[], int first, int end, int k) {
+    private void getTopKMinBySort(int[] a, int first, int end, int k) {
         if (first < end) {
             int partitionIndex = partition(a, first, end);
             if (partitionIndex == k - 1) {
@@ -99,7 +99,7 @@ public class TopK {
     /**
      * 创建k个节点的小根堆
      */
-    private int[] createHeap(int a[], int k) {
+    private int[] createHeap(int[] a, int k) {
         int[] result = new int[k];
         System.arraycopy(a, 0, result, 0, k);
         for (int i = 1; i < k; i++) {
@@ -116,7 +116,7 @@ public class TopK {
         return result;
     }
 
-    private void insert(int a[], int value) {
+    private void insert(int[] a, int value) {
         a[0] = value;
         int parent = 0;
 
@@ -152,8 +152,8 @@ public class TopK {
      * 如果数据小于或等于小根堆的根节点，小根堆无变化。
      * 时间复杂度O(nlogK)(n:数据的长度)。
      */
-    private int[] getTopKByHeap(int input[], int k) {
-        int heap[] = this.createHeap(input, k);
+    private int[] getTopKByHeap(int[] input, int k) {
+        int[] heap = this.createHeap(input, k);
         for (int i = k; i < input.length; i++) {
             if (input[i] > heap[0]) {
                 this.insert(heap, input[i]);
@@ -167,8 +167,8 @@ public class TopK {
      * 适合采用Merge的方法,时间复杂度(O(k*m);
      */
     public static int[] merge(List<List<Integer>> input, int k) {
-        int index[] = new int[input.size()];//保存每个数组下标扫描的位置;
-        int result[] = new int[k];
+        int[] index = new int[input.size()];//保存每个数组下标扫描的位置;
+        int[] result = new int[k];
         for (int i = 0; i < k; i++) {
             int max = Integer.MIN_VALUE;
             int maxIndex = 0;

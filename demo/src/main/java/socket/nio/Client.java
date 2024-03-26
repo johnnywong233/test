@@ -19,11 +19,11 @@ import java.util.List;
  */
 public class Client {
     private SocketChannel client;
-    private Selector selector = getSelector();
+    private final Selector selector = getSelector();
 
     private volatile boolean run = true;
 
-    private List<Object> messageQueue = new LinkedList<>();
+    private final List<Object> messageQueue = new LinkedList<>();
 
     private Selector getSelector() {
         try {

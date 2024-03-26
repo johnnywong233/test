@@ -34,7 +34,7 @@ public class User2MapperTest {
         if (users == null || users.size() == 0) {
             System.out.println("is null");
         } else {
-            System.out.println(users.toString());
+            System.out.println(users);
         }
     }
 

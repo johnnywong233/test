@@ -6,7 +6,7 @@ package aop.pattern;
  * Time: 17:14
  */
 public class Proxy implements Subject {
-    private RealSubject realSubject;
+    private final RealSubject realSubject;
 
     Proxy(RealSubject realSubject) {
         this.realSubject = realSubject;

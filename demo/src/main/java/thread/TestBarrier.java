@@ -14,7 +14,7 @@ public class TestBarrier {
     }
 
     static class Writer extends Thread {
-        private CyclicBarrier cyclicBarrier;
+        private final CyclicBarrier cyclicBarrier;
 
         public Writer(CyclicBarrier cyclicBarrier) {
             this.cyclicBarrier = cyclicBarrier;

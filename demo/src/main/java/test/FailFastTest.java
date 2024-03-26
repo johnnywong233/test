@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FailFastTest {
-    private static List<Integer> list = new ArrayList<>();
+    private static final List<Integer> list = new ArrayList<>();
 
     private static class threadOne extends Thread {
         @Override

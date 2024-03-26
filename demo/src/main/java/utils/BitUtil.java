@@ -248,7 +248,7 @@ public class BitUtil {
  */
 class WhichChars {
 
-    private BitSet used = new BitSet();
+    private final BitSet used = new BitSet();
 
     public WhichChars(String str) {
         for (int i = 0; i < str.length(); i++) {
@@ -268,7 +268,7 @@ class WhichChars {
         return desc + "]";
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         WhichChars w = new WhichChars("How do you do");
         System.out.println(w);
     }

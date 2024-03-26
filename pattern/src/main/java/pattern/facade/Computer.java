@@ -4,9 +4,9 @@ package pattern.facade;
  * Created by Johnny on 2018/3/18.
  */
 public class Computer {
-    private CPU cpu;
-    private Memory memory;
-    private GPU gpu;
+    private final CPU cpu;
+    private final Memory memory;
+    private final GPU gpu;
 
     public Computer(){
         cpu = new CPU();

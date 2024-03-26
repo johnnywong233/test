@@ -24,7 +24,7 @@ public class MemoryMappingExample {
         for (int i = 0; i < memMapSize; i++) {
             out.put((byte) 'A');
         }
-        System.out.println("File '" + fn + "' is now " + Integer.toString(memMapSize) + " bytes full.");
+        System.out.println("File '" + fn + "' is now " + memMapSize + " bytes full.");
 
         // Read from memory-mapped file.
         for (int i = 0; i < 30; i++) {

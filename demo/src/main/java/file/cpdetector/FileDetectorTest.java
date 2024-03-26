@@ -116,8 +116,8 @@ public class FileDetectorTest {
 
     private static CodepageDetectorProxy detector = null;
     private static CodepageDetectorProxy fastDetector = null;
-    private static ParsingDetector parsingDetector = new ParsingDetector(false);
-    private static ByteOrderMarkDetector byteOrderMarkDetector = new ByteOrderMarkDetector();
+    private static final ParsingDetector parsingDetector = new ParsingDetector(false);
+    private static final ByteOrderMarkDetector byteOrderMarkDetector = new ByteOrderMarkDetector();
 
     //default strategy use fastDetector
     private static final boolean DEFAULT_DETECT_STRATEGY = true;

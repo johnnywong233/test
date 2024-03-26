@@ -11,7 +11,7 @@ public class ReverseString {
     }
 
     private static String reverse(String input) {
-        String words[] = input.split(" ");
+        String[] words = input.split(" ");
         StringBuilder str = new StringBuilder();
         for (int i = words.length - 1; i >= 0; i--) {
             str.append(words[i]).append(" ");
@@ -20,7 +20,7 @@ public class ReverseString {
     }
 
     private static String reverse1(String input) {
-        String words[] = input.substring(0, input.length() - 1).split(" ");
+        String[] words = input.substring(0, input.length() - 1).split(" ");
         StringBuilder str = new StringBuilder();
         for (int i = words.length - 1; i >= 0; i--) {
             str.append(" ").append(words[i]);

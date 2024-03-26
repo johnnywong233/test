@@ -16,11 +16,11 @@ public class PokerGame {
         System.out.println("--------产生一副扑克牌--------");
         List<Poker> pockers = Poker.createPocker();
         System.out.println("--------扑克牌创建成功--------");
-        System.out.println(pockers.toString());
+        System.out.println(pockers);
         System.out.println("--------开始洗牌--------");
         Collections.shuffle(pockers);
         System.out.println("--------洗牌结束--------");
-        System.out.println(pockers.toString());
+        System.out.println(pockers);
         System.out.println("--------创建玩家--------");
         Scanner scanner = new Scanner(System.in);
         List<Player> players = new ArrayList<>();

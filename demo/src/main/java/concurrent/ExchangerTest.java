@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 
 public class ExchangerTest {
     private static final Exchanger<String> EXGR = new Exchanger<>();
-    private static ExecutorService threadPool = Executors.newFixedThreadPool(2);
+    private static final ExecutorService threadPool = Executors.newFixedThreadPool(2);
 
     public static void main(String[] args) {
         threadPool.execute(() -> {

@@ -13,7 +13,7 @@ public class NumSearch {
 
     @Test
     public void test() {
-        int arr[] = {9, 7, 5, 4, 2, 1, 3, 6, 8};
+        int[] arr = {9, 7, 5, 4, 2, 1, 3, 6, 8};
         System.out.println(getFirstKElements(arr, 4));
     }
 
@@ -24,7 +24,7 @@ public class NumSearch {
      * @param arr the integer array for search
      * @param k   the min k numbers desired
      */
-    public static TreeSet<Integer> getFirstKElements(int arr[], int k) {
+    public static TreeSet<Integer> getFirstKElements(int[] arr, int k) {
         TreeSet<Integer> set = new TreeSet<>();
         int len = arr.length;
         k = k % len;

@@ -10,8 +10,8 @@ import java.util.Map;
  * Time: 0:29
  */
 public class KugouTempToMp3 {
-    private static String KGTEMP = ".kgtemp";
-    private static String KRC = "krc";
+    private static final String KGTEMP = ".kgtemp";
+    private static final String KRC = "krc";
 
     /**
      * Change(string,string) 方法只是用来测试用的。调一下字符串之类的

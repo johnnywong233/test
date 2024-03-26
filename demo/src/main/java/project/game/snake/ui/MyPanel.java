@@ -30,14 +30,14 @@ public class MyPanel extends JPanel {
 
     private List<Image> imgs;//pic resources
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
-    private List<Point> snake = new ArrayList<>(0);
+    private final List<Point> snake = new ArrayList<>(0);
     private Direction d = Direction.UP;
 
     private Direction d1 = Direction.UP;
 
-    private List<Point> food = new ArrayList<>(0);
+    private final List<Point> food = new ArrayList<>(0);
 
     private boolean play = true;//game start
 

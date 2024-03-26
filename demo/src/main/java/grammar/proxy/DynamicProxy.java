@@ -51,7 +51,7 @@ class HelloImplements implements Hello {
 //定义AOP的Agent
 class AOPFactory implements InvocationHandler {
 
-    private Object proxyed;
+    private final Object proxyed;
 
     AOPFactory(Object proxyed) {
         this.proxyed = proxyed;

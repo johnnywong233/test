@@ -1,8 +1,8 @@
 package project.mvcDemo.action;
 
 public class ActionResult {
-    private ResultContent resultContent;
-    private ResultType resultType;
+    private final ResultContent resultContent;
+    private final ResultType resultType;
 
     public ActionResult(ResultContent resultContent) {
         this(resultContent, ResultType.Forward);

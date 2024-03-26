@@ -11,24 +11,24 @@ public class BMPFile extends Component {
     private final static int BITMAPFILEHEADER_SIZE = 14;
     private final static int BITMAPINFOHEADER_SIZE = 40;
 
-    private byte bfType[] = {'B', 'M'};
+    private final byte[] bfType = {'B', 'M'};
     private int bfSize = 0;
-    private int bfReserved1 = 0;
-    private int bfReserved2 = 0;
-    private int bfOffBits = BITMAPFILEHEADER_SIZE + BITMAPINFOHEADER_SIZE;
+    private final int bfReserved1 = 0;
+    private final int bfReserved2 = 0;
+    private final int bfOffBits = BITMAPFILEHEADER_SIZE + BITMAPINFOHEADER_SIZE;
 
-    private int biSize = BITMAPINFOHEADER_SIZE;
+    private final int biSize = BITMAPINFOHEADER_SIZE;
     private int biWidth = 0;
     private int biHeight = 0;
-    private int biPlanes = 1;
-    private int biBitCount = 24;
-    private int biCompression = 0;
+    private final int biPlanes = 1;
+    private final int biBitCount = 24;
+    private final int biCompression = 0;
     private int biSizeImage = 0x030000;
-    private int biXPelsPerMeter = 0x0;
-    private int biYPelsPerMeter = 0x0;
-    private int biClrUsed = 0;
-    private int biClrImportant = 0;
-    private int bitmap[];
+    private final int biXPelsPerMeter = 0x0;
+    private final int biYPelsPerMeter = 0x0;
+    private final int biClrUsed = 0;
+    private final int biClrImportant = 0;
+    private int[] bitmap;
     private FileOutputStream fo;
 
     public BMPFile() {
@@ -57,7 +57,7 @@ public class BMPFile extends Component {
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 //        saveBitmap("C:\\work\\test_git\\test\\demo\\src\\main\\resources", aImage, 32, 48);
     }
 
@@ -92,7 +92,7 @@ public class BMPFile extends Component {
         int lastRowIndex;
         int pad;
         int padCount;
-        byte rgb[] = new byte[3];
+        byte[] rgb = new byte[3];
         size = (biWidth * biHeight) - 1;
         pad = 4 - ((biWidth * 3) % 4);
         if (pad == 4) {
@@ -160,14 +160,14 @@ public class BMPFile extends Component {
     }
 
     private byte[] intToWord(int parValue) {
-        byte retValue[] = new byte[2];
+        byte[] retValue = new byte[2];
         retValue[0] = (byte) (parValue & 0x00FF);
         retValue[1] = (byte) ((parValue >> 8) & 0x00FF);
         return (retValue);
     }
 
     private byte[] intToDWord(int parValue) {
-        byte retValue[] = new byte[4];
+        byte[] retValue = new byte[4];
         retValue[0] = (byte) (parValue & 0x00FF);
         retValue[1] = (byte) ((parValue >> 8) & 0x000000FF);
         retValue[2] = (byte) ((parValue >> 16) & 0x000000FF);

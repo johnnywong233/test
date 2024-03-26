@@ -12,13 +12,13 @@ public class ConsistentHashingWithoutVirtualNode {
   /**
    * 待添加入Hash环的服务器列表
    */
-  private static String[] servers =
+  private static final String[] servers =
       {"192.168.0.0:111", "192.168.0.1:111", "192.168.0.2:111", "192.168.0.3:111", "192.168.0.4:111"};
 
   /**
    * key表示服务器的hash值，value表示服务器的名称
    */
-  private static SortedMap<Integer, String> sortedMap = new TreeMap<>();
+  private static final SortedMap<Integer, String> sortedMap = new TreeMap<>();
 
   /**
    * 程序初始化，将所有的服务器放入sortedMap中

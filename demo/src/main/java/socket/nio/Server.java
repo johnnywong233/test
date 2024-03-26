@@ -23,10 +23,10 @@ import java.util.concurrent.TimeUnit;
 public class Server {
     private Selector selector = getSelector();
     private ServerSocketChannel ss = null;
-    private static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(10, 10, 500, TimeUnit.MILLISECONDS,
+    private static final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(10, 10, 500, TimeUnit.MILLISECONDS,
             new ArrayBlockingQueue<>(20));
 
-    private static Map<Integer, SelectionKey> selectionKeyMap = new ConcurrentHashMap<>();
+    private static final Map<Integer, SelectionKey> selectionKeyMap = new ConcurrentHashMap<>();
 
     private Selector getSelector() {
         try {
@@ -171,9 +171,9 @@ public class Server {
      * 读客户端发送数据线程
      */
     private class ReadClientSocketHandler implements Runnable {
-        private SocketChannel client;
-        private ByteBuffer tmp = ByteBuffer.allocate(1024);
-        private SelectionKey selectionKey;
+        private final SocketChannel client;
+        private final ByteBuffer tmp = ByteBuffer.allocate(1024);
+        private final SelectionKey selectionKey;
         ReadClientSocketHandler(SelectionKey selectionKey) {
             this.selectionKey = selectionKey;
             this.client = (SocketChannel) selectionKey.channel();

@@ -13,10 +13,10 @@ import java.util.List;
  * Time: 23:44
  */
 public class BloomFilter {
-    private BitSet bitSet;
-    private int bitSetSize;
-    private int addedElements;
-    private int hashFunctionNumber;
+    private final BitSet bitSet;
+    private final int bitSetSize;
+    private final int addedElements;
+    private final int hashFunctionNumber;
 
     /**
      * 构造一个布隆过滤器，过滤器的容量为c * n 个bit.

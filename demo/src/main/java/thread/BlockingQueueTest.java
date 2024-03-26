@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BlockingQueueTest {
 
-    private List<Object> queue = new LinkedList<>();
+    private final List<Object> queue = new LinkedList<>();
 
     private int limit = 10;
 
