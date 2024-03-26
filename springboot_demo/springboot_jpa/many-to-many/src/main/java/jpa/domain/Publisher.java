@@ -1,9 +1,13 @@
 package jpa.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,14 +34,10 @@ public class Publisher {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder(String.format(
-                "Publisher [id=%d, name='%s']%n",
-                id, name));
+        StringBuilder result = new StringBuilder(String.format("Publisher [id=%d, name='%s']%n", id, name));
         if (books != null) {
             for (Book book : books) {
-                result.append(String.format(
-                        "Book[id=%d, name='%s']%n",
-                        book.getId(), book.getName()));
+                result.append(String.format("Book[id=%d, name='%s']%n", book.getId(), book.getName()));
             }
         }
         return result.toString();

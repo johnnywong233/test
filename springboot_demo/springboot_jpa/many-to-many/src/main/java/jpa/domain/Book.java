@@ -1,9 +1,16 @@
 package jpa.domain;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,9 +23,7 @@ public class Book {
     private int id;
     private String name;
     @ManyToMany(cascade = CascadeType.MERGE)
-    //
-    @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
+    @JoinTable(name = "book_publisher", joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "publisher_id", referencedColumnName = "id"))
     private Set<Publisher> publishers = new HashSet<>();
 
     public Book(String name) {
@@ -32,14 +37,10 @@ public class Book {
 
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder(String.format(
-                "Book [id=%d, name='%s']%n",
-                id, name));
+        StringBuilder result = new StringBuilder(String.format("Book [id=%d, name='%s']%n", id, name));
         if (publishers != null) {
             for (Publisher publisher : publishers) {
-                result.append(String.format(
-                        "Publisher[id=%d, name='%s']%n",
-                        publisher.getId(), publisher.getName()));
+                result.append(String.format("Publisher[id=%d, name='%s']%n", publisher.getId(), publisher.getName()));
             }
         }
         return result.toString();

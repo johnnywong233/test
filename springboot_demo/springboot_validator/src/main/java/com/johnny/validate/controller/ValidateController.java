@@ -5,12 +5,15 @@ import com.johnny.validate.model.Person;
 import com.johnny.validate.model.User;
 import com.johnny.validate.model.view.PersonAddView;
 import com.johnny.validate.model.view.PersonModifyView;
+import jakarta.validation.Valid;
+import jakarta.validation.groups.Default;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import javax.validation.groups.Default;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 测试User 部分参数校验

@@ -1,9 +1,8 @@
 package com.johnny.validator.custom;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import org.apache.commons.beanutils.BeanUtils;
-
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
 public class OneOfValidator implements ConstraintValidator<OneOf, Object> {
 

@@ -1,5 +1,6 @@
 package quartz;
 
+import jakarta.servlet.MultipartConfigElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.util.unit.DataSize;
 import org.springframework.util.unit.DataUnit;
 
-import javax.servlet.MultipartConfigElement;
 import java.time.Duration;
 
 /**

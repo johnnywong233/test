@@ -1,13 +1,12 @@
 package wink;
 
+import jakarta.ws.rs.core.MediaType;
 import lombok.Data;
 import org.apache.wink.client.ClientResponse;
 import org.apache.wink.client.Resource;
 import org.apache.wink.client.RestClient;
 import org.json.simple.JSONValue;
 import org.testng.annotations.Test;
-
-import javax.ws.rs.core.MediaType;
 
 /**
  * Created by johnny on 2016/9/13.
@@ -31,7 +30,7 @@ public class RestClientDemo {
         Item item = new Item();
         item.setId("id");
         item.setName("name");
-        resource.accept(MediaType.APPLICATION_JSON_TYPE).contentType(MediaType.APPLICATION_JSON_TYPE);
+        resource.accept(String.valueOf(MediaType.APPLICATION_JSON_TYPE)).contentType(String.valueOf(MediaType.APPLICATION_JSON_TYPE));
         ClientResponse clientResponse = resource.put(JSONValue.toJSONString(item));
         System.out.println(clientResponse.getStatusCode());
     }

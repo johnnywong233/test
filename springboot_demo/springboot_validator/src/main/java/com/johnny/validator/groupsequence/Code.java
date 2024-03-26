@@ -1,10 +1,9 @@
 package com.johnny.validator.groupsequence;
 
+import jakarta.validation.GroupSequence;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.GroupSequence;
-import javax.validation.constraints.Size;
 
 @GroupSequence(value = {ValidationOrder.First.class, ValidationOrder.Next.class})
 interface ValidationOrder {

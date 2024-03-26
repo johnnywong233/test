@@ -1,5 +1,6 @@
 package com.johnny.validator.validationgroups;
 
+import jakarta.validation.ValidationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import javax.validation.ValidationException;
 import java.util.stream.Collectors;
 
 @Controller

@@ -3,7 +3,7 @@ package log.autoconfigure;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 
 /**
  * Author: Johnny

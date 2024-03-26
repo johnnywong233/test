@@ -1,8 +1,7 @@
 package com.johnny.validator.globalerrors;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 @SamePasswords
 @Data

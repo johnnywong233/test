@@ -1,5 +1,6 @@
 package utils;
 
+import jakarta.annotation.PostConstruct;
 import lombok.Data;
 import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -38,7 +39,6 @@ import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
 
-import javax.annotation.PostConstruct;
 import javax.net.ssl.SSLContext;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -168,8 +168,8 @@ public class HttpClientUtil {
             if (err != null) {
                 throw err;
             }
-            return result;
         }
+        return result;
     }
 
     private static void addHeaderAndParams(final HttpRequestBase request, final Map<String, String> params) {
@@ -385,7 +385,7 @@ public class HttpClientUtil {
      * @param url       路径
      * @param jsonParam 参数
      */
-    public static JSONObject httpPost(String url, JSONObject jsonParam) throws Exception {
+    public static JSONObject httpPost(String url, JSONObject jsonParam) {
         return httpPost(url, jsonParam, false);
     }
 

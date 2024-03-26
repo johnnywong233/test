@@ -2,6 +2,8 @@ package es;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import log.LogUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
@@ -11,8 +13,6 @@ import org.elasticsearch.client.ResponseListener;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;

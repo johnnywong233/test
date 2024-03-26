@@ -11,5 +11,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>one-to-one-foreignkey</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

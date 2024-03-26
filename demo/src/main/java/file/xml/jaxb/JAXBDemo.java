@@ -1,12 +1,12 @@
 package file.xml.jaxb;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.io.File;
 
@@ -14,13 +14,13 @@ import java.io.File;
  * Created by johnny on 2016/8/28.
  */
 public class JAXBDemo {
-	
+
     public static void main(String[] args) {
 
-    	Coder coder = new Coder();
-    	coder.setId(111);
-    	coder.setName("Johnny");
-    	coder.setAge(26);
+        Coder coder = new Coder();
+        coder.setId(111);
+        coder.setName("Johnny");
+        coder.setAge(26);
 
         jaxbMarshal(coder);
 
@@ -43,7 +43,7 @@ public class JAXBDemo {
 
     //JAXB marshal: convert object into XML file
     private static void jaxbMarshal(Coder coder) {
-		try {
+        try {
             File file = new File("C:\\work\\Demo\\johnny\\src\\test\\resources\\testJAXB.xml");
             JAXBContext jaxbContext = JAXBContext.newInstance(Coder.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
@@ -58,15 +58,15 @@ public class JAXBDemo {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-	}
+    }
 }
 
 @XmlRootElement
 class Coder {
 
-	private String name;
-	private int age;
-	private int id;
+    private String name;
+    private int age;
+    private int id;
 
     public String getName() {
         return name;

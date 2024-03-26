@@ -1,9 +1,8 @@
 package com.johnny.validator.manual;
 
+import jakarta.validation.GroupSequence;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.GroupSequence;
 
 @GroupSequence(value = {ValidationOrder.First.class, ValidationOrder.Second.class})
 interface ValidationOrder {

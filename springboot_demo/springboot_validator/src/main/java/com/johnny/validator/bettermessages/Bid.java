@@ -1,15 +1,15 @@
 package com.johnny.validator.bettermessages;
 
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 

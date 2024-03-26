@@ -1,6 +1,6 @@
 package project.mvcDemo.action;
 
-import javax.servlet.http.Part;
+import jakarta.servlet.http.Part;
 
 public interface Uploadable {
     /**

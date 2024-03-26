@@ -3,11 +3,10 @@ package com.johnny.validate.model;
 import com.johnny.validate.annotation.ListNotHasNull;
 import com.johnny.validate.model.view.PersonAddView;
 import com.johnny.validate.model.view.PersonModifyView;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 @Data
 public class Person {

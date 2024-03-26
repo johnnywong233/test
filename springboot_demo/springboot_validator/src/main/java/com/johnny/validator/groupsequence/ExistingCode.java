@@ -1,11 +1,13 @@
 package com.johnny.validator.groupsequence;
 
+import jakarta.annotation.Resource;
+import jakarta.validation.Constraint;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import jakarta.validation.Payload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.validation.Constraint;
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
-import javax.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -25,14 +27,11 @@ public @interface ExistingCode {
     java.lang.Class<? extends Payload>[] payload() default {}; // required
 }
 
+@Service
 class ExistingCodeValidator implements ConstraintValidator<ExistingCode, Code> {
 
-    private final TokenRetrievalService tokenRetrievalService;
-
-    @Autowired
-    public ExistingCodeValidator(TokenRetrievalService tokenRetrievalService) {
-        this.tokenRetrievalService = tokenRetrievalService;
-    }
+    @Resource
+    private TokenRetrievalService tokenRetrievalService;
 
     @Override
     public void initialize(ExistingCode constraintAnnotation) {

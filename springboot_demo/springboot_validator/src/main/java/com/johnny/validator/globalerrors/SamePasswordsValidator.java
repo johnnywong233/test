@@ -1,7 +1,7 @@
 package com.johnny.validator.globalerrors;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class SamePasswordsValidator implements ConstraintValidator<SamePasswords, PasswordForm> {
 

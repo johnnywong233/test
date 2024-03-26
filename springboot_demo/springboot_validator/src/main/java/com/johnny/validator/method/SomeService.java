@@ -1,21 +1,22 @@
 package com.johnny.validator.method;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
+@Slf4j
 @Service
 @Validated
 public class SomeService {
 
     @Length(min = 3, max = 5)
-    public String createUser(@NotBlank @Email String email,
-                      @NotBlank String username,
-                      @NotBlank String password) {
-        return username;
+    public void createUser(@NotBlank @Email String email,
+                           @NotBlank String username,
+                           @NotBlank String password) {
+        log.info("email:{},username:{},password:{}", email, username, password);
     }
 
 }

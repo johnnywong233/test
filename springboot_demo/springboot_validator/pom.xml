@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -84,17 +84,15 @@
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
         </dependency>
-        <!-- hibernate validator-->
-        <!-- <dependency>
-             <groupId>org.hibernate</groupId>
-             <artifactId>hibernate-validator</artifactId>
-             <version>5.2.4.Final</version>
-         </dependency>-->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.1.Final</version>
+        </dependency>
     </dependencies>
 
     <properties>
         <start-class>com.johnny.validator.Application</start-class>
-        <!--<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>-->
         <!--<tomcat.version>8.0.8</tomcat.version>-->
         <!--添加 spring-boot-starter-tomcat 依赖之后，spring boot 会自动解析这个 property-->
         <tomcat.version>8.5.3</tomcat.version>
