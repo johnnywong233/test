@@ -587,7 +587,7 @@
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
-                <version>3.8.0</version>
+                <version>4.26.0</version>
             </dependency>
 
             <dependency>
@@ -599,7 +599,7 @@
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
-                <version>1.9.4</version>
+                <version>1.9.22</version>
             </dependency>
 
             <dependency>

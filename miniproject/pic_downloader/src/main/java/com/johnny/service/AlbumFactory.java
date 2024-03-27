@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 public class AlbumFactory {
     static List<Album> getFromURL(String url) {
         List<Album> albums = new ArrayList<>();

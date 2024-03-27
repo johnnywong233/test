@@ -23,7 +23,7 @@ public class TestCglib {
             my.doSome();
         }
 
-        class TestClass {
+        private static class TestClass {
             void doSome() {
                 System.out.println("====>you suck johnny");
             }

@@ -444,7 +444,7 @@ class GameMyTimer extends Thread {
     public void run() {
         while (true) {
             try {
-                sleep((10 - GameLayout.level + 1) * 100);
+                sleep((10 - GameLayout.level + 1) * 100L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

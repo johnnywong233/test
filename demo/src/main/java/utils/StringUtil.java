@@ -1,7 +1,6 @@
 package utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 
 import java.io.BufferedReader;
@@ -11,17 +10,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+@Slf4j
 public class StringUtil {
-
-    private final static Logger logger = LoggerFactory.getLogger(StringUtil.class);
-
-    @Test
-    public void testCreateRandom() {
-        System.out.println(createRandom(true, 20));
-        System.out.println(createRandom(false, 12));
-        System.out.println(createRandomCharData(22));
-    }
-
     /**
      * create the desired length random string
      *
@@ -54,7 +44,7 @@ public class StringUtil {
     }
 
     public static String createRandomCharData(int length) {
-        logger.info("Going to generate random mingled char and digital with length: ", length);
+        log.info("Going to generate random mingled char and digital with length:{}", length);
         StringBuilder sb = new StringBuilder();
         Random rand = new Random();
         Random randData = new Random();
@@ -132,6 +122,12 @@ public class StringUtil {
         }
         return flag;
     }
-    //
+
+    @Test
+    public void testCreateRandom() {
+        System.out.println(createRandom(true, 20));
+        System.out.println(createRandom(false, 12));
+        System.out.println(createRandomCharData(22));
+    }
 
 }

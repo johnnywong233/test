@@ -9,7 +9,7 @@ import java.util.Set;
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class MyMap1 {
     /* ---城市路线对象--- */
-    private class Way {
+    private static class Way {
         String from;
         String to;
         int cost;

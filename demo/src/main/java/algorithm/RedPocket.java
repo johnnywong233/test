@@ -1,6 +1,7 @@
 package algorithm;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,7 +30,7 @@ public class RedPocket {
     public static void main(String[] args) {
         List<Integer> amountList = divideRedPackage(100, 100);
         for (Integer amount : amountList) {
-            System.out.println("抢到金额：" + new BigDecimal(amount).divide(new BigDecimal(100)));
+            System.out.println("抢到金额：" + new BigDecimal(amount).divide(new BigDecimal(100), RoundingMode.CEILING));
         }
     }
 }

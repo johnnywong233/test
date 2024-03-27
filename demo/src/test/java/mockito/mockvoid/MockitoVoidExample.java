@@ -20,7 +20,6 @@ public class MockitoVoidExample {
         when(dish.getSpice()).thenReturn(null);
     }
 
-    @SuppressWarnings("deprecation")
     @Test
     public void testEatUsingStubVoid() throws WrongDishException {
         System.out.println("Train dish to not throw WrongDishException using stubVoid");
@@ -74,7 +73,7 @@ public class MockitoVoidExample {
         System.out.println("Finished the dish, no exception thrown");
     }
 
-    private class SpiceAnswer implements Answer<String> {
+    private static class SpiceAnswer implements Answer<String> {
         @Override
         public String answer(InvocationOnMock invocation) {
             String arg = (String) invocation.getArguments()[0];
@@ -87,9 +86,7 @@ public class MockitoVoidExample {
 }
 
 class NotSoTastyException extends RuntimeException {
-    private static final long serialVersionUID = -6953366425606477466L;
 }
 
 class WrongDishException extends Exception {
-    private static final long serialVersionUID = -1571668995613060461L;
 }

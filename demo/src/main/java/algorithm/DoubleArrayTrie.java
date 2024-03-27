@@ -306,11 +306,11 @@ public class DoubleArrayTrie {
             return result;
         }
         if (base[index] < 0) {
-            String r = "";
+            StringBuilder r = new StringBuilder();
             for (int i = -base[index]; tail[i] != END_CHAR; ++i) {
-                r += tail[i];
+                r.append(tail[i]);
             }
-            result.add(r);
+            result.add(r.toString());
             return result;
         }
         for (int i = 1; i <= charMap.size(); ++i) {
@@ -332,9 +332,9 @@ public class DoubleArrayTrie {
             return result;
         }
         if (base[p] < 0) {
-            String r = "";
+            StringBuilder r = new StringBuilder();
             for (int i = -base[p]; tail[i] != END_CHAR; ++i) {
-                r += tail[i];
+                r.append(tail[i]);
             }
             result.add(fs.prefix + r);
             return result;
@@ -348,7 +348,7 @@ public class DoubleArrayTrie {
     }
 
     //内部函数，返回匹配单词的最靠后的Base index，
-    private class FindStruct {
+    private static class FindStruct {
         int p;
         String prefix = "";
     }

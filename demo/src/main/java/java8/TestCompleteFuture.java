@@ -75,12 +75,10 @@ public class TestCompleteFuture {
         for (String str : list) {
             map.put(str, Collections.frequency(list, str));
         }
-        Set set = map.keySet();
-        for (Iterator<Map.Entry<String, Integer>> it = map.entrySet().iterator(); it.hasNext();) {
-
-            String key = it.next().getKey();
-            Integer value =  map.get(key);
-            if (value==1) {
+        for (Map.Entry<String, Integer> stringIntegerEntry : map.entrySet()) {
+            String key = stringIntegerEntry.getKey();
+            Integer value = map.get(key);
+            if (value == 1) {
                 map.remove(key);
             }
         }
@@ -92,7 +90,7 @@ public class TestCompleteFuture {
         String regex = "^(ios)|(apple)((?!mediaplayer).)*$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(str);
-        while (m.find()) {
+        if (m.find()) {
             return m.group();
         }
         return "";

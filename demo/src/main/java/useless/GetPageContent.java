@@ -1,5 +1,6 @@
 package useless;
 
+import lombok.extern.slf4j.Slf4j;
 import utils.ParserUtil;
 
 import java.io.BufferedReader;
@@ -11,6 +12,7 @@ import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 
+@Slf4j
 public class GetPageContent {
     //key code
     private static void initProxy(String host, int port, final String username, final String password) {
@@ -34,7 +36,7 @@ public class GetPageContent {
         String username = "";
         String password = "";
         String curLine;
-        String content = "";
+        StringBuilder content = new StringBuilder();
         URL server = new URL(url);
         //for those outside of the wall site 
         initProxy(proxy, port, username, password);
@@ -43,10 +45,9 @@ public class GetPageContent {
         InputStream is = connection.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         while ((curLine = reader.readLine()) != null) {
-            //why add /r/n
-//            content = content + curLine + "/r/n";
-            content = content + curLine;
+            content.append(curLine);
         }
+        log.info("content:{}", content);
         is.close();
         //these two content are identical, cause the method are identical
         String result = ParserUtil.getContentFromUrl(url);

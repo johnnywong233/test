@@ -2,25 +2,8 @@ package project.game.fiveChess;
 
 import lombok.Data;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RadialGradientPaint;
-import java.awt.RenderingHints;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -98,6 +81,12 @@ public class StartChess extends JFrame {
 
     }
 
+    //http://www.jb51.net/article/79393.htm
+    public static void main(String[] args) {
+        StartChess f = new StartChess();//创建主框架
+        f.setVisible(true);//显示主框架
+    }
+
     private class MyItemListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -115,12 +104,6 @@ public class StartChess extends JFrame {
             }
         }
     }
-
-    //http://www.jb51.net/article/79393.htm
-    public static void main(String[] args) {
-        StartChess f = new StartChess();//创建主框架
-        f.setVisible(true);//显示主框架
-    }
 }
 
 /**
@@ -131,10 +114,10 @@ public class StartChess extends JFrame {
  */
 @Data
 class Point {
+    static final float DIAMETER = 30f;//直径
     private int x;//棋盘中的x索引
     private int y;//棋盘中的y索引
     private Color color;//颜色
-    static final int DIAMETER = 30;//直径
 
     Point(int x, int y, Color color) {
         this.x = x;
@@ -156,12 +139,11 @@ class ChessBoard extends JPanel implements MouseListener {
     private static final int COLS = 15;//棋盘列数
 
     private final Point[] chessList = new Point[(ROWS + 1) * (COLS + 1)];//初始每个数组元素为null
+    private final Image img;
     private boolean isBlack = true;//默认开始是黑棋先
     private boolean gameOver = false;//游戏是否结束
     private int chessCount;//当前棋盘棋子的个数
     private int xIndex, yIndex;//当前刚下棋子的索引
-
-    private final Image img;
 
     ChessBoard() {
         // setBackground(Color.blue);
@@ -251,8 +233,7 @@ class ChessBoard extends JPanel implements MouseListener {
 
             if (i == chessCount - 1) {//如果是最后一个棋子
                 g.setColor(Color.red);
-                g.drawRect(xPos - Point.DIAMETER / 2, yPos - Point.DIAMETER / 2,
-                        34, 35);
+                g.drawRect((int) (xPos - Point.DIAMETER / 2), (int) (yPos - Point.DIAMETER / 2), 34, 35);
             }
         }
     }

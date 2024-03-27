@@ -14,7 +14,7 @@ public class ConnectionManager {
     static private ConnectionManager instance = null; // The single instance
 
     // instance variable
-    private DbConnectionPool pool = null;
+    private final DbConnectionPool pool;
 
     private ConnectionManager() {
         DBOptions option = new DBOptions();
@@ -68,18 +68,13 @@ public class ConnectionManager {
         return pool.release();
     }
 
-    class DbConnectionPool {
+    private static class DbConnectionPool {
+        private final Vector<Connection> freeConnections = new Vector<>();
+        private final int maxConn;
+        private final String password;
+        private final String url;
+        private final String user;
         private int checkedOut = 0;
-
-        private final Vector freeConnections = new Vector();
-
-        private int maxConn = 0;
-
-        private String password = null;
-
-        private String url = null;
-
-        private String user = null;
 
         /**
          * Creates new connection pool. NOTE: new an instance of this class is
@@ -132,7 +127,7 @@ public class ConnectionManager {
             Connection con = null;
 
             while ((freeConnections.size() > 0) && (con == null)) {
-                con = (Connection) freeConnections.firstElement();
+                con = freeConnections.firstElement();
                 freeConnections.removeElementAt(0);
                 try {
                     if (con.isClosed()) {
@@ -189,9 +184,9 @@ public class ConnectionManager {
          */
         synchronized boolean release() {
             boolean retValue = true;
-            Enumeration allConnections = freeConnections.elements();
+            Enumeration<Connection> allConnections = freeConnections.elements();
             while (allConnections.hasMoreElements()) {
-                Connection con = (Connection) allConnections.nextElement();
+                Connection con = allConnections.nextElement();
                 try {
                     con.close();
                 } catch (SQLException e) {

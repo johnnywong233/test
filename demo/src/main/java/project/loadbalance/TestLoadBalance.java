@@ -32,12 +32,10 @@ public class TestLoadBalance {
     /*round*/
     public String roundRobin() {
         //create new map to avoid 由於服務器上線和下線導致的並發問題
-        Map<String, Integer> serverMap = new HashMap<>();
-        serverMap.putAll(serverWeightMap);
+        Map<String, Integer> serverMap = new HashMap<>(serverWeightMap);
         //get ip list
         Set<String> keySet = serverMap.keySet();
-        ArrayList<String> keyList = new ArrayList<>();
-        keyList.addAll(keySet);
+        ArrayList<String> keyList = new ArrayList<>(keySet);
 
         String server;
         synchronized (pos) {
@@ -52,8 +50,7 @@ public class TestLoadBalance {
 
     /*weight random round*/
     public static String weightRandom() {
-        Map<String, Integer> serverMap = new HashMap<>();
-        serverMap.putAll(serverWeightMap);
+        Map<String, Integer> serverMap = new HashMap<>(serverWeightMap);
         Set<String> keySet = serverMap.keySet();
         Iterator<String> it = keySet.iterator();
 
@@ -73,11 +70,9 @@ public class TestLoadBalance {
 
     /*ip_hash*/
     public static String ipHash(String remoteIp) {
-        Map<String, Integer> serverMap = new HashMap<>();
-        serverMap.putAll(serverWeightMap);
+        Map<String, Integer> serverMap = new HashMap<>(serverWeightMap);
         Set<String> keySet = serverMap.keySet();
-        ArrayList<String> keyList = new ArrayList<>();
-        keyList.addAll(keySet);
+        ArrayList<String> keyList = new ArrayList<>(keySet);
 
         int hashCode = remoteIp.hashCode();
         int serverListSize = keyList.size();
@@ -88,11 +83,9 @@ public class TestLoadBalance {
 
     /*random*/
     public static String random() {
-        Map<String, Integer> serverMap = new HashMap<>();
-        serverMap.putAll(serverWeightMap);
+        Map<String, Integer> serverMap = new HashMap<>(serverWeightMap);
         Set<String> keySet = serverMap.keySet();
-        ArrayList<String> keyList = new ArrayList<>();
-        keyList.addAll(keySet);
+        ArrayList<String> keyList = new ArrayList<>(keySet);
 
         Random random = new Random();
         int randomPos = random.nextInt(keyList.size());

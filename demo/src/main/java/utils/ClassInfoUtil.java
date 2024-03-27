@@ -68,18 +68,18 @@ public class ClassInfoUtil {
         String superClz = "";
         if (clz.getSuperclass() != null) {
             superClz = clz.getSuperclass().getName();
-            if (superClz != null && !"".equals(superClz)) {
+            if (!"".equals(superClz)) {
                 superClz = " extends " + superClz;
             }
         }
 
         Class<?>[] interfaces = clz.getInterfaces();
-        String inters = "";
+        StringBuilder inters = new StringBuilder();
         for (int i = 0; i < interfaces.length; i++) {
             if (i == 0) {
-                inters += " implements ";
+                inters.append(" implements ");
             }
-            inters += interfaces[i].getName();
+            inters.append(interfaces[i].getName());
         }
 
         System.out.println(clzModifier + clz.getName() + " " + superClz + " " + inters);
@@ -106,26 +106,26 @@ public class ClassInfoUtil {
             Class<?> returnClz = method.getReturnType();
             String returnType = returnClz.getName();
             Class<?>[] clzs = method.getParameterTypes();
-            String paraList = "(";
+            StringBuilder paraList = new StringBuilder("(");
             for (int j = 0; j < clzs.length; j++) {
-                paraList += clzs[j].getName();
+                paraList.append(clzs[j].getName());
                 if (j != clzs.length - 1) {
-                    paraList += ", ";
+                    paraList.append(", ");
                 }
             }
-            paraList += ")";
+            paraList.append(")");
             clzs = method.getExceptionTypes();
-            String exceptions = "";
+            StringBuilder exceptions = new StringBuilder();
             for (int j = 0; j < clzs.length; j++) {
                 if (j == 0) {
-                    exceptions += "throws ";
+                    exceptions.append("throws ");
                 }
-                exceptions += clzs[j].getName();
+                exceptions.append(clzs[j].getName());
                 if (j != clzs.length - 1) {
-                    exceptions += ", ";
+                    exceptions.append(", ");
                 }
             }
-            exceptions += ";";
+            exceptions.append(";");
             String methodPrototype = modifier + returnType + " " + methodName + paraList + exceptions;
             System.out.println("    " + methodPrototype);
         }

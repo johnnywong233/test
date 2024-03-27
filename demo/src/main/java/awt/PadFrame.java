@@ -29,14 +29,14 @@ public class PadFrame extends Frame {
      * The inner class
      * Message Handle
      */
-    private class EventExit implements ActionListener {
+    private static class EventExit implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
     }
 
-    private class SystemExit extends WindowAdapter {
+    private static class SystemExit extends WindowAdapter {
         @Override
         public void windowClosing(WindowEvent e) {
             System.exit(0);

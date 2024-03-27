@@ -87,7 +87,7 @@ public class MD5 {
             int oldc = c;
             int oldd = d;
 
-            a = ff(a, b, c, d, x[i + 0], 7, 0xD76AA478);
+            a = ff(a, b, c, d, x[i], 7, 0xD76AA478);
             d = ff(d, a, b, c, x[i + 1], 12, 0xE8C7B756);
             c = ff(c, d, a, b, x[i + 2], 17, 0x242070DB);
             b = ff(b, c, d, a, x[i + 3], 22, 0xC1BDCEEE);
@@ -107,7 +107,7 @@ public class MD5 {
             a = gg(a, b, c, d, x[i + 1], 5, 0xF61E2562);
             d = gg(d, a, b, c, x[i + 6], 9, 0xC040B340);
             c = gg(c, d, a, b, x[i + 11], 14, 0x265E5A51);
-            b = gg(b, c, d, a, x[i + 0], 20, 0xE9B6C7AA);
+            b = gg(b, c, d, a, x[i], 20, 0xE9B6C7AA);
             a = gg(a, b, c, d, x[i + 5], 5, 0xD62F105D);
             d = gg(d, a, b, c, x[i + 10], 9, 0x02441453);
             c = gg(c, d, a, b, x[i + 15], 14, 0xD8A1E681);
@@ -130,7 +130,7 @@ public class MD5 {
             c = hh(c, d, a, b, x[i + 7], 16, 0xF6BB4B60);
             b = hh(b, c, d, a, x[i + 10], 23, 0xBEBFBC70);
             a = hh(a, b, c, d, x[i + 13], 4, 0x289B7EC6);
-            d = hh(d, a, b, c, x[i + 0], 11, 0xEAA127FA);
+            d = hh(d, a, b, c, x[i], 11, 0xEAA127FA);
             c = hh(c, d, a, b, x[i + 3], 16, 0xD4EF3085);
             b = hh(b, c, d, a, x[i + 6], 23, 0x04881D05);
             a = hh(a, b, c, d, x[i + 9], 4, 0xD9D4D039);
@@ -138,7 +138,7 @@ public class MD5 {
             c = hh(c, d, a, b, x[i + 15], 16, 0x1FA27CF8);
             b = hh(b, c, d, a, x[i + 2], 23, 0xC4AC5665);
 
-            a = ii(a, b, c, d, x[i + 0], 6, 0xF4292244);
+            a = ii(a, b, c, d, x[i], 6, 0xF4292244);
             d = ii(d, a, b, c, x[i + 7], 10, 0x432AFF97);
             c = ii(c, d, a, b, x[i + 14], 15, 0xAB9423A7);
             b = ii(b, c, d, a, x[i + 5], 21, 0xFC93A039);

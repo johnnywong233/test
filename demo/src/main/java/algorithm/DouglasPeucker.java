@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class DouglasPeucker {
     private final String filePath;
     private final double threshold;
-    private ArrayList<Point> pointList;
     private ArrayList<String[]> listTemp;//存放从文件中读入的数据
     private final ArrayList<Line> lineList = new ArrayList<>();
     private final ArrayList<Line> resultLine = new ArrayList<>();//存储一条曲线压缩完成后的结果
@@ -53,7 +52,7 @@ public class DouglasPeucker {
     private void initPointAndLine() {
         Line line;
         for (String[] aListTemp : listTemp) {
-            pointList = new ArrayList<>();
+            ArrayList<Point> pointList = new ArrayList<>();
             Point point;
             String st;
             int start;
@@ -128,7 +127,7 @@ public class DouglasPeucker {
     }
 
     @Data
-    class Line {
+    private static class Line {
         private Point start;
         private Point end;
         private ArrayList<Point> linePoints = new ArrayList<>();

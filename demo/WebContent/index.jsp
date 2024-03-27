@@ -25,26 +25,13 @@ you suck, Johnny! 中文测试
 <h3>SWITCH...CASE 实例</h3>
     <%
 switch(day) {
-	case 0:
-	   out.println("星期天");
-	   break;
-	case 1:
-	   out.println("星期一");
-	   break;
-	case 2:
-	   out.println("星期二");
-	   break;
-	case 3:
-	   out.println("星期三");
-	   break;
-	case 4:
-	   out.println("星期四");
-	   break;
-	case 5:
-	   out.println("星期五");
-	   break;
-	default:
-	   out.println("星期六");
+    case 0 -> out.println("星期天");
+    case 1 -> out.println("星期一");
+    case 2 -> out.println("星期二");
+    case 3 -> out.println("星期三");
+    case 4 -> out.println("星期四");
+    case 5 -> out.println("星期五");
+    default -> out.println("星期六");
 }
 %>
 <hr>

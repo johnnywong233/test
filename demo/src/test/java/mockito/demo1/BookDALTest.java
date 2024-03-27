@@ -19,7 +19,6 @@ import static org.testng.Assert.assertNotNull;
 public class BookDALTest {
     private static BookDAL mockedBookDAL;
     private static Book book1;
-    private static Book book2;
 
     @BeforeClass
     public static void setUp() {
@@ -29,10 +28,9 @@ public class BookDALTest {
                 Arrays.asList("D. Jeffrey Ulman", "Ravi Sethi", "Alfred V. Aho", "Monica S. Lam"),
                 "Pearson Education Singapore Pte Ltd", 2008, 1009, "BOOK_IMAGE");
 
-        book2 = new Book("9788183331630", "Let Us C 13th Edition",
-                Arrays.asList("Yashavant Kanetkar"), "BPB PUBLICATIONS", 2012, 675, "BOOK_IMAGE");
-
-        //存根带mock数据的BookDAL对象的API，这样无论何时调用API都可以返回mock数据
+        Book book2 = new Book("9788183331630", "Let Us C 13th Edition",
+                List.of("Yashavant Kanetkar"), "BPB PUBLICATIONS", 2012, 675, "BOOK_IMAGE");
+        // 存根带mock数据的BookDAL对象的API，这样无论何时调用API都可以返回mock数据
         when(mockedBookDAL.getAllBooks()).thenReturn(Arrays.asList(book1, book2));
         when(mockedBookDAL.getBook("8131721019")).thenReturn(book1);
         when(mockedBookDAL.addBook(book1)).thenReturn(book1.getIsbn());
