@@ -1,8 +1,7 @@
 package project.httpclient;
 
-import net.sf.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import project.httpclient.dto.UserDTO;
 import utils.HttpClientUtil;
 
@@ -11,8 +10,8 @@ import utils.HttpClientUtil;
  * Date: 2016/10/29
  * Time: 0:34
  */
+@Slf4j
 public class HttpRequestTest {
-    private static final Logger logger = LoggerFactory.getLogger(HttpRequestTest.class);
 
     public static void main(String[] args) throws Exception {
         getRequestTest();
@@ -24,27 +23,27 @@ public class HttpRequestTest {
         JSONObject jsonObject = HttpClientUtil.httpGet(url);
         if (jsonObject != null) {
             String userName = (String) jsonObject.get("userName");
-            logger.info("http Get request process success");
-            logger.info("userName:" + userName);
+            log.info("http Get request process success");
+            log.info("userName:" + userName);
         } else {
-            logger.info("http Get request process fail");
+            log.info("http Get request process fail");
         }
     }
 
-    private static void postRequestTest() throws Exception {
+    private static void postRequestTest() {
         String url = "http://localhost:8080/SpringMVC/process";
         UserDTO userDTO = new UserDTO();
         userDTO.setName("johnny");
         userDTO.setAge(25);
-        JSONObject jsonParam = JSONObject.fromObject(userDTO);
+        JSONObject jsonParam = new JSONObject(userDTO);
         JSONObject responseJSONObject = HttpClientUtil.httpPost(url, jsonParam);
         if (responseJSONObject != null && "SUCCESS".equals(responseJSONObject.get("status"))) {
             JSONObject userStr = (JSONObject) responseJSONObject.get("userDTO");
-            userDTO = (UserDTO) JSONObject.toBean(userStr, UserDTO.class);
-            logger.info("http Post request process success");
-            logger.info("userDTO:" + userDTO);
+            userDTO = (UserDTO) JSONObject.wrap(userStr);
+            log.info("http Post request process success");
+            log.info("userDTO:" + userDTO);
         } else {
-            logger.info("http Post request process fail");
+            log.info("http Post request process fail");
         }
     }
 }

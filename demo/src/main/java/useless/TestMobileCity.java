@@ -1,7 +1,7 @@
 package useless;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -56,7 +56,7 @@ public class TestMobileCity {
         //意思是需要在代码层面设置代理，一定要注意在执行API的request请求之前添加下面的代码;并且在设置代理之后，报错也变成301
         //可是在添加代理之后，换成https还是有No name matching tcc.taobao.com found异常信息
 
-        //but at home, use https will get the right result, while use http throw net.sf.json.JSONException:301 Moved Permanently, 
+        //but at home, use https will get the right result, while use http throw org.json.JSONException:301 Moved Permanently,
         //The requested resource has been assigned a new permanent URI.Powered by Tengine/Aserver
         String urlString = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=" + mobileNumber;
         StringBuilder sb = new StringBuilder();
@@ -78,7 +78,7 @@ public class TestMobileCity {
             String jsonString2 = jsonString + "]";
             System.out.println(jsonString2);
             // convert string to json array
-            array = JSONArray.fromObject(jsonString2);
+            array = new JSONArray(jsonString2);
             // 获取JSONArray的JSONObject对象，便于读取array里的键值对
             jsonObject = array.getJSONObject(0);
         } catch (Exception e) {

@@ -1,7 +1,7 @@
 package json;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -32,7 +32,7 @@ public class TestGetJson {
         param3.put("DOC_TP_CODE", "10100");
         param3.put("DOC_NBR", "100200198301202210");
         param3.put("DOC_CUST_NM", "test");
-        params2.add(param3);
+        params2.put(param3);
         params.put("DOCS", params2);
         String ret = doPost(url, params).toString();
         System.out.println(ret);
@@ -86,7 +86,7 @@ public class TestGetJson {
             if (res.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 HttpEntity entity = res.getEntity();
                 String result = EntityUtils.toString(res.getEntity());
-                response = JSONObject.fromObject(result);
+                response = new JSONObject(result);
                 System.out.println(entity.toString());
             }
         } catch (Exception e) {

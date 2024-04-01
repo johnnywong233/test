@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 /**
@@ -26,7 +26,7 @@ public class PersonServiceTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
         personService = new PersonService(personDAO);
     }
 
@@ -51,7 +51,7 @@ public class PersonServiceTest {
         boolean updated = personService.update(1, "David");
         assertFalse(updated);
         verify(personDAO).fetchPerson(1);
-        verifyZeroInteractions(personDAO);
+        verifyNoInteractions(personDAO);
         verifyNoMoreInteractions(personDAO);
     }
 }

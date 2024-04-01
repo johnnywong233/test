@@ -1,6 +1,6 @@
 package useless.resource;
 
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Created by johnny on 2016/10/5.

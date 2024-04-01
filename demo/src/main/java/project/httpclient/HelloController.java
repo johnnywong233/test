@@ -3,7 +3,7 @@ package project.httpclient;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.json.JSONObject;
+import org.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -108,9 +108,8 @@ public class HelloController {
         log.info("process param is :{}" + requestBody);
         JSONObject result = new JSONObject();
         try {
-            JSONObject jsonObject = JSONObject.fromObject(requestBody);
-            UserDTO userDTO = (UserDTO) JSONObject.toBean(jsonObject, UserDTO.class);
-
+            JSONObject jsonObject = new JSONObject(requestBody);
+            UserDTO userDTO = (UserDTO) JSONObject.wrap(jsonObject);
             userDTO = helloService.processService(userDTO);
 
             //返回请求结果

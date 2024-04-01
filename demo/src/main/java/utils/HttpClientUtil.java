@@ -2,7 +2,7 @@ package utils;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Data;
-import net.sf.json.JSONObject;
+import org.json.JSONObject;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpException;
@@ -367,8 +367,7 @@ public class HttpClientUtil {
                     if (noNeedResponse) {
                         return null;
                     }
-                    /*把json字符串转换成json对象*/
-                    jsonResult = JSONObject.fromObject(str);
+                    jsonResult = new JSONObject(str);
                 } catch (Exception e) {
                     logger.error("post请求提交失败:" + url, e);
                 }
@@ -403,7 +402,7 @@ public class HttpClientUtil {
                 /*读取服务器返回过来的json字符串数据*/
                 String strResult = EntityUtils.toString(response.getEntity());
                 /*把json字符串转换成json对象*/
-                jsonResult = JSONObject.fromObject(strResult);
+                jsonResult = new JSONObject(strResult);
                 url = URLDecoder.decode(url, StandardCharsets.UTF_8);
             } else {
                 logger.error("get请求提交失败:" + url);

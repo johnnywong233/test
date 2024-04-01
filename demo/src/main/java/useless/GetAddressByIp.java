@@ -1,6 +1,6 @@
 package useless;
 
-import net.sf.json.JSONObject;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class GetAddressByIp {
             String str = getJsonContent("https://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
             System.out.println(str);
 
-            JSONObject obj = JSONObject.fromObject(str);
+            JSONObject obj = new JSONObject(str);
             JSONObject obj2 = (JSONObject) obj.get("data");
             int code = (int) obj.get("code");
             if (code == 0) {
