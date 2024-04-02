@@ -12,7 +12,6 @@
 
     <artifactId>hadoop_learn</artifactId>
     <properties>
-        <hadoop.version>3.2.0</hadoop.version>
     </properties>
 
     <dependencies>
@@ -21,24 +20,11 @@
             <artifactId>hadoop-common</artifactId>
             <version>${hadoop.version}</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jdk.tools</artifactId>
-                    <groupId>jdk.tools</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>okhttp</artifactId>
-                    <groupId>com.squareup.okhttp</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
