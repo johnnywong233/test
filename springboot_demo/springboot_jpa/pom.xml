@@ -27,13 +27,13 @@
     <dependencyManagement>
         <dependencies>
             <!--一个新的引入 spring boot dependency 的方式-->
-            <dependency>
+            <!--<dependency>
                 <groupId>io.spring.platform</groupId>
                 <artifactId>platform-bom</artifactId>
                 <version>Cairo-SR8</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
+            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
