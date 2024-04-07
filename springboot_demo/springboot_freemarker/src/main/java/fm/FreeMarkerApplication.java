@@ -1,7 +1,6 @@
 package fm;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,14 +13,13 @@ import org.springframework.web.client.RestTemplate;
  * Date: 2017/7/15
  * Time: 23:17
  */
+@Slf4j
 @SpringBootApplication
 //No MyBatis mapper was found in '[fm.mapper.**]' package. Please check your configuration.
 //@MapperScan("fm.mapper.**")
 //@MapperScan(basePackages = "fm.mapper") //也不对
 //傻啊，这个是用来配置扫描 mapper.xml 文件的，不是 mapper 接口。
 public class FreeMarkerApplication {
-    private static final Logger log = LoggerFactory.getLogger(FreeMarkerApplication.class);
-
     public static void main(String[] args) {
 
         //set proxy in code to get rid of <strong>HPE</strong> clients should 'Use automatic configuration script' <strong>http://autocache.hpecorp.net/</strong>.
@@ -37,10 +35,6 @@ public class FreeMarkerApplication {
 
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) {
-        return args -> {
-            String quote = restTemplate.getForObject(
-                    "https://gturnquist-quoters.cfapps.io/api/random", String.class);
-            log.info(quote);
-        };
+        return args -> restTemplate.getForObject("https://www.google.com/", String.class);
     }
 }
