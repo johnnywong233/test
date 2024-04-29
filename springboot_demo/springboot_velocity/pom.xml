@@ -9,18 +9,9 @@
         <artifactId>springboot_demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
-    <!--TO BE NOTED: Spring boot 1.5.1 does not support velocity, so throw
-    org.springframework.boot:spring-boot-starter-velocity:unknown error and the latest version is 1.4.7
-    http://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-velocity-->
     <artifactId>springboot_velocity</artifactId>
-    <!--<parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.4.6.RELEASE</version>
-    </parent>-->
     <properties>
-        <spring.boot.version>1.4.6.RELEASE</spring.boot.version>
+        <spring.boot.version>1.4.7.RELEASE</spring.boot.version>
     </properties>
     <packaging>war</packaging>
     <name>springboot-velocity</name>
@@ -28,7 +19,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.boot.version}</version>
             <!--include exclusion, then tomcat-related jars will not be packaged into lib folder-->
             <exclusions>
                 <exclusion>
@@ -41,17 +31,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <version>${spring.boot.version}</version>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-servlet-api</artifactId>
-            <version>7.0.42</version>
-            <scope>provided</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-velocity</artifactId>
@@ -61,7 +42,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.boot.version}</version>
             <scope>test</scope>
         </dependency>
 
