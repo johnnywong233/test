@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Author: Johnny
@@ -21,25 +25,12 @@ public class GetLargestFiles {
         String dir = "F:\\死亡笔记";
 //        System.out.println(getAllFile(dir));
         System.out.println(getNameAndSize(dir));
-
         System.out.println(getLargestFilename(dir, 10));
     }
 
     public static List<String> getLargestFilename(String dir, int n) throws IOException {
         List<NameAndSize> nameAndSizeList = getNameAndSize(dir);
-
-        List<Long> fileSize = Lists.newArrayList();
-        List<String> fileName = Lists.newArrayList();
-        for (NameAndSize nameAndSize : nameAndSizeList) {
-            fileSize.add(nameAndSize.getFileSize());
-            fileName.add(nameAndSize.getFullName());
-        }
-        if (n < nameAndSizeList.size()) {
-            return fileName;
-        } else {
-
-        }
-        return null;
+        return nameAndSizeList.stream().sorted((o1, o2) -> (int) (o1.getFileSize() - o2.getFileSize())).limit(n).map(NameAndSize::getFullName).collect(Collectors.toList());
     }
 
     public static List<String> getAllFile(String pathName) throws IOException {
@@ -56,8 +47,9 @@ public class GetLargestFiles {
             return null;
         }
         //判断如果不是一个目录，就判断是不是一个文件，是文件则输出文件路径
-        if (!dirFile.isDirectory()) {
-            if (dirFile.isFile()) {
+        BasicFileAttributes attributes = Files.readAttributes(dirFile.toPath(), BasicFileAttributes.class);
+        if (!attributes.isDirectory()) {
+            if (attributes.isRegularFile()) {
                 allFileName.add(dirFile.getCanonicalPath());
             }
             return allFileName;
@@ -76,7 +68,7 @@ public class GetLargestFiles {
             String name = file.getCanonicalPath();
             //如果是一个目录，搜索深度depth++，输出目录名后，进行递归
             if (file.isDirectory()) {
-                allFileName.addAll(getAllFile(file.getCanonicalPath(), currentDepth));
+                allFileName.addAll(Objects.requireNonNull(getAllFile(file.getCanonicalPath(), currentDepth)));
             } else {
                 allFileName.add(name);
             }
@@ -98,10 +90,11 @@ public class GetLargestFiles {
             return null;
         }
         //判断如果不是一个目录，就判断是不是一个文件，是文件则输出文件路径
-        if (!dirFile.isDirectory()) {
-            if (dirFile.isFile()) {
-                NameAndSize nameAndSize = new NameAndSize().builder().
-                        fileSize(dirFile.getTotalSpace()).fullName(dirFile.getCanonicalPath()).build();
+        BasicFileAttributes attributes = Files.readAttributes(dirFile.toPath(), BasicFileAttributes.class);
+        if (!attributes.isDirectory()) {
+            if (attributes.isRegularFile()) {
+                NameAndSize nameAndSize = NameAndSize.builder().
+                        fileSize(dirFile.length()).fullName(dirFile.getCanonicalPath()).build();
                 allFileName.add(nameAndSize);
             }
             return allFileName;
@@ -117,11 +110,12 @@ public class GetLargestFiles {
             //遍历文件目录
             //File("documentName","fileName")是File的另一个构造器
             File file = new File(dirFile.getPath(), string);
-            NameAndSize nameAndSize = new NameAndSize().builder().
-                    fileSize(file.getTotalSpace()).fullName(file.getCanonicalPath()).build();
+            BasicFileAttributes fileAttributes = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
+            NameAndSize nameAndSize = NameAndSize.builder().
+                    fileSize(fileAttributes.size()).fullName(file.getCanonicalPath()).build();
             //如果是一个目录，搜索深度depth++，输出目录名后，进行递归
-            if (file.isDirectory()) {
-                allFileName.addAll(getNameAndSize(file.getCanonicalPath(), currentDepth));
+            if (fileAttributes.isDirectory()) {
+                allFileName.addAll(Objects.requireNonNull(getNameAndSize(file.getCanonicalPath(), currentDepth)));
             } else {
                 allFileName.add(nameAndSize);
             }

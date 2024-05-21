@@ -68,31 +68,27 @@ public class CheckExpressionValid {
             for (Object aList : list) {
                 element = aList.toString();
                 if (isOperator(element)) {
-                    n1 = Double.parseDouble(stack.pop() + "");
-                    n2 = Double.parseDouble(stack.pop() + "");
+                    n1 = Double.parseDouble(stack.pop());
+                    n2 = Double.parseDouble(stack.pop());
                     result = doOperate(n2, n1, element);
                     stack.push(result + "");
                 } else {
                     stack.push(element);
                 }
             }
-            return "" + stack.pop();
+            return stack.pop();
         } catch (RuntimeException e) {
             throw new Exception(e.getMessage());
         }
     }
 
     private double doOperate(double n1, double n2, String operator) {
-        switch (operator) {
-            case "+":
-                return n1 + n2;
-            case "-":
-                return n1 - n2;
-            case "*":
-                return n1 * n2;
-            default:
-                return n1 / n2;
-        }
+        return switch (operator) {
+            case "+" -> n1 + n2;
+            case "-" -> n1 - n2;
+            case "*" -> n1 * n2;
+            default -> n1 / n2;
+        };
     }
 
     private boolean isOperator(String str) {
@@ -120,7 +116,7 @@ public class CheckExpressionValid {
                         preChar = opStack.peek();
                         // 如果栈里面的操作符优先级比当前的大，则把栈中优先级大的都添加到后缀表达式列表中
                         while (priority(preChar.charAt(0)) >= priority(ch)) {
-                            postExp.add("" + preChar);
+                            postExp.add(preChar);
                             opStack.pop();
                             preChar = opStack.peek();
                         }
@@ -136,7 +132,7 @@ public class CheckExpressionValid {
                         // 右括号则直接把栈中左括号前面的弹出，并加入后缀表达式链表中
                         String c = opStack.pop();
                         while (c.charAt(0) != '(') {
-                            postExp.add("" + c);
+                            postExp.add(c);
                             c = opStack.pop();
                         }
                         i++;
@@ -147,7 +143,7 @@ public class CheckExpressionValid {
                         while (!opStack.isEmpty()) {
                             c1 = opStack.pop();
                             if (c1.charAt(0) != '#') {
-                                postExp.add("" + c1);
+                                postExp.add(c1);
                             }
                         }
                         i++;
@@ -179,18 +175,11 @@ public class CheckExpressionValid {
 
     private int priority(char op) throws Exception {
         // 定义优先级
-        switch (op) {
-            case '+':
-            case '-':
-                return 1;
-            case '*':
-            case '/':
-                return 2;
-            case '(':
-            case '#':
-                return 0;
-            default:
-        }
-        throw new Exception("Illegal operator");
+        return switch (op) {
+            case '+', '-' -> 1;
+            case '*', '/' -> 2;
+            case '(', '#' -> 0;
+            default -> throw new Exception("Illegal operator");
+        };
     }
 }

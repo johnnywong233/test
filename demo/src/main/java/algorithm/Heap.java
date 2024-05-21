@@ -13,16 +13,16 @@ public class Heap<E extends Comparable<E>> {
 
     private static final int DEFAULT_CAPACITY = 10;
 
-    private static final Object[] EMPTY_ELEMENTDATA = {};
+    private static final Object[] EMPTY_ELEMENT_DATA = {};
 
-    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
+    private static final Object[] DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA = {};
 
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     private transient Object[] elementData;
 
     public Heap() {
-        this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+        this.elementData = DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA;
     }
 
     public boolean add(E element) {
@@ -209,21 +209,21 @@ public class Heap<E extends Comparable<E>> {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
         } else if (initialCapacity == 0) {
-            this.elementData = EMPTY_ELEMENTDATA;
+            this.elementData = EMPTY_ELEMENT_DATA;
         } else {
             throw new IllegalArgumentException("Illegal Capacity: " + initialCapacity);
         }
     }
 
     public void ensureCapacity(int minCapacity) {
-        int minExpend = (elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA) ? 0 : DEFAULT_CAPACITY;
+        int minExpend = (elementData != DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA) ? 0 : DEFAULT_CAPACITY;
         if (minCapacity > minExpend) {
             ensureExplicitCapacity(minCapacity);
         }
     }
 
     private void ensureCapacityInternal(int minCapacity) {
-        if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+        if (elementData == DEFAULT_CAPACITY_EMPTY_ELEMENT_DATA) {
             minCapacity = Math.max(minCapacity, DEFAULT_CAPACITY);
         }
         ensureExplicitCapacity(minCapacity);

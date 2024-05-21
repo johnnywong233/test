@@ -5,6 +5,7 @@ import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.Servlet;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletRegistrationBean;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -48,16 +49,21 @@ public class WebConfig implements WebMvcConfigurer {
         return new DispatcherServlet();
     }
 
+    @Bean
+    public DispatcherServletRegistrationBean dispatcherServletRegistrationBean() {
+        return new DispatcherServletRegistrationBean(this.dispatcherServlet(), "/");
+    }
+
     @Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_REGISTRATION_BEAN_NAME)
     public ServletRegistrationBean<Servlet> dispatcherServletRegistration() {
         Iterable<Tenant> tenants = this.tenantRepository.findAll();
 
-        ServletRegistrationBean<Servlet> registration = new ServletRegistrationBean<>(dispatcherServlet(), getServletMappings(tenants));
+        ServletRegistrationBean<Servlet> registration = new ServletRegistrationBean<>(this.dispatcherServlet(), this.getServletMappings(tenants));
         registration.setName(DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME);
         if (this.multipartConfig != null) {
             registration.setMultipartConfig(this.multipartConfig);
         }
-        registerDataSource(tenants);
+        this.registerDataSource(tenants);
         return registration;
     }
 

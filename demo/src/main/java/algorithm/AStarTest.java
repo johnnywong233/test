@@ -1,6 +1,8 @@
 package algorithm;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -109,6 +111,8 @@ class MyComparator implements Comparator<Float> {
         float b = obj2;
         if (b - a > 0) {
             return 1;
+        } else if (b - a < 0) {
+            return -1;
         }
         return 0;
     }
@@ -135,10 +139,17 @@ class Node {
 }
 
 /*网格类*/
+@Data
 class Grid {
     private final Stack<Stack<Node>> nodes;
+    /**
+     * 网格行、列数
+     */
     private final int numCols;
     private final int numRows;
+    /**
+     * 寻路的起始、结束节点
+     */
     private Node start;
     private Node end;
 
@@ -210,42 +221,6 @@ class Grid {
     }
 
     /**
-     * 获取网格行数
-     *
-     * @return 网格行数
-     */
-    int getNumCols() {
-        return numCols;
-    }
-
-    /**
-     * 获取网格列数
-     *
-     * @return 网格列数
-     */
-    int getNumRows() {
-        return numRows;
-    }
-
-    /**
-     * 获取寻路的起始节点
-     *
-     * @return 一次寻路的起始节点
-     */
-    public Node getStart() {
-        return start;
-    }
-
-    /**
-     * 获取寻路的结束节点
-     *
-     * @return 一次寻路的结束节点
-     */
-    public Node getEnd() {
-        return end;
-    }
-
-    /**
      * 得到一个点下的所有节点
      *
      * @param xPos      点的横向位置
@@ -267,14 +242,14 @@ class Grid {
             result.add(getNode(intX, intY - 1));
             result.add(getNode(intX - 1, intY));
             result.add(getNode(intX, intY));
-        } else if (xIsInt && !yIsInt) {
+        } else if (xIsInt) {
             //点由2节点共享情况
             //点落在两节点左右临边上
             int intX = (int) xPos;
             int intY = (int) yPos;
             result.add(getNode(intX - 1, intY));
             result.add(getNode(intX, intY));
-        } else if (!xIsInt && yIsInt) {
+        } else if (yIsInt) {
             //点落在两节点上下临边上
             int intX = (int) xPos;
             int intY = (int) yPos;
@@ -285,7 +260,7 @@ class Grid {
             result.add(getNode((int) xPos, (int) yPos));
         }
         //在返回结果前检查结果中是否包含例外点，若包含则排除掉
-        if (exception != null && exception.size() > 0) {
+        if (CollectionUtils.isNotEmpty(exception)) {
             for (int i = 0; i < result.size(); i++) {
                 if (exception.contains(result.get(i))) {
                     result.remove(i);
@@ -360,7 +335,7 @@ class Grid {
                 //检查经过的节点是否有障碍物，若有则返回true
                 passedNodeList = getNodesUnderPoint(i, yPos);
                 for (Node passedNode : passedNodeList) {
-                    if (passedNode.isWalkable() == false) {
+                    if (!passedNode.isWalkable()) {
                         return true;
                     }
                 }
@@ -396,30 +371,10 @@ class Grid {
 }
 
 /*浮点数点对象*/
+@Data
+@AllArgsConstructor
 class NewPoint {
-
     private float x, y;
-
-    NewPoint(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
 }
 
 /* 直线函数y=ax+b */
@@ -491,19 +446,13 @@ class LineFunction {
     }
 
     public float function(float value) {
-        switch (funid) {
-            case 1:
-                return function1(value);
-            case 2:
-                return function2(value);
-            case 3:
-                return function3(value);
-            case 4:
-                return function4(value);
-            default:
-                break;
-        }
-        return 0;
+        return switch (funid) {
+            case 1 -> function1(value);
+            case 2 -> function2(value);
+            case 3 -> function3(value);
+            case 4 -> function4(value);
+            default -> 0;
+        };
     }
 }
 
@@ -521,20 +470,18 @@ class Heuristic {
 /*A星寻路算法*/
 class NewAStar {
 
+    private final float straightCost = 1.0f;
+    private final float diagCost = (float) (Math.sqrt(2));
+    private final boolean retractable;
+    private final String heuristicName;
+    private final Comparator<Node> comparator;
+    private final Lock lock = new ReentrantLock();
     private BinaryHeap<Node> open;
     private Stack<Node> closed;
     private Stack<Node> path;
     private Grid grid;
     private Node endNode;
     private Node startNode;
-    private final float straightCost = 1.0f;
-    private final float diagCost = (float) (Math.sqrt(2));
-    private final boolean retractable;
-    private final String heuristicName;
-
-    private final Comparator<Node> comparator;
-
-    private final Lock lock = new ReentrantLock();
 
     /**
      * 构造方法
@@ -576,14 +523,11 @@ class NewAStar {
      * 启发函数计算
      */
     private float heuristic(Node node) {
-        switch (heuristicName) {
-            case Heuristic.DIAGONAL:
-                return this.diagonal(node);
-            case Heuristic.EUCLIDIAN:
-                return this.euclidean(node);
-            default:
-                return this.manhattan(node);
-        }
+        return switch (heuristicName) {
+            case Heuristic.DIAGONAL -> this.diagonal(node);
+            case Heuristic.EUCLIDIAN -> this.euclidean(node);
+            default -> this.manhattan(node);
+        };
     }
 
     /**
@@ -633,7 +577,7 @@ class NewAStar {
                     Node hnode = grid.getNode(test.getX(), node.getY());
                     if (retractable) {
                         if (!test.isWalkable() || !isDiagonalWalkable(node, test)) {
-                            //设其代价为超级大的一个值，比大便还大哦~
+                            //设其代价为超级大的一个值
                             test.setCostMultiplier(1000);
                         } else {
                             test.setCostMultiplier(1);

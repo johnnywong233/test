@@ -16,7 +16,6 @@ import java.awt.Color;
 import java.util.Calendar;
 
 public class MyCalendar extends JApplet {
-    private static final long serialVersionUID = 1L;
     private static final String WEEK_SUN = "SUN";
     private static final String WEEK_MON = "MON";
     private static final String WEEK_TUE = "TUE";
@@ -56,7 +55,7 @@ public class MyCalendar extends JApplet {
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             calendar.set(Calendar.YEAR, (Integer) yearsSpinner.getValue());
             int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            calendar.set(Calendar.DAY_OF_MONTH, day > maxDay ? maxDay : day);
+            calendar.set(Calendar.DAY_OF_MONTH, Math.min(day, maxDay));
             updateView();
         });
 
@@ -81,7 +80,7 @@ public class MyCalendar extends JApplet {
             calendar.set(Calendar.DAY_OF_MONTH, 1);
             calendar.set(Calendar.MONTH, monthsComboBox.getSelectedIndex());
             int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            calendar.set(Calendar.DAY_OF_MONTH, day > maxDay ? maxDay : day);
+            calendar.set(Calendar.DAY_OF_MONTH, Math.min(day, maxDay));
             updateView();
         });
         JPanel monthPanel = new JPanel();
@@ -91,8 +90,6 @@ public class MyCalendar extends JApplet {
         monthPanel.add(monthsComboBox, BorderLayout.CENTER);
 
         daysModel = new AbstractTableModel() {
-            private static final long serialVersionUID = 1L;
-
             @Override
             public int getRowCount() {
                 return 7;
@@ -151,24 +148,16 @@ public class MyCalendar extends JApplet {
     }
 
     private static String getHeader(int index) {
-        switch (index) {
-            case 0:
-                return WEEK_SUN;
-            case 1:
-                return WEEK_MON;
-            case 2:
-                return WEEK_TUE;
-            case 3:
-                return WEEK_WED;
-            case 4:
-                return WEEK_THU;
-            case 5:
-                return WEEK_FRI;
-            case 6:
-                return WEEK_SAT;
-            default:
-                return null;
-        }
+        return switch (index) {
+            case 0 -> WEEK_SUN;
+            case 1 -> WEEK_MON;
+            case 2 -> WEEK_TUE;
+            case 3 -> WEEK_WED;
+            case 4 -> WEEK_THU;
+            case 5 -> WEEK_FRI;
+            case 6 -> WEEK_SAT;
+            default -> null;
+        };
     }
 
     private void updateView() {
@@ -180,8 +169,6 @@ public class MyCalendar extends JApplet {
     }
 
     public static class CalendarTable extends JTable {
-
-        private static final long serialVersionUID = 1L;
         private final Calendar calendar;
 
         CalendarTable(TableModel model, Calendar calendar) {

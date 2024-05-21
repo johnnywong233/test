@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.util.Iterator;
 
 public class Dom4jParser implements XmlDocument {
@@ -51,7 +52,7 @@ public class Dom4jParser implements XmlDocument {
                     System.out.println(node.getName() + ":" + node.getText());
                 }
             }
-        } catch (DocumentException e) {
+        } catch (DocumentException | MalformedURLException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("dom4j parserXml");

@@ -10,8 +10,8 @@ import java.util.Stack;
  */
 public class ExpressionStack {
 
-    private String testString = null;
-    private Stack<Character> stack = null;
+    private final String testString;
+    private final Stack<Character> stack;
 
     private ExpressionStack(String testString) {
         this.testString = testString;

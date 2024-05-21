@@ -1,5 +1,5 @@
 ## RUN
-To run the applicaiton, simply run this command:
+To run the application, simply run this command:
 
     mvn install
 or 
@@ -12,7 +12,7 @@ Then go to:
 * http://localhost:8080/b1/root_inventories/ show the usage of @TenantResource annotation which can be used at method level to override the class level annotation
 * http://localhost:8080/b1/tenant_inventories/root show the usage of @RootResource annotation which is opposite to @TenantResource
 
-## startup failded
+## startup failed
 报错信息：
 ```2017-10-06 20:43:49.493 ERROR 16316 --- [ost-startStop-1] o.s.b.c.embedded.tomcat.TomcatStarter: Error starting Tomcat context. 
 Exception: org.springframework.beans.factory.UnsatisfiedDependencyException. Message: Error creating bean with name 'webConfig': 

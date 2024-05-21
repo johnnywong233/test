@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = "fm.mapper.ds1", sqlSessionTemplateRef = "test1SqlSessionTemplate")
 public class DataSource1Config {
     @Bean(name = "test1DataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.1")
+    @ConfigurationProperties(prefix = "spring.datasource.one")
     @Primary
     public DataSource testDataSource() {
         return DataSourceBuilder.create().build();

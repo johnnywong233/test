@@ -3,6 +3,7 @@ package json.jsonpath;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
+import lombok.extern.slf4j.Slf4j;
 import utils.FileUtil;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.util.Map;
  * Date: 2017/6/29
  * Time: 20:29
  */
+@Slf4j
 public class TestJsonPath {
 
     //https://github.com/jayway/JsonPath
@@ -76,7 +78,7 @@ public class TestJsonPath {
         List<Object> authors15 = JsonPath.read(json, "$..*");
 
         //The number of books：获取json中book数组的长度
-        List<Object> authors16 = JsonPath.read(json, "$..book.length()");
+        int size = JsonPath.read(json, "$..book.length()");
         print("all authors: method 1");
         print(authors1);
         print("all authors: method 2");
@@ -108,7 +110,7 @@ public class TestJsonPath {
         print("all values in the json file");
         printOb(authors15);
         print("number of books:");
-        printOb(authors16);
+        print("" + size);
 
         //You can use && and || to combine multiple predicates [?(@.price < 10 && @.category == 'fiction')] , [?(@.category == 'reference' || @.price > 10)]
     }

@@ -1,4 +1,4 @@
-### FreeMarker other setting
+# FreeMarker other setting
 ```
 Set whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name.
 spring.freemarker.allow-request-override=
@@ -29,7 +29,7 @@ WARN 10500 --- [  main] o.s.b.a.f.FreeMarkerAutoConfiguration    : Cannot find t
 ```
 依然无法解决这个问题。
 
-### replace default tomcat with undertow
+# replace default tomcat with undertow
 This freemarker demo also shows how to replace default tomcat with undertow, as undertow might be more lightweight than tomcat.
 
 How to replace? Firstly modify the pom.xml file: 
@@ -51,14 +51,14 @@ How to replace? Firstly modify the pom.xml file:
 </dependency>
 ```
  
- ### spring rest doc
- [使用Asciidoc代替Markdown和Word撰写开发文档](https://my.oschina.net/gudaoxuri/blog/524132)
- [乱谈AsciiDoc的书籍编写](http://houqp.github.io/wbwa/wbwa.html)
- [SpringBoot项目生成RESTfull API的文档](http://www.jianshu.com/p/af7a6f29bf4f)
- [Spring REST Docs RESTful 服务文档](http://www.phperz.com/topics/20537.html)
+# spring rest doc
+- [使用Asciidoc代替Markdown和Word撰写开发文档](https://my.oschina.net/gudaoxuri/blog/524132)
+- [乱谈AsciiDoc的书籍编写](http://houqp.github.io/wbwa/wbwa.html)
+- [SpringBoot项目生成RESTFul API的文档](http://www.jianshu.com/p/af7a6f29bf4f)
+- [Spring REST Docs RESTFul 服务文档](http://www.phperz.com/topics/20537.html)
 
 WebLayerTest.java 启动测试生成文档？报错：
- ```
+```
 Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'fm.service.CityService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {@javax.annotation.Resource(shareable=true, lookup=, name=, description=, authenticationType=CONTAINER, type=class java.lang.Object, mappedName=)}
 ```
 
@@ -92,15 +92,15 @@ at io.swagger.util.PropertyDeserializer.argsFromNode(PropertyDeserializer.java:1
 GitHub 上面也有这个 [issue](https://github.com/Swagger2Markup/swagger2markup/issues/273)
 
  
- ### spring boot连接多个mybatis数据源
+# spring boot连接多个mybatis数据源
  在config下面定义两个数据源配置类，DataSource1Config，DataSource2Config：先创建DataSource，再创建SqlSessionFactory，再创建事务，最后包装到SqlSessionTemplate中。  
  同时注意DataSource1Config中所有定义的Bean都需要添加注解@Primary，意思是把数据源1作为主数据源/主库。  
  测试类User1MapperTest，User2MapperTest分别对两个数据库进行简单的验证性测试，增删查改。  
  同时添加Controller方法和类，更多功能测试。
  [参考](www.ityouknow.com/springboot/2016/11/25/springboot(七)-springboot+mybatis多数据源最简解决方案.html) 
  
- 执行 User1MapperTest 测试用例，报错
- ```
+执行 User1MapperTest 测试用例，报错
+```
  Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'city.users' doesn't exist
 ```
 此处的目的很显然是想要测试多数据源的增删改查，数据库1 为 city，有两张表，city 和 users；数据库1 为 city2，有一张表city
@@ -114,3 +114,34 @@ GitHub 上面也有这个 [issue](https://github.com/Swagger2Markup/swagger2mark
  问题产生：一开始单一的数据库，CityMapper.xml以及CityDao工作正常；现在添加多数据库功能，那么spring boot会扫描到DataSource1Config这个主库配置类，
  但是主配置类里面写死了mapper.xml文件的位置， 这个时候，想要看cityDao的运行效果，发现找不到对应的mapper.xml文件，故而报错，
  把之前放在这里的src/main/resource/mapper/CityMapper.xml文件移到主库配置类DataSource1Config 里面配置的路径下面，问题解决。
+
+# ERROR
+## factoryBeanObjectType
+报错：
+
+java.lang.IllegalArgumentException: Invalid value type for attribute 'factoryBeanObjectType': java.lang.String
+
+解决方法：升级 mybatis-spring-boot-starter-3.0.0到3.0.3
+## 找不到org.springframework.plugin.core.Plugin的类文件
+springfox-swagger2，从2.9.2升级到3.0.0后，编译报错：
+java: 无法访问org.springframework.plugin.core.Plugin
+找不到org.springframework.plugin.core.Plugin的类文件
+
+如果不升级，报错：
+Correct the classpath of your application so that it contains compatible versions of the classes org.springframework.plugin.core.support.AbstractTypeAwareSupport$BeansOfTypeTargetSource and org.springframework.util.Assert
+
+解决方法：
+
+增加如下依赖：
+```xml
+<dependency>
+    <groupId>org.springframework.plugin</groupId>
+    <artifactId>spring-plugin-core</artifactId>
+    <version>2.0.0.RELEASE</version>
+</dependency>
+```
+## Caused by: java.lang.NoClassDefFoundError: org/springframework/plugin/metadata/SimplePluginMetadata
+
+## 
+java.lang.TypeNotPresentException: Type javax.servlet.http.HttpServletRequest not present
+

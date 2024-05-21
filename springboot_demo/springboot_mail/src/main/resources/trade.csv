@@ -1,0 +1,4 @@
+tradeId:int,productId:string,qty:int
+232312123,"calcite",100
+232312124,"calcite",200
+232312125,"calcite",1000

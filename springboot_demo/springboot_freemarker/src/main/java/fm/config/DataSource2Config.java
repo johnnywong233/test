@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = "fm.mapper.ds2", sqlSessionTemplateRef = "test2SqlSessionTemplate")
 public class DataSource2Config {
     @Bean(name = "test2DataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.2")
+    @ConfigurationProperties(prefix = "spring.datasource.two")
     public DataSource testDataSource() {
         return DataSourceBuilder.create().build();
     }

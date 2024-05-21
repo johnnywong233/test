@@ -47,12 +47,12 @@ public class TenantResolveInterceptor implements HandlerInterceptor {
         }
 
         // tenant resource
-        if (tenantResource != null && StringUtils.isEmpty(businessName)) {
+        if (tenantResource != null && !StringUtils.hasText(businessName)) {
             throw new NoHandlerFoundException(request.getMethod(), request.getRequestURI(), null);
         }
 
         // root resource
-        if ((rootResource != null || isRootResource) && !StringUtils.isEmpty(businessName)) {
+        if ((rootResource != null || isRootResource) && StringUtils.hasText(businessName)) {
             throw new NoHandlerFoundException(request.getMethod(), request.getRequestURI(), null);
         }
         return HandlerInterceptor.super.preHandle(request, response, handler);
@@ -62,7 +62,7 @@ public class TenantResolveInterceptor implements HandlerInterceptor {
      * resolve to the actual business name
      */
     private String resolve(String servletPath) {
-        if (servletPath.length() > 0) {
+        if (!servletPath.isEmpty()) {
             return servletPath.substring(1);
         }
         return "";

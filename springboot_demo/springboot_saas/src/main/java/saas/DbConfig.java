@@ -32,7 +32,7 @@ public class DbConfig {
     @Bean
     public DataSource dataSource() {
         TenantRoutingDataSource routingDataSource = new TenantRoutingDataSource();
-        routingDataSource.setDefaultTargetDataSource(defaultDataSource());
+        routingDataSource.setDefaultTargetDataSource(this.defaultDataSource());
         routingDataSource.setTargetDataSources(new HashMap<>());
         return routingDataSource;
     }
