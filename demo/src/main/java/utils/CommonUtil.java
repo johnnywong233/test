@@ -1,7 +1,7 @@
 package utils;
 
 import lombok.NoArgsConstructor;
-import org.jasypt.exceptions.EncryptionOperationNotPossibleException;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,6 +16,7 @@ import java.util.List;
  * Time: 21:18
  * Class copied from {@link org.jasypt.commons.CommonUtils}
  */
+@Slf4j
 @NoArgsConstructor
 public class CommonUtil {
     public static final String STRING_OUTPUT_TYPE_BASE64 = "base64";
@@ -51,11 +52,11 @@ public class CommonUtil {
         }
     }
 
-    public static byte[] fromHexadecimal(String message) {
+    public static byte[] fromHexadecimal(String message) throws Exception {
         if (message == null) {
             return null;
         } else if (message.length() % 2 != 0) {
-            throw new EncryptionOperationNotPossibleException();
+            throw new Exception();
         } else {
             try {
                 byte[] e = new byte[message.length() / 2];
@@ -67,17 +68,17 @@ public class CommonUtil {
                 }
                 return e;
             } catch (Exception var5) {
-                throw new EncryptionOperationNotPossibleException();
+                throw new Exception();
             }
         }
     }
 
     public static boolean isEmpty(String string) {
-        return string == null || string.length() == 0;
+        return string == null || string.isEmpty();
     }
 
     public static boolean isNotEmpty(String string) {
-        return string != null && string.length() != 0;
+        return string != null && !string.isEmpty();
     }
 
     public static void validateNotNull(Object object, String message) {
@@ -174,7 +175,7 @@ public class CommonUtil {
 
     public static String substringBefore(String string, String separator) {
         if (!isEmpty(string) && separator != null) {
-            if (separator.length() == 0) {
+            if (separator.isEmpty()) {
                 return "";
             } else {
                 int pos = string.indexOf(separator);
@@ -215,7 +216,7 @@ public class CommonUtil {
                 in.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 
@@ -225,7 +226,7 @@ public class CommonUtil {
                 in.close();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 

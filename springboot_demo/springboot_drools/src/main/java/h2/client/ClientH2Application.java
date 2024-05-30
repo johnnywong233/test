@@ -1,25 +1,32 @@
 package h2.client;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
  * @author Johnny
- * @date 2019/5/31-21:57
+ * @since 2019/5/31-21:57
  */
+@Slf4j
 @SpringBootApplication
 public class ClientH2Application {
     @Resource
     private JdbcTemplate jdbcTemplate;
 
+    public static void main(String[] args) {
+        System.setProperty("spring.datasource.url", "jdbc:h2:tcp://localhost:9090/mem:mydb");
+        SpringApplication.run(ClientH2Application.class, args);
+    }
+
     @PostConstruct
     private void initDb() {
-        System.out.println("****** Inserting more sample data in the table: person ******");
+        log.info("****** Inserting more sample data in the table: person ******");
 
         String[] sqlStatements = {
                 "insert into person(first_name, last_name) values('fantastic','Jay')",
@@ -28,20 +35,14 @@ public class ClientH2Application {
         Arrays.asList(sqlStatements).forEach(sql -> jdbcTemplate.execute(sql));
 
         // Fetch data using SELECT statement and print results
-        System.out.println(String.format("****** Fetching from table: %s ******", "person"));
+        log.info("****** Fetching from table: {} ******%n", "person");
         jdbcTemplate.query("select id,first_name,last_name from person",
                 (rs, i) -> {
-                    System.out.println(String.format("id:%s,first_name:%s,last_name:%s",
+                    log.info("id:{},first_name:{},last_name:{}\n",
                             rs.getString("id"),
                             rs.getString("first_name"),
-                            rs.getString("last_name")));
+                            rs.getString("last_name"));
                     return null;
                 });
-    }
-
-    public static void main(String[] args) {
-        // 更新URL
-        System.setProperty("spring.datasource.url","jdbc:h2:tcp://localhost:9090/mem:mydb");
-        SpringApplication.run(ClientH2Application.class, args);
     }
 }

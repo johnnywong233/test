@@ -71,9 +71,7 @@
     </build>
 
     <properties>
-        <spring-version>5.1.1.RELEASE</spring-version>
-        <spring-boot-version>2.1.5.RELEASE</spring-boot-version>
-        <lucene-version>7.5.0</lucene-version>
+        <lucene-version>9.10.0</lucene-version>
     </properties>
 
     <dependencies>
@@ -98,16 +96,15 @@
         </dependency>
         <dependency>
             <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>3.6.3</version>
+            <artifactId>mongodb-driver-sync</artifactId>
+            <version>5.0.0</version>
         </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>org.apache.activemq</groupId>
-            <artifactId>activemq-all</artifactId>
+            <artifactId>activemq-client</artifactId>
             <version>6.1.0</version>
-        </dependency>-->
-
+        </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-library</artifactId>
@@ -1024,12 +1021,6 @@
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>xalan</artifactId>
-                    <groupId>xalan</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>

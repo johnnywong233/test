@@ -2,32 +2,29 @@ package es.service;
 
 import es.EsApplication;
 import es.model.Book;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  * Author: Johnny
  * Date: 2017/9/24
  * Time: 17:32
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = EsApplication.class)
 public class BookServiceTest {
 
@@ -37,15 +34,15 @@ public class BookServiceTest {
     @Autowired
     private ElasticsearchTemplate esTemplate;
 
-    @Before
+    @BeforeEach
     public void setUp() {
-        esTemplate.deleteIndex(Book.class);
+        esTemplate.delete(Book.class);
         esTemplate.createIndex(Book.class);
         esTemplate.putMapping(Book.class);
         esTemplate.refresh(Book.class);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
     }
 

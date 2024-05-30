@@ -3562,7 +3562,7 @@ define('bui/form/group/select',['bui/form/group/base','bui/data'],function (requ
 
   Select.addType('city',{
     proxy : {
-      url : 'http://lp.taobao.com/go/rgn/citydistrictdata.php',
+      url : 'https://lp.taobao.com/go/rgn/citydistrictdata.php',
       dataType : 'jsonp'
     },
     map : {
@@ -4910,7 +4910,7 @@ define('bui/form/remote',['bui/common'],function(require) {
      */
     loadingTpl : {
       view : true,
-      value : '<img src="http://img02.taobaocdn.com/tps/i2/T1NU8nXCVcXXaHNz_X-16-16.gif" alt="loading"/>'
+      value : '<img src="https://img02.taobaocdn.com/tps/i2/T1NU8nXCVcXXaHNz_X-16-16.gif" alt="loading"/>'
     },
     /**
      * 是否正在等待异步请求结果

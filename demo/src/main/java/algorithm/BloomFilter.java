@@ -40,7 +40,7 @@ public class BloomFilter {
         try {
             reader = new BufferedReader(new FileReader(file));
             String line = reader.readLine();
-            while (line != null && line.length() > 0) {
+            while (line != null && !line.isEmpty()) {
                 this.put(line);
                 line = reader.readLine();
             }

@@ -1,4 +1,4 @@
-package algorithm;
+package algorithm.sort;
 
 /**
  * Created by johnny on 2016/8/28.
@@ -108,9 +108,8 @@ class Sort {
         while (j <= end) {
             tmp[k++] = arr[j++];
         }
-
-        for (int m = start; m <= end; m++) {
-            arr[m] = tmp[m];
+        if (end + 1 - start >= 0) {
+            System.arraycopy(tmp, start, arr, start, end + 1 - start);
         }
     }
 

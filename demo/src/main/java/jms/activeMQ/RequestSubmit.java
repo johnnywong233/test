@@ -15,7 +15,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 public class RequestSubmit {
     /*
-     * http://blog.csdn.net/u013256816/article/details/51161548
+     * https://blog.csdn.net/u013256816/article/details/51161548
      */
     private MessageProducer producer;
     private Session session;
@@ -28,8 +28,8 @@ public class RequestSubmit {
         Connection connection = connectionFactory.createConnection();
         connection.start();
         session = connection.createSession(Boolean.TRUE, Session.AUTO_ACKNOWLEDGE);
-        Destination destinatin = session.createQueue("RequestQueue");
-        producer = session.createProducer(destinatin);
+        Destination destination = session.createQueue("RequestQueue");
+        producer = session.createProducer(destination);
         producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
     }
 

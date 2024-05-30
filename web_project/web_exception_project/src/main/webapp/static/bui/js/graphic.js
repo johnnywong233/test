@@ -2729,7 +2729,7 @@ define('bui/graphic/raphael/core',function(){
                 "font-weight": 400,
                 gradient: 0,
                 height: 0,
-                href: "http://raphaeljs.com/",
+                href: "https://raphaeljs.com/",
                 "letter-spacing": 0,
                 opacity: 1,
                 path: "M0,0",

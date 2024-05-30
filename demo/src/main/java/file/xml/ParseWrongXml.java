@@ -20,7 +20,7 @@ public class ParseWrongXml {
                 "</error>\n";
         xml = xml.replaceAll("[^\\x20-\\x7e]", "");
         Document document = DocumentHelper.parseText(xml);
-        System.out.println(document.getXMLEncoding() + document.getRootElement().getText());
+        System.out.println(document.getName() + document.getRootElement().getText());
 
         String filePath = new ClassPathResource("wrong.xml").getFile().getPath();
         document = DocumentHelper.parseText(readFile(filePath));

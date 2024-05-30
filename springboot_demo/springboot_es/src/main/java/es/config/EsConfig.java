@@ -1,17 +1,12 @@
 package es.config;
 
-import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.TransportAddress;
+import org.apache.http.HttpHost;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
-
-import java.net.InetAddress;
 
 /**
  * Author: Johnny
@@ -27,15 +22,11 @@ public class EsConfig {
     @Value("${elasticsearch.port}")
     private int esPort;
 
-    @Value("${elasticsearch.clusterName}")
-    private String esClusterName;
-
     @Bean
-    public Client client() throws Exception {
-        Settings esSettings = Settings.builder().put("cluster.name", esClusterName).build();
-        //https://www.elastic.co/guide/en/elasticsearch/guide/current/_transport_client_versus_node_client.html
-        return TransportClient.builder().settings(esSettings).build()
-                .addTransportAddress(new TransportAddress(InetAddress.getByName(esHost), esPort));
+    public RestHighLevelClient client() {
+        // https://www.elastic.co/guide/en/elasticsearch/guide/current/_transport_client_versus_node_client.html
+        // https://www.elastic.co/guide/en/elasticsearch/client/java-rest/7.15/_changing_the_client_8217_s_initialization_code.html
+        return new RestHighLevelClient(RestClient.builder(new HttpHost(esHost, esPort, "http")));
     }
 
     @Bean
